@@ -133,7 +133,7 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
   <style>
     .hero-clean {
       background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
-      padding: var(--hero-padding-xl) 0;  /* 80px - Homepage */
+      padding: 56px 0 48px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -142,7 +142,7 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
     /* Mobile: Collapse to compact */
     @media (max-width: 768px) {
       .hero-clean {
-        padding: var(--space-lg) 0;  /* 32px on mobile */
+        padding: 32px 0 24px;
       }
     }
 
@@ -229,25 +229,25 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
 
     /* Social Proof Badge */
     .hero-social-proof {
-      margin-bottom: var(--space-lg);
+      margin-bottom: 16px;
     }
 
     .social-proof-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(255, 72, 0, 0.15);
-      border: 1px solid rgba(255, 72, 0, 0.3);
+      gap: 6px;
+      background: rgba(255, 72, 0, 0.12);
+      border: 1px solid rgba(255, 72, 0, 0.25);
       color: var(--brand-orange);
-      padding: 8px 16px;
+      padding: 6px 12px;
       border-radius: var(--radius-full);
-      font-size: var(--font-size-sm);
-      font-weight: var(--font-weight-semibold);
+      font-size: 12px;
+      font-weight: 600;
     }
 
     .social-proof-dot {
-      width: 8px;
-      height: 8px;
+      width: 6px;
+      height: 6px;
       background: var(--success);
       border-radius: 50%;
       animation: pulse-dot 2s infinite;
@@ -260,10 +260,10 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
 
     .hero-title {
       color: var(--white);
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: var(--font-weight-extrabold);
-      line-height: 1.1;
-      margin-bottom: var(--space-lg);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 12px;
     }
 
     .hero-title-accent {
@@ -271,21 +271,21 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
     }
 
     .hero-subtitle {
-      color: rgba(255, 255, 255, 0.8);
-      font-size: var(--font-size-xl);
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 16px;
       line-height: 1.6;
-      margin-bottom: var(--space-xl);
-      max-width: 600px;
+      margin-bottom: 24px;
+      max-width: 540px;
       margin-left: auto;
       margin-right: auto;
     }
 
     .hero-cta-group {
       display: flex;
-      gap: var(--space-md);
+      gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-bottom: var(--space-lg);
+      margin-bottom: 20px;
     }
 
     .btn-arrow {
@@ -311,48 +311,46 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
     .hero-trust-row {
       display: flex;
       justify-content: center;
-      gap: var(--space-lg);
+      gap: 20px;
       flex-wrap: wrap;
     }
 
     .hero-trust-item {
       display: flex;
       align-items: center;
-      gap: 6px;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: var(--font-size-sm);
+      gap: 5px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 13px;
     }
 
     .hero-trust-item svg {
+      width: 14px;
+      height: 14px;
       color: var(--success);
     }
 
     @media (max-width: 768px) {
-      .hero-trust-row {
-        gap: var(--space-md);
-      }
-
       /* Prevent chart from compressing content on mobile */
       .hero-chart-bg {
         height: 50%;
-        opacity: 0.5;
+        opacity: 0.4;
       }
 
       .hero-content {
-        padding-bottom: var(--space-lg);
+        padding-bottom: 16px;
       }
 
       .hero-trust-row {
-        flex-direction: column;
-        align-items: center;
-        gap: var(--space-sm);
+        flex-direction: row;
+        gap: 12px;
+        font-size: 12px;
       }
 
       .hero-trust-item {
-        background: rgba(0, 0, 0, 0.3);
-        padding: 8px 16px;
+        background: rgba(0, 0, 0, 0.25);
+        padding: 6px 10px;
         border-radius: var(--radius-full);
-        backdrop-filter: blur(4px);
+        font-size: 11px;
       }
     }
 
@@ -360,6 +358,11 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
       .hero-chart-bg {
         height: 40%;
         opacity: 0.3;
+      }
+
+      .hero-trust-row {
+        flex-wrap: wrap;
+        justify-content: center;
       }
     }
   </style>
