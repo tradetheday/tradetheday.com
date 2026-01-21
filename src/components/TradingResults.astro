@@ -530,7 +530,7 @@ const maxReturn = Math.max(...performance.monthlyReturns.map(m => Math.abs(m.ret
 
   .card-badge {
     display: inline-block;
-    background: var(--brand-orange);
+    background: #b83200; /* Darker orange for WCAG AA contrast */
     color: white;
     padding: 4px 12px;
     border-radius: 100px;
@@ -575,7 +575,7 @@ const maxReturn = Math.max(...performance.monthlyReturns.map(m => Math.abs(m.ret
 
   .card-stat-label {
     font-size: var(--font-size-xs);
-    color: var(--gray-500);
+    color: var(--gray-400); /* Lighter for better contrast on dark bg */
   }
 
   .card-verified {

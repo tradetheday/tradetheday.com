@@ -14,11 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
   let previouslyFocusedElement = null;
 
   // Get all focusable elements within the search overlay
+  // Note: Removed offsetParent check to avoid forced reflow
   function getFocusableElements() {
     if (!searchOverlay) return [];
     return Array.from(searchOverlay.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    )).filter(el => !el.disabled && el.offsetParent !== null);
+      'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    ));
   }
 
   function openSearch() {
@@ -139,20 +140,28 @@ document.addEventListener('DOMContentLoaded', function() {
   // Back to top button functionality
   const backToTopBtn = document.getElementById('backToTop');
   if (backToTopBtn) {
-    // Show/hide based on scroll position
+    let ticking = false;
+
+    // Show/hide based on scroll position (throttled with rAF)
     function toggleBackToTop() {
-      if (window.pageYOffset > 300) {
+      if (window.scrollY > 300) {
         backToTopBtn.classList.add('visible');
       } else {
         backToTopBtn.classList.remove('visible');
       }
+      ticking = false;
     }
 
-    // Initial check
-    toggleBackToTop();
+    // Initial check (deferred to avoid blocking)
+    requestAnimationFrame(toggleBackToTop);
 
-    // Listen for scroll events
-    window.addEventListener('scroll', toggleBackToTop, { passive: true });
+    // Listen for scroll events with rAF throttling
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(toggleBackToTop);
+        ticking = true;
+      }
+    }, { passive: true });
 
     // Smooth scroll to top
     backToTopBtn.addEventListener('click', (e) => {

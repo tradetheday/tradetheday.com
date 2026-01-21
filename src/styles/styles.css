@@ -525,7 +525,7 @@ img {
 }
 
 .btn-primary {
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, #c43500 0%, #a82e00 100%); /* Darker orange for WCAG AA contrast */
     color: var(--white);
     box-shadow: var(--shadow-brand);
 }
@@ -537,8 +537,8 @@ img {
 
 .btn-secondary {
     background: rgba(255, 72, 0, 0.1);
-    color: var(--brand-orange);
-    border: 1px solid var(--brand-orange-light);
+    color: #b83200; /* Darker orange for WCAG AA contrast */
+    border: 1px solid #c43500;
 }
 
 .btn-secondary:hover:not(:disabled) {
