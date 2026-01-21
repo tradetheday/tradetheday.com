@@ -540,19 +540,118 @@ const pageDescription = "TradeTheDay design system reference - colors, typograph
       </div>
     </section>
 
-    <!-- Accessibility Section -->
+    <!-- SEO & Accessibility Section -->
     <section class="sg-section sg-section-alt">
       <div class="container">
-        <h2 class="sg-section-title">Accessibility Guidelines</h2>
+        <h2 class="sg-section-title">SEO & Accessibility (Mandatory)</h2>
+        <p class="body-large" style="margin-bottom: var(--space-xl);">These rules are mandatory for all pages. Violations will cause PageSpeed and Google ranking penalties.</p>
 
+        <h3 class="sg-subsection-title">Heading Hierarchy</h3>
+        <div class="sg-rule-box sg-rule-error">
+          <p><strong>RULE:</strong> Headings must be sequential. Never skip levels.</p>
+          <div class="sg-code-compare">
+            <div class="sg-code-wrong">
+              <span class="sg-label-wrong">WRONG</span>
+              <code>&lt;h1&gt;Page Title&lt;/h1&gt;</code>
+              <code>&lt;h4&gt;Feature Title&lt;/h4&gt;</code>
+            </div>
+            <div class="sg-code-right">
+              <span class="sg-label-right">CORRECT</span>
+              <code>&lt;h1&gt;Page Title&lt;/h1&gt;</code>
+              <code>&lt;h2&gt;Section&lt;/h2&gt;</code>
+              <code>&lt;h3&gt;Feature Title&lt;/h3&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">Link Text</h3>
+        <div class="sg-rule-box sg-rule-error">
+          <p><strong>RULE:</strong> Links must have descriptive text. Never use generic phrases alone.</p>
+          <div class="sg-token-table" style="margin-top: var(--space-md);">
+            <div class="sg-token-row">
+              <code class="sg-wrong-text">"Learn more"</code>
+              <span>→</span>
+              <code class="sg-right-text">"Read our advertiser disclosure"</code>
+            </div>
+            <div class="sg-token-row">
+              <code class="sg-wrong-text">"Click here"</code>
+              <span>→</span>
+              <code class="sg-right-text">"View broker comparison"</code>
+            </div>
+            <div class="sg-token-row">
+              <code class="sg-wrong-text">"Read more"</code>
+              <span>→</span>
+              <code class="sg-right-text">"Read the full AvaTrade review"</code>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">Image Dimensions</h3>
+        <div class="sg-rule-box sg-rule-error">
+          <p><strong>RULE:</strong> All <code>&lt;img&gt;</code> elements MUST have explicit <code>width</code> and <code>height</code> attributes to prevent layout shift (CLS).</p>
+          <div class="sg-code-compare">
+            <div class="sg-code-wrong">
+              <span class="sg-label-wrong">WRONG</span>
+              <code>&lt;img src="/logo.svg" alt="Logo"&gt;</code>
+            </div>
+            <div class="sg-code-right">
+              <span class="sg-label-right">CORRECT</span>
+              <code>&lt;img src="/logo.svg" alt="Logo" width="180" height="40"&gt;</code>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">Color Contrast (WCAG AA)</h3>
+        <div class="sg-rule-box">
+          <p><strong>RULE:</strong> Text must have 4.5:1 contrast ratio against background.</p>
+          <div class="sg-contrast-grid">
+            <div class="sg-contrast-item">
+              <div class="sg-contrast-swatch sg-swatch-light">
+                <span style="color: var(--gray-400);">Gray-400</span>
+              </div>
+              <span class="sg-label-wrong">FAILS on white</span>
+            </div>
+            <div class="sg-contrast-item">
+              <div class="sg-contrast-swatch sg-swatch-light">
+                <span style="color: var(--gray-600);">Gray-600</span>
+              </div>
+              <span class="sg-label-right">PASSES on white</span>
+            </div>
+            <div class="sg-contrast-item">
+              <div class="sg-contrast-swatch sg-swatch-green">
+                <span style="color: #10B981;">#10B981</span>
+              </div>
+              <span class="sg-label-wrong">FAILS on light green</span>
+            </div>
+            <div class="sg-contrast-item">
+              <div class="sg-contrast-swatch sg-swatch-green">
+                <span style="color: #047857;">#047857</span>
+              </div>
+              <span class="sg-label-right">PASSES on light green</span>
+            </div>
+          </div>
+          <p style="margin-top: var(--space-md);"><strong>Safe text colors:</strong></p>
+          <ul style="font-size: var(--font-size-sm); color: var(--gray-600);">
+            <li>White/Gray-50 background → use <code>var(--gray-600)</code> or darker</li>
+            <li>Dark backgrounds → use <code>rgba(255,255,255,0.7)</code> or brighter</li>
+            <li>Green badges → use <code>#047857</code> not <code>#10B981</code></li>
+          </ul>
+        </div>
+
+        <h3 class="sg-subsection-title">Font Preloading</h3>
+        <div class="sg-rule-box">
+          <p><strong>RULE:</strong> Only preload fonts that actually exist. For Google Fonts, use preconnect instead:</p>
+          <div class="sg-code-block" style="margin-top: var(--space-md);">
+            <code>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</code>
+            <code>&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</code>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">General Accessibility</h3>
         <div class="sg-a11y-grid">
           <div class="sg-a11y-item">
             <h4>Focus States</h4>
             <p>All interactive elements must have visible <code>:focus-visible</code> styles with 2px orange outline.</p>
-          </div>
-          <div class="sg-a11y-item">
-            <h4>Color Contrast</h4>
-            <p>Minimum 4.5:1 contrast ratio for text. Use <code>rgba(255,255,255,0.75)</code> minimum on dark backgrounds.</p>
           </div>
           <div class="sg-a11y-item">
             <h4>Touch Targets</h4>
@@ -570,6 +669,21 @@ const pageDescription = "TradeTheDay design system reference - colors, typograph
             <h4>Reduced Motion</h4>
             <p>Animations are disabled for users with <code>prefers-reduced-motion</code>.</p>
           </div>
+          <div class="sg-a11y-item">
+            <h4>Alt Text</h4>
+            <p>All images must have meaningful <code>alt</code> text describing the content.</p>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">Pre-Ship Checklist</h3>
+        <div class="sg-checklist">
+          <label class="sg-check-item"><input type="checkbox"> Heading hierarchy is sequential (no skipped levels)</label>
+          <label class="sg-check-item"><input type="checkbox"> All links have descriptive text</label>
+          <label class="sg-check-item"><input type="checkbox"> All images have width and height attributes</label>
+          <label class="sg-check-item"><input type="checkbox"> All images have meaningful alt text</label>
+          <label class="sg-check-item"><input type="checkbox"> Color contrast meets WCAG AA (4.5:1 for text)</label>
+          <label class="sg-check-item"><input type="checkbox"> Focus states are visible on all interactive elements</label>
+          <label class="sg-check-item"><input type="checkbox"> Touch targets are at least 44x44px on mobile</label>
         </div>
       </div>
     </section>
@@ -973,6 +1087,172 @@ const pageDescription = "TradeTheDay design system reference - colors, typograph
       padding: 2px 6px;
       border-radius: 4px;
       font-size: var(--font-size-xs);
+    }
+
+    /* Rule Boxes */
+    .sg-rule-box {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .sg-rule-box.sg-rule-error {
+      border-left: 4px solid var(--error);
+    }
+
+    .sg-rule-box p {
+      margin-bottom: 0;
+    }
+
+    .sg-rule-box ul {
+      margin: 0;
+      padding-left: var(--space-lg);
+    }
+
+    .sg-rule-box li {
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Code Compare */
+    .sg-code-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .sg-code-wrong,
+    .sg-code-right {
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+    }
+
+    .sg-code-wrong {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .sg-code-right {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .sg-code-wrong code,
+    .sg-code-right code {
+      display: block;
+      font-size: var(--font-size-xs);
+      margin-bottom: var(--space-xs);
+      color: var(--gray-700);
+    }
+
+    .sg-label-wrong,
+    .sg-label-right {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: var(--space-sm);
+    }
+
+    .sg-label-wrong {
+      background: var(--error);
+      color: white;
+    }
+
+    .sg-label-right {
+      background: var(--success);
+      color: white;
+    }
+
+    .sg-wrong-text {
+      color: var(--error) !important;
+      text-decoration: line-through;
+    }
+
+    .sg-right-text {
+      color: var(--success) !important;
+    }
+
+    /* Contrast Grid */
+    .sg-contrast-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .sg-contrast-item {
+      text-align: center;
+    }
+
+    .sg-contrast-swatch {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-xs);
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+    }
+
+    .sg-swatch-light {
+      background: white;
+      border: 1px solid var(--gray-200);
+    }
+
+    .sg-swatch-green {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .sg-contrast-item .sg-label-wrong,
+    .sg-contrast-item .sg-label-right {
+      font-size: 9px;
+      padding: 2px 6px;
+    }
+
+    /* Checklist */
+    .sg-checklist {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+
+    .sg-check-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--gray-100);
+      cursor: pointer;
+      font-size: var(--font-size-sm);
+    }
+
+    .sg-check-item:last-child {
+      border-bottom: none;
+    }
+
+    .sg-check-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--success);
+    }
+
+    @media (max-width: 768px) {
+      .sg-code-compare {
+        grid-template-columns: 1fr;
+      }
+
+      .sg-contrast-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
 
     @media (max-width: 768px) {
