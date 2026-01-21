@@ -582,12 +582,16 @@ const anchorItems = [
       <h2 class="heading-2 text-center">Download MetaTrader 4</h2>
       <p class="section-intro text-center">MT4 is free to download. Choose your platform:</p>
 
+      <div class="download-warning">
+        <strong>Note:</strong> MetaQuotes now promotes MetaTrader 5 as their primary platform and has stopped licensing MT4 to new brokers. The official metatrader4.com website now redirects to MT5. However, many brokers still offer MT4 to existing clients, and you can download MT4 directly from your broker's website after opening an account.
+      </div>
+
       <div class="download-grid">
-        <a href="https://www.metatrader4.com/en/download" target="_blank" rel="noopener" class="download-card">
+        <a href="https://web.archive.org/web/20150816234829/https://www.metatrader4.com/en/download" target="_blank" rel="noopener" class="download-card">
           <span class="download-icon">🖥️</span>
           <h3>MT4 for Windows</h3>
-          <p>Full-featured desktop application for PC</p>
-          <span class="download-btn">Download for PC →</span>
+          <p>Archived direct download (standalone installer)</p>
+          <span class="download-btn">Download from Archive →</span>
         </a>
         <a href="https://apps.apple.com/app/metatrader-4/id496212596" target="_blank" rel="noopener" class="download-card">
           <span class="download-icon">🍎</span>
@@ -601,6 +605,10 @@ const anchorItems = [
           <p>Android app from Google Play Store</p>
           <span class="download-btn">Download for Android →</span>
         </a>
+      </div>
+
+      <div class="broker-note broker-note--center">
+        <strong>Recommended:</strong> Download MT4 directly from your broker for the best experience. Brokers like <a href="/brokers/avatrade/">AvaTrade</a> and <a href="/brokers/axi/">Axi</a> provide pre-configured MT4 installers that connect directly to their servers.
       </div>
 
       <div class="system-requirements">
@@ -1260,6 +1268,25 @@ const anchorItems = [
     text-align: center;
     border-left: none;
     border-top: 4px solid var(--brand-orange);
+  }
+
+  /* Download Warning */
+  .download-warning {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-left: 4px solid #ffc107;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #856404;
+    line-height: 1.6;
+  }
+
+  .download-warning strong {
+    color: #664d03;
   }
 
   /* Download Grid */
