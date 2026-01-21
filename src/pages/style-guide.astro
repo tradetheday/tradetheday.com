@@ -638,13 +638,13 @@ const pageDescription = "TradeTheDay design system reference - colors, typograph
           </ul>
         </div>
 
-        <h3 class="sg-subsection-title">Font Preloading</h3>
+        <h3 class="sg-subsection-title">Typography</h3>
         <div class="sg-rule-box">
-          <p><strong>RULE:</strong> Only preload fonts that actually exist. For Google Fonts, use preconnect instead:</p>
+          <p><strong>RULE:</strong> This site uses <strong>system fonts</strong> for maximum performance. No external font requests.</p>
           <div class="sg-code-block" style="margin-top: var(--space-md);">
-            <code>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</code>
-            <code>&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</code>
+            <code>font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;</code>
           </div>
+          <p style="margin-top: var(--space-sm); font-size: var(--font-size-sm); color: var(--gray-600);">This renders as San Francisco on Apple devices, Segoe UI on Windows, and Roboto on Android - native and instant.</p>
         </div>
 
         <h3 class="sg-subsection-title">General Accessibility</h3>

@@ -378,20 +378,27 @@ padding: 12px 24px; /* btn-xl spec */
 - `var(--success)` (#10B981) on light green backgrounds ❌
 - Low opacity white text on dark backgrounds ❌
 
-### Font Preloading
+### Typography (System Fonts)
 
-**RULE:** Only preload fonts that actually exist. Never add preload hints without verifying the file path.
+**RULE:** This site uses **system fonts** for maximum performance. No external font requests.
 
-```html
-<!-- Only if file exists at /fonts/inter-var.woff2 -->
-<link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+```css
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 ```
 
-If using Google Fonts, use preconnect instead:
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-```
+This renders as:
+- **Apple devices:** San Francisco
+- **Windows:** Segoe UI
+- **Android:** Roboto
+- **Fallback:** Helvetica Neue, Arial
+
+**Benefits:**
+- Zero font download time
+- Instant rendering (no FOUT/FOIT)
+- Native look on every platform
+- Better PageSpeed scores
+
+**NEVER add Google Fonts or other external font requests.**
 
 ### Accessibility Checklist
 
@@ -408,6 +415,11 @@ Before shipping any page:
 ---
 
 ## 15. CHANGELOG
+
+### 2026-01-22 (PM - v2)
+- **MAJOR:** Switched to system font stack (removed Google Fonts)
+- Zero external font requests = faster PageSpeed
+- Updated typography documentation
 
 ### 2026-01-22 (PM)
 - **NEW:** Added Section 14: SEO & Accessibility rules
