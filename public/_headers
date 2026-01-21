@@ -1,0 +1,137 @@
+# TradeTheDay Cloudflare Headers
+# Optimized for maximum speed, SEO, and Core Web Vitals
+
+# ===========================================
+# GLOBAL HEADERS (all pages)
+# ===========================================
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+
+# ===========================================
+# HTML PAGES - Short cache, stale-while-revalidate
+# ===========================================
+/*.html
+  Cache-Control: public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400
+
+/*/
+  Cache-Control: public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400
+
+# Homepage
+/
+  Cache-Control: public, max-age=1800, s-maxage=43200, stale-while-revalidate=86400
+
+# ===========================================
+# STATIC ASSETS - Aggressive immutable caching
+# ===========================================
+
+# CSS files (hashed by Astro)
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/_astro/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+# JavaScript files (hashed by Astro)
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/_astro/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+# All Astro build assets (CSS, JS, fonts bundled)
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# ===========================================
+# IMAGES - Long cache
+# ===========================================
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.jpeg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.gif
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.avif
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.ico
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# ===========================================
+# FONTS - Maximum cache
+# ===========================================
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+/*.ttf
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+/*.eot
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# ===========================================
+# SEO FILES - Moderate cache
+# ===========================================
+/sitemap*.xml
+  Cache-Control: public, max-age=3600, s-maxage=86400
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+/favicon.ico
+  Cache-Control: public, max-age=31536000, immutable
+
+# ===========================================
+# PRELOAD HINTS FOR CRITICAL RESOURCES
+# ===========================================
+/
+  Link: </_astro/styles.css>; rel=preload; as=style
+  Link: </fonts/inter-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
+
+/brokers/*
+  Link: </_astro/styles.css>; rel=preload; as=style
+
+/guides/*
+  Link: </_astro/styles.css>; rel=preload; as=style
+
+# ===========================================
+# MONEY PAGES - Balanced caching (fresh but fast)
+# ===========================================
+/brokers/avatrade/partner-code/*
+  Cache-Control: public, max-age=1800, s-maxage=43200, stale-while-revalidate=86400
+
+/bonus-codes/*
+  Cache-Control: public, max-age=1800, s-maxage=43200, stale-while-revalidate=86400
