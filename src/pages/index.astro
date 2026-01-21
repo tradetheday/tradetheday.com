@@ -331,6 +331,36 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
       .hero-trust-row {
         gap: var(--space-md);
       }
+
+      /* Prevent chart from compressing content on mobile */
+      .hero-chart-bg {
+        height: 50%;
+        opacity: 0.5;
+      }
+
+      .hero-content {
+        padding-bottom: var(--space-lg);
+      }
+
+      .hero-trust-row {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-sm);
+      }
+
+      .hero-trust-item {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 8px 16px;
+        border-radius: var(--radius-full);
+        backdrop-filter: blur(4px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-chart-bg {
+        height: 40%;
+        opacity: 0.3;
+      }
     }
   </style>
 
