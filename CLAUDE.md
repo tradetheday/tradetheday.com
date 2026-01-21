@@ -2,7 +2,7 @@
 
 Trading affiliate website focused on broker reviews, partner codes, and trading guides.
 
-**Last Updated:** 2026-01-21
+**Last Updated:** 2026-01-22
 
 ## Overview
 
@@ -98,9 +98,16 @@ tradetheday.com/
 ### Design System (Jan 21, 2026)
 - [x] Created centralized `tools.css` for dark theme tool pages
 - [x] Created `DESIGN-SYSTEM.md` - source of truth for all tokens
-- [x] Created `/style-guide/` - live interactive style guide page
+- [x] Created `/style-guide/` - live interactive style guide page (noindex, nofollow)
 - [x] Refactored broker calculator to use centralized styles
 - [x] Added accessibility improvements (focus states, reduced motion, color contrast)
+
+### Performance & Cloudflare (Jan 22, 2026)
+- [x] Optimized Cloudflare settings (Speed, Caching, SSL/TLS)
+- [x] Created `public/_headers` with aggressive caching rules
+- [x] Enabled Smart Tiered Cache, Early Hints, HTTP/3
+- [x] Switched to **system fonts** (removed Google Fonts)
+- [x] Fixed PageSpeed accessibility issues (heading order, link text, image dimensions, color contrast)
 
 ## Outstanding Work
 
@@ -181,6 +188,22 @@ npm run build
 ### Themes
 - **Light theme** (default): Homepage, broker reviews, guides
 - **Dark theme** (`tools.css`): Calculators, interactive tools
+
+### Typography (CRITICAL)
+**System fonts only - NO external fonts allowed**
+```css
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+```
+- NEVER add Google Fonts or any external font requests
+- This is critical for PageSpeed performance
+
+### SEO & Accessibility (MANDATORY)
+- Headings must be sequential (h1 → h2 → h3, no skipping)
+- Links must have descriptive text (never "Learn more" or "Click here")
+- All images must have `width` and `height` attributes
+- Text must have 4.5:1 contrast ratio (use `var(--gray-600)` minimum on white)
+
+See `DESIGN-SYSTEM.md` Section 14 for full rules.
 
 ## Notes
 
