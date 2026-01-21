@@ -1,0 +1,92 @@
+<!-- Comparison Table Component -->
+<!-- Copy this entire section to add a highlighted comparison table -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="heading-2">Comparison Table</h2>
+            <p class="body-large">Compare features, pricing, or specifications</p>
+        </div>
+        
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><strong>Broker</strong></th>
+                        <th><strong>Min Deposit</strong></th>
+                        <th><strong>EUR/USD Spread</strong></th>
+                        <th><strong>Rating</strong></th>
+                        <th><strong>Regulation</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>AvaTrade</strong></td>
+                        <td class="highlight-best"><span class="currency number-highlight">$100</span></td>
+                        <td><span class="percentage">0.9 pips</span></td>
+                        <td class="highlight-good"><span class="rating">4.2/5</span></td>
+                        <td class="highlight-brand">6 Licenses</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IC Markets</strong></td>
+                        <td class="highlight-neutral"><span class="currency number-highlight">$200</span></td>
+                        <td class="highlight-best"><span class="percentage">0.1 pips</span></td>
+                        <td><span class="rating">4.5/5</span></td>
+                        <td>ASIC, CySEC</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plus500</strong></td>
+                        <td class="highlight-good"><span class="currency number-highlight">$100</span></td>
+                        <td class="highlight-warning"><span class="percentage">2.2 pips</span></td>
+                        <td><span class="rating">3.8/5</span></td>
+                        <td>FCA, ASIC</td>
+                    </tr>
+                    <tr>
+                        <td><strong>XTB</strong></td>
+                        <td class="highlight-warning"><span class="currency number-highlight">$250</span></td>
+                        <td><span class="percentage">0.8 pips</span></td>
+                        <td class="highlight-brand"><span class="rating">4.4/5</span></td>
+                        <td>FCA, KNF</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Optional: Highlight Guide -->
+        <div class="card mt-xl">
+            <h3 class="heading-3">Table Highlighting Guide</h3>
+            <p class="body">This comparison table demonstrates the highlighting system:</p>
+            <ul class="body" style="margin-left: var(--space-lg);">
+                <li><strong class="text-brand">Green (Best):</strong> Lowest minimum deposits and best spreads</li>
+                <li><strong style="color: #F59E0B;">Orange (Good):</strong> Above average performance</li>
+                <li><strong style="color: #EF4444;">Red (Warning):</strong> High fees or concerning values</li>
+                <li><strong class="text-brand">Brand (Featured):</strong> Special highlights for key features</li>
+                <li><strong style="color: #737373;">Gray (Neutral):</strong> Standard emphasis</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Usage Instructions:
+1. Update the section heading and description
+2. Customize table headers to match your comparison needs
+3. Replace sample data with your actual comparison data
+4. Use highlighting classes:
+   - highlight-best: Green background with checkmark (best values)
+   - highlight-good: Light orange background (good values)
+   - highlight-warning: Light red background (concerning values)
+   - highlight-brand: Light brand orange (featured items)
+   - highlight-neutral: Light gray (standard emphasis)
+5. Use number formatting classes:
+   - currency: For money values ($100)
+   - percentage: For percentages (2.5%)
+   - rating: For ratings (4.2/5)
+   - number-highlight: For special numbers with background
+6. Remove the highlight guide card if not needed
+7. Ensure design-system.css is included for styling
+-->
+
+<!-- Required CSS (already included in design-system.css): -->
+<!--
+Highlight classes: .highlight-best, .highlight-good, .highlight-warning, .highlight-brand, .highlight-neutral
+Number classes: .currency, .percentage, .rating, .number-highlight
+-->

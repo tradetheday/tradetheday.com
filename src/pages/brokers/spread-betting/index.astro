@@ -1,0 +1,1057 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+
+// Hero statistics
+const heroStats = [
+  { icon: "🔄", value: "Long/Short", label: "Both Directions" },
+  { icon: "💰", value: "Tax-Free", label: "In UK & Ireland" },
+  { icon: "📈", value: "1000s", label: "Markets Available" },
+  { icon: "⚡", value: "24/5", label: "Trading Hours" }
+];
+
+// Benefits data
+const benefits = [
+  {
+    icon: "💰",
+    title: "Tax-Free Trading",
+    description: "Spread betting is free of tax in certain jurisdictions where it's permitted. You're only speculating on future prices, not physically buying assets."
+  },
+  {
+    icon: "🎯",
+    title: "Take Profit & Limit Loss",
+    description: "Traders can set take profit and stop loss orders according to market conditions, providing better risk management."
+  },
+  {
+    icon: "📊",
+    title: "Multiple Markets",
+    description: "Spread betting is available on shares, Forex, indices, commodities and interest rates - all from one account."
+  },
+  {
+    icon: "📉",
+    title: "Go Short",
+    description: "You can profit from falling prices by going short, something not always possible with traditional investing."
+  }
+];
+
+// Best spread betting brokers
+const brokers = [
+  {
+    name: "Pepperstone",
+    logo: "PEP",
+    rating: "⭐⭐⭐⭐⭐",
+    description: "Well-known spread betting broker offering services to British and European traders. Regulated by FCA and ASIC.",
+    pros: ["Low betting fees", "Strong customer service", "Easy deposit/withdrawal", "Fast execution"],
+    cons: ["Spread betting only on Forex", "Lack of news analysis", "Limited protection for non-EU clients"],
+    ctaText: "Trade with Pepperstone →",
+    ctaLink: "/brokers/pepperstone/",
+    featured: true
+  },
+  {
+    name: "ActivTrades",
+    logo: "ACT",
+    rating: "⭐⭐⭐⭐",
+    description: "Established in 2001, offers MT4 and MT5 platforms with strong customer support in 14 languages.",
+    pros: ["Commission free trading", "Advanced charting features", "Training courses", "Negative balance protection", "Multiple regulations"],
+    cons: ["No US clients", "Limited account types", "No fixed spreads"],
+    ctaText: "Start with ActivTrades →",
+    ctaLink: "/brokers/activtrades/",
+    featured: false
+  },
+  {
+    name: "Markets.com",
+    logo: "MKT",
+    rating: "⭐⭐⭐⭐",
+    description: "Famous and secure platform for spread betting, regulated by top authorities with thousands of instruments.",
+    pros: ["Wide range of instruments", "Multiple regulations", "Best spread betting platform", "Fast execution"],
+    cons: ["Low leverage", "Complex deposits/withdrawals"],
+    ctaText: "Join Markets.com →",
+    ctaLink: "/brokers/markets/",
+    featured: false
+  },
+  {
+    name: "FXCM",
+    logo: "FXC",
+    rating: "⭐⭐⭐⭐",
+    description: "International online Forex and CFD broker with over two decades of history, fully regulated.",
+    pros: ["Competitive spreads", "Low fee structure", "No deposit/withdrawal fees", "Fast returns"],
+    cons: ["Inactivity fee after a year", "Low deposit disadvantages"],
+    ctaText: "Trade with FXCM →",
+    ctaLink: "/brokers/fxcm/",
+    featured: false
+  },
+  {
+    name: "FXTM",
+    logo: "FXT",
+    rating: "⭐⭐⭐⭐",
+    description: "Leading ECN broker accepting clients worldwide with MT4 and MT5 platforms.",
+    pros: ["Strong customer service", "Educational material", "Fast account opening"],
+    cons: ["Limited product portfolio", "High fee on stock CFDs", "Withdrawal and inactivity fees"],
+    ctaText: "Start with FXTM →",
+    ctaLink: "/brokers/fxtm/",
+    featured: false
+  },
+  {
+    name: "IG Markets",
+    logo: "IG",
+    rating: "⭐⭐⭐⭐⭐",
+    description: "Founded in 1974, one of the world's oldest spread betting brokers with hundreds of thousands of clients.",
+    pros: ["Best trading platforms", "Excellent educational material", "Easy deposit/withdrawal"],
+    cons: ["High fee on stock CFDs", "Lack of phone support"],
+    ctaText: "Join IG Markets →",
+    ctaLink: "/brokers/ig/",
+    featured: false
+  },
+  {
+    name: "eToro",
+    logo: "eTO",
+    rating: "⭐⭐⭐⭐",
+    description: "Most trusted online spread betting broker with strong historical background and solid reviews.",
+    pros: ["Stock and ETF trading is free", "Competitive spreads", "Easy account opening", "Social trading available"],
+    cons: ["High Forex fees", "Slow withdrawals"],
+    ctaText: "Trade with eToro →",
+    ctaLink: "/brokers/etoro/",
+    featured: false
+  },
+  {
+    name: "City Index",
+    logo: "CTY",
+    rating: "⭐⭐⭐⭐",
+    description: "Simple and user-friendly platform with educational material and premium research tools.",
+    pros: ["Demo account", "Fast deposit/withdrawal", "Excellent trading platform", "MetaTrader available"],
+    cons: ["No volume discounts", "No social trading data", "Restricted margin discounts"],
+    ctaText: "Start with City Index →",
+    ctaLink: "/brokers/city-index/",
+    featured: false
+  },
+  {
+    name: "FxPro",
+    logo: "FXP",
+    rating: "⭐⭐⭐⭐",
+    description: "Award-winning broker regulated by CySEC and FCA, offering 250+ financial instruments.",
+    pros: ["Wide range of instruments", "Segregated accounts", "Multiple account types", "Low commissions"],
+    cons: ["No crypto trading", "Spreads not tight", "No US clients"],
+    ctaText: "Join FxPro →",
+    ctaLink: "/brokers/fxpro/",
+    featured: false
+  },
+  {
+    name: "AvaTrade",
+    logo: "AVA",
+    rating: "⭐⭐⭐⭐",
+    description: "Established in 2006, regulated Forex, spread betting and CFD broker with four global offices.",
+    pros: ["Fast account opening", "Various account types", "Extensive research tools"],
+    cons: ["Lack of phone support", "Higher spreads", "Limited deposit methods"],
+    ctaText: "Trade with AvaTrade →",
+    ctaLink: "/brokers/avatrade/",
+    featured: false
+  }
+];
+
+// FAQ data
+const faqs = [
+  {
+    question: "Is spread betting safe?",
+    answer: "Spread betting is not safe. It comes with a lot of risks. If you don't properly adjust stop losses and take profit orders, you can lose money. You also need a lot of trading knowledge before spread betting."
+  },
+  {
+    question: "How does spread betting work?",
+    answer: "Traders are able to go short or long depending on market circumstances. If you think the price of an asset will go up, you can go long. On the other hand, if you think the price will move down, you can short the asset."
+  },
+  {
+    question: "Can I use MetaTrader for spread betting?",
+    answer: "Yes, hundreds of top-rated brokers are using MetaTrader and other software programs on their platform. Trading with a registered ECN broker is safe."
+  },
+  {
+    question: "Is spread betting legal?",
+    answer: "Yes, spread betting is legal in a majority of countries. However, it's illegal in the United States, among others. Always check your local regulations before starting."
+  }
+];
+
+// Anchor menu items
+const anchorMenuItems = [
+  { text: "What is Spread Betting", href: "#what-is" },
+  { text: "Benefits", href: "#benefits" },
+  { text: "Choosing a Broker", href: "#choosing-broker" },
+  { text: "Best Brokers", href: "#best-brokers" },
+  { text: "Risks", href: "#risks" },
+  { text: "FAQs", href: "#faqs" }
+];
+---
+
+<BaseLayout 
+  title="What is Spread Betting? Complete Guide 2026 | TradeTheDay"
+  description="Learn spread betting with our comprehensive guide. Understand how spread betting works, tax benefits, best brokers, and risks involved."
+>
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Brokers', href: '/brokers/' },
+    { text: 'Spread Betting', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-icon">📊</span>
+          TAX-FREE TRADING
+        </div>
+        <h1 class="hero-title">What is Spread Betting?</h1>
+        <p class="hero-description">
+          Discover spread betting - the tax-free way to trade stocks, forex, and commodities. Learn how to profit from rising and falling markets with flexible leverage.
+        </p>
+        
+        <!-- Key Stats -->
+        <div class="stats-grid">
+          {heroStats.map((stat) => (
+            <div class="stat-card">
+              <div class="stat-icon">{stat.icon}</div>
+              <span class="stat-value">{stat.value}</span>
+              <span class="stat-label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANCHOR NAVIGATION -->
+  <nav class="anchor-nav" id="anchorNav">
+    <div class="container">
+      <div class="anchor-links">
+        {anchorMenuItems.map((item) => (
+          <a href={item.href} class="anchor-link">{item.text}</a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- WHAT IS SPREAD BETTING SECTION -->
+  <section class="section" id="what-is">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What is Spread Betting?</h2>
+        <p class="section-subtitle">
+          Understanding the basics of spread betting and how it differs from traditional trading.
+        </p>
+      </div>
+      
+      <div class="content-card">
+        <h3 class="card-title">A Flexible Form of Financial Trading</h3>
+        <p>Spread betting is a derivative product that is tax-free (in permitted jurisdictions), which allows traders and investors to take advantage of price movements in stocks, Forex and other underlying financial assets.</p>
+        
+        <p>It's also known as a flexible form of trading because traders can bet on bearish and bullish price movements, taking short and long positions accordingly. This form of trading is also popular because an investor's profit-making opportunity is higher in comparison to other formats.</p>
+        
+        <div class="insight-box">
+          <p>💡 <strong>Key Insight:</strong> You can take a position on both increasing or declining price movements. If you think the price will rise, you "go long" and create a BUY position. If you think it will decline, you "go short" and open a SELL position.</p>
+        </div>
+        
+        <p>The profit generation depends only on the accuracy of your forecast and the size of your opening position. For instance, if you create a short position and the price declines, your spread bet is profitable. However, if the price movement works against you, your spread bet will be a losing one.</p>
+      </div>
+      
+      <div class="content-card">
+        <h3 class="card-title">What Is Spread?</h3>
+        <p>The price you pay for opening a trade is known as spread. The spread is also known as the difference between the buy and sell prices.</p>
+        
+        <p>These buy and sell orders are usually known as bid (sell) and ask (buy). This means that the trader will sell slightly lower than the middle price of the asset and will buy a bit higher than the middle price of the underlying asset.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS SECTION -->
+  <section class="section section-alt" id="benefits">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Why Do People Spread Bet?</h2>
+        <p class="section-subtitle">
+          Discover the key advantages that make spread betting popular among traders.
+        </p>
+      </div>
+      
+      <div class="benefits-grid">
+        {benefits.map((benefit) => (
+          <div class="benefit-card">
+            <div class="benefit-icon">{benefit.icon}</div>
+            <h3 class="benefit-title">{benefit.title}</h3>
+            <p class="benefit-description">{benefit.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CHOOSING A BROKER SECTION -->
+  <section class="section" id="choosing-broker">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What to Look for in Choosing a Spread Betting Broker</h2>
+        <p class="section-subtitle">
+          Key factors to consider when selecting the right spread betting broker for your needs.
+        </p>
+      </div>
+      
+      <div class="content-card">
+        <h3 class="card-title">Essential Broker Selection Criteria</h3>
+        <p>Choosing the best spread betting broker is one of the biggest and most important tasks before you start to trade. Brokers play a key role in profit making.</p>
+        
+        <p><strong>Key points for your due diligence:</strong></p>
+        <ul class="content-list">
+          <li><strong>Regulation:</strong> Check whether the broker is regulated by financial authorities before anything else</li>
+          <li><strong>Trading Platform:</strong> Ensure they offer reliable platforms like MT4, MT5, or proprietary solutions</li>
+          <li><strong>Asset Range:</strong> Look for brokers offering a wide range of investment opportunities for diversification</li>
+          <li><strong>Fee Structure:</strong> Understand all costs including spreads, commissions, and any hidden charges</li>
+          <li><strong>Payment Methods:</strong> Check available deposit and withdrawal methods that suit your needs</li>
+          <li><strong>Demo Account:</strong> Essential for testing the platform and strategies risk-free</li>
+        </ul>
+        
+        <div class="insight-box">
+          <p>⚠️ <strong>Important:</strong> Fee structure is very important because several brokers impose hidden charges and commissions. Make sure the broker has a transparent and clear fee structure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEST BROKERS SECTION -->
+  <section class="section section-alt" id="best-brokers">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Best Spread Betting Brokers</h2>
+        <p class="section-subtitle">
+          Top-rated spread betting brokers that are safe and offer a vast range of products.
+        </p>
+      </div>
+      
+      <div class="brokers-grid">
+        {brokers.map((broker) => (
+          <div class={`broker-card ${broker.featured ? 'featured' : ''}`}>
+            <div class="broker-header">
+              <div class="broker-logo">{broker.logo}</div>
+              <div class="broker-info">
+                <h3 class="broker-name">{broker.name}</h3>
+                <div class="broker-rating">{broker.rating}</div>
+              </div>
+            </div>
+            <p class="broker-description">{broker.description}</p>
+            <div class="pros-cons">
+              <div class="pros-section">
+                <div class="pros-title">Pros</div>
+                <ul class="pros-list">
+                  {broker.pros.map((pro) => (
+                    <li>{pro}</li>
+                  ))}
+                </ul>
+              </div>
+              <div class="cons-section">
+                <div class="cons-title">Cons</div>
+                <ul class="cons-list">
+                  {broker.cons.map((con) => (
+                    <li>{con}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <a href={broker.ctaLink} class="cta-button primary">{broker.ctaText}</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- RISKS SECTION -->
+  <section class="section" id="risks">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What Are Risks With Spread Betting?</h2>
+        <p class="section-subtitle">
+          Understanding the risks involved before you start spread betting.
+        </p>
+      </div>
+      
+      <div class="content-card">
+        <h3 class="card-title">Important Risk Considerations</h3>
+        <p>Like other forms of investment, there are a lot of risks associated with spread betting. Therefore, it's important to know about the risk factors before choosing a top spread betting broker and depositing real money.</p>
+        
+        <p><strong>Key risk factors include:</strong></p>
+        <ul class="content-list">
+          <li><strong>Leverage Risk:</strong> High leverage can amplify both profits and losses</li>
+          <li><strong>Market Volatility:</strong> Rapid price movements can lead to significant losses</li>
+          <li><strong>Account Close-out:</strong> Margin calls can force position closure at unfavorable prices</li>
+          <li><strong>Market Gapping:</strong> Price gaps can bypass stop-loss orders</li>
+        </ul>
+        
+        <div class="insight-box">
+          <p>⚠️ <strong>Important Note:</strong> Trading financial derivative products, in particular spread betting products, involve high amounts of risk. If you don't properly use stop losses, your initial investment is at risk.</p>
+        </div>
+        
+        <p>Spread betting is not suitable for traders that cannot afford to lose large sums of money. Always start with a demo account and never risk more than you can afford to lose.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RISK WARNING -->
+  <section class="section">
+    <div class="container">
+      <div class="risk-warning">
+        <strong>⚠️ Risk Warning:</strong> Spread betting carries a high level of risk and may not be suitable for all investors. You could lose substantially more than your initial investment. Past performance is not indicative of future results. Only trade with money you can afford to lose.
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section section-alt" id="faqs">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
+      
+      <div class="faq-container">
+        {faqs.map((faq, index) => (
+          <div class="faq-item" id={`faq-${index}`}>
+            <button class="faq-question" onclick={`toggleFaq(${index})`}>
+              {faq.question}
+            </button>
+            <div class="faq-answer">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <div class="section-cta">
+        <h3 class="cta-heading">Ready to Start Spread Betting?</h3>
+        <p class="cta-text">
+          Choose a regulated broker and start with a demo account to practice risk-free.
+        </p>
+        <a href="/brokers/pepperstone/" class="cta-button primary large">
+          Start with Pepperstone →
+        </a>
+        <p class="cta-features">
+          ✓ FCA Regulated • ✓ Free demo account • ✓ Low spreads
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+
+.hero-section {
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  background: linear-gradient(135deg, var(--charcoal) 0%, var(--charcoal-light) 100%);
+  color: var(--white);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(255, 72, 0, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: rgba(255, 72, 0, 0.2);
+  border: 1px solid rgba(255, 72, 0, 0.4);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--brand-orange);
+  margin-bottom: var(--space-lg);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-icon {
+  font-size: 1.2rem;
+}
+
+.hero-title {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.1;
+  margin-bottom: var(--space-lg);
+  color: var(--white);
+}
+
+.hero-description {
+  font-size: var(--font-size-xl);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: var(--space-2xl);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  text-align: center;
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-xs);
+  display: block;
+}
+
+.stat-value {
+  display: block;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--brand-orange);
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   ANCHOR NAVIGATION
+   ========================================================================== */
+
+.anchor-nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  box-shadow: var(--shadow-sm);
+}
+
+.anchor-nav.sticky {
+  box-shadow: var(--shadow-md);
+}
+
+.anchor-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  padding: var(--space-md) 0;
+  flex-wrap: wrap;
+}
+
+.anchor-link {
+  color: var(--gray-600);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  font-size: var(--font-size-sm);
+}
+
+.anchor-link:hover {
+  color: var(--brand-orange);
+  background: rgba(255, 72, 0, 0.05);
+}
+
+.anchor-link.active {
+  color: var(--brand-orange);
+  background: rgba(255, 72, 0, 0.1);
+}
+
+/* ==========================================================================
+   CONTENT SECTIONS
+   ========================================================================== */
+
+.section {
+  padding: var(--space-4xl) 0;
+}
+
+.section-alt {
+  background: var(--gray-50);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto var(--space-3xl);
+}
+
+.section-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.section-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+.section-cta {
+  text-align: center;
+  margin-top: var(--space-2xl);
+}
+
+/* ==========================================================================
+   CONTENT CARDS
+   ========================================================================== */
+
+.content-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.content-card p {
+  color: var(--gray-700);
+  line-height: 1.7;
+  margin-bottom: var(--space-md);
+}
+
+.insight-box {
+  background: rgba(255, 72, 0, 0.05);
+  border-left: 4px solid var(--brand-orange);
+  padding: var(--space-md);
+  margin: var(--space-lg) 0;
+  border-radius: var(--radius-md);
+}
+
+.insight-box p {
+  margin: 0;
+  color: var(--charcoal);
+}
+
+.content-list {
+  margin-left: var(--space-lg);
+  color: var(--gray-700);
+}
+
+.content-list li {
+  margin-bottom: var(--space-xs);
+}
+
+/* ==========================================================================
+   BENEFITS GRID
+   ========================================================================== */
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-xl);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.benefit-card {
+  padding: var(--space-xl);
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  transition: all var(--transition-base);
+}
+
+.benefit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.benefit-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.benefit-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin-bottom: var(--space-sm);
+}
+
+.benefit-description {
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   BROKERS SECTION
+   ========================================================================== */
+
+.brokers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--space-xl);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.broker-card {
+  padding: var(--space-xl);
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.broker-card.featured {
+  border-color: var(--brand-orange);
+  box-shadow: 0 8px 32px rgba(255, 72, 0, 0.15);
+}
+
+.broker-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.broker-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.broker-logo {
+  width: 48px;
+  height: 48px;
+  background: var(--gradient-primary);
+  color: var(--white);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-sm);
+}
+
+.broker-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin: 0;
+}
+
+.broker-rating {
+  color: var(--warning);
+  font-size: var(--font-size-sm);
+}
+
+.broker-description {
+  color: var(--gray-600);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+.pros-cons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.pros-title, .cons-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-sm);
+}
+
+.pros-title {
+  color: var(--success);
+}
+
+.cons-title {
+  color: var(--error);
+}
+
+.pros-list, .cons-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pros-list li, .cons-list li {
+  padding: var(--space-xs) 0;
+  padding-left: var(--space-md);
+  position: relative;
+  color: var(--gray-700);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+.pros-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--success);
+  font-weight: var(--font-weight-bold);
+}
+
+.cons-list li::before {
+  content: '✗';
+  position: absolute;
+  left: 0;
+  color: var(--error);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ==========================================================================
+   RISK WARNING
+   ========================================================================== */
+
+.risk-warning {
+  background: rgba(239, 68, 68, 0.05);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+.risk-warning strong {
+  color: var(--error);
+}
+
+/* ==========================================================================
+   FAQ SECTION
+   ========================================================================== */
+
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-heading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.cta-text {
+  color: var(--gray-600);
+  margin-bottom: var(--space-lg);
+}
+
+.cta-features {
+  color: var(--gray-600);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-sm);
+}
+
+/* ==========================================================================
+   CTA BUTTONS
+   ========================================================================== */
+
+.cta-button {
+  display: inline-block;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+  transition: all var(--transition-base);
+  text-align: center;
+}
+
+.cta-button.primary {
+  background: var(--gradient-primary);
+  color: var(--white);
+}
+
+.cta-button.large {
+  padding: var(--space-lg) var(--space-2xl);
+  font-size: var(--font-size-lg);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: var(--space-2xl) 0 var(--space-xl);
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+  
+  .anchor-links {
+    gap: var(--space-sm);
+    padding: var(--space-sm) 0;
+  }
+  
+  .anchor-link {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-xs);
+  }
+  
+  .benefits-grid,
+  .brokers-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  
+  .pros-cons {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-title {
+    font-size: var(--font-size-3xl);
+  }
+}
+</style>
+
+<script>
+  // Sticky Anchor Navigation
+  document.addEventListener('DOMContentLoaded', function() {
+    const anchorNav = document.getElementById('anchorNav');
+    const anchorLinks = document.querySelectorAll('.anchor-link');
+    const sections = document.querySelectorAll('h2[id]');
+    
+    let isScrolling = false;
+    const anchorNavOffset = anchorNav?.offsetTop || 0;
+    
+    function handleScroll() {
+      if (isScrolling || !anchorNav) return;
+      
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (scrollTop >= anchorNavOffset) {
+        anchorNav.classList.add('sticky');
+      } else {
+        anchorNav.classList.remove('sticky');
+      }
+      
+      let current = '';
+      const offset = anchorNav.classList.contains('sticky') ? 100 : 200;
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - offset;
+        if (scrollTop >= sectionTop) {
+          current = section.getAttribute('id') || '';
+        }
+      });
+      
+      anchorLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    }
+    
+    anchorLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        isScrolling = true;
+        
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId || '');
+        
+        if (targetSection) {
+          const offsetTop = targetSection.offsetTop - 80;
+          
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+          
+          setTimeout(() => {
+            isScrolling = false;
+          }, 1000);
+        }
+      });
+    });
+    
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(handleScroll);
+        ticking = true;
+        setTimeout(() => { ticking = false; }, 10);
+      }
+    });
+    
+    handleScroll();
+  });
+
+  // FAQ Toggle functionality
+  window.toggleFaq = function(index) {
+    const faqItem = document.getElementById(`faq-${index}`);
+    if (faqItem) {
+      const isActive = faqItem.classList.contains('active');
+      
+      // Close all FAQ items
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      // Toggle the clicked one
+      if (!isActive) {
+        faqItem.classList.add('active');
+      }
+    }
+  };
+</script>

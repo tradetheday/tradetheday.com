@@ -1,0 +1,1406 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+
+// Gold price data
+const goldPrice = {
+  current: "$2,147.85",
+  change: "+$23.45",
+  changePercent: "+1.10%",
+  isPositive: true
+};
+
+// Key statistics
+const keyStats = [
+  { icon: "📈", value: "$240B", label: "Daily Volume" },
+  { icon: "🏛️", value: "32,000T", label: "Central Bank Holdings" },
+  { icon: "⚡", value: "24/5", label: "Market Hours" },
+  { icon: "💰", value: "$100", label: "Min. to Start" }
+];
+
+// Quick start steps
+const quickStartSteps = [
+  {
+    number: "1",
+    title: "Choose Your Broker",
+    description: "Pick a regulated broker that offers gold CFDs with competitive spreads. We recommend AvaTrade or Plus500 for beginners."
+  },
+  {
+    number: "2", 
+    title: "Fund Your Account",
+    description: "Deposit as little as $100 to start. Most brokers accept cards, bank transfers, and e-wallets for instant funding."
+  },
+  {
+    number: "3",
+    title: "Place Your Trade",
+    description: "Search for 'Gold' or 'XAU/USD', choose your position size, set stop losses, and click buy or sell. That's it!"
+  }
+];
+
+// Why trade gold
+const goldDrivers = [
+  {
+    icon: "🏦",
+    title: "Central Bank Demand",
+    description: "Central banks bought 1,136 tonnes in 2022 – the highest in 55 years. When they buy, prices surge."
+  },
+  {
+    icon: "💵",
+    title: "Inverse Dollar Relationship",
+    description: "Gold typically rises when USD falls. This negative correlation creates predictable trading opportunities."
+  },
+  {
+    icon: "📊",
+    title: "Inflation Hedge",
+    description: "Gold protects against currency debasement. When inflation hits 5%+, gold historically rallies 15-20%."
+  },
+  {
+    icon: "⚠️",
+    title: "Crisis Insurance",
+    description: "Wars, pandemics, bank failures – gold thrives on chaos. It's portfolio insurance that pays you."
+  }
+];
+
+// Trading methods
+const tradingMethods = [
+  {
+    icon: "📊",
+    title: "Gold CFDs",
+    description: "Trade gold price movements without owning physical metal. Perfect for short-term trading with leverage up to 1:500.",
+    features: ["Start with just $100", "Trade long or short", "No storage costs", "Instant execution"],
+    ctaText: "Find CFD Brokers →",
+    ctaLink: "/brokers/",
+    recommended: true
+  },
+  {
+    icon: "🏦",
+    title: "Gold ETFs",
+    description: "Buy shares in funds that hold physical gold. Great for long-term investors who want gold exposure in their stock account.",
+    features: ["Backed by real gold", "Trade like stocks", "Lower fees than physical", "Easy to buy/sell"],
+    ctaText: "View ETF Brokers →",
+    ctaLink: "/brokers/",
+    recommended: false
+  },
+  {
+    icon: "🥇",
+    title: "Physical Gold",
+    description: "Buy actual gold bars or coins. Best for wealth preservation and those who want tangible assets.",
+    features: ["You own real gold", "No counterparty risk", "Private ownership", "Generational wealth"],
+    ctaText: "Learn More →",
+    ctaLink: "/guides/",
+    recommended: false
+  },
+  {
+    icon: "📈",
+    title: "Gold Futures",
+    description: "Trade standardized contracts on CME. For experienced traders who want maximum leverage and liquidity.",
+    features: ["Massive liquidity", "True price discovery", "Tax advantages", "Professional tools"],
+    ctaText: "Futures Brokers →",
+    ctaLink: "/brokers/",
+    recommended: false
+  }
+];
+
+// Featured brokers
+const featuredBrokers = [
+  {
+    name: "AvaTrade",
+    logo: "/images/brokers/avatrade-logo.svg",
+    rating: "4.5",
+    stars: "★★★★★",
+    features: [
+      "Spreads from 0.34 pips",
+      "AvaProtect™ trade insurance",
+      "$100 minimum deposit",
+      "Free gold trading signals",
+      "MT4, MT5 & proprietary platform"
+    ],
+    ctaText: "Trade with AvaTrade →",
+    ctaLink: "/brokers/avatrade/",
+    reviewLink: "/brokers/avatrade/",
+    featured: true
+  },
+  {
+    name: "Plus500",
+    logo: "/images/brokers/plus500-logo.svg",
+    rating: "4.3",
+    stars: "★★★★☆",
+    features: [
+      "Tight fixed spreads",
+      "No commissions", 
+      "Guaranteed stop losses",
+      "80% of retail CFD accounts lose money",
+      "User-friendly platform"
+    ],
+    ctaText: "Start with Plus500 →",
+    ctaLink: "/brokers/plus500/",
+    reviewLink: "/brokers/plus500/review/",
+    featured: false
+  },
+  {
+    name: "eToro",
+    logo: "/images/brokers/etoro-logo.svg",
+    rating: "4.2",
+    stars: "★★★★☆",
+    features: [
+      "Copy expert gold traders",
+      "Social trading features",
+      "$50 minimum deposit",
+      "Commission-free",
+      "Mobile-first platform"
+    ],
+    ctaText: "Join eToro →",
+    ctaLink: "/brokers/etoro/",
+    reviewLink: "/brokers/etoro/review/",
+    featured: false
+  }
+];
+
+// Key support and resistance levels
+const keyLevels = [
+  { level: "$2,000", type: "Major psychological resistance" },
+  { level: "$1,900", type: "Strong support zone" },
+  { level: "$1,800", type: "200-day moving average area" },
+  { level: "$1,700", type: "Last line of defense in corrections" }
+];
+
+// Trading strategies
+const tradingStrategies = [
+  {
+    title: "The London Fix Fade",
+    description: "Gold prices often spike during the London PM fix (3:00 PM UK time), then reverse. Trade the fade for quick profits.",
+    steps: [
+      "Wait for 3:00 PM London time",
+      "If gold spikes 0.5%+ in 5 minutes, prepare to short",
+      "Enter when momentum stalls (1-min chart)",
+      "Target: 50% retracement of the spike",
+      "Stop: Above the spike high"
+    ],
+    winRate: "65-70%"
+  },
+  {
+    title: "NFP Gold Rush",
+    description: "Non-Farm Payrolls (first Friday each month) creates massive gold volatility. Trade the initial fake-out.",
+    steps: [
+      "Wait for NFP release at 8:30 AM ET",
+      "Gold often spikes one way, then reverses hard",
+      "Enter on the reversal with tight stops",
+      "Ride the 'real' move for 2-3 hours"
+    ],
+    winRate: "60-65%"
+  },
+  {
+    title: "Asian Session Range Trade",
+    description: "Gold trading slows during Asian hours (7 PM - 2 AM ET), creating reliable ranges to trade.",
+    steps: [
+      "Identify the Asia session high/low",
+      "Buy support, sell resistance",
+      "Take profits at mid-range",
+      "Works best in quiet markets"
+    ],
+    winRate: "70%"
+  }
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "How much money do I need to start trading gold?",
+    answer: "You can start with as little as $100 at most CFD brokers. However, we recommend starting with $500-1,000 for proper risk management. This allows you to trade micro lots with 2% risk per trade."
+  },
+  {
+    question: "What's the best time to trade gold?",
+    answer: "Gold trades 24/5, but the best liquidity is during London (3 AM - 12 PM ET) and New York (8 AM - 5 PM ET) sessions. Major moves often happen at market opens and during news releases."
+  },
+  {
+    question: "Should I trade gold CFDs or futures?",
+    answer: "CFDs are better for beginners - lower capital requirements, no expiry dates, and smaller position sizes. Futures are for professionals who need the deepest liquidity and lowest costs."
+  },
+  {
+    question: "What leverage should I use for gold?",
+    answer: "Start with 1:10 or lower. Gold can move 1-2% daily, so high leverage is dangerous. Professional traders rarely use more than 1:20 even with stop losses."
+  }
+];
+
+// Anchor menu items
+const anchorMenuItems = [
+  { text: "Quick Start", href: "#quick-start" },
+  { text: "Why Gold", href: "#why-gold" },
+  { text: "Methods", href: "#methods" },
+  { text: "Brokers", href: "#brokers" },
+  { text: "Fundamentals", href: "#fundamentals" },
+  { text: "Analysis", href: "#analysis" },
+  { text: "Strategies", href: "#strategies" },
+  { text: "FAQs", href: "#faqs" }
+];
+---
+
+<BaseLayout 
+  title="How to Trade Gold in 2026: Complete Trading Guide | TradeTheDay"
+  description="Master gold trading with our comprehensive 2026 guide. Learn strategies, fundamentals, technical analysis, and find the best brokers for trading gold CFDs."
+>
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Trade', href: '/trade/' },
+    { text: 'Gold Trading', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-icon">🥇</span>
+          #1 COMMODITY TO TRADE
+        </div>
+        <h1 class="hero-title">How to Trade Gold in 2026</h1>
+        <p class="hero-description">
+          Master the world's most traded precious metal with our comprehensive guide. From $100 minimum deposits to advanced strategies used by professionals.
+        </p>
+        
+        <!-- Live Gold Price Widget -->
+        <div class="gold-price-widget">
+          <div class="price-label">Live Gold Price (XAU/USD)</div>
+          <div class="price-value">{goldPrice.current}</div>
+          <div class={`price-change ${goldPrice.isPositive ? 'positive' : 'negative'}`}>
+            {goldPrice.change} ({goldPrice.changePercent})
+          </div>
+        </div>
+        
+        <!-- Key Stats -->
+        <div class="stats-grid">
+          {keyStats.map((stat) => (
+            <div class="stat-card">
+              <div class="stat-icon">{stat.icon}</div>
+              <span class="stat-value">{stat.value}</span>
+              <span class="stat-label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANCHOR NAVIGATION -->
+  <nav class="anchor-nav" id="anchorNav">
+    <div class="container">
+      <div class="anchor-links">
+        {anchorMenuItems.map((item) => (
+          <a href={item.href} class="anchor-link">{item.text}</a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- QUICK START SECTION -->
+  <section class="section" id="quick-start">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Start Trading Gold in 3 Simple Steps</h2>
+        <p class="section-subtitle">
+          You can be trading gold within 10 minutes. Here's exactly how to get started.
+        </p>
+      </div>
+      
+      <div class="steps-grid">
+        {quickStartSteps.map((step) => (
+          <div class="step-card">
+            <div class="step-number">{step.number}</div>
+            <h3 class="step-title">{step.title}</h3>
+            <p class="step-description">{step.description}</p>
+          </div>
+        ))}
+      </div>
+      
+      <div class="section-cta">
+        <a href="/brokers/" class="cta-button primary">
+          🚀 Start Trading Gold Now →
+        </a>
+        <p class="cta-subtitle">
+          Join 500,000+ traders • Regulated brokers • Start with $100
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY TRADE GOLD -->
+  <section class="section section-alt" id="why-gold">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Why Gold Is the Perfect Trading Asset</h2>
+        <p class="section-subtitle">
+          Gold has been the foundation of wealth for 5,000 years. Here's why modern traders love it.
+        </p>
+      </div>
+      
+      <div class="content-card">
+        <h3 class="card-title">The Ultimate Safe Haven Asset</h3>
+        <p>Gold isn't just another commodity – it's the ultimate store of value. When stocks crash, currencies collapse, or uncertainty rises, gold shines. Since 1971, gold has outperformed the S&P 500 during every major crisis.</p>
+        
+        <div class="insight-box">
+          <p>💡 <strong>Key Insight:</strong> Central banks hold 32,000 tonnes of gold worth over $2 trillion. When the world's most powerful financial institutions trust gold, you know it's special.</p>
+        </div>
+        
+        <p>Unlike stocks or bonds, gold has intrinsic value. It can't go bankrupt, doesn't depend on company performance, and has maintained purchasing power for millennia. One ounce of gold bought a quality suit in ancient Rome – and still does today.</p>
+      </div>
+      
+      <div class="drivers-grid">
+        {goldDrivers.map((driver) => (
+          <div class="driver-card">
+            <div class="driver-icon">{driver.icon}</div>
+            <h4 class="driver-title">{driver.title}</h4>
+            <p class="driver-description">{driver.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADING METHODS -->
+  <section class="section" id="methods">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">4 Ways to Trade Gold</h2>
+        <p class="section-subtitle">
+          From beginner-friendly CFDs to advanced futures contracts, choose the method that fits your style.
+        </p>
+      </div>
+      
+      <div class="methods-grid">
+        {tradingMethods.map((method) => (
+          <div class={`method-card ${method.recommended ? 'recommended' : ''}`}>
+            <div class="method-icon">{method.icon}</div>
+            <h3 class="method-title">{method.title}</h3>
+            <p class="method-description">{method.description}</p>
+            <ul class="method-features">
+              {method.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            <a href={method.ctaLink} class="cta-button secondary">{method.ctaText}</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BEST BROKERS SECTION -->
+  <section class="section section-alt" id="brokers">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Best Brokers for Trading Gold in 2026</h2>
+        <p class="section-subtitle">
+          We've tested 47 brokers. These 3 offer the best combination of spreads, features, and reliability for gold trading.
+        </p>
+      </div>
+      
+      <div class="brokers-grid">
+        {featuredBrokers.map((broker) => (
+          <div class={`broker-card ${broker.featured ? 'featured' : ''}`}>
+            <img src={broker.logo} alt={broker.name} class="broker-logo">
+            <div class="broker-rating">
+              <span class="rating-score">{broker.rating}</span>
+              <span class="rating-stars">{broker.stars}</span>
+            </div>
+            <ul class="broker-features">
+              {broker.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            <a href={broker.ctaLink} class="cta-button primary">{broker.ctaText}</a>
+            <p class="broker-review-link">
+              <a href={broker.reviewLink}>Read full review</a>
+            </p>
+          </div>
+        ))}
+      </div>
+      
+      <div class="brokers-tip">
+        <p>💡 <strong>Pro Tip:</strong> Open demo accounts with all three to test which platform suits your style best</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNDAMENTALS SECTION -->
+  <section class="section" id="fundamentals">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What Moves Gold Prices?</h2>
+        <p class="section-subtitle">
+          Understanding these 4 key drivers will transform your gold trading results.
+        </p>
+      </div>
+      
+      <div class="content-card">
+        <h3 class="card-title">1. Central Bank Policy</h3>
+        <p>Central banks are the 800-pound gorillas of the gold market. When they buy, prices soar. When they sell, markets tumble. In 2022, central banks bought a record 1,136 tonnes – and gold rallied 20%.</p>
+        <p><strong>What to watch:</strong> Monthly central bank gold reserve reports, especially from China, Russia, and India. Any shift from selling to buying (or vice versa) signals major moves ahead.</p>
+      </div>
+      
+      <div class="content-card">
+        <h3 class="card-title">2. US Dollar Strength</h3>
+        <p>Gold and the dollar are locked in an inverse dance. When USD weakens, gold strengthens – and vice versa. This relationship creates predictable trading opportunities.</p>
+        <p><strong>Trading tip:</strong> Watch DXY (Dollar Index) for early signals. If DXY breaks support, gold often rallies within 24-48 hours.</p>
+      </div>
+      
+      <div class="content-card">
+        <h3 class="card-title">3. Real Interest Rates</h3>
+        <p>Gold pays no yield, so it competes with bonds. When real rates (interest minus inflation) turn negative, gold becomes attractive. The formula is simple: Negative real rates = Bullish gold.</p>
+        <div class="insight-box">
+          <p>📊 <strong>Historical Fact:</strong> Every time US real rates dropped below -2%, gold rallied at least 25% within 12 months.</p>
+        </div>
+      </div>
+      
+      <div class="content-card">
+        <h3 class="card-title">4. Geopolitical Risk</h3>
+        <p>Wars, elections, banking crises – gold loves chaos. During the 2008 crisis, gold rallied 25%. COVID-19? Up 30%. Ukraine invasion? Instant 8% spike.</p>
+        <p><strong>Key events that move gold:</strong></p>
+        <ul class="content-list">
+          <li>Military conflicts (especially Middle East)</li>
+          <li>Banking system stress</li>
+          <li>Currency crises</li>
+          <li>Major elections in G7 nations</li>
+          <li>Pandemic/health emergencies</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECHNICAL ANALYSIS -->
+  <section class="section section-alt" id="analysis">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Technical Analysis for Gold Trading</h2>
+        <p class="section-subtitle">
+          Master these chart patterns and indicators to time your gold trades like a pro.
+        </p>
+      </div>
+      
+      <div class="content-card">
+        <h3 class="card-title">Key Support & Resistance Levels</h3>
+        <p>Gold respects technical levels better than most assets. These psychological levels act as magnets:</p>
+        
+        <ul class="levels-list">
+          {keyLevels.map((level) => (
+            <li><strong>{level.level}:</strong> {level.type}</li>
+          ))}
+        </ul>
+        
+        <p><strong>Pro Strategy:</strong> Place orders just above resistance (for breakouts) or just below support (for bounces). Gold often spikes through these levels before reversing.</p>
+      </div>
+      
+      <div class="content-card">
+        <h3 class="card-title">Best Indicators for Gold</h3>
+        
+        <p><strong>1. RSI (Relative Strength Index)</strong><br />
+        Gold tends to reverse at extreme RSI readings. Below 30 = oversold bounce incoming. Above 70 = overbought correction likely.</p>
+        
+        <p><strong>2. Moving Averages</strong><br />
+        The 50-day and 200-day MAs are crucial. Golden cross (50 above 200) signals bull market. Death cross signals bear market.</p>
+        
+        <p><strong>3. Bollinger Bands</strong><br />
+        Gold often tags the upper/lower bands before reversing. Squeeze patterns (bands narrowing) precede big moves.</p>
+        
+        <div class="insight-box">
+          <p>⚡ <strong>Quick Win:</strong> Combine RSI divergence with support/resistance for 70%+ win rate setups.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADING STRATEGIES -->
+  <section class="section" id="strategies">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Proven Gold Trading Strategies</h2>
+        <p class="section-subtitle">
+          From scalping to position trading, these strategies actually work in live markets.
+        </p>
+      </div>
+      
+      {tradingStrategies.map((strategy) => (
+        <div class="content-card">
+          <h3 class="card-title">{strategy.title}</h3>
+          <p>{strategy.description}</p>
+          
+          <p><strong>Setup:</strong></p>
+          <ol class="strategy-steps">
+            {strategy.steps.map((step) => (
+              <li>{step}</li>
+            ))}
+          </ol>
+          
+          <p><strong>Win rate:</strong> {strategy.winRate} with proper execution</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- RISK WARNING -->
+  <section class="section">
+    <div class="container">
+      <div class="risk-warning">
+        <strong>⚠️ Risk Warning:</strong> CFD trading carries high risk. 68-85% of retail investor accounts lose money when trading CFDs. Gold can be volatile with daily moves of 2-3%. Never trade with money you cannot afford to lose. Start with a demo account to practice risk-free.
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="section section-alt" id="faqs">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Gold Trading FAQs</h2>
+      </div>
+      
+      <div class="faq-container">
+        {faqs.map((faq, index) => (
+          <div class="faq-item" id={`faq-${index}`}>
+            <button class="faq-question" onclick={`toggleFaq(${index})`}>
+              {faq.question}
+            </button>
+            <div class="faq-answer">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <div class="section-cta">
+        <h3 class="cta-heading">Ready to Start Trading Gold?</h3>
+        <p class="cta-text">
+          Join thousands of successful gold traders with our recommended brokers.
+        </p>
+        <a href="/brokers/avatrade/" class="cta-button primary large">
+          Start Trading with AvaTrade →
+        </a>
+        <p class="cta-features">
+          ✓ $100 minimum • ✓ Free demo account • ✓ Trade insurance available
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+
+.hero-section {
+  padding: var(--space-3xl) 0 var(--space-2xl);
+  background: linear-gradient(135deg, var(--charcoal) 0%, var(--charcoal-light) 100%);
+  color: var(--white);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(245, 158, 11, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: #f59e0b;
+  margin-bottom: var(--space-lg);
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-icon {
+  font-size: 1.2rem;
+}
+
+.hero-title {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: 1.1;
+  margin-bottom: var(--space-lg);
+  color: var(--white);
+}
+
+.hero-description {
+  font-size: var(--font-size-xl);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: var(--space-2xl);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gold-price-widget {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+  backdrop-filter: blur(10px);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.price-label {
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-sm);
+}
+
+.price-value {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--white);
+  margin-bottom: var(--space-xs);
+}
+
+.price-change {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+}
+
+.price-change.positive {
+  color: var(--success);
+}
+
+.price-change.negative {
+  color: var(--error);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-lg);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  text-align: center;
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: var(--space-xs);
+  display: block;
+}
+
+.stat-value {
+  display: block;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: #f59e0b;
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   ANCHOR NAVIGATION
+   ========================================================================== */
+
+.anchor-nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  box-shadow: var(--shadow-sm);
+}
+
+.anchor-nav.sticky {
+  box-shadow: var(--shadow-md);
+}
+
+.anchor-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  padding: var(--space-md) 0;
+  flex-wrap: wrap;
+}
+
+.anchor-link {
+  color: var(--gray-600);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  font-size: var(--font-size-sm);
+}
+
+.anchor-link:hover {
+  color: var(--brand-orange);
+  background: rgba(255, 72, 0, 0.05);
+}
+
+.anchor-link.active {
+  color: var(--brand-orange);
+  background: rgba(255, 72, 0, 0.1);
+}
+
+/* ==========================================================================
+   CONTENT SECTIONS
+   ========================================================================== */
+
+.section {
+  padding: var(--space-4xl) 0;
+}
+
+.section-alt {
+  background: var(--gray-50);
+}
+
+.section-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto var(--space-3xl);
+}
+
+.section-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.section-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+.section-cta {
+  text-align: center;
+  margin-top: var(--space-2xl);
+}
+
+.cta-subtitle {
+  color: var(--gray-600);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-sm);
+}
+
+/* ==========================================================================
+   QUICK START STEPS
+   ========================================================================== */
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-xl);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.step-card {
+  position: relative;
+  padding: var(--space-xl);
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+
+.step-number {
+  width: 48px;
+  height: 48px;
+  background: var(--gradient-primary);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 auto var(--space-lg);
+}
+
+.step-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin-bottom: var(--space-sm);
+}
+
+.step-description {
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   CONTENT CARDS
+   ========================================================================== */
+
+.content-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.card-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.content-card p {
+  color: var(--gray-700);
+  line-height: 1.7;
+  margin-bottom: var(--space-md);
+}
+
+.insight-box {
+  background: rgba(255, 72, 0, 0.05);
+  border-left: 4px solid var(--brand-orange);
+  padding: var(--space-md);
+  margin: var(--space-lg) 0;
+  border-radius: var(--radius-md);
+}
+
+.insight-box p {
+  margin: 0;
+  color: var(--charcoal);
+}
+
+.content-list {
+  margin-left: var(--space-lg);
+  color: var(--gray-700);
+}
+
+.content-list li {
+  margin-bottom: var(--space-xs);
+}
+
+/* ==========================================================================
+   DRIVERS GRID
+   ========================================================================== */
+
+.drivers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-2xl);
+}
+
+.driver-card {
+  padding: var(--space-xl);
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  transition: all var(--transition-base);
+}
+
+.driver-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.driver-icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.driver-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin-bottom: var(--space-sm);
+}
+
+.driver-description {
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   TRADING METHODS
+   ========================================================================== */
+
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.method-card {
+  position: relative;
+  padding: var(--space-xl);
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.method-card.recommended {
+  border-color: var(--brand-orange);
+  box-shadow: 0 8px 32px rgba(255, 72, 0, 0.15);
+}
+
+.method-card.recommended::before {
+  content: 'RECOMMENDED';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gradient-primary);
+  color: var(--white);
+  padding: 4px var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.5px;
+}
+
+.method-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.method-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.method-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin-bottom: var(--space-sm);
+}
+
+.method-description {
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+.method-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-lg);
+}
+
+.method-features li {
+  padding: var(--space-xs) 0;
+  padding-left: var(--space-lg);
+  position: relative;
+  color: var(--gray-700);
+}
+
+.method-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--success);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ==========================================================================
+   BROKERS SECTION
+   ========================================================================== */
+
+.brokers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.broker-card {
+  padding: var(--space-xl);
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  transition: all var(--transition-base);
+}
+
+.broker-card.featured {
+  border-color: var(--brand-orange);
+  box-shadow: 0 8px 32px rgba(255, 72, 0, 0.1);
+}
+
+.broker-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.broker-logo {
+  width: 120px;
+  height: 48px;
+  object-fit: contain;
+  margin-bottom: var(--space-md);
+}
+
+.broker-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.rating-score {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+}
+
+.rating-stars {
+  color: var(--brand-orange);
+  font-size: var(--font-size-lg);
+}
+
+.broker-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-lg);
+  text-align: left;
+}
+
+.broker-features li {
+  padding: var(--space-xs) 0;
+  padding-left: var(--space-lg);
+  position: relative;
+  color: var(--gray-700);
+  font-size: var(--font-size-sm);
+}
+
+.broker-features li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--success);
+  font-weight: var(--font-weight-bold);
+}
+
+.broker-review-link {
+  margin-top: var(--space-sm);
+  text-align: center;
+}
+
+.broker-review-link a {
+  color: var(--gray-600);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--gray-400);
+}
+
+.broker-review-link a:hover {
+  color: var(--brand-orange);
+  border-color: var(--brand-orange);
+}
+
+.brokers-tip {
+  text-align: center;
+  margin-top: var(--space-lg);
+}
+
+.brokers-tip p {
+  color: var(--gray-600);
+  font-size: var(--font-size-sm);
+}
+
+/* ==========================================================================
+   TECHNICAL ANALYSIS
+   ========================================================================== */
+
+.levels-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-lg) 0;
+}
+
+.levels-list li {
+  padding: var(--space-sm) var(--space-md);
+  background: var(--gray-50);
+  border-left: 4px solid var(--brand-orange);
+  margin-bottom: var(--space-sm);
+  border-radius: var(--radius-sm);
+  color: var(--gray-700);
+}
+
+/* ==========================================================================
+   TRADING STRATEGIES
+   ========================================================================== */
+
+.strategy-steps {
+  margin: var(--space-md) 0 var(--space-md) var(--space-xl);
+  color: var(--gray-700);
+}
+
+.strategy-steps li {
+  margin-bottom: var(--space-xs);
+}
+
+/* ==========================================================================
+   RISK WARNING
+   ========================================================================== */
+
+.risk-warning {
+  background: rgba(239, 68, 68, 0.05);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+.risk-warning strong {
+  color: var(--error);
+}
+
+/* ==========================================================================
+   FAQS
+   ========================================================================== */
+
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-heading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.cta-text {
+  color: var(--gray-600);
+  margin-bottom: var(--space-lg);
+}
+
+.cta-features {
+  color: var(--gray-600);
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-sm);
+}
+
+/* ==========================================================================
+   CTA BUTTONS
+   ========================================================================== */
+
+.cta-button {
+  display: inline-block;
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  font-weight: var(--font-weight-semibold);
+  transition: all var(--transition-base);
+  text-align: center;
+}
+
+.cta-button.primary {
+  background: var(--gradient-primary);
+  color: var(--white);
+}
+
+.cta-button.secondary {
+  background: var(--white);
+  color: var(--brand-orange);
+  border: 2px solid var(--brand-orange);
+}
+
+.cta-button.large {
+  padding: var(--space-lg) var(--space-2xl);
+  font-size: var(--font-size-lg);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: var(--space-2xl) 0 var(--space-xl);
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+  
+  .anchor-links {
+    gap: var(--space-sm);
+    padding: var(--space-sm) 0;
+  }
+  
+  .anchor-link {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-xs);
+  }
+  
+  .steps-grid,
+  .drivers-grid,
+  .methods-grid,
+  .brokers-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .gold-price-widget {
+    padding: var(--space-md);
+  }
+  
+  .price-value {
+    font-size: var(--font-size-2xl);
+  }
+}
+</style>
+
+<script>
+  // Sticky Anchor Navigation
+  document.addEventListener('DOMContentLoaded', function() {
+    const anchorNav = document.getElementById('anchorNav');
+    const anchorLinks = document.querySelectorAll('.anchor-link');
+    const sections = document.querySelectorAll('h2[id]');
+    
+    let isScrolling = false;
+    const anchorNavOffset = anchorNav?.offsetTop || 0;
+    
+    function handleScroll() {
+      if (isScrolling || !anchorNav) return;
+      
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (scrollTop >= anchorNavOffset) {
+        anchorNav.classList.add('sticky');
+      } else {
+        anchorNav.classList.remove('sticky');
+      }
+      
+      let current = '';
+      const offset = anchorNav.classList.contains('sticky') ? 100 : 200;
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - offset;
+        if (scrollTop >= sectionTop) {
+          current = section.getAttribute('id') || '';
+        }
+      });
+      
+      anchorLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    }
+    
+    anchorLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        isScrolling = true;
+        
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId || '');
+        
+        if (targetSection) {
+          const offsetTop = targetSection.offsetTop - 80;
+          
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+          
+          setTimeout(() => {
+            isScrolling = false;
+          }, 1000);
+        }
+      });
+    });
+    
+    let ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(handleScroll);
+        ticking = true;
+        setTimeout(() => { ticking = false; }, 10);
+      }
+    });
+    
+    handleScroll();
+  });
+
+  // FAQ Toggle functionality
+  window.toggleFaq = function(index) {
+    const faqItem = document.getElementById(`faq-${index}`);
+    if (faqItem) {
+      const isActive = faqItem.classList.contains('active');
+      
+      // Close all FAQ items
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      // Toggle the clicked one
+      if (!isActive) {
+        faqItem.classList.add('active');
+      }
+    }
+  };
+</script>

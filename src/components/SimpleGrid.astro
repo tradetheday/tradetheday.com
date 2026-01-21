@@ -1,0 +1,75 @@
+---
+export interface Props {
+  columns?: 2 | 3 | 4;
+  gap?: 'sm' | 'md' | 'lg';
+}
+
+const {
+  columns = 3,
+  gap = 'lg'
+} = Astro.props;
+
+const gridClasses = `grid grid-${columns}`;
+const gapClass = `gap-${gap}`;
+---
+
+<div class={`${gridClasses} ${gapClass}`}>
+  <slot />
+</div>
+
+<style>
+.grid {
+  display: grid;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.gap-sm {
+  gap: var(--grid-gap-tight);
+}
+
+.gap-md {
+  gap: var(--grid-gap-comfortable);
+}
+
+.gap-lg {
+  gap: var(--grid-gap-comfortable);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-4,
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-4,
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

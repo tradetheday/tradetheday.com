@@ -1,0 +1,222 @@
+---
+export interface Props {
+  variant?: 'default' | 'badge' | 'success' | 'warning' | 'error' | 'neutral' | 'primary';
+  size?: 'sm' | 'md' | 'lg';
+  icon?: string;
+  removable?: boolean;
+  href?: string;
+}
+
+const { 
+  variant = 'default',
+  size = 'md',
+  icon,
+  removable = false,
+  href
+} = Astro.props;
+
+const chipClasses = [
+  'chip',
+  `chip-${variant}`,
+  `chip-${size}`,
+  removable && 'chip-removable',
+  href && 'chip-clickable'
+].filter(Boolean).join(' ');
+
+const TagName = href ? 'a' : 'span';
+---
+
+<TagName 
+  class={chipClasses}
+  href={href}
+  {...(href && { role: 'button' })}
+>
+  {icon && <span class="chip-icon">{icon}</span>}
+  <span class="chip-text">
+    <slot />
+  </span>
+  {removable && (
+    <button class="chip-remove" aria-label="Remove">
+      <span class="chip-remove-icon">×</span>
+    </button>
+  )}
+</TagName>
+
+<style>
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-lg, 0.75rem);
+  font-weight: var(--font-weight-semibold, 600);
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+/* Size variants */
+.chip-sm {
+  padding: 0.25rem 0.75rem;
+  font-size: var(--font-size-xs, 0.75rem);
+}
+
+.chip-md {
+  padding: 0.375rem 0.875rem;
+  font-size: 0.8125rem;
+}
+
+.chip-lg {
+  padding: 0.75rem 1.25rem;
+  font-size: var(--font-size-base, 1rem);
+}
+
+/* Color variants */
+.chip-default {
+  background: rgba(255, 72, 0, 0.15);
+  color: var(--brand-orange, #ff4800);
+  border-color: rgba(255, 72, 0, 0.3);
+}
+
+.chip-badge {
+  background: rgba(255, 72, 0, 0.15);
+  color: var(--brand-orange-light, #ff5c1a);
+  border: 1px solid rgba(255, 72, 0, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.chip-primary {
+  background: var(--brand-orange, #ff4800);
+  color: white;
+  border-color: var(--brand-orange, #ff4800);
+}
+
+.chip-success {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--success, #10b981);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.chip-warning {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--warning, #f59e0b);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.chip-error {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--error, #ef4444);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.chip-neutral {
+  background: var(--gray-100, #f3f4f6);
+  color: var(--gray-600, #4b5563);
+  border-color: var(--gray-300, #d1d5db);
+}
+
+/* Interactive states */
+.chip-clickable {
+  cursor: pointer;
+}
+
+.chip-clickable:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.chip-default.chip-clickable:hover,
+.chip-badge.chip-clickable:hover {
+  background: rgba(255, 72, 0, 0.25);
+}
+
+.chip-primary.chip-clickable:hover {
+  background: var(--brand-orange-dark, #e63e00);
+}
+
+.chip-success.chip-clickable:hover {
+  background: rgba(16, 185, 129, 0.25);
+}
+
+.chip-warning.chip-clickable:hover {
+  background: rgba(245, 158, 11, 0.25);
+}
+
+.chip-error.chip-clickable:hover {
+  background: rgba(239, 68, 68, 0.25);
+}
+
+.chip-neutral.chip-clickable:hover {
+  background: var(--gray-200, #e5e7eb);
+}
+
+/* Icon styles */
+.chip-icon {
+  font-size: 0.875em;
+  line-height: 1;
+}
+
+/* Remove button styles */
+.chip-removable {
+  padding-right: 0.5rem;
+}
+
+.chip-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.25rem;
+  transition: background 0.2s ease;
+}
+
+.chip-remove:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.chip-remove-icon {
+  font-size: 1rem;
+  line-height: 1;
+  font-weight: 700;
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .chip-lg {
+    padding: 0.5rem 1rem;
+    font-size: var(--font-size-sm, 0.875rem);
+  }
+}
+</style>
+
+<script>
+// Handle removable chips
+document.addEventListener('DOMContentLoaded', function() {
+  const removeButtons = document.querySelectorAll('.chip-remove');
+  
+  removeButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const chip = this.closest('.chip');
+      if (chip) {
+        // Add fade out animation
+        chip.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+        chip.style.opacity = '0';
+        chip.style.transform = 'scale(0.9)';
+        
+        // Remove after animation
+        setTimeout(() => {
+          chip.remove();
+        }, 200);
+      }
+    });
+  });
+});
+</script>

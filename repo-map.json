@@ -1,0 +1,213 @@
+{
+  "project": {
+    "name": "TradeTheDay Astro",
+    "description": "Trading education and broker review website built with Astro",
+    "framework": "Astro",
+    "type": "static-site",
+    "language": "TypeScript/JavaScript",
+    "buildTool": "Astro",
+    "version": "1.0.0"
+  },
+  
+  "architecture": {
+    "framework": "Astro",
+    "styling": "External CSS with design system tokens",
+    "components": "Astro components with TypeScript props",
+    "layouts": "BaseLayout.astro with slot system",
+    "routing": "File-based routing",
+    "assets": "Static assets in /public",
+    "scripts": "External JavaScript files in /public/js or /scripts"
+  },
+
+  "strictRules": {
+    "css": {
+      "policy": "ZERO TOLERANCE - NO INLINE STYLES",
+      "enforcement": "ALL styles MUST be in external CSS files",
+      "structure": "Modular CSS architecture with design system tokens",
+      "files": "/src/styles/ directory with organized structure",
+      "imports": "Use Astro CSS import syntax: import './styles/file.css'",
+      "violations": "Any inline style= attribute is FORBIDDEN",
+      "exceptions": "Only dynamic JavaScript-calculated values allowed inline"
+    },
+    "javascript": {
+      "policy": "EXTERNAL FILES ONLY - NO INLINE SCRIPTS", 
+      "enforcement": "ALL JavaScript MUST be in external files",
+      "location": "/public/js/ or /scripts/ directories",
+      "imports": "Use <script src='/js/file.js' is:inline></script>",
+      "violations": "Any <script> tag with inline code is FORBIDDEN",
+      "exceptions": "Only JSON-LD structured data allowed inline"
+    },
+    "html": {
+      "policy": "SEMANTIC MARKUP WITH DESIGN SYSTEM CLASSES",
+      "enforcement": "Use standardized class names from design system",
+      "structure": "Consistent component structure and naming",
+      "accessibility": "ARIA attributes and semantic elements required"
+    }
+  },
+
+  "designSystem": {
+    "philosophy": "Consistent, professional, performance-optimized",
+    "reference": "/src/pages/brokers/avatrade-review/index.astro - GOLD STANDARD",
+    "typography": {
+      "headings": {
+        "h1": "heading-1 class",
+        "h2": "heading-2 class", 
+        "h3": "heading-3 class",
+        "h4": "heading-4 class",
+        "h5": "heading-5 class"
+      },
+      "body": {
+        "large": "body-large class",
+        "default": "body class",
+        "small": "body-sm class"
+      }
+    },
+    "layout": {
+      "sections": "section class with section-light, section-dark, section-hero variants",
+      "containers": "container class for max-width and centering",
+      "spacing": "text-center, mb-lg, mt-xl, etc. utility classes"
+    },
+    "buttons": {
+      "primary": "btn btn-primary",
+      "secondary": "btn btn-secondary", 
+      "sizes": "btn-sm, btn-md, btn-lg, btn-xl",
+      "variants": "btn-hero for hero CTAs"
+    },
+    "components": {
+      "cards": "Use Card.astro component with standardized props",
+      "grids": "Use CardGrid.astro for consistent layouts", 
+      "forms": "Standardized form components with validation",
+      "navigation": "Navigation.astro with consistent styling",
+      "chips": "ALWAYS use Chip component with variant='badge' size='sm' for consistent styling"
+    }
+  },
+
+  "fileStructure": {
+    "pages": "/src/pages/ - File-based routing structure",
+    "layouts": "/src/layouts/ - BaseLayout.astro and page layouts",
+    "components": "/src/components/ - Reusable Astro components",
+    "styles": {
+      "base": "/src/styles/base/ - CSS reset, variables, globals",
+      "components": "/src/styles/components/ - Component-specific styles",
+      "pages": "/src/styles/pages/ - Page-specific styles",
+      "utilities": "/src/styles/utilities/ - Utility classes"
+    },
+    "assets": "/public/ - Static assets (images, fonts, etc.)",
+    "scripts": "/public/js/ - External JavaScript files"
+  },
+
+  "componentLibrary": {
+    "required": "Import all necessary components in frontmatter",
+    "standardComponents": {
+      "BaseLayout": "Main layout wrapper",
+      "Navigation": "Page navigation menus",
+      "Breadcrumb": "Breadcrumb navigation", 
+      "Hero": "Hero sections with scorecard support",
+      "Card": "Content cards with variants",
+      "CardGrid": "Card container with responsive columns",
+      "Scorecard": "Metric display component",
+      "ComparisonTable": "Data comparison tables",
+      "FeatureHighlights": "Feature grid displays",
+      "FAQ": "Expandable FAQ sections",
+      "Chip": "Small status/category indicators - MUST use variant='badge' size='sm'",
+      "ProsCons": "Pros and cons lists",
+      "AnalystNotes": "Editorial content blocks"
+    },
+    "props": "Use TypeScript interfaces for component props",
+    "variants": "Support light/dark/hero section variants"
+  },
+
+  "performanceOptimization": {
+    "css": "External files enable browser caching and parallel loading",
+    "js": "Defer non-critical JavaScript with is:inline directive", 
+    "images": "Optimize images, use loading='lazy'",
+    "fonts": "Preload critical fonts",
+    "chunking": "Modular CSS/JS for efficient loading"
+  },
+
+  "developmentWorkflow": {
+    "newPages": [
+      "1. Create .astro file in appropriate /src/pages/ directory",
+      "2. Import required external CSS file first", 
+      "3. Import necessary components from component library",
+      "4. Use standardized design system classes",
+      "5. Follow reference page structure pattern",
+      "6. Add external JavaScript if needed",
+      "7. Test responsive behavior and performance"
+    ],
+    "cssModification": [
+      "1. NEVER add inline styles to any element",
+      "2. Create or modify external CSS files in /src/styles/",
+      "3. Use CSS custom properties for consistency",
+      "4. Follow BEM methodology for class naming",
+      "5. Ensure responsive design with mobile-first approach"
+    ],
+    "componentUsage": [
+      "1. Always check existing components before creating new ones",
+      "2. Use component props for data passing",
+      "3. Follow component variant patterns (light/dark/hero)",
+      "4. Maintain consistent spacing and typography"
+    ]
+  },
+
+  "codestandards": {
+    "formatting": "Consistent indentation and spacing",
+    "imports": "Organize imports: CSS first, then components, then utilities",
+    "naming": "Use kebab-case for CSS classes, PascalCase for components",
+    "comments": "Document complex logic and component usage",
+    "seo": "Include proper meta tags and structured data"
+  },
+
+  "qualityAssurance": {
+    "beforeCommit": [
+      "1. Run development server and test all pages",
+      "2. Verify zero inline styles across all files", 
+      "3. Check responsive design on mobile/tablet/desktop",
+      "4. Validate HTML semantics and accessibility",
+      "5. Test JavaScript functionality",
+      "6. Verify performance and loading speed"
+    ],
+    "testing": "Manual testing required for all changes",
+    "validation": "HTML validation and accessibility checking"
+  },
+
+  "commonPatterns": {
+    "pageStructure": "Hero → Breadcrumb → Navigation → Content Sections → CTA",
+    "sectionVariants": "section, section-light, section-dark, section-hero",
+    "responsiveDesign": "Mobile-first with progressive enhancement",
+    "typography": "Consistent heading hierarchy with design system classes",
+    "spacing": "Use design system spacing utilities consistently"
+  },
+
+  "troubleshooting": {
+    "stylingIssues": "Check external CSS import and file structure",
+    "componentErrors": "Verify component imports and prop interfaces",
+    "buildFailures": "Check for inline styles or invalid HTML structure",
+    "performanceIssues": "Review CSS/JS file organization and loading"
+  },
+
+  "references": {
+    "styleGuide": "/STYLE-GUIDE.md - Complete CSS architecture policy",
+    "goldStandard": "/src/pages/brokers/avatrade-review/index.astro",
+    "componentExamples": "/src/pages/components-showcase.astro",
+    "designSystem": "/src/styles/ directory structure"
+  },
+
+  "chipStandardization": {
+    "enforcement": "ZERO TOLERANCE - ALL CHIPS MUST USE STANDARDIZED FORMAT",
+    "mandatoryFormat": "variant='badge' size='sm' - NO EXCEPTIONS",
+    "prohibitedUsages": ["custom .hero-badge classes", "variant='primary'", "size='lg'", "custom chip styling"],
+    "allowedPattern": "<Chip variant=\"badge\" size=\"sm\">🎯 Content</Chip>",
+    "referencePages": ["/brokers/avatrade-review/", "/bonus-codes/avatrade-partner-code/", "/bonus-codes/"],
+    "cssRule": "Only use minimal spacing CSS like .hero-content .chip { margin-bottom: var(--space-lg); }"
+  },
+
+  "aiInstructions": {
+    "primaryRule": "NEVER CREATE INLINE STYLES - ALWAYS USE EXTERNAL CSS",
+    "chipRule": "ALWAYS use Chip component with variant='badge' size='sm' format",
+    "approach": "Follow the gold standard reference page for all styling decisions",
+    "workflow": "Analyze existing patterns before creating new components",
+    "consistency": "Maintain uniform typography, spacing, and component usage",
+    "performance": "Prioritize external CSS/JS for optimal loading and caching"
+  }
+}

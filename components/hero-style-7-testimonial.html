@@ -1,0 +1,223 @@
+<!-- Hero Style 7: Testimonial Hero -->
+<!-- Copy this entire section to use the testimonial hero style -->
+<section class="hero-testimonial section">
+    <div class="container">
+        <div class="hero-testimonial-content">
+            <div class="testimonial-main">
+                <div class="testimonial-quote">
+                    <span class="quote-mark">"</span>
+                    <blockquote class="heading-2">AvaTrade transformed my trading experience. The platform is intuitive, costs are transparent, and their educational resources helped me become profitable within months.</blockquote>
+                </div>
+                
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <div class="avatar-placeholder">JD</div>
+                    </div>
+                    <div class="author-info">
+                        <div class="author-name">James Davidson</div>
+                        <div class="author-title">Professional Trader • 3 Years with AvaTrade</div>
+                        <div class="author-rating">
+                            <span class="stars">★★★★★</span>
+                            <span>Verified Review</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-stats">
+                    <div class="testimonial-stat">
+                        <div class="stat-number">89%</div>
+                        <div class="stat-text">Client Satisfaction</div>
+                    </div>
+                    <div class="testimonial-stat">
+                        <div class="stat-number">4.5/5</div>
+                        <div class="stat-text">Average Rating</div>
+                    </div>
+                    <div class="testimonial-stat">
+                        <div class="stat-number">15+ Years</div>
+                        <div class="stat-text">In Business</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-cta">
+                <h3 class="heading-3">Ready to Start Your Success Story?</h3>
+                <a href="#" class="btn btn-primary btn-lg">Open Free Account</a>
+                <a href="#" class="btn btn-secondary btn-lg">Read More Reviews</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Hero Style 7: Testimonial */
+.hero-testimonial {
+    background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+    padding: var(--space-4xl) 0;
+}
+
+.hero-testimonial-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.testimonial-main {
+    background: var(--white);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--gray-200);
+    margin-bottom: var(--space-xl);
+}
+
+.testimonial-quote {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    position: relative;
+}
+
+.quote-mark {
+    font-size: 8rem;
+    color: rgba(255, 72, 0, 0.1);
+    position: absolute;
+    top: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: serif;
+    line-height: 1;
+}
+
+.testimonial-quote blockquote {
+    font-style: italic;
+    color: var(--charcoal);
+    position: relative;
+    z-index: 1;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.author-avatar {
+    flex-shrink: 0;
+}
+
+.avatar-placeholder {
+    width: 80px;
+    height: 80px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.author-name {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--charcoal);
+}
+
+.author-title {
+    color: var(--gray-600);
+    margin: var(--space-xs) 0;
+}
+
+.author-rating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    color: var(--success);
+    font-size: var(--font-size-sm);
+}
+
+.testimonial-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--gray-200);
+}
+
+.testimonial-stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+}
+
+.stat-text {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+    margin-top: var(--space-xs);
+}
+
+.testimonial-cta {
+    text-align: center;
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gray-200);
+}
+
+.testimonial-cta h3 {
+    margin-bottom: var(--space-lg);
+}
+
+.testimonial-cta .btn {
+    margin: 0 var(--space-sm);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .testimonial-author {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .testimonial-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .testimonial-cta .btn {
+        display: block;
+        margin: var(--space-sm) 0;
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Great for building trust and credibility with social proof
+2. Features customer testimonial with author details and company stats
+3. Replace testimonial quote with actual customer feedback
+4. Update author information (name, title, avatar initials)
+5. Modify company statistics to match your data
+6. Customize both CTA buttons and links
+
+Customization Options:
+- Update testimonial: Replace quote with real customer feedback
+- Change author: Update name, title, and avatar initials
+- Replace avatar: Use actual photo instead of initials placeholder
+- Modify stats: Update the 3 statistics with relevant company data
+- Add more stats: Copy testimonial-stat structure
+- Update CTAs: Customize both button texts and links
+- Change verification: Update "Verified Review" to match your verification system
+- Add company logo: Include client's company logo next to author info
+
+Author Avatar Options:
+- Use initials (current): Update avatar-placeholder text
+- Use photo: Replace avatar-placeholder with <img> tag
+- Use icon: Replace with user icon from icon library
+
+Required CSS: design-system.css + embedded styles above
+-->

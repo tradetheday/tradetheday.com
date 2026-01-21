@@ -1,0 +1,448 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import TrustBadges from '../../components/TrustBadges.astro';
+import '../../styles/hero-components.css';
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Tools', current: true }
+];
+
+const tools = [
+  {
+    title: "Broker Cost Calculator",
+    description: "Find the cheapest broker for YOUR trading style. Compare real costs across top brokers based on your volume and preferred pairs.",
+    icon: "🧮",
+    link: "/tools/broker-calculator/",
+    badge: "POPULAR",
+    features: ["5 Top Brokers", "Real Spread Data", "Personalized Results"]
+  },
+  {
+    title: "Position Size Calculator",
+    description: "Calculate the perfect position size to manage risk. Never risk more than you should on any single trade.",
+    icon: "📐",
+    link: "/tools/position-calculator/",
+    badge: "ESSENTIAL",
+    features: ["Risk Management", "Stop Loss Calc", "All Pairs"]
+  },
+  {
+    title: "Profit/Loss Calculator",
+    description: "Calculate potential profits and losses before you trade. Know your reward-to-risk ratio instantly.",
+    icon: "💰",
+    link: "/tools/profit-calculator/",
+    badge: "NEW",
+    features: ["P&L Preview", "R:R Ratio", "Pip Calculator"]
+  }
+];
+
+const pageTitle = "Free Trading Tools & Calculators | TradeTheDay";
+const pageDescription = "Free trading calculators to help you trade smarter. Position size calculator, broker cost comparison, profit/loss calculator and more.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero -->
+  <section class="hero hero-standard">
+    <div class="container">
+      <div class="hero-social-proof">
+        <span class="social-proof-badge">
+          <span class="social-proof-dot"></span>
+          12,000+ calculations this month
+        </span>
+      </div>
+      <h1 class="heading-1">Free Trading Tools</h1>
+      <p class="body-large">
+        Professional-grade calculators to help you trade smarter, manage risk better, and choose the right broker.
+      </p>
+      <div class="hero-trust-row">
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          No Sign-up Required
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Instant Results
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          100% Free
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <TrustBadges variant="light" compact={true} />
+
+  <!-- Tools Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="tools-grid">
+        {tools.map(tool => (
+          <a href={tool.link} class="tool-card">
+            {tool.badge && <span class="tool-badge">{tool.badge}</span>}
+            <div class="tool-icon">{tool.icon}</div>
+            <h2 class="tool-title">{tool.title}</h2>
+            <p class="tool-description">{tool.description}</p>
+            <div class="tool-features">
+              {tool.features.map(feature => (
+                <span class="tool-feature">{feature}</span>
+              ))}
+            </div>
+            <span class="tool-cta">
+              Use Calculator <span class="arrow">→</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Use Our Tools -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Why Traders Trust Our Tools</h2>
+        <p class="body-large">Built by traders, for traders</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3>Instant Results</h3>
+          <p>No sign-up required. Get your calculations in milliseconds, not minutes.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>Accuracy First</h3>
+          <p>Built using real broker data and industry-standard formulas.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <h3>Works Everywhere</h3>
+          <p>Use on desktop, tablet, or mobile. Your trading companion on any device.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>100% Free</h3>
+          <p>No hidden fees, no premium tiers. Professional tools for everyone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Resources -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Related Resources</h2>
+        <p class="body-large">Explore more to improve your trading</p>
+      </div>
+      <div class="related-grid">
+        <a href="/brokers/" class="related-card">
+          <div class="related-icon">🏦</div>
+          <h3>Broker Reviews</h3>
+          <p>In-depth analysis of top regulated brokers with real fee comparisons</p>
+          <span class="related-link-text">Compare Brokers →</span>
+        </a>
+        <a href="/guides/" class="related-card">
+          <div class="related-icon">📚</div>
+          <h3>Trading Guides</h3>
+          <p>Free educational content from basics to advanced strategies</p>
+          <span class="related-link-text">View Guides →</span>
+        </a>
+        <a href="/bonus-codes/" class="related-card">
+          <div class="related-icon">🎁</div>
+          <h3>Bonus Codes</h3>
+          <p>Exclusive partner codes for welcome bonuses up to $10,000</p>
+          <span class="related-link-text">Get Bonuses →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-dark">
+    <div class="container text-center">
+      <h2 class="heading-2" style="color: var(--white);">Need Help Choosing a Broker?</h2>
+      <p class="body-large" style="color: rgba(255,255,255,0.8); margin-bottom: var(--space-xl);">
+        Our AI matches you with the perfect broker based on your trading style and preferences.
+      </p>
+      <a href="/find-broker/" class="btn btn-primary btn-xl">Find My Perfect Broker → Free</a>
+    </div>
+  </section>
+
+  <style>
+    /* === TOOLS GRID === */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+
+    @media (max-width: 968px) {
+      .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* === TOOL CARDS === */
+    .tool-card {
+      position: relative;
+      background: var(--white);
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      box-shadow:
+        0 2px 4px rgba(0, 0, 0, 0.02),
+        0 8px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    .tool-card:hover {
+      border-color: var(--brand-orange);
+      transform: translateY(-6px);
+      box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.04),
+        0 16px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    .tool-badge {
+      position: absolute;
+      top: var(--space-md);
+      right: var(--space-md);
+      background: var(--brand-orange);
+      color: var(--white);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(255, 72, 0, 0.3);
+    }
+
+    .tool-icon {
+      width: 72px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      background: linear-gradient(135deg, rgba(255, 72, 0, 0.15) 0%, rgba(255, 72, 0, 0.05) 100%);
+      border: 1px solid rgba(255, 72, 0, 0.2);
+      border-radius: var(--radius-xl);
+      margin-bottom: var(--space-lg);
+      transition: all 0.3s ease;
+    }
+
+    .tool-card:hover .tool-icon {
+      background: linear-gradient(135deg, rgba(255, 72, 0, 0.18) 0%, rgba(255, 72, 0, 0.08) 100%);
+    }
+
+    .tool-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--charcoal);
+      margin-bottom: var(--space-xs);
+    }
+
+    .tool-description {
+      color: var(--gray-600);
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+      margin-bottom: var(--space-md);
+      flex-grow: 1;
+    }
+
+    .tool-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+      margin-bottom: var(--space-lg);
+    }
+
+    .tool-feature {
+      background: var(--gray-100);
+      color: var(--gray-700);
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .tool-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--charcoal);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: var(--radius-lg);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-sm);
+      margin-top: auto;
+      transition: all 0.3s ease;
+    }
+
+    .tool-card:hover .tool-cta {
+      background: var(--charcoal-light);
+    }
+
+    .tool-cta .arrow {
+      transition: transform 0.3s;
+    }
+
+    .tool-card:hover .tool-cta .arrow {
+      transform: translateX(4px);
+    }
+
+    /* === SECTION HEADER === */
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .section-header h2 {
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-header p {
+      color: var(--gray-600);
+    }
+
+    /* === WHY GRID === */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+    }
+
+    @media (max-width: 968px) {
+      .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .why-card {
+      text-align: center;
+      padding: var(--space-lg);
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-xl);
+      transition: all 0.3s ease;
+    }
+
+    .why-card:hover {
+      border-color: var(--brand-orange);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .why-icon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 72, 0, 0.1);
+      color: var(--brand-orange);
+      border-radius: 50%;
+      margin: 0 auto var(--space-md);
+    }
+
+    .why-card h3 {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
+      color: var(--charcoal);
+      margin-bottom: var(--space-xs);
+    }
+
+    .why-card p {
+      color: var(--gray-600);
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+    }
+
+    /* === RELATED GRID === */
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+
+    @media (max-width: 768px) {
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .related-card {
+      display: block;
+      padding: var(--space-xl);
+      background: var(--gray-50);
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-xl);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .related-card:hover {
+      border-color: var(--brand-orange);
+      background: var(--white);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .related-icon {
+      font-size: 2.5rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .related-card h3 {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-bold);
+      color: var(--charcoal);
+      margin-bottom: var(--space-xs);
+    }
+
+    .related-card p {
+      color: var(--gray-600);
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+      margin-bottom: var(--space-md);
+    }
+
+    .related-link-text {
+      color: var(--brand-orange);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-sm);
+    }
+  </style>
+</BaseLayout>

@@ -1,0 +1,181 @@
+<!-- Hero Style 8: Step-by-Step Hero -->
+<!-- Copy this entire section to use the step-by-step hero style -->
+<section class="hero-steps section section-alt">
+    <div class="container">
+        <div class="text-center">
+            <span class="chip">Get Started Guide</span>
+            <h1 class="heading-1">Start Trading with AvaTrade in 3 Simple Steps</h1>
+            <p class="body-large">From account opening to your first trade – we'll guide you through the entire process.</p>
+        </div>
+        
+        <div class="hero-steps-grid">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3 class="heading-3">Create Account</h3>
+                    <p class="body">Sign up in minutes with just your email and basic information. No hidden fees or commitments.</p>
+                    <ul class="step-features">
+                        <li>✓ 5-minute setup</li>
+                        <li>✓ Instant verification</li>
+                        <li>✓ Free demo account</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step-arrow">→</div>
+            
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3 class="heading-3">Fund Your Account</h3>
+                    <p class="body">Deposit with credit card, bank transfer, or e-wallet. Minimum deposit starts at just $100.</p>
+                    <ul class="step-features">
+                        <li>✓ Multiple payment methods</li>
+                        <li>✓ Instant deposits</li>
+                        <li>✓ Secure transactions</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="step-arrow">→</div>
+            
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3 class="heading-3">Start Trading</h3>
+                    <p class="body">Access 200+ instruments across forex, stocks, commodities, and cryptocurrencies.</p>
+                    <ul class="step-features">
+                        <li>✓ Professional platforms</li>
+                        <li>✓ Real-time data</li>
+                        <li>✓ 24/5 support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center hero-steps-cta">
+            <a href="#" class="btn btn-primary btn-xl">Begin Step 1</a>
+            <p class="body-xs">Takes less than 10 minutes • No obligation</p>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Hero Style 8: Steps */
+.hero-steps {
+    background: var(--gray-50);
+    padding: var(--space-4xl) 0;
+}
+
+.hero-steps-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: var(--space-xl);
+    margin: var(--space-2xl) 0;
+    align-items: center;
+}
+
+.step-item {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gray-200);
+    position: relative;
+}
+
+.step-number {
+    position: absolute;
+    top: -15px;
+    left: var(--space-xl);
+    background: var(--gradient-primary);
+    color: var(--white);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-lg);
+    box-shadow: var(--shadow-brand);
+}
+
+.step-content h3 {
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.step-features {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-md);
+}
+
+.step-features li {
+    padding: var(--space-xs) 0;
+    color: var(--success);
+    font-size: var(--font-size-sm);
+}
+
+.step-arrow {
+    font-size: var(--font-size-3xl);
+    color: var(--brand-orange);
+    font-weight: var(--font-weight-bold);
+}
+
+.hero-steps-cta {
+    margin-top: var(--space-2xl);
+}
+
+.hero-steps-cta p {
+    margin-top: var(--space-md);
+    color: var(--gray-500);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-steps-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+    }
+    
+    .step-arrow {
+        display: none;
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Perfect for onboarding flows and "how to get started" pages
+2. Visual 3-step process with connecting arrows
+3. Update step titles, descriptions, and feature lists
+4. Modify the main CTA button to link to step 1
+5. Arrows automatically hide on mobile devices
+6. Steps stack vertically on smaller screens
+
+Customization Options:
+- Change step count: Add/remove steps (will need CSS grid adjustment)
+- Update content: Modify titles, descriptions, and feature lists
+- Customize features: Replace checkmark items with relevant points
+- Change colors: Modify step number background colors
+- Update CTA: Customize button text and supporting message
+- Remove arrows: Delete step-arrow elements for cleaner look
+- Add icons: Include icons in step titles for visual enhancement
+
+Step Structure:
+Each step-item contains:
+- Numbered circle (automatically positioned)
+- Title (heading-3)
+- Description (body text)
+- Feature list with checkmarks
+
+Adding More Steps:
+1. Copy step-item structure
+2. Add more columns to grid-template-columns
+3. Update step numbers
+4. Add step-arrow between new steps
+
+Required CSS: design-system.css + embedded styles above
+-->

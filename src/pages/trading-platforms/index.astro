@@ -1,0 +1,334 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import TrustBadges from '../../components/TrustBadges.astro';
+
+const pageTitle = "Trading Platforms 2026 - MT4, MT5, cTrader & More";
+const pageDescription = "Compare the best trading platforms including MetaTrader 4, MetaTrader 5, cTrader, and TradingView. Find which brokers offer each platform with our comprehensive guide.";
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Trading Platforms', current: true }
+];
+
+const platforms = [
+  {
+    name: 'MetaTrader 4',
+    slug: 'metatrader-4',
+    shortName: 'MT4',
+    description: 'The world\'s most popular forex trading platform. Industry standard for retail traders with extensive EA support.',
+    features: ['Expert Advisors (EAs)', 'Custom indicators', '30+ built-in indicators', '9 timeframes', 'One-click trading'],
+    bestFor: 'Forex traders, EA/algo trading, beginners',
+    brokerCount: 2,
+    icon: '📊'
+  },
+  {
+    name: 'MetaTrader 5',
+    slug: 'metatrader-5',
+    shortName: 'MT5',
+    description: 'The next generation of MetaTrader with more assets, timeframes, and advanced features.',
+    features: ['21 timeframes', '38 built-in indicators', 'Economic calendar', 'Depth of Market', 'Hedging & netting'],
+    bestFor: 'Multi-asset traders, advanced analysis',
+    brokerCount: 2,
+    icon: '📈'
+  },
+  {
+    name: 'cTrader',
+    slug: 'ctrader',
+    shortName: 'cTrader',
+    description: 'Professional-grade platform known for superior charting, fast execution, and transparent pricing.',
+    features: ['Level II pricing', 'Advanced charting', 'cAlgo for automation', 'Detachable charts', 'Copy trading'],
+    bestFor: 'Professional traders, scalpers, transparency-focused',
+    brokerCount: 1,
+    icon: '⚡'
+  },
+  {
+    name: 'TradingView',
+    slug: 'tradingview',
+    shortName: 'TradingView',
+    description: 'Web-based charting platform with social features. Used for analysis, can connect to brokers for execution.',
+    features: ['100+ indicators', 'Pine Script', 'Social trading ideas', 'Multi-device sync', 'Alerts'],
+    bestFor: 'Technical analysis, idea sharing, web-based trading',
+    brokerCount: 3,
+    icon: '🌐'
+  }
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Schema.org markup -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Trading Platforms Comparison",
+    "description": pageDescription,
+    "numberOfItems": platforms.length,
+    "itemListElement": platforms.map((platform, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": platform.name,
+      "url": `https://tradetheday.com/trading-platforms/${platform.slug}/`
+    }))
+  })} />
+
+  <!-- Hero -->
+  <section class="platforms-hero">
+    <div class="container">
+      <h1 class="heading-1">Trading Platforms</h1>
+      <p class="body-large platforms-hero-sub">
+        Choose the right platform for your trading style. Compare MetaTrader 4, MetaTrader 5, cTrader, and more.
+      </p>
+    </div>
+  </section>
+
+  <TrustBadges variant="light" compact={true} />
+
+  <!-- Platform Cards -->
+  <section class="section">
+    <div class="container">
+      <div class="platforms-grid">
+        {platforms.map((platform) => (
+          <a href={`/trading-platforms/${platform.slug}/`} class="platform-card">
+            <div class="platform-card-header">
+              <span class="platform-icon">{platform.icon}</span>
+              <div>
+                <h2 class="platform-name">{platform.name}</h2>
+                <span class="platform-short">{platform.shortName}</span>
+              </div>
+            </div>
+
+            <p class="platform-description">{platform.description}</p>
+
+            <div class="platform-features">
+              <h3 class="platform-features-title">Key Features:</h3>
+              <ul class="platform-features-list">
+                {platform.features.slice(0, 3).map((feature) => (
+                  <li>{feature}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="platform-meta">
+              <span class="platform-best-for">Best for: {platform.bestFor}</span>
+            </div>
+
+            <div class="platform-cta">
+              <span>See Best {platform.shortName} Brokers →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Platform Matters -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2 text-center">Why Your Trading Platform Matters</h2>
+      <p class="body-large text-center" style="max-width: 700px; margin: 0 auto var(--space-xl);">
+        Your trading platform is where you'll spend most of your time. The right choice affects your execution speed, analysis capabilities, and overall trading success.
+      </p>
+
+      <div class="why-grid">
+        <div class="why-card">
+          <span class="why-icon">⚡</span>
+          <h3>Execution Speed</h3>
+          <p>Milliseconds matter in trading. Some platforms offer faster execution than others.</p>
+        </div>
+        <div class="why-card">
+          <span class="why-icon">🔧</span>
+          <h3>Automation</h3>
+          <p>If you use EAs or algorithms, MT4/MT5 are the industry standard. cTrader offers cAlgo.</p>
+        </div>
+        <div class="why-card">
+          <span class="why-icon">📱</span>
+          <h3>Device Access</h3>
+          <p>Trade from desktop, web, or mobile. Some platforms have better apps than others.</p>
+        </div>
+        <div class="why-card">
+          <span class="why-icon">📊</span>
+          <h3>Charting Tools</h3>
+          <p>Advanced traders need advanced charts. TradingView and cTrader excel here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta-section">
+    <div class="container text-center">
+      <h2 class="heading-2">Not Sure Which Platform?</h2>
+      <p class="body-large" style="margin-bottom: var(--space-lg);">
+        Our AI broker matcher considers your platform preferences to find your perfect broker.
+      </p>
+      <a href="/compare/" class="btn btn-primary btn-lg">Find My Perfect Broker</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .platforms-hero {
+    padding: var(--space-2xl) 0;
+    background: var(--gray-50);
+    text-align: center;
+  }
+
+  .platforms-hero-sub {
+    color: var(--gray-600);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .platform-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .platform-card:hover {
+    border-color: var(--brand-orange);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .platform-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .platform-icon {
+    font-size: 2.5rem;
+  }
+
+  .platform-name {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  .platform-short {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .platform-description {
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+    flex-grow: 1;
+  }
+
+  .platform-features {
+    background: var(--gray-50);
+    padding: var(--space-md);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .platform-features-title {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .platform-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .platform-features-list li {
+    padding: var(--space-xs) 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .platform-features-list li::before {
+    content: '✓';
+    color: var(--success);
+    font-weight: 600;
+  }
+
+  .platform-meta {
+    margin-bottom: var(--space-md);
+  }
+
+  .platform-best-for {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .platform-cta {
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--gray-100);
+    color: var(--brand-orange);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* Why Grid */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .why-card {
+    text-align: center;
+    padding: var(--space-xl);
+  }
+
+  .why-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .why-card h3 {
+    font-size: var(--font-size-lg);
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .why-card p {
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a2028 100%);
+    color: white;
+  }
+
+  .cta-section .heading-2 {
+    color: white;
+  }
+
+  .cta-section .body-large {
+    color: rgba(255, 255, 255, 0.8);
+  }
+</style>

@@ -1,0 +1,377 @@
+---
+interface Props {
+  videoId: string;
+  title: string;
+  description?: string;
+  thumbnail?: string;
+  duration?: string;
+  publishDate?: string;
+  variant?: 'full' | 'card' | 'inline';
+  autoplay?: boolean;
+  showInfo?: boolean;
+}
+
+const {
+  videoId,
+  title,
+  description = '',
+  thumbnail,
+  duration = '',
+  publishDate = '',
+  variant = 'full',
+  autoplay = false,
+  showInfo = true
+} = Astro.props;
+
+// Generate thumbnail URL if not provided
+const thumbnailUrl = thumbnail || `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
+// Generate schema markup for video SEO
+const videoSchema = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": title,
+  "description": description,
+  "thumbnailUrl": thumbnailUrl,
+  "uploadDate": publishDate,
+  "duration": duration,
+  "contentUrl": `https://www.youtube.com/watch?v=${videoId}`,
+  "embedUrl": `https://www.youtube.com/embed/${videoId}`
+};
+---
+
+{variant === 'full' && (
+  <div class="video-embed video-full">
+    <div class="video-container" data-video-id={videoId}>
+      <div class="video-placeholder" data-thumbnail={thumbnailUrl}>
+        <img src={thumbnailUrl} alt={title} class="video-thumbnail" loading="lazy" />
+        <button class="video-play-btn" aria-label={`Play ${title}`}>
+          <svg viewBox="0 0 68 48" width="68" height="48">
+            <path class="play-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"/>
+            <path d="M 45,24 27,14 27,34" fill="#fff"/>
+          </svg>
+        </button>
+      </div>
+      <iframe
+        class="video-iframe"
+        src=""
+        data-src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
+        title={title}
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+        style="display: none;"
+      ></iframe>
+    </div>
+    {showInfo && (
+      <div class="video-info">
+        <h3 class="video-title">{title}</h3>
+        {description && <p class="video-description">{description}</p>}
+        {(duration || publishDate) && (
+          <div class="video-meta">
+            {duration && <span class="video-duration">{duration}</span>}
+            {publishDate && <span class="video-date">{publishDate}</span>}
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+)}
+
+{variant === 'card' && (
+  <div class="video-embed video-card" data-video-id={videoId}>
+    <div class="video-card-thumbnail">
+      <img src={thumbnailUrl} alt={title} loading="lazy" />
+      <div class="video-card-overlay">
+        <button class="video-play-btn small" aria-label={`Play ${title}`}>
+          <svg viewBox="0 0 68 48" width="48" height="34">
+            <path class="play-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#f00"/>
+            <path d="M 45,24 27,14 27,34" fill="#fff"/>
+          </svg>
+        </button>
+        {duration && <span class="video-duration-badge">{duration}</span>}
+      </div>
+    </div>
+    <div class="video-card-content">
+      <h4 class="video-card-title">{title}</h4>
+      {description && <p class="video-card-desc">{description}</p>}
+    </div>
+  </div>
+)}
+
+{variant === 'inline' && (
+  <div class="video-embed video-inline" data-video-id={videoId}>
+    <div class="video-inline-thumb">
+      <img src={thumbnailUrl} alt={title} loading="lazy" />
+      <button class="video-play-btn tiny" aria-label={`Play ${title}`}>
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="#fff">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </button>
+    </div>
+    <div class="video-inline-info">
+      <span class="video-inline-title">{title}</span>
+      {duration && <span class="video-inline-duration">{duration}</span>}
+    </div>
+  </div>
+)}
+
+<!-- Video Schema for SEO -->
+<script type="application/ld+json" set:html={JSON.stringify(videoSchema)} />
+
+<script>
+  // Lazy load YouTube videos on click
+  document.addEventListener('DOMContentLoaded', () => {
+    const videoContainers = document.querySelectorAll('.video-container, .video-card, .video-inline');
+
+    videoContainers.forEach(container => {
+      const playBtn = container.querySelector('.video-play-btn');
+      const placeholder = container.querySelector('.video-placeholder, .video-card-thumbnail, .video-inline-thumb');
+      const iframe = container.querySelector('.video-iframe');
+      const videoId = container.dataset.videoId;
+
+      if (playBtn) {
+        playBtn.addEventListener('click', () => {
+          if (iframe) {
+            // For full variant - swap to iframe
+            iframe.src = iframe.dataset.src;
+            iframe.style.display = 'block';
+            if (placeholder) placeholder.style.display = 'none';
+          } else {
+            // For card/inline variants - open in modal or navigate
+            window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+          }
+        });
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Full Video Embed */
+  .video-full {
+    margin: var(--space-xl) 0;
+  }
+
+  .video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 */
+    background: var(--gray-900);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .video-placeholder {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+  }
+
+  .video-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .video-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  .video-play-btn:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  .video-play-btn .play-bg {
+    transition: fill 0.2s;
+  }
+
+  .video-play-btn:hover .play-bg {
+    fill: #cc0000;
+  }
+
+  .video-iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .video-info {
+    margin-top: var(--space-md);
+  }
+
+  .video-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin-bottom: var(--space-xs);
+  }
+
+  .video-description {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+  }
+
+  .video-meta {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-sm);
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+  }
+
+  /* Card Variant */
+  .video-card {
+    background: var(--gray-900);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--gray-800);
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .video-card:hover {
+    border-color: var(--brand-orange);
+    transform: translateY(-4px);
+  }
+
+  .video-card-thumbnail {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+
+  .video-card-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+
+  .video-card:hover .video-card-thumbnail img {
+    transform: scale(1.05);
+  }
+
+  .video-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .video-card:hover .video-card-overlay {
+    opacity: 1;
+  }
+
+  .video-duration-badge {
+    position: absolute;
+    bottom: var(--space-sm);
+    right: var(--space-sm);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+  }
+
+  .video-card-content {
+    padding: var(--space-md);
+  }
+
+  .video-card-title {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+    color: var(--white);
+  }
+
+  .video-card-desc {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Inline Variant */
+  .video-inline {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm);
+    background: var(--gray-900);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .video-inline:hover {
+    background: var(--gray-800);
+  }
+
+  .video-inline-thumb {
+    position: relative;
+    width: 120px;
+    aspect-ratio: 16/9;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .video-inline-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .video-play-btn.tiny {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    padding: 4px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .video-inline-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .video-inline-title {
+    font-weight: 600;
+    color: var(--white);
+    font-size: var(--font-size-sm);
+  }
+
+  .video-inline-duration {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+  }
+
+  /* Small play button */
+  .video-play-btn.small {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+</style>

@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Chip from '../../components/Chip.astro';
+import '../../styles/pages/guides-index.css';
+
+// Guide categories data
+const guideCategories = [
+  {
+    title: "Beginner Trading Guides",
+    description: "Essential guides for new traders starting their journey",
+    count: "12+ Guides",
+    color: "green",
+    href: "/coming-soon?category=Beginner Trading&return=/guides/",
+    icon: "🎯",
+    topics: ["Account Setup", "First Trades", "Risk Management", "Basic Analysis"]
+  },
+  {
+    title: "Forex Trading Mastery", 
+    description: "Complete forex trading strategies and techniques",
+    count: "15+ Guides",
+    color: "blue",
+    href: "/coming-soon?category=Forex Trading&return=/guides/",
+    icon: "💱",
+    topics: ["Currency Pairs", "Technical Analysis", "Fundamental Analysis", "Trading Sessions"]
+  },
+  {
+    title: "Cryptocurrency Trading",
+    description: "Navigate the crypto markets with confidence", 
+    count: "10+ Guides",
+    color: "purple",
+    href: "/coming-soon?category=Cryptocurrency Trading&return=/guides/",
+    icon: "₿",
+    topics: ["Bitcoin Trading", "Altcoin Analysis", "DeFi Strategies", "Security"]
+  },
+  {
+    title: "Stock Market Investing",
+    description: "Build wealth through strategic stock investments",
+    count: "18+ Guides", 
+    color: "orange",
+    href: "/coming-soon?category=Stock Market&return=/guides/",
+    icon: "📈",
+    topics: ["Stock Analysis", "Portfolio Building", "Dividend Investing", "Growth Stocks"]
+  },
+  {
+    title: "Options Trading",
+    description: "Advanced options strategies for experienced traders",
+    count: "8+ Guides",
+    color: "red", 
+    href: "/coming-soon?category=Options Trading&return=/guides/",
+    icon: "⚡",
+    topics: ["Options Basics", "Spreads", "Income Strategies", "Risk Management"]
+  },
+  {
+    title: "Technical Analysis",
+    description: "Master chart patterns and trading indicators",
+    count: "20+ Guides",
+    color: "teal",
+    href: "/coming-soon?category=Technical Analysis&return=/guides/", 
+    icon: "📊",
+    topics: ["Chart Patterns", "Indicators", "Support & Resistance", "Trend Analysis"]
+  }
+];
+---
+
+<BaseLayout 
+  title="Trading Guides & Education | TradeTheDay"
+  description="Comprehensive trading guides and educational resources. Learn forex, crypto, stocks, options, and technical analysis from beginner to advanced levels."
+>
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Guides', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <Chip variant="badge" size="sm">📚 Educational Resources</Chip>
+        <h1 class="hero-title">Trading Guides & Education</h1>
+        <p class="hero-description">
+          Master trading with our comprehensive guides. From beginner basics to advanced strategies, 
+          we'll help you build the knowledge and confidence to succeed in the markets.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">80+</span>
+            <span class="stat-label">Expert Guides</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">6</span>
+            <span class="stat-label">Categories</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">Free</span>
+            <span class="stat-label">Always</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUIDES GRID SECTION -->
+  <section class="guides-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Choose Your Learning Path</h2>
+        <p class="section-description">
+          Select a category below to explore our in-depth trading guides and educational resources
+        </p>
+      </div>
+
+      <div class="guides-grid">
+        {guideCategories.map((category) => (
+          <a href={category.href} class={`guide-card guide-card-${category.color}`}>
+            <div class="guide-card-background">
+              <div class="guide-card-pattern"></div>
+            </div>
+            
+            <div class="guide-card-content">
+              <div class="guide-card-header">
+                <span class="guide-card-icon">{category.icon}</span>
+                <span class="guide-card-count">{category.count}</span>
+              </div>
+              
+              <h3 class="guide-card-title">{category.title}</h3>
+              <p class="guide-card-description">{category.description}</p>
+              
+              <div class="guide-card-topics">
+                {category.topics.map((topic) => (
+                  <span class="topic-tag">{topic}</span>
+                ))}
+              </div>
+              
+              <div class="guide-card-cta">
+                <span class="cta-text">Start Learning</span>
+                <span class="cta-arrow">→</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATED RESOURCES -->
+  <section class="related-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Put Knowledge Into Practice</h2>
+        <p class="section-description">
+          Use our free tools and find the right broker to start trading
+        </p>
+      </div>
+      <div class="related-grid">
+        <a href="/tools/" class="related-card">
+          <span class="related-icon">🧮</span>
+          <h3>Trading Calculators</h3>
+          <p>Free position size calculator, profit/loss calculator, and more</p>
+          <span class="related-cta">Use Free Tools →</span>
+        </a>
+        <a href="/find-broker/" class="related-card">
+          <span class="related-icon">🔍</span>
+          <h3>Find Your Broker</h3>
+          <p>Take our 30-second quiz to get matched with the perfect broker</p>
+          <span class="related-cta">Start Quiz →</span>
+        </a>
+        <a href="/brokers/" class="related-card">
+          <span class="related-icon">🏦</span>
+          <h3>Broker Reviews</h3>
+          <p>In-depth reviews of top regulated brokers with fee comparisons</p>
+          <span class="related-cta">Compare Brokers →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER SECTION -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-content">
+        <div class="newsletter-text">
+          <h3 class="newsletter-title">Stay Updated with New Guides</h3>
+          <p class="newsletter-description">
+            Get notified when we publish new trading guides and educational content
+          </p>
+        </div>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Enter your email address" class="newsletter-input">
+          <button class="newsletter-btn">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

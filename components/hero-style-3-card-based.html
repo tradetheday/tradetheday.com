@@ -1,0 +1,149 @@
+<!-- Hero Style 3: Card-Based Hero -->
+<!-- Copy this entire section to use the card-based hero style -->
+<section class="hero-card section section-alt">
+    <div class="container">
+        <div class="hero-card-container">
+            <div class="hero-card-main">
+                <div class="hero-card-badge">
+                    <span class="chip">Featured Review</span>
+                    <div class="hero-card-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-score">4.2/5</span>
+                    </div>
+                </div>
+                
+                <h1 class="heading-1">AvaTrade Broker Review</h1>
+                <p class="body-large">Established in 2006, AvaTrade is a multi-regulated forex and CFD broker serving over 400,000 clients worldwide.</p>
+                
+                <div class="hero-card-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">$100</div>
+                        <div class="stat-label">Minimum Deposit</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">0.9</div>
+                        <div class="stat-label">EUR/USD Spread</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Regulations</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">200+</div>
+                        <div class="stat-label">Instruments</div>
+                    </div>
+                </div>
+                
+                <div class="hero-card-actions">
+                    <a href="#" class="btn btn-primary btn-xl">Start Trading</a>
+                    <p class="body-xs">Risk Warning: CFDs carry high risk</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Hero Style 3: Card-Based */
+.hero-card {
+    background: var(--gray-50);
+    padding: var(--space-2xl) 0;
+}
+
+.hero-card-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero-card-main {
+    background: var(--white);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-xl);
+    text-align: center;
+    border: 1px solid var(--gray-200);
+}
+
+.hero-card-badge {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+}
+
+.hero-card-rating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.rating-score {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+}
+
+.hero-card-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-2xl) 0;
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+    margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+    font-weight: var(--font-weight-medium);
+}
+
+.hero-card-actions {
+    margin-top: var(--space-xl);
+}
+
+.hero-card-actions p {
+    margin-top: var(--space-sm);
+    color: var(--gray-500);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-card-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Perfect for detailed reviews with multiple data points
+2. Card design creates focus and professional appearance
+3. Update the rating stars and score to match your assessment
+4. Customize the 4 key statistics to highlight important metrics
+5. Modify the risk warning text as needed
+6. Stats automatically adjust to 2 columns on mobile
+
+Customization Options:
+- Update rating: Change stars (★★★★★) and score (4.2/5)
+- Modify stats: Replace the 4 stat values and labels
+- Change chip: Update "Featured Review" to match content type
+- Customize CTA: Update button text and link
+- Add more stats: Copy stat-item structure (will need CSS adjustments)
+- Remove warning: Delete the risk warning paragraph if not needed
+- Adjust card width: Modify max-width in hero-card-container
+
+Required CSS: design-system.css + embedded styles above
+-->

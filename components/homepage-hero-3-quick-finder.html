@@ -1,0 +1,538 @@
+<!-- Homepage Hero 3: Quick Finder Tool -->
+<!-- Copy this entire section to use the quick finder homepage hero -->
+<section class="hero-homepage-finder section">
+    <div class="container">
+        <div class="homepage-finder-content">
+            <div class="finder-intro">
+                <span class="chip">Personalized</span>
+                <h1 class="heading-1">Find Your Perfect Broker</h1>
+                <p class="body-large">Answer a few quick questions and we'll recommend the best brokers for your trading style.</p>
+            </div>
+            
+            <div class="finder-tool">
+                <div class="finder-questions">
+                    <div class="finder-question active" data-question="1">
+                        <h3>What's your experience level?</h3>
+                        <div class="finder-options">
+                            <button class="finder-option" data-value="beginner">
+                                <div class="option-icon">🌱</div>
+                                <div class="option-text">
+                                    <strong>Beginner</strong>
+                                    <small>New to trading</small>
+                                </div>
+                            </button>
+                            <button class="finder-option" data-value="intermediate">
+                                <div class="option-icon">📈</div>
+                                <div class="option-text">
+                                    <strong>Intermediate</strong>
+                                    <small>Some experience</small>
+                                </div>
+                            </button>
+                            <button class="finder-option" data-value="advanced">
+                                <div class="option-icon">⚡</div>
+                                <div class="option-text">
+                                    <strong>Advanced</strong>
+                                    <small>Professional trader</small>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="finder-question" data-question="2">
+                        <h3>What's your preferred deposit amount?</h3>
+                        <div class="finder-options">
+                            <button class="finder-option" data-value="low">
+                                <div class="option-icon">💵</div>
+                                <div class="option-text">
+                                    <strong>$100 - $500</strong>
+                                    <small>Starting small</small>
+                                </div>
+                            </button>
+                            <button class="finder-option" data-value="medium">
+                                <div class="option-icon">💰</div>
+                                <div class="option-text">
+                                    <strong>$500 - $2,000</strong>
+                                    <small>Moderate investment</small>
+                                </div>
+                            </button>
+                            <button class="finder-option" data-value="high">
+                                <div class="option-icon">💎</div>
+                                <div class="option-text">
+                                    <strong>$2,000+</strong>
+                                    <small>Serious capital</small>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="finder-question" data-question="3">
+                        <h3>What's most important to you?</h3>
+                        <div class="finder-options">
+                            <button class="finder-option" data-value="costs">
+                                <div class="option-icon">🎯</div>
+                                <div class="option-text">
+                                    <strong>Low Costs</strong>
+                                    <small>Tight spreads & low fees</small>
+                                </div>
+                            </button>
+                            <button class="finder-option" data-value="education">
+                                <div class="option-icon">🎓</div>
+                                <div class="option-text">
+                                    <strong>Education</strong>
+                                    <small>Learning resources</small>
+                                </div>
+                            </button>
+                            <button class="finder-option" data-value="platform">
+                                <div class="option-icon">🖥️</div>
+                                <div class="option-text">
+                                    <strong>Platform Quality</strong>
+                                    <small>Advanced tools</small>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="finder-results hidden">
+                    <h3>Perfect Match Found! 🎉</h3>
+                    <div class="results-grid">
+                        <div class="result-card primary">
+                            <div class="result-badge">Best Match</div>
+                            <div class="result-broker">AvaTrade</div>
+                            <div class="result-rating">★★★★☆ 4.2</div>
+                            <div class="result-highlights">
+                                <span class="result-tag">Beginner-Friendly</span>
+                                <span class="result-tag">$100 Minimum</span>
+                                <span class="result-tag">Great Education</span>
+                            </div>
+                            <a href="#" class="btn btn-primary btn-lg">Start Trading</a>
+                        </div>
+                        
+                        <div class="result-card secondary">
+                            <div class="result-badge">Alternative</div>
+                            <div class="result-broker">IG</div>
+                            <div class="result-rating">★★★★☆ 4.5</div>
+                            <div class="result-highlights">
+                                <span class="result-tag">Excellent Education</span>
+                                <span class="result-tag">Premium Platform</span>
+                            </div>
+                            <a href="#" class="btn btn-ghost btn-md">Learn More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="results-footer">
+                        <button class="finder-reset">← Take Quiz Again</button>
+                        <a href="#all-brokers" class="text-link">View All Brokers</a>
+                    </div>
+                </div>
+                
+                <div class="finder-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 33.33%"></div>
+                    </div>
+                    <span class="progress-text">Question 1 of 3</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Homepage Hero 3: Quick Finder Tool */
+.hero-homepage-finder {
+    background: linear-gradient(135deg, var(--brand-orange-light) 0%, var(--white) 100%);
+    padding: var(--space-4xl) 0;
+}
+
+.homepage-finder-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.finder-intro {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+}
+
+.finder-intro .chip {
+    margin-bottom: var(--space-md);
+}
+
+.finder-tool {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.finder-question {
+    display: none;
+}
+
+.finder-question.active {
+    display: block;
+}
+
+.finder-question h3 {
+    text-align: center;
+    color: var(--gray-900);
+    margin-bottom: var(--space-xl);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+}
+
+.finder-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.finder-option {
+    background: var(--gray-50);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    cursor: pointer;
+    transition: var(--transition-base);
+    text-align: left;
+}
+
+.finder-option:hover {
+    border-color: var(--brand-orange);
+    background: var(--brand-orange-light);
+}
+
+.finder-option.selected {
+    border-color: var(--brand-orange);
+    background: var(--brand-orange-light);
+    box-shadow: var(--shadow-brand);
+}
+
+.option-icon {
+    font-size: var(--font-size-xl);
+    flex-shrink: 0;
+}
+
+.option-text strong {
+    display: block;
+    color: var(--gray-900);
+    margin-bottom: var(--space-xs);
+    font-weight: var(--font-weight-semibold);
+}
+
+.option-text small {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+}
+
+.finder-results {
+    text-align: center;
+}
+
+.finder-results.hidden {
+    display: none;
+}
+
+.finder-results h3 {
+    color: var(--gray-900);
+    margin-bottom: var(--space-xl);
+    font-size: var(--font-size-xl);
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.result-card {
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+    position: relative;
+}
+
+.result-card.primary {
+    background: linear-gradient(135deg, var(--brand-orange-light) 0%, var(--white) 100%);
+    border: 2px solid var(--brand-orange);
+}
+
+.result-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+}
+
+.result-card.secondary .result-badge {
+    background: var(--gray-500);
+}
+
+.result-broker {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--gray-900);
+    margin: var(--space-md) 0 var(--space-sm) 0;
+}
+
+.result-rating {
+    color: var(--brand-orange);
+    margin-bottom: var(--space-md);
+}
+
+.result-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    justify-content: center;
+    margin-bottom: var(--space-md);
+}
+
+.result-tag {
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+}
+
+.result-card.secondary .result-tag {
+    background: var(--gray-500);
+}
+
+.results-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--gray-200);
+}
+
+.finder-reset {
+    background: none;
+    border: none;
+    color: var(--gray-600);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+}
+
+.finder-reset:hover {
+    color: var(--gray-900);
+}
+
+.text-link {
+    color: var(--brand-orange);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-sm);
+}
+
+.text-link:hover {
+    text-decoration: underline;
+}
+
+.finder-progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--space-xl);
+}
+
+.progress-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--gray-200);
+    border-radius: var(--radius-lg);
+    margin-right: var(--space-md);
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--brand-orange);
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .finder-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .results-footer {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+}
+</style>
+
+<!-- Required JavaScript for Interactivity -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const questions = document.querySelectorAll('.finder-question');
+    const options = document.querySelectorAll('.finder-option');
+    const results = document.querySelector('.finder-results');
+    const progressFill = document.querySelector('.progress-fill');
+    const progressText = document.querySelector('.progress-text');
+    const resetButton = document.querySelector('.finder-reset');
+    
+    let currentQuestion = 1;
+    let answers = {};
+    
+    // Handle option selection
+    options.forEach(option => {
+        option.addEventListener('click', function() {
+            const questionNum = this.closest('.finder-question').dataset.question;
+            const value = this.dataset.value;
+            
+            // Remove selection from other options in this question
+            this.closest('.finder-question').querySelectorAll('.finder-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Select this option
+            this.classList.add('selected');
+            
+            // Store answer
+            answers[questionNum] = value;
+            
+            // Move to next question after short delay
+            setTimeout(() => {
+                nextQuestion();
+            }, 500);
+        });
+    });
+    
+    function nextQuestion() {
+        if (currentQuestion < 3) {
+            // Hide current question
+            document.querySelector(`[data-question="${currentQuestion}"]`).classList.remove('active');
+            
+            // Show next question
+            currentQuestion++;
+            document.querySelector(`[data-question="${currentQuestion}"]`).classList.add('active');
+            
+            // Update progress
+            const progress = (currentQuestion / 3) * 100;
+            progressFill.style.width = progress + '%';
+            progressText.textContent = `Question ${currentQuestion} of 3`;
+        } else {
+            // Show results
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        // Hide questions and progress
+        questions.forEach(q => q.style.display = 'none');
+        document.querySelector('.finder-progress').style.display = 'none';
+        
+        // Show results
+        results.classList.remove('hidden');
+        
+        // Customize results based on answers (basic example)
+        updateResultsForAnswers();
+    }
+    
+    function updateResultsForAnswers() {
+        // This is a basic example - you'd implement more sophisticated matching logic
+        const primaryCard = document.querySelector('.result-card.primary');
+        const secondaryCard = document.querySelector('.result-card.secondary');
+        
+        if (answers['1'] === 'beginner') {
+            primaryCard.querySelector('.result-broker').textContent = 'AvaTrade';
+            primaryCard.querySelector('.result-highlights').innerHTML = 
+                '<span class="result-tag">Beginner-Friendly</span><span class="result-tag">$100 Minimum</span><span class="result-tag">Great Education</span>';
+        } else if (answers['1'] === 'advanced') {
+            primaryCard.querySelector('.result-broker').textContent = 'IC Markets';
+            primaryCard.querySelector('.result-highlights').innerHTML = 
+                '<span class="result-tag">Ultra-Low Spreads</span><span class="result-tag">Advanced Platform</span><span class="result-tag">Pro Tools</span>';
+        }
+    }
+    
+    // Reset functionality
+    if (resetButton) {
+        resetButton.addEventListener('click', function() {
+            currentQuestion = 1;
+            answers = {};
+            
+            // Reset all questions
+            questions.forEach(q => {
+                q.style.display = 'block';
+                q.classList.remove('active');
+                q.querySelectorAll('.finder-option').forEach(opt => opt.classList.remove('selected'));
+            });
+            
+            // Show first question
+            document.querySelector('[data-question="1"]').classList.add('active');
+            
+            // Reset progress
+            progressFill.style.width = '33.33%';
+            progressText.textContent = 'Question 1 of 3';
+            document.querySelector('.finder-progress').style.display = 'flex';
+            
+            // Hide results
+            results.classList.add('hidden');
+        });
+    }
+});
+</script>
+
+<!-- Usage Instructions:
+1. Interactive quiz tool for personalized broker recommendations
+2. Three-question flow covering experience, budget, and priorities
+3. Dynamic results based on user selections with primary/alternative matches
+4. Progress tracking and ability to retake the quiz
+5. Fully responsive design adapting to mobile screens
+6. JavaScript handles all interactivity and state management
+
+Customization Options:
+- Add questions: Extend the quiz with more decision factors
+- Modify logic: Update recommendation algorithm in updateResultsForAnswers()
+- Change brokers: Update result cards with different broker options
+- Update questions: Modify question text and answer options
+- Style results: Customize result card layouts and highlights
+- Add analytics: Track quiz completion and popular answers
+- Remove features: Simplify to fewer questions if needed
+
+Interactive Features:
+- Click-to-select question options with visual feedback
+- Automatic progression between questions
+- Progress bar showing completion status
+- Dynamic results based on quiz answers
+- Reset functionality to retake quiz
+- Responsive design for mobile devices
+
+Quiz Structure:
+- Question 1: Experience level (beginner/intermediate/advanced)
+- Question 2: Deposit amount preference (low/medium/high)
+- Question 3: Priority focus (costs/education/platform)
+- Results: Primary recommendation + alternative option
+
+Required CSS: design-system.css + embedded styles above
+Required JS: Embedded JavaScript for quiz functionality
+-->

@@ -1,0 +1,243 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  headers: string[];
+  rows: Array<{
+    cells: Array<{
+      content: string;
+      highlight?: 'best' | 'good' | 'warning' | 'brand' | 'neutral';
+      type?: 'currency' | 'percentage' | 'rating' | 'text';
+    }>;
+  }>;
+  showGuide?: boolean;
+}
+
+const { 
+  title = "Comparison Table",
+  subtitle = "Compare features, pricing, or specifications",
+  headers,
+  rows,
+  showGuide = false
+} = Astro.props;
+
+function getCellClass(highlight?: string, type?: string) {
+  const classes = [];
+  if (highlight) classes.push(`highlight-${highlight}`);
+  return classes.join(' ');
+}
+
+function getCellContent(content: string, type?: string) {
+  switch (type) {
+    case 'currency':
+      return `<span class="currency number-highlight">${content}</span>`;
+    case 'percentage':
+      return `<span class="percentage">${content}</span>`;
+    case 'rating':
+      return `<span class="rating">${content}</span>`;
+    default:
+      return content;
+  }
+}
+---
+
+<section class="section section-alt">
+  <div class="container">
+    {(title || subtitle) && (
+      <div class="text-center">
+        {title && <h2 class="heading-2">{title}</h2>}
+        {subtitle && <p class="body-large">{subtitle}</p>}
+      </div>
+    )}
+    
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            {headers.map((header, index) => (
+              <th scope="col"><strong>{header}</strong></th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(row => (
+            <tr>
+              {row.cells.map((cell, index) => (
+                <td class={getCellClass(cell.highlight, cell.type)}>
+                  {index === 0 ? 
+                    <strong set:html={getCellContent(cell.content, cell.type)} /> :
+                    <span set:html={getCellContent(cell.content, cell.type)} />
+                  }
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    
+    {showGuide && (
+      <div class="rating-system-link">
+        <p class="body-sm">
+          Understand TradeTheDay's full <a href="/rating-system/" class="brand-link">rating system</a> here.
+        </p>
+      </div>
+    )}
+    
+    <slot />
+  </div>
+</section>
+
+<style>
+.table-container {
+  overflow-x: auto;
+  margin: 2rem 0;
+  border-radius: 1rem;
+  border: 1px solid var(--gray-200, #e5e7eb);
+  background: white;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  table-layout: fixed;
+}
+
+.table th {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  padding: 1rem 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--charcoal, #1e2427);
+  border-bottom: 2px solid var(--gray-200, #e5e7eb);
+  width: 20%;
+}
+
+.table th:first-child {
+  width: 25%;
+  font-weight: 700;
+  text-align: left;
+}
+
+.table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--gray-100, #f3f4f6);
+  vertical-align: middle;
+  text-align: center;
+}
+
+.table td:first-child {
+  text-align: left;
+  font-weight: 600;
+  color: var(--charcoal, #1e2427);
+}
+
+.table tbody tr:hover {
+  background: var(--gray-50, #f9fafb);
+}
+
+/* Highlight classes */
+.highlight-best {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success, #10b981);
+  font-weight: 600;
+}
+
+.highlight-best::before {
+  content: "✓ ";
+  color: var(--success, #10b981);
+  font-weight: bold;
+}
+
+.highlight-good {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+  font-weight: 600;
+}
+
+.highlight-warning {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error, #ef4444);
+  font-weight: 600;
+}
+
+.highlight-brand {
+  background: rgba(255, 72, 0, 0.1);
+  color: var(--brand-orange, #ff4800);
+  font-weight: 600;
+}
+
+.highlight-neutral {
+  background: var(--gray-100, #f3f4f6);
+  color: var(--gray-600, #4b5563);
+  font-weight: 600;
+}
+
+/* Number formatting */
+.currency,
+.percentage,
+.rating {
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+}
+
+.number-highlight {
+  font-size: 1.1em;
+}
+
+/* Rating System Link */
+.rating-system-link {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.rating-system-link .body-sm {
+  margin: 0;
+  color: var(--gray-600, #6b7280);
+}
+
+.mt-xl {
+  margin-top: 3rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .table-container {
+    margin: 1rem 0;
+    overflow-x: auto;
+  }
+  
+  .table {
+    font-size: 0.8rem;
+    min-width: 600px;
+    table-layout: fixed;
+  }
+  
+  .table th {
+    width: 18.75%;
+  }
+  
+  .table th:first-child {
+    width: 25%;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.75rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .table {
+    min-width: 500px;
+    font-size: 0.75rem;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.625rem 0.75rem;
+  }
+}
+</style>
+

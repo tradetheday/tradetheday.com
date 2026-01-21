@@ -1,0 +1,232 @@
+<!-- Hero Style 13: Dark Minimal with Highlights -->
+<!-- Copy this entire section to use the dark minimal hero style -->
+<section class="hero-dark-minimal section">
+    <div class="container">
+        <div class="hero-dark-minimal-content">
+            <div class="dark-minimal-header">
+                <div class="dark-logo-placeholder">AvaTrade</div>
+                <div class="dark-minimal-meta">
+                    <span>Updated Jan 2025</span>
+                    <span>Expert Review</span>
+                </div>
+            </div>
+            
+            <h1 class="heading-1">The Complete AvaTrade Review</h1>
+            <p class="body-large">Independent analysis of fees, platforms, regulation, and user experience to help you make an informed trading decision.</p>
+            
+            <div class="dark-highlight-grid">
+                <div class="dark-highlight-card positive">
+                    <div class="dark-highlight-icon">✓</div>
+                    <div class="dark-highlight-text">
+                        <div class="dark-highlight-title">Strong Regulation</div>
+                        <div class="dark-highlight-desc">6 tier-1 licenses including CBI & ASIC</div>
+                    </div>
+                </div>
+                <div class="dark-highlight-card neutral">
+                    <div class="dark-highlight-icon">$</div>
+                    <div class="dark-highlight-text">
+                        <div class="dark-highlight-title">$100 Minimum</div>
+                        <div class="dark-highlight-desc">Accessible for beginner traders</div>
+                    </div>
+                </div>
+                <div class="dark-highlight-card negative">
+                    <div class="dark-highlight-icon">⚠</div>
+                    <div class="dark-highlight-text">
+                        <div class="dark-highlight-title">Higher Spreads</div>
+                        <div class="dark-highlight-desc">0.9 pips vs ECN competitors</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center dark-minimal-cta">
+                <a href="#" class="btn btn-primary btn-xl">Visit AvaTrade</a>
+                <a href="#analysis" class="btn btn-ghost-light btn-lg">Read Full Analysis</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Hero Style 13: Dark Minimal with Highlights */
+.hero-dark-minimal {
+    background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+    color: var(--white);
+    padding: var(--space-4xl) 0;
+}
+
+.hero-dark-minimal-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero-dark-minimal .heading-1,
+.hero-dark-minimal .body-large {
+    color: var(--white);
+}
+
+.dark-minimal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark-logo-placeholder {
+    background: var(--gradient-primary);
+    color: var(--white);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-weight-bold);
+}
+
+.dark-minimal-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.dark-highlight-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-2xl) 0;
+}
+
+.dark-highlight-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    text-align: left;
+}
+
+.dark-highlight-card.positive {
+    border-color: rgba(16, 185, 129, 0.3);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.dark-highlight-card.negative {
+    border-color: rgba(239, 68, 68, 0.3);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.dark-highlight-card.neutral {
+    border-color: rgba(255, 72, 0, 0.3);
+    background: rgba(255, 72, 0, 0.05);
+}
+
+.dark-highlight-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    flex-shrink: 0;
+}
+
+.dark-highlight-card.positive .dark-highlight-icon {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success);
+}
+
+.dark-highlight-card.negative .dark-highlight-icon {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--error);
+}
+
+.dark-highlight-card.neutral .dark-highlight-icon {
+    background: rgba(255, 72, 0, 0.2);
+    color: var(--brand-orange);
+}
+
+.dark-highlight-title {
+    font-weight: var(--font-weight-semibold);
+    color: var(--white);
+    margin-bottom: var(--space-xs);
+}
+
+.dark-highlight-desc {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.dark-minimal-cta {
+    margin-top: var(--space-2xl);
+}
+
+.dark-minimal-cta .btn {
+    margin: 0 var(--space-sm);
+}
+
+.btn-ghost-light {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    font-weight: var(--font-weight-semibold);
+}
+
+.btn-ghost-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dark-highlight-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dark-minimal-header {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    .dark-minimal-meta {
+        align-items: center;
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Perfect for professional reviews with balanced assessment
+2. Clean, minimal dark design with color-coded highlights
+3. Features pros/cons analysis with visual indicators
+4. Update highlight cards to match your evaluation
+5. Customize logo and meta information
+6. Cards automatically stack on mobile devices
+
+Customization Options:
+- Update highlights: Modify title, description, and sentiment
+- Change logo: Replace dark-logo-placeholder with actual logo
+- Update meta info: Change date and author information
+- Add more highlights: Copy dark-highlight-card structure
+- Modify colors: Adjust positive/negative/neutral color schemes
+- Customize CTAs: Update both button texts and links
+- Remove header: Delete dark-minimal-header if not needed
+
+Highlight Card Types:
+- .positive: Green accent for strengths/pros
+- .negative: Red accent for weaknesses/cons  
+- .neutral: Orange accent for neutral points
+
+Each card contains:
+- Circular icon with matching color theme
+- Title and description text
+- Glass-morphism background effect
+- Color-coded border matching sentiment
+
+Required CSS: design-system.css + embedded styles above
+-->

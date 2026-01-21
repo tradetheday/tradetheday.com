@@ -1,0 +1,389 @@
+---
+interface WithdrawalDetail {
+  icon: string;
+  label: string;
+  value: string;
+}
+
+interface ProsCons {
+  pros: string[];
+  cons: string[];
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  withdrawalDetails: WithdrawalDetail[];
+  analysisTitle?: string;
+  analysis: ProsCons;
+  variant?: 'default' | 'compact';
+}
+
+const { 
+  title = "Payment Details",
+  subtitle = "Comprehensive payment and withdrawal information",
+  withdrawalDetails = [],
+  analysisTitle = "Payment System Analysis",
+  analysis,
+  variant = 'default'
+} = Astro.props;
+
+const sectionClasses = [
+  'payment-details-section',
+  variant !== 'default' ? `payment-details-${variant}` : ''
+].filter(Boolean).join(' ');
+---
+
+<div class={sectionClasses}>
+  {title && (
+    <div class="payment-details-header">
+      <h3 class="heading-3">{title}</h3>
+      {subtitle && <p class="body-large payment-details-subtitle">{subtitle}</p>}
+    </div>
+  )}
+  
+  <!-- Unified Payment Information Layout -->
+  <div class="payment-info-container">
+    <!-- Key Details Section -->
+    <div class="payment-key-details">
+      <h4 class="section-title">Key Details</h4>
+      <div class="key-details-grid">
+        {withdrawalDetails.map((detail) => (
+          <div class="detail-stat">
+            <div class="stat-icon">{detail.icon}</div>
+            <div class="stat-content">
+              <div class="stat-label">{detail.label}</div>
+              <div class="stat-value">{detail.value}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <!-- Analysis Section -->
+    <div class="payment-analysis">
+      <h4 class="section-title">Quick Analysis</h4>
+      <div class="analysis-grid">
+        <div class="pros-column">
+          <div class="analysis-header pros-header">
+            <span class="analysis-icon">✓</span>
+            <span class="analysis-title">Advantages</span>
+          </div>
+          <div class="analysis-items">
+            {analysis.pros.map((pro) => (
+              <div class="analysis-point pros-point">{pro}</div>
+            ))}
+          </div>
+        </div>
+        <div class="cons-column">
+          <div class="analysis-header cons-header">
+            <span class="analysis-icon">⚠</span>
+            <span class="analysis-title">Considerations</span>
+          </div>
+          <div class="analysis-items">
+            {analysis.cons.map((con) => (
+              <div class="analysis-point cons-point">{con}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .payment-details-section {
+    margin: var(--space-component) 0;
+  }
+
+  .payment-details-header {
+    text-align: center;
+    margin-bottom: var(--space-component);
+  }
+
+  .payment-details-subtitle {
+    color: var(--gray-600, #4b5563);
+    margin-top: var(--space-content);
+  }
+
+  /* New Unified Layout */
+  .payment-info-container {
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1.25rem;
+    padding: 2.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-top: var(--space-component);
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-title::before {
+    content: "";
+    width: 4px;
+    height: 1.5rem;
+    background: linear-gradient(135deg, #ff4800 0%, #ff6b2d 100%);
+    border-radius: 2px;
+  }
+
+  /* Key Details Grid */
+  .payment-key-details {
+    margin-bottom: 3rem;
+  }
+
+  .key-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .detail-stat {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 0.875rem;
+    border: 1px solid var(--gray-100, #f3f4f6);
+    transition: all 0.2s ease;
+  }
+
+  .detail-stat:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--brand-orange, #ff4800);
+  }
+
+  .stat-icon {
+    font-size: 1.75rem;
+    background: linear-gradient(135deg, #ff4800 0%, #ff6b2d 100%);
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(255, 72, 0, 0.25);
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stat-icon::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    transition: transform 0.6s ease;
+  }
+
+  .detail-stat:hover .stat-icon::before {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+
+  .stat-content {
+    flex: 1;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--gray-600, #4b5563);
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    line-height: 1.4;
+  }
+
+  /* Analysis Grid */
+  .payment-analysis {
+    border-top: 1px solid var(--gray-200, #e5e7eb);
+    padding-top: 2rem;
+  }
+
+  .analysis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .pros-column,
+  .cons-column {
+    background: rgba(248, 250, 252, 0.5);
+    border-radius: 1rem;
+    padding: 1.75rem;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .pros-column {
+    border-left: 3px solid var(--success, #10b981);
+  }
+
+  .cons-column {
+    border-left: 3px solid var(--warning, #f59e0b);
+  }
+
+  .analysis-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--gray-200, #e5e7eb);
+  }
+
+  .analysis-icon {
+    font-size: 1.25rem;
+    font-weight: bold;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+  }
+
+  .pros-header .analysis-icon {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success, #10b981);
+  }
+
+  .cons-header .analysis-icon {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--warning, #f59e0b);
+  }
+
+  .analysis-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+  }
+
+  .analysis-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .analysis-point {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--gray-700, #374151);
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .pros-point::before {
+    content: "•";
+    color: var(--success, #10b981);
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .cons-point::before {
+    content: "•";
+    color: var(--warning, #f59e0b);
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .payment-info-container {
+      padding: 2rem;
+    }
+
+    .key-details-grid {
+      gap: 1.25rem;
+    }
+
+    .analysis-grid {
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .payment-info-container {
+      padding: 1.75rem;
+    }
+
+    .key-details-grid {
+      gap: 1rem;
+    }
+
+    .analysis-grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .pros-column,
+    .cons-column {
+      padding: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.375rem;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .key-details-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .payment-info-container {
+      padding: 1.5rem;
+      margin-top: var(--space-content);
+    }
+
+    .detail-stat {
+      padding: 1rem;
+      gap: 0.875rem;
+    }
+
+    .stat-icon {
+      width: 3rem;
+      height: 3rem;
+      font-size: 1.75rem;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+    }
+
+    .pros-column,
+    .cons-column {
+      padding: 1.25rem;
+    }
+
+    .analysis-header {
+      margin-bottom: 1rem;
+    }
+  }
+</style>

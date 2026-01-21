@@ -1,0 +1,675 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import TrustBadges from '../../components/TrustBadges.astro';
+import AnalystNotes from '../../components/AnalystNotes.astro';
+import { propFirms, getFeaturedPropFirms } from '../../data/propfirms';
+
+const pageTitle = "Best Prop Firms 2026 - Get Funded to Trade";
+const pageDescription = "Compare the best proprietary trading firms for 2026. FTMO, The Funded Trader, E8 Funding and more. Get funded up to $400K with our exclusive discount codes.";
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Prop Firms', current: true }
+];
+
+const featuredFirms = getFeaturedPropFirms();
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Schema.org markup -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Best Prop Trading Firms 2026",
+    "description": pageDescription,
+    "numberOfItems": propFirms.length,
+    "itemListElement": propFirms.map((firm, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": firm.name,
+      "url": `https://tradetheday.com${firm.reviewUrl}`
+    }))
+  })} />
+
+  <!-- Hero -->
+  <section class="propfirms-hero">
+    <div class="container">
+      <h1 class="heading-1">Best Prop Firms 2026</h1>
+      <p class="body-large propfirms-hero-sub">
+        Get funded to trade without risking your own capital. Compare challenges, payouts, and rules from the top proprietary trading firms.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="stat-value">$400K+</span>
+          <span class="stat-label">Max Funding</span>
+        </div>
+        <div class="hero-stat">
+          <span class="stat-value">90%</span>
+          <span class="stat-label">Profit Split</span>
+        </div>
+        <div class="hero-stat">
+          <span class="stat-value">$155</span>
+          <span class="stat-label">Starting From</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <TrustBadges variant="light" compact={true} />
+
+  <!-- Prop Firm Cards -->
+  <section class="section">
+    <div class="container">
+      <div class="propfirms-grid">
+        {propFirms.map((firm) => (
+          <div class={`propfirm-card ${firm.promoted ? 'propfirm-card--promoted' : ''}`}>
+            {firm.promoted && <div class="promoted-badge">Editor's Choice</div>}
+
+            <div class="propfirm-header">
+              <div class="propfirm-logo">
+                <span class="propfirm-initial">{firm.name[0]}</span>
+              </div>
+              <div>
+                <h2 class="propfirm-name">{firm.name}</h2>
+                <div class="propfirm-rating">
+                  <span class="stars">{'★'.repeat(Math.floor(firm.scores.overall))}</span>
+                  <span class="rating-value">{firm.scores.overall}/5</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="propfirm-tagline">{firm.tagline}</p>
+
+            <div class="propfirm-stats">
+              <div class="stat">
+                <span class="stat-value">{firm.maxFunding}</span>
+                <span class="stat-label">Max Funding</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">{firm.profitSplit}</span>
+                <span class="stat-label">Profit Split</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">{firm.startingPrice}</span>
+                <span class="stat-label">From</span>
+              </div>
+            </div>
+
+            <div class="propfirm-features">
+              <h3 class="features-title">Key Features:</h3>
+              <ul class="features-list">
+                {firm.features.slice(0, 4).map((feature) => (
+                  <li><span class="check">✓</span> {feature}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="propfirm-platforms">
+              <span class="platforms-label">Platforms:</span>
+              <span class="platforms-list">{firm.platforms.join(', ')}</span>
+            </div>
+
+            {firm.discountCode && (
+              <div class="discount-banner">
+                <span class="discount-icon">🎁</span>
+                <span class="discount-text">Use code <strong>{firm.discountCode.code}</strong> for {firm.discountCode.discount}</span>
+              </div>
+            )}
+
+            <div class="propfirm-ctas">
+              <a href={firm.reviewUrl} class="btn btn-secondary">Read Review</a>
+              <a href={firm.affiliateUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary">
+                Visit {firm.name}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- What is a Prop Firm -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2 text-center">What is a Prop Firm?</h2>
+      <p class="body-large text-center" style="max-width: 800px; margin: 0 auto var(--space-xl);">
+        Proprietary trading firms (prop firms) provide traders with capital to trade. You pass an evaluation challenge, get funded, and keep up to 90% of your profits. No risk to your own money.
+      </p>
+
+      <div class="how-it-works">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Choose a Challenge</h3>
+          <p>Select an account size ($10K - $400K) and pay the challenge fee ($155 - $1,080).</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Pass the Evaluation</h3>
+          <p>Hit the profit target (usually 8-10%) while staying within drawdown limits.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Get Funded</h3>
+          <p>Trade with the firm's capital. Keep 80-90% of all profits you make.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <AnalystNotes
+    title="The Real Economics of Prop Trading"
+    icon="📊"
+    id="prop-economics-notes"
+    variant="light"
+  >
+    <h4>Understanding the Business Model</h4>
+    <p>
+      Prop firms operate on a straightforward business model: they collect challenge fees from many traders,
+      and the fees from those who fail fund the payouts to successful traders. With typical pass rates of
+      10-15%, the math works in their favor while still providing genuine opportunity for skilled traders.
+    </p>
+    <h4>Why This Model Benefits Traders</h4>
+    <p>
+      Unlike traditional trading where you need $50,000+ to trade meaningfully, prop firms let you access
+      substantial capital for a few hundred dollars. If you fail, you lose the challenge fee. If you pass,
+      you can earn significant profits. The risk/reward is asymmetric in your favor -if you have edge.
+    </p>
+    <h4>The Key to Profitability</h4>
+    <p>
+      The most successful prop firm traders treat challenges like a business. They track their win rate,
+      risk-to-reward ratio, and expected value per trade. If your expected value is positive over your
+      typical trading period, multiple challenge attempts become a positive EV proposition.
+    </p>
+    <h4>Common Misconceptions</h4>
+    <p>
+      Many traders believe prop firms are "designed to fail you." In reality, prop firms want funded
+      traders who are profitable -it's how they make money long-term. The rules exist to protect their
+      capital, not to trap you. Understanding and respecting these rules is key to success.
+    </p>
+  </AnalystNotes>
+
+  <!-- Comparison Table -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2 text-center">Quick Comparison</h2>
+
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Prop Firm</th>
+              <th>Max Funding</th>
+              <th>Profit Split</th>
+              <th>Starting Price</th>
+              <th>Profit Target</th>
+              <th>Max Drawdown</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            {propFirms.map((firm) => (
+              <tr>
+                <td>
+                  <a href={firm.reviewUrl} class="firm-link">{firm.name}</a>
+                  {firm.promoted && <span class="table-badge">Top Pick</span>}
+                </td>
+                <td>{firm.maxFunding}</td>
+                <td>{firm.profitSplit}</td>
+                <td>{firm.startingPrice}</td>
+                <td>{firm.challenges[0]?.profitTarget || '-'}</td>
+                <td>{firm.challenges[0]?.maxDrawdown || '-'}</td>
+                <td><span class="rating">{firm.scores.overall}/5</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <AnalystNotes
+    title="How to Choose the Right Prop Firm"
+    icon="🎯"
+    id="choosing-propfirm-notes"
+    variant="dark"
+  >
+    <h4>Match Rules to Your Trading Style</h4>
+    <p>
+      The biggest mistake traders make is choosing a prop firm based on price alone. If you're a swing
+      trader who needs to hold positions overnight, FTMO's restrictions will hurt you -even if they're
+      "the best." Choose a firm whose rules align with how you actually trade.
+    </p>
+    <h4>Trust and Track Record Matter Most</h4>
+    <p>
+      When you pass a challenge and start making profits, you want certainty you'll get paid. Established
+      firms like FTMO ($200M+ paid) have proven track records. Newer firms may offer better prices, but
+      carry more uncertainty. Consider this trade-off carefully -a $50 savings means nothing if payouts
+      are delayed or disputed.
+    </p>
+    <h4>Start Small, Scale Up</h4>
+    <p>
+      Don't start with a $200K challenge. Begin with $10K-$25K to prove your strategy works in a prop
+      firm environment. The rules and psychology are different from demo trading. Once you're
+      consistently funded, scale up. Many successful traders run multiple smaller accounts rather
+      than one large one.
+    </p>
+    <h4>Use Discount Codes Wisely</h4>
+    <p>
+      Most prop firms offer periodic discounts of 10-30%. If you're not in a rush, wait for promotions -
+      they happen regularly around holidays and major trading events. Our exclusive codes can save you
+      significant amounts over multiple challenge attempts.
+    </p>
+  </AnalystNotes>
+
+  <AnalystNotes
+    title="Avoiding Common Prop Firm Mistakes"
+    icon="⚠️"
+    id="propfirm-mistakes-notes"
+    variant="light"
+  >
+    <h4>Mistake #1: Overtrading to Hit Targets</h4>
+    <p>
+      Many traders fail because they force trades to reach the profit target quickly. A 10% target
+      over 30 days is 0.33% per day -very achievable with patience. Rushing leads to emotional
+      decisions and blown accounts. Let the profits come naturally from your edge.
+    </p>
+    <h4>Mistake #2: Ignoring Daily Drawdown</h4>
+    <p>
+      The daily drawdown limit (typically 5%) is what kills most traders. One bad day can end your
+      challenge even if your overall P&L is positive. Set hard daily loss limits below the
+      maximum -if you're down 3%, stop trading for the day.
+    </p>
+    <h4>Mistake #3: Not Testing on Demo First</h4>
+    <p>
+      Before paying for any challenge, trade your exact strategy on demo for 2-3 months. Track
+      your metrics: win rate, average R:R, maximum drawdown, and daily P&L swings. If you can't
+      pass a simulated challenge on demo, you won't pass a real one.
+    </p>
+    <h4>Mistake #4: Trading During High-Impact News</h4>
+    <p>
+      Many firms restrict or prohibit trading during major news events. Even if allowed, news
+      trading adds unpredictable volatility. Unless news trading is your specific edge, avoid
+      FOMC, NFP, and similar events during challenges.
+    </p>
+  </AnalystNotes>
+
+  <!-- CTA Section -->
+  <section class="section cta-section">
+    <div class="container text-center">
+      <h2 class="heading-2">Ready to Get Funded?</h2>
+      <p class="body-large" style="margin-bottom: var(--space-lg);">
+        Use our exclusive discount codes and start your trading career with funded capital.
+      </p>
+      <a href="/propfirms/ftmo/" class="btn btn-primary btn-lg">Start with FTMO (Most Trusted)</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .propfirms-hero {
+    padding: var(--space-2xl) 0;
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a2028 100%);
+    text-align: center;
+    color: white;
+  }
+
+  .propfirms-hero .heading-1 {
+    color: white;
+  }
+
+  .propfirms-hero-sub {
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2xl);
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat .stat-value {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+  }
+
+  .hero-stat .stat-label {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .propfirms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .propfirm-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    position: relative;
+  }
+
+  .propfirm-card--promoted {
+    border-color: var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.15);
+  }
+
+  .promoted-badge {
+    position: absolute;
+    top: -12px;
+    left: var(--space-lg);
+    background: var(--brand-orange);
+    color: white;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .propfirm-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .propfirm-logo {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a2028 100%);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .propfirm-initial {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .propfirm-name {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  .propfirm-rating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .stars {
+    color: var(--brand-orange);
+  }
+
+  .rating-value {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .propfirm-tagline {
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+    font-style: italic;
+  }
+
+  .propfirm-stats {
+    display: flex;
+    gap: var(--space-lg);
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--gray-100);
+    border-bottom: 1px solid var(--gray-100);
+    margin-bottom: var(--space-md);
+  }
+
+  .stat {
+    text-align: center;
+    flex: 1;
+  }
+
+  .stat .stat-value {
+    display: block;
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .stat .stat-label {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+  }
+
+  .propfirm-features {
+    margin-bottom: var(--space-md);
+  }
+
+  .features-title {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .features-list li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+    color: var(--gray-700);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .check {
+    color: var(--success);
+    font-weight: 600;
+  }
+
+  .propfirm-platforms {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
+
+  .platforms-label {
+    font-weight: 600;
+  }
+
+  .discount-banner {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-md);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--font-size-sm);
+  }
+
+  .discount-icon {
+    font-size: 1.25rem;
+  }
+
+  .discount-text strong {
+    color: var(--success);
+  }
+
+  .propfirm-ctas {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .propfirm-ctas .btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  /* How It Works */
+  .how-it-works {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .step {
+    text-align: center;
+    max-width: 250px;
+  }
+
+  .step-number {
+    width: 48px;
+    height: 48px;
+    background: var(--brand-orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin: 0 auto var(--space-md);
+  }
+
+  .step h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .step p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  .step-arrow {
+    font-size: 2rem;
+    color: var(--gray-300);
+    padding-top: var(--space-md);
+  }
+
+  /* Comparison Table */
+  .comparison-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .comparison-table th {
+    background: var(--gray-50);
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .comparison-table tr:hover {
+    background: var(--gray-50);
+  }
+
+  .firm-link {
+    color: var(--charcoal);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .firm-link:hover {
+    color: var(--brand-orange);
+  }
+
+  .table-badge {
+    background: var(--brand-orange);
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    margin-left: var(--space-xs);
+    vertical-align: middle;
+  }
+
+  .rating {
+    font-weight: 600;
+    color: var(--brand-orange);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a2028 100%);
+    color: white;
+  }
+
+  .cta-section .heading-2 {
+    color: white;
+  }
+
+  .cta-section .body-large {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  @media (max-width: 768px) {
+    .propfirms-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-stats {
+      gap: var(--space-lg);
+    }
+
+    .propfirm-stats {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .propfirm-ctas {
+      flex-direction: column;
+    }
+
+    .how-it-works {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .step-arrow {
+      transform: rotate(90deg);
+      padding: 0;
+    }
+  }
+</style>

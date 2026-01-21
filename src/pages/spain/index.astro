@@ -1,0 +1,860 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageTitle = "Trading from Spain - Alternative Options | TradeTheDay";
+const pageDescription = "Due to CNMV regulations, CFD trading cannot be promoted to Spanish residents. Discover alternative trading options available in Spain.";
+
+const avafuturesLink = "https://www.avafutures.com/trading-platforms/tradingview?tag=128979";
+
+// Video placeholder - replace with actual video path when ready
+const heroVideoSrc = "/videos/spain-flag.mp4"; // Future: add video here
+const hasVideo = false; // Set to true when video is added
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <!-- No index - this is a redirect landing page -->
+  <meta slot="head" name="robots" content="noindex, nofollow">
+
+
+  <!-- Hero Section with Animated Flag Background -->
+  <section class="spain-hero">
+    {hasVideo ? (
+      <div class="hero-video-container">
+        <video
+          class="hero-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          poster="/images/spain-flag-poster.jpg"
+        >
+          <source src={heroVideoSrc} type="video/mp4" />
+        </video>
+      </div>
+    ) : (
+      <div class="flag-background">
+        <!-- Multiple wave layers for realistic fabric effect -->
+        <div class="flag-container">
+          <div class="flag-fabric">
+            <div class="flag-stripe red-top"></div>
+            <div class="flag-stripe yellow"></div>
+            <div class="flag-stripe red-bottom"></div>
+          </div>
+          <!-- Shadow layer that moves with waves -->
+          <div class="flag-shadow"></div>
+          <!-- Highlight/sheen layer -->
+          <div class="flag-sheen"></div>
+          <!-- Fabric texture overlay -->
+          <div class="flag-texture"></div>
+        </div>
+      </div>
+    )}
+
+    <!-- Dark overlay for text readability -->
+    <div class="flag-overlay"></div>
+
+    <div class="container hero-content">
+      <div class="hero-social-proof">
+        <span class="social-proof-badge">
+          <span class="badge-flag">🇪🇸</span>
+          Spanish Traders
+        </span>
+      </div>
+      <h1 class="hero-title">Trading from Spain?</h1>
+      <p class="hero-subtitle">
+        Due to CNMV regulations effective August 2023, CFD trading cannot be
+        promoted to Spanish retail investors. But don't worry  - we've got alternatives.
+      </p>
+      <div class="hero-cta">
+        <a href={avafuturesLink} class="btn btn-primary btn-xl" target="_blank" rel="noopener">
+          Try AvaFutures Instead →
+        </a>
+        <a href="#alternatives" class="btn btn-outline btn-xl">
+          See All Options
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="spain-page">
+    <div class="container">
+      <div class="spain-content">
+
+        <!-- Explanation Box - Bento Style -->
+        <div class="regulation-box">
+          <div class="regulation-top">
+            <div class="regulation-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+            </div>
+            <div class="regulation-content">
+              <h2>What This Means</h2>
+              <p>
+                The Spanish securities regulator (<a href="/glossary/cnmv/" class="glossary-link">CNMV</a>) has implemented strict rules prohibiting the advertising
+                and promotion of Contracts for Difference (CFDs) to retail investors in Spain.
+              </p>
+            </div>
+          </div>
+          <div class="regulation-highlight">
+            <span class="highlight-icon">✓</span>
+            <div>
+              <strong>You can still trade</strong>
+              <span>These rules only restrict marketing, not trading itself. We just cannot show you CFD broker promotions or bonus codes.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alternatives Section -->
+        <div class="alternatives-section" id="alternatives">
+          <h2>Available Alternatives for Spanish Traders</h2>
+
+          <div class="alternatives-grid">
+            <!-- AvaFutures Card -->
+            <div class="alt-card featured">
+              <div class="alt-badge">Recommended</div>
+              <div class="alt-header">
+                <span class="alt-icon">📈</span>
+                <h3><a href="/brokers/avafutures/">AvaFutures</a></h3>
+              </div>
+              <p class="alt-description">
+                Trade futures markets with TradingView integration. Futures trading is available
+                to Spanish residents and offers access to global markets.
+              </p>
+              <ul class="alt-features">
+                <li>TradingView integration</li>
+                <li>Global futures markets</li>
+                <li>Regulated trading</li>
+                <li>Available in Spain</li>
+              </ul>
+              <a href={avafuturesLink} class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+                Open AvaFutures Account →
+              </a>
+              <a href="/brokers/avafutures/" class="alt-review-link">Read Full Review →</a>
+            </div>
+
+            <!-- Crypto Exchanges Card -->
+            <div class="alt-card">
+              <div class="alt-header">
+                <span class="alt-icon">🪙</span>
+                <h3>Cryptocurrency Exchanges</h3>
+              </div>
+              <p class="alt-description">
+                Cryptocurrency exchanges operate under different regulations and are available
+                to Spanish residents.
+              </p>
+              <ul class="alt-features">
+                <li>Bitcoin & Altcoins</li>
+                <li>Spot trading</li>
+                <li>Staking & earn products</li>
+                <li>Available in Spain</li>
+              </ul>
+              <a href="/exchanges/" class="btn btn-secondary">
+                View Crypto Exchanges
+              </a>
+            </div>
+
+            <!-- Prop Firms Card -->
+            <div class="alt-card">
+              <div class="alt-header">
+                <span class="alt-icon">🏆</span>
+                <h3>Prop Trading Firms</h3>
+              </div>
+              <p class="alt-description">
+                Proprietary trading firms offer funded accounts where you trade their capital
+                and keep a share of profits.
+              </p>
+              <ul class="alt-features">
+                <li>Trade with firm capital</li>
+                <li>Keep up to 90% profits</li>
+                <li>No personal capital at risk</li>
+              </ul>
+              <a href="/propfirms/" class="btn btn-secondary">
+                View Prop Firms
+              </a>
+            </div>
+
+            <!-- Stock & ETF Trading Card -->
+            <div class="alt-card">
+              <div class="alt-header">
+                <span class="alt-icon">📊</span>
+                <h3>Stock & ETF Trading</h3>
+              </div>
+              <p class="alt-description">
+                Traditional stock and ETF investing through regulated brokers is fully available
+                to Spanish investors without CFD restrictions.
+              </p>
+              <ul class="alt-features">
+                <li>Real share ownership</li>
+                <li>Dividend income</li>
+                <li>Long-term investing</li>
+                <li>No leverage restrictions</li>
+              </ul>
+              <a href="/stock-trading-for-beginners/" class="btn btn-secondary">
+                Stock Trading Guide
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="info-section">
+          <h2>Why Am I Seeing This Page?</h2>
+          <p>
+            Our system detected that you're visiting from Spain. To comply with CNMV regulations,
+            we've redirected you from a <a href="/glossary/contract-for-difference/" class="glossary-link">CFD</a> broker page to this information page instead.
+          </p>
+          <p>
+            You're free to browse our educational content, trading tools, crypto exchange reviews,
+            and prop firm information - these are not affected by the regulations.
+          </p>
+          <div class="info-links">
+            <a href="/tools/">Trading Tools</a>
+            <a href="/guides/">Trading Guides</a>
+            <a href="/glossary/">Trading Glossary</a>
+          </div>
+        </div>
+
+        <!-- Legal Reference -->
+        <div class="legal-reference">
+          <p>
+            <strong>Reference:</strong> CNMV Resolution of 11 July 2023 on product intervention measures
+            relating to CFDs and other leveraged products. Effective from 3 August 2023.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Hero Section - Large tier for special landing pages */
+  .spain-hero {
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: var(--space-3xl) 0;
+  }
+
+  /* Realistic Animated Spanish Flag */
+  .flag-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+
+  .flag-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 130%;
+    transform: translate(-50%, -50%);
+  }
+
+  .flag-fabric {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    animation: flagWave 6s ease-in-out infinite;
+    transform-style: preserve-3d;
+  }
+
+  .flag-stripe {
+    position: relative;
+  }
+
+  .flag-stripe.red-top {
+    flex: 1;
+    background: linear-gradient(
+      90deg,
+      #c60b1e 0%,
+      #d10d20 25%,
+      #c60b1e 50%,
+      #b8091a 75%,
+      #c60b1e 100%
+    );
+    background-size: 200% 100%;
+    animation: stripeShift 5s ease-in-out infinite;
+  }
+
+  .flag-stripe.yellow {
+    flex: 2;
+    background: linear-gradient(
+      90deg,
+      #ffc400 0%,
+      #ffce33 25%,
+      #ffc400 50%,
+      #e6b000 75%,
+      #ffc400 100%
+    );
+    background-size: 200% 100%;
+    animation: stripeShift 5s ease-in-out infinite;
+    animation-delay: 0.15s;
+  }
+
+  .flag-stripe.red-bottom {
+    flex: 1;
+    background: linear-gradient(
+      90deg,
+      #c60b1e 0%,
+      #d10d20 25%,
+      #c60b1e 50%,
+      #b8091a 75%,
+      #c60b1e 100%
+    );
+    background-size: 200% 100%;
+    animation: stripeShift 5s ease-in-out infinite;
+    animation-delay: 0.3s;
+  }
+
+  /* Color shift for wave illusion - more visible */
+  @keyframes stripeShift {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 0%; }
+  }
+
+  /* Stripe wave animation */
+  @keyframes stripeWave {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.02); }
+  }
+
+  /* Main wave animation - visible but clean fabric movement */
+  @keyframes flagWave {
+    0%, 100% {
+      transform: skewX(0deg) scaleX(1) translateX(0);
+    }
+    25% {
+      transform: skewX(1.5deg) scaleX(1.01) translateX(2px);
+    }
+    50% {
+      transform: skewX(-1deg) scaleX(1.02) translateX(-1px);
+    }
+    75% {
+      transform: skewX(0.8deg) scaleX(1.008) translateX(1px);
+    }
+  }
+
+  /* Secondary ripple animation for each stripe */
+  .flag-stripe {
+    position: relative;
+    overflow: hidden;
+    animation: stripeRipple 3.5s ease-in-out infinite;
+  }
+
+  .flag-stripe.red-top {
+    animation-delay: 0s;
+  }
+
+  .flag-stripe.yellow {
+    animation-delay: 0.15s;
+  }
+
+  .flag-stripe.red-bottom {
+    animation-delay: 0.3s;
+  }
+
+  @keyframes stripeRipple {
+    0%, 100% {
+      transform: scaleY(1) translateX(0);
+    }
+    25% {
+      transform: scaleY(1.02) translateX(1px);
+    }
+    50% {
+      transform: scaleY(0.98) translateX(-1px);
+    }
+    75% {
+      transform: scaleY(1.01) translateX(0.5px);
+    }
+  }
+
+  /* Sheen/highlight layer - visible sweep */
+  .flag-sheen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      100deg,
+      transparent 0%,
+      transparent 40%,
+      rgba(255,255,255,0.12) 48%,
+      rgba(255,255,255,0.18) 50%,
+      rgba(255,255,255,0.12) 52%,
+      transparent 60%,
+      transparent 100%
+    );
+    animation: sheenMove 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes sheenMove {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0.8;
+    }
+  }
+
+  /* Hide unused layers */
+  .flag-shadow,
+  .flag-texture {
+    display: none;
+  }
+
+  /* Dark overlay for readability */
+  .flag-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 0.6) 100%
+    );
+    z-index: 1;
+  }
+
+  /* Video container (for when video is added) */
+  .hero-video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--white);
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  /* Social Proof Badge - matches homepage */
+  .hero-social-proof {
+    margin-bottom: var(--space-lg);
+  }
+
+  .social-proof-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 72, 0, 0.15);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .badge-flag {
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 800;
+    margin-bottom: var(--space-md);
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-lg);
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+    opacity: 0.9;
+    line-height: 1.7;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-cta .btn-outline {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: var(--white);
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-cta .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--white);
+    transform: translateY(-2px);
+  }
+
+  /* Main Content */
+  .spain-page {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+  }
+
+  .spain-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Regulation Box - Light with accent */
+  .regulation-box {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .regulation-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--brand-orange), transparent);
+  }
+
+  .regulation-top {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .regulation-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 72, 0, 0.1);
+    border-radius: var(--radius-lg);
+    color: var(--brand-orange);
+  }
+
+  .regulation-content {
+    flex: 1;
+  }
+
+  .regulation-content h2 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .regulation-content p {
+    color: var(--gray-700);
+    margin-bottom: 0;
+    line-height: 1.7;
+  }
+
+  .glossary-link {
+    color: var(--brand-orange);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    border-bottom: 1px dashed var(--brand-orange);
+  }
+
+  .glossary-link:hover {
+    border-bottom-style: solid;
+  }
+
+  .regulation-highlight {
+    display: flex;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    border-radius: var(--radius-lg);
+    width: 100%;
+  }
+
+  .highlight-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--success);
+    color: var(--white);
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .regulation-highlight strong {
+    display: block;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+  }
+
+  .regulation-highlight span {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  @media (max-width: 640px) {
+    .regulation-top {
+      flex-direction: column;
+    }
+  }
+
+  .alternatives-section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .alternatives-section h2 {
+    font-size: var(--font-size-2xl);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .alternatives-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .alt-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+  }
+
+  .alt-card:hover {
+    border-color: var(--gray-300);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .alt-card.featured {
+    border: 2px solid var(--brand-orange);
+    box-shadow: 0 4px 24px rgba(255, 72, 0, 0.1);
+  }
+
+  .alt-badge {
+    position: absolute;
+    top: -12px;
+    left: var(--space-lg);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+  }
+
+  .alt-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .alt-icon {
+    font-size: 1.5rem;
+  }
+
+  .alt-header h3 {
+    font-size: var(--font-size-xl);
+    margin: 0;
+  }
+
+  .alt-description {
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+    flex-grow: 1;
+  }
+
+  .alt-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg);
+  }
+
+  .alt-features li {
+    padding: var(--space-xs) 0;
+    color: var(--gray-700);
+    font-size: var(--font-size-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .alt-features li::before {
+    content: "✓";
+    color: var(--success);
+    font-weight: bold;
+  }
+
+  .alt-card .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .alt-review-link {
+    display: block;
+    text-align: center;
+    margin-top: var(--space-sm);
+    color: var(--brand-orange);
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+  }
+
+  .alt-review-link:hover {
+    text-decoration: underline;
+  }
+
+  .alt-header a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .alt-header a:hover {
+    color: var(--brand-orange);
+  }
+
+  .info-section {
+    background: var(--gray-50);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .info-section h2 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .info-section p {
+    color: var(--gray-700);
+    margin-bottom: var(--space-md);
+  }
+
+  .info-links {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .info-links a {
+    color: var(--brand-orange);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+  }
+
+  .info-links a:hover {
+    text-decoration: underline;
+  }
+
+  .legal-reference {
+    text-align: center;
+    padding: var(--space-lg);
+    background: var(--gray-100);
+    border-radius: var(--radius-lg);
+  }
+
+  .legal-reference p {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .spain-hero {
+      min-height: 450px;
+      padding: var(--space-2xl) 0;
+    }
+
+    .hero-content {
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .hero-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-base);
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-cta .btn {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .flag-stripe.yellow::after {
+      width: 40px;
+      height: 55px;
+    }
+
+    .alternatives-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .info-links {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .flag-fabric,
+    .flag-stripe,
+    .flag-sheen {
+      animation: none !important;
+    }
+  }
+</style>

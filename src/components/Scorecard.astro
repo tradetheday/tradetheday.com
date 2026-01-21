@@ -1,0 +1,126 @@
+---
+export interface Props {
+  metrics: Array<{
+    value: string;
+    label: string;
+    icon?: string;
+  }>;
+  variant?: 'default' | 'compact' | 'dark';
+  columns?: number;
+}
+
+const { 
+  metrics, 
+  variant = 'default',
+  columns = metrics.length > 4 ? 4 : metrics.length
+} = Astro.props;
+
+const scorecardClasses = [
+  'scorecard',
+  variant !== 'default' ? `scorecard-${variant}` : ''
+].filter(Boolean).join(' ');
+
+const gridStyle = `grid-template-columns: repeat(${Math.min(columns, 4)}, 1fr);`;
+---
+
+<div class={scorecardClasses} style={gridStyle}>
+  {metrics.map(({ value, label, icon }) => (
+    <div class="scorecard-item">
+      {icon && <div class="scorecard-icon">{icon}</div>}
+      <div class="scorecard-value">{value}</div>
+      <div class="scorecard-label">{label}</div>
+    </div>
+  ))}
+</div>
+
+<style>
+.scorecard {
+  display: grid;
+  gap: 2rem;
+  margin: 3rem 0;
+  padding: 2rem;
+  background: transparent;
+}
+
+.scorecard-item {
+  text-align: center;
+  padding: 1rem;
+}
+
+.scorecard-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.scorecard-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.scorecard-label {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+.scorecard-compact {
+  padding: 1rem;
+  margin: 2rem 0;
+}
+
+.scorecard-compact .scorecard-item {
+  padding: 0.5rem;
+}
+
+.scorecard-compact .scorecard-value {
+  font-size: 1.5rem;
+}
+
+.scorecard-dark {
+  background: var(--charcoal, #1e2427);
+  border: 1px solid var(--gray-700, #374151);
+}
+
+.scorecard-dark .scorecard-label {
+  color: var(--gray-300, #d1d5db);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .scorecard {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .scorecard {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    padding: 1.5rem;
+  }
+  
+  .scorecard-value {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .scorecard {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .scorecard-value {
+    font-size: 1.25rem;
+  }
+  
+  .scorecard-label {
+    font-size: 0.75rem;
+  }
+}
+</style>

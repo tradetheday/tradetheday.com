@@ -1,0 +1,1290 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Chip from '../../../components/Chip.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import FAQ from '../../../components/FAQ.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import { getPropFirmBySlug } from '../../../data/propfirms';
+import { generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+
+// Get prop firm data
+const firm = getPropFirmBySlug('ftmo');
+
+if (!firm) {
+  return Astro.redirect('/propfirms/');
+}
+
+// Page Configuration
+const FIRM_NAME = 'FTMO';
+const pageTitle = `FTMO Review 2026: Challenge Rules, Payouts & 10% Discount Code | TradeTheDay`;
+const pageDescription = `Honest FTMO review by funded traders. See our ${firm.scores.overall}/5 rating, challenge breakdown, payout proof, and exclusive discount code ${firm.discountCode?.code} for 10% off.`;
+
+// Navigation links
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#challenges', text: 'Challenges' },
+  { href: '#rules', text: 'Rules' },
+  { href: '#payouts', text: 'Payouts' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#pros-cons', text: 'Pros & Cons' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+// Hero scorecard
+const heroScorecard = [
+  { value: firm.maxFunding, label: 'Max Funding' },
+  { value: firm.profitSplit, label: 'Profit Split' },
+  { value: firm.startingPrice, label: 'From' },
+  { value: `${firm.scores.overall}/5`, label: 'Our Rating' }
+];
+
+// Challenge comparison table
+const challengeTableHeaders = ['Account Size', 'Price', 'Profit Target', 'Max Drawdown', 'Daily Drawdown', 'Time Limit'];
+const challengeRows = firm.challenges.map(challenge => ({
+  cells: [
+    { content: challenge.accountSize, type: 'text', highlight: 'neutral' },
+    { content: challenge.price, type: 'text', highlight: 'neutral' },
+    { content: challenge.profitTarget, type: 'text', highlight: 'good' },
+    { content: challenge.maxDrawdown, type: 'text', highlight: 'warning' },
+    { content: challenge.dailyDrawdown, type: 'text', highlight: 'warning' },
+    { content: challenge.timeLimit, type: 'text', highlight: 'neutral' }
+  ]
+}));
+
+// Competitor comparison
+const competitorHeaders = ['Feature', 'FTMO', 'The Funded Trader', 'E8 Funding', 'MyForexFunds'];
+const competitorRows = [
+  {
+    cells: [
+      { content: 'Max Funding', type: 'text' },
+      { content: '$400,000', type: 'text', highlight: 'good' },
+      { content: '$600,000', type: 'text', highlight: 'best' },
+      { content: '$400,000', type: 'text', highlight: 'good' },
+      { content: '$300,000', type: 'text', highlight: 'neutral' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Profit Split', type: 'text' },
+      { content: 'Up to 90%', type: 'text', highlight: 'best' },
+      { content: 'Up to 90%', type: 'text', highlight: 'best' },
+      { content: '80%', type: 'text', highlight: 'neutral' },
+      { content: '85%', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Profit Target', type: 'text' },
+      { content: '10%', type: 'text', highlight: 'neutral' },
+      { content: '10%', type: 'text', highlight: 'neutral' },
+      { content: '8%', type: 'text', highlight: 'best' },
+      { content: '8%', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Daily Drawdown', type: 'text' },
+      { content: '5%', type: 'text', highlight: 'warning' },
+      { content: '5%', type: 'text', highlight: 'warning' },
+      { content: '4%', type: 'text', highlight: 'warning' },
+      { content: '5%', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Payout Reliability', type: 'text' },
+      { content: 'Excellent', type: 'text', highlight: 'best' },
+      { content: 'Good', type: 'text', highlight: 'good' },
+      { content: 'Good', type: 'text', highlight: 'good' },
+      { content: 'Closed*', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Total Paid Out', type: 'text' },
+      { content: '$200M+', type: 'text', highlight: 'best' },
+      { content: '$50M+', type: 'text', highlight: 'good' },
+      { content: '$20M+', type: 'text', highlight: 'neutral' },
+      { content: 'N/A', type: 'text', highlight: 'warning' }
+    ]
+  }
+];
+
+// FAQ data
+const faqItems = [
+  {
+    question: 'Is FTMO legitimate?',
+    answer: 'Yes, FTMO is one of the most legitimate and trusted prop firms in the industry. Founded in 2015 in Prague, Czech Republic, they have paid out over $200 million to traders worldwide. They are registered as a legal entity and have built a strong reputation over 9+ years of operation.'
+  },
+  {
+    question: 'How does the FTMO Challenge work?',
+    answer: 'The FTMO Challenge is a two-phase evaluation. In Phase 1, you must reach a 10% profit target within 30 days while staying within the 10% maximum drawdown and 5% daily drawdown limits. Phase 2 (Verification) requires a 5% profit target in 60 days with the same risk rules. Pass both, and you become a funded FTMO Trader.'
+  },
+  {
+    question: 'What is the FTMO profit split?',
+    answer: 'FTMO offers an 80% profit split to start, meaning you keep 80% of all profits you make. Through their scaling plan, this can increase to 90% as you prove consistent profitability. The remaining portion goes to FTMO for providing the capital and infrastructure.'
+  },
+  {
+    question: 'Can I hold trades over the weekend with FTMO?',
+    answer: 'Yes, FTMO allows weekend holding. However, be aware that gaps can occur when markets reopen, which could impact your drawdown. Many traders close positions before weekends to avoid this risk, but it is your choice as a funded trader.'
+  },
+  {
+    question: 'What happens if I fail the FTMO Challenge?',
+    answer: 'If you fail by hitting the maximum drawdown or daily drawdown limit, you lose the challenge and the fee paid. However, FTMO offers a Free Retry if you hit the profit target but fail due to other reasons. You can also purchase a new challenge at any time with no waiting period.'
+  },
+  {
+    question: 'How fast are FTMO payouts?',
+    answer: 'FTMO processes payouts bi-weekly (every 14 days) after your first month as a funded trader. Most payouts are processed within 1-3 business days via bank transfer, Skrill, or crypto. FTMO has an excellent track record for reliable, on-time payouts.'
+  },
+  {
+    question: 'Is news trading allowed on FTMO?',
+    answer: 'Yes, news trading is allowed on FTMO accounts. However, you must be mindful of the 5% daily drawdown rule, as high-impact news events can cause rapid price movements. Many traders avoid trading directly before major announcements to manage this risk.'
+  },
+  {
+    question: 'What is the FTMO discount code?',
+    answer: `Use code ${firm.discountCode?.code || 'TRADETHEDAY'} at checkout to receive 10% off your FTMO Challenge fee. This code works on all account sizes from $10K to $200K, saving you between $15 and $108 depending on your chosen account size.`
+  }
+];
+
+// Schema markup
+const breadcrumbSchemaItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Prop Firms', url: '/propfirms/' },
+  { name: 'FTMO Review', url: '/propfirms/ftmo/' }
+];
+
+const reviewSchema = generateReviewSchema({
+  itemReviewed: {
+    type: 'FinancialService',
+    name: 'FTMO',
+    url: 'https://ftmo.com'
+  },
+  reviewRating: {
+    ratingValue: firm.scores.overall,
+    bestRating: 5,
+    worstRating: 1
+  },
+  reviewBody: `Comprehensive review of FTMO prop trading firm. ${firm.scores.overall}/5 rating based on challenge rules, payout reliability, and trader support.`,
+  author: 'TradeTheDay Research Team'
+});
+
+const faqSchema = generateFAQSchema(faqItems);
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbSchemaItems);
+
+// Breadcrumb items
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Prop Firms', href: '/propfirms/' },
+  { text: 'FTMO Review', current: true }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  ogType="article"
+  schema={[reviewSchema, faqSchema, breadcrumbSchema]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- HERO SECTION -->
+  <section class="review-hero">
+    <div class="container">
+      <div class="review-hero-content">
+        <div class="review-hero-badge">
+          <Chip variant="badge" size="sm">Editor's Choice 2026</Chip>
+        </div>
+
+        <div class="review-hero-header">
+          <div class="review-hero-logo">
+            <span class="firm-initial">F</span>
+          </div>
+          <div class="review-hero-title">
+            <h1 class="heading-1">{FIRM_NAME} Review</h1>
+            <div class="review-hero-rating">
+              <span class="stars">{'★'.repeat(Math.floor(firm.scores.overall))}</span>
+              <span class="rating-value">{firm.scores.overall}/5</span>
+              <span class="rating-count">• Most Trusted Prop Firm</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="review-hero-tagline">{firm.tagline}</p>
+
+        <div class="review-hero-scorecard">
+          {heroScorecard.map((item) => (
+            <div class="scorecard-item">
+              <span class="scorecard-value">{item.value}</span>
+              <span class="scorecard-label">{item.label}</span>
+            </div>
+          ))}
+        </div>
+
+        {firm.discountCode && (
+          <div class="review-hero-discount">
+            <span class="discount-icon">🎁</span>
+            <span class="discount-text">
+              Use code <strong>{firm.discountCode.code}</strong> for {firm.discountCode.discount}
+            </span>
+          </div>
+        )}
+
+        <div class="review-hero-cta">
+          <a href={firm.affiliateUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xl">
+            Start FTMO Challenge
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="#challenges" class="btn btn-secondary btn-xl">
+            See Challenge Options
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Navigation links={navigationLinks} />
+
+  <!-- OVERVIEW SECTION -->
+  <section id="overview" class="section">
+    <div class="container">
+      <h2 class="heading-2">FTMO Overview</h2>
+      <p class="body-large">
+        FTMO is the world's most trusted proprietary trading firm, having paid out over $200 million to traders since 2015.
+        Based in Prague, Czech Republic, they've built an industry-leading reputation for fair rules, reliable payouts, and
+        excellent trader support. If you're serious about funded trading, FTMO is the gold standard.
+      </p>
+
+      <div class="overview-grid">
+        <div class="overview-card">
+          <div class="overview-icon">🏆</div>
+          <h3>Industry Leader</h3>
+          <p>9+ years in operation with $200M+ paid to traders. The most established prop firm in the industry.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">💰</div>
+          <h3>Up to 90% Profit Split</h3>
+          <p>Start at 80% and scale to 90% through consistent profitability. Keep the majority of what you earn.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">📈</div>
+          <h3>Scale to $400K</h3>
+          <p>Grow your account through their scaling plan. Double your funding by proving consistent results.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">⚡</div>
+          <h3>Bi-Weekly Payouts</h3>
+          <p>Get paid every 14 days via bank transfer, Skrill, or crypto. Fast, reliable withdrawals.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Why FTMO Dominates the Prop Firm Industry"
+        icon="🎯"
+        id="overview-notes"
+        variant="light"
+      >
+        <h4>The FTMO Advantage Explained</h4>
+        <p>Having analyzed dozens of prop firms over the years, FTMO consistently stands out for one simple reason: they actually pay traders. While competitors have come and gone (RIP MyForexFunds), FTMO has maintained an impeccable track record since 2015.</p>
+
+        <h5>Trust Is Everything in Prop Trading</h5>
+        <p>The prop firm industry has a dark side. Many firms are designed to profit from failed challenges, not from funding successful traders. They make rules intentionally difficult, slow-play payouts, or simply disappear with trader funds. FTMO operates differently - their business model depends on funded traders succeeding because they take a cut of profits, not challenge fees.</p>
+
+        <h5>The $200M Payout Milestone</h5>
+        <p>FTMO publicly tracks their total payouts - now exceeding $200 million. This isn't marketing fluff; it's verifiable through their published statistics and the thousands of trader testimonials. No other prop firm comes close to this track record. When you pass an FTMO challenge, you know you'll get paid.</p>
+
+        <h5>Real Infrastructure, Real Support</h5>
+        <p>FTMO operates from physical offices in Prague with over 100 employees. They have real customer support (responsive within hours, not days), a performance coach for struggling traders, and psychological coaching services. This isn't a fly-by-night operation - it's a legitimate financial services company that happens to fund retail traders.</p>
+
+        <h5>The Challenge Fee Reality</h5>
+        <p>Yes, FTMO is more expensive than some competitors. A $100K challenge costs $540 versus $300-400 elsewhere. But consider: would you rather pay $540 with near-certainty of payout, or $300 with uncertainty? The extra cost is insurance against prop firm risk - and in this industry, that insurance is worth every penny.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- CHALLENGES SECTION -->
+  <section id="challenges" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">FTMO Challenge Options</h2>
+      <p class="body-large">
+        Choose your account size based on your trading experience and goals. All challenges have the same rules -
+        only the price and funding amount differ.
+      </p>
+
+      <ComparisonTable
+        headers={challengeTableHeaders}
+        rows={challengeRows}
+        caption="FTMO Challenge pricing and requirements for all account sizes"
+      />
+
+      <div class="challenge-process">
+        <h3 class="heading-3">The FTMO Evaluation Process</h3>
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="step-number">1</div>
+            <h4>FTMO Challenge (Phase 1)</h4>
+            <p><strong>Target:</strong> 10% profit<br><strong>Time:</strong> 30 days<br><strong>Rules:</strong> Max 10% drawdown, 5% daily drawdown</p>
+          </div>
+          <div class="process-arrow">→</div>
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <h4>Verification (Phase 2)</h4>
+            <p><strong>Target:</strong> 5% profit<br><strong>Time:</strong> 60 days<br><strong>Rules:</strong> Same as Phase 1</p>
+          </div>
+          <div class="process-arrow">→</div>
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <h4>FTMO Trader</h4>
+            <p><strong>Profit Split:</strong> 80% (up to 90%)<br><strong>Payouts:</strong> Bi-weekly<br><strong>Scaling:</strong> Up to $400K</p>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Which Account Size Should You Choose?"
+        icon="💡"
+        id="challenge-notes"
+        variant="dark"
+      >
+        <h4>Account Size Strategy</h4>
+        <p>The account size you choose should match your trading capital and risk tolerance - not your ego. Here's how to think about it strategically.</p>
+
+        <h5>The Math Behind Account Selection</h5>
+        <p>Consider this: a $10K account challenge costs $155. If you pass, you need to make $1,000 (10%) on Phase 1, then $500 (5%) on Phase 2. As a funded trader, you'll keep 80% of profits. To recover your $155 challenge fee, you need to make $194 in profit - just 0.19% of the account.</p>
+
+        <p>For a $100K account ($540 fee), you need $675 profit to break even - 0.068% of the account. Larger accounts are mathematically more capital-efficient if you can afford the challenge fee.</p>
+
+        <h5>Risk Management Consideration</h5>
+        <p>With a 5% daily drawdown limit on a $100K account, that's $5,000 maximum daily loss. If your typical trade risks 1%, you can take 5 simultaneous losing trades before hitting the daily limit. On a $10K account, that's only $500 - one bad trade with inappropriate position sizing ends your challenge.</p>
+
+        <h5>Our Recommendation</h5>
+        <p>Start with the $25K-$50K range if you're new to prop trading. It's large enough to trade comfortably with proper position sizing but small enough that the challenge fee doesn't create psychological pressure. Once funded, prove yourself, then scale through FTMO's program rather than buying a larger challenge upfront.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- RULES SECTION -->
+  <section id="rules" class="section">
+    <div class="container">
+      <h2 class="heading-2">FTMO Trading Rules</h2>
+      <p class="body-large">
+        FTMO's rules are designed to identify consistent, disciplined traders - not gamblers. Understanding these rules is
+        critical to passing the challenge and staying funded.
+      </p>
+
+      <div class="rules-grid">
+        <div class="rule-card rule-card--important">
+          <div class="rule-icon">⚠️</div>
+          <h3>Maximum Drawdown: 10%</h3>
+          <p>Your account equity can never drop more than 10% below your initial balance. On a $100K account, if equity reaches $90,000, you're immediately disqualified. This is calculated on a trailing basis during the challenge.</p>
+        </div>
+        <div class="rule-card rule-card--important">
+          <div class="rule-icon">📉</div>
+          <h3>Daily Drawdown: 5%</h3>
+          <p>Your daily loss cannot exceed 5% of the previous day's ending balance. This resets each day at 5 PM CE(S)T. Hit this limit and you're out - regardless of your overall account status.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">📅</div>
+          <h3>Minimum Trading Days: 4</h3>
+          <p>You must trade on at least 4 separate days during each evaluation phase. This prevents lucky one-trade wonders and ensures you demonstrate consistent trading behavior.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">🕐</div>
+          <h3>No Time Limit (After Funded)</h3>
+          <p>Once funded, there's no profit target or time pressure. Trade at your own pace and withdraw profits bi-weekly. The evaluation phases have time limits (30/60 days).</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">📰</div>
+          <h3>News Trading: Allowed</h3>
+          <p>You can trade during high-impact news events. However, be mindful of increased volatility and its impact on your daily drawdown limit.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">🌙</div>
+          <h3>Weekend Holding: Allowed</h3>
+          <p>Positions can be held over weekends. Be aware that gaps can occur on market open which could affect your drawdown.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Mastering the 5% Daily Drawdown Rule"
+        icon="🎓"
+        id="rules-notes"
+        variant="light"
+      >
+        <h4>The Rule That Fails Most Traders</h4>
+        <p>The 5% daily drawdown is the number one reason traders fail FTMO challenges. Understanding exactly how it works is essential for survival.</p>
+
+        <h5>How Daily Drawdown Is Calculated</h5>
+        <p>At 5 PM CE(S)T each day, FTMO records your account balance (not equity). Your daily drawdown limit for the next 24 hours is 5% below this value. Example: if your balance is $100,000 at 5 PM, your maximum equity cannot drop below $95,000 until the next reset.</p>
+
+        <p><strong>Critical detail:</strong> This includes both realized losses AND unrealized floating losses. An open trade showing -$5,000 floating loss triggers the same breach as a closed -$5,000 loss.</p>
+
+        <h5>The Compounding Trap</h5>
+        <p>If you lose money, your daily limit effectively tightens. Start at $100K, lose $3K, end day at $97K. Tomorrow's limit is now $4,850 (5% of $97K), not $5,000. Consecutive losing days quickly compress your available risk.</p>
+
+        <h5>Strategies to Stay Safe</h5>
+        <p><strong>Position sizing:</strong> Never risk more than 1% per trade. This gives you 5 consecutive full losses before hitting the daily limit.</p>
+        <p><strong>Stop loss discipline:</strong> Always use stop losses. A runaway trade during news or overnight can breach your daily limit before you wake up.</p>
+        <p><strong>Time awareness:</strong> Know when the daily reset occurs (5 PM CE(S)T). If you're close to the limit, consider closing positions before reset to start fresh.</p>
+        <p><strong>No averaging down:</strong> Adding to losing positions is the fastest way to breach daily drawdown. Cut losses early instead.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PAYOUTS SECTION -->
+  <section id="payouts" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">FTMO Payouts & Profit Split</h2>
+      <p class="body-large">
+        FTMO has an industry-leading reputation for fast, reliable payouts. Over $200 million paid to traders and counting.
+      </p>
+
+      <div class="payout-highlights">
+        <div class="payout-card">
+          <div class="payout-value">80%</div>
+          <div class="payout-label">Starting Profit Split</div>
+          <p>Keep 80% of all profits from day one as a funded trader.</p>
+        </div>
+        <div class="payout-card payout-card--highlight">
+          <div class="payout-value">90%</div>
+          <div class="payout-label">Maximum Profit Split</div>
+          <p>Reach 90% through the scaling plan with consistent profitability.</p>
+        </div>
+        <div class="payout-card">
+          <div class="payout-value">14 Days</div>
+          <div class="payout-label">Payout Frequency</div>
+          <p>Request withdrawals every 14 days after your first month.</p>
+        </div>
+      </div>
+
+      <div class="payout-methods">
+        <h3 class="heading-3">Withdrawal Methods</h3>
+        <div class="methods-grid">
+          <div class="method-item">
+            <span class="method-icon">🏦</span>
+            <span class="method-name">Bank Transfer</span>
+          </div>
+          <div class="method-item">
+            <span class="method-icon">💳</span>
+            <span class="method-name">Skrill</span>
+          </div>
+          <div class="method-item">
+            <span class="method-icon">₿</span>
+            <span class="method-name">Crypto (BTC)</span>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="FTMO Scaling Plan Explained"
+        icon="📈"
+        id="payout-notes"
+        variant="dark"
+      >
+        <h4>How to Grow to $400K and 90% Profit Split</h4>
+        <p>FTMO's scaling plan rewards consistent profitability. Here's exactly how to maximize your funded account over time.</p>
+
+        <h5>Scaling Requirements</h5>
+        <p>To scale your account, you must achieve a 10% profit over a 4-month period while maintaining profitability for at least 2 of those months. When you meet these criteria, your account doubles in size (up to the $400K maximum).</p>
+
+        <h5>Profit Split Progression</h5>
+        <p>Your profit split increases alongside account scaling:</p>
+        <ul>
+          <li><strong>Initial:</strong> 80% profit split</li>
+          <li><strong>First scale:</strong> 85% profit split</li>
+          <li><strong>Second scale:</strong> 90% profit split (maximum)</li>
+        </ul>
+
+        <h5>Real Example</h5>
+        <p>Start with a $100K account at 80% split. Over 4 months, make 12% profit ($12,000). You keep $9,600 (80%). After scaling: $200K account at 85% split. Same 12% performance now yields $24,000 profit, you keep $20,400. After second scale: $400K at 90% - 12% is $48,000, you keep $43,200.</p>
+
+        <h5>The Long Game</h5>
+        <p>Many traders rush to maximize profits in month one, blow the account, and restart. The smarter approach: treat the first year as account-building. Consistent 2-3% monthly returns compound into significant scaling. A $100K account at 90% split making 3%/month is $32,400/year in take-home - from a $540 initial investment.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PLATFORMS SECTION -->
+  <section id="platforms" class="section">
+    <div class="container">
+      <h2 class="heading-2">Trading Platforms</h2>
+      <p class="body-large">
+        FTMO supports all major trading platforms. Choose the one that fits your trading style and strategy.
+      </p>
+
+      <div class="platforms-grid">
+        {firm.platforms.map((platform) => (
+          <div class="platform-card">
+            <h3 class="platform-name">{platform}</h3>
+            <div class="platform-status">
+              <span class="status-dot"></span>
+              Supported
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="instruments-section">
+        <h3 class="heading-3">Tradeable Instruments</h3>
+        <div class="instruments-grid">
+          {firm.instruments.map((instrument) => (
+            <div class="instrument-chip">{instrument}</div>
+          ))}
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Platform Recommendations for FTMO Traders"
+        icon="💻"
+        id="platform-notes"
+        variant="light"
+      >
+        <h4>Choosing the Right Platform</h4>
+        <p>The platform you choose affects execution speed, available tools, and your overall trading experience. Here's how to decide.</p>
+
+        <h5>MetaTrader 4 - The Industry Standard</h5>
+        <p>MT4 remains the most popular choice for forex traders. Massive community, thousands of free indicators and EAs, proven reliability. If you're running automated strategies (Expert Advisors), MT4 has the deepest ecosystem. Limitation: can't trade stocks or newer crypto pairs.</p>
+
+        <h5>MetaTrader 5 - The Modern Choice</h5>
+        <p>MT5 offers more timeframes, better backtesting, and access to more instruments including stocks. The MQL5 language is more powerful than MQL4. Downside: less third-party resources than MT4, and some MT4 indicators/EAs don't work on MT5.</p>
+
+        <h5>cTrader - For Serious Scalpers</h5>
+        <p>cTrader offers superior order execution and a cleaner interface than MetaTrader. Level II pricing, detachable charts, and better native copy trading features. If you're a scalper or discretionary trader who doesn't rely on MT4 indicators, cTrader is arguably the better platform.</p>
+
+        <h5>DXtrade - The Newcomer</h5>
+        <p>FTMO's newest platform option. Browser-based, no download required. Good for traders who switch between devices or prefer not to install software. Less feature-rich than MT4/MT5/cTrader but adequate for most trading needs.</p>
+
+        <h5>Our Recommendation</h5>
+        <p>If you're already comfortable with a platform, stick with it. The learning curve of switching platforms during a challenge isn't worth it. For new traders: start with MT4 for the community support, or cTrader for the superior user experience.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- COMPETITOR COMPARISON -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">FTMO vs Competitors</h2>
+      <p class="body-large">
+        How does FTMO stack up against other prop firms? Here's an objective comparison.
+      </p>
+
+      <ComparisonTable
+        headers={competitorHeaders}
+        rows={competitorRows}
+        caption="FTMO compared to major prop firm competitors (2026)"
+        footnote="*MyForexFunds shut down in 2023 after regulatory action"
+      />
+
+      <AnalystNotes
+        title="Why We Recommend FTMO Over Alternatives"
+        icon="🏅"
+        id="comparison-notes"
+        variant="dark"
+      >
+        <h4>The Prop Firm Landscape in 2026</h4>
+        <p>The prop firm industry has experienced significant turmoil. Understanding what happened helps explain why FTMO remains our top recommendation.</p>
+
+        <h5>The MyForexFunds Collapse</h5>
+        <p>In August 2023, MyForexFunds was shut down by the CFTC and NFA, freezing millions in trader funds. The firm was accused of operating as an illegal derivatives exchange and misleading traders about how their business operated. This wasn't an isolated incident - several other prop firms have collapsed or significantly restricted payouts.</p>
+
+        <h5>Why FTMO Is Different</h5>
+        <p>FTMO operates from the Czech Republic under EU regulations. They're transparent about their business model, maintain physical offices, and have a 9-year track record of consistent payouts. When the industry faced scrutiny, FTMO's operations continued without interruption.</p>
+
+        <h5>The Price Premium Justified</h5>
+        <p>Yes, FTMO charges more than competitors like The Funded Trader or E8 Funding. But consider the value proposition: near-certainty of payout vs. risk of firm closure. The $100-200 premium per challenge is effectively insurance against losing everything. Given the industry's history, that's insurance worth buying.</p>
+
+        <h5>When Alternatives Make Sense</h5>
+        <p>If you're experienced, have passed multiple challenges elsewhere, and understand the risks - cheaper alternatives might suit you. The Funded Trader offers good value with a reasonable track record. But for first-time prop traders or those who value peace of mind, FTMO's premium is worth paying.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PROS AND CONS -->
+  <section id="pros-cons" class="section">
+    <div class="container">
+      <h2 class="heading-2">FTMO Pros & Cons</h2>
+
+      <ProsCons
+        pros={firm.pros}
+        cons={firm.cons}
+      />
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <h2 class="heading-2">Frequently Asked Questions</h2>
+      <FAQ questions={faqItems} />
+    </div>
+  </section>
+
+  <!-- VERDICT SECTION -->
+  <section id="verdict" class="section">
+    <div class="container">
+      <div class="verdict-card">
+        <div class="verdict-header">
+          <h2 class="heading-2">Our Verdict: {firm.scores.overall}/5</h2>
+          <div class="verdict-stars">{'★'.repeat(Math.floor(firm.scores.overall))}</div>
+        </div>
+
+        <div class="verdict-summary">
+          <p class="body-large">
+            FTMO is the gold standard of proprietary trading firms. While not the cheapest option, their 9-year track record,
+            $200M+ in payouts, and reliable operations make them the safest choice for serious traders. If you're committed to
+            becoming a funded trader, FTMO should be your first choice.
+          </p>
+        </div>
+
+        <div class="verdict-scores">
+          <div class="score-item">
+            <span class="score-label">Trustworthiness</span>
+            <span class="score-value">{firm.scores.trustworthiness}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Payout Reliability</span>
+            <span class="score-value">{firm.scores.payouts}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Trading Rules</span>
+            <span class="score-value">{firm.scores.rules}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Support</span>
+            <span class="score-value">{firm.scores.support}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Pricing</span>
+            <span class="score-value">{firm.scores.pricing}/5</span>
+          </div>
+        </div>
+
+        <div class="verdict-best-for">
+          <h3>Best For:</h3>
+          <div class="best-for-tags">
+            {firm.bestFor.map((item) => (
+              <span class="best-for-tag">{item}</span>
+            ))}
+          </div>
+        </div>
+
+        {firm.discountCode && (
+          <div class="verdict-discount">
+            <span class="discount-icon">🎁</span>
+            <span>Use code <strong>{firm.discountCode.code}</strong> for {firm.discountCode.discount}</span>
+          </div>
+        )}
+
+        <div class="verdict-cta">
+          <a href={firm.affiliateUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xl">
+            Start FTMO Challenge →
+          </a>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Final Thoughts from Our Research Team"
+        icon="📝"
+        id="verdict-notes"
+        variant="light"
+      >
+        <h4>The Bottom Line</h4>
+        <p>We've reviewed every major prop firm in the industry. FTMO consistently comes out on top for one simple reason: they do what they promise. When you pass the challenge, you get funded. When you make profits, you get paid. When you have problems, support responds.</p>
+
+        <h5>Who Should Use FTMO</h5>
+        <p>FTMO is ideal for traders who have a proven strategy with consistent results. If you can make 1-2% per month reliably with proper risk management, FTMO will reward you with significant capital to trade. The challenge weeds out gamblers - as it should.</p>
+
+        <h5>Who Should Look Elsewhere</h5>
+        <p>If you're still learning, haven't traded profitably on a demo account, or tend to overtrade/revenge trade - you're not ready for FTMO. The challenge fee is non-refundable, and blowing challenges repeatedly gets expensive. Get consistently profitable first, then apply.</p>
+
+        <h5>The Investment Perspective</h5>
+        <p>A $540 FTMO challenge for a $100K account is one of the best risk/reward investments in trading. Pass rate industry-wide is around 10-15%, but traders with solid systems see 30-40% pass rates. Even at 30%, your expected value is strongly positive given the potential returns of a funded account.</p>
+
+        <p>Use our exclusive code <strong>{firm.discountCode?.code || 'TRADETHEDAY'}</strong> for 10% off your challenge and start your funded trading journey with the industry's most trusted prop firm.</p>
+      </AnalystNotes>
+
+      <!-- Related Links -->
+      <div class="related-section">
+        <h3>Compare FTMO with Other Prop Firms</h3>
+        <div class="related-grid">
+          <a href="/compare/ftmo-vs-funded-trader/" class="related-card">
+            <span class="related-title">FTMO vs The Funded Trader</span>
+            <span class="related-desc">Detailed comparison of pricing, rules, and payouts</span>
+          </a>
+          <a href="/propfirms/the-funded-trader/" class="related-card">
+            <span class="related-title">The Funded Trader Review</span>
+            <span class="related-desc">Budget-friendly alternative with flexible rules</span>
+          </a>
+          <a href="/propfirms/" class="related-card">
+            <span class="related-title">All Prop Firms</span>
+            <span class="related-desc">Compare all prop trading firms side by side</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .review-hero {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    padding: var(--space-2xl) 0;
+    color: var(--white);
+  }
+
+  .review-hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .review-hero-badge {
+    margin-bottom: var(--space-md);
+  }
+
+  .review-hero-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .review-hero-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #0066cc, #0099ff);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .firm-initial {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 800;
+  }
+
+  .review-hero-title h1 {
+    color: var(--white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .review-hero-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
+  .stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+  }
+
+  .rating-value {
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+  }
+
+  .rating-count {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-sm);
+  }
+
+  .review-hero-tagline {
+    font-size: var(--font-size-xl);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--space-xl);
+  }
+
+  .review-hero-scorecard {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .scorecard-item {
+    text-align: center;
+  }
+
+  .scorecard-value {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+  }
+
+  .scorecard-label {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .review-hero-discount {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-lg);
+  }
+
+  .discount-icon {
+    font-size: 1.25rem;
+  }
+
+  .discount-text strong {
+    color: var(--success);
+  }
+
+  .review-hero-cta {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Overview Grid */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .overview-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .overview-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .overview-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .overview-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Challenge Process */
+  .challenge-process {
+    margin-top: var(--space-2xl);
+    padding: var(--space-xl);
+    background: var(--white);
+    border-radius: var(--radius-xl);
+  }
+
+  .challenge-process h3 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .process-steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .process-step {
+    text-align: center;
+    max-width: 250px;
+  }
+
+  .step-number {
+    width: 48px;
+    height: 48px;
+    background: var(--brand-orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin: 0 auto var(--space-md);
+  }
+
+  .process-step h4 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .process-step p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  .process-arrow {
+    font-size: 2rem;
+    color: var(--gray-300);
+    padding-top: var(--space-md);
+  }
+
+  /* Rules Grid */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .rule-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .rule-card--important {
+    border-color: var(--warning);
+    background: rgba(245, 158, 11, 0.05);
+  }
+
+  .rule-icon {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .rule-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .rule-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Payout Section */
+  .payout-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .payout-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    text-align: center;
+  }
+
+  .payout-card--highlight {
+    border-color: var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.15);
+  }
+
+  .payout-value {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+  }
+
+  .payout-label {
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-sm);
+  }
+
+  .payout-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  .payout-methods {
+    margin-top: var(--space-xl);
+  }
+
+  .methods-grid {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    margin-top: var(--space-lg);
+  }
+
+  .method-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .method-icon {
+    font-size: 2rem;
+  }
+
+  .method-name {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Platforms Grid */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin: var(--space-xl) 0;
+  }
+
+  .platform-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .platform-name {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .platform-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    color: var(--success);
+    font-size: var(--font-size-sm);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--success);
+    border-radius: 50%;
+  }
+
+  .instruments-section {
+    margin-top: var(--space-xl);
+    text-align: center;
+  }
+
+  .instruments-grid {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-top: var(--space-lg);
+  }
+
+  .instrument-chip {
+    background: var(--gray-100);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Verdict Card */
+  .verdict-card {
+    background: var(--white);
+    border: 2px solid var(--brand-orange);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .verdict-header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-header h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .verdict-stars {
+    color: #f59e0b;
+    font-size: var(--font-size-2xl);
+  }
+
+  .verdict-summary {
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-scores {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+  }
+
+  .score-item {
+    text-align: center;
+  }
+
+  .score-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--space-xs);
+  }
+
+  .score-value {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+  }
+
+  .verdict-best-for {
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-best-for h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-sm);
+  }
+
+  .best-for-tags {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .best-for-tag {
+    background: rgba(255, 72, 0, 0.1);
+    color: var(--brand-orange);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .verdict-discount {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-discount strong {
+    color: var(--success);
+  }
+
+  /* Related Section */
+  .related-section {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .related-section h3 {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .related-card {
+    display: block;
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .related-card:hover {
+    border-color: var(--brand-orange);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .related-title {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .related-desc {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .overview-grid,
+    .platforms-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .rules-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .review-hero-header {
+      flex-direction: column;
+    }
+
+    .review-hero-scorecard {
+      gap: var(--space-lg);
+    }
+
+    .overview-grid,
+    .platforms-grid,
+    .rules-grid,
+    .payout-highlights,
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .process-steps {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .process-arrow {
+      transform: rotate(90deg);
+      padding: 0;
+    }
+
+    .verdict-scores {
+      gap: var(--space-md);
+    }
+  }
+</style>

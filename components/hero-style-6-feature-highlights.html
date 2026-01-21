@@ -1,0 +1,147 @@
+<!-- Hero Style 6: Feature Highlights Hero -->
+<!-- Copy this entire section to use the feature highlights hero style -->
+<section class="hero-features section">
+    <div class="container">
+        <div class="text-center">
+            <span class="chip">Feature Spotlight</span>
+            <h1 class="heading-1">Everything You Need to Trade Successfully</h1>
+            <p class="body-large">AvaTrade combines powerful platforms, competitive pricing, and comprehensive education in one package.</p>
+        </div>
+        
+        <div class="hero-features-grid">
+            <div class="feature-highlight">
+                <div class="feature-highlight-icon">🏆</div>
+                <h3 class="heading-3">Award-Winning Platforms</h3>
+                <p class="body">MT4, WebTrader, and mobile apps recognized by industry experts for their reliability and advanced features.</p>
+                <div class="feature-metric">
+                    <span class="metric-value">99.9%</span>
+                    <span class="metric-label">Uptime</span>
+                </div>
+            </div>
+            
+            <div class="feature-highlight">
+                <div class="feature-highlight-icon">📊</div>
+                <h3 class="heading-3">Professional Analysis</h3>
+                <p class="body">Daily market insights, technical analysis, and trading signals from experienced market professionals.</p>
+                <div class="feature-metric">
+                    <span class="metric-value">50+</span>
+                    <span class="metric-label">Daily Insights</span>
+                </div>
+            </div>
+            
+            <div class="feature-highlight">
+                <div class="feature-highlight-icon">🎓</div>
+                <h3 class="heading-3">Trading Education</h3>
+                <p class="body">Comprehensive learning resources including webinars, tutorials, and one-on-one coaching sessions.</p>
+                <div class="feature-metric">
+                    <span class="metric-value">500+</span>
+                    <span class="metric-label">Resources</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center hero-features-cta">
+            <a href="#" class="btn btn-primary btn-xl">Start Your Trading Journey</a>
+            <p class="body-xs">Join 400,000+ traders worldwide • Free demo account included</p>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Hero Style 6: Feature Highlights */
+.hero-features {
+    background: var(--white);
+    padding: var(--space-4xl) 0;
+}
+
+.hero-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2xl);
+    margin: var(--space-2xl) 0;
+}
+
+.feature-highlight {
+    text-align: center;
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    transition: var(--transition-base);
+}
+
+.feature-highlight:hover {
+    border-color: var(--brand-orange);
+    box-shadow: var(--shadow-brand);
+    transform: translateY(-4px);
+}
+
+.feature-highlight-icon {
+    font-size: 4rem;
+    margin-bottom: var(--space-lg);
+    display: block;
+}
+
+.feature-metric {
+    margin-top: var(--space-lg);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--gray-200);
+}
+
+.metric-value {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+    display: block;
+}
+
+.metric-label {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+    margin-top: var(--space-xs);
+}
+
+.hero-features-cta {
+    margin-top: var(--space-2xl);
+}
+
+.hero-features-cta p {
+    margin-top: var(--space-md);
+    color: var(--gray-500);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Perfect for showcasing key platform features with metrics
+2. Interactive hover effects draw attention to each feature
+3. Replace icons with relevant emojis or icon fonts
+4. Update feature titles, descriptions, and metrics
+5. Customize the main CTA button text and link
+6. Automatically stacks to single column on mobile
+
+Customization Options:
+- Change icons: Replace emoji icons with FontAwesome, Feather icons, etc.
+- Update features: Modify titles, descriptions, and supporting text
+- Customize metrics: Change metric values and labels (e.g., "99.9% Uptime")
+- Add more features: Copy feature-highlight structure (will need grid adjustment)
+- Remove metrics: Delete feature-metric div if not needed
+- Change background: Modify section background color
+- Update CTA: Customize button text, size, and supporting text
+
+Feature Structure:
+Each feature-highlight contains:
+- Icon (emoji or icon font)
+- Title (heading-3)
+- Description (body text)
+- Optional metric with value and label
+
+Required CSS: design-system.css + embedded styles above
+-->

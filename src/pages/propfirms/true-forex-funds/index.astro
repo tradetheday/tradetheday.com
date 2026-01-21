@@ -1,0 +1,1276 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Chip from '../../../components/Chip.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import FAQ from '../../../components/FAQ.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import { getPropFirmBySlug } from '../../../data/propfirms';
+import { generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+
+// Get prop firm data
+const firm = getPropFirmBySlug('true-forex-funds');
+
+if (!firm) {
+  return Astro.redirect('/propfirms/');
+}
+
+// Page Configuration
+const FIRM_NAME = 'True Forex Funds';
+const pageTitle = `True Forex Funds Review 2026: No Time Limits, 8% Target & Honest Analysis | TradeTheDay`;
+const pageDescription = `Complete True Forex Funds review by funded traders. See our ${firm.scores.overall}/5 rating, challenge breakdown, pros & cons, and whether TFF is right for your trading style.`;
+
+// Navigation links
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#challenges', text: 'Challenges' },
+  { href: '#rules', text: 'Rules' },
+  { href: '#payouts', text: 'Payouts' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#pros-cons', text: 'Pros & Cons' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+// Hero scorecard
+const heroScorecard = [
+  { value: firm.maxFunding, label: 'Max Funding' },
+  { value: firm.profitSplit, label: 'Profit Split' },
+  { value: firm.startingPrice, label: 'From' },
+  { value: `${firm.scores.overall}/5`, label: 'Our Rating' }
+];
+
+// Challenge comparison table
+const challengeTableHeaders = ['Account Size', 'Price', 'Profit Target', 'Max Drawdown', 'Daily Drawdown', 'Time Limit'];
+const challengeRows = firm.challenges.map(challenge => ({
+  cells: [
+    { content: challenge.accountSize, type: 'text', highlight: 'neutral' },
+    { content: challenge.price, type: 'text', highlight: 'neutral' },
+    { content: challenge.profitTarget, type: 'text', highlight: 'best' },
+    { content: challenge.maxDrawdown, type: 'text', highlight: 'good' },
+    { content: challenge.dailyDrawdown, type: 'text', highlight: 'warning' },
+    { content: challenge.timeLimit, type: 'text', highlight: 'best' }
+  ]
+}));
+
+// Competitor comparison
+const competitorHeaders = ['Feature', 'True Forex Funds', 'FTMO', 'The Funded Trader', 'E8 Funding'];
+const competitorRows = [
+  {
+    cells: [
+      { content: 'Starting Price', type: 'text' },
+      { content: '$59', type: 'text', highlight: 'best' },
+      { content: '$155', type: 'text', highlight: 'neutral' },
+      { content: '$65', type: 'text', highlight: 'good' },
+      { content: '$138', type: 'text', highlight: 'neutral' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Profit Target', type: 'text' },
+      { content: '8%', type: 'text', highlight: 'best' },
+      { content: '10%', type: 'text', highlight: 'neutral' },
+      { content: '10%', type: 'text', highlight: 'neutral' },
+      { content: '8%', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Time Limit', type: 'text' },
+      { content: 'Unlimited', type: 'text', highlight: 'best' },
+      { content: '30 days', type: 'text', highlight: 'warning' },
+      { content: '35 days', type: 'text', highlight: 'warning' },
+      { content: 'Unlimited', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Min Trading Days', type: 'text' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: '4 days', type: 'text', highlight: 'neutral' },
+      { content: '5 days', type: 'text', highlight: 'neutral' },
+      { content: 'None', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Max Profit Split', type: 'text' },
+      { content: '80%', type: 'text', highlight: 'neutral' },
+      { content: '90%', type: 'text', highlight: 'best' },
+      { content: '90%', type: 'text', highlight: 'best' },
+      { content: '80%', type: 'text', highlight: 'neutral' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Track Record', type: 'text' },
+      { content: '3 years', type: 'text', highlight: 'neutral' },
+      { content: '9+ years', type: 'text', highlight: 'best' },
+      { content: '3 years', type: 'text', highlight: 'neutral' },
+      { content: '3 years', type: 'text', highlight: 'neutral' }
+    ]
+  }
+];
+
+// FAQ data
+const faqItems = [
+  {
+    question: 'Is True Forex Funds legitimate?',
+    answer: 'True Forex Funds is a legitimate prop firm founded in 2021 and based in Budapest, Hungary. They have paid out millions to traders and have a growing community. However, they are newer than established firms like FTMO, so due diligence is recommended.'
+  },
+  {
+    question: 'What is the True Forex Funds profit target?',
+    answer: 'True Forex Funds has an 8% profit target for their standard challenge, which is lower than the 10% required by FTMO and many other prop firms. This makes it easier to pass the evaluation and get funded.'
+  },
+  {
+    question: 'Does True Forex Funds have a time limit?',
+    answer: 'No, True Forex Funds offers unlimited time on their evaluation. You can take as long as you need to reach the 8% profit target, which is ideal for swing traders or those who prefer a patient approach.'
+  },
+  {
+    question: 'Are there minimum trading days at True Forex Funds?',
+    answer: 'No, True Forex Funds does not require minimum trading days. You can pass the challenge in as few or as many days as you like, as long as you hit the profit target without breaching drawdown rules.'
+  },
+  {
+    question: 'What is the True Forex Funds profit split?',
+    answer: 'True Forex Funds offers an 80% profit split to funded traders. While this is lower than some competitors offering 90%, the combination of lower profit targets and no time limits can make it easier to reach profitability.'
+  },
+  {
+    question: 'Can I hold trades over the weekend with True Forex Funds?',
+    answer: 'Yes, True Forex Funds allows weekend holding. You can keep positions open over the weekend without penalty, which is important for swing traders and position traders.'
+  },
+  {
+    question: 'Is news trading allowed at True Forex Funds?',
+    answer: 'Yes, news trading is permitted at True Forex Funds. There are no restrictions on trading during high-impact news events, though you should still manage your risk carefully during volatile periods.'
+  },
+  {
+    question: 'How fast are True Forex Funds payouts?',
+    answer: 'True Forex Funds processes payouts within 1-5 business days after request. You can request payouts after your first month as a funded trader. Payment methods include bank transfer and cryptocurrency.'
+  }
+];
+
+// Schema markup
+const breadcrumbSchemaItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Prop Firms', url: '/propfirms/' },
+  { name: 'True Forex Funds Review', url: '/propfirms/true-forex-funds/' }
+];
+
+const reviewSchema = generateReviewSchema({
+  itemReviewed: {
+    type: 'FinancialService',
+    name: 'True Forex Funds',
+    url: 'https://trueforexfunds.com'
+  },
+  reviewRating: {
+    ratingValue: firm.scores.overall,
+    bestRating: 5,
+    worstRating: 1
+  },
+  reviewBody: `Comprehensive review of True Forex Funds prop trading firm. ${firm.scores.overall}/5 rating based on challenge rules, payout reliability, and trader support.`,
+  author: 'TradeTheDay Research Team'
+});
+
+const faqSchema = generateFAQSchema(faqItems);
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbSchemaItems);
+
+// Breadcrumb items
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Prop Firms', href: '/propfirms/' },
+  { text: 'True Forex Funds Review', current: true }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  ogType="article"
+  schema={[reviewSchema, faqSchema, breadcrumbSchema]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- HERO SECTION -->
+  <section class="review-hero">
+    <div class="container">
+      <div class="review-hero-content">
+        <div class="review-hero-badge">
+          <Chip variant="badge" size="sm">Budget-Friendly Pick 2026</Chip>
+        </div>
+
+        <div class="review-hero-header">
+          <div class="review-hero-logo">
+            <span class="firm-initial">TFF</span>
+          </div>
+          <div class="review-hero-title">
+            <h1 class="heading-1">{FIRM_NAME} Review</h1>
+            <div class="review-hero-rating">
+              <span class="stars">{'★'.repeat(Math.floor(firm.scores.overall))}</span>
+              <span class="rating-value">{firm.scores.overall}/5</span>
+              <span class="rating-count">• Flexible & Affordable</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="review-hero-tagline">{firm.tagline}</p>
+
+        <div class="review-hero-scorecard">
+          {heroScorecard.map((item) => (
+            <div class="scorecard-item">
+              <span class="scorecard-value">{item.value}</span>
+              <span class="scorecard-label">{item.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="review-hero-highlights">
+          <span class="highlight-item">✓ No Time Limit</span>
+          <span class="highlight-item">✓ No Min Trading Days</span>
+          <span class="highlight-item">✓ 8% Profit Target</span>
+        </div>
+
+        <div class="review-hero-cta">
+          <a href={firm.affiliateUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xl">
+            Start TFF Challenge
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="#challenges" class="btn btn-secondary btn-xl">
+            See Challenge Options
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Navigation links={navigationLinks} />
+
+  <!-- OVERVIEW SECTION -->
+  <section id="overview" class="section">
+    <div class="container">
+      <h2 class="heading-2">True Forex Funds Overview</h2>
+      <p class="body-large">
+        True Forex Funds (TFF) has carved out a niche in the prop firm industry by offering some of the most
+        trader-friendly rules available. With no time limits, no minimum trading days, and lower profit targets,
+        TFF is designed for traders who value flexibility over aggressive scaling.
+      </p>
+
+      <div class="overview-grid">
+        <div class="overview-card">
+          <div class="overview-icon">⏰</div>
+          <h3>No Time Limits</h3>
+          <p>Take as long as you need to pass. No 30-day pressure like other firms. Perfect for swing traders.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">📊</div>
+          <h3>8% Profit Target</h3>
+          <p>Lower than the industry-standard 10%. Easier to achieve without overtrading or taking excessive risk.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">🚫</div>
+          <h3>No Minimum Days</h3>
+          <p>Pass in 1 day or 100 days. No artificial requirement to trade on multiple days.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">💰</div>
+          <h3>Budget-Friendly</h3>
+          <p>Starting at just $59 for a $10K account. One of the most affordable entry points in the industry.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="The True Forex Funds Value Proposition"
+        icon="🎯"
+        id="overview-notes"
+        variant="light"
+      >
+        <h4>Understanding TFF's Market Position</h4>
+        <p>True Forex Funds occupies an interesting space in the prop firm market. They're not trying to compete with FTMO on prestige or The Funded Trader on maximum funding. Instead, they've optimized for accessibility and trader-friendly rules.</p>
+
+        <h5>The No-Pressure Philosophy</h5>
+        <p>Most prop firm failures happen because traders feel pressured by time limits. With 30 days to hit a 10% target, many traders overtrade, revenge trade, or take excessive risks. TFF removes this pressure entirely. You can take 6 months to hit 8% if that's what your strategy requires.</p>
+
+        <h5>Who Benefits Most from TFF</h5>
+        <p>Swing traders and position traders thrive at TFF. If your strategy involves holding trades for days or weeks, waiting for high-probability setups, the unlimited time is invaluable. Day traders who make 1-2 trades per day also benefit from no minimum day requirements.</p>
+
+        <h5>The Trade-Off</h5>
+        <p>The flexibility comes at a cost: 80% profit split maximum versus 90% at FTMO. Over a year of funded trading, this 10% difference adds up. However, if the flexible rules help you pass where you'd fail elsewhere, the math favors TFF.</p>
+
+        <h5>Our Take</h5>
+        <p>TFF is an excellent choice for traders who have failed time-limited challenges at other firms or who have a patient, lower-frequency trading style. For aggressive scalpers wanting maximum profit split, look elsewhere.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- CHALLENGES SECTION -->
+  <section id="challenges" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">True Forex Funds Challenge Options</h2>
+      <p class="body-large">
+        TFF offers a straightforward two-phase evaluation with some of the most competitive pricing in the industry.
+        No time limits on any account size.
+      </p>
+
+      <ComparisonTable
+        headers={challengeTableHeaders}
+        rows={challengeRows}
+        caption="True Forex Funds challenge pricing and requirements for all account sizes"
+      />
+
+      <div class="challenge-process">
+        <h3 class="heading-3">The TFF Evaluation Process</h3>
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="step-number">1</div>
+            <h4>Phase 1: Evaluation</h4>
+            <p><strong>Target:</strong> 8% profit<br><strong>Time:</strong> Unlimited<br><strong>Rules:</strong> Max 10% drawdown, 5% daily drawdown</p>
+          </div>
+          <div class="process-arrow">→</div>
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <h4>Phase 2: Verification</h4>
+            <p><strong>Target:</strong> 5% profit<br><strong>Time:</strong> Unlimited<br><strong>Rules:</strong> Same as Phase 1</p>
+          </div>
+          <div class="process-arrow">→</div>
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <h4>TFF Funded Trader</h4>
+            <p><strong>Profit Split:</strong> 80%<br><strong>Payouts:</strong> Monthly<br><strong>Scaling:</strong> Up to $400K</p>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Smart Account Size Selection at TFF"
+        icon="💡"
+        id="challenge-notes"
+        variant="dark"
+      >
+        <h4>Which TFF Account Should You Choose?</h4>
+        <p>With TFF's competitive pricing, you have more flexibility in account selection. Here's how to think through the decision.</p>
+
+        <h5>The Value Analysis</h5>
+        <p>TFF's $10K account costs $59. That's roughly 0.6% of the account size - exceptional value compared to FTMO's $155 for $10K (1.55%). At $100K, TFF charges $449 versus FTMO's $540. The savings compound as you retry challenges.</p>
+
+        <h5>The Risk-Adjusted Approach</h5>
+        <p>With unlimited time, there's less need to start small "just to test." If your strategy works on a $10K account, it works on $100K. The percentage math is identical. The main consideration is the fee you're comfortable potentially losing.</p>
+
+        <h5>Our Recommendation</h5>
+        <p>If budget allows, start with a $50K account ($259). It's large enough to trade comfortably with proper position sizing, the fee isn't devastating if you fail, and when funded, 80% of profits on a $50K account is meaningful income.</p>
+
+        <h5>The Retry Math</h5>
+        <p>At $449 for a $100K account, you could retry the challenge 3 times for less than one retry at some competitors. If you have a solid strategy but need practice with drawdown management, TFF's pricing allows for learning without breaking the bank.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- RULES SECTION -->
+  <section id="rules" class="section">
+    <div class="container">
+      <h2 class="heading-2">True Forex Funds Trading Rules</h2>
+      <p class="body-large">
+        TFF's rules are among the most flexible in the industry. Here's what you need to know to stay compliant
+        and protect your funded account.
+      </p>
+
+      <div class="rules-grid">
+        <div class="rule-card rule-card--important">
+          <div class="rule-icon">⚠️</div>
+          <h3>Maximum Drawdown: 10%</h3>
+          <p>Your account equity cannot drop more than 10% below your starting balance. This is calculated on total equity, including open positions.</p>
+        </div>
+        <div class="rule-card rule-card--important">
+          <div class="rule-icon">📉</div>
+          <h3>Daily Drawdown: 5%</h3>
+          <p>Your daily loss cannot exceed 5% of your previous day's balance. This resets at midnight server time and includes unrealized P&L.</p>
+        </div>
+        <div class="rule-card rule-card--best">
+          <div class="rule-icon">⏰</div>
+          <h3>Time Limit: None</h3>
+          <p>Take as long as you need. No 30-day countdown. No pressure. Your challenge remains active until you pass or fail on drawdown.</p>
+        </div>
+        <div class="rule-card rule-card--best">
+          <div class="rule-icon">📅</div>
+          <h3>Minimum Days: None</h3>
+          <p>No requirement to trade on multiple days. You could theoretically pass in a single trading session if you hit the target.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">📰</div>
+          <h3>News Trading: Allowed</h3>
+          <p>Trade during any news events. No restrictions on NFP, FOMC, or other high-impact releases.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">🌙</div>
+          <h3>Weekend Holding: Allowed</h3>
+          <p>Keep positions open over weekends. Just be aware of potential gaps on Monday open.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Maximizing Success with TFF's Flexible Rules"
+        icon="🎓"
+        id="rules-notes"
+        variant="light"
+      >
+        <h4>Strategic Advantages of TFF's Rule Structure</h4>
+        <p>TFF's rules create opportunities that don't exist at stricter firms. Here's how to leverage them intelligently.</p>
+
+        <h5>The Patience Strategy</h5>
+        <p>Without time pressure, you can wait for perfect setups. Many traders at FTMO force trades in week 3 because time is running out. At TFF, you could wait a month for the ideal market conditions and then trade aggressively when the setup appears.</p>
+
+        <h5>Swing Trading Nirvana</h5>
+        <p>If you're a swing trader holding positions for 3-7 days, TFF is ideal. At other firms, your 5-day swing trade might not even complete before the challenge ends. At TFF, you can set your swing trade, manage it properly, and let the market do its thing.</p>
+
+        <h5>The 5% Daily Drawdown Reality</h5>
+        <p>While TFF is flexible in many ways, the 5% daily drawdown is standard and still the rule that fails most traders. On a $100K account, that's $5,000 daily maximum loss. Position size accordingly - never risk more than 1% per trade to give yourself room for multiple losses.</p>
+
+        <h5>Weekend Gap Risk</h5>
+        <p>Weekend holding is allowed, but gaps can be brutal. A 200-pip gap on EUR/USD over the weekend could blow through your daily drawdown instantly. Consider reducing position sizes or closing entirely before weekends if you're close to drawdown limits.</p>
+
+        <h5>The No-Minimum-Days Trap</h5>
+        <p>Just because there's no minimum doesn't mean you should rush. Traders who "pass in 3 days" often blow up in week 2 because they continued the aggressive behavior. Use the flexibility wisely - consistent small gains beat a lucky week.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PAYOUTS SECTION -->
+  <section id="payouts" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">TFF Payouts & Profit Split</h2>
+      <p class="body-large">
+        True Forex Funds offers an 80% profit split with monthly payout schedules. Here's what to expect
+        when you become a funded trader.
+      </p>
+
+      <div class="payout-highlights">
+        <div class="payout-card">
+          <div class="payout-value">80%</div>
+          <div class="payout-label">Profit Split</div>
+          <p>Keep 80% of all profits you generate as a funded trader.</p>
+        </div>
+        <div class="payout-card payout-card--highlight">
+          <div class="payout-value">Monthly</div>
+          <div class="payout-label">Payout Frequency</div>
+          <p>Request withdrawals every 30 days after your first month.</p>
+        </div>
+        <div class="payout-card">
+          <div class="payout-value">1-5 Days</div>
+          <div class="payout-label">Processing Time</div>
+          <p>Most payouts processed within 1-5 business days of request.</p>
+        </div>
+      </div>
+
+      <div class="payout-methods">
+        <h3 class="heading-3">Withdrawal Methods</h3>
+        <div class="methods-grid">
+          <div class="method-item">
+            <span class="method-icon">🏦</span>
+            <span class="method-name">Bank Transfer</span>
+          </div>
+          <div class="method-item">
+            <span class="method-icon">₿</span>
+            <span class="method-name">Cryptocurrency</span>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Understanding TFF's Payout Structure"
+        icon="📈"
+        id="payout-notes"
+        variant="dark"
+      >
+        <h4>The 80% Profit Split in Context</h4>
+        <p>TFF's 80% split is lower than the 90% offered by FTMO after scaling. Let's analyze when this matters and when it doesn't.</p>
+
+        <h5>The Real-World Math</h5>
+        <p>On a $100K account making 5% monthly profit ($5,000):</p>
+        <ul>
+          <li>TFF at 80%: You keep $4,000</li>
+          <li>FTMO at 90%: You keep $4,500</li>
+          <li>Difference: $500/month</li>
+        </ul>
+        <p>Over a year, that's $6,000 less at TFF. Significant, but only if you make it to funded status at both firms.</p>
+
+        <h5>The Pass Rate Factor</h5>
+        <p>If TFF's flexible rules give you a 40% pass rate versus 25% at a stricter firm, the expected value favors TFF. It's better to earn 80% of something than 90% of nothing.</p>
+
+        <h5>Payout Reliability</h5>
+        <p>TFF has had some reported payout delays in 2024-2025. While most traders receive their funds, some have waited 1-2 weeks longer than the stated timeline. This isn't fraud - it's growing pains common among newer prop firms. If immediate payouts are critical to you, FTMO's track record is more reliable.</p>
+
+        <h5>Scaling at TFF</h5>
+        <p>TFF offers scaling to $400K, similar to FTMO. The requirements involve consistent profitability over several months. However, the profit split doesn't increase above 80% even at maximum scale - a disadvantage compared to firms offering 90%+ at higher tiers.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PLATFORMS SECTION -->
+  <section id="platforms" class="section">
+    <div class="container">
+      <h2 class="heading-2">Trading Platforms</h2>
+      <p class="body-large">
+        True Forex Funds supports the industry-standard MetaTrader platforms. Simple, reliable, familiar.
+      </p>
+
+      <div class="platforms-grid">
+        {firm.platforms.map((platform) => (
+          <div class="platform-card">
+            <h3 class="platform-name">{platform}</h3>
+            <div class="platform-status">
+              <span class="status-dot"></span>
+              Supported
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="instruments-section">
+        <h3 class="heading-3">Tradeable Instruments</h3>
+        <div class="instruments-grid">
+          {firm.instruments.map((instrument) => (
+            <div class="instrument-chip">{instrument}</div>
+          ))}
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Platform Considerations at TFF"
+        icon="💻"
+        id="platform-notes"
+        variant="light"
+      >
+        <h4>MetaTrader Focus</h4>
+        <p>TFF keeps it simple with MT4 and MT5 only. No cTrader, no DXtrade. For most traders, this is fine - MetaTrader is the industry standard with the largest ecosystem of indicators and expert advisors.</p>
+
+        <h5>MT4 vs MT5 at TFF</h5>
+        <p>Choose MT4 if you have existing indicators or EAs built for that platform. Choose MT5 if you want additional timeframes, better backtesting, or plan to trade stocks. The execution quality at TFF is identical between platforms.</p>
+
+        <h5>EAs and Automation</h5>
+        <p>TFF allows expert advisors and automated trading. This includes trade copiers if you're managing multiple accounts. Just ensure your EA respects the 5% daily drawdown - many EAs don't have this safeguard built in.</p>
+
+        <h5>Mobile Trading</h5>
+        <p>Both MT4 and MT5 have mobile apps. You can manage positions on the go. However, we recommend avoiding opening new positions on mobile - the execution and charting limitations make it easy to make mistakes.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- COMPETITOR COMPARISON -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">TFF vs Competitors</h2>
+      <p class="body-large">
+        How does True Forex Funds compare to other prop firms? Here's an objective side-by-side analysis.
+      </p>
+
+      <ComparisonTable
+        headers={competitorHeaders}
+        rows={competitorRows}
+        caption="True Forex Funds compared to major prop firm competitors (2026)"
+      />
+
+      <AnalystNotes
+        title="Choosing Between TFF and Alternatives"
+        icon="🏅"
+        id="comparison-notes"
+        variant="dark"
+      >
+        <h4>Where TFF Wins</h4>
+        <p>TFF excels on price, flexibility, and accessibility. If you've failed time-limited challenges at other firms, TFF's unlimited time removes that obstacle. If budget is a concern, TFF's pricing is hard to beat.</p>
+
+        <h5>Where TFF Falls Short</h5>
+        <p>Track record and profit split are TFF's weaknesses. FTMO has 9 years of reliable payouts; TFF has 3. FTMO offers 90% profit split at scale; TFF caps at 80%. For experienced traders confident in their skills, FTMO's premium pricing buys peace of mind and better splits.</p>
+
+        <h5>The Ideal TFF Trader</h5>
+        <p>You should choose TFF if you:</p>
+        <ul>
+          <li>Have a swing trading or position trading strategy</li>
+          <li>Struggle with time pressure on evaluations</li>
+          <li>Want to minimize challenge costs while learning</li>
+          <li>Value flexibility over maximum profit potential</li>
+        </ul>
+
+        <h5>When to Choose FTMO Instead</h5>
+        <p>Choose FTMO if you:</p>
+        <ul>
+          <li>Have a proven day trading strategy</li>
+          <li>Want maximum long-term profit split (90%)</li>
+          <li>Value established track record and reliability</li>
+          <li>Plan to scale to maximum funding quickly</li>
+        </ul>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PROS AND CONS -->
+  <section id="pros-cons" class="section">
+    <div class="container">
+      <h2 class="heading-2">True Forex Funds Pros & Cons</h2>
+
+      <ProsCons
+        pros={firm.pros}
+        cons={firm.cons}
+      />
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <h2 class="heading-2">Frequently Asked Questions</h2>
+      <FAQ questions={faqItems} />
+    </div>
+  </section>
+
+  <!-- VERDICT SECTION -->
+  <section id="verdict" class="section">
+    <div class="container">
+      <div class="verdict-card">
+        <div class="verdict-header">
+          <h2 class="heading-2">Our Verdict: {firm.scores.overall}/5</h2>
+          <div class="verdict-stars">{'★'.repeat(Math.floor(firm.scores.overall))}</div>
+        </div>
+
+        <div class="verdict-summary">
+          <p class="body-large">
+            True Forex Funds is an excellent choice for traders who value flexibility and affordability over maximum profit potential.
+            The unlimited time, no minimum trading days, and lower profit target make it significantly easier to pass than stricter competitors.
+            While the 80% profit split and newer track record are drawbacks, TFF delivers solid value for swing traders and budget-conscious traders.
+          </p>
+        </div>
+
+        <div class="verdict-scores">
+          <div class="score-item">
+            <span class="score-label">Trustworthiness</span>
+            <span class="score-value">{firm.scores.trustworthiness}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Payout Reliability</span>
+            <span class="score-value">{firm.scores.payouts}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Trading Rules</span>
+            <span class="score-value">{firm.scores.rules}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Support</span>
+            <span class="score-value">{firm.scores.support}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Pricing</span>
+            <span class="score-value">{firm.scores.pricing}/5</span>
+          </div>
+        </div>
+
+        <div class="verdict-best-for">
+          <h3>Best For:</h3>
+          <div class="best-for-tags">
+            {firm.bestFor.map((item) => (
+              <span class="best-for-tag">{item}</span>
+            ))}
+          </div>
+        </div>
+
+        <div class="verdict-cta">
+          <a href={firm.affiliateUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xl">
+            Start TFF Challenge →
+          </a>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Final Thoughts from Our Research Team"
+        icon="📝"
+        id="verdict-notes"
+        variant="light"
+      >
+        <h4>The Bottom Line on True Forex Funds</h4>
+        <p>We rate TFF 4.0/5 - a solid option in the prop firm landscape, especially for specific trading styles. They've identified a real gap in the market: traders who fail challenges due to time pressure rather than lack of skill.</p>
+
+        <h5>The Ideal Use Case</h5>
+        <p>If you're a swing trader who makes 3-5 trades per week, TFF is nearly perfect. You can wait for your setups, hold positions properly, and not worry about arbitrary deadlines. The 8% target is achievable with patience.</p>
+
+        <h5>The Concern</h5>
+        <p>TFF is still building its track record. They haven't weathered a major market crisis or regulatory scrutiny like FTMO has. While we have no evidence of issues, the prop firm industry has seen collapses before. Don't put all your eggs in one basket.</p>
+
+        <h5>Our Recommendation</h5>
+        <p>Start with a $25K or $50K account at TFF if you fit their ideal trader profile. The pricing is forgiving enough that you can retry if needed. Once funded, trade conservatively in the first few months while TFF processes your payouts. Build trust incrementally before scaling aggressively.</p>
+
+        <p>For traders who need the security of an established firm and don't mind time limits, we still recommend <a href="/propfirms/ftmo/">FTMO</a> as our #1 choice. But TFF is a legitimate alternative that serves a real need in the market.</p>
+      </AnalystNotes>
+
+      <!-- Related Links -->
+      <div class="related-section">
+        <h3>Compare TFF with Other Prop Firms</h3>
+        <div class="related-grid">
+          <a href="/propfirms/ftmo/" class="related-card">
+            <span class="related-title">FTMO Review</span>
+            <span class="related-desc">Industry leader with 9+ years track record</span>
+          </a>
+          <a href="/propfirms/the-funded-trader/" class="related-card">
+            <span class="related-title">The Funded Trader Review</span>
+            <span class="related-desc">Budget-friendly with flexible rules</span>
+          </a>
+          <a href="/propfirms/" class="related-card">
+            <span class="related-title">All Prop Firms</span>
+            <span class="related-desc">Compare all prop trading firms side by side</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .review-hero {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    padding: var(--space-2xl) 0;
+    color: var(--white);
+  }
+
+  .review-hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .review-hero-badge {
+    margin-bottom: var(--space-md);
+  }
+
+  .review-hero-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .review-hero-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .firm-initial {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 800;
+  }
+
+  .review-hero-title h1 {
+    color: var(--white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .review-hero-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
+  .stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+  }
+
+  .rating-value {
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+  }
+
+  .rating-count {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-sm);
+  }
+
+  .review-hero-tagline {
+    font-size: var(--font-size-xl);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--space-xl);
+  }
+
+  .review-hero-scorecard {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .scorecard-item {
+    text-align: center;
+  }
+
+  .scorecard-value {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+  }
+
+  .scorecard-label {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .review-hero-highlights {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .highlight-item {
+    background: rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+  }
+
+  .review-hero-cta {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Overview Grid */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .overview-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .overview-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .overview-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .overview-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Challenge Process */
+  .challenge-process {
+    margin-top: var(--space-2xl);
+    padding: var(--space-xl);
+    background: var(--white);
+    border-radius: var(--radius-xl);
+  }
+
+  .challenge-process h3 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .process-steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+  }
+
+  .process-step {
+    text-align: center;
+    max-width: 250px;
+  }
+
+  .step-number {
+    width: 48px;
+    height: 48px;
+    background: var(--brand-orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin: 0 auto var(--space-md);
+  }
+
+  .process-step h4 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .process-step p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  .process-arrow {
+    font-size: 2rem;
+    color: var(--gray-300);
+    padding-top: var(--space-md);
+  }
+
+  /* Rules Grid */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .rule-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .rule-card--important {
+    border-color: var(--warning);
+    background: rgba(245, 158, 11, 0.05);
+  }
+
+  .rule-card--best {
+    border-color: var(--success);
+    background: rgba(16, 185, 129, 0.05);
+  }
+
+  .rule-icon {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .rule-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .rule-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Payout Section */
+  .payout-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .payout-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    text-align: center;
+  }
+
+  .payout-card--highlight {
+    border-color: var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.15);
+  }
+
+  .payout-value {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+  }
+
+  .payout-label {
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-sm);
+  }
+
+  .payout-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  .payout-methods {
+    margin-top: var(--space-xl);
+  }
+
+  .methods-grid {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    margin-top: var(--space-lg);
+  }
+
+  .method-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .method-icon {
+    font-size: 2rem;
+  }
+
+  .method-name {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Platforms Grid */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin: var(--space-xl) 0;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .platform-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .platform-name {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .platform-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    color: var(--success);
+    font-size: var(--font-size-sm);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--success);
+    border-radius: 50%;
+  }
+
+  .instruments-section {
+    margin-top: var(--space-xl);
+    text-align: center;
+  }
+
+  .instruments-grid {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-top: var(--space-lg);
+  }
+
+  .instrument-chip {
+    background: var(--gray-100);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Verdict Card */
+  .verdict-card {
+    background: var(--white);
+    border: 2px solid var(--brand-orange);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .verdict-header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-header h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .verdict-stars {
+    color: #f59e0b;
+    font-size: var(--font-size-2xl);
+  }
+
+  .verdict-summary {
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-scores {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+  }
+
+  .score-item {
+    text-align: center;
+  }
+
+  .score-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--space-xs);
+  }
+
+  .score-value {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+  }
+
+  .verdict-best-for {
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-best-for h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-sm);
+  }
+
+  .best-for-tags {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .best-for-tag {
+    background: rgba(255, 72, 0, 0.1);
+    color: var(--brand-orange);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Related Section */
+  .related-section {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .related-section h3 {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .related-card {
+    display: block;
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .related-card:hover {
+    border-color: var(--brand-orange);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .related-title {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .related-desc {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .overview-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .rules-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .review-hero-header {
+      flex-direction: column;
+    }
+
+    .review-hero-scorecard {
+      gap: var(--space-lg);
+    }
+
+    .review-hero-highlights {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .overview-grid,
+    .platforms-grid,
+    .rules-grid,
+    .payout-highlights,
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .process-steps {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .process-arrow {
+      transform: rotate(90deg);
+      padding: 0;
+    }
+
+    .verdict-scores {
+      gap: var(--space-md);
+    }
+  }
+</style>

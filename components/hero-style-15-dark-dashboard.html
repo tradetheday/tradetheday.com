@@ -1,0 +1,256 @@
+<!-- Hero Style 15: Dark Trading Dashboard -->
+<!-- Copy this entire section to use the dark dashboard hero style -->
+<section class="hero-dark-dashboard section">
+    <div class="container">
+        <div class="dashboard-hero-content">
+            <div class="dashboard-header">
+                <h1 class="heading-1">Live Trading Dashboard</h1>
+                <p class="body-large">Real-time data and analysis for AvaTrade's most popular instruments.</p>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <span class="currency-pair">EUR/USD</span>
+                        <span class="price-change positive">+0.0023</span>
+                    </div>
+                    <div class="dashboard-price">1.0847</div>
+                    <div class="dashboard-details">
+                        <span>Spread: 0.9 pips</span>
+                        <span class="dashboard-status live">Live</span>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <span class="currency-pair">GBP/USD</span>
+                        <span class="price-change negative">-0.0041</span>
+                    </div>
+                    <div class="dashboard-price">1.2634</div>
+                    <div class="dashboard-details">
+                        <span>Spread: 1.5 pips</span>
+                        <span class="dashboard-status live">Live</span>
+                    </div>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-card-header">
+                        <span class="currency-pair">USD/JPY</span>
+                        <span class="price-change positive">+0.34</span>
+                    </div>
+                    <div class="dashboard-price">149.87</div>
+                    <div class="dashboard-details">
+                        <span>Spread: 1.0 pips</span>
+                        <span class="dashboard-status live">Live</span>
+                    </div>
+                </div>
+                
+                <div class="dashboard-summary">
+                    <div class="summary-title">Market Summary</div>
+                    <div class="summary-stats">
+                        <div class="summary-stat">
+                            <span class="summary-label">Active Traders</span>
+                            <span class="summary-value">12,847</span>
+                        </div>
+                        <div class="summary-stat">
+                            <span class="summary-label">Volume (24h)</span>
+                            <span class="summary-value">$2.4B</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center dashboard-cta">
+                <a href="#" class="btn btn-primary btn-xl">Start Live Trading</a>
+                <p class="body-xs-light">Prices update every second • Real market data</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Hero Style 15: Dark Trading Dashboard */
+.hero-dark-dashboard {
+    background: linear-gradient(135deg, #0f1419 0%, #1a202c 100%);
+    color: var(--white);
+    padding: var(--space-4xl) 0;
+}
+
+.dashboard-hero-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.hero-dark-dashboard .heading-1,
+.hero-dark-dashboard .body-large {
+    color: var(--white);
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 300px;
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+}
+
+.dashboard-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: var(--transition-base);
+}
+
+.dashboard-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.dashboard-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+}
+
+.currency-pair {
+    color: var(--white);
+    font-weight: var(--font-weight-semibold);
+}
+
+.price-change {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+}
+
+.price-change.positive {
+    color: var(--success);
+}
+
+.price-change.negative {
+    color: var(--error);
+}
+
+.dashboard-price {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--white);
+    margin-bottom: var(--space-sm);
+}
+
+.dashboard-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.dashboard-status.live {
+    background: var(--success);
+    color: var(--white);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.dashboard-summary {
+    background: rgba(255, 72, 0, 0.1);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    backdrop-filter: blur(10px);
+}
+
+.summary-title {
+    color: var(--brand-orange);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-md);
+}
+
+.summary-stats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.summary-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-size-sm);
+}
+
+.summary-value {
+    color: var(--white);
+    font-weight: var(--font-weight-semibold);
+}
+
+.dashboard-cta {
+    margin-top: var(--space-xl);
+}
+
+.body-xs-light {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-xs);
+    margin-top: var(--space-sm);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Perfect for trading platforms and financial data display
+2. Live dashboard feel with real-time pricing simulation
+3. Features currency pairs with price movements
+4. Update currency pairs and prices to match your data
+5. Customize market summary statistics
+6. Cards automatically stack on mobile devices
+
+Customization Options:
+- Update currency pairs: Replace with your supported instruments
+- Modify prices: Use real-time data feeds or API integration
+- Change spreads: Update spread values for accuracy
+- Customize summary: Replace with relevant market metrics
+- Add more pairs: Copy dashboard-card structure
+- Remove summary: Delete dashboard-summary if not needed
+- Update CTA: Modify button text and supporting message
+
+Dashboard Features:
+- Real-time price simulation with color-coded changes
+- Hover effects on currency pair cards
+- Pulsing "Live" status indicators
+- Professional trading interface styling
+- Market summary with key statistics
+
+Currency Card Structure:
+- Currency pair name (e.g., EUR/USD)
+- Price change indicator (green/red)
+- Current price display
+- Spread information
+- Live status with animation
+
+Required CSS: design-system.css + embedded styles above
+-->

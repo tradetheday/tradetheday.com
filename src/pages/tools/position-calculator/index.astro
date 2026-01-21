@@ -1,0 +1,835 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import '../../../styles/tools.css';
+
+const pageTitle = "Position Size Calculator - Manage Your Risk | TradeTheDay";
+const pageDescription = "Calculate the perfect position size for any trade. Never risk more than you should. Free forex position size calculator with stop loss management.";
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Tools', href: '/tools/' },
+  { text: 'Position Calculator', current: true }
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <div class="tool-page">
+    <!-- Hero -->
+    <section class="tool-hero">
+      <div class="container">
+        <div class="tool-hero-badge"><span aria-hidden="true">📐</span> RISK MANAGEMENT</div>
+        <h1 class="tool-hero-title">Position Size Calculator</h1>
+        <p class="tool-hero-subtitle">The #1 rule of trading: manage your risk. Calculate the exact position size to never risk more than you should.</p>
+      </div>
+    </section>
+
+    <!-- Calculator -->
+    <section class="calculator-section">
+      <div class="container">
+        <div class="calculator-container">
+          <!-- Inputs -->
+          <div class="calc-inputs">
+            <h2 class="calc-section-title">Your Trade Setup</h2>
+
+            <div class="input-group">
+              <label class="input-label" for="accountBalance">
+                <span class="label-icon">💵</span>
+                Account Balance
+              </label>
+              <div class="input-with-currency">
+                <span class="currency-symbol">$</span>
+                <input type="number" id="accountBalance" value="10000" min="100" step="100">
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label class="input-label">
+                <span class="label-icon">⚠️</span>
+                Risk Per Trade
+              </label>
+              <div class="risk-buttons" id="riskSelector">
+                <button class="risk-btn" data-risk="0.5">0.5%<span class="risk-label">Safe</span></button>
+                <button class="risk-btn active" data-risk="1">1%<span class="risk-label">Standard</span></button>
+                <button class="risk-btn" data-risk="2">2%<span class="risk-label">Aggressive</span></button>
+                <button class="risk-btn" data-risk="3">3%<span class="risk-label">High Risk</span></button>
+              </div>
+              <div class="risk-amount">
+                Risk Amount: <strong id="riskAmount">$100.00</strong>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label class="input-label" for="stopLoss">
+                <span class="label-icon">🛑</span>
+                Stop Loss (Pips)
+              </label>
+              <div class="input-with-unit">
+                <input type="number" id="stopLoss" value="50" min="1" max="1000" step="1">
+                <span class="unit">pips</span>
+              </div>
+              <div class="stop-loss-hints">
+                <button class="sl-hint" data-sl="20">Scalp (20)</button>
+                <button class="sl-hint" data-sl="50">Day (50)</button>
+                <button class="sl-hint" data-sl="100">Swing (100)</button>
+              </div>
+            </div>
+
+            <div class="input-group">
+              <label class="input-label">
+                <span class="label-icon">💱</span>
+                Currency Pair
+              </label>
+              <div class="pair-buttons" id="pairSelector">
+                <button class="pair-btn active" data-pair="eurusd" data-pipvalue="10">EUR/USD</button>
+                <button class="pair-btn" data-pair="gbpusd" data-pipvalue="10">GBP/USD</button>
+                <button class="pair-btn" data-pair="usdjpy" data-pipvalue="7.5">USD/JPY</button>
+                <button class="pair-btn" data-pair="gold" data-pipvalue="10">Gold</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="calc-results">
+            <h2 class="calc-section-title">Your Position Size</h2>
+
+            <div class="result-main">
+              <div class="result-big-number" id="positionSize">0.20</div>
+              <div class="result-unit">Standard Lots</div>
+            </div>
+
+            <div class="result-breakdown">
+              <div class="breakdown-item">
+                <span class="breakdown-label">Mini Lots (0.1)</span>
+                <span class="breakdown-value" id="miniLots">2.0</span>
+              </div>
+              <div class="breakdown-item">
+                <span class="breakdown-label">Micro Lots (0.01)</span>
+                <span class="breakdown-value" id="microLots">20.0</span>
+              </div>
+              <div class="breakdown-item">
+                <span class="breakdown-label">Units</span>
+                <span class="breakdown-value" id="units">20,000</span>
+              </div>
+            </div>
+
+            <div class="result-summary">
+              <div class="summary-card">
+                <div class="summary-icon">💰</div>
+                <div class="summary-content">
+                  <span class="summary-label">Max Loss on This Trade</span>
+                  <span class="summary-value" id="maxLoss">$100.00</span>
+                </div>
+              </div>
+              <div class="summary-card">
+                <div class="summary-icon">📊</div>
+                <div class="summary-content">
+                  <span class="summary-label">Pip Value</span>
+                  <span class="summary-value" id="pipValueResult">$2.00 / pip</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="risk-meter">
+              <div class="meter-label">Risk Level</div>
+              <div class="meter-bar">
+                <div class="meter-fill" id="riskMeter" style="width: 33%"></div>
+              </div>
+              <div class="meter-labels">
+                <span>Conservative</span>
+                <span>Balanced</span>
+                <span>Aggressive</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="tips-section">
+      <div class="container">
+        <h2 class="section-title">Position Sizing Rules for Success</h2>
+        <div class="tips-grid">
+          <div class="tip-card">
+            <div class="tip-number">01</div>
+            <h3>The 1% Rule</h3>
+            <p>Never risk more than 1-2% of your account on a single trade. This ensures you can survive a losing streak without blowing your account.</p>
+          </div>
+          <div class="tip-card">
+            <div class="tip-number">02</div>
+            <h3>Stop Loss First</h3>
+            <p>Always set your stop loss BEFORE calculating position size. Your stop loss determines your risk, not the other way around.</p>
+          </div>
+          <div class="tip-card">
+            <div class="tip-number">03</div>
+            <h3>Stay Consistent</h3>
+            <p>Don't increase position size after wins or decrease after losses. Emotional sizing leads to blown accounts.</p>
+          </div>
+          <div class="tip-card">
+            <div class="tip-number">04</div>
+            <h3>Account for Spreads</h3>
+            <p>Your actual risk includes the spread. Add spread pips to your stop loss for more accurate risk calculation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formula Section -->
+    <section class="formula-section">
+      <div class="container">
+        <div class="formula-box">
+          <h2>The Position Size Formula</h2>
+          <div class="formula">
+            <span class="formula-part">Position Size</span>
+            <span class="formula-equals">=</span>
+            <span class="formula-fraction">
+              <span class="formula-num">(Account Balance × Risk %)</span>
+              <span class="formula-line"></span>
+              <span class="formula-den">(Stop Loss in Pips × Pip Value)</span>
+            </span>
+          </div>
+          <p class="formula-example">
+            Example: $10,000 account × 1% risk = $100 risk ÷ (50 pips × $10/pip) = <strong>0.20 lots</strong>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="calc-cta-section">
+      <div class="container">
+        <div class="calc-cta-box">
+          <div class="cta-content">
+            <h2>Ready to Trade with Proper Risk Management?</h2>
+            <p>Open an account with AvaTrade and get up to $10,000 bonus to practice proper position sizing.</p>
+          </div>
+          <a href="https://www.avatrade.com/?tag=tradetheday" class="calc-cta-button" target="_blank" rel="noopener">
+            Open AvaTrade Account
+            <span class="cta-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const accountBalance = document.getElementById('accountBalance');
+      const riskButtons = document.querySelectorAll('.risk-btn');
+      const stopLoss = document.getElementById('stopLoss');
+      const pairButtons = document.querySelectorAll('.pair-btn');
+      const slHints = document.querySelectorAll('.sl-hint');
+
+      let state = {
+        balance: 10000,
+        riskPercent: 1,
+        stopLossPips: 50,
+        pipValue: 10
+      };
+
+      function calculate() {
+        const riskAmount = state.balance * (state.riskPercent / 100);
+        const positionSize = riskAmount / (state.stopLossPips * state.pipValue);
+        const actualPipValue = positionSize * state.pipValue;
+
+        // Update displays
+        document.getElementById('riskAmount').textContent = `$${riskAmount.toFixed(2)}`;
+        document.getElementById('positionSize').textContent = positionSize.toFixed(2);
+        document.getElementById('miniLots').textContent = (positionSize * 10).toFixed(1);
+        document.getElementById('microLots').textContent = (positionSize * 100).toFixed(1);
+        document.getElementById('units').textContent = Math.round(positionSize * 100000).toLocaleString();
+        document.getElementById('maxLoss').textContent = `$${riskAmount.toFixed(2)}`;
+        document.getElementById('pipValueResult').textContent = `$${actualPipValue.toFixed(2)} / pip`;
+
+        // Update risk meter
+        const riskMeter = document.getElementById('riskMeter');
+        const riskLevel = (state.riskPercent / 3) * 100;
+        riskMeter.style.width = `${Math.min(riskLevel, 100)}%`;
+
+        // Update meter color based on risk level
+        riskMeter.classList.remove('meter-low', 'meter-medium', 'meter-high');
+        if (state.riskPercent <= 1) {
+          riskMeter.classList.add('meter-low');
+        } else if (state.riskPercent <= 2) {
+          riskMeter.classList.add('meter-medium');
+        } else {
+          riskMeter.classList.add('meter-high');
+        }
+      }
+
+      // Event listeners
+      accountBalance.addEventListener('input', (e) => {
+        state.balance = parseFloat(e.target.value) || 0;
+        calculate();
+      });
+
+      riskButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          riskButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          state.riskPercent = parseFloat(btn.dataset.risk);
+          calculate();
+        });
+      });
+
+      stopLoss.addEventListener('input', (e) => {
+        state.stopLossPips = parseFloat(e.target.value) || 1;
+        calculate();
+      });
+
+      pairButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          pairButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          state.pipValue = parseFloat(btn.dataset.pipvalue);
+          calculate();
+        });
+      });
+
+      slHints.forEach(btn => {
+        btn.addEventListener('click', () => {
+          stopLoss.value = btn.dataset.sl;
+          state.stopLossPips = parseFloat(btn.dataset.sl);
+          calculate();
+        });
+      });
+
+      // Initial calculation
+      calculate();
+    });
+  </script>
+
+  <style>
+    /* Calculator - Page-specific styles (hero from tools.css) */
+    .calculator-section {
+      padding: var(--space-xl) 0 var(--space-3xl);
+    }
+
+    .calculator-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+
+    @media (max-width: 968px) {
+      .calculator-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .calc-section-title {
+      font-size: var(--text-xl);
+      font-weight: 700;
+      margin-bottom: var(--space-lg);
+      color: var(--white);
+    }
+
+    .calc-inputs {
+      background: var(--gray-900);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      border: 1px solid var(--gray-800);
+    }
+
+    .input-group {
+      margin-bottom: var(--space-xl);
+    }
+
+    .input-label {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-weight: 600;
+      margin-bottom: var(--space-md);
+      color: var(--white);
+    }
+
+    .label-icon {
+      font-size: var(--text-lg);
+    }
+
+    /* Input with currency */
+    .input-with-currency {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .currency-symbol {
+      position: absolute;
+      left: var(--space-md);
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .input-with-currency input {
+      width: 100%;
+      padding: var(--space-md) var(--space-md) var(--space-md) var(--space-xl);
+      background: var(--gray-800);
+      border: 2px solid var(--gray-700);
+      border-radius: var(--radius-md);
+      color: var(--white);
+      font-size: var(--text-lg);
+      font-weight: 600;
+    }
+
+    .input-with-currency input:focus {
+      outline: none;
+      border-color: var(--orange);
+    }
+
+    /* Input with unit */
+    .input-with-unit {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-with-unit input {
+      width: 100%;
+      padding: var(--space-md);
+      padding-right: 60px;
+      background: var(--gray-800);
+      border: 2px solid var(--gray-700);
+      border-radius: var(--radius-md);
+      color: var(--white);
+      font-size: var(--text-lg);
+      font-weight: 600;
+    }
+
+    .input-with-unit input:focus {
+      outline: none;
+      border-color: var(--orange);
+    }
+
+    .input-with-unit .unit {
+      position: absolute;
+      right: var(--space-md);
+      color: var(--text-secondary);
+    }
+
+    /* Risk Buttons */
+    .risk-buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-sm);
+    }
+
+    .risk-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: var(--space-md);
+      background: var(--gray-800);
+      border: 2px solid var(--gray-700);
+      border-radius: var(--radius-md);
+      color: var(--white);
+      font-weight: 700;
+      font-size: var(--text-lg);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .risk-btn:hover {
+      border-color: var(--orange);
+    }
+
+    .risk-btn.active {
+      background: rgba(255, 72, 0, 0.1);
+      border-color: var(--orange);
+    }
+
+    .risk-label {
+      font-size: var(--text-xs);
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .risk-amount {
+      margin-top: var(--space-sm);
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+
+    .risk-amount strong {
+      color: var(--orange);
+    }
+
+    /* Stop Loss Hints */
+    .stop-loss-hints {
+      display: flex;
+      gap: var(--space-sm);
+      margin-top: var(--space-sm);
+    }
+
+    .sl-hint {
+      padding: var(--space-xs) var(--space-sm);
+      background: var(--gray-800);
+      border: 1px solid var(--gray-700);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: var(--text-xs);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .sl-hint:hover {
+      border-color: var(--orange);
+      color: var(--white);
+    }
+
+    /* Pair Buttons */
+    .pair-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .pair-btn {
+      padding: var(--space-sm) var(--space-md);
+      background: var(--gray-800);
+      border: 2px solid var(--gray-700);
+      border-radius: var(--radius-md);
+      color: var(--white);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pair-btn:hover {
+      border-color: var(--orange);
+    }
+
+    .pair-btn.active {
+      background: var(--orange);
+      border-color: var(--orange);
+    }
+
+    /* Results */
+    .calc-results {
+      background: var(--gray-900);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      border: 1px solid var(--gray-800);
+      position: sticky;
+      top: 100px;
+    }
+
+    .result-main {
+      text-align: center;
+      padding: var(--space-xl) 0;
+      background: linear-gradient(135deg, rgba(255, 72, 0, 0.1) 0%, transparent 100%);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    .result-big-number {
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--orange);
+      line-height: 1;
+    }
+
+    .result-unit {
+      color: var(--text-secondary);
+      margin-top: var(--space-sm);
+    }
+
+    .result-breakdown {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .breakdown-item {
+      text-align: center;
+      padding: var(--space-md);
+      background: var(--gray-800);
+      border-radius: var(--radius-md);
+    }
+
+    .breakdown-label {
+      display: block;
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-xs);
+    }
+
+    .breakdown-value {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .result-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .summary-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+      background: var(--gray-800);
+      border-radius: var(--radius-md);
+    }
+
+    .summary-icon {
+      font-size: 1.5rem;
+    }
+
+    .summary-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .summary-label {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+    }
+
+    .summary-value {
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    /* Risk Meter */
+    .risk-meter {
+      padding: var(--space-md);
+      background: var(--gray-800);
+      border-radius: var(--radius-md);
+    }
+
+    .meter-label {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .meter-bar {
+      height: 8px;
+      background: var(--gray-700);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .meter-fill {
+      height: 100%;
+      background: var(--success);
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+
+    .meter-fill.meter-low {
+      background: var(--success);
+    }
+
+    .meter-fill.meter-medium {
+      background: var(--warning);
+    }
+
+    .meter-fill.meter-high {
+      background: var(--error);
+    }
+
+    .meter-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: var(--space-xs);
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+    }
+
+    /* Tips */
+    .tips-section {
+      padding: var(--space-3xl) 0;
+      background: var(--gray-950);
+    }
+
+    .section-title {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-xl);
+    }
+
+    @media (max-width: 968px) {
+      .tips-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .tips-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tip-card {
+      padding: var(--space-lg);
+      background: var(--gray-900);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-800);
+    }
+
+    .tip-number {
+      display: inline-block;
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--orange);
+      margin-bottom: var(--space-sm);
+    }
+
+    .tip-card h3 {
+      font-size: var(--text-md);
+      margin-bottom: var(--space-sm);
+    }
+
+    .tip-card p {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Formula */
+    .formula-section {
+      padding: var(--space-2xl) 0;
+    }
+
+    .formula-box {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      padding: var(--space-2xl);
+      background: var(--gray-900);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--gray-800);
+    }
+
+    .formula-box h2 {
+      margin-bottom: var(--space-xl);
+    }
+
+    .formula {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    .formula-part {
+      font-size: var(--text-lg);
+      font-weight: 600;
+    }
+
+    .formula-equals {
+      font-size: var(--text-xl);
+      color: var(--orange);
+    }
+
+    .formula-fraction {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .formula-num, .formula-den {
+      padding: var(--space-sm);
+      font-size: var(--text-sm);
+    }
+
+    .formula-line {
+      width: 100%;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .formula-example {
+      color: var(--text-secondary);
+      font-size: var(--text-sm);
+    }
+
+    .formula-example strong {
+      color: var(--orange);
+    }
+
+    /* CTA */
+    .calc-cta-section {
+      padding: var(--space-2xl) 0 var(--space-3xl);
+    }
+
+    .calc-cta-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-xl);
+      padding: var(--space-2xl);
+      background: var(--gray-900);
+      border: 1px solid var(--gray-800);
+      border-radius: var(--radius-xl);
+    }
+
+    @media (max-width: 768px) {
+      .calc-cta-box {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    .cta-content h2 {
+      font-size: var(--text-2xl);
+      margin-bottom: var(--space-sm);
+    }
+
+    .cta-content p {
+      color: var(--text-secondary);
+    }
+
+    .calc-cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-md) var(--space-xl);
+      background: var(--orange);
+      color: var(--white);
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: var(--text-lg);
+      text-decoration: none;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .calc-cta-button:hover {
+      background: var(--orange-dark);
+      transform: translateY(-2px);
+    }
+
+    .cta-arrow {
+      transition: transform 0.3s;
+    }
+
+    .calc-cta-button:hover .cta-arrow {
+      transform: translateX(4px);
+    }
+  </style>
+</BaseLayout>

@@ -1,0 +1,223 @@
+<!-- Hero Style 5: Comparison-Focused Hero -->
+<!-- Copy this entire section to use the comparison-focused hero style -->
+<section class="hero-comparison section">
+    <div class="container">
+        <div class="text-center">
+            <span class="chip">Broker Comparison</span>
+            <h1 class="heading-1">How Does AvaTrade Stack Up?</h1>
+            <p class="body-large">We compared AvaTrade against 50+ brokers across fees, regulation, platforms, and user experience.</p>
+        </div>
+        
+        <div class="hero-comparison-grid">
+            <div class="comparison-card winner">
+                <div class="comparison-header">
+                    <img src="../assets/images/brokers/avatrade/avatrade-logo-light.svg" alt="AvaTrade" class="comparison-logo" />
+                    <span class="comparison-badge">Our Pick</span>
+                </div>
+                <div class="comparison-rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-text">4.2/5</span>
+                </div>
+                <div class="comparison-highlights">
+                    <div class="comparison-item good">
+                        <span>✓ Multi-regulated (6 licenses)</span>
+                    </div>
+                    <div class="comparison-item good">
+                        <span>✓ Low minimum deposit ($100)</span>
+                    </div>
+                    <div class="comparison-item neutral">
+                        <span>• Moderate spreads (0.9 pips)</span>
+                    </div>
+                    <div class="comparison-item good">
+                        <span>✓ No commission trading</span>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-primary btn-full">Choose AvaTrade</a>
+            </div>
+            
+            <div class="comparison-card">
+                <div class="comparison-header">
+                    <div class="comparison-logo-placeholder">IC Markets</div>
+                </div>
+                <div class="comparison-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-text">4.5/5</span>
+                </div>
+                <div class="comparison-highlights">
+                    <div class="comparison-item good">
+                        <span>✓ Ultra-low spreads (0.1 pips)</span>
+                    </div>
+                    <div class="comparison-item bad">
+                        <span>✗ Higher minimum ($200)</span>
+                    </div>
+                    <div class="comparison-item bad">
+                        <span>✗ Commission charges</span>
+                    </div>
+                    <div class="comparison-item neutral">
+                        <span>• ASIC regulated only</span>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-outline btn-full">Compare</a>
+            </div>
+            
+            <div class="comparison-card">
+                <div class="comparison-header">
+                    <div class="comparison-logo-placeholder">Plus500</div>
+                </div>
+                <div class="comparison-rating">
+                    <span class="stars">★★★☆☆</span>
+                    <span class="rating-text">3.8/5</span>
+                </div>
+                <div class="comparison-highlights">
+                    <div class="comparison-item good">
+                        <span>✓ Same minimum deposit ($100)</span>
+                    </div>
+                    <div class="comparison-item bad">
+                        <span>✗ Very high spreads (2.2 pips)</span>
+                    </div>
+                    <div class="comparison-item neutral">
+                        <span>• FCA & ASIC regulated</span>
+                    </div>
+                    <div class="comparison-item bad">
+                        <span>✗ Limited platform options</span>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-outline btn-full">Compare</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Hero Style 5: Comparison */
+.hero-comparison {
+    background: var(--white);
+    padding: var(--space-4xl) 0;
+}
+
+.hero-comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+    margin-top: var(--space-2xl);
+}
+
+.comparison-card {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+    transition: var(--transition-base);
+}
+
+.comparison-card.winner {
+    border-color: var(--brand-orange);
+    box-shadow: var(--shadow-brand);
+    transform: scale(1.05);
+}
+
+.comparison-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+}
+
+.comparison-logo {
+    height: 32px;
+}
+
+.comparison-logo-placeholder {
+    font-weight: var(--font-weight-bold);
+    color: var(--gray-600);
+}
+
+.comparison-badge {
+    background: var(--gradient-primary);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+}
+
+.comparison-rating {
+    margin-bottom: var(--space-lg);
+}
+
+.comparison-highlights {
+    text-align: left;
+    margin-bottom: var(--space-xl);
+}
+
+.comparison-item {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+}
+
+.comparison-item.good {
+    color: var(--success);
+}
+
+.comparison-item.bad {
+    color: var(--error);
+}
+
+.comparison-item.neutral {
+    color: var(--gray-600);
+}
+
+.btn-full {
+    width: 100%;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--charcoal);
+    border: 2px solid var(--gray-300);
+    font-weight: var(--font-weight-semibold);
+}
+
+.btn-outline:hover {
+    background: var(--gray-100);
+    border-color: var(--gray-400);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-comparison-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .comparison-card.winner {
+        transform: none;
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Excellent for head-to-head broker comparisons
+2. Highlights your recommended choice with winner styling
+3. Replace logo src with actual broker logos
+4. Update comparison points for each broker
+5. Modify ratings and button links as needed
+6. Automatically stacks on mobile devices
+
+Customization Options:
+- Replace logos: Update src paths or use comparison-logo-placeholder for text
+- Update ratings: Change star count and numerical ratings
+- Modify comparison points: Update text and classes (good/bad/neutral)
+- Change winner: Move .winner class to different card
+- Add more brokers: Copy comparison-card structure (will need grid adjustment)
+- Update buttons: Customize text and links for each card
+- Remove badge: Delete comparison-badge span if not needed
+
+Comparison Item Classes:
+- .good: Green text for positive points
+- .bad: Red text for negative points
+- .neutral: Gray text for neutral information
+
+Required CSS: design-system.css + embedded styles above
+-->

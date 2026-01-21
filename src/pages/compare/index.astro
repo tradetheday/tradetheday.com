@@ -1,0 +1,741 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import TrustBadges from '../../components/TrustBadges.astro';
+import AnalystNotes from '../../components/AnalystNotes.astro';
+import '../../styles/hero-components.css';
+import { generateFAQSchema, generateBreadcrumbSchema, generateItemListSchema } from '../../utils/seo';
+
+// Page metadata
+const title = 'Broker & Prop Firm Comparisons 2026 - Head-to-Head Reviews';
+const description = 'Compare brokers and prop firms side-by-side. Detailed head-to-head comparisons of fees, features, regulation, and more to help you choose the right trading platform.';
+
+// Breadcrumb data
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Comparisons', current: true }
+];
+
+// Category links
+const categoryLinks = [
+  {
+    title: 'Forex Broker Comparisons',
+    description: 'Compare the best forex and CFD brokers head-to-head',
+    href: '/compare-forex-brokers/',
+    icon: '💱',
+    count: '10+'
+  },
+  {
+    title: 'Prop Firm Comparisons',
+    description: 'Compare proprietary trading firms and funded accounts',
+    href: '/compare-prop-firms/',
+    icon: '🏆',
+    count: '8+'
+  },
+  {
+    title: 'Exchange Comparisons',
+    description: 'Compare cryptocurrency exchanges for trading',
+    href: '/compare-exchanges/',
+    icon: '🪙',
+    count: '6+'
+  }
+];
+
+// All comparisons data
+const brokerComparisons = [
+  {
+    slug: 'avatrade-vs-etoro',
+    title: 'AvaTrade vs eToro',
+    subtitle: 'Copy Trading Showdown',
+    description: 'Two of the biggest names in social and copy trading go head-to-head. Which platform offers better copy trading features, fees, and regulation?',
+    broker1: { name: 'AvaTrade', score: 4.3 },
+    broker2: { name: 'eToro', score: 4.1 },
+    highlights: ['Copy trading features', 'Social trading', 'Regulation comparison', 'Fee analysis'],
+    verdict: 'AvaTrade wins on regulation depth; eToro leads on social features'
+  },
+  {
+    slug: 'avatrade-vs-plus500',
+    title: 'AvaTrade vs Plus500',
+    subtitle: 'Platform Philosophy Battle',
+    description: 'Full-service trading platform vs simplified CFD trading. Compare platforms, instruments, and which approach suits your trading style.',
+    broker1: { name: 'AvaTrade', score: 4.3 },
+    broker2: { name: 'Plus500', score: 3.9 },
+    highlights: ['Platform complexity', 'Instrument range', 'Educational resources', 'Mobile experience'],
+    verdict: 'AvaTrade better for learning; Plus500 for simplicity'
+  },
+  {
+    slug: 'pepperstone-vs-ic-markets',
+    title: 'Pepperstone vs IC Markets',
+    subtitle: 'ECN Broker Showdown',
+    description: 'The ultimate ECN broker comparison. Raw spreads, execution speed, and which broker offers the best conditions for serious traders.',
+    broker1: { name: 'Pepperstone', score: 4.5 },
+    broker2: { name: 'IC Markets', score: 4.4 },
+    highlights: ['Raw spreads', 'Execution speed', 'Commission structure', 'Platform options'],
+    verdict: 'Pepperstone edges on regulation; IC Markets on raw costs'
+  }
+];
+
+const propFirmComparisons = [
+  {
+    slug: 'ftmo-vs-funded-trader',
+    title: 'FTMO vs The Funded Trader',
+    subtitle: 'Prop Firm Battle',
+    description: 'The two biggest prop trading firms compared. Challenge rules, profit splits, scaling plans, and which firm gives traders the best chance of success.',
+    broker1: { name: 'FTMO', score: 4.5 },
+    broker2: { name: 'The Funded Trader', score: 4.2 },
+    highlights: ['Challenge rules', 'Profit split', 'Scaling plan', 'Payout speed'],
+    verdict: 'FTMO wins on reputation; TFT offers more flexibility'
+  }
+];
+
+// FAQ data
+const faqItems = [
+  {
+    question: 'How do you compare brokers?',
+    answer: 'We compare brokers across multiple categories: regulation and safety, trading fees and spreads, platform features, instrument range, customer support, and educational resources. Each comparison includes detailed analysis with our expert verdict.'
+  },
+  {
+    question: 'Are these comparisons unbiased?',
+    answer: 'Yes. Our comparisons are based on objective criteria and real testing. While we may have affiliate relationships with brokers, this does not influence our analysis or verdicts. We clearly state pros and cons for each broker.'
+  },
+  {
+    question: 'How often are comparisons updated?',
+    answer: 'We review and update our comparisons quarterly, or whenever a broker makes significant changes to their fees, features, or regulation status. All comparisons show the last updated date.'
+  },
+  {
+    question: 'Should I use the comparison or the broker selector?',
+    answer: 'If you\'re deciding between two specific brokers, use our comparisons. If you\'re not sure which brokers to consider, use our AI Broker Selector at /find-broker/ to get personalized recommendations first.'
+  }
+];
+
+// Generate schemas
+const allComparisons = [...brokerComparisons, ...propFirmComparisons];
+const itemListSchema = generateItemListSchema(allComparisons.map((c, i) => ({
+  name: c.title,
+  url: `/compare/${c.slug}/`,
+  position: i + 1
+})));
+const faqSchema = generateFAQSchema(faqItems);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogType="website"
+  schema={[itemListSchema, faqSchema]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero Section -->
+  <section class="hero hero-standard">
+    <div class="container">
+      <div class="hero-social-proof">
+        <span class="social-proof-badge">
+          <span class="social-proof-dot"></span>
+          Updated January 2026
+        </span>
+      </div>
+      <h1 class="heading-1">Broker & Prop Firm Comparisons</h1>
+      <p class="body-large">
+        Can't decide between two platforms? Our detailed head-to-head comparisons analyze fees, features,
+        regulation, and more to help you make the right choice.
+      </p>
+      <a href="/find-broker/" class="btn btn-primary btn-lg">Find My Perfect Broker</a>
+      <div class="hero-trust-row">
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          50+ Data Points
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Real Account Testing
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          100% Unbiased
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <TrustBadges variant="light" compact={true} />
+
+  <!-- Category Links -->
+  <section class="section">
+    <div class="container">
+      <div class="category-grid">
+        {categoryLinks.map((cat) => (
+          <a href={cat.href} class="category-card">
+            <span class="category-icon">{cat.icon}</span>
+            <div class="category-content">
+              <h2 class="category-title">{cat.title}</h2>
+              <p class="category-desc">{cat.description}</p>
+            </div>
+            <span class="category-count">{cat.count} comparisons</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Broker Comparisons -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Broker Comparisons</h2>
+        <p class="body-large">Head-to-head analysis of the top forex and CFD brokers.</p>
+      </div>
+
+      <div class="comparisons-grid">
+        {brokerComparisons.map((comp) => (
+          <a href={`/compare/${comp.slug}/`} class="comparison-card">
+            <div class="comparison-card-header">
+              <div class="comparison-vs">
+                <div class="comparison-broker">
+                  <span class="broker-initial">{comp.broker1.name[0]}</span>
+                  <div class="broker-info">
+                    <span class="broker-name">{comp.broker1.name}</span>
+                    <span class="broker-score">{comp.broker1.score}/5</span>
+                  </div>
+                </div>
+                <span class="vs-badge">VS</span>
+                <div class="comparison-broker">
+                  <span class="broker-initial">{comp.broker2.name[0]}</span>
+                  <div class="broker-info">
+                    <span class="broker-name">{comp.broker2.name}</span>
+                    <span class="broker-score">{comp.broker2.score}/5</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comparison-card-body">
+              <h3 class="comparison-title">{comp.title}</h3>
+              <span class="comparison-subtitle">{comp.subtitle}</span>
+              <p class="comparison-desc">{comp.description}</p>
+
+              <div class="comparison-highlights">
+                {comp.highlights.map((h) => (
+                  <span class="highlight-tag">{h}</span>
+                ))}
+              </div>
+
+              <div class="comparison-verdict">
+                <span class="verdict-label">Quick Verdict:</span>
+                <span class="verdict-text">{comp.verdict}</span>
+              </div>
+            </div>
+
+            <div class="comparison-card-footer">
+              <span class="read-comparison">Read Full Comparison →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Prop Firm Comparisons -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Prop Firm Comparisons</h2>
+        <p class="body-large">Compare proprietary trading firms to find the best funded account.</p>
+      </div>
+
+      <div class="comparisons-grid">
+        {propFirmComparisons.map((comp) => (
+          <a href={`/compare/${comp.slug}/`} class="comparison-card">
+            <div class="comparison-card-header">
+              <div class="comparison-vs">
+                <div class="comparison-broker">
+                  <span class="broker-initial">{comp.broker1.name[0]}</span>
+                  <div class="broker-info">
+                    <span class="broker-name">{comp.broker1.name}</span>
+                    <span class="broker-score">{comp.broker1.score}/5</span>
+                  </div>
+                </div>
+                <span class="vs-badge">VS</span>
+                <div class="comparison-broker">
+                  <span class="broker-initial">{comp.broker2.name[0]}</span>
+                  <div class="broker-info">
+                    <span class="broker-name">{comp.broker2.name}</span>
+                    <span class="broker-score">{comp.broker2.score}/5</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="comparison-card-body">
+              <h3 class="comparison-title">{comp.title}</h3>
+              <span class="comparison-subtitle">{comp.subtitle}</span>
+              <p class="comparison-desc">{comp.description}</p>
+
+              <div class="comparison-highlights">
+                {comp.highlights.map((h) => (
+                  <span class="highlight-tag">{h}</span>
+                ))}
+              </div>
+
+              <div class="comparison-verdict">
+                <span class="verdict-label">Quick Verdict:</span>
+                <span class="verdict-text">{comp.verdict}</span>
+              </div>
+            </div>
+
+            <div class="comparison-card-footer">
+              <span class="read-comparison">Read Full Comparison →</span>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="more-propfirms">
+        <p>Looking for more prop firms? Check out our complete prop firm reviews.</p>
+        <a href="/propfirms/" class="btn btn-secondary">View All Prop Firms →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Not Sure Section -->
+  <section class="section">
+    <div class="container">
+      <div class="not-sure-card">
+        <div class="not-sure-content">
+          <h2 class="heading-3">Not Sure Which Brokers to Compare?</h2>
+          <p class="body-large">
+            Take our 30-second quiz and let our AI match you with the best brokers for your trading style.
+            Then compare your top matches.
+          </p>
+          <a href="/find-broker/" class="btn btn-primary btn-lg">Find My Perfect Broker →</a>
+        </div>
+        <div class="not-sure-stats">
+          <div class="stat-item">
+            <span class="stat-number">15+</span>
+            <span class="stat-text">Brokers Analyzed</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">30sec</span>
+            <span class="stat-text">Quiz Duration</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How We Compare Section -->
+  <section class="section section--alt">
+    <div class="container">
+      <AnalystNotes
+        title="How We Create Our Comparisons"
+        icon="🔬"
+        id="methodology-notes"
+        variant="dark"
+      >
+        <h4>Our Comparison Methodology</h4>
+        <p>Every comparison on TradeTheDay follows a rigorous, standardized methodology to ensure you get accurate, actionable information.</p>
+
+        <h5>50+ Data Points Per Broker</h5>
+        <p>We analyze over 50 individual data points for each broker including spreads on major pairs, commission structures, overnight fees, deposit/withdrawal options, platform features, mobile app ratings, regulation details, and customer support responsiveness.</p>
+
+        <h5>Real Account Testing</h5>
+        <p>We don't just read marketing materials. Our team opens real accounts, makes real deposits, and executes real trades to test execution speed, slippage, and platform reliability. This hands-on testing reveals details that desk research misses.</p>
+
+        <h5>Weighted Category Scoring</h5>
+        <p>Different trader types care about different features. A scalper prioritizes spreads and execution; a beginner prioritizes education and support. Our comparisons show category-by-category breakdowns so you can weight what matters to you.</p>
+
+        <h5>Updated Quarterly</h5>
+        <p>Brokers change their offerings frequently. Fee structures update, new platforms launch, regulation status changes. We review each comparison quarterly to ensure accuracy, with major updates triggering immediate revisions.</p>
+
+        <h5>Transparent Affiliate Disclosure</h5>
+        <p>Yes, we earn commissions from some brokers. No, this doesn't influence our comparisons. We've given negative verdicts to affiliate partners when warranted. Our reputation depends on honest analysis - that's worth more than any commission.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section">
+    <div class="container container--narrow">
+      <h2 class="heading-2 text-center">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        {faqItems.map((faq) => (
+          <details class="faq-item">
+            <summary class="faq-question">{faq.question}</summary>
+            <p class="faq-answer">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero styles from hero-components.css */
+
+  /* Category Grid */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--space-xl);
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .category-card:hover {
+    border-color: var(--brand-orange);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .category-icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .category-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .category-desc {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
+
+  .category-count {
+    display: inline-block;
+    background: var(--gray-100);
+    color: var(--gray-700);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .category-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .section-header h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-header p {
+    color: var(--gray-600);
+  }
+
+  .comparisons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .comparison-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .comparison-card:hover {
+    border-color: var(--brand-orange);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .comparison-card-header {
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .comparison-vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+  }
+
+  .comparison-broker {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .broker-initial {
+    width: 48px;
+    height: 48px;
+    background: var(--brand-orange);
+    color: var(--white);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+  }
+
+  .broker-info {
+    text-align: left;
+  }
+
+  .broker-name {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .broker-score {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .vs-badge {
+    background: var(--charcoal);
+    color: var(--white);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+  }
+
+  .comparison-card-body {
+    padding: var(--space-lg);
+    flex: 1;
+  }
+
+  .comparison-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .comparison-subtitle {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--brand-orange);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+
+  .comparison-desc {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+  }
+
+  .comparison-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+  }
+
+  .highlight-tag {
+    background: var(--gray-100);
+    color: var(--gray-700);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+  }
+
+  .comparison-verdict {
+    padding: var(--space-sm);
+    background: rgba(255, 72, 0, 0.05);
+    border-left: 3px solid var(--brand-orange);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .verdict-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--brand-orange);
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .verdict-text {
+    font-size: var(--font-size-sm);
+    color: var(--charcoal);
+  }
+
+  .comparison-card-footer {
+    padding: var(--space-md) var(--space-lg);
+    border-top: 1px solid var(--gray-100);
+    background: var(--gray-50);
+  }
+
+  .read-comparison {
+    color: var(--brand-orange);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+  }
+
+  .more-propfirms {
+    text-align: center;
+    margin-top: var(--space-2xl);
+    padding: var(--space-xl);
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+  }
+
+  .more-propfirms p {
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
+
+  .not-sure-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xl);
+    padding: var(--space-2xl);
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--brand-orange);
+  }
+
+  .not-sure-content {
+    flex: 1;
+  }
+
+  .not-sure-content h2 {
+    color: var(--white);
+    margin-bottom: var(--space-sm);
+  }
+
+  .not-sure-content p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-lg);
+    max-width: 500px;
+  }
+
+  .not-sure-stats {
+    display: flex;
+    gap: var(--space-xl);
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    display: block;
+    font-size: var(--font-size-3xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+  }
+
+  .stat-text {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  .faq-item {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    padding: var(--space-md) var(--space-lg);
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question::after {
+    content: '+';
+    font-size: var(--font-size-xl);
+    color: var(--brand-orange);
+  }
+
+  .faq-item[open] .faq-question::after {
+    content: '−';
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-lg) var(--space-md);
+    color: var(--gray-600);
+    line-height: 1.7;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .hero-stats {
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .comparisons-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .comparison-vs {
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .not-sure-card {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .not-sure-content p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .not-sure-stats {
+      justify-content: center;
+    }
+  }
+</style>

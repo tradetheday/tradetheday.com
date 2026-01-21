@@ -1,0 +1,2094 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import Testimonials from '../components/Testimonials.astro';
+import ScarcityCountdown from '../components/ScarcityCountdown.astro';
+import AnalystNotes from '../components/AnalystNotes.astro';
+import TradingResults from '../components/TradingResults.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+import { brokers } from '../data/brokers';
+
+const pageTitle = "Best Trading Brokers 2026 - AI-Powered Broker Matching | TradeTheDay";
+const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regulated brokers, claim exclusive bonuses up to $10,000, and start trading with confidence. 100% free.";
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  ogType="website"
+>
+  <!-- HERO SECTION - Cialdini Optimized -->
+  <section class="hero-clean">
+    <!-- Animated Chart Background -->
+    <div class="hero-chart-bg">
+      <svg viewBox="0 0 1200 400" preserveAspectRatio="none" class="hero-chart-svg">
+        <!-- Grid lines -->
+        <g class="chart-grid" stroke="rgba(255,255,255,0.03)" stroke-width="1">
+          <line x1="0" y1="80" x2="1200" y2="80" />
+          <line x1="0" y1="160" x2="1200" y2="160" />
+          <line x1="0" y1="240" x2="1200" y2="240" />
+          <line x1="0" y1="320" x2="1200" y2="320" />
+        </g>
+        <!-- Main chart line - climbing trend -->
+        <path
+          class="chart-line"
+          d="M0,350 C100,340 150,320 200,310 C280,295 320,300 400,270 C480,240 520,250 600,200 C680,150 720,170 800,120 C880,70 920,90 1000,50 C1080,10 1150,30 1200,20"
+          fill="none"
+          stroke="url(#chartGradient)"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+        <!-- Glow effect -->
+        <path
+          class="chart-line-glow"
+          d="M0,350 C100,340 150,320 200,310 C280,295 320,300 400,270 C480,240 520,250 600,200 C680,150 720,170 800,120 C880,70 920,90 1000,50 C1080,10 1150,30 1200,20"
+          fill="none"
+          stroke="url(#chartGradient)"
+          stroke-width="8"
+          stroke-linecap="round"
+          opacity="0.3"
+        />
+        <!-- Area fill under the line -->
+        <path
+          class="chart-area"
+          d="M0,350 C100,340 150,320 200,310 C280,295 320,300 400,270 C480,240 520,250 600,200 C680,150 720,170 800,120 C880,70 920,90 1000,50 C1080,10 1150,30 1200,20 L1200,400 L0,400 Z"
+          fill="url(#areaGradient)"
+        />
+        <!-- Data points along the line -->
+        <g class="chart-points">
+          <circle class="chart-point p1" cx="200" cy="310" r="5" fill="var(--brand-orange)"/>
+          <circle class="chart-point p2" cx="400" cy="270" r="5" fill="var(--brand-orange)"/>
+          <circle class="chart-point p3" cx="600" cy="200" r="5" fill="var(--brand-orange)"/>
+          <circle class="chart-point p4" cx="800" cy="120" r="5" fill="var(--brand-orange)"/>
+          <circle class="chart-point p5" cx="1000" cy="50" r="6" fill="var(--brand-orange)"/>
+        </g>
+        <!-- Point glow effects -->
+        <g class="chart-point-glows">
+          <circle class="chart-point-glow pg1" cx="200" cy="310" r="12" fill="var(--brand-orange)" opacity="0.3"/>
+          <circle class="chart-point-glow pg2" cx="400" cy="270" r="12" fill="var(--brand-orange)" opacity="0.3"/>
+          <circle class="chart-point-glow pg3" cx="600" cy="200" r="12" fill="var(--brand-orange)" opacity="0.3"/>
+          <circle class="chart-point-glow pg4" cx="800" cy="120" r="12" fill="var(--brand-orange)" opacity="0.3"/>
+          <circle class="chart-point-glow pg5" cx="1000" cy="50" r="15" fill="var(--brand-orange)" opacity="0.4"/>
+        </g>
+        <defs>
+          <linearGradient id="chartGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgba(255,72,0,0.3)" />
+            <stop offset="50%" stop-color="rgba(255,72,0,0.7)" />
+            <stop offset="100%" stop-color="rgba(255,72,0,1)" />
+          </linearGradient>
+          <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="rgba(255,72,0,0.15)" />
+            <stop offset="100%" stop-color="rgba(255,72,0,0)" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <!-- Social Proof Badge (Cialdini) -->
+        <div class="hero-social-proof">
+          <span class="social-proof-badge">
+            <span class="social-proof-dot"></span>
+            Trusted by 12,847+ traders this month
+          </span>
+        </div>
+
+        <h1 class="hero-title">
+          Your Broker Is Costing You Thousands<br>
+          <span class="hero-title-accent">Trade The Day. Win The Year.</span>
+        </h1>
+        <p class="hero-subtitle">
+          97% of traders pick the wrong broker. The result? $4,847/year in unnecessary fees. Our AI matches you with the perfect broker in 30 seconds. Free. No signup.
+        </p>
+        <div class="hero-cta-group">
+          <a href="/find-broker/" class="btn btn-primary btn-xl">
+            Find My Perfect Broker
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="/brokers/" class="btn btn-ghost btn-xl">
+            Compare All Brokers
+          </a>
+        </div>
+
+        <!-- Trust Indicators (Reciprocity + Authority) -->
+        <div class="hero-trust-row">
+          <span class="hero-trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            100% Free
+          </span>
+          <span class="hero-trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            No Signup Required
+          </span>
+          <span class="hero-trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            Instant Results
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <style>
+    .hero-clean {
+      background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+      padding: var(--hero-padding-xl) 0;  /* XL Tier: 120px - Homepage only */
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Mobile: Collapse to compact */
+    @media (max-width: 768px) {
+      .hero-clean {
+        padding: var(--space-xl) 0;  /* 48px on mobile */
+      }
+    }
+
+    /* Animated Chart Background */
+    .hero-chart-bg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70%;
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeInChart 1.5s ease-out 0.3s forwards;
+    }
+
+    .hero-chart-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .chart-line {
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      animation: drawLine 3s ease-out 0.5s forwards;
+    }
+
+    .chart-line-glow {
+      stroke-dasharray: 2000;
+      stroke-dashoffset: 2000;
+      animation: drawLine 3s ease-out 0.5s forwards;
+      filter: blur(4px);
+    }
+
+    .chart-area {
+      opacity: 0;
+      animation: fadeInArea 1s ease-out 2s forwards;
+    }
+
+    @keyframes fadeInChart {
+      to { opacity: 1; }
+    }
+
+    @keyframes drawLine {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes fadeInArea {
+      to { opacity: 1; }
+    }
+
+    /* Animated data points */
+    .chart-point {
+      opacity: 0;
+      animation: pointFade 0.5s ease-in-out forwards;
+    }
+
+    .chart-point-glow {
+      opacity: 0;
+      animation: glowFade 0.8s ease-in-out forwards;
+    }
+
+    .p1, .pg1 { animation-delay: 0.95s; }
+    .p2, .pg2 { animation-delay: 1.45s; }
+    .p3, .pg3 { animation-delay: 1.95s; }
+    .p4, .pg4 { animation-delay: 2.45s; }
+    .p5, .pg5 { animation-delay: 2.95s; }
+
+    @keyframes pointFade {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes glowFade {
+      0% { opacity: 0; }
+      100% { opacity: 0.35; }
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Social Proof Badge */
+    .hero-social-proof {
+      margin-bottom: var(--space-lg);
+    }
+
+    .social-proof-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 72, 0, 0.15);
+      border: 1px solid rgba(255, 72, 0, 0.3);
+      color: var(--brand-orange);
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .social-proof-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+    }
+
+    .hero-title {
+      color: var(--white);
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: var(--font-weight-extrabold);
+      line-height: 1.1;
+      margin-bottom: var(--space-lg);
+    }
+
+    .hero-title-accent {
+      color: var(--brand-orange);
+    }
+
+    .hero-subtitle {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: var(--font-size-xl);
+      line-height: 1.6;
+      margin-bottom: var(--space-xl);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      gap: var(--space-md);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-lg);
+    }
+
+    .btn-arrow {
+      transition: transform 0.2s ease;
+    }
+
+    .btn:hover .btn-arrow {
+      transform: translateX(4px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: var(--white);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Trust Row */
+    .hero-trust-row {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .hero-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: var(--font-size-sm);
+    }
+
+    .hero-trust-item svg {
+      color: var(--success);
+    }
+
+    @media (max-width: 768px) {
+      .hero-trust-row {
+        gap: var(--space-md);
+      }
+    }
+  </style>
+
+  <!-- TRUST BADGES - Authority -->
+  <TrustBadges variant="light" showSecurityBadges={true} />
+
+  <!-- SCARCITY BANNER - Sticky on scroll, snaps below nav -->
+  <ScarcityCountdown
+    variant="banner"
+    message="January Exclusive: Top-tier welcome bonus"
+    ctaText="Claim Your Bonus"
+    ctaHref="/compare/"
+  />
+
+  <!-- BENTO GRID - What You Get (Premium Editorial Design) -->
+  <section class="section bento-section">
+    <div class="bento-bg-pattern"></div>
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Everything Included</span>
+        <h2 class="heading-2">What You Get <span class="text-gradient">(100% Free)</span></h2>
+        <p class="body-large">We've done the research so you don't have to</p>
+      </div>
+
+      <div class="bento-grid">
+        <!-- AI Broker Matcher - Hero Card -->
+        <a href="/find-broker/" class="bento-card bento-hero">
+          <div class="bento-hero-bg">
+            <svg class="hero-chart" viewBox="0 0 400 200" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="heroChartGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="rgba(255,72,0,0.3)"/>
+                  <stop offset="100%" stop-color="rgba(255,72,0,0)"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,180 Q50,160 100,140 T200,100 T300,60 T400,30 L400,200 L0,200 Z" fill="url(#heroChartGrad)"/>
+              <path d="M0,180 Q50,160 100,140 T200,100 T300,60 T400,30" fill="none" stroke="rgba(255,72,0,0.5)" stroke-width="2"/>
+            </svg>
+            <div class="hero-glow hero-glow-1"></div>
+            <div class="hero-glow hero-glow-2"></div>
+          </div>
+          <div class="bento-badge">
+            <span class="badge-dot"></span>
+            Most Popular
+          </div>
+          <div class="bento-hero-content">
+            <div class="bento-hero-icon">
+              <div class="icon-rings">
+                <div class="icon-ring ring-1"></div>
+                <div class="icon-ring ring-2"></div>
+                <div class="icon-ring ring-3"></div>
+              </div>
+              <div class="icon-center">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M12 2v4m0 12v4M2 12h4m12 0h4"/>
+                  <path d="m4.93 4.93 2.83 2.83m8.48 8.48 2.83 2.83m0-14.14-2.83 2.83m-8.48 8.48-2.83 2.83"/>
+                </svg>
+              </div>
+            </div>
+            <div class="bento-hero-text">
+              <span class="hero-label">AI-Powered</span>
+              <h3 class="bento-title">Broker Matcher</h3>
+              <p class="bento-desc">Answer 5 quick questions. Get matched with the perfect broker for your trading style, experience, and goals.</p>
+            </div>
+          </div>
+          <div class="bento-hero-footer">
+            <div class="hero-stats">
+              <div class="hero-stat">
+                <span class="stat-value">30s</span>
+                <span class="stat-label">Quiz Time</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="hero-stat">
+                <span class="stat-value">12,847</span>
+                <span class="stat-label">Matched</span>
+              </div>
+              <div class="stat-divider"></div>
+              <div class="hero-stat">
+                <span class="stat-value">Free</span>
+                <span class="stat-label">Always</span>
+              </div>
+            </div>
+            <span class="bento-cta-btn">
+              Find My Perfect Broker
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14m-7-7 7 7-7 7"/>
+              </svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Broker Reviews -->
+        <a href="/brokers/" class="bento-card bento-feature">
+          <div class="feature-visual">
+            <div class="visual-bars">
+              <div class="bar bar-1"></div>
+              <div class="bar bar-2"></div>
+              <div class="bar bar-3"></div>
+              <div class="bar bar-4"></div>
+            </div>
+          </div>
+          <div class="feature-content">
+            <span class="feature-number">01</span>
+            <h3 class="bento-title">Honest Reviews</h3>
+            <p class="bento-desc">Real fee analysis, platform deep-dives, and verified user experiences across 17+ brokers.</p>
+            <span class="bento-cta">Explore Reviews <span class="arrow">→</span></span>
+          </div>
+        </a>
+
+        <!-- Partner Codes -->
+        <a href="/bonus-codes/" class="bento-card bento-feature bento-bonus">
+          <div class="bonus-amount">
+            <span class="amount-up">Up to</span>
+            <span class="amount-value">$10K</span>
+            <span class="amount-label">in bonuses</span>
+          </div>
+          <div class="feature-content">
+            <span class="feature-number">02</span>
+            <h3 class="bento-title">Exclusive Codes</h3>
+            <p class="bento-desc">Partner bonuses you won't find anywhere else. Better than signing up direct.</p>
+            <span class="bento-cta">Claim Your Bonus <span class="arrow">→</span></span>
+          </div>
+        </a>
+
+        <!-- Trading Guides -->
+        <a href="/guides/" class="bento-card bento-feature">
+          <div class="feature-visual">
+            <div class="visual-book">
+              <div class="book-page page-1"></div>
+              <div class="book-page page-2"></div>
+              <div class="book-page page-3"></div>
+            </div>
+          </div>
+          <div class="feature-content">
+            <span class="feature-number">03</span>
+            <h3 class="bento-title">Trading Guides</h3>
+            <p class="bento-desc">From beginner basics to advanced strategies. Learn before you trade.</p>
+            <span class="bento-cta">Start Learning <span class="arrow">→</span></span>
+          </div>
+        </a>
+
+        <!-- Markets Card -->
+        <a href="/trade/" class="bento-card bento-markets">
+          <div class="markets-header">
+            <span class="markets-count">1,000+</span>
+            <span class="markets-label">Markets</span>
+          </div>
+          <div class="markets-visual">
+            <div class="market-orb orb-forex">
+              <span>FX</span>
+            </div>
+            <div class="market-orb orb-crypto">
+              <span>₿</span>
+            </div>
+            <div class="market-orb orb-indices">
+              <span>IDX</span>
+            </div>
+            <div class="market-orb orb-commodities">
+              <span>CMD</span>
+            </div>
+          </div>
+          <span class="bento-cta">Explore Markets <span class="arrow">→</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .bento-section {
+      background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bento-bg-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(255, 72, 0, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(6, 147, 227, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+      position: relative;
+    }
+
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--brand-orange);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-header h2 {
+      margin-bottom: var(--space-sm);
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, var(--brand-orange) 0%, #ff6b35 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-header p {
+      color: var(--gray-600);
+    }
+
+    /* === BENTO GRID === */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+
+    @media (min-width: 768px) {
+      .bento-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .bento-hero { grid-column: span 2; }
+    }
+
+    @media (min-width: 1024px) {
+      .bento-grid {
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: auto auto;
+        gap: var(--space-lg);
+      }
+      .bento-hero { grid-column: span 7; grid-row: span 2; }
+      .bento-feature:nth-of-type(2) { grid-column: span 5; }
+      .bento-bonus { grid-column: span 5; }
+      .bento-feature:nth-of-type(4) { grid-column: span 5; }
+      .bento-markets { grid-column: span 7; }
+    }
+
+    /* === BASE CARD === */
+    .bento-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-2xl);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bento-card:hover {
+      border-color: rgba(255, 72, 0, 0.4);
+      box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.02),
+        0 12px 24px rgba(0, 0, 0, 0.04),
+        0 24px 48px rgba(0, 0, 0, 0.06);
+      transform: translateY(-6px);
+    }
+
+    .bento-card:hover .arrow {
+      transform: translateX(5px);
+    }
+
+    /* === HERO CARD === */
+    .bento-hero {
+      background: linear-gradient(145deg, #0f1419 0%, #1a1f2e 50%, #0f1419 100%);
+      border: 1px solid rgba(255, 72, 0, 0.2);
+      padding: var(--space-xl);
+      min-height: 380px;
+    }
+
+    .bento-hero:hover {
+      border-color: rgba(255, 72, 0, 0.5);
+    }
+
+    .bento-hero-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .hero-chart {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60%;
+      opacity: 0.6;
+    }
+
+    .hero-glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+    }
+
+    .hero-glow-1 {
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 72, 0, 0.15);
+      top: -100px;
+      right: -50px;
+    }
+
+    .hero-glow-2 {
+      width: 200px;
+      height: 200px;
+      background: rgba(6, 147, 227, 0.1);
+      bottom: -50px;
+      left: -50px;
+    }
+
+    .bento-badge {
+      position: absolute;
+      top: var(--space-lg);
+      right: var(--space-lg);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 72, 0, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 72, 0, 0.3);
+      color: var(--brand-orange);
+      padding: 8px 14px;
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      z-index: 2;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--brand-orange);
+      border-radius: 50%;
+      animation: pulse-badge 2s infinite;
+    }
+
+    @keyframes pulse-badge {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    .bento-hero-content {
+      display: flex;
+      gap: var(--space-xl);
+      align-items: flex-start;
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+
+    @media (max-width: 768px) {
+      .bento-hero-content {
+        flex-direction: column;
+        gap: var(--space-lg);
+      }
+    }
+
+    /* Hero Icon with Rings */
+    .bento-hero-icon {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      flex-shrink: 0;
+    }
+
+    .icon-rings {
+      position: absolute;
+      inset: 0;
+    }
+
+    .icon-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 72, 0, 0.2);
+    }
+
+    .ring-1 { inset: 0; animation: ring-pulse 3s ease-out infinite; }
+    .ring-2 { inset: -10px; animation: ring-pulse 3s ease-out 0.5s infinite; }
+    .ring-3 { inset: -20px; animation: ring-pulse 3s ease-out 1s infinite; }
+
+    @keyframes ring-pulse {
+      0% { opacity: 0.6; transform: scale(0.8); }
+      100% { opacity: 0; transform: scale(1.2); }
+    }
+
+    .icon-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(255, 72, 0, 0.2) 0%, rgba(255, 72, 0, 0.1) 100%);
+      border: 1px solid rgba(255, 72, 0, 0.3);
+      border-radius: 50%;
+      color: var(--brand-orange);
+    }
+
+    .bento-hero-text {
+      flex: 1;
+    }
+
+    .hero-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--brand-orange);
+      margin-bottom: var(--space-xs);
+    }
+
+    .bento-hero .bento-title {
+      color: var(--white);
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: var(--font-weight-extrabold);
+      margin-bottom: var(--space-sm);
+      line-height: 1.1;
+    }
+
+    .bento-hero .bento-desc {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: var(--font-size-base);
+      line-height: 1.6;
+      max-width: 400px;
+    }
+
+    .bento-hero-footer {
+      position: relative;
+      z-index: 1;
+      margin-top: auto;
+      padding-top: var(--space-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: var(--space-lg);
+      align-items: center;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      display: block;
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stat-divider {
+      width: 1px;
+      height: 30px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .bento-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--brand-orange);
+      color: var(--white);
+      padding: 14px 24px;
+      border-radius: var(--radius-lg);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-sm);
+      transition: all 0.3s ease;
+    }
+
+    .bento-hero:hover .bento-cta-btn {
+      background: #e04400;
+      transform: translateX(4px);
+    }
+
+    .bento-cta-btn svg {
+      transition: transform 0.3s ease;
+    }
+
+    .bento-hero:hover .bento-cta-btn svg {
+      transform: translateX(3px);
+    }
+
+    /* === FEATURE CARDS === */
+    .bento-feature {
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feature-visual {
+      height: 80px;
+      margin-bottom: var(--space-md);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .visual-bars {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      height: 100%;
+    }
+
+    .bar {
+      width: 24px;
+      border-radius: 6px 6px 0 0;
+      background: linear-gradient(180deg, var(--brand-orange) 0%, rgba(255, 72, 0, 0.3) 100%);
+      transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .bar-1 { height: 40%; }
+    .bar-2 { height: 65%; }
+    .bar-3 { height: 50%; }
+    .bar-4 { height: 80%; }
+
+    .bento-feature:hover .bar-1 { height: 55%; }
+    .bento-feature:hover .bar-2 { height: 80%; }
+    .bento-feature:hover .bar-3 { height: 65%; }
+    .bento-feature:hover .bar-4 { height: 95%; }
+
+    .visual-book {
+      position: relative;
+      width: 60px;
+      height: 70px;
+    }
+
+    .book-page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 4px 12px 12px 4px;
+      background: linear-gradient(135deg, var(--gray-100) 0%, var(--white) 100%);
+      border: 1px solid var(--gray-200);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .page-1 { transform: rotate(-3deg) translateX(-8px); background: linear-gradient(135deg, #9b51e0 0%, #7b3db8 100%); border: none; }
+    .page-2 { transform: rotate(-1deg) translateX(-4px); }
+    .page-3 { transform: rotate(1deg); }
+
+    .bento-feature:hover .page-1 { transform: rotate(-8deg) translateX(-12px); }
+    .bento-feature:hover .page-2 { transform: rotate(-3deg) translateX(-6px); }
+    .bento-feature:hover .page-3 { transform: rotate(3deg) translateX(2px); }
+
+    .feature-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feature-number {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gray-400);
+      letter-spacing: 1px;
+      margin-bottom: var(--space-xs);
+    }
+
+    .bento-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-xs);
+      color: var(--charcoal);
+    }
+
+    .bento-desc {
+      color: var(--gray-600);
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .bento-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--brand-orange);
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-sm);
+      margin-top: var(--space-md);
+    }
+
+    .arrow {
+      transition: transform 0.3s ease;
+    }
+
+    /* === BONUS CARD === */
+    .bento-bonus {
+      background: linear-gradient(145deg, #0d3320 0%, #0a2818 100%);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .bento-bonus:hover {
+      border-color: rgba(16, 185, 129, 0.6);
+    }
+
+    .bento-bonus .feature-number,
+    .bento-bonus .bento-title {
+      color: var(--white);
+    }
+
+    .bento-bonus .bento-desc {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .bento-bonus .bento-cta {
+      color: #10B981;
+    }
+
+    .bonus-amount {
+      text-align: center;
+      padding: var(--space-md) 0;
+    }
+
+    .amount-up {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(16, 185, 129, 0.7);
+    }
+
+    .amount-value {
+      display: block;
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: var(--font-weight-extrabold);
+      color: #10B981;
+      line-height: 1;
+      text-shadow: 0 0 40px rgba(16, 185, 129, 0.4);
+    }
+
+    .amount-label {
+      display: block;
+      font-size: var(--font-size-sm);
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* === MARKETS CARD === */
+    .bento-markets {
+      background: linear-gradient(145deg, #1a1f2e 0%, #0f1419 100%);
+      border-color: rgba(255, 255, 255, 0.1);
+      padding: var(--space-lg);
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-xl);
+    }
+
+    @media (max-width: 1024px) {
+      .bento-markets {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    .bento-markets:hover {
+      border-color: rgba(255, 72, 0, 0.4);
+    }
+
+    .markets-header {
+      flex-shrink: 0;
+    }
+
+    .markets-count {
+      display: block;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: var(--font-weight-extrabold);
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .markets-label {
+      font-size: var(--font-size-sm);
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .markets-visual {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+    }
+
+    .market-orb {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--white);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .market-orb::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+
+    .bento-markets:hover .market-orb::before {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .orb-forex { background: linear-gradient(135deg, #0693e3 0%, #0570b0 100%); }
+    .orb-crypto { background: linear-gradient(135deg, #f7931a 0%, #d97b00 100%); }
+    .orb-indices { background: linear-gradient(135deg, #9b51e0 0%, #7b3db8 100%); }
+    .orb-commodities { background: linear-gradient(135deg, #10B981 0%, #0d9668 100%); }
+
+    .bento-markets:hover .market-orb {
+      transform: translateY(-4px);
+    }
+
+    .bento-markets .bento-cta {
+      color: rgba(255, 255, 255, 0.6);
+      flex-shrink: 0;
+    }
+
+    .bento-markets:hover .bento-cta {
+      color: var(--brand-orange);
+    }
+  </style>
+
+  <div class="container" style="padding-top: var(--space-xl);">
+    <AnalystNotes
+      title="Why Your Broker Choice Matters More Than You Think"
+      icon="🎯"
+      id="broker-choice-notes"
+      variant="light"
+    >
+      <h4>The Hidden Cost of the Wrong Broker</h4>
+      <p>Most traders focus on trading strategies while ignoring the platform beneath them. This is like obsessing over fuel efficiency while ignoring that your car has square wheels. The broker you choose affects every single trade you make.</p>
+
+      <h5>The Fee Compounding Effect</h5>
+      <p>Consider two brokers: one charges 0.8 pip spreads on EUR/USD, another charges 1.5 pips. That's a 0.7 pip difference per trade. For a trader making 5 trades per day with 1 lot positions, that's $35 per day difference - $8,750 per year just in spread costs. And that's before considering swap rates, commission structures, and withdrawal fees.</p>
+
+      <h5>Execution Quality Is Invisible Until It Isn't</h5>
+      <p>Slippage and requotes are the hidden killers. A broker might advertise 0.0 spreads but slip your entries by 2 pips during volatile moves. Another might have 0.8 spreads but execute instantly at quoted prices. The "cheap" broker ends up costing more in real trading conditions. We test execution quality across market conditions before recommending any broker.</p>
+
+      <h5>Regulation Protects Your Capital</h5>
+      <p>In 2015, when the Swiss National Bank unexpectedly removed the EUR/CHF floor, several unregulated brokers went bankrupt, and clients lost funds. Traders with properly regulated brokers (FCA, ASIC) were protected by segregated accounts and compensation schemes. Regulation isn't bureaucracy - it's insurance for your trading capital.</p>
+
+      <h5>Why We Built This Tool</h5>
+      <p>We've seen too many traders waste money and years with the wrong broker before realizing the mistake. Our AI matcher cuts through marketing claims and matches you with brokers based on objective criteria: your trading style, budget, experience level, and priorities. No guesswork. No sales pitches. Just data-driven matching.</p>
+    </AnalystNotes>
+  </div>
+
+  <!-- STATS SECTION - Social Proof with Animated Counters -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2" style="color: var(--white);">Trusted by Traders <span style="color: var(--brand-orange);">Worldwide</span></h2>
+        <p class="body-large" style="color: rgba(255, 255, 255, 0.8);">Join thousands who found their perfect broker through TradeTheDay</p>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-number" data-target="5">5</div>
+          <div class="stat-label">Regulated Brokers</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="12847">12,847+</div>
+          <div class="stat-label">Traders Matched</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="50000">$50K+</div>
+          <div class="stat-label">Bonuses Claimed</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="100">100%</div>
+          <div class="stat-label">Free to Use</div>
+        </div>
+      </div>
+
+      <div class="features-row">
+        <div class="feature-item">
+          <div class="feature-icon-circle">📋</div>
+          <h4>Transparent Fees</h4>
+          <p>See exactly what you'll pay before you sign up.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-circle">⚡</div>
+          <h4>30-Second Matching</h4>
+          <p>Get broker recommendations instantly.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-circle">🛡️</div>
+          <h4>Tier-1 Regulated</h4>
+          <p>FCA, ASIC, CySEC regulated brokers only.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-circle">💳</div>
+          <h4>Exclusive Bonuses</h4>
+          <p>Better deals than going direct to the broker.</p>
+        </div>
+      </div>
+
+      <div class="text-center" style="margin-top: var(--space-2xl);">
+        <a href="/find-broker/" class="btn btn-primary btn-lg">Find My Perfect Broker → Free</a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    @media (min-width: 768px) {
+      .stats-row {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: var(--font-weight-extrabold);
+      color: var(--brand-orange);
+      line-height: 1;
+      margin-bottom: var(--space-xs);
+    }
+
+    .stat-label {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: var(--font-size-sm);
+    }
+
+    .features-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-lg);
+    }
+
+    @media (min-width: 768px) {
+      .features-row {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .feature-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .feature-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 72, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon-circle {
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 72, 0, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin: 0 auto var(--space-md);
+    }
+
+    .feature-item h4 {
+      color: var(--white);
+      font-size: var(--font-size-base);
+      margin-bottom: var(--space-xs);
+    }
+
+    .feature-item p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: var(--font-size-sm);
+      margin: 0;
+      line-height: 1.4;
+    }
+  </style>
+
+  <div class="container" style="padding-top: var(--space-2xl);">
+    <AnalystNotes
+      title="How We Select and Rate Brokers"
+      icon="📊"
+      id="rating-methodology-notes"
+      variant="dark"
+    >
+      <h4>Our Rating Methodology</h4>
+      <p>We don't just list brokers with affiliate programs. Every broker on TradeTheDay passes a rigorous multi-stage evaluation before being recommended to our users.</p>
+
+      <h5>Stage 1: Regulatory Verification</h5>
+      <p>We verify licensing directly with regulatory bodies - not just checking what the broker claims. A broker must hold at least one tier-1 license (FCA UK, ASIC Australia, MAS Singapore, FINMA Switzerland) or multiple tier-2 licenses (CySEC, DFSA, FSA) to be considered. Offshore-only operations are excluded regardless of their marketing budgets.</p>
+
+      <h5>Stage 2: Fee Transparency Audit</h5>
+      <p>We open real accounts and document actual trading costs - not advertised minimums. This includes spreads during different market sessions, commission structures, overnight swap rates, deposit/withdrawal fees, and inactivity charges. Many brokers advertise "0.0 spreads" then add commissions that bring real costs higher than competitors with honest all-inclusive pricing.</p>
+
+      <h5>Stage 3: Platform Stability Testing</h5>
+      <p>We test execution during high-volatility events: NFP releases, central bank announcements, market opens. Brokers that experience frequent disconnections, excessive requotes, or significant slippage during these events are flagged. The best advertising means nothing if you can't execute trades when it matters most.</p>
+
+      <h5>Stage 4: Customer Support Assessment</h5>
+      <p>We contact support with technical questions at different hours across different channels (chat, email, phone). Response times, accuracy of information, and resolution quality are all documented. A broker's true character shows when things go wrong.</p>
+
+      <h5>Continuous Monitoring</h5>
+      <p>Our ratings aren't static. We re-evaluate quarterly and adjust scores based on user feedback, industry developments, and ongoing testing. A broker that was excellent two years ago might have declined - we catch these changes.</p>
+    </AnalystNotes>
+  </div>
+
+  <!-- TESTIMONIALS - Social Proof -->
+  <Testimonials />
+
+  <!-- VALUE STACK - Reciprocity -->
+  <section class="section section-warm">
+    <div class="container">
+      <div class="value-stack-card">
+        <div class="value-stack-header">
+          <span class="value-stack-badge">Exclusive Offer</span>
+          <h2 class="heading-2">Sign Up Through Us & Unlock</h2>
+          <p class="body-large">Everything you need to start trading the right way</p>
+        </div>
+
+        <div class="value-stack-grid">
+          <div class="value-stack-item">
+            <div class="value-stack-icon">🎯</div>
+            <div class="value-stack-text">
+              <h4>AI-Powered Broker Match</h4>
+              <p>Personalized to your trading style</p>
+            </div>
+            <div class="value-stack-value">Priceless</div>
+          </div>
+          <div class="value-stack-item">
+            <div class="value-stack-icon">🎁</div>
+            <div class="value-stack-text">
+              <h4>Exclusive Partner Bonus</h4>
+              <p>Better bonuses than signing up direct</p>
+            </div>
+            <div class="value-stack-value">Up to $10,000</div>
+          </div>
+          <div class="value-stack-item">
+            <div class="value-stack-icon">📈</div>
+            <div class="value-stack-text">
+              <h4>12 Months Trading Signals</h4>
+              <p>AI + professional trader analysis</p>
+            </div>
+            <div class="value-stack-value">$696 value</div>
+          </div>
+          <div class="value-stack-item">
+            <div class="value-stack-icon">🎓</div>
+            <div class="value-stack-text">
+              <h4>Learning Platform Access</h4>
+              <p>Full LearnToTrade.Academy access</p>
+            </div>
+            <div class="value-stack-value">$299 value</div>
+          </div>
+        </div>
+
+        <div class="value-stack-total">
+          <div class="value-stack-total-left">
+            <span class="value-stack-total-label">Total Value</span>
+            <span class="value-stack-total-crossed">$11,000+</span>
+          </div>
+          <div class="value-stack-total-right">
+            <span class="value-stack-total-label">You Pay</span>
+            <span class="value-stack-total-price">$0</span>
+          </div>
+        </div>
+
+        <div class="value-stack-cta">
+          <a href="/signals/" class="btn btn-primary btn-xl">Learn More About This Offer</a>
+          <p class="value-stack-warning">Skip us? Pay $58/month for signals alone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .value-stack-card {
+      background: var(--white);
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-2xl);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .value-stack-header {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .value-stack-badge {
+      display: inline-block;
+      background: var(--brand-orange);
+      color: var(--white);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      margin-bottom: var(--space-md);
+    }
+
+    .value-stack-header h2 {
+      margin-bottom: var(--space-sm);
+    }
+
+    .value-stack-header p {
+      color: var(--gray-600);
+    }
+
+    .value-stack-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .value-stack-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-md);
+      background: var(--gray-50);
+      border-radius: var(--radius-lg);
+      transition: all 0.2s ease;
+    }
+
+    .value-stack-item:hover {
+      background: rgba(255, 72, 0, 0.05);
+      transform: translateX(4px);
+    }
+
+    .value-stack-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    .value-stack-text {
+      flex: 1;
+    }
+
+    .value-stack-text h4 {
+      font-size: var(--font-size-base);
+      margin-bottom: 2px;
+    }
+
+    .value-stack-text p {
+      color: var(--gray-600);
+      font-size: var(--font-size-sm);
+      margin: 0;
+    }
+
+    .value-stack-value {
+      font-weight: var(--font-weight-bold);
+      color: var(--success);
+      font-size: var(--font-size-lg);
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .value-stack-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-lg);
+      background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    .value-stack-total-label {
+      display: block;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: var(--font-size-sm);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .value-stack-total-crossed {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: var(--font-size-2xl);
+      text-decoration: line-through;
+    }
+
+    .value-stack-total-right {
+      text-align: right;
+    }
+
+    .value-stack-total-price {
+      color: var(--success);
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-extrabold);
+      line-height: 1;
+    }
+
+    .value-stack-cta {
+      text-align: center;
+    }
+
+    .value-stack-warning {
+      margin-top: var(--space-md);
+      color: var(--gray-500);
+      font-size: var(--font-size-sm);
+    }
+
+    @media (max-width: 768px) {
+      .value-stack-card {
+        padding: var(--space-lg);
+      }
+
+      .value-stack-item {
+        flex-wrap: wrap;
+      }
+
+      .value-stack-value {
+        width: 100%;
+        text-align: left;
+        margin-top: var(--space-xs);
+      }
+    }
+  </style>
+
+  <!-- FEATURED BROKERS - Quick Compare -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Featured Brokers</h2>
+        <p class="body-large">Trusted, regulated brokers with exclusive TradeTheDay bonuses</p>
+      </div>
+
+      <div class="broker-compare-grid">
+        <!-- AvaTrade -->
+        <div class="broker-compare-card broker-compare-card--featured">
+          <div class="broker-compare-badge">Most Popular</div>
+          <div class="broker-compare-social">324 traders matched this week</div>
+          <div class="broker-compare-header">
+            <img src="/images/brokers/avatrade/avatrade-logo-light.svg" alt="AvaTrade" class="broker-compare-logo">
+            <div class="broker-compare-rating">
+              <span class="rating-score">4.8</span>
+              <span class="rating-stars">★★★★★</span>
+            </div>
+          </div>
+          <div class="broker-compare-stats">
+            <div class="broker-stat">
+              <span class="broker-stat-label">Min Deposit</span>
+              <span class="broker-stat-value">$100</span>
+            </div>
+            <div class="broker-stat">
+              <span class="broker-stat-label">Instruments</span>
+              <span class="broker-stat-value">1,250+</span>
+            </div>
+            <div class="broker-stat">
+              <span class="broker-stat-label">Bonus</span>
+              <span class="broker-stat-value broker-stat-value--highlight">Up to $10,000</span>
+            </div>
+          </div>
+          <a href="/brokers/avatrade/" class="btn btn-primary btn-full">View Full Analysis</a>
+        </div>
+
+        <!-- eToro -->
+        <div class="broker-compare-card">
+          <div class="broker-compare-social">186 traders matched this week</div>
+          <div class="broker-compare-header">
+            <div class="broker-compare-logo-text">eToro</div>
+            <div class="broker-compare-rating">
+              <span class="rating-score">4.5</span>
+              <span class="rating-stars">★★★★★</span>
+            </div>
+          </div>
+          <div class="broker-compare-stats">
+            <div class="broker-stat">
+              <span class="broker-stat-label">Min Deposit</span>
+              <span class="broker-stat-value">$50</span>
+            </div>
+            <div class="broker-stat">
+              <span class="broker-stat-label">Users</span>
+              <span class="broker-stat-value">30M+</span>
+            </div>
+            <div class="broker-stat">
+              <span class="broker-stat-label">Feature</span>
+              <span class="broker-stat-value broker-stat-value--highlight">Copy Trading</span>
+            </div>
+          </div>
+          <a href="/brokers/etoro/" class="btn btn-secondary btn-full">View Full Analysis</a>
+        </div>
+
+        <!-- Axi -->
+        <div class="broker-compare-card">
+          <div class="broker-compare-social">97 traders matched this week</div>
+          <div class="broker-compare-header">
+            <div class="broker-compare-logo-text">Axi</div>
+            <div class="broker-compare-rating">
+              <span class="rating-score">4.3</span>
+              <span class="rating-stars">★★★★☆</span>
+            </div>
+          </div>
+          <div class="broker-compare-stats">
+            <div class="broker-stat">
+              <span class="broker-stat-label">Min Deposit</span>
+              <span class="broker-stat-value">$0</span>
+            </div>
+            <div class="broker-stat">
+              <span class="broker-stat-label">Spreads</span>
+              <span class="broker-stat-value">0.0 pips</span>
+            </div>
+            <div class="broker-stat">
+              <span class="broker-stat-label">Type</span>
+              <span class="broker-stat-value broker-stat-value--highlight">ECN</span>
+            </div>
+          </div>
+          <a href="/brokers/axi/" class="btn btn-secondary btn-full">View Full Analysis</a>
+        </div>
+      </div>
+
+      <div class="text-center" style="margin-top: var(--space-xl);">
+        <a href="/brokers/" class="btn btn-outline btn-lg">Compare All Brokers</a>
+      </div>
+
+      <!-- Quick Links to Popular Content -->
+      <div class="quick-links-section">
+        <h3>Popular Comparisons & Resources</h3>
+        <div class="quick-links-grid">
+          <a href="/bonus-codes/avatrade-partner-code/" class="quick-link quick-link--highlight">
+            <span class="quick-link-icon">🎁</span>
+            <span class="quick-link-text">AvaTrade Partner Code: 128979</span>
+            <span class="quick-link-desc">Up to $10,000 bonus</span>
+          </a>
+          <a href="/compare/avatrade-vs-etoro/" class="quick-link">
+            <span class="quick-link-icon">⚔️</span>
+            <span class="quick-link-text">AvaTrade vs eToro</span>
+            <span class="quick-link-desc">Copy trading showdown</span>
+          </a>
+          <a href="/compare/pepperstone-vs-ic-markets/" class="quick-link">
+            <span class="quick-link-icon">📊</span>
+            <span class="quick-link-text">Pepperstone vs IC Markets</span>
+            <span class="quick-link-desc">ECN broker battle</span>
+          </a>
+          <a href="/propfirms/" class="quick-link">
+            <span class="quick-link-icon">💼</span>
+            <span class="quick-link-text">Prop Firm Reviews</span>
+            <span class="quick-link-desc">Get funded to trade</span>
+          </a>
+          <a href="/compare/ftmo-vs-funded-trader/" class="quick-link">
+            <span class="quick-link-icon">🏆</span>
+            <span class="quick-link-text">FTMO vs Funded Trader</span>
+            <span class="quick-link-desc">Top prop firms compared</span>
+          </a>
+          <a href="/bonus-codes/" class="quick-link">
+            <span class="quick-link-icon">💰</span>
+            <span class="quick-link-text">All Bonus Codes</span>
+            <span class="quick-link-desc">$50,000+ in bonuses</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .quick-links-section {
+      margin-top: var(--space-2xl);
+      padding-top: var(--space-xl);
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .quick-links-section h3 {
+      text-align: center;
+      font-size: var(--font-size-xl);
+      margin-bottom: var(--space-lg);
+    }
+
+    .quick-links-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+    }
+
+    .quick-link {
+      display: block;
+      padding: var(--space-md);
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .quick-link:hover {
+      border-color: var(--brand-orange);
+      background: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .quick-link--highlight {
+      background: rgba(255, 72, 0, 0.05);
+      border-color: rgba(255, 72, 0, 0.3);
+    }
+
+    .quick-link-icon {
+      font-size: 1.5rem;
+      margin-right: var(--space-xs);
+    }
+
+    .quick-link-text {
+      display: block;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: var(--space-xs);
+    }
+
+    .quick-link-desc {
+      font-size: var(--font-size-sm);
+      color: var(--gray-500);
+    }
+
+    @media (max-width: 768px) {
+      .quick-links-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <style>
+    .broker-compare-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    @media (min-width: 768px) {
+      .broker-compare-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .broker-compare-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .broker-compare-card:hover {
+      border-color: var(--brand-orange);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .broker-compare-card--featured {
+      border: 2px solid var(--brand-orange);
+    }
+
+    .broker-compare-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--brand-orange);
+      color: var(--white);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .broker-compare-social {
+      font-size: 11px;
+      color: var(--gray-500);
+      text-align: center;
+      margin-bottom: var(--space-sm);
+      padding-top: var(--space-xs);
+    }
+
+    .broker-compare-header {
+      text-align: center;
+      margin-bottom: var(--space-lg);
+    }
+
+    .broker-compare-logo {
+      height: 40px;
+      width: auto;
+      filter: brightness(0) saturate(100%);
+      margin-bottom: var(--space-sm);
+    }
+
+    .broker-compare-logo-text {
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--charcoal);
+      margin-bottom: var(--space-sm);
+    }
+
+    .broker-compare-rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+    }
+
+    .rating-score {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--brand-orange);
+    }
+
+    .rating-stars {
+      color: var(--brand-orange);
+      font-size: var(--font-size-sm);
+    }
+
+    .broker-compare-stats {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .broker-stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .broker-stat:last-child {
+      border-bottom: none;
+    }
+
+    .broker-stat-label {
+      color: var(--gray-600);
+      font-size: var(--font-size-sm);
+    }
+
+    .broker-stat-value {
+      font-weight: var(--font-weight-semibold);
+      color: var(--charcoal);
+    }
+
+    .broker-stat-value--highlight {
+      color: var(--success);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--brand-orange);
+      color: var(--brand-orange);
+    }
+
+    .btn-outline:hover {
+      background: var(--brand-orange);
+      color: var(--white);
+    }
+  </style>
+
+  <div class="container" style="padding-top: var(--space-xl);">
+    <AnalystNotes
+      title="Understanding Broker Types and Fee Structures"
+      icon="💰"
+      id="fee-structures-notes"
+      variant="light"
+    >
+      <h4>Not All Brokers Are Created Equal</h4>
+      <p>Understanding broker business models helps you make informed choices. The "best" broker depends entirely on how you trade.</p>
+
+      <h5>Market Makers vs ECN/STP Brokers</h5>
+      <p><strong>Market Makers</strong> take the other side of your trade internally. They profit from spreads and sometimes from your losses. This creates a potential conflict of interest, but also provides guaranteed fills and fixed spreads - valuable for beginners who want predictable costs.</p>
+
+      <p><strong>ECN/STP Brokers</strong> route your orders directly to liquidity providers (banks, hedge funds). They make money purely from commissions. You get raw interbank spreads (sometimes 0.0 pips), but pay commission per lot. Better for scalpers and high-volume traders where tight spreads matter more than commission costs.</p>
+
+      <h5>Spread-Only vs Commission-Based Pricing</h5>
+      <p><strong>Spread-only accounts</strong> embed all costs in the spread. If EUR/USD shows 1.2 pips, that's your total cost. Simple and transparent - you always know what you're paying. Better for beginners and swing traders making fewer large trades.</p>
+
+      <p><strong>Commission-based accounts</strong> show raw spreads (often 0.0-0.2 pips) plus charge $3-7 commission per lot traded. Total cost is spread + commission. Often cheaper for active traders, but requires math to compare true costs. Preferred by scalpers and day traders.</p>
+
+      <h5>Which Is Best For You?</h5>
+      <p>If you're making 1-5 trades per week with larger position sizes, spread-only accounts are simpler and often cheaper. If you're scalping 20+ trades per day with tight stops, commission-based raw spread accounts will save you thousands annually. Our AI matcher considers your trading frequency when making recommendations.</p>
+    </AnalystNotes>
+  </div>
+
+  <!-- SECURITY SECTION - Authority -->
+  <section class="section section-gray">
+    <div class="container">
+      <div class="security-card">
+        <div class="security-content">
+          <h2 class="heading-2">Your Funds Are Kept Safe and Secure</h2>
+          <p class="body-large">
+            Trade with confidence. Every broker on TradeTheDay is regulated by tier-1 authorities and has built long-standing partnerships with top global banks.
+          </p>
+          <div class="security-badges">
+            <span class="security-badge">FCA Regulated</span>
+            <span class="security-badge">ASIC Regulated</span>
+            <span class="security-badge">CySEC Regulated</span>
+            <span class="security-badge">Segregated Accounts</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .security-card {
+      background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+      border: 2px solid var(--brand-orange);
+      border-radius: var(--radius-2xl);
+      padding: var(--space-2xl);
+      text-align: center;
+    }
+
+    .security-content h2 {
+      color: var(--white);
+      margin-bottom: var(--space-md);
+    }
+
+    .security-content p {
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin: 0 auto var(--space-xl);
+    }
+
+    .security-badges {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+    }
+
+    .security-badge {
+      background: rgba(255, 72, 0, 0.2);
+      border: 1px solid rgba(255, 72, 0, 0.4);
+      color: var(--white);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+    }
+  </style>
+
+  <!-- FREE TOOLS SECTION -->
+  <section class="section tools-promo-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Free Trading Tools</h2>
+        <p>Professional calculators to help you trade smarter</p>
+      </div>
+      <div class="tools-promo-grid">
+        <a href="/tools/broker-calculator/" class="tool-promo-card">
+          <span class="tool-promo-icon">🧮</span>
+          <h3>Broker Cost Calculator</h3>
+          <p>Find the cheapest broker for your trading style</p>
+        </a>
+        <a href="/tools/position-calculator/" class="tool-promo-card">
+          <span class="tool-promo-icon">📐</span>
+          <h3>Position Size Calculator</h3>
+          <p>Never risk more than you should on any trade</p>
+        </a>
+        <a href="/tools/profit-calculator/" class="tool-promo-card">
+          <span class="tool-promo-icon">💰</span>
+          <h3>Profit/Loss Calculator</h3>
+          <p>Know your P&L before you enter</p>
+        </a>
+      </div>
+      <div class="tools-promo-cta">
+        <a href="/tools/" class="btn btn-secondary">View All Tools →</a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .tools-promo-section {
+      background: var(--charcoal);
+    }
+
+    .tools-promo-section .section-header h2,
+    .tools-promo-section .section-header p {
+      color: var(--white);
+    }
+
+    .tools-promo-section .section-header p {
+      opacity: 0.8;
+    }
+
+    .tools-promo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+      margin-bottom: var(--space-xl);
+    }
+
+    @media (max-width: 768px) {
+      .tools-promo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tool-promo-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .tool-promo-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--brand-orange);
+      transform: translateY(-4px);
+    }
+
+    .tool-promo-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: var(--space-md);
+    }
+
+    .tool-promo-card h3 {
+      color: var(--white);
+      font-size: var(--font-size-lg);
+      margin-bottom: var(--space-sm);
+    }
+
+    .tool-promo-card p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: var(--font-size-sm);
+    }
+
+    .tools-promo-cta {
+      text-align: center;
+    }
+  </style>
+
+  <!-- TRADING RESULTS / PROOF -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">We Trade Too</h2>
+        <p>Verified results from our own trading account</p>
+      </div>
+      <TradingResults variant="card" />
+      <div class="results-cta">
+        <a href="/results/" class="btn btn-secondary">View Full Results →</a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .results-cta {
+      text-align: center;
+      margin-top: var(--space-xl);
+    }
+  </style>
+
+  <!-- NEWSLETTER SIGNUP -->
+  <section class="section newsletter-home-section">
+    <div class="container">
+      <NewsletterSignup
+        variant="full"
+        headline="Get Weekly Trading Insights"
+        subheadline="Join 5,000+ traders receiving free market analysis, trading tips, and exclusive broker deals."
+        buttonText="Subscribe Free"
+      />
+    </div>
+  </section>
+
+  <style>
+    .newsletter-home-section {
+      background: var(--gray-100);
+    }
+  </style>
+
+  <!-- FINAL CTA - Commitment -->
+  <section class="section">
+    <div class="container">
+      <div class="final-cta">
+        <h2 class="heading-2">Ready to Find Your Perfect Broker?</h2>
+        <p class="body-large">
+          Join 12,847+ traders who found their ideal broker through TradeTheDay
+        </p>
+        <a href="/find-broker/" class="btn btn-primary btn-xl">
+          Find My Perfect Broker → Free
+        </a>
+        <p class="final-cta-meta">
+          30-second quiz | No signup required | Instant results
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .final-cta {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, var(--charcoal) 0%, var(--gray-900) 100%);
+      padding: var(--space-3xl) var(--space-2xl);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--gray-800);
+    }
+
+    .final-cta h2 {
+      margin-bottom: var(--space-md);
+      color: var(--white);
+    }
+
+    .final-cta .body-large {
+      color: var(--gray-400);
+      margin-bottom: var(--space-xl);
+    }
+
+    .final-cta-meta {
+      margin-top: var(--space-lg);
+      font-size: var(--font-size-sm);
+      color: var(--gray-500);
+      margin-bottom: 0;
+    }
+  </style>
+</BaseLayout>

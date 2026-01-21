@@ -1,0 +1,1356 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Chip from '../../../components/Chip.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import FAQ from '../../../components/FAQ.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import { getPropFirmBySlug } from '../../../data/propfirms';
+import { generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+
+// Get prop firm data
+const firm = getPropFirmBySlug('fidelcrest');
+
+if (!firm) {
+  return Astro.redirect('/propfirms/');
+}
+
+// Page Configuration
+const FIRM_NAME = 'Fidelcrest';
+const pageTitle = `Fidelcrest Review 2026: Micro Accounts, $2M Scaling & Aggressive Options | TradeTheDay`;
+const pageDescription = `Complete Fidelcrest review by funded traders. See our ${firm.scores.overall}/5 rating, micro vs pro trader accounts, aggressive options, and whether Fidelcrest is right for you.`;
+
+// Navigation links
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#challenges', text: 'Challenges' },
+  { href: '#rules', text: 'Rules' },
+  { href: '#payouts', text: 'Payouts' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#pros-cons', text: 'Pros & Cons' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+// Hero scorecard
+const heroScorecard = [
+  { value: firm.maxFunding, label: 'Max Funding' },
+  { value: firm.profitSplit, label: 'Profit Split' },
+  { value: firm.startingPrice, label: 'From' },
+  { value: `${firm.scores.overall}/5`, label: 'Our Rating' }
+];
+
+// Challenge comparison table - showing different account types
+const challengeTableHeaders = ['Account Type', 'Account Size', 'Price', 'Profit Target', 'Max Drawdown', 'Profit Split'];
+const challengeRows = firm.challenges.map(challenge => ({
+  cells: [
+    { content: challenge.name, type: 'text', highlight: challenge.name.includes('Aggressive') ? 'warning' : 'neutral' },
+    { content: challenge.accountSize, type: 'text', highlight: 'neutral' },
+    { content: challenge.price, type: 'text', highlight: 'neutral' },
+    { content: challenge.profitTarget, type: 'text', highlight: challenge.profitTarget === '20%' ? 'warning' : 'neutral' },
+    { content: challenge.maxDrawdown, type: 'text', highlight: challenge.maxDrawdown === '20%' ? 'good' : 'neutral' },
+    { content: challenge.profitSplit, type: 'text', highlight: challenge.profitSplit === '90%' ? 'best' : 'neutral' }
+  ]
+}));
+
+// Competitor comparison
+const competitorHeaders = ['Feature', 'Fidelcrest', 'FTMO', 'The Funded Trader', 'Funded Next'];
+const competitorRows = [
+  {
+    cells: [
+      { content: 'Max Funding', type: 'text' },
+      { content: '$2,000,000', type: 'text', highlight: 'best' },
+      { content: '$400,000', type: 'text', highlight: 'neutral' },
+      { content: '$600,000', type: 'text', highlight: 'good' },
+      { content: '$4,000,000', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Max Profit Split', type: 'text' },
+      { content: '90%', type: 'text', highlight: 'best' },
+      { content: '90%', type: 'text', highlight: 'best' },
+      { content: '90%', type: 'text', highlight: 'best' },
+      { content: '95%', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Micro Accounts', type: 'text' },
+      { content: 'Yes ($10K)', type: 'text', highlight: 'best' },
+      { content: 'Yes ($10K)', type: 'text', highlight: 'best' },
+      { content: 'Yes ($5K)', type: 'text', highlight: 'best' },
+      { content: 'Yes ($6K)', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Aggressive Option', type: 'text' },
+      { content: 'Yes (90% split)', type: 'text', highlight: 'best' },
+      { content: 'No', type: 'text', highlight: 'neutral' },
+      { content: 'Yes (Knight)', type: 'text', highlight: 'good' },
+      { content: 'Yes (Express)', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Years Operating', type: 'text' },
+      { content: '6 years', type: 'text', highlight: 'good' },
+      { content: '9+ years', type: 'text', highlight: 'best' },
+      { content: '3 years', type: 'text', highlight: 'neutral' },
+      { content: '2 years', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Time Limit', type: 'text' },
+      { content: '60 days', type: 'text', highlight: 'good' },
+      { content: '30 days', type: 'text', highlight: 'warning' },
+      { content: '35 days', type: 'text', highlight: 'warning' },
+      { content: 'Unlimited', type: 'text', highlight: 'best' }
+    ]
+  }
+];
+
+// FAQ data
+const faqItems = [
+  {
+    question: 'Is Fidelcrest legitimate?',
+    answer: 'Yes, Fidelcrest is a legitimate prop firm founded in 2018 and based in Nicosia, Cyprus. They have been operating for over 6 years with a solid track record of payouts. They are regulated in Cyprus and have paid millions to funded traders worldwide.'
+  },
+  {
+    question: 'What is the difference between Micro and Pro Trader accounts?',
+    answer: 'Micro Trader accounts range from $10K-$50K with lower fees, ideal for beginners or those testing strategies. Pro Trader accounts range from $150K-$1M with higher fees but larger funding potential. Both have Normal (10% target) and Aggressive (20% target) options.'
+  },
+  {
+    question: 'What is the Fidelcrest Aggressive account?',
+    answer: 'The Aggressive account option doubles both the profit target (20% instead of 10%) and the maximum drawdown (20% instead of 10%). In exchange, you get a 90% profit split instead of 80%. It is designed for confident traders who can handle higher targets.'
+  },
+  {
+    question: 'How does Fidelcrest scaling work?',
+    answer: 'Fidelcrest offers scaling up to $2 million in funding. After 3 months of consistent profitability with at least 20% total profit, your account can double. This continues until you reach the $2M maximum, making it the highest scaling potential among established prop firms.'
+  },
+  {
+    question: 'What is the Fidelcrest profit split?',
+    answer: 'Normal accounts offer 80% profit split. Aggressive accounts offer 90% profit split from day one. There is no scaling of profit split - you get the same percentage throughout your funded trading career.'
+  },
+  {
+    question: 'Does Fidelcrest have a time limit?',
+    answer: 'Yes, Fidelcrest has a 60-day time limit for Phase 1 of the evaluation. This is longer than FTMO (30 days) but shorter than firms with unlimited time. Phase 2 also has 60 days. Once funded, there is no time limit.'
+  },
+  {
+    question: 'Can I use EAs on Fidelcrest?',
+    answer: 'Yes, Expert Advisors and automated trading are allowed on Fidelcrest accounts. You can use any legal trading strategy including scalping, swing trading, and algorithmic trading. Copy trading is also permitted.'
+  },
+  {
+    question: 'How fast are Fidelcrest payouts?',
+    answer: 'Fidelcrest processes payouts within 5-10 business days after request. You can request your first payout after 30 days as a funded trader. Payment methods include bank transfer, PayPal, and cryptocurrency.'
+  }
+];
+
+// Schema markup
+const breadcrumbSchemaItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Prop Firms', url: '/propfirms/' },
+  { name: 'Fidelcrest Review', url: '/propfirms/fidelcrest/' }
+];
+
+const reviewSchema = generateReviewSchema({
+  itemReviewed: {
+    type: 'FinancialService',
+    name: 'Fidelcrest',
+    url: 'https://fidelcrest.com'
+  },
+  reviewRating: {
+    ratingValue: firm.scores.overall,
+    bestRating: 5,
+    worstRating: 1
+  },
+  reviewBody: `Comprehensive review of Fidelcrest prop trading firm. ${firm.scores.overall}/5 rating based on challenge rules, payout reliability, scaling potential, and trader support.`,
+  author: 'TradeTheDay Research Team'
+});
+
+const faqSchema = generateFAQSchema(faqItems);
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbSchemaItems);
+
+// Breadcrumb items
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Prop Firms', href: '/propfirms/' },
+  { text: 'Fidelcrest Review', current: true }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  ogType="article"
+  schema={[reviewSchema, faqSchema, breadcrumbSchema]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- HERO SECTION -->
+  <section class="review-hero">
+    <div class="container">
+      <div class="review-hero-content">
+        <div class="review-hero-badge">
+          <Chip variant="badge" size="sm">Highest Scaling Potential</Chip>
+        </div>
+
+        <div class="review-hero-header">
+          <div class="review-hero-logo">
+            <span class="firm-initial">FC</span>
+          </div>
+          <div class="review-hero-title">
+            <h1 class="heading-1">{FIRM_NAME} Review</h1>
+            <div class="review-hero-rating">
+              <span class="stars">{'★'.repeat(Math.floor(firm.scores.overall))}</span>
+              <span class="rating-value">{firm.scores.overall}/5</span>
+              <span class="rating-count">• Est. 2018 • Cyprus</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="review-hero-tagline">{firm.tagline}</p>
+
+        <div class="review-hero-scorecard">
+          {heroScorecard.map((item) => (
+            <div class="scorecard-item">
+              <span class="scorecard-value">{item.value}</span>
+              <span class="scorecard-label">{item.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="review-hero-highlights">
+          <span class="highlight-item">✓ Scale to $2M</span>
+          <span class="highlight-item">✓ 90% Profit Split</span>
+          <span class="highlight-item">✓ Micro Accounts</span>
+        </div>
+
+        <div class="review-hero-cta">
+          <a href={firm.affiliateUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xl">
+            Start Fidelcrest Challenge
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="#challenges" class="btn btn-secondary btn-xl">
+            See Account Options
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Navigation links={navigationLinks} />
+
+  <!-- OVERVIEW SECTION -->
+  <section id="overview" class="section">
+    <div class="container">
+      <h2 class="heading-2">Fidelcrest Overview</h2>
+      <p class="body-large">
+        Fidelcrest has been funding traders since 2018, making them one of the more established prop firms in the industry.
+        Their standout features are the aggressive account option with 90% profit split and the industry-leading $2 million
+        scaling potential. Based in Cyprus, they offer both micro and pro trader programs.
+      </p>
+
+      <div class="overview-grid">
+        <div class="overview-card">
+          <div class="overview-icon">📈</div>
+          <h3>Scale to $2 Million</h3>
+          <p>The highest scaling potential among established prop firms. Double your account every 3 months of profitability.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">⚡</div>
+          <h3>Aggressive Options</h3>
+          <p>20% profit target with 20% drawdown and 90% profit split. For traders who want higher rewards.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">🎯</div>
+          <h3>Micro Accounts</h3>
+          <p>Start with as little as $10K. Perfect for beginners or those testing new strategies with lower fees.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">🏛️</div>
+          <h3>6 Years Operating</h3>
+          <p>Founded in 2018, Fidelcrest has a longer track record than most competitors. Proven payout history.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Understanding Fidelcrest's Market Position"
+        icon="🎯"
+        id="overview-notes"
+        variant="light"
+      >
+        <h4>Where Fidelcrest Fits in the Prop Firm Landscape</h4>
+        <p>Fidelcrest occupies a unique position: they're more established than newer firms like Funded Next, but offer more aggressive options than conservative firms like FTMO. Their 6-year track record provides credibility while their $2M scaling attracts ambitious traders.</p>
+
+        <h5>The Aggressive Account Innovation</h5>
+        <p>Fidelcrest pioneered the aggressive account concept that many firms have copied. The trade-off is simple: accept a harder challenge (20% target instead of 10%) in exchange for a higher profit split (90% instead of 80%). For consistently profitable traders, this math works out significantly in their favor over time.</p>
+
+        <h5>The Scaling Opportunity</h5>
+        <p>$2 million maximum funding is exceptional. Most firms cap at $400K-$600K. If you're a trader with a scalable strategy and long-term plans, Fidelcrest allows you to build genuine wealth through prop trading. The path: $100K → $200K → $400K → $800K → $1.6M → $2M over roughly 18 months of consistent profitability.</p>
+
+        <h5>The Cyprus Connection</h5>
+        <p>Being based in Cyprus (EU member state) provides regulatory oversight that some offshore firms lack. While prop firms aren't directly regulated like brokers, operating within the EU means compliance with data protection, business standards, and financial reporting requirements.</p>
+
+        <h5>Who Should Consider Fidelcrest</h5>
+        <p>Fidelcrest is ideal for traders who: (1) have a proven profitable strategy, (2) want maximum scaling potential, (3) prefer an established firm over newer options, and (4) can handle the psychological pressure of higher profit targets if choosing aggressive accounts.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- CHALLENGES SECTION -->
+  <section id="challenges" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Fidelcrest Account Options</h2>
+      <p class="body-large">
+        Fidelcrest offers Micro Trader and Pro Trader accounts, each with Normal and Aggressive options.
+        Choose based on your experience level and risk tolerance.
+      </p>
+
+      <ComparisonTable
+        headers={challengeTableHeaders}
+        rows={challengeRows}
+        caption="Fidelcrest account types and pricing (2026)"
+      />
+
+      <div class="account-comparison">
+        <h3 class="heading-3">Normal vs Aggressive: Which Should You Choose?</h3>
+        <div class="account-cards">
+          <div class="account-type-card">
+            <div class="account-type-badge normal">Normal Account</div>
+            <ul class="account-features">
+              <li><strong>Profit Target:</strong> 10%</li>
+              <li><strong>Max Drawdown:</strong> 10%</li>
+              <li><strong>Daily Drawdown:</strong> 5%</li>
+              <li><strong>Profit Split:</strong> 80%</li>
+            </ul>
+            <p class="account-description">Best for: Consistent traders who prefer lower targets and steady growth.</p>
+          </div>
+          <div class="account-type-card aggressive">
+            <div class="account-type-badge aggressive">Aggressive Account</div>
+            <ul class="account-features">
+              <li><strong>Profit Target:</strong> 20%</li>
+              <li><strong>Max Drawdown:</strong> 20%</li>
+              <li><strong>Daily Drawdown:</strong> 10%</li>
+              <li><strong>Profit Split:</strong> 90%</li>
+            </ul>
+            <p class="account-description">Best for: Confident traders with proven strategies who want maximum profit split.</p>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Decoding Fidelcrest's Account Structure"
+        icon="💡"
+        id="challenge-notes"
+        variant="dark"
+      >
+        <h4>The Math Behind Account Selection</h4>
+        <p>Choosing between Normal and Aggressive isn't just about risk tolerance - it's about understanding the long-term profit implications.</p>
+
+        <h5>Long-Term Profit Split Analysis</h5>
+        <p>Assume you make $10,000 profit per month once funded:</p>
+        <ul>
+          <li><strong>Normal (80%):</strong> You keep $8,000/month = $96,000/year</li>
+          <li><strong>Aggressive (90%):</strong> You keep $9,000/month = $108,000/year</li>
+          <li><strong>Difference:</strong> $12,000 extra per year with aggressive</li>
+        </ul>
+
+        <h5>But There's a Catch</h5>
+        <p>The aggressive 20% profit target is twice as hard to achieve. If your pass rate on normal challenges is 30%, it might be 15% on aggressive. You'd spend more on challenge fees and time before getting funded.</p>
+
+        <h5>Our Recommendation</h5>
+        <p>Start with Normal accounts if: you're new to prop trading, haven't passed a challenge before, or your strategy averages 5-8% monthly returns. The easier target gets you funded faster.</p>
+        <p>Consider Aggressive if: you've passed multiple challenges elsewhere, your strategy regularly produces 10%+ monthly returns, or you're confident in your risk management during drawdown.</p>
+
+        <h5>Micro vs Pro Trader</h5>
+        <p>Micro accounts ($10K-$50K) have lower fees but limited scaling. Pro Trader accounts ($150K-$1M) cost more upfront but scale to the $2M maximum. If you're confident in your skills, Pro Trader accounts are more cost-efficient long-term.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- RULES SECTION -->
+  <section id="rules" class="section">
+    <div class="container">
+      <h2 class="heading-2">Fidelcrest Trading Rules</h2>
+      <p class="body-large">
+        Fidelcrest's rules vary between Normal and Aggressive accounts. Understanding these differences
+        is crucial for choosing the right account type and passing the evaluation.
+      </p>
+
+      <div class="rules-grid">
+        <div class="rule-card rule-card--important">
+          <div class="rule-icon">⚠️</div>
+          <h3>Max Drawdown</h3>
+          <p><strong>Normal:</strong> 10% of initial balance<br><strong>Aggressive:</strong> 20% of initial balance<br>Calculated on equity including open positions.</p>
+        </div>
+        <div class="rule-card rule-card--important">
+          <div class="rule-icon">📉</div>
+          <h3>Daily Drawdown</h3>
+          <p><strong>Normal:</strong> 5% daily limit<br><strong>Aggressive:</strong> 10% daily limit<br>Resets at midnight server time (CET).</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">🎯</div>
+          <h3>Profit Target</h3>
+          <p><strong>Normal:</strong> 10% Phase 1, 5% Phase 2<br><strong>Aggressive:</strong> 20% Phase 1, 10% Phase 2</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">📅</div>
+          <h3>Time Limit: 60 Days</h3>
+          <p>60 days for Phase 1, 60 days for Phase 2. More generous than FTMO's 30-day limit.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">📊</div>
+          <h3>Min Trading Days: 10</h3>
+          <p>You must trade on at least 10 separate days during each evaluation phase.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">📰</div>
+          <h3>News & Weekend: Allowed</h3>
+          <p>Trade during news events and hold positions over weekends. No restrictions.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Mastering Fidelcrest's Rule Structure"
+        icon="🎓"
+        id="rules-notes"
+        variant="light"
+      >
+        <h4>Strategic Considerations for Each Account Type</h4>
+        <p>The rule differences between Normal and Aggressive accounts create different optimal strategies. Here's how to approach each.</p>
+
+        <h5>Normal Account Strategy</h5>
+        <p>With 10% max drawdown and 5% daily limit, you have tight constraints. Position size accordingly:</p>
+        <ul>
+          <li>Risk 1% per trade maximum</li>
+          <li>This gives you 5 consecutive losing trades before daily limit</li>
+          <li>Take 2-3 trades per day maximum to avoid overtrading</li>
+          <li>Target 2-3% profit per week = 10% in 4-5 weeks comfortably</li>
+        </ul>
+
+        <h5>Aggressive Account Strategy</h5>
+        <p>The 20% drawdown allows more flexibility but the 20% profit target requires more aggression:</p>
+        <ul>
+          <li>Risk 1.5-2% per trade</li>
+          <li>20% target over 60 days = roughly 7% per month</li>
+          <li>Use the extra drawdown as a cushion, not an excuse to take bigger risks</li>
+          <li>The higher daily limit (10%) allows recovery from bad days</li>
+        </ul>
+
+        <h5>The 10 Minimum Days Rule</h5>
+        <p>Unlike some firms with no minimum, Fidelcrest requires 10 trading days. This prevents lucky one-trade passes. Plan to trade consistently throughout the evaluation period rather than going all-in on a few trades.</p>
+
+        <h5>60-Day Advantage</h5>
+        <p>Fidelcrest's 60-day limit is generous. If you're approaching day 50 without hitting the target, reduce position sizes and extend your runway. Better to pass slowly than fail quickly.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PAYOUTS SECTION -->
+  <section id="payouts" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Fidelcrest Payouts & Scaling</h2>
+      <p class="body-large">
+        Fidelcrest offers competitive profit splits and the industry's highest scaling potential at $2 million maximum.
+      </p>
+
+      <div class="payout-highlights">
+        <div class="payout-card">
+          <div class="payout-value">80%</div>
+          <div class="payout-label">Normal Profit Split</div>
+          <p>Standard profit split for Normal account types.</p>
+        </div>
+        <div class="payout-card payout-card--highlight">
+          <div class="payout-value">90%</div>
+          <div class="payout-label">Aggressive Profit Split</div>
+          <p>Premium profit split for Aggressive account types.</p>
+        </div>
+        <div class="payout-card">
+          <div class="payout-value">$2M</div>
+          <div class="payout-label">Maximum Funding</div>
+          <p>Industry-leading scaling potential through consistent profitability.</p>
+        </div>
+      </div>
+
+      <div class="scaling-section">
+        <h3 class="heading-3">Scaling Path to $2 Million</h3>
+        <div class="scaling-path">
+          <div class="scaling-step">
+            <span class="scaling-amount">$100K</span>
+            <span class="scaling-label">Start</span>
+          </div>
+          <div class="scaling-arrow">→</div>
+          <div class="scaling-step">
+            <span class="scaling-amount">$200K</span>
+            <span class="scaling-label">3 months</span>
+          </div>
+          <div class="scaling-arrow">→</div>
+          <div class="scaling-step">
+            <span class="scaling-amount">$400K</span>
+            <span class="scaling-label">6 months</span>
+          </div>
+          <div class="scaling-arrow">→</div>
+          <div class="scaling-step">
+            <span class="scaling-amount">$800K</span>
+            <span class="scaling-label">9 months</span>
+          </div>
+          <div class="scaling-arrow">→</div>
+          <div class="scaling-step">
+            <span class="scaling-amount">$2M</span>
+            <span class="scaling-label">15+ months</span>
+          </div>
+        </div>
+        <p class="scaling-note">Requires 20% profit and 3 profitable months per scale</p>
+      </div>
+
+      <AnalystNotes
+        title="The Fidelcrest Scaling Opportunity"
+        icon="📈"
+        id="payout-notes"
+        variant="dark"
+      >
+        <h4>Building Serious Wealth Through Scaling</h4>
+        <p>Fidelcrest's $2M scaling potential is their standout feature. Let's analyze what this means in practical terms.</p>
+
+        <h5>Scaling Requirements</h5>
+        <p>To double your account, you need:</p>
+        <ul>
+          <li>20% total profit over a 3-month period</li>
+          <li>At least 3 profitable months (doesn't have to be consecutive)</li>
+          <li>No rule violations during the period</li>
+        </ul>
+
+        <h5>The Income Trajectory</h5>
+        <p>Assuming 5% monthly returns and 90% aggressive split:</p>
+        <ul>
+          <li><strong>$100K account:</strong> $4,500/month take-home</li>
+          <li><strong>$400K account:</strong> $18,000/month take-home</li>
+          <li><strong>$2M account:</strong> $90,000/month take-home</li>
+        </ul>
+        <p>That's over $1 million per year potential at maximum scale with consistent 5% returns.</p>
+
+        <h5>Reality Check</h5>
+        <p>Very few traders reach the $2M level. The 20% quarterly requirement means consistent 6-7% monthly returns. Most traders hover around 3-5%. Still, even reaching $400K-$800K provides exceptional income potential.</p>
+
+        <h5>Payout Reliability</h5>
+        <p>Fidelcrest's 6-year track record includes reliable payouts. Processing takes 5-10 business days. Some traders report occasional delays during high-volume periods, but overall payout reliability is solid.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PLATFORMS SECTION -->
+  <section id="platforms" class="section">
+    <div class="container">
+      <h2 class="heading-2">Trading Platforms</h2>
+      <p class="body-large">
+        Fidelcrest supports MetaTrader 4 and 5, the industry standards for retail and prop trading.
+      </p>
+
+      <div class="platforms-grid">
+        {firm.platforms.map((platform) => (
+          <div class="platform-card">
+            <h3 class="platform-name">{platform}</h3>
+            <div class="platform-status">
+              <span class="status-dot"></span>
+              Supported
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="instruments-section">
+        <h3 class="heading-3">Tradeable Instruments</h3>
+        <div class="instruments-grid">
+          {firm.instruments.map((instrument) => (
+            <div class="instrument-chip">{instrument}</div>
+          ))}
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Platform & Instrument Considerations"
+        icon="💻"
+        id="platform-notes"
+        variant="light"
+      >
+        <h4>Making the Most of Fidelcrest's Offering</h4>
+        <p>Fidelcrest provides standard MT4/MT5 access with a comprehensive instrument selection including stocks - something not all prop firms offer.</p>
+
+        <h5>Stock Trading Opportunity</h5>
+        <p>Unlike many prop firms that focus only on forex and indices, Fidelcrest offers stock CFDs. This allows equity traders to use their strategies without learning new instruments. However, be aware that stock CFD spreads are wider than pure forex.</p>
+
+        <h5>Execution Quality</h5>
+        <p>Fidelcrest uses standard MetaTrader execution through their liquidity providers. Spreads are competitive but not the tightest in the industry. For scalpers who need the absolute best execution, this is a consideration.</p>
+
+        <h5>EA Compatibility</h5>
+        <p>All Expert Advisors are allowed. If you have a profitable EA, Fidelcrest is a good choice since they don't restrict automation. Copy trading between your own accounts is also permitted.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- COMPETITOR COMPARISON -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Fidelcrest vs Competitors</h2>
+      <p class="body-large">
+        How does Fidelcrest stack up against other leading prop firms? Here's the comparison.
+      </p>
+
+      <ComparisonTable
+        headers={competitorHeaders}
+        rows={competitorRows}
+        caption="Fidelcrest compared to major prop firm competitors (2026)"
+      />
+
+      <AnalystNotes
+        title="Where Fidelcrest Excels and Falls Short"
+        icon="🏅"
+        id="comparison-notes"
+        variant="dark"
+      >
+        <h4>Honest Comparison Analysis</h4>
+        <p>Every prop firm has strengths and weaknesses. Here's where Fidelcrest genuinely stands out and where competitors have the edge.</p>
+
+        <h5>Fidelcrest Wins On:</h5>
+        <ul>
+          <li><strong>Scaling:</strong> $2M max is exceptional (only Funded Next offers more)</li>
+          <li><strong>Track Record:</strong> 6 years beats most competitors</li>
+          <li><strong>Aggressive Options:</strong> 90% split without scaling requirements</li>
+          <li><strong>Time Limits:</strong> 60 days is more generous than FTMO's 30</li>
+        </ul>
+
+        <h5>Fidelcrest Loses On:</h5>
+        <ul>
+          <li><strong>Pricing:</strong> Not the cheapest - True Forex Funds and others are cheaper</li>
+          <li><strong>Flexibility:</strong> 10 minimum trading days vs. no minimum elsewhere</li>
+          <li><strong>Profit Split (Normal):</strong> 80% is standard, not exceptional</li>
+          <li><strong>Payout Speed:</strong> 5-10 days vs. 1-3 days at some firms</li>
+        </ul>
+
+        <h5>When to Choose Fidelcrest</h5>
+        <p>Choose Fidelcrest if you want long-term scaling potential and can handle higher targets. If you're building a prop trading career over years rather than months, Fidelcrest's $2M ceiling matters.</p>
+
+        <h5>When to Choose Alternatives</h5>
+        <p>Choose <a href="/propfirms/ftmo/">FTMO</a> if you want the safest, most reliable option. Choose True Forex Funds if you want unlimited time. Choose Funded Next if you want to earn during evaluation.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PROS AND CONS -->
+  <section id="pros-cons" class="section">
+    <div class="container">
+      <h2 class="heading-2">Fidelcrest Pros & Cons</h2>
+
+      <ProsCons
+        pros={firm.pros}
+        cons={firm.cons}
+      />
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <h2 class="heading-2">Frequently Asked Questions</h2>
+      <FAQ questions={faqItems} />
+    </div>
+  </section>
+
+  <!-- VERDICT SECTION -->
+  <section id="verdict" class="section">
+    <div class="container">
+      <div class="verdict-card">
+        <div class="verdict-header">
+          <h2 class="heading-2">Our Verdict: {firm.scores.overall}/5</h2>
+          <div class="verdict-stars">{'★'.repeat(Math.floor(firm.scores.overall))}</div>
+        </div>
+
+        <div class="verdict-summary">
+          <p class="body-large">
+            Fidelcrest is a solid choice for ambitious traders seeking maximum scaling potential. Their 6-year track record
+            provides confidence, and the aggressive account option delivers 90% profit split for those who can handle higher targets.
+            While not the cheapest or most flexible option, Fidelcrest's $2M scaling ceiling makes them ideal for traders
+            building a long-term prop trading career.
+          </p>
+        </div>
+
+        <div class="verdict-scores">
+          <div class="score-item">
+            <span class="score-label">Trustworthiness</span>
+            <span class="score-value">{firm.scores.trustworthiness}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Payout Reliability</span>
+            <span class="score-value">{firm.scores.payouts}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Trading Rules</span>
+            <span class="score-value">{firm.scores.rules}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Support</span>
+            <span class="score-value">{firm.scores.support}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Pricing</span>
+            <span class="score-value">{firm.scores.pricing}/5</span>
+          </div>
+        </div>
+
+        <div class="verdict-best-for">
+          <h3>Best For:</h3>
+          <div class="best-for-tags">
+            {firm.bestFor.map((item) => (
+              <span class="best-for-tag">{item}</span>
+            ))}
+          </div>
+        </div>
+
+        <div class="verdict-cta">
+          <a href={firm.affiliateUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xl">
+            Start Fidelcrest Challenge →
+          </a>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Final Thoughts from Our Research Team"
+        icon="📝"
+        id="verdict-notes"
+        variant="light"
+      >
+        <h4>The Bottom Line on Fidelcrest</h4>
+        <p>Fidelcrest earns a 4.2/5 rating - above average but not quite at FTMO's level. Their strength is the combination of experience (6 years), scaling potential ($2M), and the aggressive account option (90% split).</p>
+
+        <h5>Ideal Fidelcrest Trader</h5>
+        <p>You'll thrive at Fidelcrest if you have a strategy that produces consistent 5-7% monthly returns. The scaling rewards consistency over time. If you're planning to prop trade for years, not months, Fidelcrest's ceiling matters.</p>
+
+        <h5>Who Should Look Elsewhere</h5>
+        <p>If you want unlimited time, choose <a href="/propfirms/true-forex-funds/">True Forex Funds</a>. If you want maximum trust and reliability, choose <a href="/propfirms/ftmo/">FTMO</a>. If budget is tight, cheaper options exist.</p>
+
+        <h5>The Aggressive Account Recommendation</h5>
+        <p>We recommend aggressive accounts only for traders who have already passed at least one prop firm challenge elsewhere. The 20% target is demanding. If you haven't proven yourself yet, start with Normal accounts - you can always switch to aggressive later.</p>
+
+        <p>Overall, Fidelcrest is a legitimate, established prop firm that deserves consideration. They're not the best at any single metric, but they're good across the board with exceptional scaling - a solid choice for serious traders.</p>
+      </AnalystNotes>
+
+      <!-- Related Links -->
+      <div class="related-section">
+        <h3>Compare Fidelcrest with Other Prop Firms</h3>
+        <div class="related-grid">
+          <a href="/propfirms/ftmo/" class="related-card">
+            <span class="related-title">FTMO Review</span>
+            <span class="related-desc">Industry leader with 9+ years track record</span>
+          </a>
+          <a href="/propfirms/funded-next/" class="related-card">
+            <span class="related-title">Funded Next Review</span>
+            <span class="related-desc">Earn during evaluation with 95% profit split</span>
+          </a>
+          <a href="/propfirms/" class="related-card">
+            <span class="related-title">All Prop Firms</span>
+            <span class="related-desc">Compare all prop trading firms side by side</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .review-hero {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    padding: var(--space-2xl) 0;
+    color: var(--white);
+  }
+
+  .review-hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .review-hero-badge {
+    margin-bottom: var(--space-md);
+  }
+
+  .review-hero-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .review-hero-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .firm-initial {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  .review-hero-title h1 {
+    color: var(--white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .review-hero-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
+  .stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+  }
+
+  .rating-value {
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+  }
+
+  .rating-count {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-sm);
+  }
+
+  .review-hero-tagline {
+    font-size: var(--font-size-xl);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--space-xl);
+  }
+
+  .review-hero-scorecard {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .scorecard-item {
+    text-align: center;
+  }
+
+  .scorecard-value {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+  }
+
+  .scorecard-label {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .review-hero-highlights {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .highlight-item {
+    background: rgba(139, 92, 246, 0.2);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+  }
+
+  .review-hero-cta {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Overview Grid */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .overview-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .overview-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .overview-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .overview-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Account Comparison Cards */
+  .account-comparison {
+    margin-top: var(--space-2xl);
+  }
+
+  .account-comparison h3 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .account-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .account-type-card {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  .account-type-card.aggressive {
+    border-color: #8b5cf6;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(99, 102, 241, 0.05));
+  }
+
+  .account-type-badge {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .account-type-badge.normal {
+    background: var(--gray-100);
+    color: var(--gray-700);
+  }
+
+  .account-type-badge.aggressive {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    color: white;
+  }
+
+  .account-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-md) 0;
+  }
+
+  .account-features li {
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .account-features li:last-child {
+    border-bottom: none;
+  }
+
+  .account-description {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Rules Grid */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .rule-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .rule-card--important {
+    border-color: var(--warning);
+    background: rgba(245, 158, 11, 0.05);
+  }
+
+  .rule-icon {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .rule-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .rule-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Payout Section */
+  .payout-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .payout-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    text-align: center;
+  }
+
+  .payout-card--highlight {
+    border-color: #8b5cf6;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.15);
+  }
+
+  .payout-value {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+  }
+
+  .payout-label {
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-sm);
+  }
+
+  .payout-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Scaling Section */
+  .scaling-section {
+    margin-top: var(--space-2xl);
+    text-align: center;
+  }
+
+  .scaling-path {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin: var(--space-xl) 0;
+  }
+
+  .scaling-step {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md) var(--space-lg);
+    text-align: center;
+  }
+
+  .scaling-step:last-child {
+    border-color: #8b5cf6;
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(99, 102, 241, 0.1));
+  }
+
+  .scaling-amount {
+    display: block;
+    font-size: var(--font-size-xl);
+    font-weight: 800;
+    color: var(--charcoal);
+  }
+
+  .scaling-step:last-child .scaling-amount {
+    color: #8b5cf6;
+  }
+
+  .scaling-label {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .scaling-arrow {
+    color: var(--gray-300);
+    font-size: var(--font-size-xl);
+  }
+
+  .scaling-note {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    font-style: italic;
+  }
+
+  /* Platforms Grid */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin: var(--space-xl) 0;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .platform-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .platform-name {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .platform-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    color: var(--success);
+    font-size: var(--font-size-sm);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--success);
+    border-radius: 50%;
+  }
+
+  .instruments-section {
+    margin-top: var(--space-xl);
+    text-align: center;
+  }
+
+  .instruments-grid {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-top: var(--space-lg);
+  }
+
+  .instrument-chip {
+    background: var(--gray-100);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Verdict Card */
+  .verdict-card {
+    background: var(--white);
+    border: 2px solid #8b5cf6;
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .verdict-header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-header h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .verdict-stars {
+    color: #f59e0b;
+    font-size: var(--font-size-2xl);
+  }
+
+  .verdict-summary {
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-scores {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+  }
+
+  .score-item {
+    text-align: center;
+  }
+
+  .score-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--space-xs);
+  }
+
+  .score-value {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: #8b5cf6;
+  }
+
+  .verdict-best-for {
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-best-for h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-sm);
+  }
+
+  .best-for-tags {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .best-for-tag {
+    background: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Related Section */
+  .related-section {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .related-section h3 {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .related-card {
+    display: block;
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .related-card:hover {
+    border-color: #8b5cf6;
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .related-title {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .related-desc {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .overview-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .rules-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .account-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .review-hero-header {
+      flex-direction: column;
+    }
+
+    .review-hero-scorecard {
+      gap: var(--space-lg);
+    }
+
+    .review-hero-highlights {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .overview-grid,
+    .platforms-grid,
+    .rules-grid,
+    .payout-highlights,
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .scaling-path {
+      flex-direction: column;
+    }
+
+    .scaling-arrow {
+      transform: rotate(90deg);
+    }
+
+    .verdict-scores {
+      gap: var(--space-md);
+    }
+  }
+</style>

@@ -1,0 +1,322 @@
+---
+import '../styles/pages/components-showcase.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Navigation from '../components/Navigation.astro';
+import Card from '../components/Card.astro';
+import CardGrid from '../components/CardGrid.astro';
+import AnalystNotes from '../components/AnalystNotes.astro';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import Rating from '../components/Rating.astro';
+import Scorecard from '../components/Scorecard.astro';
+import ProsCons from '../components/ProsCons.astro';
+import FAQ from '../components/FAQ.astro';
+import FinalVerdict from '../components/FinalVerdict.astro';
+
+// Sample data for components
+const navigationLinks = [
+  { href: '#hero', text: 'Hero Styles' },
+  { href: '#cards', text: 'Cards' },
+  { href: '#tables', text: 'Tables' },
+  { href: '#analysis', text: 'Analysis' },
+  { href: '#ratings', text: 'Ratings' },
+  { href: '#verdict', text: 'Final Verdict' }
+];
+
+const sampleMetrics = [
+  { value: '$100', label: 'Min Deposit', icon: '💰' },
+  { value: '4.5/5', label: 'Rating', icon: '⭐' },
+  { value: '0.9 pips', label: 'EUR/USD', icon: '📊' },
+  { value: '24/7', label: 'Support', icon: '🛟' }
+];
+
+const tableHeaders = ['Broker', 'Min Deposit', 'Spread', 'Rating', 'Regulation'];
+const tableRows = [
+  {
+    cells: [
+      { content: 'AvaTrade', type: 'text' },
+      { content: '$100', type: 'currency', highlight: 'best' },
+      { content: '0.9 pips', type: 'text' },
+      { content: '4.5/5', type: 'rating', highlight: 'good' },
+      { content: 'ASIC, FCA', type: 'text', highlight: 'brand' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'IC Markets', type: 'text' },
+      { content: '$200', type: 'currency', highlight: 'neutral' },
+      { content: '0.1 pips', type: 'text', highlight: 'best' },
+      { content: '4.8/5', type: 'rating', highlight: 'brand' },
+      { content: 'ASIC, CySEC', type: 'text' }
+    ]
+  }
+];
+
+const prosData = [
+  'Strong regulatory oversight from multiple authorities',
+  'Wide range of trading platforms and tools',
+  'Competitive spreads on major currency pairs',
+  'Excellent educational resources and support'
+];
+
+const consData = [
+  'Inactivity fees after 3 months',
+  'Limited cryptocurrency selection',
+  'No direct stock trading (CFDs only)',
+  'Higher spreads on exotic pairs'
+];
+
+const faqData = [
+  {
+    question: 'What is the minimum deposit?',
+    answer: 'The minimum deposit is $100, making it accessible for beginners and experienced traders alike.'
+  },
+  {
+    question: 'Is the platform regulated?',
+    answer: 'Yes, the platform is regulated by multiple tier-1 authorities including ASIC, FCA, and CySEC.'
+  },
+  {
+    question: 'Are there any fees?',
+    answer: 'There are no commission fees on most trades, but spreads apply. Inactivity fees may apply after 3 months of no trading.'
+  }
+];
+
+const ratingBreakdown = [
+  { category: 'Regulation & Safety', score: 4.8 },
+  { category: 'Trading Platforms', score: 4.5 },
+  { category: 'Fees & Spreads', score: 4.0 },
+  { category: 'Customer Service', score: 4.3 },
+  { category: 'Educational Resources', score: 4.7 }
+];
+---
+
+<BaseLayout 
+  title="Components Showcase"
+  description="Demonstration of all available Astro components for the TradeTheDay design system"
+>
+  <!-- Navigation -->
+  <Navigation links={navigationLinks} />
+
+  <!-- Hero Variations -->
+  <section id="hero">
+    <!-- Default Hero with Scorecard -->
+    <Hero
+      title="Default Hero with Scorecard"
+      subtitle="This demonstrates the default hero style with a scorecard showing key metrics and call-to-action buttons."
+      badge="Design System"
+      buttonText="Get Started"
+      buttonHref="#cards"
+      secondaryButtonText="Learn More"
+      secondaryButtonHref="#analysis"
+      scorecard={sampleMetrics}
+    />
+
+    <!-- Minimal Hero -->
+    <Hero
+      style="minimal"
+      title="Minimal Hero Style"
+      subtitle="Clean, typography-focused hero perfect for detailed analysis pages and professional reviews."
+      logo="/images/brand/tradetheday-logo.svg"
+      logoAlt="TradeTheDay"
+      date="Updated January 2026"
+      author="By Trade the Day"
+      buttonText="Visit Official Site"
+      secondaryButtonText="Jump to Analysis"
+      secondaryButtonHref="#analysis"
+      highlights={[
+        { text: '✓ Multi-Regulated', type: 'success' },
+        { text: '$100 Min Deposit', type: 'neutral' },
+        { text: 'High Spreads', type: 'warning' },
+        { text: 'No Commission', type: 'success' }
+      ]}
+    />
+  </section>
+
+  <!-- Card Grids -->
+  <section id="cards">
+    <CardGrid 
+      title="Card Grid Examples"
+      subtitle="Flexible card components with multiple layout options"
+      columns={3}
+    >
+      <Card
+        title="Trading Platforms"
+        description="Access professional trading platforms including MT4, MT5, and proprietary web-based solutions."
+        icon="📱"
+        buttonText="Learn More"
+        buttonHref="#"
+      />
+      <Card
+        title="Educational Resources"
+        description="Comprehensive learning materials, webinars, and trading guides for all skill levels."
+        icon="🎓"
+        buttonText="Start Learning"
+        buttonHref="#"
+        variant="elevated"
+      />
+      <Card
+        title="24/7 Support"
+        description="Round-the-clock customer support in multiple languages with dedicated account managers."
+        icon="🛟"
+        buttonText="Contact Support"
+        buttonHref="#"
+        variant="borderless"
+        textAlign="center"
+      />
+    </CardGrid>
+
+    <!-- 4-Column Dark Section -->
+    <CardGrid 
+      title="Feature Highlights"
+      subtitle="Key features that make this platform stand out"
+      columns={4}
+      sectionVariant="dark"
+    >
+      <Card
+        title="Regulation"
+        description="Multi-jurisdiction licensing"
+        icon="🏛️"
+        textAlign="center"
+        variant="compact"
+      />
+      <Card
+        title="Security"
+        description="Bank-grade encryption"
+        icon="🛡️"
+        textAlign="center"
+        variant="compact"
+      />
+      <Card
+        title="Performance"
+        description="Fast execution speeds"
+        icon="⚡"
+        textAlign="center"
+        variant="compact"
+      />
+      <Card
+        title="Innovation"
+        description="Cutting-edge technology"
+        icon="🚀"
+        textAlign="center"
+        variant="compact"
+      />
+    </CardGrid>
+  </section>
+
+  <!-- Scorecard Examples -->
+  <section class="section section-light">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Scorecard Components</h2>
+        <p class="body-large">Display key metrics and statistics</p>
+      </div>
+      
+      <Scorecard metrics={sampleMetrics} />
+      
+      <Scorecard 
+        metrics={[
+          { value: '150+', label: 'Countries' },
+          { value: '1M+', label: 'Users' },
+          { value: '18 Years', label: 'Experience' }
+        ]}
+        variant="compact"
+        columns={3}
+      />
+    </div>
+  </section>
+
+  <!-- Tables -->
+  <section id="tables">
+    <ComparisonTable
+      title="Broker Comparison"
+      subtitle="Compare key features and pricing across top brokers"
+      headers={tableHeaders}
+      rows={tableRows}
+      showGuide={true}
+    />
+  </section>
+
+  <!-- Analysis Components -->
+  <section id="analysis" class="section">
+    <div class="container">
+      <h2 class="heading-2">Analysis Components</h2>
+      
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Platform Analysis  - Detailed Review" id="platform-analysis">
+        <h4 class="heading-4">Trading Platform Evaluation</h4>
+        <p class="body">
+          After extensive testing across multiple devices and trading scenarios, we found the platform to excel in several key areas while showing room for improvement in others.
+        </p>
+        
+        <h5 class="heading-5">Key Strengths</h5>
+        <ul>
+          <li>Intuitive interface design with customizable layouts</li>
+          <li>Fast order execution with minimal slippage</li>
+          <li>Comprehensive charting tools and technical indicators</li>
+        </ul>
+        
+        <h5 class="heading-5">Areas for Improvement</h5>
+        <ul>
+          <li>Mobile app could benefit from additional features</li>
+          <li>Advanced order types need better documentation</li>
+        </ul>
+        
+        <p class="body"><strong>Expert Verdict:</strong> A solid platform choice for both beginners and experienced traders, with room for mobile enhancement.</p>
+      </AnalystNotes>
+
+      <!-- Pros & Cons -->
+      <ProsCons
+        title="Advantages & Disadvantages"
+        subtitle="Balanced evaluation based on our comprehensive testing"
+        pros={prosData}
+        cons={consData}
+      />
+    </div>
+  </section>
+
+  <!-- Ratings -->
+  <section id="ratings" class="section section-light">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Rating Components</h2>
+        <p class="body-large">Display ratings and scores in different sizes and styles</p>
+      </div>
+      
+      <div class="rating-showcase">
+        <Rating score={4.5} size="sm" />
+        <Rating score={4.2} size="md" />
+        <Rating score={4.8} size="lg" showStars={true} />
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <FAQ questions={faqData} />
+
+  <!-- Final Verdict -->
+  <section id="verdict">
+    <FinalVerdict
+      rating={4.2}
+      summary="This platform offers a well-rounded trading experience with strong regulatory backing, competitive features, and excellent educational resources. While there are areas for improvement, it represents solid value for most traders."
+      bestFor={[
+        'Beginner traders seeking educational support',
+        'Multi-asset portfolio diversification',
+        'Traders prioritizing regulatory compliance',
+        'Users wanting multiple platform options'
+      ]}
+      notIdealFor={[
+        'Professional scalpers needing ultra-tight spreads',
+        'Cryptocurrency-focused traders',
+        'Inactive investors (due to fees)',
+        'Advanced algorithmic traders'
+      ]}
+      primaryButtonText="Visit Official Website"
+      primaryButtonHref="#"
+      secondaryText="compare with alternatives"
+      secondaryHref="#"
+      disclaimer="Trading involves significant risk of loss and may not be suitable for all investors. Ensure you understand the risks before trading."
+      showDetailedRating={true}
+      ratingBreakdown={ratingBreakdown}
+    />
+  </section>
+</BaseLayout>

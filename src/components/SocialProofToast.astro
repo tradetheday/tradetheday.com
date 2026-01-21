@@ -1,0 +1,351 @@
+---
+/**
+ * SocialProofToast Component
+ *
+ * Displays rotating social proof notifications showing recent user activity.
+ * Uses Cialdini's "Social Proof" principle - people follow the actions of others.
+ *
+ * Features:
+ * - Randomized realistic data (names, locations, brokers, times)
+ * - Subtle, non-intrusive design
+ * - Auto-rotates through notifications
+ * - Mobile-friendly positioning
+ */
+
+interface Props {
+  delay?: number; // Initial delay before first toast (ms)
+  interval?: number; // Time between toasts (ms)
+  duration?: number; // How long each toast is visible (ms)
+}
+
+const {
+  delay = 5000,
+  interval = 25000,
+  duration = 6000
+} = Astro.props;
+---
+
+<div class="social-proof-toast" id="socialProofToast" data-delay={delay} data-interval={interval} data-duration={duration} role="status" aria-live="polite" aria-atomic="true">
+  <div class="toast-content">
+    <div class="toast-avatar" id="toastAvatar">JD</div>
+    <div class="toast-text">
+      <p class="toast-message" id="toastMessage">
+        <strong id="toastName">James D.</strong> from <span id="toastLocation">London</span>
+      </p>
+      <p class="toast-action" id="toastAction">matched with <strong id="toastBroker">AvaTrade</strong></p>
+      <p class="toast-time" id="toastTime">2 minutes ago</p>
+    </div>
+    <button class="toast-close" id="toastClose" aria-label="Close notification">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6L6 18M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .social-proof-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateX(-100%) translateY(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+
+  .social-proof-toast.is-visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    pointer-events: auto;
+  }
+
+  .toast-content {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm, 16px);
+    background: var(--white, #fafbfc);
+    border: 1px solid var(--gray-200, #e5e5e5);
+    border-left: 4px solid var(--brand-orange, #FF4800);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-md, 24px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 340px;
+    position: relative;
+  }
+
+  .toast-avatar {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--brand-orange, #FF4800) 0%, #e63e00 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+  }
+
+  .toast-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .toast-message {
+    margin: 0 0 2px 0;
+    font-size: 14px;
+    color: var(--charcoal, #1E2427);
+    line-height: 1.4;
+  }
+
+  .toast-message strong {
+    font-weight: 600;
+  }
+
+  .toast-action {
+    margin: 0 0 4px 0;
+    font-size: 13px;
+    color: var(--gray-600, #525252);
+    line-height: 1.4;
+  }
+
+  .toast-action strong {
+    color: var(--brand-orange, #FF4800);
+    font-weight: 600;
+  }
+
+  .toast-time {
+    margin: 0;
+    font-size: 11px;
+    color: var(--gray-400, #a3a3a3);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .toast-time::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--success, #10B981);
+    border-radius: 50%;
+    animation: pulse-dot 2s infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .toast-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    color: var(--gray-400, #a3a3a3);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    opacity: 0;
+  }
+
+  .toast-content:hover .toast-close {
+    opacity: 1;
+  }
+
+  .toast-close:hover {
+    color: var(--charcoal, #1E2427);
+    background: var(--gray-100, #f5f5f5);
+  }
+
+  /* Mobile styles */
+  @media (max-width: 480px) {
+    .social-proof-toast {
+      left: 12px;
+      right: 12px;
+      bottom: 80px; /* Above mobile navigation if present */
+    }
+
+    .toast-content {
+      max-width: none;
+      padding: var(--space-sm, 16px);
+    }
+
+    .toast-avatar {
+      width: 38px;
+      height: 38px;
+      font-size: 12px;
+    }
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .social-proof-toast {
+      transition: opacity 0.2s ease;
+      transform: none;
+    }
+
+    .social-proof-toast.is-visible {
+      transform: none;
+    }
+
+    .toast-time::before {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // Social proof data - randomized each time
+  const firstNames = [
+    'James', 'Sarah', 'Michael', 'Emma', 'David', 'Sophie', 'Daniel', 'Olivia',
+    'Thomas', 'Charlotte', 'William', 'Emily', 'Jack', 'Amelia', 'Harry', 'Isla',
+    'George', 'Mia', 'Oliver', 'Ava', 'Marcus', 'Chloe', 'Ahmed', 'Priya'
+  ];
+
+  const locations = [
+    'London', 'Manchester', 'Birmingham', 'Leeds', 'Glasgow', 'Liverpool',
+    'Bristol', 'Sheffield', 'Edinburgh', 'Cardiff', 'Dublin', 'Belfast',
+    'Sydney', 'Melbourne', 'Auckland', 'Singapore', 'Dubai', 'Toronto',
+    'New York', 'Los Angeles', 'Cape Town', 'Frankfurt', 'Amsterdam', 'Paris'
+  ];
+
+  const brokers = [
+    { name: 'AvaTrade', weight: 4 }, // Most popular
+    { name: 'eToro', weight: 3 },
+    { name: 'Axi', weight: 2 },
+    { name: 'Binance', weight: 2 },
+    { name: 'Kraken', weight: 1 }
+  ];
+
+  const actions = [
+    { text: 'matched with', suffix: '' },
+    { text: 'just signed up with', suffix: '' },
+    { text: 'claimed their bonus with', suffix: '' },
+    { text: 'started trading on', suffix: '' }
+  ];
+
+  const timeAgo = [
+    'just now', '1 minute ago', '2 minutes ago', '3 minutes ago',
+    '5 minutes ago', '8 minutes ago', '12 minutes ago'
+  ];
+
+  function getRandomItem<T>(arr: T[]): T {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function getWeightedBroker(): string {
+    const weighted: string[] = [];
+    brokers.forEach(b => {
+      for (let i = 0; i < b.weight; i++) {
+        weighted.push(b.name);
+      }
+    });
+    return getRandomItem(weighted);
+  }
+
+  function getInitials(name: string): string {
+    const parts = name.split(' ');
+    if (parts.length >= 2) {
+      return parts[0][0] + parts[1][0];
+    }
+    return name.substring(0, 2);
+  }
+
+  function generateNotification() {
+    const firstName = getRandomItem(firstNames);
+    const lastName = String.fromCharCode(65 + Math.floor(Math.random() * 26)); // Random letter
+    const name = `${firstName} ${lastName}.`;
+    const location = getRandomItem(locations);
+    const broker = getWeightedBroker();
+    const action = getRandomItem(actions);
+    const time = getRandomItem(timeAgo);
+
+    return { name, location, broker, action, time, initials: getInitials(name) };
+  }
+
+  function initSocialProofToast() {
+    const toast = document.getElementById('socialProofToast');
+    if (!toast) return;
+
+    const delay = parseInt(toast.dataset.delay || '5000');
+    const interval = parseInt(toast.dataset.interval || '25000');
+    const duration = parseInt(toast.dataset.duration || '6000');
+
+    const avatarEl = document.getElementById('toastAvatar');
+    const nameEl = document.getElementById('toastName');
+    const locationEl = document.getElementById('toastLocation');
+    const actionEl = document.getElementById('toastAction');
+    const brokerEl = document.getElementById('toastBroker');
+    const timeEl = document.getElementById('toastTime');
+    const closeBtn = document.getElementById('toastClose');
+
+    let isVisible = false;
+    let hideTimeout: number | null = null;
+
+    function showToast() {
+      if (isVisible) return;
+
+      const data = generateNotification();
+
+      if (avatarEl) avatarEl.textContent = data.initials;
+      if (nameEl) nameEl.textContent = data.name;
+      if (locationEl) locationEl.textContent = data.location;
+      if (actionEl && brokerEl) {
+        actionEl.innerHTML = `${data.action.text} <strong id="toastBroker">${data.broker}</strong>${data.action.suffix}`;
+      }
+      if (timeEl) timeEl.innerHTML = `<span></span>${data.time}`;
+
+      toast.classList.add('is-visible');
+      isVisible = true;
+
+      hideTimeout = window.setTimeout(() => {
+        hideToast();
+      }, duration);
+    }
+
+    function hideToast() {
+      toast.classList.remove('is-visible');
+      isVisible = false;
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+        hideTimeout = null;
+      }
+    }
+
+    // Close button handler
+    closeBtn?.addEventListener('click', () => {
+      hideToast();
+      // Don't show for the rest of the session
+      sessionStorage.setItem('hideToasts', 'true');
+    });
+
+    // Check if user dismissed toasts
+    if (sessionStorage.getItem('hideToasts') === 'true') {
+      return;
+    }
+
+    // Initial delay before first toast
+    setTimeout(() => {
+      showToast();
+
+      // Set up recurring toasts
+      setInterval(() => {
+        showToast();
+      }, interval);
+    }, delay);
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSocialProofToast);
+  } else {
+    initSocialProofToast();
+  }
+</script>

@@ -1,0 +1,531 @@
+---
+interface RatingCategory {
+  name: string;
+  score: number;
+  maxScore: number;
+  description?: string;
+}
+
+interface Props {
+  brokerName: string;
+  overallRating: number;
+  maxRating?: number;
+  ratingCategories: RatingCategory[];
+  verdict: string;
+  recommendation: string;
+  bestFor?: string[];
+  notIdealFor?: string[];
+  finalThoughts?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  variant?: 'default' | 'compact';
+}
+
+const { 
+  brokerName,
+  overallRating,
+  maxRating = 5,
+  ratingCategories = [],
+  verdict,
+  recommendation,
+  bestFor = [],
+  notIdealFor = [],
+  finalThoughts,
+  ctaText = `Start Trading with ${brokerName}`,
+  ctaUrl = '#',
+  variant = 'default'
+} = Astro.props;
+
+const percentage = (overallRating / maxRating) * 100;
+---
+
+<div class={`broker-verdict ${variant}`}>
+  <div class="verdict-header">
+    <div class="overall-rating-container">
+      <div class="overall-rating">
+        <div class="rating-circle">
+          <svg class="rating-progress" viewBox="0 0 36 36">
+            <path
+              class="circle-bg"
+              d="M18 2.0845
+                a 15.9155 15.9155 0 0 1 0 31.831
+                a 15.9155 15.9155 0 0 1 0 -31.831"
+            />
+            <path
+              class="circle"
+              stroke-dasharray={`${percentage}, 100`}
+              d="M18 2.0845
+                a 15.9155 15.9155 0 0 1 0 31.831
+                a 15.9155 15.9155 0 0 1 0 -31.831"
+            />
+          </svg>
+          <div class="rating-text">
+            <span class="rating-number">{overallRating}</span>
+            <span class="rating-max">/{maxRating}</span>
+          </div>
+        </div>
+      </div>
+      <div class="rating-info">
+        <h3 class="verdict-title">Our {brokerName} Verdict</h3>
+        <p class="verdict-summary">{verdict}</p>
+      </div>
+    </div>
+  </div>
+
+  {variant === 'default' && ratingCategories.length > 0 && (
+    <div class="rating-breakdown">
+      <h4 class="breakdown-title">Rating Breakdown</h4>
+      <div class="category-ratings">
+        {ratingCategories.map((category) => {
+          const categoryPercentage = (category.score / category.maxScore) * 100;
+          return (
+            <div class="category-item">
+              <div class="category-header">
+                <span class="category-name">{category.name}</span>
+                <span class="category-score">{category.score}/{category.maxScore}</span>
+              </div>
+              <div class="category-bar">
+                <div 
+                  class="category-progress" 
+                  style={`width: ${categoryPercentage}%`}
+                ></div>
+              </div>
+              {category.description && (
+                <p class="category-description">{category.description}</p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  )}
+
+  <div class="recommendation-section">
+    <div class="recommendation-content">
+      <h4 class="recommendation-title">Analyst Recommendation</h4>
+      <p class="recommendation-text">{recommendation}</p>
+      
+      {finalThoughts && (
+        <p class="final-thoughts">{finalThoughts}</p>
+      )}
+    </div>
+  </div>
+
+  {(bestFor.length > 0 || notIdealFor.length > 0) && (
+    <div class="suitability-section">
+      <div class="suitability-grid">
+        {bestFor.length > 0 && (
+          <div class="suitability-card best-for">
+            <div class="suitability-header">
+              <span class="suitability-icon">✓</span>
+              <h4 class="suitability-title">Best For</h4>
+            </div>
+            <ul class="suitability-list">
+              {bestFor.map((item) => (
+                <li class="suitability-item">{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        
+        {notIdealFor.length > 0 && (
+          <div class="suitability-card not-ideal-for">
+            <div class="suitability-header">
+              <span class="suitability-icon">⚠</span>
+              <h4 class="suitability-title">Not Ideal For</h4>
+            </div>
+            <ul class="suitability-list">
+              {notIdealFor.map((item) => (
+                <li class="suitability-item">{item}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+  )}
+
+  {ctaUrl && ctaUrl !== '#' && (
+    <div class="verdict-cta">
+      <a href={ctaUrl} target="_blank" rel="noopener" class="btn btn-primary btn-lg">
+        {ctaText} →
+      </a>
+      <p class="cta-disclaimer">
+        *We may receive compensation when you sign up with our partners. This doesn't influence our honest review.
+      </p>
+    </div>
+  )}
+</div>
+
+<style>
+  .broker-verdict {
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    margin: 3rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .broker-verdict.compact {
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+
+  .verdict-header {
+    margin-bottom: 2rem;
+  }
+
+  .overall-rating-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .overall-rating {
+    flex-shrink: 0;
+  }
+
+  .rating-circle {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rating-progress {
+    width: 120px;
+    height: 120px;
+    transform: rotate(-90deg);
+  }
+
+  .circle-bg {
+    fill: none;
+    stroke: var(--gray-200, #e5e7eb);
+    stroke-width: 2;
+  }
+
+  .circle {
+    fill: none;
+    stroke: var(--brand-orange, #ff4800);
+    stroke-width: 2;
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.6s ease-in-out;
+  }
+
+  .rating-text {
+    position: absolute;
+    text-align: center;
+  }
+
+  .rating-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--charcoal, #1e2427);
+  }
+
+  .rating-max {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--gray-500, #6b7280);
+  }
+
+  .rating-info {
+    flex: 1;
+  }
+
+  .verdict-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 1rem;
+  }
+
+  .verdict-summary {
+    font-size: 1.125rem;
+    color: var(--gray-700, #374151);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .rating-breakdown {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: var(--gray-50, #f9fafb);
+    border-radius: 1rem;
+  }
+
+  .breakdown-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 1.5rem;
+  }
+
+  .category-ratings {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .category-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--gray-200, #e5e7eb);
+  }
+
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .category-name {
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+  }
+
+  .category-score {
+    font-weight: 700;
+    color: var(--brand-orange, #ff4800);
+  }
+
+  .category-bar {
+    height: 8px;
+    background: var(--gray-200, #e5e7eb);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+  }
+
+  .category-progress {
+    height: 100%;
+    background: var(--brand-orange, #ff4800);
+    border-radius: 4px;
+    transition: width 0.8s ease-in-out;
+  }
+
+  .category-description {
+    font-size: 0.875rem;
+    color: var(--gray-600, #4b5563);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .recommendation-section {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--brand-orange-light, #fff7ed) 0%, var(--brand-orange-lighter, #fffbf5) 100%);
+    border-radius: 1rem;
+    border: 1px solid var(--brand-orange-200, #fed7aa);
+  }
+
+  .recommendation-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 1rem;
+  }
+
+  .recommendation-text {
+    font-size: 1rem;
+    color: var(--gray-700, #374151);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .final-thoughts {
+    font-size: 1rem;
+    color: var(--gray-700, #374151);
+    line-height: 1.6;
+    margin: 0;
+    font-style: italic;
+  }
+
+  .suitability-section {
+    margin-bottom: 2rem;
+  }
+
+  .suitability-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .suitability-card {
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid;
+  }
+
+  .suitability-card.best-for {
+    background: var(--success-light, #f0fdf4);
+    border-color: var(--success, #10b981);
+  }
+
+  .suitability-card.not-ideal-for {
+    background: var(--warning-light, #fffbeb);
+    border-color: var(--warning, #f59e0b);
+  }
+
+  .suitability-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .suitability-icon {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  .best-for .suitability-icon {
+    color: var(--success, #10b981);
+  }
+
+  .not-ideal-for .suitability-icon {
+    color: var(--warning, #f59e0b);
+  }
+
+  .suitability-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    margin: 0;
+  }
+
+  .suitability-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .suitability-item {
+    font-size: 0.875rem;
+    color: var(--gray-700, #374151);
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .suitability-item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+  }
+
+  .best-for .suitability-item::before {
+    color: var(--success, #10b981);
+  }
+
+  .not-ideal-for .suitability-item::before {
+    color: var(--warning, #f59e0b);
+  }
+
+  .verdict-cta {
+    text-align: center;
+    padding: 2rem;
+    background: var(--gray-50, #f9fafb);
+    border-radius: 1rem;
+    border: 1px solid var(--gray-200, #e5e7eb);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    background: var(--brand-orange, #ff4800);
+    color: white;
+    text-decoration: none;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    font-size: 1.125rem;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background: var(--brand-orange-dark, #e63e00);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 72, 0, 0.25);
+  }
+
+  .btn-lg {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.25rem;
+  }
+
+  .cta-disclaimer {
+    font-size: 0.8125rem;
+    color: var(--gray-500, #6b7280);
+    margin-top: 1rem;
+    margin-bottom: 0;
+    font-style: italic;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .broker-verdict {
+      padding: 2rem 1.5rem;
+    }
+
+    .overall-rating-container {
+      flex-direction: column;
+      text-align: center;
+      gap: 1.5rem;
+    }
+
+    .rating-circle {
+      width: 100px;
+      height: 100px;
+    }
+
+    .rating-progress {
+      width: 100px;
+      height: 100px;
+    }
+
+    .rating-number {
+      font-size: 1.75rem;
+    }
+
+    .rating-max {
+      font-size: 1.125rem;
+    }
+
+    .verdict-title {
+      font-size: 1.5rem;
+    }
+
+    .suitability-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .broker-verdict {
+      padding: 1.5rem 1rem;
+    }
+
+    .rating-breakdown,
+    .recommendation-section {
+      padding: 1.5rem;
+    }
+
+    .verdict-cta {
+      padding: 1.5rem;
+    }
+
+    .btn-lg {
+      padding: 1rem 2rem;
+      font-size: 1.125rem;
+    }
+  }
+</style>

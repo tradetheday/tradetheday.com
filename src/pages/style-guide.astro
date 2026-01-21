@@ -1,0 +1,996 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pageTitle = "Design Style Guide";
+const pageDescription = "TradeTheDay design system reference - colors, typography, components, and patterns.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} noindex={true}>
+  <div class="style-guide">
+    <section class="sg-hero">
+      <div class="container">
+        <h1>TradeTheDay Design System</h1>
+        <p class="body-large">A comprehensive guide to colors, typography, spacing, and components used across the site.</p>
+      </div>
+    </section>
+
+    <!-- Colors Section -->
+    <section class="sg-section">
+      <div class="container">
+        <h2 class="sg-section-title">Color Palette</h2>
+
+        <h3 class="sg-subsection-title">Brand Colors</h3>
+        <div class="sg-color-grid">
+          <div class="sg-color-card">
+            <div class="sg-color-swatch" style="background: var(--brand-orange);"></div>
+            <div class="sg-color-info">
+              <strong>Brand Orange</strong>
+              <code>--brand-orange</code>
+              <span>#FF4800</span>
+            </div>
+          </div>
+          <div class="sg-color-card">
+            <div class="sg-color-swatch" style="background: var(--brand-orange-dark);"></div>
+            <div class="sg-color-info">
+              <strong>Brand Orange Dark</strong>
+              <code>--brand-orange-dark</code>
+              <span>#e63e00</span>
+            </div>
+          </div>
+          <div class="sg-color-card">
+            <div class="sg-color-swatch" style="background: var(--brand-orange-light);"></div>
+            <div class="sg-color-info">
+              <strong>Brand Orange Light</strong>
+              <code>--brand-orange-light</code>
+              <span>#ff5c1a</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">Neutral Colors</h3>
+        <div class="sg-color-grid">
+          <div class="sg-color-card">
+            <div class="sg-color-swatch" style="background: var(--charcoal);"></div>
+            <div class="sg-color-info">
+              <strong>Charcoal</strong>
+              <code>--charcoal</code>
+              <span>#1E2427</span>
+            </div>
+          </div>
+          <div class="sg-color-card">
+            <div class="sg-color-swatch" style="background: var(--charcoal-light);"></div>
+            <div class="sg-color-info">
+              <strong>Charcoal Light</strong>
+              <code>--charcoal-light</code>
+              <span>#2a3136</span>
+            </div>
+          </div>
+          <div class="sg-color-card">
+            <div class="sg-color-swatch" style="background: var(--white);"></div>
+            <div class="sg-color-info">
+              <strong>White</strong>
+              <code>--white</code>
+              <span>#fafbfc</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">Gray Scale</h3>
+        <div class="sg-color-grid sg-color-grid-small">
+          <div class="sg-color-card-mini">
+            <div class="sg-color-swatch-mini" style="background: var(--gray-50);"></div>
+            <code>--gray-50</code>
+          </div>
+          <div class="sg-color-card-mini">
+            <div class="sg-color-swatch-mini" style="background: var(--gray-100);"></div>
+            <code>--gray-100</code>
+          </div>
+          <div class="sg-color-card-mini">
+            <div class="sg-color-swatch-mini" style="background: var(--gray-200);"></div>
+            <code>--gray-200</code>
+          </div>
+          <div class="sg-color-card-mini">
+            <div class="sg-color-swatch-mini" style="background: var(--gray-300);"></div>
+            <code>--gray-300</code>
+          </div>
+          <div class="sg-color-card-mini">
+            <div class="sg-color-swatch-mini" style="background: var(--gray-400);"></div>
+            <code>--gray-400</code>
+          </div>
+          <div class="sg-color-card-mini">
+            <div class="sg-color-swatch-mini" style="background: var(--gray-500);"></div>
+            <code>--gray-500</code>
+          </div>
+          <div class="sg-color-card-mini">
+            <div class="sg-color-swatch-mini" style="background: var(--gray-600);"></div>
+            <code>--gray-600</code>
+          </div>
+          <div class="sg-color-card-mini">
+            <div class="sg-color-swatch-mini" style="background: var(--gray-700);"></div>
+            <code>--gray-700</code>
+          </div>
+          <div class="sg-color-card-mini">
+            <div class="sg-color-swatch-mini" style="background: var(--gray-800);"></div>
+            <code>--gray-800</code>
+          </div>
+          <div class="sg-color-card-mini">
+            <div class="sg-color-swatch-mini" style="background: var(--gray-900);"></div>
+            <code>--gray-900</code>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">Status Colors</h3>
+        <div class="sg-color-grid">
+          <div class="sg-color-card">
+            <div class="sg-color-swatch" style="background: var(--success);"></div>
+            <div class="sg-color-info">
+              <strong>Success</strong>
+              <code>--success</code>
+              <span>#10B981</span>
+            </div>
+          </div>
+          <div class="sg-color-card">
+            <div class="sg-color-swatch" style="background: var(--error);"></div>
+            <div class="sg-color-info">
+              <strong>Error</strong>
+              <code>--error</code>
+              <span>#EF4444</span>
+            </div>
+          </div>
+          <div class="sg-color-card">
+            <div class="sg-color-swatch" style="background: var(--warning);"></div>
+            <div class="sg-color-info">
+              <strong>Warning</strong>
+              <code>--warning</code>
+              <span>#ffc107</span>
+            </div>
+          </div>
+          <div class="sg-color-card">
+            <div class="sg-color-swatch" style="background: var(--info);"></div>
+            <div class="sg-color-info">
+              <strong>Info</strong>
+              <code>--info</code>
+              <span>#0693e3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography Section -->
+    <section class="sg-section sg-section-alt">
+      <div class="container">
+        <h2 class="sg-section-title">Typography</h2>
+
+        <h3 class="sg-subsection-title">Headings</h3>
+        <div class="sg-type-samples">
+          <div class="sg-type-sample">
+            <h1 class="heading-1">Heading 1</h1>
+            <code>.heading-1 | 48px / 800 weight</code>
+          </div>
+          <div class="sg-type-sample">
+            <h2 class="heading-2">Heading 2</h2>
+            <code>.heading-2 | 40px / 700 weight</code>
+          </div>
+          <div class="sg-type-sample">
+            <h3 class="heading-3">Heading 3</h3>
+            <code>.heading-3 | 32px / 700 weight</code>
+          </div>
+          <div class="sg-type-sample">
+            <h4 class="heading-4">Heading 4</h4>
+            <code>.heading-4 | 24px / 600 weight</code>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">Body Text</h3>
+        <div class="sg-type-samples">
+          <div class="sg-type-sample">
+            <p class="body-large">Body Large - For lead paragraphs and important content that needs emphasis.</p>
+            <code>.body-large | 18px</code>
+          </div>
+          <div class="sg-type-sample">
+            <p>Body Default - Standard paragraph text used throughout the site for regular content.</p>
+            <code>default | 16px</code>
+          </div>
+          <div class="sg-type-sample">
+            <p class="body-sm">Body Small - For captions, metadata, and secondary information.</p>
+            <code>.body-sm | 14px</code>
+          </div>
+          <div class="sg-type-sample">
+            <p class="body-xs">Body Extra Small - For fine print and legal text.</p>
+            <code>.body-xs | 12px</code>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">Font Size Scale</h3>
+        <div class="sg-token-table">
+          <div class="sg-token-row">
+            <code>--font-size-xs</code>
+            <span>12px</span>
+          </div>
+          <div class="sg-token-row">
+            <code>--font-size-sm</code>
+            <span>14px</span>
+          </div>
+          <div class="sg-token-row">
+            <code>--font-size-base</code>
+            <span>16px</span>
+          </div>
+          <div class="sg-token-row">
+            <code>--font-size-lg</code>
+            <span>18px</span>
+          </div>
+          <div class="sg-token-row">
+            <code>--font-size-xl</code>
+            <span>20px</span>
+          </div>
+          <div class="sg-token-row">
+            <code>--font-size-2xl</code>
+            <span>24px</span>
+          </div>
+          <div class="sg-token-row">
+            <code>--font-size-3xl</code>
+            <span>32px</span>
+          </div>
+          <div class="sg-token-row">
+            <code>--font-size-4xl</code>
+            <span>40px</span>
+          </div>
+          <div class="sg-token-row">
+            <code>--font-size-5xl</code>
+            <span>48px</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spacing Section -->
+    <section class="sg-section">
+      <div class="container">
+        <h2 class="sg-section-title">Spacing System</h2>
+        <p class="body-large">Based on an 8px grid system for consistent rhythm.</p>
+
+        <div class="sg-spacing-grid">
+          <div class="sg-spacing-item">
+            <div class="sg-spacing-box" style="width: 8px; height: 8px;"></div>
+            <code>--space-xs</code>
+            <span>8px</span>
+          </div>
+          <div class="sg-spacing-item">
+            <div class="sg-spacing-box" style="width: 16px; height: 16px;"></div>
+            <code>--space-sm</code>
+            <span>16px</span>
+          </div>
+          <div class="sg-spacing-item">
+            <div class="sg-spacing-box" style="width: 24px; height: 24px;"></div>
+            <code>--space-md</code>
+            <span>24px</span>
+          </div>
+          <div class="sg-spacing-item">
+            <div class="sg-spacing-box" style="width: 32px; height: 32px;"></div>
+            <code>--space-lg</code>
+            <span>32px</span>
+          </div>
+          <div class="sg-spacing-item">
+            <div class="sg-spacing-box" style="width: 48px; height: 48px;"></div>
+            <code>--space-xl</code>
+            <span>48px</span>
+          </div>
+          <div class="sg-spacing-item">
+            <div class="sg-spacing-box" style="width: 64px; height: 64px;"></div>
+            <code>--space-2xl</code>
+            <span>64px</span>
+          </div>
+          <div class="sg-spacing-item">
+            <div class="sg-spacing-box" style="width: 80px; height: 80px;"></div>
+            <code>--space-3xl</code>
+            <span>80px</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Buttons Section -->
+    <section class="sg-section sg-section-alt">
+      <div class="container">
+        <h2 class="sg-section-title">Buttons</h2>
+
+        <h3 class="sg-subsection-title">Button Variants</h3>
+        <div class="sg-button-row">
+          <button class="btn btn-primary">Primary Button</button>
+          <button class="btn btn-secondary">Secondary Button</button>
+          <button class="btn btn-outline">Outline Button</button>
+          <button class="btn btn-ghost">Ghost Button</button>
+        </div>
+        <div class="sg-code-block">
+          <code>&lt;button class="btn btn-primary"&gt;Primary&lt;/button&gt;</code>
+          <code>&lt;button class="btn btn-secondary"&gt;Secondary&lt;/button&gt;</code>
+          <code>&lt;button class="btn btn-outline"&gt;Outline&lt;/button&gt;</code>
+          <code>&lt;button class="btn btn-ghost"&gt;Ghost&lt;/button&gt;</code>
+        </div>
+
+        <h3 class="sg-subsection-title">Button Sizes</h3>
+        <div class="sg-button-row">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary btn-md">Medium</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+          <button class="btn btn-primary btn-xl">Extra Large</button>
+        </div>
+        <div class="sg-code-block">
+          <code>.btn-sm | min-height: 36px</code>
+          <code>.btn-md | min-height: 44px (default)</code>
+          <code>.btn-lg | min-height: 48px</code>
+          <code>.btn-xl | larger padding</code>
+        </div>
+
+        <h3 class="sg-subsection-title">Disabled State</h3>
+        <div class="sg-button-row">
+          <button class="btn btn-primary" disabled>Disabled Primary</button>
+          <button class="btn btn-secondary" disabled>Disabled Secondary</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="sg-section">
+      <div class="container">
+        <h2 class="sg-section-title">Cards</h2>
+
+        <h3 class="sg-subsection-title">Light Theme Cards</h3>
+        <div class="sg-card-grid">
+          <div class="card">
+            <h4 class="heading-4">Basic Card</h4>
+            <p>Standard card component with padding, border, and rounded corners.</p>
+            <code>.card</code>
+          </div>
+          <div class="card card-hover">
+            <h4 class="heading-4">Hover Card</h4>
+            <p>Card with hover effect - lifts and shows shadow on hover.</p>
+            <code>.card .card-hover</code>
+          </div>
+          <div class="card card-highlight">
+            <h4 class="heading-4">Highlight Card</h4>
+            <p>Card with brand orange border for emphasis.</p>
+            <code>.card .card-highlight</code>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">Dark Theme Cards (Tools Pages)</h3>
+        <p class="body-sm">Used on dark background pages like calculators and tools. Import <code>tools.css</code>.</p>
+        <div class="sg-dark-preview">
+          <div class="tool-card">
+            <h4 style="color: var(--white); margin-bottom: 8px;">Tool Card</h4>
+            <p style="color: var(--gray-400);">Dark theme card for calculator inputs and tool sections.</p>
+            <code style="color: var(--brand-orange);">.tool-card</code>
+          </div>
+          <div class="tool-result-card">
+            <h4 style="color: var(--white); margin-bottom: 8px;">Result Card</h4>
+            <p style="color: var(--gray-400);">For displaying calculation results.</p>
+            <code style="color: var(--brand-orange);">.tool-result-card</code>
+          </div>
+          <div class="tool-result-card featured">
+            <h4 style="color: var(--white); margin-bottom: 8px;">Featured Result</h4>
+            <p style="color: var(--gray-400);">Highlighted result with orange border.</p>
+            <code style="color: var(--brand-orange);">.tool-result-card.featured</code>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Border Radius Section -->
+    <section class="sg-section sg-section-alt">
+      <div class="container">
+        <h2 class="sg-section-title">Border Radius</h2>
+
+        <div class="sg-radius-grid">
+          <div class="sg-radius-item">
+            <div class="sg-radius-box" style="border-radius: var(--radius-sm);"></div>
+            <code>--radius-sm</code>
+            <span>8px</span>
+          </div>
+          <div class="sg-radius-item">
+            <div class="sg-radius-box" style="border-radius: var(--radius-md);"></div>
+            <code>--radius-md</code>
+            <span>12px</span>
+          </div>
+          <div class="sg-radius-item">
+            <div class="sg-radius-box" style="border-radius: var(--radius-lg);"></div>
+            <code>--radius-lg</code>
+            <span>16px</span>
+          </div>
+          <div class="sg-radius-item">
+            <div class="sg-radius-box" style="border-radius: var(--radius-xl);"></div>
+            <code>--radius-xl</code>
+            <span>24px</span>
+          </div>
+          <div class="sg-radius-item">
+            <div class="sg-radius-box" style="border-radius: var(--radius-full);"></div>
+            <code>--radius-full</code>
+            <span>50px</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page Themes Section -->
+    <section class="sg-section">
+      <div class="container">
+        <h2 class="sg-section-title">Page Themes</h2>
+
+        <div class="sg-theme-grid">
+          <div class="sg-theme-card">
+            <div class="sg-theme-preview sg-theme-light">
+              <div class="sg-mini-header"></div>
+              <div class="sg-mini-content"></div>
+            </div>
+            <h4>Light Theme (Default)</h4>
+            <p>Used for: Homepage, Broker reviews, Guides, Bonus codes</p>
+            <code>Background: var(--white)</code>
+          </div>
+          <div class="sg-theme-card">
+            <div class="sg-theme-preview sg-theme-dark">
+              <div class="sg-mini-header"></div>
+              <div class="sg-mini-content"></div>
+            </div>
+            <h4>Dark Theme (Tools)</h4>
+            <p>Used for: Calculators, Tools, Interactive features</p>
+            <code>Background: var(--black) | Import tools.css</code>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">When to Use Each Theme</h3>
+        <div class="sg-usage-table">
+          <div class="sg-usage-row">
+            <strong>Light Theme</strong>
+            <span>Content-heavy pages, reviews, guides, informational pages</span>
+          </div>
+          <div class="sg-usage-row">
+            <strong>Dark Theme</strong>
+            <span>Interactive tools, calculators, data-heavy interfaces</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sections Section -->
+    <section class="sg-section sg-section-alt">
+      <div class="container">
+        <h2 class="sg-section-title">Section Classes</h2>
+
+        <div class="sg-token-table">
+          <div class="sg-token-row">
+            <code>.section</code>
+            <span>Standard section padding (80px vertical)</span>
+          </div>
+          <div class="sg-token-row">
+            <code>.section-light</code>
+            <span>White background section</span>
+          </div>
+          <div class="sg-token-row">
+            <code>.section-alt</code>
+            <span>Gray-50 background for alternating sections</span>
+          </div>
+          <div class="sg-token-row">
+            <code>.section-dark</code>
+            <span>Charcoal background with white text</span>
+          </div>
+          <div class="sg-token-row">
+            <code>.container</code>
+            <span>Max-width 1200px, centered with padding</span>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">Hero Sizes</h3>
+        <div class="sg-token-table">
+          <div class="sg-token-row">
+            <code>.hero-standard</code>
+            <span>64px padding - Most pages</span>
+          </div>
+          <div class="sg-token-row">
+            <code>.hero-large</code>
+            <span>80px padding - Reviews, detailed pages</span>
+          </div>
+          <div class="sg-token-row">
+            <code>.hero-xl</code>
+            <span>120px padding - Homepage only</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- File Structure Section -->
+    <section class="sg-section">
+      <div class="container">
+        <h2 class="sg-section-title">CSS File Structure</h2>
+
+        <div class="sg-file-tree">
+          <div class="sg-file-item">
+            <strong>src/styles/styles.css</strong>
+            <span>Main design system - variables, typography, buttons, cards, layout</span>
+          </div>
+          <div class="sg-file-item">
+            <strong>src/styles/global.css</strong>
+            <span>Global resets and base styles</span>
+          </div>
+          <div class="sg-file-item">
+            <strong>src/styles/tools.css</strong>
+            <span>Dark theme for calculator/tool pages</span>
+          </div>
+          <div class="sg-file-item">
+            <strong>src/styles/spacing-system.css</strong>
+            <span>Spacing utility classes</span>
+          </div>
+          <div class="sg-file-item">
+            <strong>src/styles/utilities.css</strong>
+            <span>Helper classes (text alignment, display, etc.)</span>
+          </div>
+        </div>
+
+        <h3 class="sg-subsection-title">Import Order</h3>
+        <div class="sg-code-block">
+          <code>// In BaseLayout.astro (already configured)</code>
+          <code>import '../styles/styles.css';</code>
+          <code>import '../styles/global.css';</code>
+          <code>import '../styles/spacing-system.css';</code>
+          <code>import '../styles/utilities.css';</code>
+          <code></code>
+          <code>// For tool pages only:</code>
+          <code>import '../styles/tools.css';</code>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accessibility Section -->
+    <section class="sg-section sg-section-alt">
+      <div class="container">
+        <h2 class="sg-section-title">Accessibility Guidelines</h2>
+
+        <div class="sg-a11y-grid">
+          <div class="sg-a11y-item">
+            <h4>Focus States</h4>
+            <p>All interactive elements must have visible <code>:focus-visible</code> styles with 2px orange outline.</p>
+          </div>
+          <div class="sg-a11y-item">
+            <h4>Color Contrast</h4>
+            <p>Minimum 4.5:1 contrast ratio for text. Use <code>rgba(255,255,255,0.75)</code> minimum on dark backgrounds.</p>
+          </div>
+          <div class="sg-a11y-item">
+            <h4>Touch Targets</h4>
+            <p>Minimum 44x44px for buttons and interactive elements on mobile.</p>
+          </div>
+          <div class="sg-a11y-item">
+            <h4>Decorative Icons</h4>
+            <p>Add <code>aria-hidden="true"</code> to emoji and decorative icons.</p>
+          </div>
+          <div class="sg-a11y-item">
+            <h4>Screen Readers</h4>
+            <p>Use <code>aria-label</code> for icon-only buttons and <code>role="img"</code> for star ratings.</p>
+          </div>
+          <div class="sg-a11y-item">
+            <h4>Reduced Motion</h4>
+            <p>Animations are disabled for users with <code>prefers-reduced-motion</code>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>
+    .style-guide {
+      background: var(--white);
+    }
+
+    .sg-hero {
+      background: var(--charcoal);
+      color: var(--white);
+      padding: var(--space-3xl) 0;
+      text-align: center;
+    }
+
+    .sg-hero h1 {
+      font-size: var(--font-size-4xl);
+      margin-bottom: var(--space-md);
+    }
+
+    .sg-section {
+      padding: var(--space-3xl) 0;
+    }
+
+    .sg-section-alt {
+      background: var(--gray-50);
+    }
+
+    .sg-section-title {
+      font-size: var(--font-size-3xl);
+      font-weight: 700;
+      margin-bottom: var(--space-xl);
+      color: var(--charcoal);
+    }
+
+    .sg-subsection-title {
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+      margin: var(--space-xl) 0 var(--space-md);
+      color: var(--charcoal);
+    }
+
+    /* Color Swatches */
+    .sg-color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--space-md);
+    }
+
+    .sg-color-grid-small {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    .sg-color-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .sg-color-swatch {
+      height: 80px;
+    }
+
+    .sg-color-info {
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .sg-color-info strong {
+      font-size: var(--font-size-sm);
+    }
+
+    .sg-color-info code {
+      font-size: var(--font-size-xs);
+      color: var(--brand-orange);
+    }
+
+    .sg-color-info span {
+      font-size: var(--font-size-xs);
+      color: var(--gray-500);
+    }
+
+    .sg-color-card-mini {
+      text-align: center;
+    }
+
+    .sg-color-swatch-mini {
+      height: 60px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-200);
+      margin-bottom: var(--space-xs);
+    }
+
+    .sg-color-card-mini code {
+      font-size: var(--font-size-xs);
+      color: var(--gray-600);
+    }
+
+    /* Typography Samples */
+    .sg-type-samples {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .sg-type-sample {
+      padding: var(--space-md);
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-md);
+    }
+
+    .sg-type-sample code {
+      display: block;
+      margin-top: var(--space-sm);
+      font-size: var(--font-size-xs);
+      color: var(--brand-orange);
+    }
+
+    /* Token Tables */
+    .sg-token-table {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .sg-token-row {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--space-md);
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .sg-token-row:last-child {
+      border-bottom: none;
+    }
+
+    .sg-token-row code {
+      color: var(--brand-orange);
+      font-weight: 600;
+    }
+
+    /* Spacing Grid */
+    .sg-spacing-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xl);
+      align-items: flex-end;
+    }
+
+    .sg-spacing-item {
+      text-align: center;
+    }
+
+    .sg-spacing-box {
+      background: var(--brand-orange);
+      margin: 0 auto var(--space-sm);
+    }
+
+    .sg-spacing-item code {
+      display: block;
+      font-size: var(--font-size-xs);
+      color: var(--brand-orange);
+    }
+
+    .sg-spacing-item span {
+      font-size: var(--font-size-xs);
+      color: var(--gray-500);
+    }
+
+    /* Button Row */
+    .sg-button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+
+    .sg-code-block {
+      background: var(--gray-100);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .sg-code-block code {
+      display: block;
+      font-size: var(--font-size-sm);
+      color: var(--gray-700);
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Card Grid */
+    .sg-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .sg-card-grid .card code {
+      display: block;
+      margin-top: var(--space-md);
+      font-size: var(--font-size-xs);
+      color: var(--brand-orange);
+    }
+
+    /* Dark Preview */
+    .sg-dark-preview {
+      background: var(--black);
+      padding: var(--space-xl);
+      border-radius: var(--radius-xl);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-md);
+    }
+
+    /* Radius Grid */
+    .sg-radius-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xl);
+    }
+
+    .sg-radius-item {
+      text-align: center;
+    }
+
+    .sg-radius-box {
+      width: 80px;
+      height: 80px;
+      background: var(--brand-orange);
+      margin: 0 auto var(--space-sm);
+    }
+
+    .sg-radius-item code {
+      display: block;
+      font-size: var(--font-size-xs);
+      color: var(--brand-orange);
+    }
+
+    .sg-radius-item span {
+      font-size: var(--font-size-xs);
+      color: var(--gray-500);
+    }
+
+    /* Theme Cards */
+    .sg-theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-xl);
+    }
+
+    .sg-theme-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+
+    .sg-theme-card h4 {
+      margin: var(--space-md) 0 var(--space-xs);
+    }
+
+    .sg-theme-card p {
+      font-size: var(--font-size-sm);
+      color: var(--gray-600);
+      margin-bottom: var(--space-sm);
+    }
+
+    .sg-theme-card code {
+      font-size: var(--font-size-xs);
+      color: var(--brand-orange);
+    }
+
+    .sg-theme-preview {
+      height: 120px;
+      border-radius: var(--radius-md);
+      padding: var(--space-sm);
+    }
+
+    .sg-theme-light {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+    }
+
+    .sg-theme-dark {
+      background: var(--black);
+    }
+
+    .sg-mini-header {
+      height: 20px;
+      background: var(--charcoal);
+      border-radius: 4px;
+      margin-bottom: var(--space-xs);
+    }
+
+    .sg-theme-light .sg-mini-header {
+      background: var(--charcoal);
+    }
+
+    .sg-theme-dark .sg-mini-header {
+      background: var(--charcoal-light);
+    }
+
+    .sg-mini-content {
+      height: 60px;
+      background: var(--gray-100);
+      border-radius: 4px;
+    }
+
+    .sg-theme-dark .sg-mini-content {
+      background: var(--gray-900);
+    }
+
+    /* Usage Table */
+    .sg-usage-table {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .sg-usage-row {
+      display: flex;
+      gap: var(--space-lg);
+      padding: var(--space-md);
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .sg-usage-row:last-child {
+      border-bottom: none;
+    }
+
+    .sg-usage-row strong {
+      min-width: 120px;
+      color: var(--brand-orange);
+    }
+
+    /* File Tree */
+    .sg-file-tree {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .sg-file-item {
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-md);
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .sg-file-item:last-child {
+      border-bottom: none;
+    }
+
+    .sg-file-item strong {
+      color: var(--brand-orange);
+      font-family: monospace;
+      margin-bottom: 4px;
+    }
+
+    .sg-file-item span {
+      font-size: var(--font-size-sm);
+      color: var(--gray-600);
+    }
+
+    /* A11y Grid */
+    .sg-a11y-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .sg-a11y-item {
+      background: white;
+      padding: var(--space-lg);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+    }
+
+    .sg-a11y-item h4 {
+      color: var(--brand-orange);
+      margin-bottom: var(--space-sm);
+    }
+
+    .sg-a11y-item p {
+      font-size: var(--font-size-sm);
+      color: var(--gray-600);
+    }
+
+    .sg-a11y-item code {
+      background: var(--gray-100);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: var(--font-size-xs);
+    }
+
+    @media (max-width: 768px) {
+      .sg-hero h1 {
+        font-size: var(--font-size-3xl);
+      }
+
+      .sg-section {
+        padding: var(--space-2xl) 0;
+      }
+
+      .sg-button-row {
+        flex-direction: column;
+      }
+
+      .sg-spacing-grid {
+        justify-content: center;
+      }
+    }
+  </style>
+</BaseLayout>

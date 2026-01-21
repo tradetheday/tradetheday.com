@@ -1,0 +1,543 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BrokerSelectorQuiz from '../../components/BrokerSelectorQuiz.astro';
+import FAQ from '../../components/FAQ.astro';
+import AnalystNotes from '../../components/AnalystNotes.astro';
+import { generateFAQSchema, generateWebApplicationSchema, generateBreadcrumbSchema } from '../../utils/seo';
+
+// Page metadata
+const title = 'Find Your Perfect Broker - AI-Powered Broker Selector';
+const description = 'Answer 5 simple questions and our AI-powered broker selector will match you with the best trading platform for your needs. Compare brokers by experience level, trading style, and more.';
+
+// Breadcrumb data - component format
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Find Your Broker', current: true }
+];
+
+// Breadcrumb data - schema format
+const breadcrumbSchemaItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Find Your Broker', url: '/find-broker/' }
+];
+
+// FAQ data
+const faqItems = [
+  {
+    question: 'How does the broker selector work?',
+    answer: 'Our broker selector asks you 5 key questions about your trading experience, preferred style, budget, and priorities. Based on your answers, our algorithm matches you with brokers that best fit your specific needs, showing you a match percentage for each recommendation.'
+  },
+  {
+    question: 'Are the broker recommendations biased?',
+    answer: 'Our recommendations are based on objective criteria including regulation, fees, features, and user feedback. While we may receive compensation from some brokers, this does not influence the match algorithm. Promoted brokers are clearly labeled.'
+  },
+  {
+    question: 'What factors determine the match score?',
+    answer: 'The match score considers five factors: your experience level (beginner/intermediate/advanced), preferred trading style (day trading, swing, scalping, etc.), asset interests (forex, crypto, stocks), budget range, and priority features (low fees, education, copy trading, etc.).'
+  },
+  {
+    question: 'Can I retake the quiz with different answers?',
+    answer: 'Yes! You can retake the quiz as many times as you like. This is helpful if your trading goals change or you want to explore different broker options for various strategies.'
+  },
+  {
+    question: 'Are all brokers regulated?',
+    answer: 'Yes, we only recommend brokers that are regulated by reputable financial authorities such as the FCA (UK), ASIC (Australia), CySEC (Cyprus), or equivalent tier-1 and tier-2 regulators. Regulation status is displayed for each broker.'
+  },
+  {
+    question: 'What if I\'m a complete beginner?',
+    answer: 'Our selector is perfect for beginners! Select "Beginner" for your experience level, and we\'ll prioritize brokers with excellent educational resources, user-friendly platforms, and strong customer support to help you learn.'
+  }
+];
+
+// Page-specific schemas
+const webAppSchema = generateWebApplicationSchema({
+  name: 'TradeTheDay Broker Selector',
+  description: 'AI-powered broker comparison tool that matches traders with the best brokers for their needs',
+  url: 'https://tradetheday.com/find-broker/',
+  applicationCategory: 'FinanceApplication'
+});
+
+const faqSchema = generateFAQSchema(faqItems);
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbSchemaItems);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogType="website"
+  schema={[webAppSchema, faqSchema, breadcrumbSchema]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero Section -->
+  <section class="find-hero">
+    <div class="container">
+      <div class="find-hero-content">
+        <span class="chip">AI-Powered</span>
+        <h1 class="heading-1">Find Your Perfect Broker</h1>
+        <p class="body-large find-hero-subtitle">
+          Answer 5 simple questions and we'll match you with the best broker for your trading style,
+          experience level, and goals. No more guesswork.
+        </p>
+
+        <div class="find-hero-stats">
+          <div class="find-hero-stat">
+            <span class="find-hero-stat-value">15+</span>
+            <span class="find-hero-stat-label">Verified Brokers</span>
+          </div>
+          <div class="find-hero-stat">
+            <span class="find-hero-stat-value">6+</span>
+            <span class="find-hero-stat-label">Top Regulators</span>
+          </div>
+          <div class="find-hero-stat">
+            <span class="find-hero-stat-value">30sec</span>
+            <span class="find-hero-stat-label">To Complete</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz Section -->
+  <section class="find-quiz-section">
+    <div class="container">
+      <div class="find-quiz-wrapper">
+        <BrokerSelectorQuiz variant="full" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Use Our Selector Section -->
+  <section class="find-why section">
+    <div class="container">
+      <div class="find-why-header">
+        <h2 class="heading-2">Why Use Our Broker Selector?</h2>
+        <p class="body-large">Stop wasting hours comparing brokers. Let our algorithm do the work.</p>
+      </div>
+
+      <div class="find-why-grid">
+        <div class="find-why-card">
+          <div class="find-why-icon">🎯</div>
+          <h3 class="heading-4">Personalized Matches</h3>
+          <p class="body-sm">
+            Our algorithm considers your unique needs, from experience level to trading style,
+            to find brokers that truly fit you.
+          </p>
+        </div>
+
+        <div class="find-why-card">
+          <div class="find-why-icon">✅</div>
+          <h3 class="heading-4">Only Regulated Brokers</h3>
+          <p class="body-sm">
+            Every broker in our database is licensed by respected authorities like the FCA,
+            ASIC, or CySEC. Your safety comes first.
+          </p>
+        </div>
+
+        <div class="find-why-card">
+          <div class="find-why-icon">⚡</div>
+          <h3 class="heading-4">30-Second Quiz</h3>
+          <p class="body-sm">
+            Just 5 quick questions. No sign-up required. Get instant, personalized
+            broker recommendations in under a minute.
+          </p>
+        </div>
+
+        <div class="find-why-card">
+          <div class="find-why-icon">📊</div>
+          <h3 class="heading-4">Unbiased Analysis</h3>
+          <p class="body-sm">
+            Our match scores are based on objective criteria. We clearly disclose any
+            affiliate relationships with full transparency.
+          </p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="How Our Broker Matching Algorithm Works"
+        icon="🧠"
+        id="algorithm-notes"
+        variant="dark"
+      >
+        <h4>The Science Behind Our Recommendations</h4>
+        <p>Our broker selector isn't just a simple filter - it's a weighted matching algorithm that considers how different broker attributes interact with your specific needs. Here's how we determine your best matches.</p>
+
+        <h5>Multi-Factor Scoring System</h5>
+        <p>Each broker in our database has scores across 12+ attributes: regulation quality, fee structure, platform options, educational resources, instrument range, minimum deposit requirements, leverage options, customer support quality, mobile experience, and more. When you answer our questions, we weight these attributes based on your priorities.</p>
+
+        <h5>Experience-Based Weighting</h5>
+        <p>If you're a beginner, we heavily weight educational resources, platform simplicity, and customer support quality. For advanced traders, we prioritize fee efficiency, platform depth, and instrument variety. Intermediate traders get a balanced consideration of both factors. This isn't one-size-fits-all matching.</p>
+
+        <h5>Trading Style Compatibility</h5>
+        <p>A scalper needs tight spreads and fast execution - we weight those heavily for that style. A position trader cares more about overnight swap rates and research tools. Day traders value platform reliability and charting. Your trading style fundamentally changes which broker attributes matter most.</p>
+
+        <h5>Budget Optimization</h5>
+        <p>Your budget range affects recommendations significantly. High minimum deposits are immediately disqualifying for lower budgets. Fee percentages matter more for smaller accounts (a 0.5% difference impacts a $500 account more than a $50,000 one). We optimize for value at your specific deposit level.</p>
+
+        <h5>Why Trust Our Matches?</h5>
+        <p>We only include brokers we've thoroughly reviewed. Every broker must be regulated by a reputable authority - we exclude offshore-only operators. Our algorithm weights are based on extensive testing and real user feedback. While we may receive affiliate commissions, these don't influence match scores - they're calculated before commercial considerations.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Comparison Factors Section -->
+  <section class="find-factors section section--alt">
+    <div class="container">
+      <h2 class="heading-2">What We Analyze</h2>
+      <p class="body-large">Our algorithm evaluates brokers across key categories that matter most to traders.</p>
+
+      <div class="find-factors-grid">
+        <div class="find-factor">
+          <h3 class="heading-5">Fees & Spreads</h3>
+          <p class="body-sm">Trading costs including spreads, commissions, and overnight fees.</p>
+        </div>
+        <div class="find-factor">
+          <h3 class="heading-5">Regulation</h3>
+          <p class="body-sm">Licensing from tier-1 authorities ensuring your funds are protected.</p>
+        </div>
+        <div class="find-factor">
+          <h3 class="heading-5">Platforms</h3>
+          <p class="body-sm">Trading software quality including MT4, MT5, and proprietary apps.</p>
+        </div>
+        <div class="find-factor">
+          <h3 class="heading-5">Education</h3>
+          <p class="body-sm">Learning resources for beginners and ongoing skill development.</p>
+        </div>
+        <div class="find-factor">
+          <h3 class="heading-5">Instruments</h3>
+          <p class="body-sm">Range of tradeable assets from forex to crypto to stocks.</p>
+        </div>
+        <div class="find-factor">
+          <h3 class="heading-5">Support</h3>
+          <p class="body-sm">Customer service quality and availability across time zones.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="find-faq section">
+    <div class="container container--narrow">
+      <h2 class="heading-2">Frequently Asked Questions</h2>
+      <FAQ questions={faqItems} />
+    </div>
+  </section>
+
+  <!-- Popular Comparisons Section -->
+  <section class="find-articles section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Popular Comparisons</h2>
+      <p class="body-large">Can't decide between specific brokers? Read our detailed head-to-head comparisons.</p>
+
+      <div class="comparisons-grid">
+        <div class="comparison-category">
+          <h3 class="heading-4">Broker Comparisons</h3>
+          <div class="comparison-links">
+            <a href="/compare/avatrade-vs-etoro/" class="comparison-link">
+              <span class="comparison-title">AvaTrade vs eToro</span>
+              <span class="comparison-desc">Copy trading showdown</span>
+            </a>
+            <a href="/compare/avatrade-vs-plus500/" class="comparison-link">
+              <span class="comparison-title">AvaTrade vs Plus500</span>
+              <span class="comparison-desc">Platform philosophy comparison</span>
+            </a>
+            <a href="/compare/pepperstone-vs-ic-markets/" class="comparison-link">
+              <span class="comparison-title">Pepperstone vs IC Markets</span>
+              <span class="comparison-desc">ECN broker showdown</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="comparison-category">
+          <h3 class="heading-4">Prop Firm Comparisons</h3>
+          <div class="comparison-links">
+            <a href="/compare/ftmo-vs-funded-trader/" class="comparison-link">
+              <span class="comparison-title">FTMO vs The Funded Trader</span>
+              <span class="comparison-desc">Which prop firm is better?</span>
+            </a>
+            <a href="/propfirms/" class="comparison-link">
+              <span class="comparison-title">All Prop Firms</span>
+              <span class="comparison-desc">Compare all prop trading firms</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-all-link">
+        <a href="/compare/" class="btn btn-secondary">View All Comparisons →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="find-cta section">
+    <div class="container">
+      <div class="find-cta-card">
+        <h2 class="heading-2">Ready to Find Your Broker?</h2>
+        <p class="body-large">
+          Take our 30-second quiz and get personalized broker recommendations based on your trading profile.
+        </p>
+        <a href="#" class="btn btn-primary btn-lg" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+          Start the Quiz
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .find-hero {
+    padding: var(--space-2xl) 0;
+    text-align: center;
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+  }
+
+  .find-hero-content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .find-hero .chip {
+    margin-bottom: var(--space-md);
+  }
+
+  .find-hero .heading-1 {
+    color: var(--white);
+    margin-bottom: var(--space-md);
+  }
+
+  .find-hero-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-xl);
+  }
+
+  .find-hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2xl);
+  }
+
+  .find-hero-stat {
+    text-align: center;
+  }
+
+  .find-hero-stat-value {
+    display: block;
+    font-size: var(--font-size-3xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+  }
+
+  .find-hero-stat-label {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .find-quiz-section {
+    padding: var(--space-xl) 0 var(--space-3xl);
+    background: var(--gray-100);
+  }
+
+  .find-quiz-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: var(--space-xl);
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .find-why-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .find-why-header h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .find-why-header p {
+    color: var(--gray-600);
+  }
+
+  .find-why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .find-why-card {
+    padding: var(--space-lg);
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+    text-align: center;
+  }
+
+  .find-why-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .find-why-card h3 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .find-why-card p {
+    color: var(--gray-600);
+    margin: 0;
+  }
+
+  .find-factors h2,
+  .find-factors > p {
+    text-align: center;
+    margin-bottom: var(--space-sm);
+  }
+
+  .find-factors > p {
+    margin-bottom: var(--space-xl);
+    color: var(--gray-600);
+  }
+
+  .find-factors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .find-factor {
+    padding: var(--space-lg);
+    background: var(--white);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-200);
+  }
+
+  .find-factor h3 {
+    margin-bottom: var(--space-sm);
+    color: var(--brand-orange);
+  }
+
+  .find-factor p {
+    color: var(--gray-600);
+    margin: 0;
+  }
+
+  .find-faq h2 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .find-cta {
+    padding: var(--space-2xl) 0;
+  }
+
+  .find-cta-card {
+    text-align: center;
+    padding: var(--space-2xl);
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--brand-orange);
+  }
+
+  .find-cta-card h2 {
+    margin-bottom: var(--space-sm);
+    color: var(--white);
+  }
+
+  .find-cta-card p {
+    margin-bottom: var(--space-lg);
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 1024px) {
+    .find-why-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Compare Articles Section */
+  .find-articles h2,
+  .find-articles > .container > p {
+    text-align: center;
+  }
+
+  .find-articles > .container > p {
+    margin-bottom: var(--space-xl);
+    color: var(--gray-600);
+  }
+
+  .comparisons-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .comparison-category h3 {
+    margin-bottom: var(--space-md);
+    color: var(--brand-orange);
+  }
+
+  .comparison-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .comparison-link {
+    display: block;
+    padding: var(--space-md);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .comparison-link:hover {
+    border-color: var(--brand-orange);
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .comparison-title {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .comparison-desc {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .view-all-link {
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .find-hero-stats {
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .find-why-grid,
+    .find-factors-grid,
+    .comparisons-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .find-quiz-wrapper {
+      padding: var(--space-lg);
+      margin: 0 calc(var(--space-md) * -1);
+      border-radius: 0;
+    }
+  }
+</style>

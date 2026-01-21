@@ -1,0 +1,305 @@
+---
+interface InfoItem {
+  label: string;
+  value: string;
+  type?: 'currency' | 'year' | 'location' | 'text' | 'list';
+}
+
+interface InfoSection {
+  title: string;
+  icon: string;
+  items: InfoItem[];
+  schemaType?: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  sections: InfoSection[];
+  columns?: number;
+  brokerName?: string;
+  schemaData?: {
+    name: string;
+    foundingDate: string;
+    headquarters: string;
+    regulators: string[];
+    minimumDeposit: string;
+    currencies: string[];
+    maxLeverage: string;
+    instrumentCount: string;
+  };
+}
+
+const { 
+  title = "Company Overview",
+  subtitle = "Key company and trading information",
+  sections = [],
+  columns = 3,
+  brokerName = "Broker",
+  schemaData
+} = Astro.props;
+
+// Helper function for schema.org itemprops
+function getItemProp(label: string) {
+  const propMap: Record<string, string> = {
+    'Minimum Deposit': 'priceRange',
+    'Base Currencies': 'currency', 
+    'Founded': 'foundingDate',
+    'Headquarters': 'address',
+    'Regulations': 'license',
+    'Max Leverage': 'additionalProperty',
+    'Instruments': 'serviceType',
+    'Islamic Account': 'additionalProperty'
+  };
+  return propMap[label] || 'additionalProperty';
+}
+
+// Generate JSON-LD structured data for SEO
+const structuredData = schemaData ? {
+  "@context": "https://schema.org",
+  "@type": "FinancialService",
+  "name": schemaData.name,
+  "foundingDate": schemaData.foundingDate,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": schemaData.headquarters
+  },
+  "serviceType": "Online Trading Platform",
+  "areaServed": "Worldwide",
+  "offers": {
+    "@type": "Offer",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "minPrice": schemaData.minimumDeposit,
+      "priceCurrency": schemaData.currencies[0]
+    }
+  },
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Maximum Leverage",
+      "value": schemaData.maxLeverage
+    },
+    {
+      "@type": "PropertyValue", 
+      "name": "Trading Instruments",
+      "value": schemaData.instrumentCount
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Supported Currencies",
+      "value": schemaData.currencies.join(", ")
+    }
+  ]
+} : null;
+---
+
+{structuredData && (
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+)}
+
+<div class="company-info-section">
+  {title && (
+    <div class="company-info-header">
+      <h3 class="heading-3">{title}</h3>
+      {subtitle && <p class="body-large company-info-subtitle">{subtitle}</p>}
+    </div>
+  )}
+  
+  <div class={`company-info-grid columns-${columns}`}>
+    {sections.map((section) => (
+      <div class="company-info-card" itemscope itemtype={section.schemaType}>
+        <div class="info-icon-container">
+          <span class="info-icon">{section.icon}</span>
+        </div>
+        <div class="info-content">
+          <h4 class="info-title" itemprop="name">{section.title}</h4>
+          <ul class="info-details-list">
+            {section.items.map((item) => (
+              <li class="info-detail-item">
+                <span class="detail-label">{item.label}:</span>
+                <span class="detail-value" itemprop={getItemProp(item.label)}>{item.value}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+
+<style>
+  .company-info-section {
+    margin: var(--space-component) 0;
+  }
+
+  .company-info-header {
+    text-align: center;
+    margin-bottom: var(--space-component);
+  }
+
+  .company-info-subtitle {
+    color: var(--gray-600, #4b5563);
+    margin-top: var(--space-content);
+  }
+
+  .company-info-grid {
+    display: grid;
+    gap: 2.5rem;
+    margin-top: var(--space-component);
+  }
+
+  .company-info-grid.columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .company-info-grid.columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .company-info-grid.columns-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .company-info-card {
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    height: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .company-info-card:hover {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 8px 25px rgba(255, 72, 0, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .info-icon-container {
+    margin-bottom: 2rem;
+  }
+
+  .info-icon {
+    font-size: 3.5rem;
+    display: block;
+    line-height: 1;
+    margin-bottom: 0;
+  }
+
+  .info-content {
+    text-align: center;
+  }
+
+  .info-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin: 0 0 1.5rem 0;
+    line-height: 1.2;
+  }
+
+  .info-details-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+  }
+
+  .info-detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .info-detail-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .detail-label {
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    flex-shrink: 0;
+    margin-right: 1rem;
+  }
+
+  .detail-value {
+    color: var(--gray-700, #374151);
+    text-align: right;
+    font-weight: 500;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .company-info-grid.columns-4,
+    .company-info-grid.columns-3 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .company-info-grid {
+      grid-template-columns: 1fr !important;
+      gap: 2rem;
+      margin-top: var(--space-content);
+    }
+    
+    .company-info-card {
+      padding: 2rem 1.5rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .info-icon {
+      font-size: 3rem;
+    }
+
+    .info-title {
+      font-size: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .info-detail-item {
+      font-size: 0.8125rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .company-info-card {
+      padding: 1.75rem 1.25rem;
+    }
+    
+    .info-icon-container {
+      margin-bottom: 1.5rem;
+    }
+    
+    .info-icon {
+      font-size: 2.5rem;
+    }
+    
+    .info-title {
+      font-size: 1.125rem;
+      margin-bottom: 1rem;
+    }
+    
+    .info-detail-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+      margin-bottom: 0.875rem;
+    }
+    
+    .detail-value {
+      text-align: left;
+      font-weight: 600;
+      color: var(--brand-orange, #ff4800);
+    }
+  }
+</style>

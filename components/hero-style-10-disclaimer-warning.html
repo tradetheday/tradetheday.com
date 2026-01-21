@@ -1,0 +1,170 @@
+<!-- Hero Style 10: Warning/Disclaimer Hero -->
+<!-- Copy this entire section to use the warning/disclaimer hero style -->
+<section class="hero-disclaimer section">
+    <div class="container">
+        <div class="hero-disclaimer-content">
+            <div class="disclaimer-main">
+                <div class="disclaimer-icon">⚠️</div>
+                <h1 class="heading-1">Important: Trading Involves Risk</h1>
+                <p class="body-large">Before you start trading with AvaTrade, it's crucial to understand the risks involved with CFD and forex trading.</p>
+            </div>
+            
+            <div class="risk-stats-grid">
+                <div class="risk-stat">
+                    <div class="risk-percentage">76%</div>
+                    <div class="risk-description">of retail accounts lose money when trading CFDs with this provider</div>
+                </div>
+                <div class="risk-stat">
+                    <div class="risk-percentage">High</div>
+                    <div class="risk-description">risk of losing money rapidly due to leverage</div>
+                </div>
+                <div class="risk-stat">
+                    <div class="risk-percentage">Education</div>
+                    <div class="risk-description">is essential before starting live trading</div>
+                </div>
+            </div>
+            
+            <div class="disclaimer-actions">
+                <div class="disclaimer-buttons">
+                    <a href="#" class="btn btn-primary btn-lg">I Understand the Risks</a>
+                    <a href="#" class="btn btn-outline btn-lg">Learn About Risk Management</a>
+                </div>
+                <p class="body-xs disclaimer-note">
+                    <strong>Regulated by:</strong> Central Bank of Ireland, ASIC, FSA, BVI FSC, ADGM, ISA<br>
+                    <strong>Client Protection:</strong> Segregated accounts, Investor compensation up to €20,000
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Hero Style 10: Disclaimer */
+.hero-disclaimer {
+    background: linear-gradient(135deg, #fff3f0 0%, #fafbfc 100%);
+    padding: var(--space-4xl) 0;
+    border: 2px solid rgba(239, 68, 68, 0.2);
+}
+
+.hero-disclaimer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.disclaimer-main {
+    margin-bottom: var(--space-2xl);
+}
+
+.disclaimer-icon {
+    font-size: 4rem;
+    margin-bottom: var(--space-lg);
+}
+
+.risk-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+    margin: var(--space-2xl) 0;
+}
+
+.risk-stat {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.risk-percentage {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--error);
+    margin-bottom: var(--space-sm);
+}
+
+.risk-description {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    line-height: 1.5;
+}
+
+.disclaimer-actions {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--gray-200);
+}
+
+.disclaimer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+    flex-wrap: wrap;
+}
+
+.disclaimer-note {
+    color: var(--gray-500);
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--charcoal);
+    border: 2px solid var(--gray-300);
+    font-weight: var(--font-weight-semibold);
+}
+
+.btn-outline:hover {
+    background: var(--gray-100);
+    border-color: var(--gray-400);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .risk-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .disclaimer-buttons {
+        flex-direction: column;
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Essential for financial services requiring risk disclosure
+2. Prominent warning design with regulatory compliance information
+3. Update risk statistics to match your actual data
+4. Modify regulatory information for your licenses
+5. Customize both CTA buttons for appropriate actions
+6. Automatically stacks content on mobile devices
+
+Customization Options:
+- Update risk stats: Replace percentages and descriptions with your data
+- Modify regulatory info: Update licenses and protection amounts
+- Change warning icon: Replace ⚠️ with different warning symbols
+- Customize buttons: Update text to match your risk acknowledgment flow
+- Add more stats: Copy risk-stat structure for additional warnings
+- Update colors: Modify error colors and warning background
+- Change layout: Adjust max-width for wider/narrower content
+
+Risk Stats Structure:
+Each risk-stat contains:
+- Bold percentage or keyword (risk-percentage)
+- Descriptive text explaining the risk (risk-description)
+- Warning styling with light red borders
+
+Regulatory Compliance:
+- Update "Regulated by" with your actual regulators
+- Modify protection amounts and schemes
+- Include relevant jurisdiction information
+- Add links to regulatory bodies if required
+
+Required CSS: design-system.css + embedded styles above
+-->

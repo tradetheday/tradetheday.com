@@ -1,0 +1,312 @@
+---
+interface Platform {
+  name: string;
+  logo: string;
+  description: string;
+  features: string[];
+  availability: string;
+  rating?: number;
+  supported: boolean;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  platforms: Platform[];
+  columns?: number;
+}
+
+const { 
+  title = "Trading Platforms",
+  subtitle = "Choose from multiple professional trading platforms",
+  platforms = [],
+  columns = 3
+} = Astro.props;
+---
+
+<div class="platform-grid-section">
+  {title && (
+    <div class="platform-header">
+      <h3 class="heading-3">{title}</h3>
+      {subtitle && <p class="body-large platform-subtitle">{subtitle}</p>}
+    </div>
+  )}
+  
+  <div class={`platforms-grid columns-${columns}`}>
+    {platforms.map((platform) => (
+      <div class={`platform-card ${!platform.supported ? 'unsupported' : ''}`}>
+        <div class="platform-logo-container">
+          <img 
+            src={platform.logo} 
+            alt={`${platform.name} Logo`} 
+            class="platform-logo"
+            loading="lazy"
+          />
+          {platform.rating && (
+            <div class="platform-rating">
+              <span class="rating-value">{platform.rating}</span>
+              <div class="rating-stars">
+                {Array.from({ length: 5 }, (_, i) => (
+                  <span class={`star ${i < Math.floor(platform.rating || 0) ? 'filled' : ''}`}>★</span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+        
+        <div class="platform-info">
+          <h4 class="platform-name">{platform.name}</h4>
+          <p class="platform-description">{platform.description}</p>
+          
+          {platform.features.length > 0 && (
+            <ul class="platform-features">
+              {platform.features.map((feature) => (
+                <li class="feature-item">
+                  <span class="feature-icon">✓</span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          )}
+          
+          <div class="platform-availability">
+            <span class="availability-label">Available on:</span>
+            <span class="availability-value">{platform.availability}</span>
+          </div>
+          
+          {!platform.supported && (
+            <div class="platform-status">
+              <span class="status-badge unsupported-badge">Not Available</span>
+            </div>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .platform-grid-section {
+    margin: 2rem 0;
+  }
+
+  .platform-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .platform-subtitle {
+    color: var(--gray-600, #4b5563);
+    margin-top: 0.5rem;
+  }
+
+  .platforms-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .platforms-grid.columns-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  .platforms-grid.columns-3 {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .platforms-grid.columns-4 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .platform-card {
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 2rem;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .platform-card:hover {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .platform-card.unsupported {
+    opacity: 0.6;
+    background: var(--gray-50, #f9fafb);
+  }
+
+  .platform-card.unsupported:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--gray-200, #e5e7eb);
+  }
+
+  .platform-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+    min-height: 60px;
+  }
+
+  .platform-logo {
+    max-height: 50px;
+    max-width: 150px;
+    object-fit: contain;
+  }
+
+  .platform-rating {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .rating-value {
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+  }
+
+  .rating-stars {
+    display: flex;
+    gap: 1px;
+  }
+
+  .star {
+    color: var(--gray-300, #d1d5db);
+    font-size: 0.75rem;
+  }
+
+  .star.filled {
+    color: var(--warning, #f59e0b);
+  }
+
+  .platform-info {
+    text-align: center;
+  }
+
+  .platform-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 0.75rem;
+  }
+
+  .platform-description {
+    font-size: 0.875rem;
+    color: var(--gray-600, #4b5563);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .platform-features {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    text-align: left;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--gray-700, #374151);
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-icon {
+    color: var(--success, #10b981);
+    font-weight: bold;
+    font-size: 0.75rem;
+  }
+
+  .platform-availability {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-200, #e5e7eb);
+  }
+
+  .availability-label {
+    font-size: 0.875rem;
+    color: var(--gray-500, #6b7280);
+    font-weight: 500;
+  }
+
+  .availability-value {
+    font-size: 0.875rem;
+    color: var(--charcoal, #1e2427);
+    font-weight: 600;
+  }
+
+  .platform-status {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .unsupported-badge {
+    background: var(--gray-100, #f3f4f6);
+    color: var(--gray-600, #4b5563);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .platforms-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem;
+    }
+    
+    .platform-card {
+      padding: 1.5rem;
+    }
+    
+    .platform-header {
+      margin-bottom: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .platform-card {
+      padding: 1.25rem;
+    }
+    
+    .platform-logo-container {
+      margin-bottom: 1rem;
+      min-height: 50px;
+    }
+    
+    .platform-logo {
+      max-height: 40px;
+      max-width: 120px;
+    }
+    
+    .platform-availability {
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: stretch;
+    }
+  }
+</style>

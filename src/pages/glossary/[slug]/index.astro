@@ -1,0 +1,389 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { glossaryTerms, getTermBySlug, type GlossaryTerm } from '../../../data/glossary';
+
+// Generate static paths for all glossary terms
+export function getStaticPaths() {
+  return glossaryTerms.map(term => ({
+    params: { slug: term.slug },
+    props: { term }
+  }));
+}
+
+interface Props {
+  term: GlossaryTerm;
+}
+
+const { term } = Astro.props;
+
+// Get related terms
+const relatedTermsData = term.relatedTerms
+  .map(slug => getTermBySlug(slug))
+  .filter((t): t is GlossaryTerm => t !== undefined);
+
+// Category labels
+const categoryLabels: Record<GlossaryTerm['category'], string> = {
+  'essential': 'Essential Term',
+  'technical': 'Technical Term',
+  'forex-slang': 'Forex Slang',
+  'order-type': 'Order Type'
+};
+
+// Format the name for the title
+const pageTitle = `What is ${term.name}? ${term.name} Explained`;
+const pageDescription = term.shortDescription;
+
+// Schema for SEO
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "DefinedTerm",
+  "name": term.name,
+  "description": term.shortDescription,
+  "inDefinedTermSet": {
+    "@type": "DefinedTermSet",
+    "name": "Trading Glossary",
+    "url": "https://tradetheday.com/glossary/"
+  }
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={schema}
+>
+  <!-- Breadcrumb -->
+  <nav slot="breadcrumb" class="breadcrumb-nav">
+    <div class="container">
+      <span class="breadcrumb">
+        <a href="/">Home</a>
+        <span class="breadcrumb-sep">&rsaquo;</span>
+        <a href="/glossary/">Glossary</a>
+        <span class="breadcrumb-sep">&rsaquo;</span>
+        <span class="breadcrumb-current">{term.name}</span>
+      </span>
+    </div>
+  </nav>
+
+  <article class="glossary-article">
+    <div class="container">
+      <div class="article-grid">
+        <!-- Main Content -->
+        <div class="article-main">
+          <header class="article-header">
+            <span class="chip">{categoryLabels[term.category]}</span>
+            {term.popular && <span class="popular-badge">Popular Term</span>}
+            <h1 class="heading-1">{term.name}</h1>
+          </header>
+
+          <!-- Definition Box -->
+          <div class="definition-box">
+            <p class="body-large"><strong>Definition:</strong> <span set:html={term.definition} /></p>
+          </div>
+
+          <!-- How It Works -->
+          {term.howItWorks && term.howItWorks.length > 0 && (
+            <section class="content-section">
+              <h2 class="heading-3">How It Works</h2>
+              <ul class="feature-list">
+                {term.howItWorks.map(item => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          <!-- Types -->
+          {term.types && term.types.length > 0 && (
+            <section class="content-section">
+              <h2 class="heading-3">Types of {term.name}</h2>
+              <div class="table-container">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {term.types.map(type => (
+                      <tr>
+                        <td><strong>{type.name}</strong></td>
+                        <td>{type.description}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          )}
+
+          <!-- Trading Tips -->
+          {term.tradingTips && term.tradingTips.length > 0 && (
+            <section class="content-section">
+              <h2 class="heading-3">Trading Tips</h2>
+              <ul class="tip-list">
+                {term.tradingTips.map(tip => (
+                  <li>{tip}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          <!-- Related Terms -->
+          {relatedTermsData.length > 0 && (
+            <section class="content-section">
+              <h2 class="heading-3">Related Terms</h2>
+              <div class="related-terms">
+                {relatedTermsData.map(relatedTerm => (
+                  <a href={`/glossary/${relatedTerm.slug}/`} class="btn btn-secondary btn-sm">
+                    {relatedTerm.name}
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- Back Link -->
+          <div class="back-link">
+            <a href="/glossary/" class="btn btn-secondary">&larr; Back to Glossary</a>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="article-sidebar">
+          <div class="sidebar-card">
+            <h3>Ready to Trade?</h3>
+            <p>Put your knowledge into practice with a regulated broker.</p>
+            <a href="/find-broker/" class="btn btn-primary btn-full">Find Your Broker</a>
+          </div>
+
+          <div class="sidebar-card sidebar-card-dark">
+            <h3>Get Trading Signals</h3>
+            <p>Free AI-powered trading signals delivered daily.</p>
+            <a href="/signals/" class="btn btn-secondary btn-full">Learn More</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </article>
+
+  <!-- CTA Section -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="heading-2">Start Trading with Confidence</h2>
+        <p class="body-large">Compare regulated brokers and find the best one for your trading style.</p>
+        <a href="/brokers/" class="btn btn-primary btn-xl">Compare Brokers</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .breadcrumb-nav {
+    padding: var(--space-sm) 0;
+    background: var(--gray-100);
+  }
+
+  .breadcrumb {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .breadcrumb a {
+    color: var(--gray-600);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--brand-orange);
+  }
+
+  .breadcrumb-sep {
+    margin: 0 var(--space-xs);
+  }
+
+  .breadcrumb-current {
+    color: var(--charcoal);
+  }
+
+  .glossary-article {
+    padding: var(--space-xl) 0 var(--space-2xl);
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 1024px) {
+    .article-grid {
+      grid-template-columns: 1fr 300px;
+    }
+  }
+
+  .article-header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .article-header .chip {
+    margin-right: var(--space-sm);
+  }
+
+  .popular-badge {
+    display: inline-block;
+    background: var(--brand-orange);
+    color: white;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    vertical-align: middle;
+  }
+
+  .article-header .heading-1 {
+    margin-top: var(--space-md);
+    margin-bottom: 0;
+  }
+
+  .definition-box {
+    background: var(--gray-50);
+    border-left: 4px solid var(--brand-orange);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .definition-box p {
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .content-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .content-section .heading-3 {
+    margin-bottom: var(--space-md);
+  }
+
+  .feature-list,
+  .tip-list {
+    margin: 0;
+    padding-left: var(--space-lg);
+  }
+
+  .feature-list li,
+  .tip-list li {
+    margin-bottom: var(--space-sm);
+    line-height: 1.6;
+    color: var(--gray-700);
+  }
+
+  .tip-list {
+    list-style: disc;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .table th,
+  .table td {
+    padding: var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .table th {
+    background: var(--gray-50);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .table tr:hover td {
+    background: var(--gray-50);
+  }
+
+  .related-terms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .back-link {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  /* Sidebar */
+  .article-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  @media (min-width: 1024px) {
+    .article-sidebar {
+      position: sticky;
+      top: 100px;
+      align-self: start;
+    }
+  }
+
+  .sidebar-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .sidebar-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .sidebar-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .sidebar-card-dark {
+    background: var(--charcoal);
+    border-color: transparent;
+  }
+
+  .sidebar-card-dark h3,
+  .sidebar-card-dark p {
+    color: var(--white);
+  }
+
+  .sidebar-card-dark p {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* CTA Section */
+  .cta-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-content .heading-2 {
+    color: var(--white);
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-content .body-large {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-lg);
+  }
+</style>

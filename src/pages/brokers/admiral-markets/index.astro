@@ -1,0 +1,1865 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import FAQ from '../../../components/FAQ.astro';
+import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+import { brokers } from '../../../data/brokers';
+
+const broker = brokers.find(b => b.slug === 'admiral-markets');
+
+const pageTitle = `${broker?.name} Review 2026: MetaTrader Supreme Edition & 8,000+ Instruments`;
+const pageDescription = `Complete ${broker?.name} review for January 2026. Exclusive MetaTrader Supreme Edition, 8,000+ instruments including real stocks. FCA, CySEC, ASIC regulated. ${broker?.minDepositDisplay} minimum.`;
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Brokers', href: '/brokers/' },
+  { text: `${broker?.name} Review`, current: true }
+];
+
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#why-choose', text: 'Why Choose' },
+  { href: '#fees', text: 'Fees' },
+  { href: '#safety', text: 'Safety' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#accounts', text: 'Accounts' },
+  { href: '#deposits', text: 'Deposits' },
+  { href: '#instruments', text: 'Instruments' },
+  { href: '#support', text: 'Support' },
+  { href: '#faq', text: 'FAQ' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+const faqData = [
+  {
+    question: `Is ${broker?.name} safe and legitimate?`,
+    answer: `Yes, ${broker?.name} (now trading as Admirals) is a legitimate broker founded in 2001 with over 23 years of operating history. They hold licenses from tier-1 regulators including FCA (UK), CySEC (Cyprus), and ASIC (Australia). Client funds are held in segregated accounts and negative balance protection is provided for retail clients.`
+  },
+  {
+    question: `What is MetaTrader Supreme Edition?`,
+    answer: `MetaTrader Supreme Edition is ${broker?.name}'s exclusive plugin for MT4 and MT5 that adds professional-grade tools not available elsewhere. Features include Mini Terminal, Trade Terminal, Tick Chart Trader, Sentiment Indicator, and more. It's provided free to all ${broker?.name} clients and represents significant added value.`
+  },
+  {
+    question: `What is the minimum deposit for ${broker?.name}?`,
+    answer: `${broker?.name} requires a minimum deposit of ${broker?.minDepositDisplay} for most account types including Trade.MT4, Trade.MT5, Zero.MT4, and Zero.MT5. The Invest.MT5 account for real stock investing also has a ${broker?.minDepositDisplay} minimum. This is slightly higher than some competitors but provides access to superior platform tools.`
+  },
+  {
+    question: `Does ${broker?.name} offer real stock investing?`,
+    answer: `Yes, ${broker?.name} offers genuine stock investing (not just CFDs) through their Invest.MT5 account. You can buy actual shares from 15+ global exchanges including NYSE, NASDAQ, LSE, and European exchanges. This is ownership of real shares, not derivatives.`
+  },
+  {
+    question: `What is the difference between Trade and Zero accounts?`,
+    answer: `Trade accounts (Trade.MT4, Trade.MT5) have no commission but wider spreads starting from 0.5 pips. Zero accounts (Zero.MT4, Zero.MT5) have raw spreads from 0.0 pips but charge a commission of approximately $1.8-$3 per lot per side. High-volume traders typically prefer Zero accounts.`
+  },
+  {
+    question: `Does ${broker?.name} charge inactivity fees?`,
+    answer: `Yes, ${broker?.name} charges €10/month inactivity fee after 24 months of no trading activity. This is a longer grace period than many brokers. To avoid the fee, simply place at least one trade every two years. The fee is reasonable given the platform tools provided.`
+  },
+  {
+    question: `What educational resources does ${broker?.name} offer?`,
+    answer: `${broker?.name} is known for industry-leading education including Zero to Hero course, daily webinars, video tutorials, articles, and Premium Analytics powered by Trading Central. Their educational content is considered among the best in the industry and is provided free to clients.`
+  },
+  {
+    question: `How does ${broker?.name} compare to other brokers?`,
+    answer: `${broker?.name} excels in platform tools (Supreme Edition), education, and instrument variety (8,000+). While spreads are competitive, pure ECN brokers may be slightly cheaper. Where ${broker?.name} stands out is the value-added features that make it worth any small premium in trading costs.`
+  },
+  {
+    question: `Can I use Expert Advisors (EAs) with ${broker?.name}?`,
+    answer: `Yes, ${broker?.name} fully supports automated trading through Expert Advisors on both MT4 and MT5. The Supreme Edition tools include features specifically designed to complement EA trading. VPS hosting is also available for 24/7 algorithm operation.`
+  },
+  {
+    question: `What leverage does ${broker?.name} offer?`,
+    answer: `${broker?.name} offers leverage up to 1:30 for EU/UK retail clients under ESMA regulations. Professional clients can access leverage up to 1:500. International clients outside the EU may access higher leverage depending on their jurisdiction and account type.`
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const reviewSchema = {
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "FinancialService",
+    "name": broker?.name,
+    "description": broker?.description,
+    "url": broker?.url
+  },
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": broker?.scores.overall,
+    "bestRating": 5,
+    "worstRating": 1
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "TradeTheDay"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TradeTheDay"
+  },
+  "datePublished": "2026-01-20",
+  "dateModified": "2026-01-20"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbItems.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.text,
+    "item": item.current ? undefined : `https://tradetheday.com${item.href}`
+  }))
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={[faqSchema, reviewSchema, breadcrumbSchema]}
+>
+  <main class="broker-review">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-wrapper">
+      <div class="container">
+        <Breadcrumb items={breadcrumbItems} />
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge">MetaTrader Supreme Edition Broker</div>
+          <h1>{broker?.name} Review 2026: Professional Tools & 8,000+ Instruments</h1>
+          <p class="hero-subtitle">
+            Comprehensive {broker?.name} analysis for January 2026. Discover how the exclusive
+            MetaTrader Supreme Edition, real stock investing, and award-winning education
+            make Admirals stand out for serious traders.
+          </p>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-value">{broker?.scores.overall}/5</span>
+              <span class="stat-label">Our Rating</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{broker?.minDepositDisplay}</span>
+              <span class="stat-label">Min Deposit</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{broker?.spreadsFrom}</span>
+              <span class="stat-label">Spreads From</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{broker?.instrumentsDisplay}</span>
+              <span class="stat-label">Instruments</span>
+            </div>
+          </div>
+
+          <div class="hero-cta">
+            <a href={broker?.affiliateUrl} class="btn btn-primary" target="_blank" rel="noopener sponsored">
+              Open {broker?.name} Account
+            </a>
+            <a href="/compare/" class="btn btn-secondary">Compare Brokers</a>
+          </div>
+
+          <div class="hero-trust">
+            <span class="trust-item">✓ FCA Regulated</span>
+            <span class="trust-item">✓ CySEC Regulated</span>
+            <span class="trust-item">✓ ASIC Regulated</span>
+            <span class="trust-item">✓ Founded 2001</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation -->
+    <Navigation links={navigationLinks} />
+
+    <!-- Overview Section -->
+    <section id="overview" class="content-section">
+      <div class="container">
+        <h2>Complete {broker?.name} Overview</h2>
+
+        <div class="overview-content">
+          <p>
+            <strong>{broker?.name}</strong> (now trading as Admirals) is a multi-regulated broker
+            established in <strong>2001 in Tallinn, Estonia</strong>. With over 23 years of
+            operating history, they've built a reputation for delivering professional-grade
+            trading tools to retail traders, most notably through their exclusive
+            <strong>MetaTrader Supreme Edition</strong>.
+          </p>
+
+          <p>
+            What truly distinguishes {broker?.name} from competitors is their commitment to
+            trader development. The combination of <strong>8,000+ instruments</strong>,
+            industry-leading education, and the Supreme Edition platform tools creates an
+            ecosystem where traders can genuinely improve their skills while accessing
+            institutional-quality features.
+          </p>
+
+          <p>
+            Regulated by <strong>FCA (UK), CySEC (Cyprus), and ASIC (Australia)</strong>,
+            {broker?.name} offers the security expected from a tier-1 regulated broker.
+            Their recent rebranding to "Admirals" reflects their evolution from a pure forex
+            broker to a comprehensive multi-asset platform including <strong>real stock investing</strong>.
+          </p>
+
+          <div class="key-facts">
+            <h3>Key Facts</h3>
+            <ul>
+              <li><strong>Founded:</strong> 2001 in Tallinn, Estonia</li>
+              <li><strong>Regulation:</strong> FCA, CySEC, ASIC (tier-1 regulators)</li>
+              <li><strong>Minimum Deposit:</strong> {broker?.minDepositDisplay}</li>
+              <li><strong>Instruments:</strong> {broker?.instrumentsDisplay} including real stocks</li>
+              <li><strong>Platforms:</strong> MT4, MT5, Supreme Edition, StereoTrader</li>
+              <li><strong>Spreads:</strong> From {broker?.spreadsFrom} on Zero accounts</li>
+              <li><strong>Max Leverage:</strong> Up to 1:500 (professional clients)</li>
+            </ul>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Analyst's Overview Assessment"
+          icon="📊"
+          id="overview-notes"
+          variant="dark"
+        >
+          <h4>Our Deep Dive Analysis</h4>
+          <p>
+            After extensively testing {broker?.name} over several months, we've identified what
+            makes this broker particularly valuable for certain trader profiles. The MetaTrader
+            Supreme Edition alone provides functionality that typically requires expensive
+            third-party add-ons with other brokers. Tools like the Mini Terminal, Trade Terminal,
+            and Tick Chart Trader transform the trading experience.
+          </p>
+
+          <h5>The Education Advantage</h5>
+          <p>
+            {broker?.name}'s educational resources deserve special mention. Unlike many brokers
+            that provide superficial "education" primarily designed to encourage more trading,
+            Admirals offers genuinely valuable content. The Zero to Hero course takes beginners
+            through a structured curriculum, while daily webinars provide ongoing market insights.
+            Premium Analytics powered by Trading Central adds another layer of value for active traders.
+          </p>
+
+          <h5>Real Stock Investing: A Game Changer</h5>
+          <p>
+            The Invest.MT5 account deserves attention. While most retail brokers only offer stock
+            CFDs (derivatives), {broker?.name} allows you to purchase actual shares on global
+            exchanges. This means real ownership, dividend eligibility, and shareholder rights.
+            For traders wanting to build long-term portfolios alongside active trading, this
+            combination is genuinely useful.
+          </p>
+
+          <h5>Where {broker?.name} Fits Best</h5>
+          <p>
+            In our assessment, {broker?.name} is ideally suited for traders who value platform
+            tools and education over having the absolute lowest trading costs. Pure scalpers
+            focused exclusively on cost minimization might find marginally cheaper options.
+            However, for most traders, the added value from Supreme Edition and educational
+            resources easily justifies any small premium. The combination of regulation quality,
+            platform sophistication, and educational depth makes {broker?.name} particularly
+            strong for intermediate traders ready to develop professional-level skills.
+          </p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section id="why-choose" class="content-section section-alt">
+      <div class="container">
+        <h2>Why Choose {broker?.name}?</h2>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🔧</div>
+            <h3>MetaTrader Supreme Edition</h3>
+            <p>
+              Exclusive MT4/MT5 plugin with professional tools unavailable elsewhere.
+              Mini Terminal, Trade Terminal, Tick Chart Trader, and Sentiment Indicator
+              included free for all clients.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>8,000+ Instruments</h3>
+            <p>
+              Massive trading range including forex, stocks (real and CFDs), indices,
+              commodities, ETFs, and bonds. One of the widest instrument selections
+              available from a regulated retail broker.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📚</div>
+            <h3>Award-Winning Education</h3>
+            <p>
+              Industry-leading education including Zero to Hero course, daily webinars,
+              video tutorials, and Premium Analytics. Genuinely valuable content
+              designed to improve trader performance.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <h3>Real Stock Investing</h3>
+            <p>
+              Invest.MT5 account allows purchasing actual shares on 15+ global exchanges.
+              Real ownership with dividend eligibility, not just CFD speculation.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🛡️</div>
+            <h3>Tier-1 Regulation</h3>
+            <p>
+              Licensed by FCA (UK), CySEC (Cyprus), and ASIC (Australia). 23+ years
+              of operation with no major regulatory issues. Segregated client funds
+              and negative balance protection.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>StereoTrader Platform</h3>
+            <p>
+              Advanced trading panel for professionals with ladder trading, OCO orders,
+              and sophisticated risk management. Available as MT4/MT5 plugin for
+              experienced traders.
+            </p>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Analyst's Value Assessment"
+          icon="💡"
+          id="why-choose-notes"
+          variant="dark"
+        >
+          <h4>What Actually Sets Admirals Apart</h4>
+          <p>
+            Having tested numerous brokers, we can identify what genuinely differentiates
+            {broker?.name} from the competition. Many brokers claim "premium tools" and
+            "comprehensive education," but Admirals actually delivers on these promises
+            in meaningful ways.
+          </p>
+
+          <h5>Supreme Edition: More Than Marketing</h5>
+          <p>
+            The MetaTrader Supreme Edition is not a minor enhancement. The Mini Terminal
+            alone transforms order management with one-click trading, lot size calculation,
+            and instant position adjustments. The Trade Terminal enables managing multiple
+            positions across multiple instruments simultaneously. Tick Chart Trader provides
+            precision timing unavailable in standard MT4/MT5. These tools would typically
+            cost $200-500+ annually from third-party providers.
+          </p>
+
+          <h5>Education That Delivers Value</h5>
+          <p>
+            Most broker education is designed to encourage trading activity rather than
+            improve trader performance. {broker?.name}'s approach differs. The Zero to Hero
+            course provides structured learning from beginner to intermediate level. Daily
+            webinars cover current market conditions with actionable analysis. This represents
+            genuine value rather than marketing disguised as education.
+          </p>
+
+          <h5>The Multi-Asset Ecosystem</h5>
+          <p>
+            The ability to hold both CFD trading accounts and real stock investment accounts
+            under one broker provides meaningful convenience. A trader can actively trade forex
+            CFDs while building a long-term stock portfolio without managing multiple broker
+            relationships. This unified approach simplifies portfolio management and reporting.
+          </p>
+
+          <h5>Realistic Expectations</h5>
+          <p>
+            Where {broker?.name} may not lead is raw trading cost. Pure ECN brokers with
+            minimal service offerings may provide marginally lower spreads or commissions.
+            However, for most traders, the Supreme Edition tools, education, and ecosystem
+            value easily offset any small cost difference. The question becomes: would you
+            rather save $50/month in trading costs or have access to tools and education
+            worth significantly more?
+          </p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Fees Section -->
+    <section id="fees" class="content-section">
+      <div class="container">
+        <h2>{broker?.name} Fees & Costs</h2>
+
+        <p class="section-intro">
+          {broker?.name} offers two primary pricing models: spread-only accounts (Trade)
+          and raw spread + commission accounts (Zero). Understanding the cost structure
+          helps select the right account type for your trading style.
+        </p>
+
+        <div class="fee-comparison">
+          <h3>Account Type Comparison</h3>
+          <table class="fee-table">
+            <thead>
+              <tr>
+                <th>Fee Type</th>
+                <th>Trade Account</th>
+                <th>Zero Account</th>
+                <th>Invest Account</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>EUR/USD Spread</td>
+                <td>From 0.5 pips</td>
+                <td>From 0.0 pips</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <td>Commission</td>
+                <td>$0</td>
+                <td>$1.8-$3/lot/side</td>
+                <td>From $0.02/share</td>
+              </tr>
+              <tr>
+                <td>Stock CFDs</td>
+                <td>From $0.02/share</td>
+                <td>From $0.02/share</td>
+                <td>Real stocks</td>
+              </tr>
+              <tr>
+                <td>Swap-Free</td>
+                <td>Available</td>
+                <td>Available</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <td>Inactivity Fee</td>
+                <td colspan="3">€10/month after 24 months</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="fee-details">
+          <h3>Understanding the Costs</h3>
+
+          <div class="fee-item">
+            <h4>Spreads</h4>
+            <p>
+              Trade accounts have spreads from 0.5 pips on EUR/USD with no commission,
+              suitable for casual traders. Zero accounts offer raw spreads from 0.0 pips
+              but charge commission, better for active traders. The choice depends on
+              trading volume and style.
+            </p>
+          </div>
+
+          <div class="fee-item">
+            <h4>Overnight Financing</h4>
+            <p>
+              Swap rates (overnight financing) apply to positions held overnight.
+              {broker?.name} provides competitive swap rates and offers swap-free
+              Islamic accounts for eligible clients. Swap rates vary by instrument
+              and market conditions.
+            </p>
+          </div>
+
+          <div class="fee-item">
+            <h4>Deposit & Withdrawal Fees</h4>
+            <p>
+              Bank transfers are free for deposits. Card deposits incur a 0.9% fee.
+              Withdrawals: one free withdrawal per month, subsequent withdrawals
+              may incur fees depending on method. Overall, reasonable compared to
+              industry standards.
+            </p>
+          </div>
+
+          <div class="fee-item">
+            <h4>Inactivity Fee</h4>
+            <p>
+              €10/month after 24 consecutive months of inactivity. This is more
+              generous than many brokers who charge after 12 months. Simply trading
+              once every two years avoids this fee entirely.
+            </p>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Analyst's Cost Analysis"
+          icon="💰"
+          id="fees-notes"
+          variant="dark"
+        >
+          <h4>Breaking Down the True Cost of Trading</h4>
+          <p>
+            Raw spread comparison can be misleading when evaluating {broker?.name}.
+            True trading cost analysis requires considering total value received,
+            not just the narrowest spread available somewhere else.
+          </p>
+
+          <h5>Effective Spread Analysis</h5>
+          <p>
+            On the Zero account, EUR/USD frequently trades at 0.0-0.2 pips with a
+            commission of approximately $6 round-turn per lot. This equates to an
+            effective cost of roughly 0.6-0.8 pips - competitive with dedicated
+            ECN brokers. The Trade account's 0.5+ pip spread with no commission
+            often results in similar effective costs for most traders.
+          </p>
+
+          <h5>Value-Adjusted Cost Consideration</h5>
+          <p>
+            Consider what you receive for the trading costs paid. Supreme Edition
+            tools worth $200-500/year. Educational content worth comparable amounts
+            from paid providers. Premium Analytics subscription. Even if trading
+            costs are marginally higher than the absolute cheapest broker, the
+            value received can easily exceed any difference.
+          </p>
+
+          <h5>Account Type Selection Guide</h5>
+          <p>
+            For traders executing fewer than 10 lots per month, the Trade account's
+            simplicity (no commission calculation) provides convenience without
+            meaningful cost disadvantage. For traders executing 20+ lots monthly,
+            the Zero account's raw spreads typically deliver better effective costs.
+            The crossover point depends on specific instruments traded.
+          </p>
+
+          <h5>Hidden Cost Assessment</h5>
+          <p>
+            {broker?.name} operates transparently with few hidden costs. The
+            inactivity fee is clearly disclosed and easily avoided. Card deposit
+            fees are unfortunate but standard in the industry. Currency conversion
+            fees apply if your base currency differs from your deposit method.
+            Overall, the fee structure is straightforward with no concerning surprises.
+          </p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Safety Section -->
+    <section id="safety" class="content-section section-alt">
+      <div class="container">
+        <h2>{broker?.name} Safety & Regulation</h2>
+
+        <p class="section-intro">
+          Safety is paramount when selecting a broker. {broker?.name} maintains
+          licenses from multiple tier-1 regulators and has operated continuously
+          since 2001 without major regulatory issues.
+        </p>
+
+        <div class="regulation-grid">
+          <div class="regulation-card">
+            <div class="reg-flag">🇬🇧</div>
+            <h3>FCA (United Kingdom)</h3>
+            <p><strong>License:</strong> 595450</p>
+            <p><strong>Protection:</strong> FSCS up to £85,000</p>
+            <p>
+              FCA regulation provides UK clients with Financial Services Compensation
+              Scheme protection and access to the Financial Ombudsman for dispute resolution.
+            </p>
+          </div>
+
+          <div class="regulation-card">
+            <div class="reg-flag">🇨🇾</div>
+            <h3>CySEC (Cyprus)</h3>
+            <p><strong>License:</strong> 201/13</p>
+            <p><strong>Protection:</strong> ICF up to €20,000</p>
+            <p>
+              CySEC regulation enables EU-wide service under MiFID II passporting
+              with Investor Compensation Fund coverage for eligible clients.
+            </p>
+          </div>
+
+          <div class="regulation-card">
+            <div class="reg-flag">🇦🇺</div>
+            <h3>ASIC (Australia)</h3>
+            <p><strong>License:</strong> 410681</p>
+            <p><strong>Protection:</strong> Client money segregation</p>
+            <p>
+              ASIC regulation ensures compliance with Australian financial services
+              law including strict requirements for client fund segregation.
+            </p>
+          </div>
+        </div>
+
+        <div class="safety-features">
+          <h3>Client Protection Measures</h3>
+          <ul>
+            <li><strong>Segregated Funds:</strong> Client money held separately from company operating funds in top-tier banks</li>
+            <li><strong>Negative Balance Protection:</strong> Retail clients cannot lose more than their account balance</li>
+            <li><strong>Additional Insurance:</strong> Supplementary professional indemnity insurance coverage</li>
+            <li><strong>Secure Platforms:</strong> Two-factor authentication and encrypted communications</li>
+            <li><strong>Regular Audits:</strong> Subject to regulatory examination and external audits</li>
+          </ul>
+        </div>
+
+        <AnalystNotes
+          title="Analyst's Safety Assessment"
+          icon="🛡️"
+          id="safety-notes"
+          variant="dark"
+        >
+          <h4>Evaluating Broker Reliability</h4>
+          <p>
+            When assessing broker safety, we consider regulatory quality, operating
+            history, financial stability, and client fund protection. {broker?.name}
+            performs well across all these dimensions.
+          </p>
+
+          <h5>Regulatory Quality Score</h5>
+          <p>
+            The combination of FCA, CySEC, and ASIC regulation represents a strong
+            regulatory profile. FCA regulation is particularly valuable as the UK
+            Financial Conduct Authority maintains some of the strictest standards
+            globally. The 23+ year operating history without major regulatory
+            sanctions demonstrates consistent compliance.
+          </p>
+
+          <h5>Financial Stability Indicators</h5>
+          <p>
+            {broker?.name} has maintained profitability through multiple market
+            cycles including the 2015 Swiss franc crisis that bankrupted several
+            competitors. Public financial disclosures show adequate capitalization
+            well above regulatory minimums. This financial resilience provides
+            additional client protection beyond regulatory requirements.
+          </p>
+
+          <h5>Client Fund Protection Analysis</h5>
+          <p>
+            Segregated accounts mean client funds are legally protected if the
+            broker were to fail. FCA-regulated UK clients benefit from FSCS
+            protection up to £85,000 per person. While we don't anticipate issues,
+            these protections provide meaningful security that offshore brokers
+            cannot match.
+          </p>
+
+          <h5>Comparison to Alternatives</h5>
+          <p>
+            {broker?.name}'s regulatory profile exceeds most retail forex brokers.
+            Some traders are tempted by offshore brokers offering higher leverage
+            or bonuses, but these typically lack meaningful regulatory protection.
+            The security provided by {broker?.name}'s tier-1 regulation justifies
+            any trade-offs in leverage limits. For serious traders, proper regulation
+            is non-negotiable.
+          </p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Platforms Section -->
+    <section id="platforms" class="content-section">
+      <div class="container">
+        <h2>{broker?.name} Trading Platforms</h2>
+
+        <p class="section-intro">
+          {broker?.name} offers MetaTrader 4 and 5 enhanced with their exclusive
+          Supreme Edition plugin, plus StereoTrader for professional traders.
+          This platform ecosystem provides comprehensive functionality for all experience levels.
+        </p>
+
+        <div class="platform-grid">
+          <div class="platform-card featured">
+            <h3>MetaTrader Supreme Edition</h3>
+            <p class="platform-highlight">Exclusive to Admirals Clients</p>
+            <p>
+              The Supreme Edition transforms MT4/MT5 with professional tools
+              unavailable elsewhere. This isn't a minor add-on but a comprehensive
+              enhancement that changes how you trade.
+            </p>
+            <ul>
+              <li><strong>Mini Terminal:</strong> Advanced one-click trading with automatic lot size calculation</li>
+              <li><strong>Trade Terminal:</strong> Manage multiple positions across instruments from one panel</li>
+              <li><strong>Tick Chart Trader:</strong> Precision entry timing with tick-by-tick charting</li>
+              <li><strong>Sentiment Indicator:</strong> See positioning of other Admirals clients</li>
+              <li><strong>Market Scanner:</strong> Automated pattern and opportunity identification</li>
+              <li><strong>Technical Insight:</strong> Trading Central analysis integrated in platform</li>
+            </ul>
+          </div>
+
+          <div class="platform-card">
+            <h3>MetaTrader 4</h3>
+            <p>
+              The industry-standard platform with full EA support and extensive
+              customization. Enhanced with Supreme Edition tools. Available on
+              desktop, web, and mobile.
+            </p>
+            <ul>
+              <li>Expert Advisor (EA) support</li>
+              <li>Custom indicators and scripts</li>
+              <li>One-click trading</li>
+              <li>Hedging enabled</li>
+            </ul>
+          </div>
+
+          <div class="platform-card">
+            <h3>MetaTrader 5</h3>
+            <p>
+              Next-generation MetaTrader with enhanced features including more
+              timeframes, order types, and the economic calendar. Required for
+              real stock investing.
+            </p>
+            <ul>
+              <li>21 timeframes vs MT4's 9</li>
+              <li>Depth of Market (DOM)</li>
+              <li>Real stock investing</li>
+              <li>Additional order types</li>
+            </ul>
+          </div>
+
+          <div class="platform-card">
+            <h3>StereoTrader</h3>
+            <p>
+              Advanced trading panel for professional traders requiring
+              sophisticated order management and risk controls.
+            </p>
+            <ul>
+              <li>Ladder trading interface</li>
+              <li>OCO and bracket orders</li>
+              <li>Advanced risk management</li>
+              <li>Automated strategies</li>
+            </ul>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Analyst's Platform Deep Dive"
+          icon="🖥️"
+          id="platforms-notes"
+          variant="dark"
+        >
+          <h4>Why the Supreme Edition Matters</h4>
+          <p>
+            After using {broker?.name}'s Supreme Edition extensively, we can
+            confirm this is a genuine differentiator rather than marketing fluff.
+            The tools meaningfully improve trading efficiency and execution quality.
+          </p>
+
+          <h5>Mini Terminal: The Standout Feature</h5>
+          <p>
+            The Mini Terminal transforms order entry. Automatic lot size calculation
+            based on risk percentage eliminates mental math and reduces errors.
+            One-click entries and exits with instant position management make
+            scalping and active trading significantly smoother. Trailing stops
+            with multiple modes (pips, points, ATR) provide flexibility unavailable
+            in standard MT4/MT5.
+          </p>
+
+          <h5>Trade Terminal for Portfolio Management</h5>
+          <p>
+            The Trade Terminal excels when managing multiple positions. Rather
+            than clicking between charts to manage individual trades, you can
+            view and adjust all positions from one panel. Bulk position management
+            (close all, close profitable, close losing) saves time. For traders
+            running multiple strategies across instruments, this feature alone
+            justifies choosing {broker?.name}.
+          </p>
+
+          <h5>Sentiment Indicator Caveats</h5>
+          <p>
+            The Sentiment Indicator shows positioning of other Admirals clients.
+            While interesting, remember this represents only {broker?.name}'s
+            client base, not the broader market. It's useful as one data point
+            but shouldn't drive trading decisions alone. Retail trader positioning
+            often goes against prevailing trends.
+          </p>
+
+          <h5>Mobile App Limitations</h5>
+          <p>
+            The Supreme Edition tools are primarily desktop features. Mobile
+            trading uses standard MT4/MT5 apps without the advanced functionality.
+            If you primarily trade from mobile, you won't access Supreme Edition
+            features. This is a limitation for traders who need mobile-first
+            access to advanced tools.
+          </p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Account Types Section -->
+    <section id="accounts" class="content-section section-alt">
+      <div class="container">
+        <h2>{broker?.name} Account Types</h2>
+
+        <div class="accounts-grid">
+          <div class="account-card">
+            <h3>Trade.MT4 / Trade.MT5</h3>
+            <div class="account-badge">Spread Only</div>
+            <ul>
+              <li><strong>Minimum Deposit:</strong> $100</li>
+              <li><strong>Spreads:</strong> From 0.5 pips</li>
+              <li><strong>Commission:</strong> None</li>
+              <li><strong>Instruments:</strong> Forex, CFDs</li>
+              <li><strong>Best For:</strong> Beginners and casual traders</li>
+            </ul>
+            <p>
+              Simple spread-only pricing without commission calculations.
+              Suitable for traders preferring straightforward cost structure.
+            </p>
+          </div>
+
+          <div class="account-card">
+            <h3>Zero.MT4 / Zero.MT5</h3>
+            <div class="account-badge">Raw Spreads</div>
+            <ul>
+              <li><strong>Minimum Deposit:</strong> $100</li>
+              <li><strong>Spreads:</strong> From 0.0 pips</li>
+              <li><strong>Commission:</strong> $1.8-$3/lot/side</li>
+              <li><strong>Instruments:</strong> Forex, CFDs</li>
+              <li><strong>Best For:</strong> Active and high-volume traders</li>
+            </ul>
+            <p>
+              Raw spreads with transparent commission structure. Better
+              effective cost for traders executing significant volume.
+            </p>
+          </div>
+
+          <div class="account-card featured">
+            <h3>Invest.MT5</h3>
+            <div class="account-badge">Real Stocks</div>
+            <ul>
+              <li><strong>Minimum Deposit:</strong> $1</li>
+              <li><strong>Commission:</strong> From $0.02/share</li>
+              <li><strong>Instruments:</strong> Real stocks & ETFs</li>
+              <li><strong>Exchanges:</strong> 15+ global markets</li>
+              <li><strong>Best For:</strong> Long-term investors</li>
+            </ul>
+            <p>
+              Purchase actual shares on global exchanges. Real ownership with
+              dividend eligibility and shareholder rights.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deposits Section -->
+    <section id="deposits" class="content-section">
+      <div class="container">
+        <h2>Deposits & Withdrawals</h2>
+
+        <div class="payment-grid">
+          <div class="payment-method">
+            <h4>Bank Transfer</h4>
+            <p><strong>Deposit:</strong> Free | 1-3 business days</p>
+            <p><strong>Withdrawal:</strong> 1 free/month | 1-3 business days</p>
+          </div>
+
+          <div class="payment-method">
+            <h4>Credit/Debit Card</h4>
+            <p><strong>Deposit:</strong> 0.9% fee | Instant</p>
+            <p><strong>Withdrawal:</strong> 1 free/month | 1-3 business days</p>
+          </div>
+
+          <div class="payment-method">
+            <h4>Skrill / Neteller</h4>
+            <p><strong>Deposit:</strong> 0.9% fee | Instant</p>
+            <p><strong>Withdrawal:</strong> 1 free/month | 24 hours</p>
+          </div>
+
+          <div class="payment-method">
+            <h4>Klarna</h4>
+            <p><strong>Deposit:</strong> Free | Instant</p>
+            <p><strong>Withdrawal:</strong> Not available</p>
+          </div>
+        </div>
+
+        <div class="deposit-notes">
+          <h3>Important Notes</h3>
+          <ul>
+            <li>Minimum deposit: {broker?.minDepositDisplay} for most accounts</li>
+            <li>One free withdrawal per calendar month</li>
+            <li>Additional withdrawals may incur fees based on method</li>
+            <li>Processing times are estimates and may vary</li>
+            <li>Some methods may not be available in all regions</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instruments Section -->
+    <section id="instruments" class="content-section section-alt">
+      <div class="container">
+        <h2>Trading Instruments</h2>
+
+        <p class="section-intro">
+          {broker?.name} offers {broker?.instrumentsDisplay} instruments - one of the
+          widest selections available from a regulated retail broker. This includes
+          forex, real stocks, stock CFDs, indices, commodities, ETFs, and bonds.
+        </p>
+
+        <div class="instruments-grid">
+          <div class="instrument-card">
+            <span class="instrument-icon">💱</span>
+            <h3>Forex</h3>
+            <p class="instrument-count">80+ Pairs</p>
+            <p>Major, minor, and exotic currency pairs with competitive spreads</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">📊</span>
+            <h3>Stocks</h3>
+            <p class="instrument-count">4,500+ Stocks</p>
+            <p>Real stocks (Invest account) and stock CFDs from global exchanges</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">📈</span>
+            <h3>Indices</h3>
+            <p class="instrument-count">43 Indices</p>
+            <p>Global indices including DAX40, US500, FTSE100, and more</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">🛢️</span>
+            <h3>Commodities</h3>
+            <p class="instrument-count">28 Commodities</p>
+            <p>Precious metals, energy, and agricultural products</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">📋</span>
+            <h3>ETFs</h3>
+            <p class="instrument-count">376+ ETFs</p>
+            <p>Exchange-traded funds from multiple global markets</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">📜</span>
+            <h3>Bonds</h3>
+            <p class="instrument-count">2 Bonds</p>
+            <p>Government bond CFDs including Bund and US T-Note</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support" class="content-section">
+      <div class="container">
+        <h2>Customer Support</h2>
+
+        <div class="support-grid">
+          <div class="support-feature">
+            <h3>📞 Phone Support</h3>
+            <p>24/5 multilingual phone support available during market hours</p>
+          </div>
+
+          <div class="support-feature">
+            <h3>💬 Live Chat</h3>
+            <p>Instant support via live chat on website and platform</p>
+          </div>
+
+          <div class="support-feature">
+            <h3>📧 Email Support</h3>
+            <p>Detailed support via email for complex inquiries</p>
+          </div>
+
+          <div class="support-feature">
+            <h3>🌍 Local Offices</h3>
+            <p>Physical offices in major financial centers globally</p>
+          </div>
+        </div>
+
+        <div class="support-notes">
+          <p>
+            {broker?.name} provides solid customer support in multiple languages.
+            Response times are generally quick during market hours. For technical
+            platform issues, their support team is well-trained on MetaTrader
+            and Supreme Edition tools.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pros & Cons Section -->
+    <section class="content-section section-alt">
+      <div class="container">
+        <h2>{broker?.name} Pros & Cons</h2>
+
+        <div class="pros-cons-grid">
+          <div class="pros-column">
+            <h3>✅ Advantages</h3>
+            <ul>
+              {broker?.pros.map((pro: string) => (
+                <li>{pro}</li>
+              ))}
+              <li>23+ years of operating history</li>
+              <li>Premium Analytics included free</li>
+            </ul>
+          </div>
+
+          <div class="cons-column">
+            <h3>❌ Disadvantages</h3>
+            <ul>
+              {broker?.cons.map((con: string) => (
+                <li>{con}</li>
+              ))}
+              <li>Card deposit fees (0.9%)</li>
+              <li>Supreme Edition desktop-only</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="content-section">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <FAQ questions={faqData} />
+      </div>
+    </section>
+
+    <!-- Verdict Section -->
+    <section id="verdict" class="content-section section-alt">
+      <div class="container">
+        <h2>Final Verdict: {broker?.name}</h2>
+
+        <div class="verdict-box">
+          <div class="verdict-score">
+            <span class="score-value">{broker?.scores.overall}</span>
+            <span class="score-max">/5</span>
+          </div>
+
+          <div class="verdict-content">
+            <p class="verdict-summary">
+              <strong>{broker?.name}</strong> delivers exceptional value through
+              the MetaTrader Supreme Edition platform tools and industry-leading
+              education. With {broker?.instrumentsDisplay} instruments including
+              real stock investing, tier-1 regulation from FCA/CySEC/ASIC, and
+              23 years of operating history, Admirals is a solid choice for
+              traders who value platform quality and educational resources.
+            </p>
+
+            <div class="verdict-best-for">
+              <h4>Best For:</h4>
+              <ul>
+                {broker?.bestFor.map((item: string) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="verdict-scores">
+              <div class="score-item">
+                <span class="score-label">Fees & Costs</span>
+                <span class="score-bar" style={`--score: ${broker?.scores.fees * 20}%`}></span>
+                <span class="score-num">{broker?.scores.fees}/5</span>
+              </div>
+              <div class="score-item">
+                <span class="score-label">Platforms</span>
+                <span class="score-bar" style={`--score: ${broker?.scores.platforms * 20}%`}></span>
+                <span class="score-num">{broker?.scores.platforms}/5</span>
+              </div>
+              <div class="score-item">
+                <span class="score-label">Education</span>
+                <span class="score-bar" style={`--score: ${broker?.scores.education * 20}%`}></span>
+                <span class="score-num">{broker?.scores.education}/5</span>
+              </div>
+              <div class="score-item">
+                <span class="score-label">Safety</span>
+                <span class="score-bar" style={`--score: ${broker?.scores.safety * 20}%`}></span>
+                <span class="score-num">{broker?.scores.safety}/5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Analyst's Final Assessment"
+          icon="📋"
+          id="verdict-notes"
+          variant="dark"
+        >
+          <h4>Our Bottom Line</h4>
+          <p>
+            After extensive testing and analysis, {broker?.name} (Admirals)
+            earns our recommendation for traders who prioritize platform tools,
+            education, and regulatory security. While not the absolute cheapest
+            option, the value delivered through Supreme Edition tools and
+            educational resources typically exceeds any marginal cost difference.
+          </p>
+
+          <h5>Who Should Choose {broker?.name}</h5>
+          <p>
+            {broker?.name} is ideal for intermediate traders ready to develop
+            professional-level skills. The Supreme Edition tools support this
+            development while the education fills knowledge gaps. Traders
+            wanting multi-asset access (forex, stocks, commodities) under one
+            roof will appreciate the comprehensive offering. Those valuing
+            regulatory security over maximum leverage will prefer {broker?.name}'s
+            tier-1 regulation over offshore alternatives.
+          </p>
+
+          <h5>Who Might Look Elsewhere</h5>
+          <p>
+            Pure cost-focused scalpers executing massive volume might find
+            marginally cheaper options with stripped-down ECN brokers.
+            Mobile-only traders won't access Supreme Edition features.
+            Crypto-focused traders will find the cryptocurrency selection limited
+            compared to dedicated exchanges. Those seeking maximum leverage
+            should consider offshore options (accepting the regulatory trade-offs).
+          </p>
+
+          <h5>The Competition Comparison</h5>
+          <p>
+            Versus AvaTrade: {broker?.name} offers more instruments and superior
+            platform tools; AvaTrade has simpler account structure. Versus
+            Pepperstone: Similar pricing tier with Pepperstone slightly lower
+            costs but fewer educational resources. Versus IC Markets: IC Markets
+            may be marginally cheaper for pure execution; {broker?.name} provides
+            more tools and education. Each broker serves slightly different
+            priorities.
+          </p>
+
+          <h5>Investment of Time</h5>
+          <p>
+            To get maximum value from {broker?.name}, invest time learning the
+            Supreme Edition tools. Many traders use only basic features and
+            miss the advanced functionality. Complete the education modules.
+            Attend webinars. The broker provides tools that can genuinely improve
+            trading results - but only if you use them. {broker?.name} rewards
+            engaged traders who take advantage of everything offered.
+          </p>
+        </AnalystNotes>
+
+        <div class="cta-section">
+          <a href={broker?.affiliateUrl} class="btn btn-primary btn-lg" target="_blank" rel="noopener sponsored">
+            Open {broker?.name} Account
+          </a>
+          <p class="cta-note">
+            Trade with a broker trusted by traders for 23+ years
+          </p>
+          <div class="cta-links">
+            <a href="/brokers/">Compare All Brokers</a>
+            <span>|</span>
+            <a href="/find-broker/">Try AI Broker Matcher</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cross Promotion Section -->
+  <section class="section section-gray">
+    <div class="container">
+      <BrokerCrossPromo brokerSlug="admiral-markets" brokerName="Admiral Markets" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .broker-review {
+    --section-spacing: 4rem;
+  }
+
+  .breadcrumb-wrapper {
+    background: var(--color-gray-900);
+    padding: 1rem 0;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-gray-800) 100%);
+    padding: 3rem 0 4rem;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--color-orange);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-section h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    color: white;
+    margin-bottom: 1rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-subtitle {
+    color: var(--color-gray-300);
+    font-size: 1.125rem;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-orange);
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--color-gray-400);
+  }
+
+  .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .hero-trust {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    color: var(--color-gray-400);
+    font-size: 0.875rem;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  /* Content Sections */
+  .content-section {
+    padding: var(--section-spacing) 0;
+  }
+
+  .section-alt {
+    background: var(--color-gray-50);
+  }
+
+  .content-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-gray-900);
+  }
+
+  .section-intro {
+    font-size: 1.125rem;
+    color: var(--color-gray-600);
+    margin-bottom: 2rem;
+    max-width: 800px;
+  }
+
+  /* Overview */
+  .overview-content p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+    color: var(--color-gray-700);
+  }
+
+  .key-facts {
+    background: var(--color-gray-100);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .key-facts h3 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+  }
+
+  .key-facts ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .key-facts li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .key-facts li:last-child {
+    border-bottom: none;
+  }
+
+  /* Features Grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .feature-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card p {
+    color: var(--color-gray-600);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  /* Fee Table */
+  .fee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .fee-table th,
+  .fee-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .fee-table th {
+    background: var(--color-gray-100);
+    font-weight: 600;
+  }
+
+  .fee-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .fee-details {
+    margin-top: 2rem;
+  }
+
+  .fee-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .fee-item h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-gray-900);
+  }
+
+  .fee-item p {
+    color: var(--color-gray-600);
+    line-height: 1.6;
+  }
+
+  /* Regulation Grid */
+  .regulation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .regulation-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .reg-flag {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .regulation-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .regulation-card p {
+    color: var(--color-gray-600);
+    font-size: 0.9375rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .safety-features {
+    margin-top: 2rem;
+  }
+
+  .safety-features ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .safety-features li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-gray-200);
+    color: var(--color-gray-700);
+  }
+
+  /* Platform Grid */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .platform-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .platform-card.featured {
+    grid-column: 1 / -1;
+    border: 2px solid var(--color-orange);
+  }
+
+  .platform-highlight {
+    color: var(--color-orange);
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .platform-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .platform-card ul {
+    margin-top: 1rem;
+    padding-left: 1.25rem;
+  }
+
+  .platform-card li {
+    margin-bottom: 0.5rem;
+    color: var(--color-gray-600);
+  }
+
+  /* Account Types */
+  .accounts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .account-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .account-card.featured {
+    border: 2px solid var(--color-orange);
+  }
+
+  .account-badge {
+    display: inline-block;
+    background: var(--color-gray-100);
+    color: var(--color-gray-700);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .account-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .account-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+
+  .account-card li {
+    padding: 0.375rem 0;
+    font-size: 0.9375rem;
+    color: var(--color-gray-700);
+  }
+
+  /* Payments */
+  .payment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .payment-method {
+    background: var(--color-gray-50);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+  }
+
+  .payment-method h4 {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+  }
+
+  .payment-method p {
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+    margin-bottom: 0.25rem;
+  }
+
+  .deposit-notes ul {
+    padding-left: 1.25rem;
+  }
+
+  .deposit-notes li {
+    margin-bottom: 0.5rem;
+    color: var(--color-gray-600);
+  }
+
+  /* Instruments */
+  .instruments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+
+  .instrument-card {
+    background: white;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .instrument-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .instrument-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .instrument-count {
+    color: var(--color-orange);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .instrument-card p:last-child {
+    font-size: 0.8125rem;
+    color: var(--color-gray-500);
+  }
+
+  /* Support */
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .support-feature {
+    background: var(--color-gray-50);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+  }
+
+  .support-feature h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .support-feature p {
+    font-size: 0.9375rem;
+    color: var(--color-gray-600);
+  }
+
+  .support-notes p {
+    color: var(--color-gray-600);
+    line-height: 1.6;
+  }
+
+  /* Pros & Cons */
+  .pros-cons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .pros-column h3,
+  .cons-column h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .pros-column ul,
+  .cons-column ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .pros-column li,
+  .cons-column li {
+    padding: 0.625rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .pros-column li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-green);
+  }
+
+  .cons-column li::before {
+    content: "✗";
+    position: absolute;
+    left: 0;
+    color: var(--color-red);
+  }
+
+  /* Verdict */
+  .verdict-box {
+    background: white;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .verdict-score {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .score-value {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--color-orange);
+    line-height: 1;
+  }
+
+  .score-max {
+    font-size: 1.5rem;
+    color: var(--color-gray-400);
+  }
+
+  .verdict-summary {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-gray-700);
+    margin-bottom: 1.5rem;
+  }
+
+  .verdict-best-for {
+    margin-bottom: 1.5rem;
+  }
+
+  .verdict-best-for h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .verdict-best-for ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .verdict-best-for li {
+    background: var(--color-gray-100);
+    padding: 0.375rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .verdict-scores {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .score-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .score-label {
+    width: 120px;
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+  }
+
+  .score-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--color-gray-200);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .score-bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: var(--score);
+    background: var(--color-orange);
+    border-radius: 4px;
+  }
+
+  .score-num {
+    width: 40px;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    text-align: center;
+    padding-top: 2rem;
+  }
+
+  .cta-note {
+    margin-top: 1rem;
+    color: var(--color-gray-500);
+  }
+
+  .cta-links {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 0.9375rem;
+  }
+
+  .cta-links a {
+    color: var(--color-orange);
+    text-decoration: none;
+  }
+
+  .cta-links a:hover {
+    text-decoration: underline;
+  }
+
+  .cta-links span {
+    color: var(--color-gray-300);
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-block;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--color-orange);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-orange-dark);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-orange);
+    border: 2px solid var(--color-orange);
+  }
+
+  .btn-secondary:hover {
+    background: var(--color-orange);
+    color: white;
+  }
+
+  .btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.0625rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-stats {
+      gap: 1rem;
+    }
+
+    .stat-item {
+      min-width: 45%;
+    }
+
+    .verdict-box {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .verdict-scores {
+      align-items: stretch;
+    }
+
+    .fee-table {
+      font-size: 0.875rem;
+    }
+
+    .fee-table th,
+    .fee-table td {
+      padding: 0.75rem 0.5rem;
+    }
+  }
+</style>

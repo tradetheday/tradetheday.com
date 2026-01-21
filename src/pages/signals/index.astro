@@ -1,0 +1,762 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageTitle = "Get 12 Months Free Trading Signals - TradeTheDay";
+const pageDescription = "Sign up with a trusted partner broker and get 12 months of professional AI-powered trading signals ($995 value) completely FREE. Forex, crypto, stocks signals delivered daily.";
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  ogType="website"
+>
+  <!-- HERO SECTION -->
+  <section class="hero section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: var(--space-xl);">
+        <span class="chip">Partner Exclusive - Limited Spots</span>
+        <h1 class="heading-1" style="color: var(--white); max-width: 1100px; margin-left: auto; margin-right: auto; font-size: var(--font-size-5xl); line-height: 1.1;">
+          Get $995 in Trading Signals + Education (FREE)  - Just Open a Broker Account
+        </h1>
+      </div>
+
+      <div class="hero-grid">
+        <!-- Left Column: Text Content -->
+        <div class="hero-text-column">
+          <p class="body-large" style="color: rgba(255, 255, 255, 0.95); margin-bottom: var(--space-md); font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); line-height: 1.3;">
+            <strong style="color: var(--brand-orange-light);">Others Pay $83/Month.</strong><br>
+            You Get 12 Months FREE.
+          </p>
+          <p class="body-large" style="color: rgba(255, 255, 255, 0.85); margin-bottom: var(--space-2xl); font-size: var(--font-size-lg);">
+            Simply open a trading account with one of our trusted partners (something you need anyway) and unlock instant access to professional-grade signals ($696/year value) PLUS full LearnToTrade.Academy access ($299/year value). No strings attached.
+          </p>
+
+          <div class="hero-button-container">
+            <a href="#featured-brokers" class="btn btn-primary btn-xl hero-cta-btn">
+              Show Me The Brokers
+            </a>
+          </div>
+          <p style="margin-top: var(--space-md); font-size: var(--font-size-base); color: rgba(255, 255, 255, 0.85); font-weight: var(--font-weight-medium);">
+            Takes 3 minutes | Instant access | Already have a broker? <a href="#pricing" style="color: var(--brand-orange-light); text-decoration: underline;">Pay $58/month instead</a>
+          </p>
+        </div>
+
+        <!-- Right Column: Value Stack Box -->
+        <div class="hero-value-column">
+          <div class="value-box">
+            <div class="value-box-header">The Complete Package:</div>
+
+            <div class="value-list">
+              <div class="value-item">
+                <span>AI-Powered Trading Signals (12 months)</span>
+                <span class="value-price">$696</span>
+              </div>
+              <div class="value-item">
+                <span>LearnToTrade.Academy Access (12 months)</span>
+                <span class="value-price">$299</span>
+              </div>
+              <div class="value-item">
+                <span>Professional Trader Analysis</span>
+                <span class="value-price">Included</span>
+              </div>
+              <div class="value-item">
+                <span>Real-Time Telegram/Discord Alerts</span>
+                <span class="value-price">Included</span>
+              </div>
+              <div class="value-item">
+                <span>Private Trading Community Access</span>
+                <span class="value-price">Included</span>
+              </div>
+              <div class="value-item value-item--last">
+                <span>Broker Welcome Bonuses (up to $10,000)</span>
+                <span class="value-price value-price--bonus">Bonus</span>
+              </div>
+            </div>
+
+            <div class="value-total">
+              <div>
+                <div class="value-total-label">Total Value:</div>
+                <div class="value-total-crossed">$995</div>
+              </div>
+              <div style="text-align: right;">
+                <div class="value-total-you-pay">You Pay:</div>
+                <div class="value-total-price">$0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+
+    .hero-text-column,
+    .hero-value-column {
+      text-align: center;
+    }
+
+    .hero-button-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .hero-cta-btn {
+      box-shadow: 0 8px 32px rgba(255, 72, 0, 0.5);
+    }
+
+    .hero-cta-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(255, 72, 0, 0.6);
+    }
+
+    .value-box {
+      background: rgba(255, 255, 255, 0.12);
+      border: 3px solid rgba(16, 185, 129, 0.4);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .value-box-header {
+      font-size: var(--font-size-sm);
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: var(--space-md);
+      font-weight: var(--font-weight-bold);
+      text-align: center;
+    }
+
+    .value-list {
+      text-align: left;
+      margin-bottom: var(--space-lg);
+    }
+
+    .value-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.95);
+      font-size: var(--font-size-base);
+    }
+
+    .value-item--last {
+      border-bottom: none;
+    }
+
+    .value-price {
+      color: var(--white);
+      font-weight: var(--font-weight-bold);
+      font-size: var(--font-size-lg);
+    }
+
+    .value-price--bonus {
+      color: var(--success);
+    }
+
+    .value-total {
+      border-top: 2px solid rgba(255, 255, 255, 0.3);
+      padding-top: var(--space-lg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .value-total-label {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: var(--font-size-sm);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .value-total-crossed {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: var(--font-size-2xl);
+      text-decoration: line-through;
+    }
+
+    .value-total-you-pay {
+      color: var(--success);
+      font-size: var(--font-size-sm);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: var(--font-weight-bold);
+    }
+
+    .value-total-price {
+      color: var(--success);
+      font-size: var(--font-size-5xl);
+      font-weight: var(--font-weight-extrabold);
+      line-height: 1;
+    }
+
+    @media (min-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: var(--space-3xl);
+      }
+
+      .hero-text-column,
+      .hero-value-column {
+        text-align: left;
+      }
+
+      .hero .heading-1 {
+        font-size: 56px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .hero-grid {
+        grid-template-columns: 0.85fr 1.15fr;
+      }
+
+      .hero .heading-1 {
+        font-size: 64px;
+      }
+    }
+  </style>
+
+  <!-- STATS SECTION -->
+  <section class="section section-warm">
+    <div class="container">
+      <div class="text-center mb-xl">
+        <h2 class="heading-2">Real Results from Real Traders</h2>
+        <p class="body-sm" style="color: var(--gray-500); margin-top: var(--space-sm);">Performance data from our signals community (Last 12 months)</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">2,847</div>
+          <div class="stat-label">Active Signal Members</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">78.3%</div>
+          <div class="stat-label">Average Win Rate</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">4,200+</div>
+          <div class="stat-label">Signals Delivered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">1:2.8</div>
+          <div class="stat-label">Avg Risk-Reward Ratio</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-lg);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        max-width: 1000px;
+      }
+    }
+
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--brand-orange);
+      margin-bottom: var(--space-xs);
+    }
+
+    .stat-label {
+      font-size: var(--font-size-sm);
+      color: var(--gray-600);
+    }
+  </style>
+
+  <!-- FEATURED BROKERS SECTION -->
+  <section id="featured-brokers" class="section">
+    <div class="container">
+      <div class="text-center mb-xl">
+        <h2 class="heading-2">Choose Your Broker & Get Instant Access</h2>
+        <p class="body-large">Sign up with any of these trusted brokers and unlock your free signals</p>
+      </div>
+
+      <div class="broker-grid">
+        <!-- AvaTrade Card -->
+        <div class="card card-elevated">
+          <div style="text-align: center; margin-bottom: var(--space-lg);">
+            <img src="/images/brokers/avatrade/avatrade-logo-light.svg" alt="AvaTrade" style="height: 50px; width: auto; filter: brightness(0) saturate(100%); margin-bottom: var(--space-md);">
+            <div style="display: flex; align-items: center; justify-content: center; gap: var(--space-sm);">
+              <span style="color: var(--brand-orange); font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold);">4.8</span>
+              <span style="color: var(--brand-orange);">★★★★★</span>
+            </div>
+          </div>
+
+          <ul class="feature-icon-list" style="margin-bottom: var(--space-lg);">
+            <li><span class="feature-icon success">✓</span> <strong>Up to $10,000</strong> Welcome Bonus</li>
+            <li><span class="feature-icon success">✓</span> <strong>$100</strong> Minimum Deposit</li>
+            <li><span class="feature-icon success">✓</span> <strong>1,250+</strong> Markets</li>
+            <li><span class="feature-icon brand">🎁</span> <strong>12 Months Free Signals</strong></li>
+          </ul>
+
+          <div class="savings-badge">
+            <div class="savings-label">You Save</div>
+            <div class="savings-value">$995</div>
+          </div>
+
+          <a href="/brokers/avatrade/partner-code/" class="btn btn-primary btn-full">
+            Get AvaTrade + Free Signals
+          </a>
+        </div>
+
+        <!-- eToro Card -->
+        <div class="card card-elevated">
+          <div style="text-align: center; margin-bottom: var(--space-lg);">
+            <div style="font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); color: var(--charcoal); margin-bottom: var(--space-md);">eToro</div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: var(--space-sm);">
+              <span style="color: var(--brand-orange); font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold);">4.5</span>
+              <span style="color: var(--brand-orange);">★★★★★</span>
+            </div>
+          </div>
+
+          <ul class="feature-icon-list" style="margin-bottom: var(--space-lg);">
+            <li><span class="feature-icon success">✓</span> <strong>Social Trading</strong> Platform</li>
+            <li><span class="feature-icon success">✓</span> <strong>$50</strong> Minimum Deposit</li>
+            <li><span class="feature-icon success">✓</span> <strong>30M+</strong> Users Worldwide</li>
+            <li><span class="feature-icon brand">🎁</span> <strong>12 Months Free Signals</strong></li>
+          </ul>
+
+          <div class="savings-badge">
+            <div class="savings-label">You Save</div>
+            <div class="savings-value">$995</div>
+          </div>
+
+          <a href="/brokers/etoro/" class="btn btn-primary btn-full">
+            Get eToro + Free Signals
+          </a>
+        </div>
+
+        <!-- Axi Card -->
+        <div class="card card-elevated">
+          <div style="text-align: center; margin-bottom: var(--space-lg);">
+            <div style="font-size: var(--font-size-3xl); font-weight: var(--font-weight-bold); color: var(--charcoal); margin-bottom: var(--space-md);">Axi</div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: var(--space-sm);">
+              <span style="color: var(--brand-orange); font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold);">4.3</span>
+              <span style="color: var(--brand-orange);">★★★★☆</span>
+            </div>
+          </div>
+
+          <ul class="feature-icon-list" style="margin-bottom: var(--space-lg);">
+            <li><span class="feature-icon success">✓</span> <strong>0.0 pip</strong> Raw Spreads</li>
+            <li><span class="feature-icon success">✓</span> <strong>$0</strong> Minimum Deposit</li>
+            <li><span class="feature-icon success">✓</span> <strong>ECN</strong> Execution</li>
+            <li><span class="feature-icon brand">🎁</span> <strong>12 Months Free Signals</strong></li>
+          </ul>
+
+          <div class="savings-badge">
+            <div class="savings-label">You Save</div>
+            <div class="savings-value">$995</div>
+          </div>
+
+          <a href="/brokers/axi/" class="btn btn-primary btn-full">
+            Get Axi + Free Signals
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .broker-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .broker-grid {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 1100px;
+      }
+    }
+
+    .savings-badge {
+      background: rgba(16, 185, 129, 0.1);
+      border: 2px solid var(--success);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-lg);
+      text-align: center;
+    }
+
+    .savings-label {
+      font-size: var(--font-size-xs);
+      color: var(--success);
+      font-weight: var(--font-weight-semibold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: var(--space-xs);
+    }
+
+    .savings-value {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-extrabold);
+      color: var(--success);
+    }
+  </style>
+
+  <!-- PRICING SECTION -->
+  <section id="pricing" class="section section-gray">
+    <div class="container">
+      <div class="text-center mb-xl">
+        <h2 class="heading-2">Two Ways to Access Premium Signals</h2>
+        <p class="body-large">Same professional-grade signals, your choice how to get them</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Free Option -->
+        <div class="pricing-card pricing-card--featured">
+          <div class="pricing-badge">Recommended</div>
+          <h3 class="pricing-title">Free via Partner Broker</h3>
+          <div class="pricing-price">
+            <span class="pricing-amount">$0</span>
+            <span class="pricing-period">for 12 months</span>
+          </div>
+          <ul class="pricing-features">
+            <li><span class="check">✓</span> 12 months free access</li>
+            <li><span class="check">✓</span> AI-powered signals</li>
+            <li><span class="check">✓</span> Professional trader analysis</li>
+            <li><span class="check">✓</span> Real-time alerts</li>
+            <li><span class="check">✓</span> Learning platform access</li>
+            <li><span class="check">✓</span> Community access</li>
+            <li><span class="check">✓</span> Broker welcome bonus</li>
+          </ul>
+          <a href="#featured-brokers" class="btn btn-primary btn-full btn-lg">Get Started Free</a>
+        </div>
+
+        <!-- Paid Option -->
+        <div class="pricing-card">
+          <h3 class="pricing-title">Direct Subscription</h3>
+          <div class="pricing-price">
+            <span class="pricing-amount">$58</span>
+            <span class="pricing-period">per month</span>
+          </div>
+          <ul class="pricing-features">
+            <li><span class="check">✓</span> Monthly subscription</li>
+            <li><span class="check">✓</span> AI-powered signals</li>
+            <li><span class="check">✓</span> Professional trader analysis</li>
+            <li><span class="check">✓</span> Real-time alerts</li>
+            <li><span class="check">✓</span> Learning platform access</li>
+            <li><span class="check">✓</span> Community access</li>
+            <li><span class="x">✗</span> <span class="muted">No broker bonus</span></li>
+          </ul>
+          <a href="/coming-soon/" class="btn btn-secondary btn-full btn-lg">Subscribe Directly</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .pricing-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      position: relative;
+    }
+
+    .pricing-card--featured {
+      border: 3px solid var(--success);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--success);
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-bold);
+      text-transform: uppercase;
+    }
+
+    .pricing-title {
+      text-align: center;
+      margin-bottom: var(--space-lg);
+      margin-top: var(--space-sm);
+    }
+
+    .pricing-price {
+      text-align: center;
+      margin-bottom: var(--space-xl);
+    }
+
+    .pricing-amount {
+      font-size: var(--font-size-5xl);
+      font-weight: var(--font-weight-extrabold);
+      color: var(--charcoal);
+    }
+
+    .pricing-card--featured .pricing-amount {
+      color: var(--success);
+    }
+
+    .pricing-period {
+      display: block;
+      font-size: var(--font-size-sm);
+      color: var(--gray-600);
+      margin-top: var(--space-xs);
+    }
+
+    .pricing-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 var(--space-xl) 0;
+    }
+
+    .pricing-features li {
+      padding: var(--space-sm) 0;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .pricing-features .check {
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    .pricing-features .x {
+      color: var(--gray-400);
+    }
+
+    .pricing-features .muted {
+      color: var(--gray-500);
+    }
+  </style>
+
+  <!-- WHAT'S INCLUDED SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-xl">
+        <h2 class="heading-2">What's Included in Your Signals Access</h2>
+        <p class="body-large">Professional-grade trading intelligence powered by AI and expert traders</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-card-icon">🤖</span>
+          <h3>AI-Powered Analysis</h3>
+          <p>Advanced algorithms scan markets 24/7, identifying high-probability setups with real-time data.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-card-icon">👨‍💼</span>
+          <h3>Professional Traders</h3>
+          <p>Experienced traders validate AI signals with years of market expertise and risk management.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-card-icon">⚡</span>
+          <h3>Real-Time Alerts</h3>
+          <p>Instant Telegram/Discord notifications. Never miss an opportunity.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-card-icon">📊</span>
+          <h3>Multi-Market Coverage</h3>
+          <p>Forex, stocks, crypto, commodities, and indices - all major markets covered.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-card-icon">🎯</span>
+          <h3>Entry & Exit Points</h3>
+          <p>Clear entry, take-profit, and stop-loss levels with every signal.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-card-icon">🛡️</span>
+          <h3>Risk Management</h3>
+          <p>Position sizing and risk-reward ratios to protect your capital.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    @media (min-width: 768px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      text-align: center;
+    }
+
+    .feature-card-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: var(--space-md);
+    }
+
+    .feature-card h3 {
+      margin-bottom: var(--space-sm);
+    }
+
+    .feature-card p {
+      color: var(--gray-600);
+      margin: 0;
+    }
+  </style>
+
+  <!-- FAQ SECTION -->
+  <section class="section section-gray">
+    <div class="container container--narrow">
+      <div class="text-center mb-xl">
+        <h2 class="heading-2">Frequently Asked Questions</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary class="faq-question">How do I get 12 months free access?</summary>
+          <div class="faq-answer">
+            <p>Sign up for a new account with one of our featured partner brokers using our referral link. Once verified, you'll get instant access to premium signals for 12 months at no cost.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">What makes your signals different?</summary>
+          <div class="faq-answer">
+            <p>Our signals combine AI-powered market analysis with validation from professional traders. This dual approach filters out false signals and focuses on high-probability setups.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">Do I need to keep trading with the broker?</summary>
+          <div class="faq-answer">
+            <p>Yes, your free access is tied to maintaining an active account with one of our partner brokers. Keep your account active for the full 12 months of free signals.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">What happens after 12 months?</summary>
+          <div class="faq-answer">
+            <p>After your free period ends, you can continue at $58/month or discontinue. No obligation, cancel anytime.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">Are the brokers safe and regulated?</summary>
+          <div class="faq-answer">
+            <p>All partner brokers are fully regulated by tier-1 authorities (FCA, ASIC, CySEC). They offer segregated accounts and negative balance protection.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+
+    .faq-item {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: var(--space-lg);
+      font-weight: var(--font-weight-semibold);
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .faq-question::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-answer {
+      padding: 0 var(--space-lg) var(--space-lg);
+      color: var(--gray-600);
+    }
+
+    .faq-answer p {
+      margin: 0;
+    }
+  </style>
+
+  <!-- FINAL CTA -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2" style="color: var(--white);">Ready to Start?</h2>
+        <p class="body-large" style="color: rgba(255, 255, 255, 0.9); max-width: 600px; margin: 0 auto var(--space-xl) auto;">
+          Join 2,500+ traders already benefiting from our AI + professional trader powered signals
+        </p>
+        <a href="#featured-brokers" class="btn btn-primary btn-xl">
+          Choose Your Broker & Get Started
+        </a>
+        <p style="margin-top: var(--space-md); font-size: var(--font-size-sm); color: rgba(255, 255, 255, 0.7);">
+          12 months free | No credit card required | Instant access
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

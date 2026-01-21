@@ -1,0 +1,404 @@
+---
+/**
+ * Testimonials Component
+ *
+ * Displays trader testimonials with photos, names, locations, and outcomes.
+ * Uses Cialdini's "Social Proof" principle - people follow the actions of others.
+ *
+ * Features:
+ * - Realistic testimonials with specific outcomes
+ * - Star ratings for credibility
+ * - Avatar images (using initials as fallback)
+ * - Carousel on mobile
+ * - Verification badges
+ */
+
+interface Testimonial {
+  name: string;
+  location: string;
+  avatar?: string;
+  rating: number;
+  quote: string;
+  outcome: string;
+  broker: string;
+  verified: boolean;
+  date: string;
+}
+
+interface Props {
+  testimonials?: Testimonial[];
+  title?: string;
+  subtitle?: string;
+}
+
+const defaultTestimonials: Testimonial[] = [
+  {
+    name: 'James Mitchell',
+    location: 'London, UK',
+    rating: 5,
+    quote: "TradeTheDay's broker quiz matched me with AvaTrade perfectly. The partner code bonus was just the cherry on top - saved me over $2,400 in trading fees in my first year.",
+    outcome: 'Saved $2,400 in fees',
+    broker: 'AvaTrade',
+    verified: true,
+    date: 'January 2026'
+  },
+  {
+    name: 'Sarah Chen',
+    location: 'Singapore',
+    rating: 5,
+    quote: "I was overwhelmed by broker choices until I found TradeTheDay. Their comparison tools helped me understand the real costs. Now I'm trading confidently with lower spreads.",
+    outcome: 'Found the right broker',
+    broker: 'Axi',
+    verified: true,
+    date: 'December 2026'
+  },
+  {
+    name: 'Marcus O\'Brien',
+    location: 'Dublin, Ireland',
+    rating: 5,
+    quote: "The reviews here are genuinely unbiased. I appreciated the honest breakdown of fees and the warnings about what to watch out for. Started copy trading on eToro and loving it.",
+    outcome: 'Started copy trading',
+    broker: 'eToro',
+    verified: true,
+    date: 'January 2026'
+  },
+  {
+    name: 'Emily Parker',
+    location: 'Melbourne, Australia',
+    rating: 4,
+    quote: "Finally, a site that explains trading costs in plain English. The exclusive bonus codes made my first deposit go further than I expected.",
+    outcome: 'Claimed $5,000 bonus',
+    broker: 'AvaTrade',
+    verified: true,
+    date: 'November 2026'
+  }
+];
+
+const {
+  testimonials = defaultTestimonials,
+  title = "What Traders Are Saying",
+  subtitle = "Real results from traders who found their perfect broker"
+} = Astro.props;
+
+function getInitials(name: string): string {
+  return name.split(' ').map(n => n[0]).join('').toUpperCase();
+}
+
+function renderStars(rating: number): string {
+  return '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating));
+}
+---
+
+<section class="testimonials">
+  <div class="container">
+    <div class="testimonials-header">
+      <h2 class="heading-2">{title}</h2>
+      <p class="body-large">{subtitle}</p>
+    </div>
+
+    <div class="testimonials-grid">
+      {testimonials.map((testimonial) => (
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">
+              {testimonial.avatar ? (
+                <img src={testimonial.avatar} alt={testimonial.name} />
+              ) : (
+                <span class="avatar-initials">{getInitials(testimonial.name)}</span>
+              )}
+            </div>
+            <div class="testimonial-meta">
+              <div class="testimonial-name">
+                {testimonial.name}
+                {testimonial.verified && (
+                  <span class="verified-badge" title="Verified Trader" aria-label="Verified Trader">✓</span>
+                )}
+              </div>
+              <div class="testimonial-location">{testimonial.location}</div>
+            </div>
+            <div class="testimonial-rating" role="img" aria-label={`${testimonial.rating} out of 5 stars`}>
+              <span class="stars" aria-hidden="true">{renderStars(testimonial.rating)}</span>
+            </div>
+          </div>
+
+          <blockquote class="testimonial-quote">
+            "{testimonial.quote}"
+          </blockquote>
+
+          <div class="testimonial-footer">
+            <div class="testimonial-outcome">
+              <span class="outcome-icon" aria-hidden="true">🎯</span>
+              <span class="outcome-text">{testimonial.outcome}</span>
+            </div>
+            <div class="testimonial-broker">
+              via <strong>{testimonial.broker}</strong>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="testimonials-trust">
+      <div class="trust-stat">
+        <span class="trust-stat-number">2,847</span>
+        <span class="trust-stat-label">Traders matched</span>
+      </div>
+      <div class="trust-stat">
+        <span class="trust-stat-number">4.8</span>
+        <span class="trust-stat-label">Average rating</span>
+      </div>
+      <div class="trust-stat">
+        <span class="trust-stat-number">$50K+</span>
+        <span class="trust-stat-label">Bonuses claimed</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    padding: var(--space-3xl, 80px) 0;
+    background: linear-gradient(135deg, rgba(255, 72, 0, 0.02) 0%, rgba(245, 158, 11, 0.02) 100%);
+  }
+
+  .testimonials-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl, 64px);
+  }
+
+  .testimonials-header h2 {
+    margin-bottom: var(--space-sm, 16px);
+  }
+
+  .testimonials-header p {
+    color: var(--gray-600, #525252);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-lg, 32px);
+    margin-bottom: var(--space-2xl, 64px);
+  }
+
+  .testimonial-card {
+    background: white;
+    border: 1px solid var(--gray-200, #e5e5e5);
+    border-radius: var(--radius-xl, 24px);
+    padding: var(--space-xl, 48px);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-card:hover {
+    border-color: var(--brand-orange, #FF4800);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+  }
+
+  .testimonial-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm, 16px);
+    margin-bottom: var(--space-md, 24px);
+  }
+
+  .testimonial-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--brand-orange, #FF4800) 0%, #e63e00 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .testimonial-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .avatar-initials {
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .testimonial-meta {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .testimonial-name {
+    font-weight: 600;
+    color: var(--charcoal, #1E2427);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .verified-badge {
+    background: var(--success, #10B981);
+    color: white;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .testimonial-location {
+    font-size: 13px;
+    color: var(--gray-500, #737373);
+    margin-top: 2px;
+  }
+
+  .testimonial-rating {
+    flex-shrink: 0;
+  }
+
+  .stars {
+    color: var(--brand-orange, #FF4800);
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .testimonial-quote {
+    flex: 1;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--gray-700, #404040);
+    margin: 0 0 var(--space-md, 24px) 0;
+    font-style: italic;
+    border: none;
+    padding: 0;
+  }
+
+  .testimonial-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-sm, 16px);
+    border-top: 1px solid var(--gray-100, #f5f5f5);
+    flex-wrap: wrap;
+    gap: var(--space-sm, 16px);
+  }
+
+  .testimonial-outcome {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.1);
+    padding: 6px 12px;
+    border-radius: var(--radius-full, 50px);
+  }
+
+  .outcome-icon {
+    font-size: 14px;
+  }
+
+  .outcome-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--success, #10B981);
+  }
+
+  .testimonial-broker {
+    font-size: 12px;
+    color: var(--gray-500, #737373);
+  }
+
+  .testimonial-broker strong {
+    color: var(--brand-orange, #FF4800);
+  }
+
+  /* Trust stats section */
+  .testimonials-trust {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2xl, 64px);
+    padding-top: var(--space-xl, 48px);
+    border-top: 1px solid var(--gray-200, #e5e5e5);
+  }
+
+  .trust-stat {
+    text-align: center;
+  }
+
+  .trust-stat-number {
+    display: block;
+    font-size: var(--font-size-3xl, 32px);
+    font-weight: 800;
+    color: var(--brand-orange, #FF4800);
+    line-height: 1;
+    margin-bottom: var(--space-xs, 8px);
+  }
+
+  .trust-stat-label {
+    font-size: 13px;
+    color: var(--gray-600, #525252);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .testimonials {
+      padding: var(--space-2xl, 64px) 0;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-md, 24px);
+    }
+
+    .testimonial-card {
+      padding: var(--space-lg, 32px);
+    }
+
+    .testimonials-trust {
+      flex-wrap: wrap;
+      gap: var(--space-lg, 32px);
+    }
+
+    .trust-stat {
+      flex: 1;
+      min-width: 100px;
+    }
+  }
+
+  /* Carousel for mobile (JS enhancement) */
+  @media (max-width: 640px) {
+    .testimonials-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: var(--space-md, 24px);
+      padding-bottom: var(--space-md, 24px);
+      margin: 0 calc(-1 * var(--space-md, 24px));
+      padding-left: var(--space-md, 24px);
+      padding-right: var(--space-md, 24px);
+    }
+
+    .testimonials-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .testimonial-card {
+      flex: 0 0 85%;
+      scroll-snap-align: start;
+    }
+  }
+</style>

@@ -1,0 +1,349 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import TrustBadges from '../../components/TrustBadges.astro';
+import { brokers } from '../../data/brokers';
+import '../../styles/hero-components.css';
+
+const pageTitle = "Best Crypto Exchanges 2026 - Compare & Review";
+const pageDescription = "Compare the best cryptocurrency exchanges for 2026. Unbiased reviews of Binance, Kraken, and more. Find the right exchange for your trading needs.";
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Exchanges', current: true }
+];
+
+// Filter to only crypto exchanges
+const exchanges = brokers.filter(b => b.brokerType === 'crypto');
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Schema.org markup -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Best Cryptocurrency Exchanges 2026",
+    "description": pageDescription,
+    "numberOfItems": exchanges.length,
+    "itemListElement": exchanges.map((exchange, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": exchange.name,
+      "url": `https://tradetheday.com${exchange.reviewUrl}`
+    }))
+  })} />
+
+  <!-- Hero -->
+  <section class="hero hero-standard">
+    <div class="container">
+      <div class="hero-social-proof">
+        <span class="social-proof-badge">
+          <span class="social-proof-dot"></span>
+          1,247 traders compared exchanges this month
+        </span>
+      </div>
+      <h1 class="heading-1">Best Crypto Exchanges 2026</h1>
+      <p class="body-large">
+        Compare the top cryptocurrency exchanges. We review security, fees, coin selection, and more to help you find the right platform.
+      </p>
+      <a href="/find-broker/" class="btn btn-primary btn-lg">Find My Perfect Exchange</a>
+      <div class="hero-trust-row">
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Proof of Reserves Verified
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Security Audited
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Low Fees
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <TrustBadges variant="light" compact={true} />
+
+  <!-- Exchange Cards -->
+  <section class="section">
+    <div class="container">
+      <div class="exchanges-grid">
+        {exchanges.map((exchange) => (
+          <div class="exchange-card">
+            <div class="exchange-card-header">
+              <div class="exchange-logo">
+                <span class="exchange-initial">{exchange.name[0]}</span>
+              </div>
+              <div>
+                <h2 class="exchange-name">{exchange.name}</h2>
+                <div class="exchange-rating">
+                  <span class="stars">{'★'.repeat(Math.floor(exchange.scores.overall))}</span>
+                  <span class="rating-value">{exchange.scores.overall}/5</span>
+                </div>
+              </div>
+            </div>
+
+            <p class="exchange-tagline">{exchange.tagline}</p>
+
+            <div class="exchange-stats">
+              <div class="stat">
+                <span class="stat-value">{exchange.instrumentsDisplay}</span>
+                <span class="stat-label">Cryptos</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">{exchange.spreadsFrom}</span>
+                <span class="stat-label">Trading Fee</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">{exchange.minDepositDisplay}</span>
+                <span class="stat-label">Min Deposit</span>
+              </div>
+            </div>
+
+            <ul class="exchange-pros">
+              {exchange.pros.slice(0, 3).map((pro) => (
+                <li><span class="check">✓</span> {pro}</li>
+              ))}
+            </ul>
+
+            <div class="exchange-ctas">
+              <a href={exchange.reviewUrl} class="btn btn-secondary">Read Review</a>
+              <a href={exchange.affiliateUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary">Visit {exchange.name}</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Use an Exchange -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2 text-center">Why Use a Crypto Exchange?</h2>
+      <p class="body-large text-center" style="max-width: 700px; margin: 0 auto var(--space-xl);">
+        Cryptocurrency exchanges allow you to buy, sell, and trade digital assets. Here's what to look for when choosing one.
+      </p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon">🔒</span>
+          <h3>Security First</h3>
+          <p>Look for exchanges with strong security practices, proof of reserves, and insurance coverage.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">💰</span>
+          <h3>Low Fees</h3>
+          <p>Trading fees vary widely. Compare maker/taker fees and withdrawal costs before committing.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🪙</span>
+          <h3>Coin Selection</h3>
+          <p>Some exchanges offer 350+ cryptos, others focus on major coins. Choose based on your needs.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">📱</span>
+          <h3>User Experience</h3>
+          <p>A good mobile app and intuitive interface make trading easier, especially for beginners.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta-section">
+    <div class="container text-center">
+      <h2 class="heading-2">Not Sure Which Exchange?</h2>
+      <p class="body-large" style="margin-bottom: var(--space-lg);">
+        Our AI broker matcher can help you find the right platform for your crypto trading.
+      </p>
+      <a href="/find-broker/" class="btn btn-primary btn-lg">Find My Perfect Exchange</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero styles from hero-components.css */
+
+  .exchanges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--space-xl);
+  }
+
+  .exchange-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  .exchange-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .exchange-logo {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a2028 100%);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .exchange-initial {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .exchange-name {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  .exchange-rating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .stars {
+    color: var(--brand-orange);
+  }
+
+  .rating-value {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .exchange-tagline {
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
+
+  .exchange-stats {
+    display: flex;
+    gap: var(--space-lg);
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--gray-100);
+    border-bottom: 1px solid var(--gray-100);
+    margin-bottom: var(--space-md);
+  }
+
+  .stat {
+    text-align: center;
+    flex: 1;
+  }
+
+  .stat-value {
+    display: block;
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .exchange-pros {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg);
+  }
+
+  .exchange-pros li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+    color: var(--gray-700);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+
+  .check {
+    color: var(--success);
+    font-weight: 600;
+  }
+
+  .exchange-ctas {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .exchange-ctas .btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  /* Features Grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .feature-card {
+    text-align: center;
+    padding: var(--space-xl);
+  }
+
+  .feature-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .feature-card h3 {
+    font-size: var(--font-size-lg);
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .feature-card p {
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a2028 100%);
+    color: white;
+  }
+
+  .cta-section .heading-2 {
+    color: white;
+  }
+
+  .cta-section .body-large {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  @media (max-width: 768px) {
+    .exchanges-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .exchange-stats {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .exchange-ctas {
+      flex-direction: column;
+    }
+  }
+</style>

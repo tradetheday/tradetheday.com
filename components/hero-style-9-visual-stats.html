@@ -1,0 +1,266 @@
+<!-- Hero Style 9: Visual Stats Hero -->
+<!-- Copy this entire section to use the visual stats hero style -->
+<section class="hero-stats section">
+    <div class="container">
+        <div class="hero-stats-content">
+            <div class="stats-text">
+                <span class="chip">Market Leader</span>
+                <h1 class="heading-1">Trusted by Traders Worldwide</h1>
+                <p class="body-large">AvaTrade has built a reputation for reliability, innovation, and client success over 15+ years in the financial markets.</p>
+                
+                <div class="key-highlights">
+                    <div class="highlight-item">
+                        <span class="highlight-icon">🌍</span>
+                        <span>Operating in 150+ countries</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">🏛️</span>
+                        <span>6 tier-1 regulatory licenses</span>
+                    </div>
+                    <div class="highlight-item">
+                        <span class="highlight-icon">🔒</span>
+                        <span>Client funds segregated & protected</span>
+                    </div>
+                </div>
+                
+                <div class="stats-actions">
+                    <a href="#" class="btn btn-primary btn-lg">Join the Community</a>
+                    <a href="#" class="btn btn-ghost btn-lg">Learn More</a>
+                </div>
+            </div>
+            
+            <div class="stats-visual">
+                <div class="stats-circle-container">
+                    <div class="stats-circle large">
+                        <div class="circle-content">
+                            <div class="circle-value">400K+</div>
+                            <div class="circle-label">Active Traders</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-circle medium top-right">
+                        <div class="circle-content">
+                            <div class="circle-value">$2B+</div>
+                            <div class="circle-label">Monthly Volume</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-circle small bottom-left">
+                        <div class="circle-content">
+                            <div class="circle-value">99.9%</div>
+                            <div class="circle-label">Uptime</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-circle medium bottom-right">
+                        <div class="circle-content">
+                            <div class="circle-value">15+</div>
+                            <div class="circle-label">Years</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Hero Style 9: Visual Stats */
+.hero-stats {
+    background: var(--white);
+    padding: var(--space-4xl) 0;
+}
+
+.hero-stats-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+}
+
+.key-highlights {
+    margin: var(--space-xl) 0;
+}
+
+.highlight-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin: var(--space-md) 0;
+    font-weight: var(--font-weight-semibold);
+}
+
+.highlight-icon {
+    font-size: var(--font-size-xl);
+}
+
+.stats-actions {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    flex-wrap: wrap;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--gray-600);
+    border: 2px solid transparent;
+    font-weight: var(--font-weight-semibold);
+}
+
+.btn-ghost:hover {
+    background: var(--gray-100);
+    color: var(--charcoal);
+}
+
+.stats-visual {
+    position: relative;
+}
+
+.stats-circle-container {
+    position: relative;
+    height: 500px;
+}
+
+.stats-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid var(--brand-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-xl);
+    transition: var(--transition-base);
+}
+
+.stats-circle:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-brand);
+}
+
+.stats-circle.large {
+    width: 200px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-width: 4px;
+}
+
+.stats-circle.medium {
+    width: 120px;
+    height: 120px;
+}
+
+.stats-circle.small {
+    width: 80px;
+    height: 80px;
+}
+
+.stats-circle.top-right {
+    top: 20%;
+    right: 10%;
+}
+
+.stats-circle.bottom-left {
+    bottom: 20%;
+    left: 10%;
+}
+
+.stats-circle.bottom-right {
+    bottom: 15%;
+    right: 20%;
+}
+
+.circle-content {
+    text-align: center;
+}
+
+.circle-value {
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+}
+
+.stats-circle.large .circle-value {
+    font-size: var(--font-size-3xl);
+}
+
+.stats-circle.medium .circle-value {
+    font-size: var(--font-size-xl);
+}
+
+.stats-circle.small .circle-value {
+    font-size: var(--font-size-lg);
+}
+
+.circle-label {
+    font-size: var(--font-size-xs);
+    color: var(--gray-600);
+    margin-top: var(--space-xs);
+    font-weight: var(--font-weight-medium);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-stats-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .stats-circle-container {
+        height: 300px;
+    }
+    
+    .stats-circle.large {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .stats-circle.medium {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .stats-circle.small {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .stats-actions {
+        justify-content: center;
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Perfect for showcasing company achievements and trust signals
+2. Split layout with text content and animated floating statistics
+3. Update key highlights to match your company strengths
+4. Modify circle statistics with your actual data
+5. Customize both CTA buttons and links
+6. Circles have hover animations and scale effects
+
+Customization Options:
+- Update statistics: Replace values and labels in each circle
+- Modify highlights: Change icons and text to match your strengths
+- Add more circles: Copy stats-circle structure with new positioning classes
+- Remove circles: Delete specific stats-circle divs as needed
+- Change colors: Modify border and text colors in CSS
+- Update CTAs: Customize both button texts and links
+- Adjust positions: Modify positioning classes (top-right, bottom-left, etc.)
+
+Circle Size Classes:
+- .large: Main central statistic (200px on desktop)
+- .medium: Secondary statistics (120px on desktop)
+- .small: Supporting statistics (80px on desktop)
+
+Circle Position Classes:
+- .top-right: Upper right quadrant
+- .bottom-left: Lower left quadrant  
+- .bottom-right: Lower right quadrant
+- Create custom positions by adding CSS for new classes
+
+Required CSS: design-system.css + embedded styles above
+-->

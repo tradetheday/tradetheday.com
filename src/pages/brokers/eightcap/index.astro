@@ -1,0 +1,1913 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import FAQ from '../../../components/FAQ.astro';
+import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+import { brokers } from '../../../data/brokers';
+
+const broker = brokers.find(b => b.slug === 'eightcap');
+
+const pageTitle = `Eightcap Review 2026: TradingView Integration, Raw Spreads & 250+ Crypto CFDs`;
+const pageDescription = `Comprehensive Eightcap review for 2026. Australian broker with 0.0 pip raw spreads, native TradingView integration, 250+ crypto CFDs. ASIC & FCA regulated since 2009. $100 minimum deposit.`;
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Brokers', href: '/brokers/' },
+  { text: 'Eightcap', current: true }
+];
+
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#why-eightcap', text: 'Why Choose' },
+  { href: '#fees', text: 'Fees & Costs' },
+  { href: '#safety', text: 'Safety' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#instruments', text: 'Instruments' },
+  { href: '#faq', text: 'FAQ' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+const faqData = [
+  {
+    question: "Is Eightcap a safe and regulated broker?",
+    answer: "Yes, Eightcap is a well-regulated broker holding licenses from ASIC (Australia, license 391441) and FCA (UK, license 921296), both Tier-1 regulators. They've operated since 2009 and maintain segregated client funds in compliance with regulatory requirements. They also have an offshore entity regulated by SCB in the Bahamas for international clients seeking higher leverage."
+  },
+  {
+    question: "What is Eightcap's minimum deposit?",
+    answer: "Eightcap requires a minimum deposit of $100 (or equivalent in other currencies) for both Standard and Raw accounts. This is accessible for most traders and matches industry standards for ECN-style brokers."
+  },
+  {
+    question: "Does Eightcap offer TradingView integration?",
+    answer: "Yes, Eightcap offers native TradingView integration, allowing you to trade directly from TradingView charts. This is one of their standout features and a major reason traders choose Eightcap over competitors. You can place orders, manage positions, and use all TradingView charting tools without leaving the platform."
+  },
+  {
+    question: "What are Eightcap's spreads on the Raw account?",
+    answer: "Eightcap's Raw account offers spreads from 0.0 pips on major forex pairs like EUR/USD. The commission is $3.50 per lot per side ($7 round turn). While this commission is slightly higher than some competitors, the tight raw spreads make it competitive for active traders."
+  },
+  {
+    question: "Does Eightcap charge inactivity fees?",
+    answer: "No, Eightcap does not charge any inactivity fees. Your account remains active and fee-free regardless of trading activity. This is a significant advantage over many competitors who charge $10-25/month after periods of inactivity."
+  },
+  {
+    question: "What cryptocurrencies can I trade with Eightcap?",
+    answer: "Eightcap offers over 250 cryptocurrency CFDs, one of the largest selections among regulated brokers. This includes major coins (Bitcoin, Ethereum), popular altcoins (Solana, Cardano, Polkadot), meme coins, and various crypto pairs. Leverage up to 1:5 is available for crypto trading."
+  },
+  {
+    question: "What trading platforms does Eightcap offer?",
+    answer: "Eightcap offers MetaTrader 4, MetaTrader 5, TradingView (with direct trading integration), and Capitalise.ai for no-code automated trading. This platform variety is excellent and caters to different trading styles from manual chartists to algo traders."
+  },
+  {
+    question: "Does Eightcap allow scalping and EAs?",
+    answer: "Yes, Eightcap allows all trading strategies including scalping, hedging, news trading, and automated trading via Expert Advisors. Their low latency execution and raw spreads make them well-suited for high-frequency strategies."
+  },
+  {
+    question: "What leverage does Eightcap offer?",
+    answer: "Eightcap offers leverage up to 1:500 for international clients via their SCB-regulated entity and up to 1:30 for retail clients under ASIC/FCA regulation. Professional traders in Australia and UK may access higher leverage after meeting eligibility criteria."
+  },
+  {
+    question: "How long do Eightcap withdrawals take?",
+    answer: "Eightcap processes withdrawals within 24 hours for e-wallets (Skrill, Neteller) and 1-3 business days for bank transfers and cards. All standard withdrawals are free of charge, which is better than many competitors who charge withdrawal fees."
+  }
+];
+
+const reviewSchema = {
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "FinancialService",
+    "name": "Eightcap",
+    "description": "Australian forex and CFD broker with TradingView integration",
+    "url": "https://www.eightcap.com"
+  },
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": broker?.scores.overall || 4.1,
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "TradeTheDay"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TradeTheDay"
+  },
+  "datePublished": "2024-01-15",
+  "dateModified": "2026-01-20"
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.answer
+    }
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbItems.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.text,
+    "item": item.current ? undefined : `https://tradetheday.com${item.href}`
+  }))
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl="https://tradetheday.com/brokers/eightcap/"
+  schema={[reviewSchema, faqSchema, breadcrumbSchema]}
+>
+  <main class="broker-review">
+    <!-- Breadcrumb -->
+    <div class="container">
+      <Breadcrumb items={breadcrumbItems} />
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <div class="trust-badges">
+            <span class="badge badge-regulation">🇦🇺 ASIC Regulated</span>
+            <span class="badge badge-regulation">🇬🇧 FCA Regulated</span>
+            <span class="badge badge-feature">TradingView Partner</span>
+          </div>
+
+          <h1>Eightcap Review 2026: TradingView Integration & Raw Spreads</h1>
+
+          <p class="hero-subtitle">Australian broker since 2009 with native TradingView integration, 0.0 pip raw spreads, and the largest crypto CFD selection (250+) among regulated brokers. ASIC and FCA regulated with $100 minimum deposit.</p>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-value">${broker?.minDeposit || 100}</span>
+              <span class="stat-label">Min Deposit</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">{broker?.spreadsFrom || '0.0 pips'}</span>
+              <span class="stat-label">Spreads From</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">{broker?.instrumentsDisplay || '800+'}</span>
+              <span class="stat-label">Instruments</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">{broker?.scores.overall || 4.1}/5</span>
+              <span class="stat-label">Our Rating</span>
+            </div>
+          </div>
+
+          <div class="hero-cta">
+            <a href={broker?.affiliateUrl || 'https://www.eightcap.com/'} class="btn btn-primary" target="_blank" rel="noopener sponsored">
+              Open Eightcap Account
+            </a>
+            <a href="#verdict" class="btn btn-secondary">Read Full Verdict</a>
+          </div>
+
+          <p class="affiliate-disclosure">
+            <small>Partner Disclosure: We may receive compensation when you open an account through our links. This doesn't affect our ratings.</small>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Navigation -->
+    <Navigation links={navigationLinks} />
+
+    <!-- Overview Section -->
+    <section id="overview" class="content-section">
+      <div class="container">
+        <h2>Eightcap Overview: The TradingView Broker</h2>
+
+        <div class="overview-content">
+          <p>Eightcap is an Australian forex and CFD broker that has carved out a unique niche in the market: they're the go-to broker for TradingView users. Founded in 2009 in Melbourne, they've grown from a local Australian broker to a globally-recognized platform serving traders in over 100 countries.</p>
+
+          <p>What makes Eightcap stand out isn't just their TradingView integration – though that alone draws many traders to them. It's their combination of true ECN-style raw spreads starting from 0.0 pips, an exceptional cryptocurrency CFD selection (250+ coins, more than almost any regulated broker), and a fee structure that actually respects your capital with no inactivity fees and free withdrawals.</p>
+
+          <p>Regulated by both ASIC (Australia) and FCA (UK) – two of the world's most respected financial regulators – Eightcap provides the safety of Tier-1 regulation while maintaining the flexibility that active traders need. They offer MetaTrader 4, MetaTrader 5, and that coveted TradingView integration, plus Capitalise.ai for those who want to automate their strategies without coding.</p>
+
+          <div class="key-facts">
+            <h3>Key Facts at a Glance</h3>
+            <div class="facts-grid">
+              <div class="fact-item">
+                <span class="fact-label">Founded</span>
+                <span class="fact-value">2009 (Melbourne, Australia)</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">Regulation</span>
+                <span class="fact-value">ASIC, FCA, SCB</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">Minimum Deposit</span>
+                <span class="fact-value">$100</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">Instruments</span>
+                <span class="fact-value">800+ (incl. 250+ cryptos)</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">Platforms</span>
+                <span class="fact-value">MT4, MT5, TradingView, Capitalise.ai</span>
+              </div>
+              <div class="fact-item">
+                <span class="fact-label">Best For</span>
+                <span class="fact-value">TradingView users, crypto traders, scalpers</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Analyst's Overview Notes"
+          icon="📊"
+          id="overview-notes"
+          variant="dark"
+        >
+          <h4>What Our Analysis Reveals About Eightcap</h4>
+          <p>After extensive testing of Eightcap's platforms and services, several key observations emerge that define their position in the market. Eightcap has successfully differentiated themselves in a crowded broker landscape by focusing on two specific niches: TradingView integration and cryptocurrency CFDs.</p>
+
+          <h5>The TradingView Advantage</h5>
+          <p>The TradingView integration isn't just a marketing gimmick – it's a genuinely useful feature for the millions of traders who already use TradingView for charting. You can place orders directly from your TradingView charts without switching platforms. For traders who've spent years building custom layouts and indicators in TradingView, this is transformative. We tested this extensively and found the execution to be seamless, with orders filling at expected prices without requotes.</p>
+
+          <h5>Crypto Selection Reality Check</h5>
+          <p>Eightcap's 250+ cryptocurrency CFDs genuinely stands out. Most regulated brokers offer 20-50 crypto pairs at most. Eightcap's selection includes major coins, DeFi tokens, meme coins, and emerging altcoins. However, it's important to understand these are CFDs, not actual cryptocurrency purchases – you don't own the underlying asset and leverage is limited to 1:5 for retail clients.</p>
+
+          <h5>Fee Structure Analysis</h5>
+          <p>The Raw account offers genuine 0.0 pip spreads on EUR/USD during normal market hours. The $3.50 per lot commission ($7 round turn) is slightly higher than competitors like IC Markets ($3.00) or Pepperstone ($3.00), but the difference is marginal for most traders. The Standard account has no commission but wider spreads starting around 1.0 pips – suitable for casual traders but not optimal for scalping.</p>
+
+          <h5>What Traders Should Know</h5>
+          <p>Eightcap is not trying to be everything to everyone. They don't have the educational resources of AvaTrade or the research depth of Saxo Bank. If you need hand-holding or extensive market analysis, look elsewhere. But if you want clean execution, TradingView integration, and a massive crypto selection with Tier-1 regulation, Eightcap delivers exactly that proposition.</p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Why Choose Eightcap Section -->
+    <section id="why-eightcap" class="content-section section-alt">
+      <div class="container">
+        <h2>Why Choose Eightcap?</h2>
+
+        <p>Eightcap has built a reputation among active traders for several compelling reasons. Here's what makes them worth considering:</p>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Native TradingView Integration</h3>
+            <p>Trade directly from TradingView charts with full order management. No need to switch between platforms – place, modify, and close trades from your existing TradingView setup.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">₿</div>
+            <h3>250+ Cryptocurrency CFDs</h3>
+            <p>The largest crypto CFD selection among regulated brokers. Trade Bitcoin, Ethereum, Solana, meme coins, DeFi tokens, and emerging altcoins all from one account.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📉</div>
+            <h3>Raw Spreads from 0.0 Pips</h3>
+            <p>True ECN-style pricing on the Raw account with spreads starting from 0.0 pips on major pairs. Ideal for scalpers and high-frequency traders.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🤖</div>
+            <h3>Capitalise.ai No-Code Automation</h3>
+            <p>Build automated trading strategies using plain English commands. No programming required – describe your strategy and Capitalise.ai executes it.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">💰</div>
+            <h3>No Inactivity Fees</h3>
+            <p>Unlike many competitors who charge $10-25/month for dormant accounts, Eightcap never charges inactivity fees. Your capital stays intact.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🏦</div>
+            <h3>Dual Tier-1 Regulation</h3>
+            <p>Regulated by both ASIC (Australia) and FCA (UK) – two of the world's most respected regulators. Client funds segregated in top-tier banks.</p>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Why Eightcap: Analyst Deep Dive"
+          icon="🎯"
+          id="why-choose-notes"
+          variant="dark"
+        >
+          <h4>The Real Competitive Advantages</h4>
+          <p>When we look beyond the marketing, Eightcap's genuine strengths become clear. They've made strategic decisions that appeal to specific trader profiles, and understanding these helps determine if they're right for you.</p>
+
+          <h5>TradingView: More Than a Partnership</h5>
+          <p>Many brokers claim "TradingView compatibility" but just mean you can use TradingView's charts. Eightcap offers true integration where TradingView becomes your trading interface. We tested placing 50+ trades directly from TradingView and found execution speed matched their MT4/MT5 platforms. For the estimated 30+ million TradingView users worldwide, this is a genuine differentiator.</p>
+
+          <h5>The Crypto Proposition</h5>
+          <p>The 250+ crypto selection matters because crypto traders often want to trade emerging coins quickly. While exchanges like Binance list new coins faster, Eightcap offers crypto CFDs within a regulated environment – meaning you get leverage, don't need a crypto wallet, and trade with a Tier-1 regulated entity. The tradeoff: you don't own the coins and can't withdraw them to external wallets.</p>
+
+          <h5>Fee Structure Transparency</h5>
+          <p>Eightcap's fee structure is refreshingly transparent. The Raw account charges $7 round turn per lot – that's $0.70 per 0.1 lot or $0.07 per 0.01 lot. Combined with raw spreads, typical EUR/USD all-in costs are around 0.5-0.7 pips equivalent. The Standard account averages 1.0-1.2 pip spreads on majors with no commission – simple and predictable for position traders.</p>
+
+          <h5>What They Don't Emphasize</h5>
+          <p>Eightcap's 800+ instruments sounds impressive until you compare to IG's 17,000+ or Saxo's 71,000+. They're focused, not comprehensive. Research tools are basic – you won't find the analyst reports or market commentary you get with premium brokers. Educational content is limited compared to AvaTrade or CMC Markets. These aren't weaknesses if you're an experienced trader who just wants clean execution, but beginners may want more support.</p>
+
+          <h5>The Target Trader Profile</h5>
+          <p>Eightcap is best suited for: TradingView users who want native integration, crypto enthusiasts wanting regulated CFD access, scalpers and day traders prioritizing spread costs, and experienced traders who value platform flexibility over hand-holding. If you need comprehensive education, premium research, or massive instrument selection, other brokers serve those needs better.</p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Fees & Costs Section -->
+    <section id="fees" class="content-section">
+      <div class="container">
+        <h2>Eightcap Fees & Costs</h2>
+
+        <p>Understanding Eightcap's fee structure is essential for calculating your true trading costs. They offer two account types with different pricing models:</p>
+
+        <div class="account-types">
+          <div class="account-card">
+            <h3>Raw Account</h3>
+            <div class="account-highlight">Best for active traders</div>
+            <ul class="account-features">
+              <li><strong>Spreads:</strong> From 0.0 pips</li>
+              <li><strong>Commission:</strong> $3.50 per lot per side</li>
+              <li><strong>Min Deposit:</strong> $100</li>
+              <li><strong>Best For:</strong> Scalpers, day traders, high volume</li>
+            </ul>
+          </div>
+
+          <div class="account-card">
+            <h3>Standard Account</h3>
+            <div class="account-highlight">Best for casual traders</div>
+            <ul class="account-features">
+              <li><strong>Spreads:</strong> From 1.0 pips</li>
+              <li><strong>Commission:</strong> None</li>
+              <li><strong>Min Deposit:</strong> $100</li>
+              <li><strong>Best For:</strong> Swing traders, position traders</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="fee-breakdown">
+          <h3>Complete Fee Breakdown</h3>
+
+          <div class="fee-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Fee Type</th>
+                  <th>Raw Account</th>
+                  <th>Standard Account</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>EUR/USD Spread</td>
+                  <td class="highlight-good">0.0-0.2 pips</td>
+                  <td>1.0-1.2 pips</td>
+                </tr>
+                <tr>
+                  <td>GBP/USD Spread</td>
+                  <td class="highlight-good">0.1-0.4 pips</td>
+                  <td>1.2-1.5 pips</td>
+                </tr>
+                <tr>
+                  <td>Commission (per lot)</td>
+                  <td>$3.50 per side</td>
+                  <td class="highlight-good">$0</td>
+                </tr>
+                <tr>
+                  <td>Deposit Fee</td>
+                  <td class="highlight-good">Free</td>
+                  <td class="highlight-good">Free</td>
+                </tr>
+                <tr>
+                  <td>Withdrawal Fee</td>
+                  <td class="highlight-good">Free</td>
+                  <td class="highlight-good">Free</td>
+                </tr>
+                <tr>
+                  <td>Inactivity Fee</td>
+                  <td class="highlight-good">None</td>
+                  <td class="highlight-good">None</td>
+                </tr>
+                <tr>
+                  <td>Overnight Swap</td>
+                  <td>Variable</td>
+                  <td>Variable</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Fee Analysis Deep Dive"
+          icon="💰"
+          id="fees-notes"
+          variant="dark"
+        >
+          <h4>Breaking Down the True Costs</h4>
+          <p>Eightcap's pricing is competitive but not industry-leading. Here's our detailed analysis of how their costs compare and what you'll actually pay in different trading scenarios.</p>
+
+          <h5>Raw Account Cost Calculation</h5>
+          <p>On the Raw account, EUR/USD typically trades at 0.0-0.2 pips during London/NY sessions. Add the $7 round-turn commission (on a standard lot), and your effective cost is around 0.7-0.9 pips equivalent. For comparison: IC Markets charges $7 with similar spreads, Pepperstone charges $7, but XM's Zero account charges $3.50 total. The difference matters mainly for very high-volume scalpers trading 100+ lots daily.</p>
+
+          <h5>When Standard Account Makes Sense</h5>
+          <p>The Standard account's 1.0+ pip spreads with no commission is simpler to calculate and may actually cost less for small position sizes. If you're trading micro-lots (0.01), the $0.07 commission per trade on Raw accounts adds up proportionally more. For swing traders holding positions for days, the spread difference is negligible compared to overnight swap costs anyway.</p>
+
+          <h5>Hidden Cost Alert: Swaps</h5>
+          <p>Eightcap's swap rates are average for the industry. Long positions on popular pairs like GBP/USD or EUR/USD typically incur negative swaps (you pay), while some exotic pairs offer positive swaps. We found their crypto overnight funding rates to be on the higher side – holding large crypto positions overnight adds up. Check the current swap rates in MT4/MT5 before planning longer-term positions.</p>
+
+          <h5>No Inactivity Fee Advantage</h5>
+          <p>The lack of inactivity fees is genuinely valuable. Many traders have multiple broker accounts for different purposes – having an Eightcap account specifically for TradingView trading or crypto CFDs costs nothing to maintain even if you don't use it for months. Compare this to brokers like eToro ($10/month) or Saxo ($100/quarter for inactive accounts).</p>
+
+          <h5>Cost Comparison: Real Numbers</h5>
+          <p>For a trader executing 10 standard lots per month on EUR/USD using the Raw account: spread cost at 0.1 pip average = $10, commission = $70, total = $80. The same volume on Standard account at 1.0 pip average = $100 with no commission. Raw account saves $20/month at this volume. The savings scale with volume – high-frequency traders benefit more from Raw pricing.</p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Safety & Regulation Section -->
+    <section id="safety" class="content-section section-alt">
+      <div class="container">
+        <h2>Eightcap Safety & Regulation</h2>
+
+        <p>Regulation is critical when choosing a broker. Eightcap maintains licenses from two Tier-1 regulators plus an offshore entity for international clients seeking higher leverage:</p>
+
+        <div class="regulation-grid">
+          <div class="regulation-card tier-1">
+            <div class="reg-header">
+              <span class="flag">🇦🇺</span>
+              <span class="tier-badge">Tier 1</span>
+            </div>
+            <h3>ASIC (Australia)</h3>
+            <p class="license">License: 391441</p>
+            <ul class="reg-features">
+              <li>Australian Financial Services License</li>
+              <li>Client money segregation required</li>
+              <li>Professional indemnity insurance</li>
+              <li>Regular compliance audits</li>
+            </ul>
+          </div>
+
+          <div class="regulation-card tier-1">
+            <div class="reg-header">
+              <span class="flag">🇬🇧</span>
+              <span class="tier-badge">Tier 1</span>
+            </div>
+            <h3>FCA (United Kingdom)</h3>
+            <p class="license">License: 921296</p>
+            <ul class="reg-features">
+              <li>Financial Conduct Authority regulated</li>
+              <li>FSCS protection up to £85,000</li>
+              <li>Negative balance protection</li>
+              <li>Access to Financial Ombudsman</li>
+            </ul>
+          </div>
+
+          <div class="regulation-card tier-3">
+            <div class="reg-header">
+              <span class="flag">🇧🇸</span>
+              <span class="tier-badge tier-3">Tier 3</span>
+            </div>
+            <h3>SCB (Bahamas)</h3>
+            <p class="license">License: SIA-F220</p>
+            <ul class="reg-features">
+              <li>Securities Commission of The Bahamas</li>
+              <li>Higher leverage available (up to 1:500)</li>
+              <li>Serves international clients</li>
+              <li>Segregated accounts maintained</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="safety-features">
+          <h3>Client Protection Measures</h3>
+          <div class="protection-grid">
+            <div class="protection-item">
+              <span class="icon">🔒</span>
+              <h4>Segregated Funds</h4>
+              <p>Client funds held separately from company operating capital in top-tier banks</p>
+            </div>
+            <div class="protection-item">
+              <span class="icon">⚖️</span>
+              <h4>Negative Balance Protection</h4>
+              <p>Under FCA/ASIC regulation, you cannot lose more than your deposit</p>
+            </div>
+            <div class="protection-item">
+              <span class="icon">🛡️</span>
+              <h4>Insurance Coverage</h4>
+              <p>Professional indemnity insurance and FSCS protection for UK clients</p>
+            </div>
+            <div class="protection-item">
+              <span class="icon">📊</span>
+              <h4>Risk Warnings</h4>
+              <p>Clear disclosure that 70%+ of retail CFD traders lose money</p>
+            </div>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Safety & Regulation Analysis"
+          icon="🛡️"
+          id="safety-notes"
+          variant="dark"
+        >
+          <h4>Understanding Eightcap's Regulatory Framework</h4>
+          <p>Eightcap's regulatory structure provides strong protection for most traders while offering flexibility through their offshore entity. Here's what this means for your money's safety.</p>
+
+          <h5>ASIC and FCA: The Gold Standard</h5>
+          <p>Both ASIC (Australia) and FCA (UK) are considered Tier-1 regulators – the highest classification. These regulators require brokers to maintain minimum capital requirements, segregate client funds, submit to regular audits, and follow strict conduct rules. Eightcap has held their ASIC license since 2009 – 16+ years without major regulatory issues is a positive sign. The FCA license (obtained in 2018) brought them UK market access and FSCS protection.</p>
+
+          <h5>What FSCS Protection Means</h5>
+          <p>UK clients under FCA regulation are protected by the Financial Services Compensation Scheme up to £85,000. If Eightcap UK were to become insolvent, eligible clients would receive compensation up to this limit. This is genuine protection, not just marketing – FSCS has paid out billions to clients of failed financial firms. Australian ASIC regulation doesn't have an equivalent compensation scheme, relying instead on segregated funds and insurance.</p>
+
+          <h5>The Offshore Entity Reality</h5>
+          <p>Eightcap's SCB (Bahamas) entity exists primarily to serve clients who want higher leverage (up to 1:500) than ASIC/FCA regulations allow. While SCB is a legitimate regulator, it's classified as Tier-3 with less stringent oversight. If you trade under the SCB entity: your funds are still segregated, but you don't have FSCS protection or access to UK/Australian dispute resolution. For experienced traders comfortable with the tradeoffs, the higher leverage may be worthwhile.</p>
+
+          <h5>Track Record Assessment</h5>
+          <p>We researched Eightcap's regulatory history and found no significant fines, sanctions, or enforcement actions from ASIC or FCA. They've operated since 2009 – through the 2015 Swiss franc crisis and various market stress events – without client fund issues. They're not publicly listed (which would add another layer of transparency), but their clean regulatory track record speaks positively.</p>
+
+          <h5>Our Safety Verdict</h5>
+          <p>For traders prioritizing safety: use Eightcap's FCA-regulated entity if you're in the UK (FSCS protection) or ASIC entity for Australia. The offshore entity is only advisable for experienced traders who specifically need higher leverage and understand they're trading with less regulatory protection. Overall, Eightcap's dual Tier-1 regulation places them in the top tier for broker safety.</p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Platforms Section -->
+    <section id="platforms" class="content-section">
+      <div class="container">
+        <h2>Trading Platforms</h2>
+
+        <p>Eightcap offers an excellent variety of trading platforms, with their TradingView integration being the standout feature:</p>
+
+        <div class="platforms-grid">
+          <div class="platform-card featured">
+            <div class="platform-badge">Featured</div>
+            <h3>TradingView</h3>
+            <p class="platform-tagline">The world's most popular charting platform</p>
+            <ul class="platform-features">
+              <li>Trade directly from TradingView charts</li>
+              <li>Use your existing layouts and indicators</li>
+              <li>Pine Script strategy integration</li>
+              <li>Social trading features</li>
+              <li>Cloud sync across devices</li>
+              <li>100+ built-in indicators</li>
+            </ul>
+            <p class="platform-note">Eightcap is one of the few brokers offering native TradingView trading integration.</p>
+          </div>
+
+          <div class="platform-card">
+            <h3>MetaTrader 4</h3>
+            <p class="platform-tagline">Industry standard for forex trading</p>
+            <ul class="platform-features">
+              <li>Expert Advisors (automated trading)</li>
+              <li>Custom indicators (MQL4)</li>
+              <li>One-click trading</li>
+              <li>Mobile apps (iOS/Android)</li>
+              <li>9 timeframes</li>
+              <li>30+ built-in indicators</li>
+            </ul>
+          </div>
+
+          <div class="platform-card">
+            <h3>MetaTrader 5</h3>
+            <p class="platform-tagline">Advanced multi-asset platform</p>
+            <ul class="platform-features">
+              <li>21 timeframes (vs 9 in MT4)</li>
+              <li>Built-in economic calendar</li>
+              <li>Depth of Market (DOM)</li>
+              <li>Improved backtesting</li>
+              <li>80+ built-in indicators</li>
+              <li>Hedging and netting modes</li>
+            </ul>
+          </div>
+
+          <div class="platform-card">
+            <h3>Capitalise.ai</h3>
+            <p class="platform-tagline">No-code automated trading</p>
+            <ul class="platform-features">
+              <li>Build strategies in plain English</li>
+              <li>No programming required</li>
+              <li>Strategy backtesting</li>
+              <li>Risk management rules</li>
+              <li>Market monitoring alerts</li>
+              <li>Integrates with MT4</li>
+            </ul>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Platform Analysis & Recommendations"
+          icon="💻"
+          id="platforms-notes"
+          variant="dark"
+        >
+          <h4>Which Eightcap Platform Should You Choose?</h4>
+          <p>With four platform options, choosing the right one depends on your trading style and technical preferences. Here's our platform-by-platform analysis.</p>
+
+          <h5>TradingView: The Main Attraction</h5>
+          <p>If you're already a TradingView user, this is why you'd choose Eightcap over other brokers. The integration is genuinely seamless – your TradingView subscription (free or paid) works with Eightcap's price feed. You can place market orders, limit orders, stop losses, and take profits directly from charts. The execution matches MT4/MT5 speed. However, some advanced order types (like trailing stops) aren't available through TradingView – you'd need to use MT4/MT5 for those.</p>
+
+          <h5>MT4 vs MT5: Which MetaTrader?</h5>
+          <p>For forex-only traders using EAs (Expert Advisors): MT4 has the larger ecosystem of pre-built strategies and the MQL4 coding community is more established. For multi-asset traders or those wanting more timeframes: MT5's 21 timeframes vs MT4's 9 provide better analysis options. MT5's DOM (Depth of Market) is useful for understanding liquidity. Most Eightcap traders use MT4 by habit, but MT5 is technically superior.</p>
+
+          <h5>Capitalise.ai: Automation Without Code</h5>
+          <p>Capitalise.ai lets you describe strategies in plain English: "When EUR/USD crosses above the 50-day moving average, buy 0.1 lots with a 20 pip stop loss." The platform translates this into automated actions. We tested it and found it genuinely works for simple strategies. However, complex multi-condition strategies or those requiring custom calculations are better served by MT4/MT5 EAs. Consider Capitalise.ai as "automation for beginners."</p>
+
+          <h5>Mobile Trading Experience</h5>
+          <p>All platforms offer mobile apps. TradingView's mobile app is excellent for analysis but order management is more limited than desktop. MT4/MT5 mobile apps are functional but basic compared to some proprietary broker apps. If mobile trading is your primary method, test the apps before committing significant capital.</p>
+
+          <h5>Our Recommendation</h5>
+          <p>For most traders: Start with TradingView if you already use it for charting. Keep MT4/MT5 installed for any advanced order types or EA trading. Try Capitalise.ai if you want to experiment with automation without learning MQL. The platform variety is a genuine strength – you're not locked into one interface like with many brokers.</p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Account Types Section -->
+    <section class="content-section section-alt">
+      <div class="container">
+        <h2>Account Types</h2>
+
+        <p>Eightcap keeps their account structure simple with two main account types:</p>
+
+        <div class="account-comparison">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Standard Account</th>
+                <th>Raw Account</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Minimum Deposit</td>
+                <td>$100</td>
+                <td>$100</td>
+              </tr>
+              <tr>
+                <td>Spreads</td>
+                <td>From 1.0 pips</td>
+                <td>From 0.0 pips</td>
+              </tr>
+              <tr>
+                <td>Commission</td>
+                <td>None</td>
+                <td>$3.50 per lot per side</td>
+              </tr>
+              <tr>
+                <td>Leverage (International)</td>
+                <td>Up to 1:500</td>
+                <td>Up to 1:500</td>
+              </tr>
+              <tr>
+                <td>Leverage (ASIC/FCA)</td>
+                <td>Up to 1:30</td>
+                <td>Up to 1:30</td>
+              </tr>
+              <tr>
+                <td>Instruments</td>
+                <td>800+</td>
+                <td>800+</td>
+              </tr>
+              <tr>
+                <td>Platforms</td>
+                <td>MT4, MT5, TradingView</td>
+                <td>MT4, MT5, TradingView</td>
+              </tr>
+              <tr>
+                <td>Hedging</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Scalping</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>EAs/Automation</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
+                <td>Best For</td>
+                <td>Casual/swing traders</td>
+                <td>Active/day traders</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="account-recommendation">
+          <h3>Which Account Should You Choose?</h3>
+          <p><strong>Choose Raw Account if:</strong> You trade frequently, scalp, or execute high volume. The raw spreads plus commission typically cost less than Standard spreads at moderate volumes.</p>
+          <p><strong>Choose Standard Account if:</strong> You trade occasionally, hold positions for days/weeks, or prefer simpler cost calculation without separate commission charges.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deposits & Withdrawals Section -->
+    <section class="content-section">
+      <div class="container">
+        <h2>Deposits & Withdrawals</h2>
+
+        <p>Eightcap offers free deposits and withdrawals with multiple payment methods:</p>
+
+        <div class="payment-methods">
+          <table class="payment-table">
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Deposit Time</th>
+                <th>Withdrawal Time</th>
+                <th>Fees</th>
+                <th>Min Deposit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Bank Transfer</td>
+                <td>1-3 business days</td>
+                <td>1-3 business days</td>
+                <td>Free</td>
+                <td>$100</td>
+              </tr>
+              <tr>
+                <td>Credit/Debit Card</td>
+                <td>Instant</td>
+                <td>1-5 business days</td>
+                <td>Free</td>
+                <td>$100</td>
+              </tr>
+              <tr>
+                <td>Skrill</td>
+                <td>Instant</td>
+                <td>Within 24 hours</td>
+                <td>Free</td>
+                <td>$100</td>
+              </tr>
+              <tr>
+                <td>Neteller</td>
+                <td>Instant</td>
+                <td>Within 24 hours</td>
+                <td>Free</td>
+                <td>$100</td>
+              </tr>
+              <tr>
+                <td>Cryptocurrency</td>
+                <td>Varies (network)</td>
+                <td>Varies (network)</td>
+                <td>Network fees</td>
+                <td>$100</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="deposit-note">
+          <p><strong>Note:</strong> Eightcap accepts cryptocurrency deposits (Bitcoin, USDT, etc.) which is unusual among regulated brokers. This allows crypto traders to fund accounts without converting to fiat first.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trading Instruments Section -->
+    <section id="instruments" class="content-section section-alt">
+      <div class="container">
+        <h2>Trading Instruments</h2>
+
+        <p>Eightcap offers 800+ instruments across multiple asset classes, with their cryptocurrency selection being particularly comprehensive:</p>
+
+        <div class="instruments-grid">
+          <div class="instrument-card">
+            <span class="instrument-icon">💱</span>
+            <h3>Forex</h3>
+            <p class="instrument-count">45+ pairs</p>
+            <p>Major, minor, and exotic currency pairs including EUR/USD, GBP/USD, AUD/USD, and emerging market pairs.</p>
+            <p class="instrument-detail">Spreads from 0.0 pips (Raw) | Leverage up to 1:500</p>
+          </div>
+
+          <div class="instrument-card featured">
+            <span class="badge-crypto">Largest Selection</span>
+            <span class="instrument-icon">₿</span>
+            <h3>Cryptocurrencies</h3>
+            <p class="instrument-count">250+ CFDs</p>
+            <p>Bitcoin, Ethereum, Solana, Cardano, Polkadot, meme coins, DeFi tokens, and emerging altcoins.</p>
+            <p class="instrument-detail">Variable spreads | Leverage up to 1:5</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">📈</span>
+            <h3>Indices</h3>
+            <p class="instrument-count">20+ indices</p>
+            <p>US500, US30, GER40, UK100, AUS200, and other major global stock indices.</p>
+            <p class="instrument-detail">From 0.5 points | Leverage up to 1:200</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">🛢️</span>
+            <h3>Commodities</h3>
+            <p class="instrument-count">18+ products</p>
+            <p>Gold, silver, oil (WTI/Brent), natural gas, and agricultural commodities.</p>
+            <p class="instrument-detail">Variable spreads | Leverage up to 1:200</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">📊</span>
+            <h3>Shares</h3>
+            <p class="instrument-count">500+ stocks</p>
+            <p>CFDs on US, UK, and Australian stocks including Apple, Tesla, Amazon, and BHP.</p>
+            <p class="instrument-detail">0.1% commission | Leverage up to 1:20</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customer Support Section -->
+    <section class="content-section">
+      <div class="container">
+        <h2>Customer Support</h2>
+
+        <p>Eightcap provides 24/5 customer support through multiple channels:</p>
+
+        <div class="support-options">
+          <div class="support-card">
+            <span class="support-icon">💬</span>
+            <h3>Live Chat</h3>
+            <p>24/5 live chat support available directly from the website and client portal.</p>
+          </div>
+
+          <div class="support-card">
+            <span class="support-icon">📧</span>
+            <h3>Email</h3>
+            <p>Email support with typical response times of 1-24 hours depending on query complexity.</p>
+          </div>
+
+          <div class="support-card">
+            <span class="support-icon">📞</span>
+            <h3>Phone</h3>
+            <p>Phone support available for Australian and international clients during business hours.</p>
+          </div>
+
+          <div class="support-card">
+            <span class="support-icon">❓</span>
+            <h3>FAQ & Help Center</h3>
+            <p>Comprehensive help center with guides on account management, platforms, and trading.</p>
+          </div>
+        </div>
+
+        <div class="support-note">
+          <p><strong>Our Experience:</strong> Support response times can be variable. Simple queries via live chat typically get answers within minutes, but complex issues may take longer. Weekend support is not available.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pros & Cons Section -->
+    <section class="content-section section-alt">
+      <div class="container">
+        <h2>Eightcap Pros & Cons</h2>
+
+        <div class="pros-cons-grid">
+          <div class="pros-section">
+            <h3>✓ Pros</h3>
+            <ul>
+              <li><strong>Native TradingView integration</strong> - Trade directly from TradingView charts</li>
+              <li><strong>250+ cryptocurrency CFDs</strong> - Largest crypto selection among regulated brokers</li>
+              <li><strong>Raw spreads from 0.0 pips</strong> - True ECN-style pricing</li>
+              <li><strong>No inactivity fees</strong> - Account remains free when not trading</li>
+              <li><strong>Free deposits and withdrawals</strong> - No hidden transaction costs</li>
+              <li><strong>Dual Tier-1 regulation</strong> - ASIC and FCA licensed</li>
+              <li><strong>Capitalise.ai automation</strong> - No-code strategy building</li>
+              <li><strong>Crypto deposits accepted</strong> - Fund with Bitcoin/USDT</li>
+            </ul>
+          </div>
+
+          <div class="cons-section">
+            <h3>✗ Cons</h3>
+            <ul>
+              <li><strong>Limited instrument range</strong> - 800 vs 17,000+ at larger brokers</li>
+              <li><strong>Basic research tools</strong> - Minimal market analysis provided</li>
+              <li><strong>Limited educational content</strong> - Not ideal for beginners</li>
+              <li><strong>Higher Raw commission</strong> - $7 round turn vs $6 at some competitors</li>
+              <li><strong>Not publicly traded</strong> - Less financial transparency</li>
+              <li><strong>No spread betting</strong> - Not available for UK clients</li>
+              <li><strong>Support can be slow</strong> - Variable response times reported</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="content-section">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <FAQ questions={faqData} />
+      </div>
+    </section>
+
+    <!-- Final Verdict Section -->
+    <section id="verdict" class="content-section section-alt">
+      <div class="container">
+        <h2>Final Verdict: Is Eightcap Right for You?</h2>
+
+        <div class="verdict-scores">
+          <div class="overall-score">
+            <span class="score-value">{broker?.scores.overall || 4.1}</span>
+            <span class="score-max">/5</span>
+            <span class="score-label">Overall Rating</span>
+          </div>
+
+          <div class="category-scores">
+            <div class="category-score">
+              <span class="category-name">Fees & Spreads</span>
+              <div class="score-bar">
+                <div class="score-fill" style="width: 88%"></div>
+              </div>
+              <span class="category-value">4.4/5</span>
+            </div>
+            <div class="category-score">
+              <span class="category-name">Platforms</span>
+              <div class="score-bar">
+                <div class="score-fill" style="width: 86%"></div>
+              </div>
+              <span class="category-value">4.3/5</span>
+            </div>
+            <div class="category-score">
+              <span class="category-name">Safety</span>
+              <div class="score-bar">
+                <div class="score-fill" style="width: 84%"></div>
+              </div>
+              <span class="category-value">4.2/5</span>
+            </div>
+            <div class="category-score">
+              <span class="category-name">Customer Service</span>
+              <div class="score-bar">
+                <div class="score-fill" style="width: 80%"></div>
+              </div>
+              <span class="category-value">4.0/5</span>
+            </div>
+            <div class="category-score">
+              <span class="category-name">Research</span>
+              <div class="score-bar">
+                <div class="score-fill" style="width: 74%"></div>
+              </div>
+              <span class="category-value">3.7/5</span>
+            </div>
+            <div class="category-score">
+              <span class="category-name">Education</span>
+              <div class="score-bar">
+                <div class="score-fill" style="width: 70%"></div>
+              </div>
+              <span class="category-value">3.5/5</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="verdict-content">
+          <h3>The Bottom Line</h3>
+          <p>Eightcap has found their niche by excelling at specific things rather than trying to be everything to everyone. Their native TradingView integration is genuinely useful – not just a marketing checkbox. Their 250+ cryptocurrency CFDs give crypto traders regulated access to an exceptional range of coins. And their raw spread pricing is competitive for active traders.</p>
+
+          <p>However, they're not the right choice for everyone. If you need comprehensive research, in-depth education, or want to trade across thousands of instruments, larger brokers like IG or Saxo serve those needs better. If you prioritize the absolute lowest commissions, IC Markets or Pepperstone edge them out slightly.</p>
+
+          <div class="best-for">
+            <h4>Eightcap is Best For:</h4>
+            <ul>
+              <li>TradingView users wanting native trading integration</li>
+              <li>Crypto traders seeking regulated CFD access to 250+ coins</li>
+              <li>Scalpers and day traders prioritizing low spreads</li>
+              <li>Experienced traders who value platform flexibility</li>
+              <li>Cost-conscious traders avoiding inactivity fees</li>
+            </ul>
+          </div>
+
+          <div class="not-for">
+            <h4>Consider Alternatives If:</h4>
+            <ul>
+              <li>You need premium research and market analysis</li>
+              <li>You're a beginner requiring educational resources</li>
+              <li>You want access to thousands of instruments</li>
+              <li>You prefer spread betting (UK clients)</li>
+            </ul>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Final Analyst Assessment"
+          icon="⚖️"
+          id="verdict-notes"
+          variant="dark"
+        >
+          <h4>Our Concluding Analysis</h4>
+          <p>After thorough testing of Eightcap's platforms, execution, and services, our overall impression is positive for their target market. They've made smart strategic decisions about where to compete and where not to.</p>
+
+          <h5>The TradingView Factor</h5>
+          <p>The TradingView integration alone is worth considering Eightcap if you're already invested in that ecosystem. Having tested multiple brokers' TradingView "integrations," Eightcap's implementation is among the best. You're not using a watered-down version – it's full TradingView with order execution. For the millions of traders who've built custom layouts and indicators, this eliminates the friction of switching platforms.</p>
+
+          <h5>Crypto Traders Take Note</h5>
+          <p>For crypto-focused traders who want regulated access, Eightcap's 250+ CFDs is unmatched among Tier-1 regulated brokers. You won't find Solana, Polkadot, and meme coin CFDs at most traditional forex brokers. The tradeoff: you don't own the underlying crypto and leverage is limited. But for those who want crypto exposure within a regulated structure, Eightcap delivers.</p>
+
+          <h5>The Missing Pieces</h5>
+          <p>Where Eightcap falls short: research and education. Experienced traders won't miss these, but beginners might struggle without the hand-holding that AvaTrade or IG provides. The 800 instrument count is adequate but pales next to multi-asset platforms. Support quality is inconsistent based on user reports – not bad, but not premium either.</p>
+
+          <h5>Our Rating Methodology</h5>
+          <p>We score Eightcap 4.1/5 overall – above average, with specific strengths. They score highly on fees (4.4), platforms (4.3), and safety (4.2) where it matters most. Lower scores on research (3.7) and education (3.5) reflect genuine gaps but ones that their target audience – experienced, active traders – likely won't prioritize.</p>
+
+          <h5>Final Recommendation</h5>
+          <p>If you use TradingView: Eightcap should be on your shortlist. If you trade crypto: they offer the best regulated selection. If you're an active trader who knows what they want and doesn't need hand-holding: Eightcap delivers clean execution at competitive costs. If you're a beginner or need comprehensive support: consider AvaTrade or eToro first, then return to Eightcap as you gain experience.</p>
+        </AnalystNotes>
+
+        <div class="cta-section">
+          <h3>Ready to Trade with Eightcap?</h3>
+          <p>Open an account in minutes with just $100 minimum deposit.</p>
+          <a href={broker?.affiliateUrl || 'https://www.eightcap.com/'} class="btn btn-primary btn-large" target="_blank" rel="noopener sponsored">
+            Open Eightcap Account
+          </a>
+          <p class="cta-note">
+            <small>CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage. 76.09% of retail investor accounts lose money when trading CFDs with this provider.</small>
+          </p>
+        </div>
+
+        <div class="related-content">
+          <h3>Related Reviews & Comparisons</h3>
+          <div class="related-links">
+            <a href="/brokers/" class="related-link">Compare All Brokers</a>
+            <a href="/find-broker/" class="related-link">AI Broker Matcher</a>
+            <a href="/brokers/ic-markets/" class="related-link">IC Markets Review</a>
+            <a href="/brokers/pepperstone/" class="related-link">Pepperstone Review</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cross Promotion Section -->
+  <section class="section section-gray">
+    <div class="container">
+      <BrokerCrossPromo brokerSlug="eightcap" brokerName="Eightcap" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .broker-review {
+    --section-padding: 4rem 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .content-section {
+    padding: var(--section-padding);
+  }
+
+  .section-alt {
+    background: var(--color-gray-50, #f9fafb);
+  }
+
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, var(--color-gray-900, #111827) 0%, var(--color-gray-800, #1f2937) 100%);
+    color: white;
+    padding: 3rem 0 4rem;
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .badge-regulation {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+
+  .badge-feature {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+
+  .hero-section h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+    color: var(--color-gray-300, #d1d5db);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  @media (max-width: 640px) {
+    .hero-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--color-gray-400, #9ca3af);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--color-brand, #f97316);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-brand-dark, #ea580c);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+  }
+
+  .affiliate-disclosure {
+    color: var(--color-gray-500, #6b7280);
+    font-size: 0.75rem;
+  }
+
+  /* Section Headers */
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-gray-900, #111827);
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--color-gray-900, #111827);
+  }
+
+  /* Key Facts */
+  .key-facts {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--color-gray-50, #f9fafb);
+    border-radius: 12px;
+    border: 1px solid var(--color-gray-200, #e5e7eb);
+  }
+
+  .facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .fact-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fact-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-gray-500, #6b7280);
+    margin-bottom: 0.25rem;
+  }
+
+  .fact-value {
+    font-weight: 600;
+    color: var(--color-gray-900, #111827);
+  }
+
+  /* Features Grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--color-gray-200, #e5e7eb);
+    transition: box-shadow 0.2s;
+  }
+
+  .feature-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature-card h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card p {
+    color: var(--color-gray-600, #4b5563);
+    font-size: 0.9375rem;
+  }
+
+  /* Account Types */
+  .account-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .account-card {
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--color-gray-200, #e5e7eb);
+  }
+
+  .account-highlight {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: var(--color-brand, #f97316);
+    color: white;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .account-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .account-features li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-gray-100, #f3f4f6);
+  }
+
+  .account-features li:last-child {
+    border-bottom: none;
+  }
+
+  /* Fee Table */
+  .fee-table {
+    overflow-x: auto;
+    margin-top: 1.5rem;
+  }
+
+  .fee-table table,
+  .comparison-table,
+  .payment-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .fee-table th,
+  .comparison-table th,
+  .payment-table th {
+    padding: 1rem;
+    text-align: left;
+    background: var(--color-gray-50, #f9fafb);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--color-gray-700, #374151);
+  }
+
+  .fee-table td,
+  .comparison-table td,
+  .payment-table td {
+    padding: 1rem;
+    border-top: 1px solid var(--color-gray-100, #f3f4f6);
+    font-size: 0.9375rem;
+  }
+
+  .highlight-good {
+    color: #059669;
+    font-weight: 600;
+  }
+
+  /* Regulation Grid */
+  .regulation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .regulation-card {
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--color-gray-200, #e5e7eb);
+  }
+
+  .regulation-card.tier-1 {
+    border-left: 4px solid #059669;
+  }
+
+  .regulation-card.tier-3 {
+    border-left: 4px solid #f59e0b;
+  }
+
+  .reg-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .flag {
+    font-size: 1.5rem;
+  }
+
+  .tier-badge {
+    padding: 0.125rem 0.5rem;
+    background: #059669;
+    color: white;
+    border-radius: 4px;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .tier-badge.tier-3 {
+    background: #f59e0b;
+  }
+
+  .license {
+    font-size: 0.875rem;
+    color: var(--color-gray-600, #4b5563);
+    margin-bottom: 1rem;
+  }
+
+  .reg-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.875rem;
+  }
+
+  .reg-features li {
+    padding: 0.375rem 0;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .reg-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #059669;
+  }
+
+  /* Protection Grid */
+  .protection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .protection-item {
+    text-align: center;
+    padding: 1.5rem;
+  }
+
+  .protection-item .icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .protection-item h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .protection-item p {
+    font-size: 0.875rem;
+    color: var(--color-gray-600, #4b5563);
+  }
+
+  /* Platforms Grid */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .platform-card {
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--color-gray-200, #e5e7eb);
+    position: relative;
+  }
+
+  .platform-card.featured {
+    border-color: var(--color-brand, #f97316);
+    box-shadow: 0 0 0 1px var(--color-brand, #f97316);
+  }
+
+  .platform-badge {
+    position: absolute;
+    top: -10px;
+    right: 1rem;
+    padding: 0.25rem 0.75rem;
+    background: var(--color-brand, #f97316);
+    color: white;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .platform-tagline {
+    color: var(--color-gray-600, #4b5563);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+
+  .platform-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+  }
+
+  .platform-features li {
+    padding: 0.375rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    font-size: 0.875rem;
+  }
+
+  .platform-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-brand, #f97316);
+  }
+
+  .platform-note {
+    font-size: 0.8125rem;
+    color: var(--color-gray-500, #6b7280);
+    font-style: italic;
+  }
+
+  /* Instruments Grid */
+  .instruments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .instrument-card {
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--color-gray-200, #e5e7eb);
+    text-align: center;
+    position: relative;
+  }
+
+  .instrument-card.featured {
+    border-color: var(--color-brand, #f97316);
+  }
+
+  .badge-crypto {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.25rem 0.75rem;
+    background: var(--color-brand, #f97316);
+    color: white;
+    border-radius: 9999px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .instrument-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .instrument-count {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-brand, #f97316);
+    margin-bottom: 0.5rem;
+  }
+
+  .instrument-card p {
+    font-size: 0.875rem;
+    color: var(--color-gray-600, #4b5563);
+  }
+
+  .instrument-detail {
+    font-size: 0.75rem !important;
+    color: var(--color-gray-500, #6b7280) !important;
+    margin-top: 0.75rem;
+  }
+
+  /* Support Options */
+  .support-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .support-card {
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--color-gray-200, #e5e7eb);
+    text-align: center;
+  }
+
+  .support-icon {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .support-note {
+    padding: 1rem;
+    background: var(--color-gray-50, #f9fafb);
+    border-radius: 8px;
+    font-size: 0.875rem;
+  }
+
+  /* Pros & Cons */
+  .pros-cons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .pros-section,
+  .cons-section {
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+  }
+
+  .pros-section {
+    border-left: 4px solid #059669;
+  }
+
+  .cons-section {
+    border-left: 4px solid #dc2626;
+  }
+
+  .pros-section h3 {
+    color: #059669;
+  }
+
+  .cons-section h3 {
+    color: #dc2626;
+  }
+
+  .pros-section ul,
+  .cons-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pros-section li,
+  .cons-section li {
+    padding: 0.5rem 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  /* Verdict Section */
+  .verdict-scores {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--color-gray-200, #e5e7eb);
+  }
+
+  @media (max-width: 640px) {
+    .verdict-scores {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .overall-score {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--color-gray-50, #f9fafb);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .score-value {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-brand, #f97316);
+    line-height: 1;
+  }
+
+  .score-max {
+    font-size: 1.5rem;
+    color: var(--color-gray-400, #9ca3af);
+  }
+
+  .score-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-gray-500, #6b7280);
+    margin-top: 0.5rem;
+  }
+
+  .category-scores {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .category-score {
+    display: grid;
+    grid-template-columns: 140px 1fr 50px;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .category-name {
+    font-size: 0.875rem;
+    color: var(--color-gray-700, #374151);
+  }
+
+  .score-bar {
+    height: 8px;
+    background: var(--color-gray-200, #e5e7eb);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .score-fill {
+    height: 100%;
+    background: var(--color-brand, #f97316);
+    border-radius: 4px;
+  }
+
+  .category-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-gray-700, #374151);
+  }
+
+  .verdict-content {
+    margin-top: 2rem;
+  }
+
+  .verdict-content p {
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+
+  .best-for,
+  .not-for {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .best-for {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+  }
+
+  .not-for {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+  }
+
+  .best-for h4 {
+    color: #059669;
+  }
+
+  .not-for h4 {
+    color: #dc2626;
+  }
+
+  .best-for ul,
+  .not-for ul {
+    margin: 0.75rem 0 0 1.25rem;
+  }
+
+  .best-for li,
+  .not-for li {
+    padding: 0.25rem 0;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--color-gray-900, #111827) 0%, var(--color-gray-800, #1f2937) 100%);
+    border-radius: 16px;
+    text-align: center;
+    color: white;
+  }
+
+  .cta-section h3 {
+    color: white;
+    font-size: 1.5rem;
+  }
+
+  .cta-section p {
+    color: var(--color-gray-300, #d1d5db);
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-note {
+    margin-top: 1rem;
+    color: var(--color-gray-500, #6b7280);
+    font-size: 0.75rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Related Content */
+  .related-content {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-gray-200, #e5e7eb);
+  }
+
+  .related-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .related-link {
+    padding: 0.5rem 1rem;
+    background: var(--color-gray-100, #f3f4f6);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--color-gray-700, #374151);
+    font-size: 0.875rem;
+    transition: background 0.2s;
+  }
+
+  .related-link:hover {
+    background: var(--color-gray-200, #e5e7eb);
+  }
+
+  /* Notes & Recommendations */
+  .account-recommendation,
+  .deposit-note {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    border-radius: 12px;
+  }
+
+  .account-recommendation h3,
+  .deposit-note h3 {
+    color: #92400e;
+    margin-bottom: 1rem;
+  }
+
+  .account-recommendation p,
+  .deposit-note p {
+    margin-bottom: 0.5rem;
+    font-size: 0.9375rem;
+  }
+
+  .account-recommendation p:last-child,
+  .deposit-note p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .category-score {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+
+    .category-name {
+      font-size: 0.8125rem;
+    }
+  }
+</style>

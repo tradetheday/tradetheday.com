@@ -1,0 +1,418 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import TrustBadges from '../../components/TrustBadges.astro';
+import '../../styles/hero-components.css';
+
+const title = 'Compare Prop Firms 2026 - Funded Account Comparisons';
+const description = 'Compare the best proprietary trading firms side-by-side. Challenge rules, profit splits, scaling plans, and payout speeds compared.';
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Compare', href: '/compare/' },
+  { text: 'Prop Firms', current: true }
+];
+
+// Prop firm comparisons
+const comparisons = [
+  {
+    slug: 'ftmo-vs-funded-trader',
+    title: 'FTMO vs The Funded Trader',
+    subtitle: 'Industry Leaders Battle',
+    description: 'The two biggest prop trading firms compared head-to-head.',
+    firm1: { name: 'FTMO', score: 4.5 },
+    firm2: { name: 'The Funded Trader', score: 4.2 },
+    highlights: ['Challenge rules', 'Profit split', 'Scaling'],
+    verdict: 'FTMO for reputation; TFT for flexibility'
+  },
+  {
+    slug: 'ftmo-vs-myforexfunds',
+    title: 'FTMO vs MyForexFunds',
+    subtitle: 'Classic vs Challenger',
+    description: 'Compare the industry standard with a popular alternative.',
+    firm1: { name: 'FTMO', score: 4.5 },
+    firm2: { name: 'MyForexFunds', score: 4.0 },
+    highlights: ['Entry price', 'Rules strictness', 'Payouts'],
+    verdict: 'FTMO for prestige; MFF for affordability'
+  },
+  {
+    slug: 'funded-trader-vs-topstep',
+    title: 'The Funded Trader vs Topstep',
+    subtitle: 'Forex vs Futures Focus',
+    description: 'Compare a forex-focused firm with a futures specialist.',
+    firm1: { name: 'The Funded Trader', score: 4.2 },
+    firm2: { name: 'Topstep', score: 4.3 },
+    highlights: ['Market focus', 'Combine rules', 'Account sizes'],
+    verdict: 'TFT for forex; Topstep for futures'
+  },
+  {
+    slug: 'ftmo-vs-5ers',
+    title: 'FTMO vs The5ers',
+    subtitle: 'Challenge vs Instant Funding',
+    description: 'Traditional challenge model vs instant funding approach.',
+    firm1: { name: 'FTMO', score: 4.5 },
+    firm2: { name: 'The5ers', score: 4.1 },
+    highlights: ['Funding speed', 'Account growth', 'Risk rules'],
+    verdict: 'FTMO for challenges; 5ers for instant funding'
+  },
+  {
+    slug: 'fundednext-vs-ftmo',
+    title: 'FundedNext vs FTMO',
+    subtitle: 'New Challenger Arrives',
+    description: 'How does the rising star compare to the industry leader?',
+    firm1: { name: 'FundedNext', score: 4.3 },
+    firm2: { name: 'FTMO', score: 4.5 },
+    highlights: ['Profit split', 'Challenge price', 'Scaling plan'],
+    verdict: 'FundedNext for splits; FTMO for track record'
+  },
+  {
+    slug: 'e8-funding-vs-ftmo',
+    title: 'E8 Funding vs FTMO',
+    subtitle: 'Budget vs Premium',
+    description: 'Compare affordable E8 with premium FTMO.',
+    firm1: { name: 'E8 Funding', score: 4.0 },
+    firm2: { name: 'FTMO', score: 4.5 },
+    highlights: ['Challenge cost', 'Rules', 'Support quality'],
+    verdict: 'E8 for budget; FTMO for premium experience'
+  }
+];
+
+// Shuffle and pick random comparisons for featured section
+const shuffled = [...comparisons].sort(() => Math.random() - 0.5);
+const featured = shuffled.slice(0, 3);
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero -->
+  <section class="hero hero-standard">
+    <div class="container">
+      <div class="hero-social-proof">
+        <span class="social-proof-badge">
+          <span class="social-proof-dot"></span>
+          {comparisons.length} prop firm comparisons available
+        </span>
+      </div>
+      <h1 class="heading-1">Compare Prop Firms</h1>
+      <p class="body-large">
+        Finding the right funded account? Compare challenge rules, profit splits, scaling plans, and payout speeds across top prop firms.
+      </p>
+      <a href="/propfirms/" class="btn btn-primary btn-lg">View All Prop Firms</a>
+      <div class="hero-trust-row">
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Real Payout Data
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Challenge Rules Analyzed
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Updated Weekly
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <TrustBadges variant="light" compact={true} />
+
+  <!-- Featured Comparisons -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Featured Comparisons</h2>
+        <p class="body-large">Popular prop firm matchups picked for you</p>
+      </div>
+
+      <div class="comparisons-grid">
+        {featured.map((comp) => (
+          <a href={`/compare/${comp.slug}/`} class="comparison-card featured">
+            <div class="comparison-header">
+              <div class="vs-display">
+                <span class="broker-badge">{comp.firm1.name}</span>
+                <span class="vs">VS</span>
+                <span class="broker-badge">{comp.firm2.name}</span>
+              </div>
+            </div>
+            <h3 class="comparison-title">{comp.title}</h3>
+            <span class="comparison-subtitle">{comp.subtitle}</span>
+            <p class="comparison-desc">{comp.description}</p>
+            <div class="comparison-tags">
+              {comp.highlights.map((h) => (
+                <span class="tag">{h}</span>
+              ))}
+            </div>
+            <span class="comparison-cta">Read Comparison →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- All Comparisons -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">All Prop Firm Comparisons</h2>
+
+      <div class="comparison-list">
+        {comparisons.map((comp) => (
+          <a href={`/compare/${comp.slug}/`} class="comparison-row">
+            <div class="comparison-row-left">
+              <div class="vs-compact">
+                <span>{comp.firm1.name}</span>
+                <span class="vs-small">vs</span>
+                <span>{comp.firm2.name}</span>
+              </div>
+              <span class="row-subtitle">{comp.subtitle}</span>
+            </div>
+            <div class="comparison-row-right">
+              <span class="row-verdict">{comp.verdict}</span>
+              <span class="row-arrow">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-card">
+        <h2 class="heading-3">Ready to Get Funded?</h2>
+        <p>Check out our complete prop firm reviews with exclusive discount codes.</p>
+        <a href="/propfirms/" class="btn btn-primary btn-lg">View All Prop Firms →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero styles from hero-components.css */
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .section-header h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-header p {
+    color: var(--gray-600);
+  }
+
+  .comparisons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .comparison-card {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .comparison-card:hover {
+    border-color: var(--brand-orange);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .comparison-card.featured {
+    border-color: var(--brand-orange);
+    background: linear-gradient(135deg, rgba(255, 72, 0, 0.02) 0%, transparent 100%);
+  }
+
+  .comparison-header {
+    margin-bottom: var(--space-md);
+  }
+
+  .vs-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
+  .broker-badge {
+    background: var(--charcoal);
+    color: var(--white);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+  }
+
+  .vs {
+    color: var(--brand-orange);
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+  }
+
+  .comparison-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .comparison-subtitle {
+    color: var(--brand-orange);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .comparison-desc {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+    flex: 1;
+  }
+
+  .comparison-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+  }
+
+  .tag {
+    background: var(--gray-100);
+    color: var(--gray-700);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+  }
+
+  .comparison-cta {
+    color: var(--brand-orange);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+  }
+
+  /* Comparison List */
+  .comparison-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .comparison-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .comparison-row:hover {
+    border-color: var(--brand-orange);
+    background: var(--gray-50);
+  }
+
+  .comparison-row-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .vs-compact {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .vs-small {
+    color: var(--gray-400);
+    font-weight: 400;
+    font-size: var(--font-size-sm);
+  }
+
+  .row-subtitle {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+  }
+
+  .comparison-row-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .row-verdict {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  .row-arrow {
+    color: var(--brand-orange);
+    font-weight: 600;
+  }
+
+  /* CTA Card */
+  .cta-card {
+    text-align: center;
+    padding: var(--space-2xl);
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--brand-orange);
+  }
+
+  .cta-card h2 {
+    color: var(--white);
+    margin-bottom: var(--space-sm);
+  }
+
+  .cta-card p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-lg);
+  }
+
+  @media (max-width: 968px) {
+    .comparisons-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .comparisons-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .comparison-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
+
+    .comparison-row-left {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+
+    .row-verdict {
+      display: none;
+    }
+  }
+</style>

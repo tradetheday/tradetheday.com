@@ -1,0 +1,617 @@
+/* ==========================================================================
+   AVATRADE PARTNER CODE PAGE STYLES
+   ========================================================================== */
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+
+.hero-section {
+  background: var(--charcoal);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  color: var(--white);
+  padding: var(--space-3xl) 0;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(255, 72, 0, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 72, 0, 0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.chip {
+  display: inline-block;
+  background: rgba(255, 72, 0, 0.15);
+  border: 1px solid rgba(255, 72, 0, 0.3);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--brand-orange);
+  margin-bottom: var(--space-lg);
+}
+
+.hero-title {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-extrabold);
+  margin-bottom: var(--space-md);
+  color: var(--white);
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-2xl);
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   COUPON TICKET COMPONENT
+   ========================================================================== */
+
+.coupon-ticket {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  margin: var(--space-2xl) auto;
+  max-width: 400px;
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--brand-orange);
+  position: relative;
+}
+
+.coupon-ticket::before,
+.coupon-ticket::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--charcoal);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.coupon-ticket::before {
+  left: -11px;
+}
+
+.coupon-ticket::after {
+  right: -11px;
+}
+
+.coupon-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--gray-600);
+  margin-bottom: var(--space-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.coupon-code {
+  background: var(--gray-100);
+  border: 2px dashed var(--brand-orange);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.coupon-code-text {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.coupon-copy-btn {
+  background: var(--brand-orange);
+  color: var(--white);
+  border: none;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  width: 100%;
+}
+
+.coupon-copy-btn:hover {
+  background: var(--brand-orange-dark);
+  transform: translateY(-1px);
+}
+
+.coupon-description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  background: var(--success);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Dark variant */
+.coupon-dark {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.coupon-dark::before,
+.coupon-dark::after {
+  background: var(--charcoal);
+}
+
+.coupon-code-dark {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   HERO CTA BUTTON
+   ========================================================================== */
+
+.btn-hero {
+  margin-top: var(--space-lg);
+  font-size: var(--font-size-lg);
+  padding: var(--space-lg) var(--space-2xl);
+}
+
+/* ==========================================================================
+   CENTER CONTAINER
+   ========================================================================== */
+
+.center-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   STEPS SECTION
+   ========================================================================== */
+
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+}
+
+.step-item:hover {
+  background: var(--gray-50);
+}
+
+.step-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--gradient-primary);
+  color: var(--white);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin-bottom: var(--space-xs);
+}
+
+.step-description {
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+.highlight {
+  background: var(--brand-orange);
+  color: var(--white);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ==========================================================================
+   PARTNER CODE ANIMATION
+   ========================================================================== */
+
+.partner-code-animation {
+  margin-top: var(--space-3xl);
+}
+
+.animation-container {
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--gray-200);
+  transition: all var(--transition-base);
+}
+
+.animation-container:hover {
+  box-shadow: var(--shadow-xl);
+  border-color: var(--brand-orange);
+}
+
+.partner-code-gif {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ==========================================================================
+   BONUS TABLE
+   ========================================================================== */
+
+.bonus-table-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.bonus-table {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--gray-200);
+}
+
+.bonus-table-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--gradient-primary);
+  color: var(--white);
+  padding: var(--space-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.header-deposit,
+.header-bonus {
+  text-align: center;
+  font-size: var(--font-size-lg);
+}
+
+.bonus-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--gray-200);
+  transition: all var(--transition-base);
+}
+
+.bonus-row:last-child {
+  border-bottom: none;
+}
+
+.bonus-row:hover {
+  background: var(--gray-50);
+}
+
+.bonus-deposit {
+  text-align: center;
+  color: var(--gray-700);
+  font-weight: var(--font-weight-medium);
+}
+
+.bonus-amount {
+  text-align: center;
+  color: var(--brand-orange);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+}
+
+/* ==========================================================================
+   REASON CARDS
+   ========================================================================== */
+
+.reason-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.reason-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin-bottom: var(--space-md);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* ==========================================================================
+   FAQ SECTION
+   ========================================================================== */
+
+.faq-item {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-md);
+  overflow: hidden;
+  transition: all var(--transition-base);
+}
+
+.faq-item:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.faq-question {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: var(--space-lg);
+  text-align: left;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--charcoal);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all var(--transition-base);
+}
+
+.faq-question:hover {
+  background: var(--gray-50);
+}
+
+.faq-question::after {
+  content: '+';
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--brand-orange);
+  transition: all var(--transition-base);
+}
+
+.faq-question.active::after {
+  content: '−';
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  padding: 0 var(--space-lg) var(--space-lg);
+  color: var(--gray-600);
+  line-height: 1.6;
+  display: none;
+}
+
+.faq-answer.active {
+  display: block;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   BENEFITS SECTION
+   ========================================================================== */
+
+.spacer-large {
+  height: var(--space-3xl);
+}
+
+.benefits-review-link {
+  color: var(--brand-orange);
+  text-decoration: underline;
+  font-weight: var(--font-weight-semibold);
+  transition: all var(--transition-base);
+}
+
+.benefits-review-link:hover {
+  color: var(--brand-orange-dark);
+}
+
+/* ==========================================================================
+   CTA SECTION
+   ========================================================================== */
+
+.cta-review-link {
+  margin-top: var(--space-lg);
+}
+
+.review-link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+  transition: all var(--transition-base);
+}
+
+.review-link:hover {
+  color: var(--white);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .hero-subtitle {
+    font-size: var(--font-size-lg);
+  }
+  
+  .coupon-ticket {
+    margin-left: var(--space-md);
+    margin-right: var(--space-md);
+    padding: var(--space-lg);
+  }
+  
+  .coupon-code-text {
+    font-size: var(--font-size-xl);
+  }
+  
+  .step-item {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-md);
+  }
+  
+  .step-number {
+    align-self: center;
+  }
+  
+  .animation-container {
+    margin: 0 var(--space-md);
+  }
+  
+  .bonus-table-header,
+  .bonus-row {
+    padding: var(--space-md);
+  }
+  
+  .header-deposit,
+  .header-bonus {
+    font-size: var(--font-size-md);
+  }
+  
+  .faq-question {
+    flex-direction: column;
+    gap: var(--space-sm);
+    text-align: center;
+  }
+  
+  .faq-question::after {
+    align-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .coupon-ticket::before,
+  .coupon-ticket::after {
+    display: none;
+  }
+  
+  .bonus-table-header,
+  .bonus-row {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: var(--space-sm);
+  }
+  
+  .header-deposit::after {
+    content: ': ';
+  }
+  
+  .header-bonus::after {
+    content: ': ';
+  }
+}
+
+/* ==========================================================================
+   HERO CHIP INTEGRATION
+   ========================================================================== */
+
+.hero-section .chip {
+  margin-bottom: var(--space-lg);
+}
+
+/* ==========================================================================
+   ADDITIONAL CUSTOM CLASSES
+   ========================================================================== */
+
+.section-title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--charcoal);
+  margin-bottom: var(--space-md);
+}
+
+.section-description {
+  font-size: var(--font-size-lg);
+  color: var(--gray-600);
+  line-height: 1.6;
+}
+
+.mb-xl {
+  margin-bottom: var(--space-3xl);
+}
+
+.mt-lg {
+  margin-top: var(--space-lg);
+}
+
+.mb-lg {
+  margin-bottom: var(--space-lg);
+}
+
+.cta-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-md);
+}
+
+.cta-description {
+  font-size: var(--font-size-lg);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  margin-bottom: var(--space-2xl);
+}
+
+.cta-review-link {
+  margin-top: var(--space-lg);
+}
+
+.section-alt {
+  background: var(--gray-100);
+}

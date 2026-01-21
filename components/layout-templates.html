@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade the Day - Layout Templates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/design-system.css">
+    <style>
+        /* Subtle table highlight styles for layout templates */
+        .table .highlight-best {
+            background: rgba(16, 185, 129, 0.08) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #10B981 !important;
+            font-weight: 600 !important;
+            position: relative;
+        }
+        
+        .table .highlight-best::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+            color: #10B981;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .table .highlight-good {
+            background: rgba(245, 158, 11, 0.06) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #F59E0B !important;
+            font-weight: 500 !important;
+        }
+        
+        .table .highlight-warning {
+            background: rgba(239, 68, 68, 0.06) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #EF4444 !important;
+            font-weight: 500 !important;
+        }
+        
+        .table .highlight-brand {
+            background: rgba(255, 72, 0, 0.06) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #FF4800 !important;
+            font-weight: 600 !important;
+        }
+        
+        .table .highlight-neutral {
+            background: rgba(115, 115, 115, 0.04) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #a3a3a3 !important;
+            font-weight: 500 !important;
+        }
+        
+        .table .currency {
+            color: #059669 !important;
+            font-weight: 600 !important;
+            background: rgba(16, 185, 129, 0.08) !important;
+            padding: 2px 4px !important;
+            border-radius: 3px !important;
+        }
+        
+        .table .percentage {
+            color: #D97706 !important;
+            font-weight: 600 !important;
+            background: rgba(245, 158, 11, 0.08) !important;
+            padding: 2px 4px !important;
+            border-radius: 3px !important;
+        }
+        
+        .table .rating {
+            color: #FF4800 !important;
+            font-weight: 600 !important;
+            background: rgba(255, 72, 0, 0.08) !important;
+            padding: 2px 4px !important;
+            border-radius: 3px !important;
+            font-size: 16px !important;
+        }
+        
+        .table .number-highlight {
+            background: rgba(255, 72, 0, 0.08) !important;
+            color: #FF4800 !important;
+            font-family: 'SF Mono', 'Monaco', 'Menlo', monospace !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            padding: 3px 6px !important;
+            border-radius: 4px !important;
+            display: inline-block;
+        }
+        
+        /* Reduce table row height */
+        .table th,
+        .table td {
+            padding: 8px 24px !important;
+            line-height: 1.4 !important;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==========================================================================
+     LAYOUT TEMPLATE 1: HERO + CONTENT SECTIONS
+     ========================================================================== -->
+
+<!-- Hero Section Template -->
+<section class="hero section">
+    <div class="container">
+        <span class="chip">Template: Hero Section</span>
+        <h1 class="heading-1">Page Title Goes Here</h1>
+        <p class="body-large">Compelling subtitle or description that explains the page content and value proposition.</p>
+        
+        <a href="#" class="btn btn-primary btn-lg">
+            Primary Action →
+        </a>
+        
+        <!-- Optional: Scorecard for key metrics -->
+        <div class="scorecard">
+            <div class="scorecard-item">
+                <div class="scorecard-value">100+</div>
+                <div class="scorecard-label">Metric 1</div>
+            </div>
+            <div class="scorecard-item">
+                <div class="scorecard-value">$50K</div>
+                <div class="scorecard-label">Metric 2</div>
+            </div>
+            <div class="scorecard-item">
+                <div class="scorecard-value">24/7</div>
+                <div class="scorecard-label">Metric 3</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Navigation Template -->
+<nav class="nav">
+    <div class="container">
+        <div class="nav-links">
+            <a href="#section1" class="nav-link active">Section 1</a>
+            <a href="#section2" class="nav-link">Section 2</a>
+            <a href="#section3" class="nav-link">Section 3</a>
+            <a href="#section4" class="nav-link">Section 4</a>
+            <a href="#section5" class="nav-link">Section 5</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Content Section Template -->
+<section id="section1" class="section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="heading-2">Section Title</h2>
+            <p class="body-large">Section description or introduction paragraph</p>
+        </div>
+        
+        <!-- 3-Column Grid Template -->
+        <div class="grid grid-3">
+            <div class="card">
+                <span class="card-icon">📊</span>
+                <h3 class="heading-3">Feature 1</h3>
+                <p class="body">Description of this feature and its benefits for users.</p>
+                <a href="#" class="btn btn-secondary">Learn More</a>
+            </div>
+            
+            <div class="card">
+                <span class="card-icon">⚡</span>
+                <h3 class="heading-3">Feature 2</h3>
+                <p class="body">Description of this feature and its benefits for users.</p>
+                <a href="#" class="btn btn-secondary">Learn More</a>
+            </div>
+            
+            <div class="card">
+                <span class="card-icon">🎯</span>
+                <h3 class="heading-3">Feature 3</h3>
+                <p class="body">Description of this feature and its benefits for users.</p>
+                <a href="#" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     LAYOUT TEMPLATE 2: TABLE SECTION
+     ========================================================================== -->
+
+<section id="section2" class="section section-alt">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="heading-2">Comparison Table</h2>
+            <p class="body-large">Compare features, pricing, or specifications</p>
+        </div>
+        
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><strong>Broker</strong></th>
+                        <th><strong>Min Deposit</strong></th>
+                        <th><strong>EUR/USD Spread</strong></th>
+                        <th><strong>Rating</strong></th>
+                        <th><strong>Regulation</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>AvaTrade</strong></td>
+                        <td class="highlight-best"><span class="currency number-highlight">$100</span></td>
+                        <td><span class="percentage">0.9 pips</span></td>
+                        <td class="highlight-good"><span class="rating">4.2/5</span></td>
+                        <td class="highlight-brand">6 Licenses</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IC Markets</strong></td>
+                        <td class="highlight-neutral"><span class="currency number-highlight">$200</span></td>
+                        <td class="highlight-best"><span class="percentage">0.1 pips</span></td>
+                        <td><span class="rating">4.5/5</span></td>
+                        <td>ASIC, CySEC</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Plus500</strong></td>
+                        <td class="highlight-good"><span class="currency number-highlight">$100</span></td>
+                        <td class="highlight-warning"><span class="percentage">2.2 pips</span></td>
+                        <td><span class="rating">3.8/5</span></td>
+                        <td>FCA, ASIC</td>
+                    </tr>
+                    <tr>
+                        <td><strong>XTB</strong></td>
+                        <td class="highlight-warning"><span class="currency number-highlight">$250</span></td>
+                        <td><span class="percentage">0.8 pips</span></td>
+                        <td class="highlight-brand"><span class="rating">4.4/5</span></td>
+                        <td>FCA, KNF</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Highlight Examples -->
+        <div class="card mt-xl">
+            <h3 class="heading-3">Table Highlighting Guide</h3>
+            <p class="body">This comparison table demonstrates the highlighting system:</p>
+            <ul class="body" style="margin-left: var(--space-lg);">
+                <li><strong class="text-brand">Green (Best):</strong> Lowest minimum deposits and best spreads</li>
+                <li><strong style="color: #F59E0B;">Orange (Good):</strong> Above average performance</li>
+                <li><strong style="color: #EF4444;">Red (Warning):</strong> High fees or concerning values</li>
+                <li><strong class="text-brand">Brand (Featured):</strong> Special highlights for key features</li>
+                <li><strong style="color: #737373;">Gray (Neutral):</strong> Standard emphasis</li>
+            </ul>
+            
+            <p class="body mt-lg"><strong>Number Formatting Classes:</strong></p>
+            <div style="display: flex; gap: var(--space-lg); flex-wrap: wrap;">
+                <span><code>.currency</code> → <span class="currency">$100</span></span>
+                <span><code>.percentage</code> → <span class="percentage">2.5%</span></span>
+                <span><code>.rating</code> → <span class="rating">4.2/5</span></span>
+                <span><code>.number-highlight</code> → <span class="number-highlight">24/7</span></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     LAYOUT TEMPLATE 3: ANALYST NOTES SECTION
+     ========================================================================== -->
+
+<section id="section3" class="section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="heading-2">Analysis & Insights</h2>
+            <p class="body-large">Expert analysis and detailed insights</p>
+        </div>
+        
+        <!-- Analyst Notes Component -->
+        <div class="analyst-notes">
+            <button class="analyst-notes-button" onclick="toggleAnalystNotes('sample-notes')">
+                📊 Expert Analysis — Detailed Insights
+                <span id="sample-icon">▼</span>
+            </button>
+            <div id="sample-notes" class="analyst-notes-content" style="display: none;">
+                <h4 class="heading-3">Expert Analysis Title</h4>
+                <p class="body">This is where you would include detailed analysis, insights, and expert commentary on the topic at hand.</p>
+                
+                <h5 class="heading-5">Key Point 1</h5>
+                <p class="body">Detailed explanation of the first key point with supporting evidence and reasoning.</p>
+                
+                <h5 class="heading-5">Key Point 2</h5>
+                <p class="body">Detailed explanation of the second key point with supporting evidence and reasoning.</p>
+                
+                <p class="body"><strong>Expert Verdict:</strong> Summary conclusion with actionable recommendations.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     LAYOUT TEMPLATE 4: DARK SECTION WITH CARDS
+     ========================================================================== -->
+
+<section id="section4" class="section section-dark">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="heading-2">Dark Section Template</h2>
+            <p class="body-large">Perfect for highlighting key features or creating visual contrast</p>
+        </div>
+        
+        <div class="grid grid-4">
+            <div class="card text-center">
+                <span class="card-icon">🏛️</span>
+                <h3 class="heading-3">Feature 1</h3>
+                <p class="body">Feature description with benefits and value proposition</p>
+            </div>
+            
+            <div class="card text-center">
+                <span class="card-icon">🛡️</span>
+                <h3 class="heading-3">Feature 2</h3>
+                <p class="body">Feature description with benefits and value proposition</p>
+            </div>
+            
+            <div class="card text-center">
+                <span class="card-icon">📈</span>
+                <h3 class="heading-3">Feature 3</h3>
+                <p class="body">Feature description with benefits and value proposition</p>
+            </div>
+            
+            <div class="card text-center">
+                <span class="card-icon">🎓</span>
+                <h3 class="heading-3">Feature 4</h3>
+                <p class="body">Feature description with benefits and value proposition</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     LAYOUT TEMPLATE 5: PROS & CONS + FAQ SECTION
+     ========================================================================== -->
+
+<section id="section5" class="section section-alt">
+    <div class="container">
+        <!-- Pros & Cons Template -->
+        <div class="text-center">
+            <h2 class="heading-2">Pros & Cons</h2>
+            <p class="body-large">Balanced evaluation of advantages and disadvantages</p>
+        </div>
+        
+        <div class="pros-cons-grid">
+            <div class="pros-list">
+                <h3 class="heading-3" style="color: var(--success); margin-bottom: 24px;">✓ Advantages</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li>First advantage point</li>
+                    <li>Second advantage point</li>
+                    <li>Third advantage point</li>
+                    <li>Fourth advantage point</li>
+                </ul>
+            </div>
+            
+            <div class="cons-list">
+                <h3 class="heading-3" style="color: var(--error); margin-bottom: 24px;">✗ Disadvantages</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li>First disadvantage point</li>
+                    <li>Second disadvantage point</li>
+                    <li>Third disadvantage point</li>
+                    <li>Fourth disadvantage point</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- FAQ Template -->
+        <div class="mt-xl">
+            <div class="text-center mb-lg">
+                <h2 class="heading-2">Frequently Asked Questions</h2>
+                <p class="body-large">Common questions and expert answers</p>
+            </div>
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        What is the first frequently asked question?
+                    </button>
+                    <div class="faq-answer">
+                        <p>This is the detailed answer to the first frequently asked question. It provides comprehensive information to help users understand the topic.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        What about the second common question?
+                    </button>
+                    <div class="faq-answer">
+                        <p>Here's a thorough explanation addressing the second most common question users have about this topic.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        How do I handle the third scenario?
+                    </button>
+                    <div class="faq-answer">
+                        <p>Step-by-step instructions and guidance for handling this particular scenario or use case.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     LAYOUT TEMPLATE 6: FINAL VERDICT/CONCLUSION SECTION
+     ========================================================================== -->
+
+<section class="section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="heading-2">Final Verdict</h2>
+            
+            <!-- Rating Display -->
+            <div class="rating">
+                <span class="stars">★★★★☆</span>
+                <span class="rating-text">4.2/5</span>
+            </div>
+            
+            <p class="body-large">Summary conclusion that ties together all the analysis and provides clear recommendations for users.</p>
+        </div>
+        
+        <!-- Best For / Not Ideal For Cards -->
+        <div class="pros-cons-grid mt-lg">
+            <div class="card" style="border-left: 4px solid var(--success);">
+                <h3 class="heading-3" style="color: var(--success);">✓ Best For</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 6px 0;">• Target user type 1</li>
+                    <li style="padding: 6px 0;">• Target user type 2</li>
+                    <li style="padding: 6px 0;">• Target user type 3</li>
+                    <li style="padding: 6px 0;">• Target user type 4</li>
+                </ul>
+            </div>
+            
+            <div class="card" style="border-left: 4px solid var(--error);">
+                <h3 class="heading-3" style="color: var(--error);">✗ Not Ideal For</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 6px 0;">• Non-target user type 1</li>
+                    <li style="padding: 6px 0;">• Non-target user type 2</li>
+                    <li style="padding: 6px 0;">• Non-target user type 3</li>
+                    <li style="padding: 6px 0;">• Non-target user type 4</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="text-center mt-lg">
+            <a href="#" class="btn btn-primary btn-xl">
+                Primary Call to Action →
+            </a>
+            
+            <p style="margin-top: var(--space-md); font-size: var(--font-size-sm); color: var(--gray-500);">
+                <em>or, <a href="#" style="color: var(--brand-orange);">alternative action</a></em>
+            </p>
+            
+            <p class="body-xs mt-lg text-center" style="max-width: 600px; margin-left: auto; margin-right: auto; color: var(--gray-500);">
+                <strong>Disclaimer:</strong> Important legal or risk disclaimer text that should be included for compliance and user protection.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     ADDITIONAL COMPONENT TEMPLATES
+     ========================================================================== -->
+
+<!-- Button Showcase -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="heading-2">Button Components</h2>
+            <p class="body-large">Complete button library with all variants</p>
+        </div>
+        
+        <!-- Button Types -->
+        <div class="text-center mb-xl">
+            <h3 class="heading-3">Button Types</h3>
+            <div class="flex items-center justify-center gap-md" style="flex-wrap: wrap;">
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-secondary">Secondary Button</button>
+                <button class="btn btn-outline">Outline Button</button>
+                <button class="btn btn-ghost">Ghost Button</button>
+            </div>
+        </div>
+        
+        <!-- Button Sizes -->
+        <div class="text-center mb-xl">
+            <h3 class="heading-3">Button Sizes</h3>
+            <div class="flex items-center justify-center gap-md" style="flex-wrap: wrap;">
+                <button class="btn btn-primary btn-sm">Small</button>
+                <button class="btn btn-primary">Default</button>
+                <button class="btn btn-primary btn-lg">Large</button>
+                <button class="btn btn-primary btn-xl">Extra Large</button>
+            </div>
+        </div>
+        
+        <!-- Button States -->
+        <div class="text-center">
+            <h3 class="heading-3">Button States</h3>
+            <div class="flex items-center justify-center gap-md" style="flex-wrap: wrap;">
+                <button class="btn btn-primary">Normal</button>
+                <button class="btn btn-primary" disabled>Disabled</button>
+                <button class="btn btn-primary btn-pill">Pill Shape</button>
+                <button class="btn btn-primary btn-full" style="max-width: 200px;">Full Width</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Typography Showcase -->
+<section class="section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="heading-2">Typography System</h2>
+            <p class="body-large">Complete typography scale and hierarchy</p>
+        </div>
+        
+        <div style="max-width: 800px; margin: 0 auto;">
+            <h1 class="heading-1">Heading 1 - Main Page Titles</h1>
+            <h2 class="heading-2">Heading 2 - Section Titles</h2>
+            <h3 class="heading-3">Heading 3 - Subsection Titles</h3>
+            <h4 class="heading-4">Heading 4 - Card Titles</h4>
+            <h5 class="heading-5">Heading 5 - Small Headings</h5>
+            
+            <p class="body-large">Body Large - Used for important descriptions and introductory paragraphs that need extra emphasis and visibility.</p>
+            
+            <p class="body">Body - The standard text size used for most content, articles, and general reading material throughout the site.</p>
+            
+            <p class="body-small">Body Small - Used for less important information, captions, and supplementary text that supports the main content.</p>
+            
+            <p class="body-xs">Body Extra Small - Used for fine print, disclaimers, and minimal supporting information.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Grid System Showcase -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="heading-2">Grid System</h2>
+            <p class="body-large">Flexible grid layouts for all content types</p>
+        </div>
+        
+        <!-- 2-Column Grid -->
+        <div class="mb-xl">
+            <h3 class="heading-3 text-center">2-Column Grid</h3>
+            <div class="grid grid-2">
+                <div class="card">
+                    <h4 class="heading-4">Grid Item 1</h4>
+                    <p class="body">Content for the first grid item in a 2-column layout.</p>
+                </div>
+                <div class="card">
+                    <h4 class="heading-4">Grid Item 2</h4>
+                    <p class="body">Content for the second grid item in a 2-column layout.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3-Column Grid -->
+        <div class="mb-xl">
+            <h3 class="heading-3 text-center">3-Column Grid</h3>
+            <div class="grid grid-3">
+                <div class="card">
+                    <h4 class="heading-4">Grid Item 1</h4>
+                    <p class="body">First item in 3-column layout.</p>
+                </div>
+                <div class="card">
+                    <h4 class="heading-4">Grid Item 2</h4>
+                    <p class="body">Second item in 3-column layout.</p>
+                </div>
+                <div class="card">
+                    <h4 class="heading-4">Grid Item 3</h4>
+                    <p class="body">Third item in 3-column layout.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 4-Column Grid -->
+        <div>
+            <h3 class="heading-3 text-center">4-Column Grid</h3>
+            <div class="grid grid-4">
+                <div class="card">
+                    <h4 class="heading-4">Item 1</h4>
+                    <p class="body">Content 1</p>
+                </div>
+                <div class="card">
+                    <h4 class="heading-4">Item 2</h4>
+                    <p class="body">Content 2</p>
+                </div>
+                <div class="card">
+                    <h4 class="heading-4">Item 3</h4>
+                    <p class="body">Content 3</p>
+                </div>
+                <div class="card">
+                    <h4 class="heading-4">Item 4</h4>
+                    <p class="body">Content 4</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="../assets/js/design-system.js"></script>
+
+<script>
+// JavaScript for layout templates - ensures interactive components work
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Layout template loaded');
+    
+    // Analyst Notes functionality
+    function toggleAnalystNotes(id) {
+        console.log('Toggling analyst notes:', id);
+        const content = document.getElementById(id);
+        const icon = document.getElementById(id.replace('-notes', '-icon'));
+        
+        if (!content) {
+            console.log('Content not found:', id);
+            return;
+        }
+        
+        if (content.style.display === 'none' || content.style.display === '') {
+            content.style.display = 'block';
+            if (icon) icon.textContent = '▲';
+            console.log('Opened:', id);
+        } else {
+            content.style.display = 'none';
+            if (icon) icon.textContent = '▼';
+            console.log('Closed:', id);
+        }
+    }
+    
+    // FAQ functionality
+    function toggleFAQ(element) {
+        console.log('Toggling FAQ');
+        const faqItem = element.parentElement;
+        const isActive = faqItem.classList.contains('active');
+        
+        // Close all FAQ items
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Open clicked item if it wasn't active
+        if (!isActive) {
+            faqItem.classList.add('active');
+            console.log('Opened FAQ');
+        } else {
+            console.log('Closed FAQ');
+        }
+    }
+    
+    // Add click listeners to FAQ questions
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleFAQ(this);
+        });
+    });
+    
+    // Fix navigation smooth scroll offset
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Get the navigation height to offset the scroll
+                const nav = document.querySelector('.nav');
+                const navHeight = nav ? nav.offsetHeight : 0;
+                const extraOffset = 20; // Additional padding
+                
+                // Calculate the position to scroll to
+                const elementPosition = targetElement.offsetTop;
+                const offsetPosition = elementPosition - navHeight - extraOffset;
+                
+                // Smooth scroll to the calculated position
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Add click listeners to analyst notes buttons
+    document.querySelectorAll('.analyst-notes-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Extract the ID from onclick attribute or use data-target
+            let targetId = this.getAttribute('data-target');
+            
+            if (!targetId) {
+                const onclick = this.getAttribute('onclick');
+                if (onclick) {
+                    const match = onclick.match(/toggleAnalystNotes\('([^']+)'\)/);
+                    if (match) {
+                        targetId = match[1];
+                    }
+                }
+            }
+            
+            console.log('Button clicked, target ID:', targetId);
+            
+            if (targetId) {
+                toggleAnalystNotes(targetId);
+            } else {
+                console.log('No target ID found');
+            }
+        });
+    });
+    
+    // Make functions available globally for inline onclick handlers
+    window.toggleAnalystNotes = toggleAnalystNotes;
+    window.toggleFAQ = toggleFAQ;
+    
+    console.log('All event listeners attached');
+});
+</script>
+
+</body>
+</html>

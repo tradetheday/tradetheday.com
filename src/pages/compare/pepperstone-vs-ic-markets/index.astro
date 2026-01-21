@@ -1,0 +1,1126 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import FAQ from '../../../components/FAQ.astro';
+import { getBrokerBySlug } from '../../../data/brokers';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+
+// Get broker data
+const pepperstone = getBrokerBySlug('pepperstone');
+const icmarkets = getBrokerBySlug('ic-markets');
+
+if (!pepperstone || !icmarkets) {
+  return Astro.redirect('/compare/');
+}
+
+// Page metadata
+const pageTitle = 'Pepperstone vs IC Markets 2026: Best ECN Broker Comparison | TradeTheDay';
+const pageDescription = 'Pepperstone vs IC Markets: Two top ECN brokers compared. See spreads, execution speed, platforms, and which is better for scalping, day trading, and EAs.';
+
+// Comparison tables
+const overviewHeaders = ['Feature', 'Pepperstone', 'IC Markets', 'Winner'];
+const overviewRows = [
+  {
+    cells: [
+      { content: 'Founded', type: 'text' },
+      { content: '2010', type: 'text' },
+      { content: '2007', type: 'text', highlight: 'best' },
+      { content: 'IC Markets', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Minimum Deposit', type: 'text' },
+      { content: '$0', type: 'text', highlight: 'best' },
+      { content: '$200', type: 'text' },
+      { content: 'Pepperstone', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Raw Spreads From', type: 'text' },
+      { content: '0.0 pips', type: 'text', highlight: 'best' },
+      { content: '0.0 pips', type: 'text', highlight: 'best' },
+      { content: 'Tie', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Commission (per lot)', type: 'text' },
+      { content: '$3.50', type: 'text', highlight: 'best' },
+      { content: '$3.50', type: 'text', highlight: 'best' },
+      { content: 'Tie', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Instruments', type: 'text' },
+      { content: '1,200+', type: 'text' },
+      { content: '2,250+', type: 'text', highlight: 'best' },
+      { content: 'IC Markets', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Monthly Volume', type: 'text' },
+      { content: '$12.5B+', type: 'text' },
+      { content: '$1T+', type: 'text', highlight: 'best' },
+      { content: 'IC Markets', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'TradingView Integration', type: 'text' },
+      { content: 'Yes', type: 'text', highlight: 'best' },
+      { content: 'Yes', type: 'text', highlight: 'best' },
+      { content: 'Tie', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Our Rating', type: 'text' },
+      { content: `${pepperstone.scores.overall}/5`, type: 'text' },
+      { content: `${icmarkets.scores.overall}/5`, type: 'text', highlight: 'best' },
+      { content: 'IC Markets (marginally)', type: 'text', highlight: 'good' }
+    ]
+  }
+];
+
+const executionHeaders = ['Metric', 'Pepperstone', 'IC Markets', 'Winner'];
+const executionRows = [
+  {
+    cells: [
+      { content: 'Execution Type', type: 'text' },
+      { content: 'ECN/STP', type: 'text', highlight: 'best' },
+      { content: 'True ECN', type: 'text', highlight: 'best' },
+      { content: 'Tie', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Avg. Execution Speed', type: 'text' },
+      { content: '30ms', type: 'text', highlight: 'best' },
+      { content: '40ms', type: 'text' },
+      { content: 'Pepperstone', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Liquidity Providers', type: 'text' },
+      { content: '20+', type: 'text' },
+      { content: '25+', type: 'text', highlight: 'best' },
+      { content: 'IC Markets', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Server Locations', type: 'text' },
+      { content: 'NY4, LD5, TY3', type: 'text', highlight: 'best' },
+      { content: 'NY4, LD5', type: 'text' },
+      { content: 'Pepperstone', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Free VPS', type: 'text' },
+      { content: 'Yes (conditions)', type: 'text', highlight: 'best' },
+      { content: 'Yes (conditions)', type: 'text', highlight: 'best' },
+      { content: 'Tie', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Slippage Control', type: 'text' },
+      { content: 'Excellent', type: 'text', highlight: 'best' },
+      { content: 'Excellent', type: 'text', highlight: 'best' },
+      { content: 'Tie', type: 'text' }
+    ]
+  }
+];
+
+// FAQ data
+const faqItems = [
+  {
+    question: 'Which is better for scalping, Pepperstone or IC Markets?',
+    answer: 'Both are excellent for scalping with 0.0 pip raw spreads and fast execution. Pepperstone has slightly faster average execution (30ms vs 40ms), while IC Markets has more liquidity providers (25+ vs 20+). For most scalpers, the difference is negligible - both are top-tier choices.'
+  },
+  {
+    question: 'What are the commission rates at Pepperstone and IC Markets?',
+    answer: 'Both charge $3.50 per lot per side ($7 round turn) on their raw spread accounts. Standard accounts at both brokers have no commission but wider spreads. The commission structure is identical, making spread comparison the key differentiator.'
+  },
+  {
+    question: 'Which broker has better regulation?',
+    answer: 'Pepperstone has stronger regulatory coverage with ASIC, FCA, CySEC, BaFin (Germany), and DFSA licenses. IC Markets has ASIC and CySEC plus an offshore FSA (Seychelles) license. For European and UK traders especially, Pepperstone\'s BaFin and FCA licenses offer more protection.'
+  },
+  {
+    question: 'Can I use TradingView with both brokers?',
+    answer: 'Yes, both Pepperstone and IC Markets offer direct TradingView integration, allowing you to trade directly from TradingView charts. This is in addition to MT4, MT5, and cTrader platforms available at both brokers.'
+  },
+  {
+    question: 'Which is better for Expert Advisors (EAs)?',
+    answer: 'Both excel for EA trading with MT4/MT5 support, free VPS hosting (with qualifying volume), and fast execution. IC Markets has slightly more liquidity providers which can help during news events. Pepperstone has more server locations. Either works well for automated strategies.'
+  },
+  {
+    question: 'What is the minimum deposit difference?',
+    answer: 'Pepperstone has no minimum deposit requirement, while IC Markets requires $200. This makes Pepperstone more accessible for traders starting with smaller capital or testing the platform.'
+  },
+  {
+    question: 'Which broker has more instruments?',
+    answer: 'IC Markets offers 2,250+ instruments compared to Pepperstone\'s 1,200+. IC Markets has broader CFD coverage including more stocks and indices. For forex-focused traders, both offer comprehensive major, minor, and exotic pairs.'
+  },
+  {
+    question: 'Are spreads really 0.0 pips?',
+    answer: 'Yes, both regularly show 0.0 pip spreads on EUR/USD during liquid sessions. However, remember you also pay commission ($3.50/lot). The effective cost on a standard lot at 0.0 spread is $7 round turn. During news or low liquidity, spreads widen at both brokers.'
+  }
+];
+
+// Schema and breadcrumbs
+const breadcrumbSchemaItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Compare', url: '/compare/' },
+  { name: 'Pepperstone vs IC Markets', url: '/compare/pepperstone-vs-ic-markets/' }
+];
+
+const faqSchema = generateFAQSchema(faqItems);
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbSchemaItems);
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Compare', href: '/compare/' },
+  { text: 'Pepperstone vs IC Markets', current: true }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  ogType="article"
+  schema={[faqSchema, breadcrumbSchema]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- HERO SECTION -->
+  <section class="comparison-hero">
+    <div class="container">
+      <div class="comparison-hero-content">
+        <span class="hero-badge">ECN Broker Showdown</span>
+        <h1 class="heading-1">Pepperstone vs IC Markets</h1>
+        <p class="comparison-hero-sub">
+          The ultimate comparison of two elite ECN brokers. Both offer raw spreads from 0.0 pips - but which one edges ahead for serious traders?
+        </p>
+      </div>
+
+      <div class="verdict-cards">
+        <div class="verdict-card">
+          <div class="broker-logo-placeholder">P</div>
+          <h3>Pepperstone</h3>
+          <div class="verdict-rating">
+            <span class="stars">★★★★★</span>
+            <span class="score">{pepperstone.scores.overall}/5</span>
+          </div>
+          <p class="verdict-best">Faster execution, more regulation, $0 minimum</p>
+          <a href={pepperstone.reviewUrl} class="btn btn-primary">
+            Read Review →
+          </a>
+        </div>
+
+        <div class="vs-badge">VS</div>
+
+        <div class="verdict-card verdict-card--winner">
+          <div class="winner-badge">Slight Edge</div>
+          <div class="broker-logo-placeholder">IC</div>
+          <h3>IC Markets</h3>
+          <div class="verdict-rating">
+            <span class="stars">★★★★★</span>
+            <span class="score">{icmarkets.scores.overall}/5</span>
+          </div>
+          <p class="verdict-best">More liquidity, more instruments, $1T volume</p>
+          <a href={icmarkets.reviewUrl} class="btn btn-secondary">
+            Read Review →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK VERDICT -->
+  <section class="section">
+    <div class="container">
+      <div class="quick-verdict">
+        <h2 class="heading-3">The Honest Truth: Both Are Excellent</h2>
+        <p class="body-large">
+          This is one of the closest broker comparisons we've done. Both Pepperstone and IC Markets are genuine
+          ECN brokers with institutional-grade execution. The differences are marginal - you'll trade well with either.
+        </p>
+      </div>
+
+      <div class="summary-grid">
+        <div class="summary-card summary-card--pepperstone">
+          <h4>Pepperstone Advantages:</h4>
+          <ul>
+            <li>$0 minimum deposit (vs $200)</li>
+            <li>Faster average execution (30ms)</li>
+            <li>More server locations globally</li>
+            <li>Stronger regulation (BaFin, FCA)</li>
+            <li>Better educational resources</li>
+          </ul>
+        </div>
+        <div class="summary-card summary-card--icmarkets">
+          <h4>IC Markets Advantages:</h4>
+          <ul>
+            <li>More instruments (2,250+ vs 1,200+)</li>
+            <li>More liquidity providers (25+)</li>
+            <li>Highest monthly volume ($1T+)</li>
+            <li>Slightly tighter average spreads</li>
+            <li>Longer track record (since 2007)</li>
+          </ul>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Why This Comparison Is Different"
+        icon="⚔️"
+        id="comparison-context"
+        variant="light"
+      >
+        <h4>Elite vs Elite</h4>
+        <p>Most broker comparisons have a clear winner. This isn't one of them. Pepperstone and IC Markets are both top-tier ECN brokers used by professional traders, hedge fund managers, and algorithmic trading firms. We're splitting hairs here.</p>
+
+        <h5>What They Have in Common</h5>
+        <p>Both offer raw spreads from 0.0 pips, identical commission rates ($3.50/lot), the same platforms (MT4, MT5, cTrader, TradingView), free VPS hosting, and excellent execution. Both are ASIC-regulated with segregated client funds. If you closed your eyes and picked one, you'd be fine.</p>
+
+        <h5>Where Pepperstone Edges Ahead</h5>
+        <p>Accessibility (no minimum deposit), regulatory breadth (BaFin, FCA), and slightly faster execution. Better for: new traders, European traders, and those prioritizing regulatory protection.</p>
+
+        <h5>Where IC Markets Edges Ahead</h5>
+        <p>Liquidity depth ($1T+ monthly volume), instrument range, and slightly tighter spreads on average. Better for: high-volume traders, EA developers, and those trading beyond forex.</p>
+
+        <h5>The Real Decision Factor</h5>
+        <p>Honestly? Pick based on where you're located (regulation matters), minimum deposit requirements, or which interface you prefer after testing demos. Performance differences are measurable but unlikely to significantly impact your bottom line.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- OVERVIEW COMPARISON -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Feature Comparison</h2>
+      <ComparisonTable
+        headers={overviewHeaders}
+        rows={overviewRows}
+        caption="Pepperstone vs IC Markets: Key features side-by-side"
+      />
+    </div>
+  </section>
+
+  <!-- EXECUTION COMPARISON -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2">Execution & Infrastructure</h2>
+      <p class="body-large">
+        For scalpers and algorithmic traders, execution quality is everything. Here's how these brokers compare on the technical metrics that matter.
+      </p>
+
+      <ComparisonTable
+        headers={executionHeaders}
+        rows={executionRows}
+        caption="Pepperstone vs IC Markets: Execution metrics"
+      />
+
+      <AnalystNotes
+        title="Execution Deep Dive: What the Numbers Mean"
+        icon="⚡"
+        id="execution-analysis"
+        variant="dark"
+      >
+        <h4>Understanding ECN Execution</h4>
+        <p>Both brokers route orders directly to liquidity providers - no dealing desk. But the infrastructure behind this matters for serious traders.</p>
+
+        <h5>Execution Speed: Does 10ms Matter?</h5>
+        <p>Pepperstone averages 30ms execution, IC Markets around 40ms. Is 10ms significant? For most traders, no. For high-frequency EAs executing hundreds of trades daily, potentially yes. For discretionary traders, you'll never notice the difference.</p>
+
+        <h5>Liquidity Providers</h5>
+        <p>IC Markets aggregates from 25+ liquidity providers, Pepperstone from 20+. More LPs generally means tighter spreads during volatile periods and better fill rates on large orders. For standard retail sizes (under 10 lots), both provide identical fills.</p>
+
+        <h5>Server Locations</h5>
+        <p>Pepperstone operates from NY4, LD5, and TY3 (New York, London, Tokyo). IC Markets from NY4 and LD5. If you're trading Asian sessions heavily and want minimal latency, Pepperstone's Tokyo server is an advantage. For most Western traders, both have optimal NY/London proximity.</p>
+
+        <h5>Free VPS Hosting</h5>
+        <p>Both offer free VPS when you meet volume requirements (typically 15+ lots/month). The VPS is co-located near their servers, giving EAs sub-5ms execution. Essential for latency-sensitive strategies.</p>
+
+        <h5>The Scalper's Verdict</h5>
+        <p>For pure scalping, Pepperstone's faster execution gives a theoretical edge. For high-volume trading during news, IC Markets' deeper liquidity helps. In practice, top scalpers succeed with both brokers. Your strategy matters more than the 10ms difference.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- SPREADS SECTION -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Spreads & Costs Analysis</h2>
+
+      <div class="spread-comparison">
+        <div class="spread-card">
+          <h3>Pepperstone Razor Account</h3>
+          <div class="spread-highlight">
+            <span class="spread-value">0.0</span>
+            <span class="spread-unit">pips</span>
+          </div>
+          <p class="spread-note">+ $3.50 commission per lot</p>
+          <div class="spread-details">
+            <div class="spread-row">
+              <span>EUR/USD avg:</span>
+              <strong>0.09 pips</strong>
+            </div>
+            <div class="spread-row">
+              <span>GBP/USD avg:</span>
+              <strong>0.28 pips</strong>
+            </div>
+            <div class="spread-row">
+              <span>USD/JPY avg:</span>
+              <strong>0.11 pips</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="spread-card spread-card--highlight">
+          <h3>IC Markets Raw Spread</h3>
+          <div class="spread-highlight">
+            <span class="spread-value">0.0</span>
+            <span class="spread-unit">pips</span>
+          </div>
+          <p class="spread-note">+ $3.50 commission per lot</p>
+          <div class="spread-details">
+            <div class="spread-row">
+              <span>EUR/USD avg:</span>
+              <strong>0.02 pips</strong>
+            </div>
+            <div class="spread-row">
+              <span>GBP/USD avg:</span>
+              <strong>0.23 pips</strong>
+            </div>
+            <div class="spread-row">
+              <span>USD/JPY avg:</span>
+              <strong>0.08 pips</strong>
+            </div>
+          </div>
+          <span class="winner-badge">Tighter Average</span>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="The Real Cost Per Trade"
+        icon="💰"
+        id="cost-analysis"
+        variant="light"
+      >
+        <h4>Breaking Down Actual Trading Costs</h4>
+        <p>Both brokers advertise 0.0 spreads, but let's calculate what you actually pay.</p>
+
+        <h5>Standard Lot EUR/USD Trade</h5>
+        <p><strong>Pepperstone:</strong> 0.09 pip spread = $0.90 + $7 commission = $7.90 per round turn</p>
+        <p><strong>IC Markets:</strong> 0.02 pip spread = $0.20 + $7 commission = $7.20 per round turn</p>
+        <p>IC Markets saves you $0.70 per standard lot on EUR/USD on average.</p>
+
+        <h5>Annual Cost Comparison (Active Trader)</h5>
+        <p>Assume you trade 10 standard lots per day, 250 trading days/year:</p>
+        <p><strong>Pepperstone:</strong> 10 × 250 × $7.90 = $19,750/year</p>
+        <p><strong>IC Markets:</strong> 10 × 250 × $7.20 = $18,000/year</p>
+        <p>For an active trader, IC Markets saves roughly $1,750/year on EUR/USD alone.</p>
+
+        <h5>But Consider This</h5>
+        <p>Spread differences shrink during volatile periods when both widen. Pepperstone's faster execution might get you better entry prices, offsetting spread advantage. And if you're trading other pairs or indices, the comparison changes. These are average figures - actual results vary.</p>
+
+        <h5>The Bottom Line</h5>
+        <p>IC Markets has marginally tighter spreads on major pairs. For high-volume forex traders, this compounds into real savings. For occasional traders, the difference is negligible. Both are far cheaper than market maker brokers.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PLATFORMS SECTION -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2">Trading Platforms</h2>
+
+      <div class="platforms-identical">
+        <p class="platforms-note">
+          <strong>Both brokers offer identical platform options:</strong>
+        </p>
+        <div class="platform-badges">
+          <span class="platform-badge">MetaTrader 4</span>
+          <span class="platform-badge">MetaTrader 5</span>
+          <span class="platform-badge">cTrader</span>
+          <span class="platform-badge">TradingView</span>
+        </div>
+      </div>
+
+      <div class="platform-grid">
+        <div class="platform-detail">
+          <h4>MetaTrader 4/5</h4>
+          <p>Industry standard for forex. Full EA support, custom indicators, and mobile trading. Both brokers offer identical MT4/MT5 functionality.</p>
+        </div>
+        <div class="platform-detail">
+          <h4>cTrader</h4>
+          <p>Advanced ECN platform with Level II pricing, superior charting, and cAlgo for algorithmic trading. Preferred by many professional scalpers.</p>
+        </div>
+        <div class="platform-detail">
+          <h4>TradingView</h4>
+          <p>Direct integration allows trading from TradingView charts. Combines TradingView's superior charting with ECN execution from either broker.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Platform Recommendation by Trading Style"
+        icon="💻"
+        id="platform-recommendation"
+        variant="dark"
+      >
+        <h4>Which Platform for Which Trader?</h4>
+        <p>Since both brokers offer identical platforms, here's guidance on which to use regardless of broker choice.</p>
+
+        <h5>For EA/Algorithmic Traders</h5>
+        <p><strong>Use MT4 or MT5.</strong> The MQL ecosystem is unmatched for automated trading. MT5 if you need more timeframes and better backtesting; MT4 if your EA was built for it (most are).</p>
+
+        <h5>For Scalpers</h5>
+        <p><strong>Use cTrader.</strong> Superior order execution interface, one-click trading, and Level II depth of market. cTrader was literally designed for high-frequency discretionary trading.</p>
+
+        <h5>For Technical Analysts</h5>
+        <p><strong>Use TradingView.</strong> Best charting in the industry, excellent indicator library, and now you can execute directly. Analyze on TradingView's superior charts, execute via Pepperstone or IC Markets.</p>
+
+        <h5>For Mobile Traders</h5>
+        <p><strong>MT4/MT5 mobile apps</strong> are solid. cTrader mobile is excellent. TradingView mobile for analysis, then execute via broker app. All options work well on both brokers.</p>
+
+        <h5>Platform Performance</h5>
+        <p>Since both brokers offer identical platforms, performance depends on your internet connection and their server proximity, not the broker itself. Both have optimized their infrastructure for each platform.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- REGULATION SECTION -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Regulation Comparison</h2>
+
+      <div class="regulation-comparison">
+        <div class="reg-column">
+          <h3>Pepperstone</h3>
+          <p class="reg-subtitle">6 Regulatory Licenses</p>
+          <ul class="reg-list">
+            <li class="tier-1">🇦🇺 ASIC (Australia) - #414530</li>
+            <li class="tier-1">🇬🇧 FCA (UK) - #684312</li>
+            <li class="tier-1">🇩🇪 BaFin (Germany) - #151148</li>
+            <li class="tier-2">🇨🇾 CySEC (Cyprus) - #388/20</li>
+            <li class="tier-2">🇦🇪 DFSA (UAE) - #F004356</li>
+            <li class="tier-3">🇧🇸 SCB (Bahamas) - #SIA-F217</li>
+          </ul>
+        </div>
+        <div class="reg-column">
+          <h3>IC Markets</h3>
+          <p class="reg-subtitle">3 Regulatory Licenses</p>
+          <ul class="reg-list">
+            <li class="tier-1">🇦🇺 ASIC (Australia) - #335692</li>
+            <li class="tier-2">🇨🇾 CySEC (Cyprus) - #362/18</li>
+            <li class="tier-3">🇸🇨 FSA (Seychelles) - #SD018</li>
+          </ul>
+          <p class="reg-note">
+            <strong>Note:</strong> IC Markets lacks FCA (UK) and BaFin (Germany) licenses. UK and German traders should verify which entity serves them.
+          </p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Regulation: Why Pepperstone Has an Edge"
+        icon="🛡️"
+        id="regulation-analysis"
+        variant="light"
+      >
+        <h4>Regulatory Quality Matters</h4>
+        <p>Both brokers are legitimately regulated, but Pepperstone's regulatory portfolio is stronger. Here's why it matters.</p>
+
+        <h5>Tier-1 Regulator Count</h5>
+        <p>Pepperstone holds three tier-1 licenses (ASIC, FCA, BaFin). IC Markets holds one (ASIC). Tier-1 regulators provide the strongest investor protection, segregation requirements, and compensation schemes.</p>
+
+        <h5>For UK Traders</h5>
+        <p>Pepperstone's FCA license means UK traders get FSCS protection up to £85,000. IC Markets doesn't have FCA authorization - UK traders would be served by their CySEC or offshore entity with less protection.</p>
+
+        <h5>For European Traders</h5>
+        <p>Pepperstone's BaFin (German) license is significant. German regulation is notoriously strict. This provides an additional layer of credibility and protection for EU traders.</p>
+
+        <h5>Both Are Safe</h5>
+        <p>Let's be clear: both brokers segregate client funds, offer negative balance protection, and have been operating for 10+ years without major incidents. The regulatory difference is about degree of protection, not whether your funds are safe.</p>
+
+        <h5>Our Take</h5>
+        <p>If regulatory protection is a priority (especially for larger accounts), Pepperstone's broader licensing is an advantage. For most retail traders with moderate account sizes, both provide adequate protection.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section">
+    <div class="container container--narrow">
+      <h2 class="heading-2">Frequently Asked Questions</h2>
+      <FAQ questions={faqItems} />
+    </div>
+  </section>
+
+  <!-- VERDICT SECTION -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="final-verdict">
+        <h2 class="heading-2">Final Verdict</h2>
+
+        <div class="verdict-summary">
+          <p class="body-large">
+            <strong>Our Rating:</strong> IC Markets 4.6/5 | Pepperstone 4.5/5
+          </p>
+          <p>
+            IC Markets edges ahead marginally with tighter spreads and deeper liquidity. Pepperstone counters with better regulation and no minimum deposit. For most traders, either choice is excellent.
+          </p>
+        </div>
+
+        <div class="verdict-grid">
+          <div class="verdict-box">
+            <h3>Choose Pepperstone If:</h3>
+            <ul>
+              <li>You're starting with small capital (no minimum)</li>
+              <li>You're in the UK or Germany (better regulation)</li>
+              <li>Execution speed is your top priority</li>
+              <li>You want more educational resources</li>
+              <li>Regulatory protection matters most</li>
+            </ul>
+            <a href={pepperstone.reviewUrl} class="btn btn-primary">
+              Open Pepperstone Account →
+            </a>
+          </div>
+
+          <div class="verdict-box verdict-box--winner">
+            <div class="winner-label">Slight Winner</div>
+            <h3>Choose IC Markets If:</h3>
+            <ul>
+              <li>Tightest possible spreads matter most</li>
+              <li>You trade high volume (liquidity depth)</li>
+              <li>You want more instruments (2,250+)</li>
+              <li>You run multiple EAs simultaneously</li>
+              <li>You can meet the $200 minimum</li>
+            </ul>
+            <a href={icmarkets.reviewUrl} class="btn btn-secondary">
+              Open IC Markets Account →
+            </a>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="The Practical Conclusion"
+          icon="🏆"
+          id="verdict-notes"
+          variant="light"
+        >
+          <h4>What We Actually Recommend</h4>
+          <p>Open demo accounts with both. Test for a week. See which interface feels better. The performance difference is so small that personal preference should be the deciding factor.</p>
+
+          <h5>For New Traders</h5>
+          <p>Start with Pepperstone. No minimum deposit means you can begin with whatever capital you have. Better educational resources help you learn. Stronger regulation protects you while you're finding your feet.</p>
+
+          <h5>For Experienced High-Volume Traders</h5>
+          <p>IC Markets' tighter spreads and deeper liquidity start to matter when you're trading significant volume. The $1,750/year potential savings on a 10-lot-per-day account is meaningful.</p>
+
+          <h5>For EA Developers</h5>
+          <p>Test your EA on both. Different liquidity pools can produce different results. Some EAs perform better with Pepperstone's execution speed; others benefit from IC Markets' liquidity depth. Real testing beats theoretical comparison.</p>
+
+          <h5>Our Honest Take</h5>
+          <p>We've used both brokers. We recommend both brokers. If someone forced us to pick one, we'd say IC Markets for pure trading cost efficiency, Pepperstone for overall package including regulation and accessibility. But truly, flip a coin - you'll be well-served either way.</p>
+        </AnalystNotes>
+
+        <!-- Related Links -->
+        <div class="related-resources">
+          <h3>Full Reviews & Resources</h3>
+          <div class="resource-grid">
+            <a href="/brokers/pepperstone/" class="resource-link">
+              <span class="resource-title">Pepperstone Full Review</span>
+              <span class="resource-desc">Complete 2026 analysis for ECN traders</span>
+            </a>
+            <a href="/brokers/ic-markets/" class="resource-link">
+              <span class="resource-title">IC Markets Full Review</span>
+              <span class="resource-desc">Deep dive into True ECN trading</span>
+            </a>
+            <a href="/brokers/avatrade/" class="resource-link">
+              <span class="resource-title">AvaTrade Review</span>
+              <span class="resource-desc">Alternative with $10K bonus available</span>
+            </a>
+            <a href="/bonus-codes/avatrade-partner-code/" class="resource-link resource-highlight">
+              <span class="resource-title">AvaTrade Partner Code: 128979</span>
+              <span class="resource-desc">Claim up to $10,000 welcome bonus</span>
+            </a>
+            <a href="/find-broker/" class="resource-link">
+              <span class="resource-title">AI Broker Matcher</span>
+              <span class="resource-desc">Find your perfect broker in 30 seconds</span>
+            </a>
+            <a href="/brokers/" class="resource-link">
+              <span class="resource-title">All Broker Reviews</span>
+              <span class="resource-desc">Compare 15+ regulated brokers</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .comparison-hero {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    padding: var(--space-2xl) 0;
+    color: white;
+  }
+
+  .comparison-hero-content {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255, 72, 0, 0.2);
+    border: 1px solid rgba(255, 72, 0, 0.4);
+    color: var(--brand-orange);
+    padding: 6px 16px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+  }
+
+  .comparison-hero h1 {
+    color: white;
+    margin-bottom: var(--space-md);
+  }
+
+  .comparison-hero-sub {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-size-xl);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .verdict-cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .verdict-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+    min-width: 280px;
+    color: var(--charcoal);
+    position: relative;
+  }
+
+  .verdict-card--winner {
+    border: 2px solid var(--success);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2);
+  }
+
+  .winner-badge, .winner-label {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--success);
+    color: white;
+    padding: 4px 16px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .broker-logo-placeholder {
+    width: 60px;
+    height: 60px;
+    background: var(--gray-100);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin: 0 auto var(--space-md);
+  }
+
+  .verdict-card h3 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .verdict-rating {
+    margin-bottom: var(--space-sm);
+  }
+
+  .stars {
+    color: var(--brand-orange);
+  }
+
+  .score {
+    color: var(--brand-orange);
+    font-weight: 700;
+    margin-left: var(--space-xs);
+  }
+
+  .verdict-best {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
+
+  .vs-badge {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.2);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quick-verdict {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .quick-verdict h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .summary-card {
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+  }
+
+  .summary-card--pepperstone {
+    background: rgba(255, 72, 0, 0.05);
+    border: 1px solid rgba(255, 72, 0, 0.2);
+  }
+
+  .summary-card--icmarkets {
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+
+  .summary-card h4 {
+    margin-bottom: var(--space-md);
+  }
+
+  .summary-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .summary-card li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+  }
+
+  .summary-card li::before {
+    content: '✓ ';
+    color: var(--success);
+    font-weight: 600;
+  }
+
+  .spread-comparison {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+    margin: var(--space-xl) 0;
+  }
+
+  .spread-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+    position: relative;
+  }
+
+  .spread-card--highlight {
+    border-color: var(--success);
+  }
+
+  .spread-card h3 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .spread-highlight {
+    margin-bottom: var(--space-sm);
+  }
+
+  .spread-value {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+  }
+
+  .spread-unit {
+    font-size: var(--font-size-xl);
+    color: var(--gray-600);
+  }
+
+  .spread-note {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  .spread-details {
+    text-align: left;
+  }
+
+  .spread-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: var(--font-size-sm);
+  }
+
+  .spread-row:last-child {
+    border-bottom: none;
+  }
+
+  .platforms-identical {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .platforms-note {
+    margin-bottom: var(--space-md);
+  }
+
+  .platform-badges {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .platform-badge {
+    background: var(--brand-orange);
+    color: white;
+    padding: var(--space-sm) var(--space-lg);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+  }
+
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .platform-detail {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .platform-detail h4 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .platform-detail p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  .regulation-comparison {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .reg-column h3 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .reg-subtitle {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  .reg-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .reg-list li {
+    padding: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    background: var(--white);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+  }
+
+  .reg-list li.tier-1 {
+    border-left: 3px solid var(--success);
+  }
+
+  .reg-list li.tier-2 {
+    border-left: 3px solid var(--brand-orange);
+  }
+
+  .reg-list li.tier-3 {
+    border-left: 3px solid var(--gray-400);
+  }
+
+  .reg-note {
+    margin-top: var(--space-md);
+    padding: var(--space-md);
+    background: rgba(245, 158, 11, 0.1);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+  }
+
+  .final-verdict h2 {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-summary {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-box {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    position: relative;
+  }
+
+  .verdict-box--winner {
+    border-color: var(--success);
+  }
+
+  .verdict-box h3 {
+    margin-bottom: var(--space-md);
+  }
+
+  .verdict-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg) 0;
+  }
+
+  .verdict-box li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+  }
+
+  .verdict-box li::before {
+    content: '✓ ';
+    color: var(--success);
+  }
+
+  @media (max-width: 768px) {
+    .verdict-cards {
+      flex-direction: column;
+    }
+
+    .vs-badge {
+      transform: rotate(90deg);
+    }
+
+    .summary-grid,
+    .spread-comparison,
+    .platform-grid,
+    .regulation-comparison,
+    .verdict-grid,
+    .resource-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Related Resources */
+  .related-resources {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .related-resources h3 {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .resource-link {
+    display: block;
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .resource-link:hover {
+    border-color: var(--brand-orange);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .resource-link.resource-highlight {
+    background: rgba(255, 72, 0, 0.05);
+    border-color: rgba(255, 72, 0, 0.3);
+  }
+
+  .resource-title {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .resource-desc {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+</style>

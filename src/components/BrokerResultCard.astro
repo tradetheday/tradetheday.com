@@ -1,0 +1,315 @@
+---
+/**
+ * Broker Result Card Component
+ * Displays a broker recommendation with match percentage and key stats
+ */
+import type { BrokerData } from '../data/brokers';
+
+interface Props {
+  broker: BrokerData;
+  matchScore?: number;
+  featured?: boolean;
+  showBonus?: boolean;
+}
+
+const { broker, matchScore, featured = false, showBonus = true } = Astro.props;
+---
+
+<div class={`broker-result-card ${featured ? 'broker-result-card--featured' : ''}`}>
+  {featured && <span class="broker-result-badge">Best Match</span>}
+
+  {matchScore && (
+    <div class="broker-match-score">
+      <span class="broker-match-value">{matchScore}%</span>
+      <span class="broker-match-label">Match</span>
+    </div>
+  )}
+
+  <div class="broker-result-content">
+    <div class="broker-result-header">
+      <img
+        src={broker.logo}
+        alt={`${broker.name} logo`}
+        class="broker-result-logo"
+        loading="lazy"
+        onerror="this.style.display='none'"
+      />
+      <div>
+        <h4 class="broker-result-name">{broker.name}</h4>
+        <p class="broker-result-tagline">{broker.tagline}</p>
+      </div>
+    </div>
+
+    <div class="broker-result-stats">
+      <div class="broker-result-stat">
+        <span class="broker-result-stat-value">{broker.minDepositDisplay}</span>
+        <span class="broker-result-stat-label">Min Deposit</span>
+      </div>
+      <div class="broker-result-stat">
+        <span class="broker-result-stat-value">{broker.spreadsFrom}</span>
+        <span class="broker-result-stat-label">Spreads From</span>
+      </div>
+      <div class="broker-result-stat">
+        <span class="broker-result-stat-value">{broker.instrumentsDisplay}</span>
+        <span class="broker-result-stat-label">Instruments</span>
+      </div>
+      <div class="broker-result-stat">
+        <span class="broker-result-stat-value">{broker.scores.overall}/5</span>
+        <span class="broker-result-stat-label">Our Rating</span>
+      </div>
+    </div>
+
+    <div class="broker-result-features">
+      {broker.bestFor.slice(0, 3).map(tag => (
+        <span class="broker-result-tag">{tag}</span>
+      ))}
+    </div>
+
+    <div class="broker-result-regulations">
+      {broker.regulations.slice(0, 3).map(reg => (
+        <span class="broker-regulation-badge" title={`${reg.authority} - ${reg.licenseNumber}`}>
+          {reg.country}
+        </span>
+      ))}
+    </div>
+
+    <div class="broker-result-actions">
+      <a href={broker.affiliateUrl} class="btn btn-primary" target="_blank" rel="noopener sponsored">
+        Open Account
+      </a>
+      <a href={broker.reviewUrl} class="btn btn-secondary">
+        Read Review
+      </a>
+    </div>
+
+    {showBonus && broker.partnerCode && (
+      <div class="broker-result-bonus">
+        <span class="broker-bonus-icon">🎁</span>
+        <span class="broker-bonus-text">
+          Use code <strong>{broker.partnerCode.code}</strong> for {broker.partnerCode.bonus}
+        </span>
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .broker-result-card {
+    display: flex;
+    gap: 20px;
+    padding: var(--space-md);
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  .broker-result-card:hover {
+    border-color: var(--gray-300);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .broker-result-card--featured {
+    border-color: var(--brand-orange);
+    background: linear-gradient(135deg, var(--white) 0%, rgba(255, 72, 0, 0.1) 100%);
+  }
+
+  .broker-result-card--featured:hover {
+    border-color: var(--brand-orange);
+  }
+
+  .broker-result-badge {
+    position: absolute;
+    top: -12px;
+    left: var(--space-md);
+    background: linear-gradient(135deg, var(--brand-orange) 0%, var(--brand-orange) 100%);
+    color: white;
+    padding: 4px var(--space-sm);
+    border-radius: 9999px;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(255, 72, 0, 0.3);
+  }
+
+  .broker-match-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 90px;
+    padding: var(--space-sm);
+    background: linear-gradient(135deg, rgba(255, 72, 0, 0.1) 0%, rgba(255, 72, 0, 0.15) 100%);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .broker-match-value {
+    font-size: var(--font-size-3xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+    line-height: 1;
+  }
+
+  .broker-match-label {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--brand-orange);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+
+  .broker-result-content {
+    flex: 1;
+  }
+
+  .broker-result-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .broker-result-logo {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    border-radius: var(--radius-md);
+    background: var(--gray-50);
+    padding: var(--space-xs);
+  }
+
+  .broker-result-name {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+  }
+
+  .broker-result-tagline {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin: 0;
+  }
+
+  .broker-result-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    padding: var(--space-sm);
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+  }
+
+  .broker-result-stat {
+    text-align: center;
+  }
+
+  .broker-result-stat-value {
+    display: block;
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--gray-900);
+    line-height: 1.2;
+  }
+
+  .broker-result-stat-label {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .broker-result-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: 12px;
+  }
+
+  .broker-result-tag {
+    padding: 4px 12px;
+    background: rgba(255, 72, 0, 0.15);
+    color: #cc3a00;
+    border-radius: 9999px;
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+  }
+
+  .broker-result-regulations {
+    display: flex;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-sm);
+  }
+
+  .broker-regulation-badge {
+    padding: 4px var(--space-xs);
+    background: rgba(16, 185, 129, 0.1);
+    color: #059669;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    cursor: help;
+  }
+
+  .broker-result-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .broker-result-bonus {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 12px var(--space-sm);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.2) 100%);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  .broker-bonus-icon {
+    font-size: var(--font-size-lg);
+  }
+
+  .broker-bonus-text {
+    font-size: var(--font-size-sm);
+    color: #047857;
+  }
+
+  .broker-bonus-text strong {
+    color: #065f46;
+  }
+
+  @media (max-width: 768px) {
+    .broker-result-card {
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .broker-match-score {
+      flex-direction: row;
+      gap: var(--space-xs);
+      min-width: auto;
+      justify-content: flex-start;
+      padding: 12px;
+    }
+
+    .broker-result-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .broker-result-actions {
+      flex-direction: column;
+    }
+
+    .broker-result-actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

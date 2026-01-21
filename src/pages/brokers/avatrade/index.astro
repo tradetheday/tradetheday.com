@@ -1,0 +1,1568 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import SimpleGrid from '../../../components/SimpleGrid.astro';
+import Card from '../../../components/Card.astro';
+import ProcessSteps from '../../../components/ProcessSteps.astro';
+import FeatureHighlights from '../../../components/FeatureHighlights.astro';
+import CompanyInfo from '../../../components/CompanyInfo.astro';
+import PaymentDetails from '../../../components/PaymentDetails.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import Chip from '../../../components/Chip.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import Scorecard from '../../../components/Scorecard.astro';
+import RegulationCard from '../../../components/RegulationCard.astro';
+import PlatformGrid from '../../../components/PlatformGrid.astro';
+import PaymentMethods from '../../../components/PaymentMethods.astro';
+import TradingInstruments from '../../../components/TradingInstruments.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import FAQ from '../../../components/FAQ.astro';
+import BrokerVerdict from '../../../components/BrokerVerdict.astro';
+import CostAnalysis from '../../../components/CostAnalysis.astro';
+import BestFor from '../../../components/BestFor.astro';
+import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+
+// Broker Configuration
+const BROKER_NAME = 'AvaTrade';
+
+// Page data
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#fees', text: 'Costs' },
+  { href: '#safety', text: 'Safety' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#accounts', text: 'Trading' },
+  { href: '#pros-cons', text: 'Review' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+const heroScorecard = [
+  { value: '$100', label: 'Min Deposit' },
+  { value: '$60B+', label: 'Monthly Volume' },
+  { value: '1,250+', label: 'Instruments' },
+  { value: '4.2/5', label: 'Our Rating' }
+];
+
+const feeTableHeaders = ['Fee Type', 'AvaTrade', 'IC Markets', 'IG Group', 'Industry Average'];
+const feeRows = [
+  {
+    cells: [
+      { content: 'EUR/USD Spread', type: 'text' },
+      { content: '0.9 pips', type: 'text', highlight: 'neutral' },
+      { content: '0.1 pips', type: 'text', highlight: 'best' },
+      { content: '0.6 pips', type: 'text', highlight: 'good' },
+      { content: '1.2 pips', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'GBP/USD Spread', type: 'text' },
+      { content: '1.5 pips', type: 'text', highlight: 'neutral' },
+      { content: '0.3 pips', type: 'text', highlight: 'best' },
+      { content: '0.9 pips', type: 'text', highlight: 'good' },
+      { content: '1.8 pips', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Commission', type: 'text' },
+      { content: 'No', type: 'text', highlight: 'best' },
+      { content: '$3.50/lot', type: 'text', highlight: 'warning' },
+      { content: 'No', type: 'text', highlight: 'best' },
+      { content: 'Varies', type: 'text', highlight: 'neutral' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Deposit Fees', type: 'text' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Withdrawal Fees', type: 'text' },
+      { content: 'First free/month', type: 'text', highlight: 'good' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: '$15', type: 'currency', highlight: 'warning' },
+      { content: '$25', type: 'currency', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Inactivity Fee', type: 'text' },
+      { content: '$50/quarter', type: 'text', highlight: 'warning' },
+      { content: '$10/month', type: 'text', highlight: 'best' },
+      { content: '$18/month', type: 'text', highlight: 'neutral' },
+      { content: '$15/month', type: 'text', highlight: 'good' }
+    ]
+  }
+];
+
+const regulationLicenses = [
+  {
+    flag: '🇮🇪',
+    jurisdiction: 'Ireland',
+    authority: 'Central Bank of Ireland',
+    licenseNumber: 'C53877',
+    compensation: '€20,000',
+    status: 'verified',
+    description: 'AvaTrade is regulated by the Central Bank of Ireland under MiFID II regulations, providing EU-wide passporting rights. Irish regulation offers robust investor protection with segregated client funds, negative balance protection, and access to the Investor Compensation Scheme providing coverage up to €20,000 per client.'
+  },
+  {
+    flag: '🇦🇺',
+    jurisdiction: 'Australia',
+    authority: 'ASIC',
+    licenseNumber: '406684',
+    compensation: 'AU$1M',
+    status: 'active',
+    description: 'ASIC regulation provides some of the world\'s strictest financial services oversight. Australian clients benefit from segregated client funds, negative balance protection, and comprehensive dispute resolution through AFCA. The Professional Indemnity Insurance covers up to AU$1 million.'
+  },
+  {
+    flag: '🇨🇾',
+    jurisdiction: 'Cyprus',
+    authority: 'CySEC',
+    licenseNumber: '109/10',
+    compensation: '€20,000',
+    status: 'verified',
+    description: 'CySEC regulation allows AvaTrade to serve EU clients with MiFID II protections. Cyprus offers a balanced regulatory environment with segregated client funds, Investor Compensation Fund coverage up to €20,000, and access to the Financial Ombudsman Service for dispute resolution.'
+  },
+  {
+    flag: '🇬🇧',
+    jurisdiction: 'United Kingdom',
+    authority: 'FCA',
+    licenseNumber: '792505',
+    compensation: '£85,000',
+    status: 'active',
+    description: 'FCA regulation is among the most respected globally, offering UK clients the highest level of protection. Benefits include segregated client funds held in tier-1 banks, FSCS protection up to £85,000 per client, negative balance protection, and access to the Financial Ombudsman Service.'
+  },
+  {
+    flag: '🇿🇦',
+    jurisdiction: 'South Africa',
+    authority: 'FSCA',
+    licenseNumber: '45984',
+    compensation: 'R1M',
+    status: 'active',
+    description: 'FSCA regulation provides comprehensive oversight for South African clients. The license ensures segregated client funds, professional indemnity insurance coverage, and compliance with local exchange control regulations for South African residents.'
+  },
+  {
+    flag: '🇯🇵',
+    jurisdiction: 'Japan',
+    authority: 'JFSA',
+    licenseNumber: '1662',
+    compensation: '¥10M',
+    status: 'verified',
+    description: 'JFSA regulation provides rigorous oversight for Japanese clients with some of the strictest capital requirements globally. Japanese clients benefit from segregated client funds, comprehensive reporting requirements, and investor protection measures including professional indemnity coverage up to ¥10 million.'
+  }
+];
+
+const tradingPlatforms = [
+  {
+    name: 'MetaTrader 4',
+    logo: '/images/platforms/mt4-logo.svg',
+    description: 'Industry-standard platform with advanced charting and automated trading capabilities',
+    features: ['Expert Advisors', 'Advanced Charting', 'Mobile Trading'],
+    availability: 'Desktop, Web, Mobile',
+    rating: 4.5,
+    supported: true
+  },
+  {
+    name: 'MetaTrader 5',
+    logo: '/images/platforms/mt5-logo.svg',
+    description: 'Next-generation platform with additional markets and improved features',
+    features: ['Multi-Asset Trading', 'Economic Calendar', 'Enhanced Analysis'],
+    availability: 'Desktop, Web, Mobile',
+    rating: 4.3,
+    supported: true
+  },
+  {
+    name: 'AvaTradeGO',
+    logo: '/images/platforms/avatradego-logo.svg',
+    description: 'AvaTrade\'s proprietary mobile-first platform with intuitive design',
+    features: ['Mobile Optimized', 'AvaProtect', 'Social Trading'],
+    availability: 'Mobile, Tablet',
+    rating: 4.1,
+    supported: true
+  },
+  {
+    name: 'WebTrader',
+    logo: '/images/platforms/webtrader-logo.svg',
+    description: 'Browser-based trading platform with no downloads required',
+    features: ['No Download', 'Cross-Platform', 'Real-time Data'],
+    availability: 'Web Browser',
+    rating: 3.9,
+    supported: true
+  },
+  {
+    name: 'DupliTrade',
+    logo: '/images/platforms/duplitrade-logo.svg',
+    description: 'Social copy trading platform to follow successful traders',
+    features: ['Copy Trading', 'Strategy Selection', 'Risk Management'],
+    availability: 'Web, Mobile',
+    rating: 4.2,
+    supported: true
+  },
+  {
+    name: 'ZuluTrade',
+    logo: '/images/platforms/zulutrade-logo.svg',
+    description: 'Popular social trading platform with large trader network',
+    features: ['Social Trading', 'Signal Providers', 'Performance Analytics'],
+    availability: 'Web, Mobile',
+    rating: 4.0,
+    supported: true
+  }
+];
+
+const paymentMethods = [
+  {
+    name: 'Credit/Debit Card',
+    icon: '/images/payment/visa-mastercard.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '3-5 business days',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$100',
+    maxDeposit: '$40,000',
+    supported: true,
+    notes: 'Visa and Mastercard accepted'
+  },
+  {
+    name: 'Bank Transfer',
+    icon: '/images/payment/bank-transfer.svg',
+    depositTime: '1-3 business days',
+    withdrawalTime: '3-5 business days',
+    depositFee: 'Free',
+    withdrawalFee: 'First free/month',
+    minDeposit: '$100',
+    maxDeposit: 'No limit',
+    supported: true
+  },
+  {
+    name: 'Skrill',
+    icon: '/images/payment/skrill.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '24 hours',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$100',
+    maxDeposit: '$10,000',
+    supported: true
+  },
+  {
+    name: 'Neteller',
+    icon: '/images/payment/neteller.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '24 hours',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$100',
+    maxDeposit: '$10,000',
+    supported: true
+  },
+  {
+    name: 'PayPal',
+    icon: '/images/payment/paypal.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '24-48 hours',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$100',
+    maxDeposit: '$5,000',
+    supported: true,
+    notes: 'Not available in all regions'
+  }
+];
+
+const instrumentCategories = [
+  {
+    name: 'Forex',
+    icon: '💱',
+    count: 50,
+    description: 'Major, minor, and exotic currency pairs with tight spreads',
+    examples: ['EUR/USD', 'GBP/JPY', 'USD/CAD', 'AUD/NZD'],
+    details: {
+      spread: 'From 0.9 pips',
+      leverage: 'Up to 1:400',
+      commission: 'No',
+      margin: '0.25%'
+    },
+    available: true
+  },
+  {
+    name: 'Indices',
+    icon: '📈',
+    count: 30,
+    description: 'Trade major global stock indices as CFDs',
+    examples: ['S&P 500', 'FTSE 100', 'DAX 30', 'Nikkei 225'],
+    details: {
+      spread: 'From 0.8 points',
+      leverage: 'Up to 1:200',
+      commission: 'No',
+      margin: '0.5%'
+    },
+    available: true
+  },
+  {
+    name: 'Commodities',
+    icon: '🛢️',
+    count: 25,
+    description: 'Precious metals, energy, and agricultural commodities',
+    examples: ['Gold', 'Silver', 'Oil', 'Natural Gas'],
+    details: {
+      spread: 'From 0.03',
+      leverage: 'Up to 1:200',
+      commission: 'No',
+      margin: '0.5%'
+    },
+    available: true
+  },
+  {
+    name: 'Stocks',
+    icon: '📊',
+    count: 200,
+    description: 'Individual stocks from major global exchanges',
+    examples: ['Apple', 'Tesla', 'Amazon', 'Google'],
+    details: {
+      spread: 'From $0.01',
+      leverage: 'Up to 1:20',
+      commission: 'From $5',
+      margin: '5%'
+    },
+    available: true
+  },
+  {
+    name: 'ETFs',
+    icon: '📋',
+    count: 80,
+    description: 'Exchange-traded funds covering various sectors and regions',
+    examples: ['SPY', 'QQQ', 'EEM', 'VTI'],
+    details: {
+      spread: 'Variable',
+      leverage: 'Up to 1:10',
+      commission: 'From $5',
+      margin: '10%'
+    },
+    available: true
+  },
+  {
+    name: 'Cryptocurrencies',
+    icon: '₿',
+    count: 40,
+    description: '24/7 trading on major cryptocurrencies',
+    examples: ['Bitcoin', 'Ethereum', 'Litecoin', 'Ripple'],
+    details: {
+      spread: 'Variable',
+      leverage: 'Up to 1:20',
+      commission: 'No',
+      margin: '5%'
+    },
+    available: true
+  },
+  {
+    name: 'Bonds',
+    icon: '📜',
+    count: 15,
+    description: 'Government and corporate bonds from major economies',
+    examples: ['US 10Y', 'German Bund', 'UK Gilt', 'Japan 10Y'],
+    details: {
+      spread: 'From 2 ticks',
+      leverage: 'Up to 1:100',
+      commission: 'No',
+      margin: '1%'
+    },
+    available: true
+  },
+  {
+    name: 'Options',
+    icon: '📋',
+    count: 0,
+    description: 'Vanilla options trading on various underlying assets',
+    examples: ['Call Options', 'Put Options'],
+    available: false
+  }
+];
+
+const prosConsData = {
+  pros: [
+    'Licensed by 6 top-tier regulators including FCA, ASIC, and CySEC',
+    'Comprehensive educational resources and trading tools',
+    'AvaProtect feature provides unique trade insurance',
+    'Multiple professional trading platforms including MT4/MT5',
+    'No commission on forex and CFD trading',
+    'Competitive spreads on major currency pairs',
+    'Social trading through DupliTrade and ZuluTrade',
+    '24/7 multilingual customer support',
+    'Islamic accounts available for Sharia-compliant trading',
+    'Wide range of 1,250+ trading instruments'
+  ],
+  cons: [
+    'Higher spreads compared to ECN brokers',
+    'Limited cryptocurrency selection versus dedicated crypto exchanges',
+    'AvaProtect feature comes with additional costs',
+    'Withdrawal fees after first free withdrawal per month',
+    'No MetaTrader Supreme Edition available',
+    'Research tools could be more comprehensive'
+  ]
+};
+
+const faqData = [
+  {
+    question: 'Is AvaTrade regulated and safe?',
+    answer: 'Yes, AvaTrade is regulated by 6 top-tier authorities including the FCA (UK), ASIC (Australia), CySEC (Cyprus), Central Bank of Ireland, FSCA (South Africa), and JFSA (Japan). Client funds are held in segregated accounts with compensation schemes up to €20,000 (EU), £85,000 (UK), or AU$1M (Australia) depending on jurisdiction.'
+  },
+  {
+    question: 'What is the minimum deposit at AvaTrade?',
+    answer: 'The minimum deposit at AvaTrade is $100 (or equivalent in other base currencies). This applies to all account types and makes AvaTrade accessible to beginner traders. However, higher deposits may be required for certain premium features or account types.'
+  },
+  {
+    question: 'Does AvaTrade offer demo accounts?',
+    answer: 'Yes, AvaTrade offers free demo accounts with $100,000 virtual funds. Demo accounts are available for all platforms including MetaTrader 4, MetaTrader 5, and AvaTradeGO. Demo accounts remain active for 30 days and can be renewed if needed.'
+  },
+  {
+    question: 'What is AvaProtect and how does it work?',
+    answer: 'AvaProtect is AvaTrade\'s unique trade insurance feature that protects your trading positions from loss for a specified time period. You pay a premium (typically 1-3% of position size) to insure a trade for up to 1 hour. If the trade goes against you during the protection period, AvaTrade covers the loss.'
+  },
+  {
+    question: 'Can I use Expert Advisors (EAs) with AvaTrade?',
+    answer: 'Yes, AvaTrade fully supports Expert Advisors and automated trading through MetaTrader 4 and MetaTrader 5 platforms. There are no restrictions on EA usage, and you can run multiple EAs simultaneously. The platforms also support algorithmic trading and custom indicators.'
+  },
+  {
+    question: 'What are AvaTrade\'s withdrawal fees?',
+    answer: 'AvaTrade offers one free withdrawal per calendar month. Additional withdrawals incur fees depending on the method: bank transfers typically cost $25, while e-wallet withdrawals (Skrill, Neteller) are usually free. Credit card withdrawals are processed back to the original card at no charge.'
+  },
+  {
+    question: 'Does AvaTrade accept US clients?',
+    answer: 'No, AvaTrade does not accept clients from the United States due to regulatory restrictions. US residents should look for CFTC-regulated brokers like OANDA or Forex.com that are licensed to serve American clients.'
+  },
+  {
+    question: 'How long do withdrawals take at AvaTrade?',
+    answer: 'Withdrawal processing times vary by method: e-wallets (Skrill, Neteller) take 24 hours, credit/debit cards take 3-5 business days, and bank transfers take 3-5 business days. All withdrawals are processed within 1 business day of approval, with additional time for bank processing.'
+  },
+  {
+    question: 'Is there an AvaTrade Bonus Code?',
+    answer: 'Yes! The AvaTrade partner code is 128979. Use this code during registration to receive a welcome bonus of up to $10,000 depending on your deposit amount. Visit our AvaTrade Partner Code page for full bonus tiers and step-by-step instructions.'
+  }
+];
+
+const verdictData = {
+  brokerName: BROKER_NAME,
+  overallRating: 4.2,
+  maxRating: 5,
+  ratingCategories: [
+    {
+      name: 'Regulation & Safety',
+      score: 4.8,
+      maxScore: 5,
+      description: 'Excellent multi-jurisdiction regulation with strong client protection'
+    },
+    {
+      name: 'Trading Platforms',
+      score: 4.5,
+      maxScore: 5,
+      description: 'Professional platforms including MT4/5 and proprietary solutions'
+    },
+    {
+      name: 'Fees & Spreads',
+      score: 3.8,
+      maxScore: 5,
+      description: 'Competitive but not the tightest spreads in the market'
+    },
+    {
+      name: 'Research & Education',
+      score: 4.3,
+      maxScore: 5,
+      description: 'Comprehensive educational resources and market analysis'
+    },
+    {
+      name: 'Customer Support',
+      score: 4.1,
+      maxScore: 5,
+      description: 'Responsive 24/7 support in multiple languages'
+    },
+    {
+      name: 'Trading Instruments',
+      score: 4.2,
+      maxScore: 5,
+      description: 'Wide selection of 1,250+ instruments across all major asset classes'
+    }
+  ],
+  verdict: 'AvaTrade stands out as a well-regulated, feature-rich broker that prioritizes trader education and safety. While not the cheapest option, their comprehensive platform selection and unique AvaProtect feature make them a solid choice for intermediate traders.',
+  recommendation: 'We recommend AvaTrade for traders who value regulatory security and educational resources over raw cost efficiency. The broker\'s multi-jurisdiction licensing, comprehensive platform selection, and innovative features like AvaProtect create a trading environment that appeals to both novice and experienced traders.',
+  bestFor: [
+    'Traders prioritizing regulatory safety and compliance',
+    'Beginners seeking educational resources and demo accounts',
+    'Intermediate traders wanting platform diversity (MT4/5, mobile, web)',
+    'Social traders interested in copy trading features',
+    'Risk-averse traders who value the AvaProtect insurance feature',
+    'Traders requiring multilingual customer support'
+  ],
+  notIdealFor: [
+    'Professional scalpers needing ultra-tight spreads',
+    'High-frequency traders requiring institutional-grade execution',
+    'US residents (not accepted)',
+    'Traders seeking commission-free stock trading',
+    'Cryptocurrency specialists wanting extensive digital asset selection',
+    'Cost-conscious traders prioritizing the lowest fees above all else'
+  ],
+  finalThoughts: 'AvaTrade has successfully positioned itself as a premium retail broker that doesn\'t compete solely on price. Their focus on regulation, education, and innovative features like AvaProtect demonstrates a commitment to long-term client relationships rather than high-volume, cost-sensitive trading.',
+  ctaText: 'Start Trading with AvaTrade',
+  ctaUrl: 'https://tradetheday.com/go/avatrade'
+};
+
+const whyChooseFeatures = [
+  {
+    title: "Multi-Regulated",
+    description: "Licensed by 6 tier-1 authorities including ASIC, CySEC, and FCA for maximum safety",
+    icon: "🏛️"
+  },
+  {
+    title: "AvaProtect", 
+    description: "Unique trade insurance feature protects positions from loss during specified time windows",
+    icon: "🛡️"
+  },
+  {
+    title: "1,250+ Markets",
+    description: "Wide asset coverage including forex, stocks, indices, commodities, and cryptocurrencies",
+    icon: "📈"
+  },
+  {
+    title: "Education",
+    description: "Free demo account with comprehensive educational resources for new traders",
+    icon: "🎓"
+  }
+];
+
+const openingProcessSteps = [
+  {
+    number: "1.",
+    title: "Register Online",
+    description: "Complete the 5-minute registration form with basic personal information",
+    icon: "📝"
+  },
+  {
+    number: "2.",
+    title: "Verify Identity", 
+    description: "Upload government ID and proof of address documents for verification",
+    icon: "✅"
+  },
+  {
+    number: "3.",
+    title: "Fund & Trade",
+    description: "Make your first deposit and start trading immediately", 
+    icon: "💰"
+  }
+];
+
+const accountInstruments = [
+  {
+    name: 'Standard Account',
+    icon: '⭐',
+    features: [
+      'All forex pairs',
+      'Major indices and commodities',
+      '40+ cryptocurrency CFDs',
+      'AvaProtect available'
+    ],
+    highlight: true
+  },
+  {
+    name: 'Professional Account',
+    icon: '🏆',
+    features: [
+      'Full instrument access',
+      'Higher leverage options',
+      'Premium research tools',
+      'Priority support'
+    ],
+    highlight: false
+  },
+  {
+    name: 'Islamic Account',
+    icon: '☪️',
+    features: [
+      'Swap-free trading',
+      'Sharia-compliant instruments',
+      'Same spread pricing',
+      'Full platform access'
+    ],
+    highlight: false
+  },
+  {
+    name: 'Demo Account',
+    icon: '🎯',
+    features: [
+      '$100,000 virtual funds',
+      'All trading platforms',
+      'Real market conditions',
+      'No time restrictions'
+    ],
+    highlight: false
+  }
+];
+
+// Company Info sections for CompanyInfo component
+const companyInfoSections = [
+  {
+    title: "Deposits & Accounts",
+    icon: "💰",
+    items: [
+      { label: "Minimum Deposit", value: "$100", type: "currency" },
+      { label: "Base Currencies", value: "EUR, USD, GBP, AUD", type: "list" },
+      { label: "Islamic Account", value: "Available", type: "text" }
+    ]
+  },
+  {
+    title: "Trading Conditions", 
+    icon: "📊",
+    items: [
+      { label: "Max Leverage", value: "1:400 (1:30 EU)", type: "text" },
+      { label: "Instruments", value: "1,250+", type: "text" },
+      { label: "Execution", value: "Market Maker", type: "text" }
+    ]
+  },
+  {
+    title: "Company Info",
+    icon: "🏛️", 
+    items: [
+      { label: "Founded", value: "2006", type: "year" },
+      { label: "Headquarters", value: "Dublin, Ireland", type: "location" },
+      { label: "Regulations", value: "6 Tier-1 Licenses", type: "text" }
+    ]
+  }
+];
+
+// Schema data for AvaTrade
+const avaTradeSchemaData = {
+  name: "AvaTrade",
+  foundingDate: "2006",
+  headquarters: "Dublin, Ireland",
+  regulators: ["ASIC", "CySEC", "FCA", "Central Bank of Ireland", "FSCA", "JFSA"],
+  minimumDeposit: "$100",
+  currencies: ["EUR", "USD", "GBP", "AUD"],
+  maxLeverage: "1:400",
+  instrumentCount: "1,250+"
+};
+
+// Payment Details data
+const withdrawalDetails = [
+  {
+    icon: "💵",
+    label: "Minimum Withdrawal",
+    value: "$100"
+  },
+  {
+    icon: "⚡",
+    label: "Processing Times",
+    value: "Cards 3-7 days, E-wallets 1-3 days"
+  },
+  {
+    icon: "🔐",
+    label: "First Withdrawal",
+    value: "Additional verification may be required"
+  },
+  {
+    icon: "🛡️",
+    label: "Security",
+    value: "All withdrawals processed to original funding source"
+  }
+];
+
+const paymentAnalysis = {
+  pros: [
+    "First withdrawal free each month",
+    "Multiple e-wallet options",
+    "Instant deposits for most methods"
+  ],
+  cons: [
+    "$50 quarterly inactivity fee",
+    "Additional withdrawal fees after first",
+    "Strict AML verification process"
+  ]
+};
+---
+
+<BaseLayout
+  title="AvaTrade Review 2026 – Fees, Safety, Pros & Cons | TradeTheDay"
+  description="We analysed AvaTrade's fees, platforms, regulation, and features to see how it compares to top brokers. ASIC, CySEC, FCA regulated. Min deposit $100."
+>
+  <!-- SEO Meta Tags -->
+  <link slot="head" rel="canonical" href="https://tradetheday.com/brokers/avatrade/" />
+  <meta slot="head" property="og:title" content="AvaTrade Review 2026 – Fees, Safety, Pros & Cons" />
+  <meta slot="head" property="og:description" content="Complete AvaTrade review for 2026. We analyze fees, regulation, platforms, and more. FCA, ASIC, CySEC regulated. 4.2/5 rating." />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="og:url" content="https://tradetheday.com/brokers/avatrade/" />
+  <meta slot="head" property="og:site_name" content="TradeTheDay" />
+  <meta slot="head" name="twitter:card" content="summary_large_image" />
+  <meta slot="head" name="author" content="TradeTheDay Research Team" />
+
+  <!-- Review Schema -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    "itemReviewed": {
+      "@type": "FinancialService",
+      "name": "AvaTrade",
+      "description": "Multi-asset forex and CFD broker regulated by FCA, ASIC, CySEC",
+      "url": "https://www.avatrade.com",
+      "foundingDate": "2006",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dublin",
+        "addressCountry": "Ireland"
+      }
+    },
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "4.2",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "TradeTheDay",
+      "url": "https://tradetheday.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "TradeTheDay",
+      "url": "https://tradetheday.com"
+    },
+    "datePublished": "2024-01-01",
+    "dateModified": new Date().toISOString().split('T')[0]
+  })} />
+
+  <!-- FAQPage Schema -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqData.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  })} />
+
+  <!-- BreadcrumbList Schema -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tradetheday.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Brokers", "item": "https://tradetheday.com/brokers/" },
+      { "@type": "ListItem", "position": 3, "name": "AvaTrade Review" }
+    ]
+  })} />
+
+  <!-- HERO SECTION -->
+  <section class="hero section">
+    <div class="container">
+      <Chip variant="badge" size="sm">Is AvaTrade Worth Your Money?</Chip>
+      <div class="hero-logo-bg" title="AvaTrade Logo"></div>
+      
+      <h1 class="heading-1">AvaTrade Review 2026 – Fees, Safety & Is It Worth It?</h1>
+      
+      <p class="body-large">With 18+ years in business, 6 global licenses, and 400,000+ traders worldwide, we break down AvaTrade's fees, platforms, and safety to see if it's the right broker for you.</p>
+      
+      <a href="https://tradetheday.com/go/avatrade" target="_blank" rel="noopener" class="btn btn-primary btn-xl btn-hero">
+        Start Trading with AvaTrade →
+      </a>
+      
+      <Scorecard metrics={heroScorecard} />
+
+      <!-- Partner Code Callout -->
+      <div class="partner-code-callout">
+        <div class="callout-content">
+          <span class="callout-badge">Exclusive Offer</span>
+          <p class="callout-text">Get up to <strong>$10,000 Welcome Bonus</strong> with Partner Code <strong>128979</strong></p>
+          <a href="/brokers/avatrade/partner-code/" class="callout-link">Claim Your Bonus →</a>
+        </div>
+      </div>
+
+      <!-- Last Updated & Author -->
+      <div class="review-meta">
+        <span class="meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Last Updated: January 2026
+        </span>
+        <span class="meta-divider">|</span>
+        <span class="meta-item">Reviewed by TradeTheDay Research Team</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Brokers', href: '/brokers/' },
+    { text: 'AvaTrade Review', current: true }
+  ]} />
+
+  <!-- NAVIGATION -->
+  <Navigation links={navigationLinks} />
+
+  <!-- OVERVIEW SECTION -->
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Complete AvaTrade Overview <span class="js-current-month-year">MONTH YEAR</span></h2>
+        <p class="body-large">AvaTrade is a Dublin-based multi-asset broker founded in 2006, offering forex, CFDs, and cryptocurrency trading through multiple regulated entities worldwide. Licensed across 6 jurisdictions including ASIC, CySEC, and FCA, the broker serves over 400,000 clients with a comprehensive platform selection including MetaTrader 4/5, proprietary web and mobile applications, and social trading solutions.</p>
+      </div>
+      
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Analyst Notes  - Detailed AvaTrade Overview" id="overview-notes">
+        <h4 class="heading-3">Analyst Insight: AvaTrade's Market Position in 2026</h4>
+        <p class="body">Founded in 2006 by Emanuel Kronitz and Negev Nosatzki, AvaTrade has evolved from a simple forex broker into a comprehensive multi-asset trading platform. The company's strategic focus on regulatory compliance has resulted in licenses across six major jurisdictions, creating a robust compliance framework that appeals to institutional and retail clients alike.</p>
+        
+        <p class="body">What sets AvaTrade apart in today's crowded brokerage market is their unique AvaProtect feature – essentially trade insurance that allows clients to protect positions against loss for a specified period. This innovation, combined with their extensive educational resources and social trading capabilities, positions them as a broker targeting both novice and experienced traders.</p>
+        
+        <p class="body">The broker's decision to maintain both MetaTrader 4 and MetaTrader 5 platforms, while also developing proprietary solutions like AvaTradeGO, demonstrates a balanced approach to technology adoption. This strategy ensures they can serve algorithmic traders who prefer MT4's stability alongside modern traders who want mobile-first experiences.</p>
+        
+        <h4 class="heading-3">Should You Trade with AvaTrade?</h4>
+        <p class="body"><strong>Analyst Verdict:</strong> AvaTrade represents a solid choice for traders seeking regulatory security and platform diversity, though competitive spreads aren't their strongest suit. The broker excels in education, multi-jurisdiction regulation, and unique features like AvaProtect, making them particularly suitable for intermediate traders who value security over raw cost efficiency.</p>
+      </AnalystNotes>
+      
+      <!-- Company Information -->
+      <CompanyInfo
+        title="Complete AvaTrade Company Overview"
+        subtitle="Essential company information, trading conditions, and account details"
+        sections={companyInfoSections}
+        columns={3}
+        brokerName={BROKER_NAME}
+        schemaData={avaTradeSchemaData}
+      />
+      
+      <!-- Website Screenshot -->
+      <div class="text-center mt-lg">
+        <img src="/images/brokers/avatrade/avatrade-review-website.png" 
+             alt="AvaTrade Website Overview" 
+             class="responsive-image"
+             loading="lazy">
+        <p class="caption-text">
+          AvaTrade's professional website interface showcasing their comprehensive trading platform
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE AVATRADE SECTION -->
+  <section id="why-choose" class="section section-dark">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Why Choose AvaTrade?</h2>
+        <p class="body-large">Four key reasons traders choose AvaTrade over competitors</p>
+      </div>
+      
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Analyst Notes  - Why AvaTrade Stands Out" id="why-choose-notes" variant="dark">
+        <h4 class="heading-3">Analyst Insight: Why AvaTrade Stands Out in a Crowded Market</h4>
+        <p class="body">In a retail trading industry where differentiation is increasingly difficult, AvaTrade has carved out distinct advantages through strategic focus areas that many competitors overlook or underestimate.</p>
+        
+        <h4 class="heading-3">The Regulatory Moat</h4>
+        <p class="body">AvaTrade's six-jurisdiction regulatory framework isn't just about compliance – it's a strategic moat. While competitors struggle with regulatory changes in single jurisdictions, AvaTrade's distributed licensing allows them to serve clients across multiple regions while maintaining operational flexibility. This regulatory diversification proved crucial during the 2018 ESMA leverage restrictions, where AvaTrade could continue serving professional clients through non-EU entities.</p>
+        
+        <h4 class="heading-3">AvaProtect: The Industry Disruptor</h4>
+        <p class="body">AvaProtect represents genuine innovation in retail trading. By offering position insurance for a premium, AvaTrade has created a product that appeals to risk-averse traders who might otherwise avoid leveraged trading entirely. This feature alone has attracted over 50,000 users since launch, representing a new customer segment that traditional brokers struggle to capture.</p>
+        
+        <h4 class="heading-3">Market Coverage That Matters</h4>
+        <p class="body">While many brokers boast large instrument counts, AvaTrade's 1,250+ instruments are strategically selected for liquidity and relevance. Their cryptocurrency offering includes 40+ digital assets with 24/7 trading – a competitive advantage as crypto adoption accelerates globally.</p>
+        
+        <p class="body"><strong>Analyst Take:</strong> AvaTrade's differentiation strategy focuses on regulatory security, product innovation, and educational value rather than competing purely on cost. This positions them well for long-term growth as regulatory scrutiny increases industry-wide.</p>
+        </AnalystNotes>
+      
+      <FeatureHighlights
+        features={whyChooseFeatures}
+        columns={4}
+        variant="dark"
+        brokerName={BROKER_NAME}
+        subtitle=""
+      />
+    </div>
+  </section>
+
+  <!-- FEES & SPREADS SECTION -->
+  <section id="fees">
+    <ComparisonTable
+      title="AvaTrade Fees & Spreads Compared"
+      subtitle="How AvaTrade's costs stack up against IC Markets, IG, and the Industry Average"
+      headers={feeTableHeaders}
+      rows={feeRows}
+      showGuide={true}
+    >
+    <CostAnalysis
+      content="AvaTrade's spreads are competitive for a market maker model, sitting between premium ECN brokers like IC Markets and traditional retail brokers. While not the tightest spreads available, their zero commission structure and reasonable inactivity fees make them cost-effective for moderate-frequency traders."
+      variant="info"
+    />
+  </ComparisonTable>
+  </section>
+
+  <!-- SAFETY & REGULATION SECTION -->
+  <section id="safety" class="section section-light">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Safety & Regulation</h2>
+        <p class="body-large">Six-way regulation providing maximum trader protection</p>
+      </div>
+      
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Analyst Notes  - Six-Way Regulation Analysis" id="safety-notes">
+        <h4 class="heading-3">The Regulatory Framework Advantage</h4>
+        <p class="body">AvaTrade's six-jurisdiction regulatory approach provides clients with multiple layers of protection while allowing the broker operational flexibility. This structure isn't just about compliance – it's a strategic advantage that few brokers can match.</p>
+        <p class="body">Each regulatory jurisdiction offers different protections: EU clients benefit from MiFID II protections and €20,000 compensation schemes, Australian clients get ASIC's robust negative balance protection, while offshore jurisdictions provide higher leverage for professional traders. This regulatory diversification creates a safety net that adapts to each client's location and needs.</p>
+      </AnalystNotes>
+      
+      <RegulationCard 
+        licenses={regulationLicenses}
+        variant="default"
+      />
+      
+      <!-- Client Fund Protection -->
+      <div class="client-fund-protection">
+        <div class="text-center mb-lg">
+          <h3 class="heading-3">Client Fund Protection</h3>
+          <p class="body-large">Multiple layers of security for your trading capital</p>
+        </div>
+        
+        <div class="protection-features-grid">
+          <div class="protection-feature">
+            <div class="protection-icon">🛡️</div>
+            <h4 class="protection-title">Segregated Accounts</h4>
+            <p class="protection-description">Client funds held separately from company funds</p>
+          </div>
+          <div class="protection-feature">
+            <div class="protection-icon">🔒</div>
+            <h4 class="protection-title">Negative Balance Protection</h4>
+            <p class="protection-description">Account cannot go below zero</p>
+          </div>
+          <div class="protection-feature">
+            <div class="protection-icon">💰</div>
+            <h4 class="protection-title">Compensation Schemes</h4>
+            <p class="protection-description">Up to AU$500,000 protection per client</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Safety Screenshot -->
+      <div class="text-center mt-lg">
+        <img src="/assets/images/brokers/avatrade/avatrade-safety-regulation.png" 
+             alt="AvaTrade Regulation and Safety Overview" 
+             class="responsive-image"
+             loading="lazy">
+        <p class="caption-text">
+          AvaTrade's regulatory licenses and client protection overview
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADING PLATFORMS SECTION -->
+  <section id="platforms" class="section section-gray">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Trading Platforms</h2>
+        <p class="body-large">Professional trading platforms designed for every type of trader</p>
+      </div>
+      
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Analyst Notes  - Platform Selection Strategy" id="platforms-notes">
+        <h4 class="heading-3">AvaTrade's Platform Advantage</h4>
+        <p class="body">AvaTrade's platform strategy reflects deep understanding of different trader segments. By maintaining both industry-standard MetaTrader platforms alongside proprietary solutions, they serve algorithmic traders, mobile-first users, and social traders simultaneously.</p>
+        
+        <h4 class="heading-3">Why AvaTrade Keeps Both MT4 and MT5</h4>
+        <div class="grid-2 mt-md mb-md">
+          <div>
+            <h5 class="body"><strong>MT4 Advantages:</strong></h5>
+            <ul class="list">
+              <li>Larger EA marketplace</li>
+              <li>More stable for algorithmic trading</li>
+              <li>Familiar interface for experienced traders</li>
+              <li>Extensive third-party tool support</li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="body"><strong>MT5 Advantages:</strong></h5>
+            <ul class="list">
+              <li>Better for multi-asset trading</li>
+              <li>More advanced charting tools</li>
+              <li>Improved backtesting capabilities</li>
+              <li>Economic calendar integration</li>
+            </ul>
+          </div>
+        </div>
+        
+        <h4 class="heading-3">AvaTradeGO: The Game-Changer</h4>
+        <p class="body">AvaTradeGO represents AvaTrade's mobile-first innovation, integrating AvaProtect directly into the trading interface. This seamless risk management tool has attracted over 150,000 mobile users who value position protection over raw execution speed.</p>
+        
+        <p class="body"><strong>Analyst Take:</strong> AvaTrade's platform diversity ensures they can adapt to changing trader preferences while maintaining their core algorithmic trading user base. The integration of AvaProtect across platforms creates a unique selling proposition that competitors struggle to match.</p>
+      </AnalystNotes>
+      
+      <PlatformGrid
+        title=""
+        subtitle=""
+        platforms={tradingPlatforms}
+        columns={3}
+      />
+    </div>
+  </section>
+
+  <!-- ACCOUNT TYPES & OPENING SECTION -->
+  <section id="accounts" class="section section-warm">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Account Types & Opening Process</h2>
+        <p class="body-large">Simple account setup with multiple options for different trading styles</p>
+      </div>
+      
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Analyst Notes  - ESMA Leverage Impact Analysis" id="accounts-notes">
+        <h4 class="heading-3">Professional vs Retail Accounts - Maximizing Your Trading Potential</h4>
+        <p class="body">The European Securities and Markets Authority (ESMA) leverage restrictions have fundamentally changed retail forex trading. Understanding the difference between retail and professional accounts is crucial for EU traders who want to maximize their trading potential.</p>
+        
+        <h4 class="heading-3">Qualification Requirements: The Reality Check</h4>
+        <p class="body">To qualify as a professional client, you must meet at least two of the following criteria:</p>
+        <ul class="list">
+          <li>Portfolio exceeding €500,000</li>
+          <li>Trading volume of at least €10 million per quarter</li>
+          <li>Professional financial sector employment for over one year</li>
+        </ul>
+        
+        <h4 class="heading-3">Strategic Advantages Beyond Leverage</h4>
+        <p class="body">Professional accounts offer more than just higher leverage. They provide access to additional instruments, reduced regulatory protection (which means more flexibility), and often better pricing structures. However, this comes with the trade-off of losing certain retail investor protections.</p>
+        
+        <p class="body"><strong>Analyst Take:</strong> For eligible traders, professional status with AvaTrade provides significant advantages. However, the qualification requirements ensure that only experienced traders with substantial capital can access these benefits, which aligns with regulatory protection objectives.</p>
+      </AnalystNotes>
+      
+      <!-- Account Types Table -->
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Account Type</th>
+              <th>Minimum Deposit</th>
+              <th>Max Leverage</th>
+              <th>Key Features</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>📈 Standard</strong></td>
+              <td><span class="highlight-best">$100</span></td>
+              <td>1:400 (1:30 EU)</td>
+              <td>Full platform access, AvaProtect</td>
+            </tr>
+            <tr>
+              <td><strong>☪️ Islamic</strong></td>
+              <td><span class="highlight-best">$100</span></td>
+              <td>1:400 (1:30 EU)</td>
+              <td>Sharia-compliant, swap-free trading</td>
+            </tr>
+            <tr>
+              <td><strong>💼 Professional</strong></td>
+              <td><span class="highlight-good">$1,000</span></td>
+              <td><span class="highlight-good">1:400</span></td>
+              <td>Higher leverage, reduced protections</td>
+            </tr>
+            <tr>
+              <td><strong>🎮 Demo</strong></td>
+              <td><span class="highlight-best">Free</span></td>
+              <td>1:400</td>
+              <td>$100,000 virtual funds, full features</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Opening Process -->
+      <ProcessSteps
+        steps={openingProcessSteps}
+        columns={3}
+      />
+      
+      <!-- ESMA Warning -->
+      <div class="callout callout-warning">
+        <p class="body"><strong>⚠️ ESMA Leverage Restrictions:</strong> EU retail clients are limited to maximum 1:30 leverage on major pairs, 1:20 on minor pairs, and 1:10 on exotic pairs under ESMA regulations. Professional clients can access higher leverage up to 1:400.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOSITS & WITHDRAWALS SECTION -->
+  <section id="deposits" class="section section-gray">
+    <div class="container">
+      <PaymentMethods
+        title="Deposit & Withdrawal Methods"
+        subtitle="Fast, secure ways to fund your trading account"
+        methods={paymentMethods}
+        variant="table"
+      />
+      
+      <!-- Payment Details -->
+      <PaymentDetails
+        title="Withdrawal & Payment Information"
+        subtitle="Complete overview of payment processing, fees, and conditions"
+        withdrawalDetails={withdrawalDetails}
+        analysisTitle="Payment System Analysis"
+        analysis={paymentAnalysis}
+      />
+    </div>
+  </section>
+
+  <!-- TRADING INSTRUMENTS SECTION -->
+  <section id="instruments" class="section section-light">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Trading Instruments & Asset Classes</h2>
+        <p class="body-large">Access to global markets with competitve conditions and 1,250+ instruments across all major asset classes</p>
+      </div>
+      
+      <TradingInstruments
+        title=""
+        subtitle=""
+        categories={instrumentCategories}
+        layout="grid"
+        showDetails={true}
+      />
+      
+      <!-- Trading Instruments Screenshot -->
+      <div class="text-center mt-lg">
+        <img src="/images/brokers/avatrade/avatrade-financial-instruments.png" 
+             alt="AvaTrade Financial Instruments Overview" 
+             class="responsive-image"
+             loading="lazy">
+        <p class="caption-text">
+          AvaTrade's comprehensive financial instruments across 8 asset classes
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCOUNT TYPES & OPENING PROCESS SECTION -->
+
+  <!-- PROS & CONS SECTION -->
+  <section id="pros-cons" class="section section-dark">
+    <div class="container">
+      <ProsCons
+        title="AvaTrade Pros & Cons"
+        subtitle="Balanced analysis of AvaTrade's strengths and weaknesses"
+        pros={prosConsData.pros}
+        cons={prosConsData.cons}
+        variant="dark"
+      />
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section id="faq" class="section section-gray">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Frequently Asked Questions</h2>
+        <p class="body-large">Expert answers to common AvaTrade questions</p>
+      </div>
+      
+      <div class="center-container">
+        {faqData.map((faq, index) => (
+          <div class="faq-item">
+            <button class="faq-question" data-faq-index={index}>
+              {faq.question}
+            </button>
+            <div class="faq-answer">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL VERDICT SECTION -->
+  <section id="verdict" class="section">
+    <div class="container">
+      <div class="text-center">
+        <img src="/images/brokers/avatrade/avatrade-logo-dark.svg" alt="AvaTrade Logo" class="verdict-logo" loading="lazy">
+        <h2 class="heading-2">Final Verdict</h2>
+        
+        <div class="rating">
+          <span class="stars">★★★★☆</span>
+          <span class="rating-text">4.2/5</span>
+        </div>
+        
+        <p class="body-large">AvaTrade stands out as a well-regulated, feature-rich broker that prioritizes trader education and safety over ultra-competitive pricing. With six global licenses, unique risk management tools like AvaProtect, and comprehensive platform options, it's particularly suited for intermediate traders who value regulatory security and platform diversity.</p>
+      </div>
+      
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Analyst Notes  - Final Assessment & Recommendation" id="verdict-notes">
+        <h4 class="heading-3">Market Position Analysis</h4>
+        <p class="body">AvaTrade occupies a unique position in the retail brokerage market, competing not on cost leadership but on regulatory security, platform innovation, and risk management features. This strategy has proven successful, with consistent growth in client acquisition and retention rates above industry averages.</p>
+        
+        <p class="body">The broker's AvaProtect feature represents genuine innovation in retail trading risk management, while their six-jurisdiction regulatory framework provides clients with unprecedented protection and operational flexibility. These advantages justify their premium pricing model for traders who prioritize security and innovation over raw cost efficiency.</p>
+        
+        <p class="body"><strong>Final Recommendation:</strong> AvaTrade earns a solid 4.2/5 rating for intermediate to advanced traders seeking a well-regulated, feature-rich broker with strong educational resources and unique risk management tools. While not the cheapest option, the value proposition is compelling for traders who prioritize safety, regulation, and platform diversity.</p>
+      </AnalystNotes>
+      
+      <!-- Rating Breakdown (from Astro version) -->
+      <div class="rating-breakdown mt-lg">
+        <h4 class="breakdown-title">Rating Breakdown</h4>
+        <div class="category-ratings">
+          {verdictData.ratingCategories.map((category) => {
+            const categoryPercentage = (category.score / category.maxScore) * 100;
+            return (
+              <div class="category-item">
+                <div class="category-header">
+                  <span class="category-name">{category.name}</span>
+                  <span class="category-score">{category.score}/{category.maxScore}</span>
+                </div>
+                <div class="category-bar">
+                  <div 
+                    class="category-progress" 
+                    style={`width: ${categoryPercentage}%`}
+                  ></div>
+                </div>
+                {category.description && (
+                  <p class="category-description">{category.description}</p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      
+      <!-- Best For / Not Ideal For -->
+      <BestFor 
+        bestFor={verdictData.bestFor}
+        notIdealFor={verdictData.notIdealFor}
+      />
+      
+      <!-- CTA Section -->
+      <div class="cta-section">
+        <a href={verdictData.ctaUrl} target="_blank" rel="noopener" class="btn btn-primary btn-xxl">
+          {verdictData.ctaText} →
+        </a>
+
+        <p class="cta-link">
+          <em>or, <a href="/brokers/" class="brand-link">compare other brokers</a></em>
+        </p>
+
+        <p class="disclaimer-text">
+          <strong>Risk Disclaimer:</strong> Trading forex, CFDs, and crypto is high risk. 72–89% of retail investors lose money. Consider whether you can afford this risk.
+        </p>
+      </div>
+
+      <!-- Related Comparisons -->
+      <div class="related-comparisons">
+        <h3 class="heading-3 text-center">Compare AvaTrade with Other Brokers</h3>
+        <div class="related-links">
+          <a href="/compare/avatrade-vs-etoro/" class="related-link">
+            <span class="related-title">AvaTrade vs eToro</span>
+            <span class="related-desc">Copy trading showdown - which offers better social trading?</span>
+          </a>
+          <a href="/compare/avatrade-vs-plus500/" class="related-link">
+            <span class="related-title">AvaTrade vs Plus500</span>
+            <span class="related-desc">Professional tools vs simplicity - which suits you?</span>
+          </a>
+          <a href="/bonus-codes/avatrade-partner-code/" class="related-link">
+            <span class="related-title">AvaTrade Partner Code</span>
+            <span class="related-desc">Get up to $10,000 bonus with code 128979</span>
+          </a>
+          <a href="/find-broker/" class="related-link">
+            <span class="related-title">Find Your Perfect Broker</span>
+            <span class="related-desc">Take our 30-second quiz to get matched with the right broker</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross Promotion Section -->
+  <section class="section section-gray">
+    <div class="container">
+      <BrokerCrossPromo brokerSlug="avatrade" brokerName="AvaTrade" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Page-specific styles only - spacing handled by universal system */
+  
+  /* Hero Section - Page-specific background image */
+  .hero-logo-bg {
+    background-image: url('/images/brokers/avatrade/avatrade-logo-dark.svg') !important;
+  }
+  
+  /* Hero content width constraint */
+  .hero.section .body-large {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Chip styling - using universal design tokens */
+
+  /* Table styling handled by universal design system */
+
+  /* Callout and list styling handled by universal design system */
+
+  /* Grid and feature icon styling handled by universal design system */
+
+
+  /* FAQ styling handled by universal design system */
+
+  /* Rating styling handled by universal design system */
+
+  /* Rating breakdown, verdict cards, and CTA styling handled by universal design system */
+  /* All responsive styling handled by universal spacing system */
+
+  /* Partner Code Callout */
+  .partner-code-callout {
+    margin-top: 2rem;
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+    border: 2px solid var(--brand-orange, #ff4800);
+    border-radius: 1rem;
+    padding: 1.5rem 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .callout-content {
+    text-align: center;
+  }
+
+  .callout-badge {
+    display: inline-block;
+    background: var(--brand-orange, #ff4800);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 0.75rem;
+  }
+
+  .callout-text {
+    font-size: 1.125rem;
+    color: var(--charcoal, #1e2427);
+    margin: 0 0 1rem 0;
+    line-height: 1.5;
+  }
+
+  .callout-link {
+    display: inline-block;
+    background: var(--brand-orange, #ff4800);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .callout-link:hover {
+    background: #e04200;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 72, 0, 0.3);
+  }
+
+  /* Review Meta (Last Updated & Author) */
+  .review-meta {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--gray-600, #4b5563);
+  }
+
+  .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .meta-item svg {
+    opacity: 0.7;
+  }
+
+  .meta-divider {
+    color: var(--gray-400, #9ca3af);
+  }
+
+  @media (max-width: 768px) {
+    .partner-code-callout {
+      padding: 1.25rem 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .callout-text {
+      font-size: 1rem;
+    }
+
+    .review-meta {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .meta-divider {
+      display: none;
+    }
+  }
+
+  /* Client Fund Protection Styles */
+  .client-fund-protection {
+    margin-top: 3rem;
+  }
+
+  .protection-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 0 auto;
+  }
+
+  .protection-feature {
+    text-align: center;
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+  }
+
+  .protection-feature:hover {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 8px 25px rgba(255, 72, 0, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .protection-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .protection-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin: 0 0 1rem 0;
+    line-height: 1.3;
+  }
+
+  .protection-description {
+    font-size: 0.9375rem;
+    color: var(--gray-600, #4b5563);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .mb-lg {
+    margin-bottom: 3rem;
+  }
+
+  /* Related Comparisons */
+  .related-comparisons {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-200, #e5e7eb);
+  }
+
+  .related-comparisons h3 {
+    margin-bottom: 1.5rem;
+  }
+
+  .related-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .related-link {
+    display: block;
+    padding: 1.25rem;
+    background: var(--gray-50, #f9fafb);
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .related-link:hover {
+    border-color: var(--brand-orange, #ff4800);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .related-title {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 0.25rem;
+  }
+
+  .related-desc {
+    font-size: 0.875rem;
+    color: var(--gray-500, #6b7280);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .protection-features-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      max-width: 400px;
+    }
+
+    .protection-feature {
+      padding: 1.75rem 1.25rem;
+    }
+
+    .protection-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .protection-title {
+      font-size: 1.125rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .protection-description {
+      font-size: 0.875rem;
+    }
+
+    .related-links {
+      grid-template-columns: 1fr;
+    }
+  }
+
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // FAQ functionality - using universal class names
+  const faqButtons = document.querySelectorAll('.faq-question');
+  
+  faqButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const faqItem = this.parentElement;
+      const answer = this.nextElementSibling;
+      const isOpen = faqItem.classList.contains('active');
+      
+      if (isOpen) {
+        faqItem.classList.remove('active');
+      } else {
+        faqItem.classList.add('active');
+      }
+    });
+  });
+});
+</script>

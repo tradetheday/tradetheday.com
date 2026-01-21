@@ -1,0 +1,770 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import TrustBadges from '../../components/TrustBadges.astro';
+import { tradingEvents, getFeaturedEvents, getEventsByCategory } from '../../data/events';
+
+const featuredEvents = getFeaturedEvents();
+const cryptoEvents = getEventsByCategory('crypto');
+const politicsEvents = getEventsByCategory('politics');
+const economicEvents = getEventsByCategory('economic');
+
+// Category styling
+const categoryStyles = {
+  crypto: { bg: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b', label: 'Crypto' },
+  politics: { bg: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', label: 'Politics' },
+  economic: { bg: 'rgba(16, 185, 129, 0.1)', color: '#10b981', label: 'Economic' },
+  geopolitical: { bg: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', label: 'Geopolitical' },
+  regulatory: { bg: 'rgba(139, 92, 246, 0.1)', color: '#8b5cf6', label: 'Regulatory' }
+};
+
+const impactStyles = {
+  'Low': { bg: 'rgba(107, 114, 128, 0.1)', color: '#6b7280' },
+  'Medium': { bg: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b' },
+  'High': { bg: 'rgba(239, 68, 68, 0.1)', color: '#ef4444' },
+  'Extreme': { bg: 'rgba(220, 38, 38, 0.15)', color: '#dc2626' }
+};
+---
+
+<BaseLayout
+  title="Global Trading Events | Market-Moving Events Calendar | TradeTheDay"
+  description="Discover major trading events that move markets. Bitcoin halving, US elections, Fed decisions, and more. Expert analysis and trading strategies for each event."
+>
+  <!-- SEO Meta Tags -->
+  <meta slot="head" property="og:title" content="Global Trading Events | TradeTheDay">
+  <meta slot="head" property="og:description" content="Discover major trading events that move markets. Expert analysis and trading strategies for crypto, political, and economic events.">
+  <meta slot="head" property="og:type" content="website">
+  <meta slot="head" property="og:url" content="https://tradetheday.com/events/">
+  <meta slot="head" name="twitter:card" content="summary_large_image">
+  <link slot="head" rel="canonical" href="https://tradetheday.com/events/">
+
+  <!-- JSON-LD Structured Data -->
+  <script slot="head" type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": "https://tradetheday.com/events/",
+        "url": "https://tradetheday.com/events/",
+        "name": "Global Trading Events | TradeTheDay",
+        "description": "Discover major trading events that move markets. Bitcoin halving, US elections, Fed decisions, and more.",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://tradetheday.com/#website"
+        },
+        "inLanguage": "en-US"
+      }
+    ]
+  }
+  </script>
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Trading Events', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-icon">📅</span>
+          Market Calendar
+        </div>
+        <h1 class="hero-title">Global Trading Events</h1>
+        <p class="hero-description">
+          Master the markets by understanding the events that move them. From Bitcoin halvings to presidential elections,
+          we provide in-depth analysis and trading strategies for every major market event.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">{tradingEvents.length}</span>
+            <span class="stat-label">Events Tracked</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">5</span>
+            <span class="stat-label">Categories</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">Expert</span>
+            <span class="stat-label">Analysis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BADGES -->
+  <TrustBadges variant="light" />
+
+  <!-- FEATURED EVENTS -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Featured Events</h2>
+        <p class="section-description">
+          The most impactful events every trader should know about
+        </p>
+      </div>
+
+      <div class="featured-grid">
+        {featuredEvents.map((event) => (
+          <a href={`/events/${event.slug}/`} class="featured-card">
+            <div class="featured-card-header">
+              <span class="event-icon">{event.icon}</span>
+              <div class="event-badges">
+                <span class="category-badge" style={`background: ${categoryStyles[event.category].bg}; color: ${categoryStyles[event.category].color}`}>
+                  {categoryStyles[event.category].label}
+                </span>
+                <span class="impact-badge" style={`background: ${impactStyles[event.impactLevel].bg}; color: ${impactStyles[event.impactLevel].color}`}>
+                  {event.impactLevel} Impact
+                </span>
+              </div>
+            </div>
+
+            <h3 class="featured-title">{event.title}</h3>
+            <p class="featured-tagline">{event.tagline}</p>
+            <p class="featured-description">{event.description}</p>
+
+            <div class="featured-meta">
+              <div class="meta-item">
+                <span class="meta-label">When</span>
+                <span class="meta-value">{event.eventDate || event.eventPeriod}</span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">Affects</span>
+                <span class="meta-value">{event.affectedMarkets.slice(0, 2).join(', ')}</span>
+              </div>
+            </div>
+
+            <div class="featured-cta">
+              <span>View Trading Guide</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ALL EVENTS BY CATEGORY -->
+  <section class="events-section">
+    <div class="container">
+      <!-- Economic Events -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-title-wrapper">
+            <span class="category-icon">🏛️</span>
+            <h2 class="category-title">Economic Events</h2>
+          </div>
+          <p class="category-description">Central bank decisions, employment data, and key economic indicators</p>
+        </div>
+
+        <div class="events-grid">
+          {economicEvents.map((event) => (
+            <a href={`/events/${event.slug}/`} class="event-card">
+              <div class="event-card-header">
+                <span class="event-icon-small">{event.icon}</span>
+                <span class="status-badge" data-status={event.status}>{event.status}</span>
+              </div>
+              <h3 class="event-title">{event.shortTitle}</h3>
+              <p class="event-description">{event.description}</p>
+              <div class="event-footer">
+                <span class="event-timing">{event.eventPeriod || event.eventDate}</span>
+                <span class="event-link">Learn More →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Crypto Events -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-title-wrapper">
+            <span class="category-icon">₿</span>
+            <h2 class="category-title">Cryptocurrency Events</h2>
+          </div>
+          <p class="category-description">Bitcoin halvings, network upgrades, and major crypto milestones</p>
+        </div>
+
+        <div class="events-grid">
+          {cryptoEvents.map((event) => (
+            <a href={`/events/${event.slug}/`} class="event-card">
+              <div class="event-card-header">
+                <span class="event-icon-small">{event.icon}</span>
+                <span class="status-badge" data-status={event.status}>{event.status}</span>
+              </div>
+              <h3 class="event-title">{event.shortTitle}</h3>
+              <p class="event-description">{event.description}</p>
+              <div class="event-footer">
+                <span class="event-timing">{event.eventPeriod || event.eventDate}</span>
+                <span class="event-link">Learn More →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Political Events -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="category-title-wrapper">
+            <span class="category-icon">🗳️</span>
+            <h2 class="category-title">Political Events</h2>
+          </div>
+          <p class="category-description">Elections, policy changes, and geopolitical developments</p>
+        </div>
+
+        <div class="events-grid">
+          {politicsEvents.map((event) => (
+            <a href={`/events/${event.slug}/`} class="event-card">
+              <div class="event-card-header">
+                <span class="event-icon-small">{event.icon}</span>
+                <span class="status-badge" data-status={event.status}>{event.status}</span>
+              </div>
+              <h3 class="event-title">{event.shortTitle}</h3>
+              <p class="event-description">{event.description}</p>
+              <div class="event-footer">
+                <span class="event-timing">{event.eventPeriod || event.eventDate}</span>
+                <span class="event-link">Learn More →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="cta-title">Ready to Trade These Events?</h2>
+        <p class="cta-description">
+          Find the perfect broker for your trading style. Our AI-powered quiz matches you with regulated brokers
+          based on your experience and goals.
+        </p>
+        <a href="/compare/" class="btn btn-primary btn-lg">
+          Find My Broker
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section class="disclaimer-section">
+    <div class="container">
+      <div class="disclaimer-content">
+        <p class="disclaimer-text">
+          <strong>Risk Warning:</strong> Trading financial instruments carries significant risk. Past event performance
+          does not guarantee future results. The information provided is for educational purposes only and should not be
+          considered investment advice. Please trade responsibly and only with capital you can afford to lose.
+        </p>
+        <div class="disclaimer-links">
+          <a href="/risk-disclaimer/">Full Risk Disclosure</a>
+          <span class="separator">•</span>
+          <a href="/advertiser-disclosure/">Advertiser Disclosure</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+
+.hero-section {
+  padding: var(--space-4xl) 0 var(--space-3xl);
+  background: linear-gradient(135deg, var(--charcoal) 0%, var(--charcoal-light) 100%);
+  color: var(--white);
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: rgba(255, 72, 0, 0.1);
+  border: 1px solid rgba(255, 72, 0, 0.2);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--brand-orange);
+  margin-bottom: var(--space-lg);
+}
+
+.badge-icon {
+  font-size: 1.1rem;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: var(--space-lg);
+  color: var(--white);
+}
+
+.hero-description {
+  font-size: var(--font-size-xl);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: var(--space-2xl);
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2xl);
+  flex-wrap: wrap;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: var(--font-size-3xl);
+  font-weight: 900;
+  color: var(--brand-orange);
+  line-height: 1;
+}
+
+.stat-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: var(--space-xs);
+}
+
+/* ==========================================================================
+   FEATURED SECTION
+   ========================================================================== */
+
+.featured-section {
+  padding: var(--space-4xl) 0;
+  background: var(--gray-50);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+}
+
+.section-title {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: var(--space-sm);
+}
+
+.section-description {
+  font-size: var(--font-size-lg);
+  color: var(--gray-600);
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.featured-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  border: 2px solid var(--gray-200);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+
+.featured-card:hover {
+  border-color: var(--brand-orange);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.featured-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-md);
+}
+
+.event-icon {
+  font-size: 2.5rem;
+}
+
+.event-badges {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.category-badge,
+.impact-badge {
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.featured-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: var(--space-xs);
+}
+
+.featured-tagline {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--brand-orange);
+  margin-bottom: var(--space-sm);
+}
+
+.featured-description {
+  font-size: var(--font-size-base);
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+  flex: 1;
+}
+
+.featured-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.meta-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  letter-spacing: 0.5px;
+}
+
+.meta-value {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+.featured-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--gradient-primary);
+  color: var(--white);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.featured-card:hover .featured-cta {
+  transform: translateX(4px);
+}
+
+.featured-cta svg {
+  transition: transform 0.2s ease;
+}
+
+.featured-card:hover .featured-cta svg {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   EVENTS SECTION
+   ========================================================================== */
+
+.events-section {
+  padding: var(--space-4xl) 0;
+}
+
+.category-section {
+  margin-bottom: var(--space-4xl);
+}
+
+.category-section:last-child {
+  margin-bottom: 0;
+}
+
+.category-header {
+  margin-bottom: var(--space-xl);
+}
+
+.category-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.category-icon {
+  font-size: 1.5rem;
+}
+
+.category-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.category-description {
+  font-size: var(--font-size-base);
+  color: var(--gray-600);
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+
+.event-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-card:hover {
+  border-color: var(--brand-orange);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.event-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.event-icon-small {
+  font-size: 1.5rem;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge[data-status="upcoming"] {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+}
+
+.status-badge[data-status="active"] {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.status-badge[data-status="completed"] {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+}
+
+.event-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: var(--space-sm);
+}
+
+.event-description {
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+  line-height: 1.6;
+  flex: 1;
+  margin-bottom: var(--space-md);
+}
+
+.event-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--gray-100);
+}
+
+.event-timing {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+.event-link {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--brand-orange);
+  transition: transform 0.2s ease;
+}
+
+.event-card:hover .event-link {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   CTA SECTION
+   ========================================================================== */
+
+.cta-section {
+  padding: var(--space-4xl) 0;
+  background: linear-gradient(135deg, var(--charcoal) 0%, var(--charcoal-light) 100%);
+}
+
+.cta-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--space-md);
+}
+
+.cta-description {
+  font-size: var(--font-size-lg);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: var(--space-xl);
+}
+
+.cta-section .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* ==========================================================================
+   DISCLAIMER SECTION
+   ========================================================================== */
+
+.disclaimer-section {
+  padding: var(--space-2xl) 0;
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+}
+
+.disclaimer-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.disclaimer-text {
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin-bottom: var(--space-md);
+}
+
+.disclaimer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: var(--font-size-sm);
+}
+
+.disclaimer-links a {
+  color: var(--brand-orange);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.disclaimer-links a:hover {
+  text-decoration: underline;
+}
+
+.separator {
+  color: var(--gray-400);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+
+  .hero-stats {
+    gap: var(--space-lg);
+  }
+
+  .featured-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-meta {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-badges {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .hero-description {
+    font-size: var(--font-size-base);
+  }
+}
+</style>

@@ -1,0 +1,223 @@
+---
+interface AccountType {
+  name: string;
+  icon: string;
+  features: string[];
+  highlight?: boolean;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  accounts: AccountType[];
+  columns?: number;
+}
+
+const { 
+  title = "Account-Specific Instrument Access",
+  subtitle = "Different account types offer varying levels of market access",
+  accounts = [],
+  columns = 3
+} = Astro.props;
+---
+
+<div class="account-instruments-section">
+  {title && (
+    <div class="account-instruments-header">
+      <h3 class="heading-3">{title}</h3>
+      {subtitle && <p class="body-large account-instruments-subtitle">{subtitle}</p>}
+    </div>
+  )}
+  
+  <div class={`account-instruments-grid columns-${columns}`}>
+    {accounts.map((account) => (
+      <div class={`account-instrument-card ${account.highlight ? 'highlight' : ''}`}>
+        <div class="account-card-header">
+          <span class="account-icon">{account.icon}</span>
+          <h4 class="account-name">{account.name}</h4>
+        </div>
+        
+        <ul class="account-features">
+          {account.features.map((feature) => (
+            <li class="account-feature">
+              <span class="feature-bullet">•</span>
+              {feature}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .account-instruments-section {
+    margin: 3rem 0;
+  }
+
+  .account-instruments-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .account-instruments-subtitle {
+    color: var(--gray-600, #4b5563);
+    margin-top: 0.5rem;
+  }
+
+  .account-instruments-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .account-instruments-grid.columns-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+
+  .account-instruments-grid.columns-3 {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .account-instruments-grid.columns-4 {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .account-instrument-card {
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .account-instrument-card:hover {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .account-instrument-card.highlight {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 4px 15px rgba(255, 72, 0, 0.15);
+  }
+
+  .account-instrument-card.highlight::before {
+    content: 'POPULAR';
+    position: absolute;
+    top: -10px;
+    right: 1rem;
+    background: var(--brand-orange, #ff4800);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    letter-spacing: 0.025em;
+  }
+
+  .account-card-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .account-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .account-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    margin: 0;
+  }
+
+  .account-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+  }
+
+  .account-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--gray-700, #374151);
+  }
+
+  .account-feature:last-child {
+    margin-bottom: 0;
+  }
+
+  .feature-bullet {
+    color: var(--brand-orange, #ff4800);
+    font-weight: bold;
+    font-size: 1rem;
+    min-width: 0.75rem;
+    margin-top: 0.125rem;
+  }
+
+  /* Dark background variant */
+  .account-instruments-section.dark .account-instrument-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  .account-instruments-section.dark .account-instruments-header h3 {
+    color: white;
+  }
+
+  .account-instruments-section.dark .account-instruments-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .account-instruments-grid {
+      grid-template-columns: 1fr !important;
+      gap: 1.5rem;
+    }
+    
+    .account-instrument-card {
+      padding: 1.5rem;
+    }
+    
+    .account-instruments-header {
+      margin-bottom: 2rem;
+    }
+    
+    .account-icon {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .account-instrument-card {
+      padding: 1.25rem;
+    }
+    
+    .account-card-header {
+      margin-bottom: 1.25rem;
+    }
+    
+    .account-icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .account-name {
+      font-size: 1.125rem;
+    }
+    
+    .account-feature {
+      font-size: 0.8125rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+</style>

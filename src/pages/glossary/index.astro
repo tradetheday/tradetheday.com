@@ -1,0 +1,337 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { glossaryTerms as allTerms } from '../../data/glossary';
+
+const pageTitle = "Trading Glossary - Essential Trading Terms & Definitions";
+const pageDescription = "Complete trading glossary with definitions of essential forex, CFD, and trading terms. Learn what pip, spread, leverage, margin, and other key trading concepts mean.";
+
+// Organize terms by first letter for display
+const glossaryTerms: Record<string, Array<{slug: string; name: string; description: string; popular: boolean}>> = {};
+
+allTerms.forEach(term => {
+  const firstLetter = term.name.charAt(0).toUpperCase();
+  if (!glossaryTerms[firstLetter]) {
+    glossaryTerms[firstLetter] = [];
+  }
+  glossaryTerms[firstLetter].push({
+    slug: term.slug,
+    name: term.name,
+    description: term.shortDescription,
+    popular: term.popular || false
+  });
+});
+
+// Sort letters and terms within each letter
+const sortedLetters = Object.keys(glossaryTerms).sort();
+sortedLetters.forEach(letter => {
+  glossaryTerms[letter].sort((a, b) => a.name.localeCompare(b.name));
+});
+
+// All letters for navigation
+const allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const activeLetters = sortedLetters;
+
+// Dynamic year
+const currentYear = new Date().getFullYear();
+
+// Schema for SEO
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "name": "Trading Glossary",
+  "description": "Essential trading terms and definitions for forex, CFD, and financial markets",
+  "url": "https://tradetheday.com/glossary/",
+  "hasDefinedTerm": allTerms.slice(0, 10).map(term => ({
+    "@type": "DefinedTerm",
+    "name": term.name,
+    "description": term.shortDescription,
+    "url": `https://tradetheday.com/glossary/${term.slug}/`
+  }))
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={schema}
+>
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <span class="chip">{allTerms.length} Essential Terms</span>
+      <h1 class="heading-1">Trading Glossary</h1>
+      <p class="body-large hero-subtitle">Master the language of trading. Our glossary covers essential forex, CFD, and financial market terms every trader needs to know in {currentYear}.</p>
+    </div>
+  </section>
+
+  <!-- LETTER NAVIGATION -->
+  <nav class="letter-nav-section">
+    <div class="container">
+      <div class="letter-nav">
+        {allLetters.map(letter => (
+          activeLetters.includes(letter)
+            ? <a href={`#${letter}`} class="letter-link">{letter}</a>
+            : <span class="letter-link disabled">{letter}</span>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- GLOSSARY TERMS -->
+  <section class="section section-alt">
+    <div class="container">
+      {sortedLetters.map(letter => (
+        <div class="letter-section">
+          <h2 id={letter} class="glossary-letter">{letter}</h2>
+          <div class="glossary-grid">
+            {glossaryTerms[letter].map(term => (
+              <a href={`/glossary/${term.slug}/`} class="glossary-term-card">
+                {term.popular && <span class="popular-badge">Popular</span>}
+                <h3>{term.name}</h3>
+                <p>{term.description}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="heading-2">Ready to Put Your Knowledge Into Practice?</h2>
+        <p class="body-large">Start trading with a regulated broker that offers educational resources and demo accounts.</p>
+        <a href="/brokers/" class="btn btn-primary btn-xl">Compare Brokers</a>
+        <p class="disclaimer-text">
+          <strong>Risk Disclaimer:</strong> Trading forex, CFDs, and crypto is high risk. 72-89% of retail investors lose money. Consider whether you can afford this risk.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-section {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    padding: var(--space-2xl) 0;
+    text-align: center;
+    color: var(--white);
+  }
+
+  .hero-section .chip {
+    background: rgba(255, 72, 0, 0.2);
+    color: var(--brand-orange);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+  }
+
+  .hero-section .heading-1 {
+    color: var(--white);
+    margin: var(--space-md) 0;
+  }
+
+  .hero-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .letter-nav-section {
+    padding: var(--space-md) var(--space-sm);
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+    position: sticky;
+    top: 60px;
+    z-index: 10;
+  }
+
+  .letter-nav-section .container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .letter-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .letter-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    color: var(--charcoal);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+  }
+
+  .letter-link:hover:not(.disabled) {
+    background: var(--brand-orange);
+    border-color: var(--brand-orange);
+    color: white;
+  }
+
+  .letter-link.disabled {
+    color: var(--gray-400);
+    background: var(--gray-100);
+    cursor: default;
+  }
+
+  .letter-link.active {
+    background: var(--brand-orange);
+    border-color: var(--brand-orange);
+    color: white;
+  }
+
+  .letter-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .glossary-letter {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--charcoal);
+    padding-bottom: var(--space-xs);
+    border-bottom: 3px solid var(--brand-orange);
+    margin-bottom: var(--space-md);
+    scroll-margin-top: 120px;
+  }
+
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .glossary-term-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-decoration: none;
+    display: block;
+    transition: all var(--transition-fast);
+  }
+
+  .glossary-term-card:hover {
+    border-color: var(--brand-orange);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+  }
+
+  .glossary-term-card h3 {
+    color: var(--charcoal);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-xs);
+  }
+
+  .glossary-term-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .popular-badge {
+    display: inline-block;
+    background: var(--brand-orange);
+    color: white;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-xs);
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-content .heading-2 {
+    color: var(--white);
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-content .body-large {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-lg);
+  }
+
+  .disclaimer-text {
+    margin-top: var(--space-lg);
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  @media (max-width: 768px) {
+    .letter-nav-section {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .letter-nav {
+      justify-content: flex-start;
+      padding: 0 var(--space-sm);
+    }
+
+    .letter-link {
+      width: 30px;
+      height: 30px;
+      font-size: var(--font-size-sm);
+    }
+
+    .glossary-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Scroll-spy to highlight active letter in navigation
+  document.addEventListener('DOMContentLoaded', () => {
+    const letterHeaders = document.querySelectorAll('.glossary-letter');
+    const letterLinks = document.querySelectorAll('.letter-link:not(.disabled)');
+
+    if (letterHeaders.length === 0 || letterLinks.length === 0) return;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '-120px 0px -70% 0px',
+      threshold: 0
+    };
+
+    let currentActive: Element | null = null;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const letterId = entry.target.id;
+
+          // Remove active from all links
+          letterLinks.forEach(link => link.classList.remove('active'));
+
+          // Add active to matching link
+          const activeLink = document.querySelector(`.letter-link[href="#${letterId}"]`);
+          if (activeLink) {
+            activeLink.classList.add('active');
+            currentActive = activeLink;
+          }
+        }
+      });
+    }, observerOptions);
+
+    letterHeaders.forEach(header => observer.observe(header));
+  });
+</script>

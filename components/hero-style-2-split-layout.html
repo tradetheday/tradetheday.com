@@ -1,0 +1,131 @@
+<!-- Hero Style 2: Split Layout with Image -->
+<!-- Copy this entire section to use the split layout hero style -->
+<section class="hero-split section">
+    <div class="container">
+        <div class="hero-split-content">
+            <div class="hero-split-text">
+                <span class="chip">Platform Review</span>
+                <h1 class="heading-1">AvaTrade Review 2025</h1>
+                <p class="body-large">Multi-regulated broker with 6 global licenses, $100 minimum deposit, and advanced trading platforms.</p>
+                
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <span class="hero-feature-icon">🛡️</span>
+                        <span>ASIC & CBI Regulated</span>
+                    </div>
+                    <div class="hero-feature">
+                        <span class="hero-feature-icon">💰</span>
+                        <span>$100 Min Deposit</span>
+                    </div>
+                    <div class="hero-feature">
+                        <span class="hero-feature-icon">📱</span>
+                        <span>MT4 & WebTrader</span>
+                    </div>
+                </div>
+                
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary btn-lg">Visit AvaTrade</a>
+                    <a href="#" class="btn btn-outline btn-lg">Read Review</a>
+                </div>
+            </div>
+            
+            <div class="hero-split-image">
+                <img src="../assets/images/brokers/avatrade/avatrade-webtrader-trading-platform.png" alt="AvaTrade Trading Platform" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Hero Style 2: Split Layout */
+.hero-split {
+    background: linear-gradient(135deg, var(--white) 0%, var(--gray-50) 100%);
+    color: var(--charcoal);
+    padding: var(--space-4xl) 0;
+}
+
+.hero-split-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+}
+
+.hero-features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin: var(--space-xl) 0;
+}
+
+.hero-feature {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-weight: var(--font-weight-semibold);
+}
+
+.hero-feature-icon {
+    font-size: var(--font-size-lg);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+}
+
+.hero-split-image img {
+    width: 100%;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--charcoal);
+    border: 2px solid var(--gray-300);
+    font-weight: var(--font-weight-semibold);
+}
+
+.btn-outline:hover {
+    background: var(--gray-100);
+    border-color: var(--gray-400);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-split-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .hero-features {
+        align-items: center;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Great for showcasing platform screenshots or broker interfaces
+2. Split layout works well for visual content + text combination
+3. Replace the image src with your actual screenshot path
+4. Update hero-features to highlight key broker benefits
+5. Customize both button texts and links
+6. On mobile, automatically stacks vertically
+
+Customization Options:
+- Replace image: Update src path to your platform screenshot
+- Modify features: Change icons and text to match your content
+- Update buttons: Customize text and links for both CTAs
+- Change background: Modify gradient colors in CSS
+- Add/remove features: Copy hero-feature structure as needed
+- Switch sides: Move hero-split-image before hero-split-text to flip layout
+
+Required CSS: design-system.css + embedded styles above
+-->

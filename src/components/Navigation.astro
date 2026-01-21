@@ -1,0 +1,163 @@
+---
+export interface Props {
+  links: Array<{
+    href: string;
+    text: string;
+    active?: boolean;
+  }>;
+  sticky?: boolean;
+}
+
+const { links, sticky = true } = Astro.props;
+
+const navClasses = sticky ? 'nav nav-sticky' : 'nav';
+---
+
+<nav class={navClasses}>
+  <div class="container">
+    <div class="nav-links">
+      {links.map(({ href, text, active = false }) => (
+        <a href={href} class={`nav-link ${active ? 'active' : ''}`}>
+          {text}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<script>
+// Navigation functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('section[id]');
+  
+  // Smooth scrolling for navigation links
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }
+    });
+  });
+  
+  // Update active state based on scroll position
+  function updateActiveNav() {
+    let current = '';
+    const scrollPosition = window.scrollY + 100;
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) {
+        link.classList.add('active');
+      }
+    });
+  }
+  
+  // Throttled scroll listener for performance
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateActiveNav();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+  
+  // Initial call
+  updateActiveNav();
+});
+</script>
+
+<style>
+.nav {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--gray-200, #e5e7eb);
+  padding: 1rem 0;
+  z-index: 1001;
+  height: 74px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-sticky {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 0.5rem 0;
+}
+
+.nav-links::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-link {
+  white-space: nowrap;
+  padding: 0.5rem 1rem;
+  color: var(--gray-600, #4b5563);
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover {
+  color: white;
+  background: var(--brand-orange, #ff4800);
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid var(--brand-orange, #ff4800);
+  outline-offset: 2px;
+  color: var(--brand-orange, #ff4800);
+}
+
+.nav-link.active {
+  color: white;
+  background: var(--brand-orange, #ff4800);
+  border-bottom-color: var(--brand-orange, #ff4800);
+  font-weight: 600;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+  
+  .nav-link {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+</style>

@@ -1,0 +1,1771 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import CompanyInfo from '../../../components/CompanyInfo.astro';
+import CostAnalysis from '../../../components/CostAnalysis.astro';
+import PaymentDetails from '../../../components/PaymentDetails.astro';
+import FAQ from '../../../components/FAQ.astro';
+import TrustBadges from '../../../components/TrustBadges.astro';
+import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+import { brokers } from '../../../data/brokers';
+
+// Get broker data
+const broker = brokers.find(b => b.slug === 'go-markets');
+
+const pageTitle = "GO Markets Review 2026: Australian ECN Broker - True Raw Spreads";
+const pageDescription = "Complete GO Markets review for 2026. ASIC-regulated since 2006, true ECN execution from 0.0 pips, cTrader platform, $3 commission per lot. Honest analysis from TradeTheDay.";
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Brokers', href: '/brokers/' },
+  { text: 'GO Markets', current: true }
+];
+
+// Navigation sections
+const navSections = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'why-choose', label: 'Why Choose' },
+  { id: 'fees', label: 'Fees & Costs' },
+  { id: 'safety', label: 'Safety' },
+  { id: 'platforms', label: 'Platforms' },
+  { id: 'accounts', label: 'Accounts' },
+  { id: 'support', label: 'Support' },
+  { id: 'faq', label: 'FAQ' },
+  { id: 'verdict', label: 'Verdict' }
+];
+
+// Pros and Cons
+const pros = [
+  'True ECN execution with raw spreads from 0.0 pips',
+  'ASIC regulated since 2006 - Australian heritage and trust',
+  'cTrader platform with Level II pricing and depth of market',
+  'Low $3 per lot commission on GO Plus+ accounts',
+  'Excellent for Australian traders (AUD accounts, BPAY deposits)',
+  'VPS hosting available for algorithmic trading strategies',
+  'No dealing desk intervention - direct market access',
+  'Over 1,000 trading instruments available'
+];
+
+const cons = [
+  'Higher minimum deposit ($200) compared to some competitors',
+  '$15/month inactivity fee after 12 months of no activity',
+  'Limited cryptocurrency selection (only 15 pairs)',
+  'Customer support not available 24/7',
+  'No social/copy trading features built-in',
+  'Smaller instrument range than mega-brokers'
+];
+
+// FAQ Data
+const faqData = [
+  {
+    question: "Is GO Markets safe and regulated?",
+    answer: "Yes, GO Markets is highly safe. They are regulated by ASIC (Australian Securities and Investments Commission) with license number 254963 since 2006, making them one of Australia's oldest retail forex brokers. They also hold CySEC regulation for European clients. Client funds are held in segregated accounts with top-tier Australian banks, providing strong protection."
+  },
+  {
+    question: "What is the minimum deposit for GO Markets?",
+    answer: "GO Markets requires a minimum deposit of $200 (or equivalent in other currencies) for both Standard and GO Plus+ accounts. While this is slightly higher than some competitors, it reflects their focus on serious traders who value ECN execution quality."
+  },
+  {
+    question: "Does GO Markets offer true ECN execution?",
+    answer: "Yes, GO Markets offers true ECN (Electronic Communication Network) execution through their GO Plus+ account. This provides raw spreads from 0.0 pips with direct market access and no dealing desk intervention. The commission is a competitive $3 per lot round turn."
+  },
+  {
+    question: "What trading platforms does GO Markets support?",
+    answer: "GO Markets offers four trading platforms: MetaTrader 4 (MT4), MetaTrader 5 (MT5), cTrader, and their proprietary GO WebTrader. The cTrader platform is particularly notable for its Level II pricing, depth of market, and advanced charting capabilities."
+  },
+  {
+    question: "Does GO Markets charge inactivity fees?",
+    answer: "Yes, GO Markets charges a $15 monthly inactivity fee if there has been no trading activity for 12 consecutive months. This can easily be avoided by placing at least one trade per year to keep your account active."
+  },
+  {
+    question: "Can I use Expert Advisors (EAs) with GO Markets?",
+    answer: "Yes, GO Markets fully supports Expert Advisors and automated trading on both MT4 and MT5 platforms. They also offer VPS (Virtual Private Server) hosting services for traders who need to run their automated strategies 24/7 with minimal latency."
+  },
+  {
+    question: "What leverage does GO Markets offer?",
+    answer: "GO Markets offers leverage up to 1:500 for professional clients through their international entity. Australian retail clients are limited to a maximum of 1:30 for major forex pairs under ASIC regulations, which is designed to protect retail traders."
+  },
+  {
+    question: "Is GO Markets good for Australian traders?",
+    answer: "GO Markets is excellent for Australian traders. They are ASIC regulated with headquarters in Melbourne, offer AUD-denominated accounts, support BPAY and POLi for local deposits, and provide local customer support. Their Australian heritage since 2006 makes them a trusted choice for local traders."
+  },
+  {
+    question: "Does GO Markets offer cTrader platform?",
+    answer: "Yes, GO Markets is one of the few Australian brokers offering the cTrader platform. cTrader provides Level II pricing, advanced charting with 70+ indicators, cAlgo for automated trading, and superior execution quality. It's popular among professional traders who want transparency."
+  },
+  {
+    question: "How fast are withdrawals from GO Markets?",
+    answer: "Withdrawal speeds at GO Markets vary by method: e-wallets (Skrill, Neteller) process within 24 hours, credit/debit cards take 1-3 business days, and bank transfers take 1-3 business days. All withdrawal methods are free of charge, which is a significant advantage."
+  }
+];
+
+// Company Info sections for CompanyInfo component
+const companyInfoSections = [
+  {
+    title: "Deposits & Accounts",
+    icon: "💰",
+    items: [
+      { label: "Minimum Deposit", value: "$200", type: "currency" },
+      { label: "Base Currencies", value: "AUD, USD, EUR, GBP", type: "list" },
+      { label: "Islamic Account", value: "Available", type: "text" }
+    ]
+  },
+  {
+    title: "Trading Conditions",
+    icon: "📊",
+    items: [
+      { label: "Max Leverage", value: "1:500", type: "text" },
+      { label: "Instruments", value: "350+", type: "text" },
+      { label: "Execution", value: "ECN/STP", type: "text" }
+    ]
+  },
+  {
+    title: "Company Info",
+    icon: "🏛️",
+    items: [
+      { label: "Founded", value: "2006", type: "year" },
+      { label: "Headquarters", value: "Melbourne, Australia", type: "location" },
+      { label: "Regulations", value: "ASIC, CySEC, FSA", type: "text" }
+    ]
+  }
+];
+
+// Schema data for CompanyInfo component
+const companySchemaData = {
+  name: "GO Markets",
+  foundingDate: "2006",
+  headquarters: "Melbourne, Australia",
+  regulators: ["ASIC", "CySEC", "FSA"],
+  minimumDeposit: "$200",
+  currencies: ["AUD", "USD", "EUR", "GBP"],
+  maxLeverage: "1:500",
+  instrumentCount: "350+"
+};
+
+// Cost analysis data
+const costData = {
+  spreads: {
+    eurusd: '0.0 pips (GO Plus+)',
+    gbpusd: '0.0 pips (GO Plus+)',
+    usdjpy: '0.1 pips (GO Plus+)',
+    gold: 'From 0.10'
+  },
+  commissions: {
+    forex: '$3.00 per lot (GO Plus+)',
+    indices: 'No commission',
+    stocks: '0.08% per trade',
+    crypto: 'No commission'
+  },
+  overnight: 'Variable swap rates',
+  inactivity: '$15/month after 12 months',
+  deposit: 'Free',
+  withdrawal: 'Free'
+};
+
+// Payment methods (for display table)
+const paymentMethods = [
+  { method: 'Bank Transfer', depositTime: '1-3 days', withdrawTime: '1-3 days', fee: 'Free' },
+  { method: 'Credit/Debit Card', depositTime: 'Instant', withdrawTime: '1-3 days', fee: 'Free' },
+  { method: 'Skrill', depositTime: 'Instant', withdrawTime: '24 hours', fee: 'Free' },
+  { method: 'Neteller', depositTime: 'Instant', withdrawTime: '24 hours', fee: 'Free' },
+  { method: 'BPAY', depositTime: '1 day', withdrawTime: 'N/A', fee: 'Free' },
+  { method: 'POLi', depositTime: 'Instant', withdrawTime: 'N/A', fee: 'Free' }
+];
+
+// Payment Details Data (for PaymentDetails component)
+const withdrawalDetails = [
+  { icon: '💵', label: 'Minimum Deposit', value: '$200' },
+  { icon: '⚡', label: 'Deposit Processing', value: 'Instant (cards/e-wallets)' },
+  { icon: '🔐', label: 'All Fees', value: 'Free' },
+  { icon: '🛡️', label: 'Withdrawal Time', value: '24h - 3 days' }
+];
+
+const paymentAnalysis = {
+  pros: [
+    'All deposits and withdrawals completely free',
+    'Instant deposits via cards and e-wallets',
+    'E-wallet withdrawals process within 24 hours',
+    'Multiple Australian payment options (BPAY, POLi)'
+  ],
+  cons: [
+    '$200 minimum deposit required',
+    'Bank transfers take 1-3 business days',
+    'BPAY and POLi are deposit-only methods'
+  ]
+};
+
+// Generate structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FinancialService",
+      "name": "GO Markets",
+      "description": pageDescription,
+      "url": "https://www.gomarkets.com",
+      "logo": "https://www.gomarkets.com/logo.png",
+      "foundingDate": "2006",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Melbourne",
+        "addressCountry": "Australia"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": broker?.scores.overall || 4.1,
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "1847"
+      }
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "FinancialService",
+        "name": "GO Markets"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": broker?.scores.overall || 4.1,
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "TradeTheDay"
+      },
+      "datePublished": "2026-01-20",
+      "dateModified": "2026-01-20"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqData.map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbItems.map((item, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": item.text,
+        "item": item.href ? `https://tradetheday.com${item.href}` : undefined
+      }))
+    }
+  ]
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </Fragment>
+
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero Section -->
+  <section class="broker-hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">Australian ECN Broker Since 2006</div>
+        <h1 class="heading-1">GO Markets Review 2026</h1>
+        <p class="hero-tagline">True ECN Execution with cTrader Access</p>
+
+        <div class="hero-rating">
+          <div class="rating-score">{broker?.scores.overall || 4.1}</div>
+          <div class="rating-stars">★★★★☆</div>
+          <div class="rating-label">Our Rating</div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">{broker?.minDepositDisplay || '$200'}</span>
+            <span class="stat-label">Min Deposit</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">{broker?.spreadsFrom || '0.0 pips'}</span>
+            <span class="stat-label">Spreads From</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">{broker?.instrumentsDisplay || '1,000+'}</span>
+            <span class="stat-label">Instruments</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">2006</span>
+            <span class="stat-label">Founded</span>
+          </div>
+        </div>
+
+        <div class="hero-trust">
+          <span class="trust-item">🇦🇺 ASIC Regulated</span>
+          <span class="trust-item">🇨🇾 CySEC Licensed</span>
+          <span class="trust-item">🔒 Segregated Funds</span>
+          <span class="trust-item">⚡ ECN Execution</span>
+        </div>
+
+        <div class="hero-cta">
+          <a href="https://www.gomarkets.com/" class="btn btn-primary btn-xl" target="_blank" rel="noopener sponsored">
+            Open GO Markets Account
+          </a>
+          <a href="#verdict" class="btn btn-secondary btn-lg">Read Full Verdict</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Navigation -->
+  <nav class="broker-nav">
+    <div class="container">
+      <ul class="nav-list">
+        {navSections.map(section => (
+          <li><a href={`#${section.id}`}>{section.label}</a></li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Overview Section -->
+  <section id="overview" class="section">
+    <div class="container">
+      <h2 class="heading-2">GO Markets Overview</h2>
+
+      <div class="overview-intro">
+        <p class="body-large">
+          GO Markets is an Australian-based ECN broker that has been operating since 2006, making them one of the oldest retail forex brokers in Australia. Headquartered in Melbourne, they've built a strong reputation for providing true ECN execution with raw spreads from 0.0 pips and access to the professional-grade cTrader platform alongside MetaTrader 4 and 5.
+        </p>
+        <p>
+          With ASIC regulation as their cornerstone, GO Markets focuses on delivering institutional-grade trading conditions to retail traders. Their GO Plus+ account offers raw spreads with a competitive $3 per lot commission, making them particularly attractive to scalpers, day traders, and algorithmic traders who value execution quality and transparent pricing.
+        </p>
+      </div>
+
+      <AnalystNotes
+        title="Analyst's Overview Notes"
+        icon="📊"
+        id="overview-notes"
+        variant="dark"
+      >
+        <h4>What Our Analysis Reveals</h4>
+        <p>
+          GO Markets occupies an interesting position in the Australian brokerage landscape. As one of the few local brokers offering genuine ECN execution combined with cTrader access, they cater to a specific but loyal segment of the market: serious traders who prioritize execution quality over marketing gimmicks.
+        </p>
+
+        <h5>Key Differentiators</h5>
+        <p>
+          The combination of ASIC regulation since 2006, cTrader platform availability, and true raw spread pricing sets GO Markets apart. While larger brokers may offer more instruments or flashier marketing, GO Markets has quietly built a reputation for reliability and transparency that resonates with experienced Australian traders.
+        </p>
+
+        <h5>Market Position Assessment</h5>
+        <p>
+          GO Markets sits firmly in the "quality over quantity" camp. Their instrument range of 1,000+ is smaller than mega-brokers like IG or Saxo, but their focus on forex, indices, and commodities with genuine ECN execution means traders get what matters most: tight spreads and fast fills. The $200 minimum deposit signals they're not chasing the absolute beginner market.
+        </p>
+
+        <h5>Australian Heritage Advantage</h5>
+        <p>
+          Being Melbourne-based with 18+ years of ASIC oversight provides genuine advantages for Australian traders: AUD accounts, BPAY/POLi deposits, local customer support, and the confidence that comes from dealing with a well-established local entity. For traders who value sleeping soundly knowing their broker is regulated by one of the world's strictest financial authorities, GO Markets delivers.
+        </p>
+
+        <h5>Who This Broker Suits</h5>
+        <p>
+          GO Markets is best suited for intermediate to advanced traders who understand the value of ECN execution, appreciate the cTrader platform's capabilities, and prefer dealing with a well-regulated Australian broker. Absolute beginners or those seeking social trading features should look elsewhere, but serious traders will find a reliable partner here.
+        </p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Pros & Cons Section -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="heading-2">GO Markets Pros & Cons</h2>
+
+      <div class="pros-cons-grid">
+        <div class="pros-card">
+          <h3 class="pros-title">✓ Advantages</h3>
+          <ul class="pros-list">
+            {pros.map(pro => (
+              <li>{pro}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="cons-card">
+          <h3 class="cons-title">✗ Disadvantages</h3>
+          <ul class="cons-list">
+            {cons.map(con => (
+              <li>{con}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Section -->
+  <section id="why-choose" class="section">
+    <div class="container">
+      <h2 class="heading-2">Why Choose GO Markets?</h2>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>True ECN Execution</h3>
+          <p>Raw spreads from 0.0 pips with direct market access. No dealing desk intervention means your orders go straight to liquidity providers.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🇦🇺</div>
+          <h3>Australian Heritage</h3>
+          <p>ASIC regulated since 2006. One of Australia's oldest retail forex brokers with a spotless regulatory track record.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>cTrader Platform</h3>
+          <p>One of the few Australian brokers offering cTrader with Level II pricing, depth of market, and cAlgo for automated trading.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <h3>Low Commission</h3>
+          <p>Only $3 per lot round turn on GO Plus+ accounts. Highly competitive for ECN execution quality.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🖥️</div>
+          <h3>VPS Hosting</h3>
+          <p>Free VPS for algorithmic traders running Expert Advisors 24/7. Essential for automated strategy execution.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🏦</div>
+          <h3>Local Banking</h3>
+          <p>BPAY and POLi deposits for Australians. AUD accounts available to avoid currency conversion fees.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Why Choose GO Markets - Analyst's Perspective"
+        icon="🎯"
+        id="why-choose-notes"
+        variant="dark"
+      >
+        <h4>The Case for GO Markets</h4>
+        <p>
+          In an industry filled with brokers making extravagant claims, GO Markets takes a refreshingly different approach. Their value proposition is straightforward: genuine ECN execution, professional platforms, and the safety of ASIC regulation. No inflated bonus promises, no aggressive marketing -just solid trading infrastructure.
+        </p>
+
+        <h5>The cTrader Advantage</h5>
+        <p>
+          The availability of cTrader is a significant differentiator that many traders underestimate. While MetaTrader dominates the retail space, cTrader offers superior execution transparency with its Level II pricing showing actual market depth. For traders who've grown frustrated with the limitations of MT4/MT5, cTrader provides a professional-grade alternative without needing to graduate to institutional platforms.
+        </p>
+
+        <h5>ECN Reality Check</h5>
+        <p>
+          Many brokers claim "ECN execution" while running dealing desk operations behind the scenes. GO Markets' model is genuinely different -their GO Plus+ account routes orders directly to liquidity providers with raw spreads. The $3 commission is how they make money, not by widening spreads or taking the other side of your trades. This alignment of interests is crucial for active traders.
+        </p>
+
+        <h5>The Australian Factor</h5>
+        <p>
+          For Australian traders, the local factor matters more than many realize. ASIC is among the strictest regulators globally, and GO Markets' 18-year track record under this oversight provides genuine confidence. Local support, local banking options, and the ability to hold funds in AUD all reduce friction and risk.
+        </p>
+
+        <h5>Who Should Consider GO Markets</h5>
+        <ul>
+          <li><strong>Scalpers and Day Traders:</strong> The raw spread + low commission model rewards high-frequency trading</li>
+          <li><strong>Algorithmic Traders:</strong> MT4/MT5 EA support plus free VPS hosting</li>
+          <li><strong>cTrader Enthusiasts:</strong> Rare opportunity for Australian traders to access this platform</li>
+          <li><strong>Risk-Averse Traders:</strong> ASIC's strict oversight provides peace of mind</li>
+        </ul>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Fees Section -->
+  <section id="fees" class="section section-alt">
+    <div class="container">
+      <h2 class="heading-2">GO Markets Fees & Costs</h2>
+
+      <p class="section-intro">
+        GO Markets operates a transparent fee structure with two account types. The Standard account has wider spreads but no commission, while the GO Plus+ account offers raw spreads from 0.0 pips with a $3 per lot commission. Non-trading fees include a $15/month inactivity charge after 12 months.
+      </p>
+
+      <CostAnalysis
+        spreads={costData.spreads}
+        commissions={costData.commissions}
+        overnight={costData.overnight}
+        inactivity={costData.inactivity}
+        depositFee={costData.deposit}
+        withdrawalFee={costData.withdrawal}
+      />
+
+      <div class="fee-comparison">
+        <h3>Account Type Comparison</h3>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Standard Account</th>
+              <th>GO Plus+ Account</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Spreads</td>
+              <td>From 1.0 pips</td>
+              <td>From 0.0 pips</td>
+            </tr>
+            <tr>
+              <td>Commission</td>
+              <td>None</td>
+              <td>$3 per lot</td>
+            </tr>
+            <tr>
+              <td>Execution</td>
+              <td>STP</td>
+              <td>ECN</td>
+            </tr>
+            <tr>
+              <td>Min Deposit</td>
+              <td>$200</td>
+              <td>$200</td>
+            </tr>
+            <tr>
+              <td>Best For</td>
+              <td>Casual traders</td>
+              <td>Active traders</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <AnalystNotes
+        title="Fee Analysis - Analyst's Breakdown"
+        icon="💰"
+        id="fees-notes"
+        variant="dark"
+      >
+        <h4>Understanding GO Markets' Fee Structure</h4>
+        <p>
+          GO Markets' fee structure is designed to appeal to serious traders who understand total cost of ownership. The GO Plus+ account's raw spread + commission model typically works out cheaper for active traders, while the Standard account may suit those who prefer simpler pricing.
+        </p>
+
+        <h5>Total Cost Analysis</h5>
+        <p>
+          Let's break down the actual trading costs. On EUR/USD with the GO Plus+ account, you're paying approximately $3 commission per standard lot (round turn) plus whatever spread exists at execution -often 0.0-0.2 pips. This means your total cost per trade is roughly $3.00-$5.00 per lot, which is competitive with the best ECN brokers globally.
+        </p>
+
+        <h5>Standard vs GO Plus+: The Math</h5>
+        <p>
+          For a trader doing 10 lots per day on EUR/USD, the GO Plus+ account with 0.1 pip average spread + $3 commission costs approximately $40/day. The Standard account with 1.2 pip average spread costs approximately $120/day. The math clearly favors GO Plus+ for active traders -the break-even point is around 3-4 standard lots per day.
+        </p>
+
+        <h5>Hidden Fees to Watch</h5>
+        <p>
+          The main "hidden" fee at GO Markets is the $15/month inactivity charge after 12 months. This is higher than some competitors ($10 is more common), but easily avoided by placing one trade per year. There are no deposit or withdrawal fees, which is a genuine plus -many brokers sneak in charges on withdrawals.
+        </p>
+
+        <h5>Swap Rate Considerations</h5>
+        <p>
+          Overnight swap rates at GO Markets are competitive but vary significantly by instrument. For swing traders holding positions for days or weeks, these costs add up. The swap rates are clearly displayed in the platform -always check before holding positions overnight, especially on exotic pairs.
+        </p>
+
+        <h5>Fee Verdict</h5>
+        <p>
+          GO Markets' fees are competitive for what they offer: genuine ECN execution with ASIC regulation. They're not the absolute cheapest broker, but the slightly higher costs come with better execution quality and regulatory protection. For active traders prioritizing execution, the value proposition is sound.
+        </p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Safety Section -->
+  <section id="safety" class="section">
+    <div class="container">
+      <h2 class="heading-2">GO Markets Safety & Regulation</h2>
+
+      <div class="safety-intro">
+        <p class="body-large">
+          GO Markets is one of Australia's oldest retail forex brokers, operating under ASIC regulation since 2006. Their regulatory framework includes Tier-1 ASIC oversight for Australian clients and CySEC for European clients, providing comprehensive protection across major markets.
+        </p>
+      </div>
+
+      <div class="regulation-grid">
+        <div class="regulation-card">
+          <div class="reg-flag">🇦🇺</div>
+          <div class="reg-details">
+            <h4>ASIC (Australia)</h4>
+            <p class="reg-number">License: 254963</p>
+            <p class="reg-tier">Tier 1 Regulator</p>
+            <p>Australian Securities and Investments Commission. Client funds held in segregated accounts with NAB and Commonwealth Bank.</p>
+          </div>
+        </div>
+
+        <div class="regulation-card">
+          <div class="reg-flag">🇨🇾</div>
+          <div class="reg-details">
+            <h4>CySEC (Cyprus)</h4>
+            <p class="reg-number">License: 322/17</p>
+            <p class="reg-tier">Tier 2 Regulator</p>
+            <p>Cyprus Securities and Exchange Commission. EU clients benefit from MiFID II protections and €20,000 ICF coverage.</p>
+          </div>
+        </div>
+
+        <div class="regulation-card">
+          <div class="reg-flag">🇸🇨</div>
+          <div class="reg-details">
+            <h4>FSA (Seychelles)</h4>
+            <p class="reg-number">License: SD043</p>
+            <p class="reg-tier">Offshore</p>
+            <p>Seychelles Financial Services Authority. Provides higher leverage options for international clients outside regulated jurisdictions.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="safety-features">
+        <h3>Client Protection Measures</h3>
+        <div class="protection-grid">
+          <div class="protection-item">
+            <span class="protection-icon">🏦</span>
+            <h4>Segregated Funds</h4>
+            <p>Client funds held separately from company funds in top-tier Australian banks (NAB, CBA)</p>
+          </div>
+          <div class="protection-item">
+            <span class="protection-icon">🛡️</span>
+            <h4>Negative Balance Protection</h4>
+            <p>Cannot lose more than deposited under ASIC retail client rules</p>
+          </div>
+          <div class="protection-item">
+            <span class="protection-icon">🔒</span>
+            <h4>SSL Encryption</h4>
+            <p>256-bit SSL encryption protecting all data transmission</p>
+          </div>
+          <div class="protection-item">
+            <span class="protection-icon">⚖️</span>
+            <h4>AFCA Membership</h4>
+            <p>Australian Financial Complaints Authority for dispute resolution</p>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Safety Assessment - Analyst's View"
+        icon="🔒"
+        id="safety-notes"
+        variant="dark"
+      >
+        <h4>Regulatory Strength Analysis</h4>
+        <p>
+          GO Markets' regulatory profile is genuinely strong, anchored by their ASIC license held since 2006. ASIC is consistently ranked among the world's top financial regulators, and GO Markets' 18-year track record without major regulatory issues speaks volumes about their operational integrity.
+        </p>
+
+        <h5>What ASIC Regulation Means</h5>
+        <p>
+          ASIC regulation isn't just a badge -it comes with real requirements. GO Markets must maintain specific capital adequacy ratios, submit to regular audits, keep client funds in segregated accounts with approved Australian banks, and provide negative balance protection to retail clients. The regulatory framework is designed to prevent the kinds of broker failures that have plagued the industry.
+        </p>
+
+        <h5>Fund Safety Assessment</h5>
+        <p>
+          Client funds at GO Markets are held in segregated accounts with National Australia Bank (NAB) and Commonwealth Bank of Australia (CBA) -both among Australia's "Big Four" banks. This segregation means that even in a worst-case scenario where GO Markets faced insolvency, client funds would be protected from creditor claims.
+        </p>
+
+        <h5>The Offshore Entity Question</h5>
+        <p>
+          GO Markets does operate an offshore entity in Seychelles (FSA regulated), which offers higher leverage but less protection. Our recommendation is clear: Australian traders should always use the ASIC-regulated entity. The slightly lower leverage limits are a small price for substantially better protection.
+        </p>
+
+        <h5>Track Record Evaluation</h5>
+        <p>
+          In 18 years of operation, GO Markets has maintained a clean regulatory record. No major fines, no license suspensions, no dramatic scandals. In an industry where many brokers accumulate regulatory issues like badges of dishonor, this clean sheet is genuinely impressive and shouldn't be overlooked.
+        </p>
+
+        <h5>Safety Verdict</h5>
+        <p>
+          GO Markets is among the safer broker choices available to Australian traders. The combination of long ASIC track record, segregated funds in major Australian banks, and conservative business practices makes them a low-risk choice from a safety perspective. They're not flashy, but they're reliable.
+        </p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Platforms Section -->
+  <section id="platforms" class="section section-alt">
+    <div class="container">
+      <h2 class="heading-2">GO Markets Trading Platforms</h2>
+
+      <p class="section-intro">
+        GO Markets offers four trading platforms: MetaTrader 4, MetaTrader 5, cTrader, and their web-based GO WebTrader. The cTrader availability is particularly notable as it's rare among Australian brokers and offers professional-grade features including Level II pricing.
+      </p>
+
+      <div class="platforms-grid">
+        <div class="platform-card">
+          <h3>MetaTrader 4</h3>
+          <div class="platform-rating">★★★★½</div>
+          <p>The industry standard. Full support for Expert Advisors, custom indicators, and one-click trading. Available on desktop, web, and mobile.</p>
+          <ul class="platform-features">
+            <li>Expert Advisors (EAs)</li>
+            <li>30+ built-in indicators</li>
+            <li>9 timeframes</li>
+            <li>One-click trading</li>
+            <li>Mobile apps (iOS/Android)</li>
+          </ul>
+        </div>
+
+        <div class="platform-card">
+          <h3>MetaTrader 5</h3>
+          <div class="platform-rating">★★★★½</div>
+          <p>Next-generation MetaTrader with improved charting, more timeframes, and built-in economic calendar. Multi-asset capable.</p>
+          <ul class="platform-features">
+            <li>21 timeframes</li>
+            <li>80+ built-in indicators</li>
+            <li>Economic calendar</li>
+            <li>Depth of Market</li>
+            <li>Improved backtesting</li>
+          </ul>
+        </div>
+
+        <div class="platform-card featured">
+          <div class="featured-badge">Recommended</div>
+          <h3>cTrader</h3>
+          <div class="platform-rating">★★★★★</div>
+          <p>Professional-grade platform with Level II pricing, advanced charting, and cAlgo for automated strategies. Superior execution transparency.</p>
+          <ul class="platform-features">
+            <li>Level II pricing (DOM)</li>
+            <li>70+ technical indicators</li>
+            <li>cAlgo automation</li>
+            <li>Advanced chart types</li>
+            <li>Quick trade from chart</li>
+          </ul>
+        </div>
+
+        <div class="platform-card">
+          <h3>GO WebTrader</h3>
+          <div class="platform-rating">★★★★</div>
+          <p>Browser-based platform requiring no download. TradingView charts integration, real-time data, and multi-device synchronization.</p>
+          <ul class="platform-features">
+            <li>No download required</li>
+            <li>TradingView charts</li>
+            <li>Cross-device sync</li>
+            <li>Real-time quotes</li>
+            <li>Order management</li>
+          </ul>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Platform Analysis - Analyst's Deep Dive"
+        icon="🖥️"
+        id="platforms-notes"
+        variant="dark"
+      >
+        <h4>Platform Ecosystem Evaluation</h4>
+        <p>
+          GO Markets' platform lineup is well-considered, offering both industry standards (MT4/MT5) and professional alternatives (cTrader). This flexibility is valuable -you can start with familiar MetaTrader and migrate to cTrader as your needs evolve, all without changing brokers.
+        </p>
+
+        <h5>The cTrader Difference</h5>
+        <p>
+          For serious traders, cTrader is the standout offering. Level II pricing shows actual market depth, letting you see where liquidity sits and how your orders interact with the market. This transparency is rare in retail forex and provides a genuine edge for understanding market dynamics. The cAlgo functionality also offers more modern coding capabilities than MQL4/5.
+        </p>
+
+        <h5>MetaTrader Reality Check</h5>
+        <p>
+          MT4 remains the most popular platform globally for good reason -it works, it's familiar, and the ecosystem of indicators and EAs is unmatched. GO Markets' MT4/MT5 implementations are solid with no notable issues. If you have existing EAs or prefer MetaTrader's workflow, you won't be disappointed.
+        </p>
+
+        <h5>Mobile Experience</h5>
+        <p>
+          All platforms offer mobile apps, but the experience varies. MetaTrader mobile apps are functional but dated. cTrader mobile is more modern and user-friendly. For traders who actively manage positions on mobile, cTrader provides the better experience, though MT4/MT5 apps are adequate for monitoring and basic order management.
+        </p>
+
+        <h5>VPS for Algorithmic Trading</h5>
+        <p>
+          GO Markets offers free VPS hosting for qualifying accounts, which is essential for traders running automated strategies. Low-latency execution from a VPS co-located near their servers can make a meaningful difference for high-frequency strategies. This service alone can save $30-50/month compared to third-party VPS providers.
+        </p>
+
+        <h5>Platform Recommendation</h5>
+        <p>
+          For most traders, we recommend cTrader as the primary platform. Its execution transparency, modern interface, and advanced charting make it superior for active trading. Use MT4/MT5 if you have existing EAs or strongly prefer MetaTrader's workflow. GO WebTrader is best as a backup for quick access when you're away from your main setup.
+        </p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Account Types Section -->
+  <section id="accounts" class="section">
+    <div class="container">
+      <h2 class="heading-2">GO Markets Account Types</h2>
+
+      <div class="accounts-grid">
+        <div class="account-card">
+          <h3>Standard Account</h3>
+          <div class="account-feature highlight">From 1.0 pips</div>
+          <ul class="account-details">
+            <li><strong>Spreads:</strong> From 1.0 pips</li>
+            <li><strong>Commission:</strong> None</li>
+            <li><strong>Execution:</strong> STP</li>
+            <li><strong>Min Deposit:</strong> $200</li>
+            <li><strong>Leverage:</strong> Up to 500:1*</li>
+            <li><strong>Platforms:</strong> All</li>
+          </ul>
+          <p class="account-description">Best for casual traders who prefer simple, commission-free pricing with all-inclusive spreads.</p>
+        </div>
+
+        <div class="account-card featured">
+          <div class="featured-badge">Most Popular</div>
+          <h3>GO Plus+ Account</h3>
+          <div class="account-feature highlight">From 0.0 pips</div>
+          <ul class="account-details">
+            <li><strong>Spreads:</strong> From 0.0 pips (raw)</li>
+            <li><strong>Commission:</strong> $3 per lot</li>
+            <li><strong>Execution:</strong> ECN</li>
+            <li><strong>Min Deposit:</strong> $200</li>
+            <li><strong>Leverage:</strong> Up to 500:1*</li>
+            <li><strong>Platforms:</strong> All</li>
+          </ul>
+          <p class="account-description">Best for active traders, scalpers, and EAs seeking lowest total cost with true ECN execution.</p>
+        </div>
+      </div>
+
+      <p class="accounts-note">*Leverage up to 500:1 available through international entity. Australian retail clients limited to 30:1 under ASIC rules.</p>
+    </div>
+  </section>
+
+  <!-- Deposits & Withdrawals Section -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="heading-2">Deposits & Withdrawals</h2>
+
+      <PaymentDetails
+        title="Withdrawal & Payment Information"
+        subtitle="Complete overview of payment processing, fees, and conditions"
+        withdrawalDetails={withdrawalDetails}
+        analysisTitle="Payment System Analysis"
+        analysis={paymentAnalysis}
+      />
+    </div>
+  </section>
+
+  <!-- Customer Support Section -->
+  <section id="support" class="section">
+    <div class="container">
+      <h2 class="heading-2">Customer Support</h2>
+
+      <div class="support-grid">
+        <div class="support-card">
+          <div class="support-icon">📞</div>
+          <h3>Phone Support</h3>
+          <p>Australian local number available</p>
+          <p class="support-hours">Mon-Fri: 7am-7pm AEST</p>
+        </div>
+
+        <div class="support-card">
+          <div class="support-icon">💬</div>
+          <h3>Live Chat</h3>
+          <p>Real-time assistance through website</p>
+          <p class="support-hours">Mon-Fri: 7am-7pm AEST</p>
+        </div>
+
+        <div class="support-card">
+          <div class="support-icon">✉️</div>
+          <h3>Email Support</h3>
+          <p>Detailed query resolution</p>
+          <p class="support-hours">Response within 24 hours</p>
+        </div>
+
+        <div class="support-card">
+          <div class="support-icon">📚</div>
+          <h3>Help Center</h3>
+          <p>Self-service knowledge base</p>
+          <p class="support-hours">Available 24/7</p>
+        </div>
+      </div>
+
+      <div class="support-note">
+        <p><strong>Note:</strong> GO Markets' support hours are not 24/7, which may be a limitation for traders active during off-hours. However, their Melbourne-based team provides quality local support during business hours.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="section section-alt">
+    <div class="container container-narrow">
+      <h2 class="heading-2">Frequently Asked Questions</h2>
+      <FAQ questions={faqData} />
+    </div>
+  </section>
+
+  <!-- Verdict Section -->
+  <section id="verdict" class="section">
+    <div class="container">
+      <h2 class="heading-2">GO Markets Final Verdict</h2>
+
+      <div class="verdict-summary">
+        <div class="verdict-score">
+          <div class="score-large">{broker?.scores.overall || 4.1}</div>
+          <div class="score-stars">★★★★☆</div>
+          <div class="score-label">Overall Rating</div>
+        </div>
+
+        <div class="verdict-breakdown">
+          <div class="rating-row">
+            <span class="rating-category">Fees & Spreads</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 86%"></span></span>
+            <span class="rating-value">4.3</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Platforms</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 84%"></span></span>
+            <span class="rating-value">4.2</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Safety</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 84%"></span></span>
+            <span class="rating-value">4.2</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Customer Service</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 86%"></span></span>
+            <span class="rating-value">4.3</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Research</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 76%"></span></span>
+            <span class="rating-value">3.8</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Education</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 70%"></span></span>
+            <span class="rating-value">3.5</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="verdict-recommendation">
+        <h3>Best For</h3>
+        <ul class="best-for-list">
+          <li>Australian traders seeking ASIC-regulated ECN broker</li>
+          <li>cTrader platform enthusiasts wanting Level II pricing</li>
+          <li>Scalpers and active traders prioritizing execution quality</li>
+          <li>Algorithmic traders needing VPS hosting and EA support</li>
+          <li>Traders who value transparency over marketing gloss</li>
+        </ul>
+
+        <h3>Not Ideal For</h3>
+        <ul class="not-for-list">
+          <li>Complete beginners seeking extensive hand-holding</li>
+          <li>Social/copy trading enthusiasts</li>
+          <li>Crypto-focused traders wanting extensive selection</li>
+          <li>Those requiring 24/7 customer support</li>
+        </ul>
+      </div>
+
+      <AnalystNotes
+        title="Final Verdict - Analyst's Conclusion"
+        icon="⚖️"
+        id="verdict-notes"
+        variant="dark"
+      >
+        <h4>The Bottom Line on GO Markets</h4>
+        <p>
+          GO Markets represents what a serious, no-nonsense broker should be: well-regulated, competitively priced, and focused on execution quality rather than marketing gimmicks. They won't win awards for flashiness, but they deliver where it matters -on the trading desk.
+        </p>
+
+        <h5>Strengths That Matter</h5>
+        <p>
+          The combination of ASIC regulation since 2006, genuine ECN execution, and cTrader availability creates a compelling package for serious traders. Their $3/lot commission on raw spreads is competitive globally, and their track record of regulatory compliance provides genuine peace of mind. For Australian traders, the local support and banking options add meaningful convenience.
+        </p>
+
+        <h5>Limitations to Consider</h5>
+        <p>
+          GO Markets isn't trying to be everything to everyone. Their instrument range is smaller than mega-brokers, their educational content is modest, and their support isn't 24/7. The $200 minimum deposit and $15 inactivity fee signal they're not chasing the absolute beginner market. If you need hand-holding or social trading features, look elsewhere.
+        </p>
+
+        <h5>The Value Proposition</h5>
+        <p>
+          GO Markets offers institutional-grade trading conditions in a retail package. You're paying slightly more than the cheapest brokers, but you're getting genuine ECN execution, ASIC protection, and platform flexibility. For traders who understand the value of execution quality and regulatory safety, this trade-off makes sense.
+        </p>
+
+        <h5>Our Recommendation</h5>
+        <p>
+          We recommend GO Markets for intermediate to advanced traders who prioritize execution quality and regulatory safety over rock-bottom pricing or social trading features. They're particularly well-suited for Australian traders wanting local regulation and support, cTrader enthusiasts, and algorithmic traders needing reliable infrastructure.
+        </p>
+
+        <h5>Final Score Justification</h5>
+        <p>
+          Our 4.1/5 rating reflects GO Markets' genuine strengths (regulation, execution, platforms) balanced against their limitations (smaller range, limited education, no 24/7 support). They excel at what they focus on, but they're not trying to be a one-stop shop for every trader type. For their target audience, they're an excellent choice.
+        </p>
+      </AnalystNotes>
+
+      <div class="verdict-cta">
+        <a href="https://www.gomarkets.com/" class="btn btn-primary btn-xl" target="_blank" rel="noopener sponsored">
+          Open GO Markets Account
+        </a>
+        <p class="cta-note">Minimum deposit $200 • ASIC regulated • True ECN execution</p>
+        <p class="cta-links">
+          <a href="/compare/" class="text-link">Compare with other brokers</a> |
+          <a href="/brokers/" class="text-link">View all broker reviews</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Info -->
+  <section class="section section-alt">
+    <div class="container">
+      <CompanyInfo
+        title="Complete GO Markets Company Overview"
+        subtitle="Essential company information, trading conditions, and account details"
+        sections={companyInfoSections}
+        columns={3}
+        brokerName="GO Markets"
+        schemaData={companySchemaData}
+      />
+    </div>
+  </section>
+
+  <TrustBadges variant="light" compact={true} />
+
+  <!-- Cross Promotion Section -->
+  <section class="section section-gray">
+    <div class="container">
+      <BrokerCrossPromo brokerSlug="go-markets" brokerName="GO Markets" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .broker-hero {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    padding: var(--space-2xl) 0;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255, 72, 0, 0.15);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+    color: var(--brand-orange);
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-hero .heading-1 {
+    color: var(--white);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero-tagline {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-rating {
+    margin-bottom: var(--space-lg);
+  }
+
+  .rating-score {
+    font-size: 3rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+    line-height: 1;
+  }
+
+  .rating-stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+  }
+
+  .rating-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-size-sm);
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    display: block;
+    color: var(--white);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .stat-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-size-sm);
+  }
+
+  .hero-trust {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-xl);
+  }
+
+  .trust-item {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-size-sm);
+  }
+
+  .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  /* Navigation */
+  .broker-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-list {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) 0;
+    list-style: none;
+    margin: 0;
+    flex-wrap: wrap;
+  }
+
+  .nav-list a {
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+  }
+
+  .nav-list a:hover {
+    background: var(--gray-100);
+    color: var(--brand-orange);
+  }
+
+  /* Section Styles */
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .section-alt {
+    background: var(--gray-50);
+  }
+
+  .section-intro {
+    font-size: var(--font-size-lg);
+    color: var(--gray-600);
+    max-width: 800px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .container-narrow {
+    max-width: 800px;
+  }
+
+  /* Overview */
+  .overview-intro {
+    max-width: 900px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .overview-intro p {
+    margin-bottom: var(--space-md);
+    color: var(--gray-700);
+  }
+
+  /* Pros & Cons */
+  .pros-cons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  @media (max-width: 768px) {
+    .pros-cons-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .pros-card, .cons-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .pros-card {
+    border-left: 4px solid var(--success);
+  }
+
+  .cons-card {
+    border-left: 4px solid var(--error);
+  }
+
+  .pros-title, .cons-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .pros-list, .cons-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pros-list li, .cons-list li {
+    padding: var(--space-xs) 0;
+    padding-left: var(--space-md);
+    position: relative;
+  }
+
+  .pros-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--success);
+    font-weight: bold;
+  }
+
+  .cons-list li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--error);
+    font-weight: bold;
+  }
+
+  /* Features Grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  @media (max-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .feature-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .feature-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-xs);
+  }
+
+  .feature-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Fee Comparison */
+  .fee-comparison {
+    margin-top: var(--space-xl);
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .comparison-table th {
+    background: var(--gray-100);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Regulation Grid */
+  .regulation-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  @media (max-width: 1024px) {
+    .regulation-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .regulation-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .reg-flag {
+    font-size: 2rem;
+  }
+
+  .reg-details h4 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .reg-number {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .reg-tier {
+    display: inline-block;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    margin-bottom: var(--space-xs);
+  }
+
+  /* Safety Features */
+  .protection-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 1024px) {
+    .protection-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .protection-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .protection-item {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    text-align: center;
+  }
+
+  .protection-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+
+  .protection-item h4 {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-xs);
+  }
+
+  .protection-item p {
+    font-size: var(--font-size-xs);
+    color: var(--gray-600);
+  }
+
+  /* Platforms Grid */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  @media (max-width: 768px) {
+    .platforms-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .platform-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    position: relative;
+  }
+
+  .platform-card.featured {
+    border-color: var(--brand-orange);
+    border-width: 2px;
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    left: var(--space-md);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .platform-card h3 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .platform-rating {
+    color: var(--brand-orange);
+    margin-bottom: var(--space-sm);
+  }
+
+  .platform-features {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-md);
+  }
+
+  .platform-features li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .platform-features li::before {
+    content: '✓';
+    color: var(--success);
+    margin-right: var(--space-xs);
+  }
+
+  /* Accounts Grid */
+  .accounts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    max-width: 800px;
+    margin: 0 auto var(--space-lg);
+  }
+
+  @media (max-width: 768px) {
+    .accounts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .account-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+    position: relative;
+  }
+
+  .account-card.featured {
+    border-color: var(--brand-orange);
+    border-width: 2px;
+  }
+
+  .account-feature.highlight {
+    background: rgba(255, 72, 0, 0.1);
+    color: var(--brand-orange);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-weight: var(--font-weight-bold);
+    display: inline-block;
+    margin-bottom: var(--space-md);
+  }
+
+  .account-details {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-md);
+    text-align: left;
+  }
+
+  .account-details li {
+    padding: var(--space-xs) 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .account-description {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .accounts-note {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  /* Payment Notes */
+  .payment-notes {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .payment-notes h3 {
+    margin-bottom: var(--space-md);
+  }
+
+  .payment-notes ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+  }
+
+  .payment-notes li {
+    margin-bottom: var(--space-xs);
+  }
+
+  /* Support Grid */
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  @media (max-width: 1024px) {
+    .support-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .support-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .support-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .support-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .support-card h3 {
+    font-size: var(--font-size-md);
+    margin-bottom: var(--space-xs);
+  }
+
+  .support-hours {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+    margin-top: var(--space-xs);
+  }
+
+  .support-note {
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .support-note p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+  }
+
+  /* Verdict */
+  .verdict-summary {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  @media (max-width: 768px) {
+    .verdict-summary {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .verdict-score {
+    text-align: center;
+  }
+
+  .score-large {
+    font-size: 4rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+    line-height: 1;
+  }
+
+  .score-stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+  }
+
+  .score-label {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .verdict-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .rating-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .rating-category {
+    width: 150px;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .rating-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--gray-200);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+
+  .rating-fill {
+    height: 100%;
+    background: var(--brand-orange);
+    display: block;
+  }
+
+  .rating-value {
+    width: 30px;
+    text-align: right;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .verdict-recommendation {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-recommendation h3 {
+    margin-bottom: var(--space-md);
+  }
+
+  .best-for-list, .not-for-list {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-lg);
+  }
+
+  .best-for-list li {
+    margin-bottom: var(--space-xs);
+    color: var(--success);
+  }
+
+  .not-for-list li {
+    margin-bottom: var(--space-xs);
+    color: var(--gray-600);
+  }
+
+  .verdict-cta {
+    text-align: center;
+    padding: var(--space-xl);
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    border-radius: var(--radius-xl);
+  }
+
+  .cta-note {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-md);
+  }
+
+  .cta-links {
+    margin-top: var(--space-md);
+  }
+
+  .cta-links .text-link {
+    color: var(--brand-orange);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .hero-stats {
+      gap: var(--space-md);
+    }
+
+    .hero-trust {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .rating-category {
+      width: 100px;
+      font-size: var(--font-size-xs);
+    }
+  }
+</style>

@@ -1,0 +1,337 @@
+---
+interface Props {
+  brokerSlug: string;
+  brokerName: string;
+}
+
+const { brokerSlug, brokerName } = Astro.props;
+
+// Import broker data for comparisons
+import { brokers, getBrokerComparisons } from '../data/brokers';
+import { getVideosByBroker } from '../data/videos';
+
+// Get comparisons involving this broker
+const allComparisons = getBrokerComparisons();
+const relevantComparisons = allComparisons
+  .filter(c => c.broker1.slug === brokerSlug || c.broker2.slug === brokerSlug)
+  .slice(0, 4);
+
+// Get videos for this broker
+const brokerVideos = getVideosByBroker(brokerSlug).slice(0, 2);
+
+// Tools to promote
+const tools = [
+  {
+    icon: "🧮",
+    title: "Broker Cost Calculator",
+    desc: "Compare trading costs",
+    link: "/tools/broker-calculator/"
+  },
+  {
+    icon: "📐",
+    title: "Position Size Calculator",
+    desc: "Manage your risk",
+    link: "/tools/position-calculator/"
+  },
+  {
+    icon: "💰",
+    title: "Profit/Loss Calculator",
+    desc: "Know before you trade",
+    link: "/tools/profit-calculator/"
+  }
+];
+---
+
+<div class="broker-cross-promo">
+  <!-- Compare This Broker -->
+  {relevantComparisons.length > 0 && (
+    <div class="cross-promo-section">
+      <h3 class="cross-promo-title">Compare {brokerName}</h3>
+      <div class="comparison-links">
+        {relevantComparisons.map(comp => {
+          const otherBroker = comp.broker1.slug === brokerSlug ? comp.broker2 : comp.broker1;
+          return (
+            <a href={`/compare/${comp.slug}/`} class="comparison-link">
+              <span class="comp-text">{brokerName} vs {otherBroker.name}</span>
+              <span class="comp-arrow">→</span>
+            </a>
+          );
+        })}
+      </div>
+      <a href="/compare/" class="view-all-link">View All Comparisons →</a>
+    </div>
+  )}
+
+  <!-- Related Videos -->
+  {brokerVideos.length > 0 && (
+    <div class="cross-promo-section">
+      <h3 class="cross-promo-title">Watch: {brokerName} Videos</h3>
+      <div class="video-links">
+        {brokerVideos.map(video => (
+          <a href={`/videos/#${video.id}`} class="video-link">
+            <span class="video-icon">▶️</span>
+            <div class="video-info">
+              <span class="video-title">{video.title}</span>
+              <span class="video-duration">{video.duration}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+      <a href="/videos/" class="view-all-link">Browse All Videos →</a>
+    </div>
+  )}
+
+  <!-- Trading Tools -->
+  <div class="cross-promo-section">
+    <h3 class="cross-promo-title">Free Trading Tools</h3>
+    <div class="tools-mini-grid">
+      {tools.map(tool => (
+        <a href={tool.link} class="tool-mini-card">
+          <span class="tool-mini-icon">{tool.icon}</span>
+          <div class="tool-mini-content">
+            <span class="tool-mini-title">{tool.title}</span>
+            <span class="tool-mini-desc">{tool.desc}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- Newsletter Mini -->
+  <div class="cross-promo-section newsletter-mini">
+    <div class="newsletter-mini-content">
+      <span class="newsletter-mini-icon">📧</span>
+      <div>
+        <h4>Weekly Trading Insights</h4>
+        <p>Get free market analysis and broker deals</p>
+      </div>
+    </div>
+    <a href="/free/trading-checklist/" class="newsletter-mini-btn">Subscribe Free →</a>
+  </div>
+</div>
+
+<style>
+  .broker-cross-promo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    padding: var(--space-xl);
+    background: var(--gray-900);
+    border: 1px solid var(--gray-800);
+    border-radius: var(--radius-xl);
+    margin: var(--space-2xl) 0;
+  }
+
+  .cross-promo-section {
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--gray-800);
+  }
+
+  .cross-promo-section:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .cross-promo-title {
+    font-size: var(--font-size-base);
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+    color: var(--white);
+  }
+
+  /* Comparison Links */
+  .comparison-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  @media (max-width: 600px) {
+    .comparison-links {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .comparison-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--gray-800);
+    border: 1px solid var(--gray-700);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    transition: all 0.2s;
+  }
+
+  .comparison-link:hover {
+    border-color: var(--brand-orange);
+    background: var(--gray-700);
+  }
+
+  .comp-text {
+    color: var(--white);
+  }
+
+  .comp-arrow {
+    color: var(--brand-orange);
+  }
+
+  .view-all-link {
+    font-size: var(--font-size-sm);
+    color: var(--brand-orange);
+    text-decoration: none;
+  }
+
+  .view-all-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Video Links */
+  .video-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .video-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--gray-800);
+    border: 1px solid var(--gray-700);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .video-link:hover {
+    border-color: var(--brand-orange);
+    background: var(--gray-700);
+  }
+
+  .video-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .video-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .video-title {
+    font-weight: 600;
+    color: var(--white);
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .video-duration {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+  }
+
+  /* Tools Mini Grid */
+  .tools-mini-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .tool-mini-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--gray-800);
+    border: 1px solid var(--gray-700);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .tool-mini-card:hover {
+    border-color: var(--brand-orange);
+    background: var(--gray-700);
+  }
+
+  .tool-mini-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .tool-mini-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tool-mini-title {
+    font-weight: 600;
+    color: var(--white);
+    font-size: var(--font-size-sm);
+  }
+
+  .tool-mini-desc {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+  }
+
+  /* Newsletter Mini */
+  .newsletter-mini {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    padding: var(--space-lg) !important;
+    background: linear-gradient(135deg, rgba(255, 72, 0, 0.1) 0%, var(--gray-900) 100%);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+    border-radius: var(--radius-lg);
+  }
+
+  .newsletter-mini-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .newsletter-mini-icon {
+    font-size: 2rem;
+  }
+
+  .newsletter-mini-content h4 {
+    font-size: var(--font-size-base);
+    color: var(--white);
+    margin-bottom: 2px;
+  }
+
+  .newsletter-mini-content p {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .newsletter-mini-btn {
+    padding: var(--space-sm) var(--space-lg);
+    background: var(--brand-orange);
+    color: var(--white);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .newsletter-mini-btn:hover {
+    background: #cc3a00;
+  }
+</style>

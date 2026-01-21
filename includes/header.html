@@ -1,0 +1,239 @@
+<!-- Global Header -->
+<header class="header">
+    <div class="container header-container">
+        <!-- Logo -->
+        <div class="header-logo-section">
+            <a href="/" class="header-logo-link">
+                <img src="/assets/images/brand/tradetheday-logo.svg" alt="TradeTheDay" class="header-logo">
+            </a>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="header-nav">
+            <a href="/bonus-codes/" class="header-nav-link">Bonuses</a>
+            <a href="/brokers/" class="header-nav-link">Brokers</a>
+            <a href="/exchanges/" class="header-nav-link">Exchanges</a>
+            <a href="/guides/" class="header-nav-link">Guides</a>
+
+            <!-- Search Trigger -->
+            <button class="search-trigger" onclick="toggleSearch()" aria-label="Toggle search">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <span class="search-trigger-text">Search</span>
+            </button>
+
+            <a href="/partner-brokers/" class="btn btn-primary btn-sm header-cta-btn">
+                Start
+            </a>
+        </nav>
+    </div>
+</header>
+
+<!-- Full-Width Search Bar (drops below header) -->
+<div class="search-bar-wrapper" id="searchBarWrapper">
+    <div class="container">
+        <form action="https://www.google.com/search" method="get" target="_blank" class="search-bar-form">
+            <input type="hidden" name="sitesearch" value="tradetheday.com">
+            <div class="search-bar-input-group">
+                <svg class="search-bar-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" name="q" placeholder="Search brokers, guides, bonus codes..." class="search-bar-input" id="searchBarInput" autocomplete="off">
+                <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                <button type="button" class="search-bar-close" onclick="toggleSearch()" aria-label="Close search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </form>
+        <div class="search-bar-quick-links">
+            <span class="search-bar-label">Quick:</span>
+            <a href="/brokers/avatrade/partner-code/" class="search-quick-tag">AvaTrade Partner Code</a>
+            <a href="/brokers/" class="search-quick-tag">Best Brokers</a>
+            <a href="/bonus-codes/" class="search-quick-tag">Bonus Codes</a>
+        </div>
+    </div>
+</div>
+
+<!-- Search Bar Styles (inline for SSI compatibility) -->
+<style>
+.search-trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius-sm);
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.search-trigger:hover {
+    border-color: var(--brand-orange);
+    color: var(--brand-orange);
+}
+
+.search-trigger-text {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .search-trigger-text {
+        display: inline;
+    }
+}
+
+/* Full-width search bar wrapper */
+.search-bar-wrapper {
+    display: none;
+    background: var(--charcoal);
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--charcoal-light);
+    animation: slideDown 0.2s ease-out;
+}
+
+.search-bar-wrapper.active {
+    display: block;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-bar-form {
+    width: 100%;
+}
+
+.search-bar-input-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--charcoal-light);
+    border: 1px solid var(--gray-700);
+    border-radius: var(--radius-md);
+    padding: var(--space-xs) var(--space-sm);
+    transition: border-color var(--transition-fast);
+}
+
+.search-bar-input-group:focus-within {
+    border-color: var(--brand-orange);
+}
+
+.search-bar-icon {
+    flex-shrink: 0;
+    color: var(--gray-400);
+}
+
+.search-bar-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    font-size: var(--font-size-base);
+    padding: var(--space-xs) 0;
+    outline: none;
+}
+
+.search-bar-input::placeholder {
+    color: var(--gray-500);
+}
+
+.search-bar-close {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--gray-400);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.search-bar-close:hover {
+    background: var(--gray-700);
+    color: var(--white);
+}
+
+.search-bar-quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+}
+
+.search-bar-label {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+}
+
+.search-quick-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--charcoal-light);
+    border: 1px solid var(--gray-700);
+    border-radius: var(--radius-full);
+    color: var(--gray-300);
+    font-size: var(--font-size-xs);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.search-quick-tag:hover {
+    background: var(--brand-orange);
+    border-color: var(--brand-orange);
+    color: var(--white);
+}
+</style>
+
+<!-- Search Bar JavaScript -->
+<script>
+function toggleSearch() {
+    const wrapper = document.getElementById('searchBarWrapper');
+    const input = document.getElementById('searchBarInput');
+
+    wrapper.classList.toggle('active');
+
+    if (wrapper.classList.contains('active')) {
+        setTimeout(() => input.focus(), 100);
+    }
+}
+
+// Close on escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const wrapper = document.getElementById('searchBarWrapper');
+        wrapper.classList.remove('active');
+    }
+});
+
+// Close when clicking outside (optional - comment out if you want it to stay open)
+document.addEventListener('click', function(event) {
+    const wrapper = document.getElementById('searchBarWrapper');
+    const trigger = document.querySelector('.search-trigger');
+
+    if (wrapper.classList.contains('active') &&
+        !wrapper.contains(event.target) &&
+        !trigger.contains(event.target)) {
+        wrapper.classList.remove('active');
+    }
+});
+</script>

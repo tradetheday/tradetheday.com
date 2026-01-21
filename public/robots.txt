@@ -1,0 +1,30 @@
+# Robots.txt for TradeTheDay.com
+# Last updated: 2026-01-20
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://tradetheday.com/sitemap.xml
+
+# Block administrative or redundant paths
+Disallow: /includes/
+Disallow: /_astro/
+Disallow: /api/
+
+# Allow all crawlers to access main content
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# AI crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /

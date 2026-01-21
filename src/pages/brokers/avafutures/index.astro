@@ -1,0 +1,1197 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import Scorecard from '../../../components/Scorecard.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import CompanyInfo from '../../../components/CompanyInfo.astro';
+import FeatureHighlights from '../../../components/FeatureHighlights.astro';
+import ProcessSteps from '../../../components/ProcessSteps.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import BestFor from '../../../components/BestFor.astro';
+import Chip from '../../../components/Chip.astro';
+
+// Broker Configuration
+const BROKER_NAME = 'AvaFutures';
+const PARTNER_CODE = '128979';
+const AFFILIATE_LINK = 'https://futures.avatrade.com/trading-platforms/tradingview?tag=128979';
+
+const now = new Date();
+const currentYear = now.getFullYear();
+
+const pageTitle = `AvaFutures Review ${currentYear} - Futures Trading with TradingView & MT5`;
+const pageDescription = `AvaFutures review: Trade 75+ futures products on CME, CBOT, COMEX & NYMEX with TradingView, MT5 & CQG platforms. $100 min deposit, up to 100 commission-free trades. Partner code ${PARTNER_CODE}.`;
+
+// Navigation links
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#fees', text: 'Costs' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#markets', text: 'Markets' },
+  { href: '#pros-cons', text: 'Review' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+// Hero scorecard
+const heroScorecard = [
+  { value: '$100', label: 'Min Deposit' },
+  { value: '75+', label: 'Futures Products' },
+  { value: '100', label: 'Free Trades' },
+  { value: '4.0/5', label: 'Our Rating' }
+];
+
+const pros = [
+  'TradingView integration - trade directly from charts with real-time data',
+  'Up to 100 commission-free trades for new accounts',
+  'Low $1.75 per side commission after free trades',
+  'Part of established AvaTrade group (regulated since 2006)',
+  'Access to CME, CBOT, COMEX & NYMEX exchanges',
+  'MT5 and CQG platforms also available',
+  'Professional-grade trading tools and analytics',
+  'Only $100 minimum deposit to get started',
+  'Available to Spanish and EU traders (no CFD restrictions)',
+  '24/5 customer support with dedicated account managers'
+];
+
+const cons = [
+  'Newer platform compared to AvaTrade CFDs',
+  'Limited to futures products only (no spot forex)',
+  'Requires understanding of futures contracts and expiry',
+  'Exchange fees apply in addition to commissions',
+  'Data fees may apply for certain market data packages',
+  'Not available to US residents'
+];
+
+const faqData = [
+  {
+    question: 'What is AvaFutures?',
+    answer: 'AvaFutures is the futures trading division of AvaTrade, one of the world\'s leading online brokers established in 2006. It provides access to over 75 futures products across major exchanges including CME, CBOT, COMEX, and NYMEX. The platform integrates with TradingView, MT5, and CQG for professional-grade trading.'
+  },
+  {
+    question: 'What is the minimum deposit for AvaFutures?',
+    answer: 'The minimum deposit to open an AvaFutures account is just $100, making it accessible to traders of all levels. However, you\'ll need sufficient margin to open positions based on the futures contracts you want to trade.'
+  },
+  {
+    question: 'How much are commissions at AvaFutures?',
+    answer: 'AvaFutures offers up to 100 commission-free trades for new accounts. After that, commissions are $1.75 per side ($3.50 round turn) which is competitive for the futures industry. Exchange fees and NFA fees apply separately.'
+  },
+  {
+    question: 'Is AvaFutures regulated?',
+    answer: 'AvaFutures operates under the AvaTrade group\'s regulatory framework. The parent company is regulated by 6 tier-1 authorities including the Central Bank of Ireland, ASIC (Australia), CySEC, and FCA. Futures trading is facilitated through regulated introducing broker arrangements.'
+  },
+  {
+    question: 'What is the AvaFutures partner code?',
+    answer: `The AvaFutures partner code is ${PARTNER_CODE}. Enter this code during registration to receive exclusive welcome bonuses and benefits. This is the same partner code used for AvaTrade CFD accounts.`
+  },
+  {
+    question: 'Can I trade AvaFutures from Spain?',
+    answer: 'Yes, AvaFutures is available to Spanish residents. Unlike CFD products which face CNMV advertising restrictions in Spain, exchange-traded futures are regulated differently and remain accessible to Spanish traders.'
+  },
+  {
+    question: 'What platforms does AvaFutures support?',
+    answer: 'AvaFutures supports three professional platforms: TradingView (for direct chart trading), MetaTrader 5 (MT5) with its powerful EA capabilities, and CQG for institutional-grade execution. All platforms offer real-time market data and advanced charting.'
+  },
+  {
+    question: 'What futures markets can I trade?',
+    answer: 'AvaFutures offers access to 75+ futures products including: Equity indices (E-mini S&P 500, NASDAQ, Dow, Russell 2000), Currencies (Euro FX, British Pound, Japanese Yen), Commodities (Gold, Silver, Crude Oil, Natural Gas), Agriculture (Corn, Wheat, Soybeans), and Interest Rates (Treasury bonds).'
+  },
+  {
+    question: 'Does AvaFutures offer micro contracts?',
+    answer: 'Yes, AvaFutures provides access to micro futures contracts which require lower margin and allow smaller position sizes. Micro E-mini S&P 500, Micro E-mini NASDAQ, and Micro Gold are popular options for traders starting out or managing risk.'
+  },
+  {
+    question: 'What is the difference between AvaFutures and AvaTrade?',
+    answer: 'AvaTrade offers CFDs (Contracts for Difference) while AvaFutures offers exchange-traded futures. Futures are standardized contracts traded on regulated exchanges with central clearing, while CFDs are over-the-counter products. Futures offer more transparency and are available in jurisdictions with CFD restrictions.'
+  }
+];
+
+// Company Info sections
+const companyInfoSections = [
+  {
+    title: "Account & Deposits",
+    icon: "💰",
+    items: [
+      { label: "Minimum Deposit", value: "$100", type: "currency" },
+      { label: "Base Currency", value: "USD", type: "text" },
+      { label: "Free Trades", value: "Up to 100", type: "text" }
+    ]
+  },
+  {
+    title: "Trading Conditions",
+    icon: "📊",
+    items: [
+      { label: "Commission", value: "$1.75/side", type: "text" },
+      { label: "Products", value: "75+ Futures", type: "text" },
+      { label: "Exchanges", value: "CME Group", type: "text" }
+    ]
+  },
+  {
+    title: "Company Info",
+    icon: "🏛️",
+    items: [
+      { label: "Parent Company", value: "AvaTrade", type: "text" },
+      { label: "Founded", value: "2006", type: "year" },
+      { label: "Headquarters", value: "Dublin, Ireland", type: "location" }
+    ]
+  }
+];
+
+// Why choose features
+const whyChooseFeatures = [
+  {
+    title: "TradingView Native",
+    description: "Trade directly from TradingView charts with real-time data and all your favorite indicators",
+    icon: "📊"
+  },
+  {
+    title: "100 Free Trades",
+    description: "New accounts get up to 100 commission-free trades to start your futures journey",
+    icon: "🎁"
+  },
+  {
+    title: "Low Commissions",
+    description: "Just $1.75 per side after free trades - competitive with industry leaders",
+    icon: "💰"
+  },
+  {
+    title: "CME Access",
+    description: "Direct access to CME, CBOT, COMEX & NYMEX exchanges for transparent pricing",
+    icon: "🏛️"
+  }
+];
+
+// Opening process steps
+const openingProcessSteps = [
+  {
+    number: "1.",
+    title: "Register Online",
+    description: "Complete registration and enter partner code 128979 for exclusive benefits",
+    icon: "📝"
+  },
+  {
+    number: "2.",
+    title: "Verify & Fund",
+    description: "Upload ID documents and fund with minimum $100 via bank transfer or card",
+    icon: "✅"
+  },
+  {
+    number: "3.",
+    title: "Connect Platform",
+    description: "Link your TradingView, MT5, or CQG account and start trading futures",
+    icon: "📈"
+  }
+];
+
+// Verdict data
+const verdictData = {
+  overallRating: 4.0,
+  bestFor: [
+    'Traders seeking TradingView integration for futures',
+    'Spanish/EU traders facing CFD advertising restrictions',
+    'Beginners wanting low minimum deposit ($100)',
+    'Cost-conscious traders (100 free trades + low commissions)',
+    'Technical analysts who rely on advanced charting',
+    'AvaTrade users looking to expand into futures'
+  ],
+  notIdealFor: [
+    'US residents (not available)',
+    'Traders wanting spot forex or CFDs (use AvaTrade instead)',
+    'Complete beginners unfamiliar with futures mechanics',
+    'High-frequency traders needing ultra-low latency',
+    'Traders seeking options on futures'
+  ]
+};
+
+// Schema
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "FinancialService",
+    "name": "AvaFutures",
+    "description": "Futures trading platform by AvaTrade with TradingView, MT5, and CQG integration",
+    "url": "https://futures.avatrade.com",
+    "parentOrganization": {
+      "@type": "Organization",
+      "name": "AvaTrade",
+      "foundingDate": "2006"
+    }
+  },
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": "4.0",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "TradeTheDay",
+    "url": "https://tradetheday.com"
+  },
+  "datePublished": "2024-01-01",
+  "dateModified": new Date().toISOString().split('T')[0]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tradetheday.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Brokers", "item": "https://tradetheday.com/brokers/" },
+    { "@type": "ListItem", "position": 3, "name": "AvaFutures Review" }
+  ]
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={schema}
+>
+  <!-- SEO Meta Tags -->
+  <link slot="head" rel="canonical" href="https://tradetheday.com/brokers/avafutures/" />
+  <meta slot="head" property="og:title" content={`AvaFutures Review ${currentYear} - Futures Trading with TradingView`} />
+  <meta slot="head" property="og:description" content={pageDescription} />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="og:url" content="https://tradetheday.com/brokers/avafutures/" />
+  <meta slot="head" name="twitter:card" content="summary_large_image" />
+
+  <!-- FAQ Schema -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Breadcrumb Schema -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <!-- HERO SECTION -->
+  <section class="hero section">
+    <div class="container">
+      <Chip variant="badge" size="sm">Exchange-Traded Futures</Chip>
+
+      <h1 class="heading-1">AvaFutures Review {currentYear} – Futures Trading Done Right</h1>
+
+      <p class="body-large">Trade 75+ futures products on CME, CBOT, COMEX & NYMEX with TradingView integration. Part of AvaTrade group (trusted since 2006). Get up to 100 commission-free trades with partner code {PARTNER_CODE}.</p>
+
+      <a href={AFFILIATE_LINK} target="_blank" rel="noopener" class="btn btn-primary btn-xl btn-hero">
+        Start Trading Futures →
+      </a>
+
+      <Scorecard metrics={heroScorecard} />
+
+      <!-- Partner Code Callout -->
+      <div class="partner-code-callout">
+        <div class="callout-content">
+          <span class="callout-badge">Exclusive Offer</span>
+          <p class="callout-text">Get up to <strong>100 Commission-Free Trades</strong> with Partner Code <strong>{PARTNER_CODE}</strong></p>
+          <a href="/brokers/avafutures/partner-code/" class="callout-link">Claim Your Bonus →</a>
+        </div>
+      </div>
+
+      <!-- Last Updated -->
+      <div class="review-meta">
+        <span class="meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Last Updated: January {currentYear}
+        </span>
+        <span class="meta-divider">|</span>
+        <span class="meta-item">Reviewed by TradeTheDay Research Team</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Brokers', href: '/brokers/' },
+    { text: 'AvaFutures Review', current: true }
+  ]} />
+
+  <!-- NAVIGATION -->
+  <Navigation links={navigationLinks} />
+
+  <!-- OVERVIEW SECTION -->
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Complete AvaFutures Overview</h2>
+        <p class="body-large">AvaFutures is the dedicated futures trading arm of AvaTrade, providing retail traders access to exchange-traded futures on CME Group exchanges. With TradingView integration, competitive commissions, and the backing of a regulated broker established in 2006, it's positioned as a gateway for traders wanting transparent, exchange-traded products.</p>
+      </div>
+
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Analyst Notes - Why AvaFutures Matters in 2026" id="overview-notes">
+        <h4>Analyst Insight: The Strategic Shift to Exchange-Traded Futures</h4>
+        <p>AvaFutures represents AvaTrade's strategic response to increasing regulatory pressure on CFD products globally. In jurisdictions like Spain, where the CNMV restricts CFD advertising to retail clients, exchange-traded futures provide a compliant alternative for traders seeking leveraged market exposure.</p>
+
+        <h4>Why This Matters for Traders</h4>
+        <p>Unlike CFDs where your broker is the counterparty, futures trade on regulated exchanges (CME, CBOT, COMEX, NYMEX) with central clearing. This means:</p>
+        <ul>
+          <li><strong>Price transparency:</strong> Prices are determined by open market auction, not broker algorithms</li>
+          <li><strong>No conflict of interest:</strong> The exchange matches buyers and sellers, your broker just facilitates</li>
+          <li><strong>Regulatory clarity:</strong> Futures are well-established, heavily regulated products</li>
+          <li><strong>Standardized contracts:</strong> You know exactly what you're trading</li>
+        </ul>
+
+        <h4>The TradingView Advantage</h4>
+        <p>AvaFutures' native TradingView integration is a significant differentiator. While many futures brokers offer basic execution, being able to trade directly from TradingView's world-class charting platform appeals to technical analysts who don't want to switch between analysis and execution platforms.</p>
+
+        <p><strong>Analyst Verdict:</strong> AvaFutures fills an important gap for AvaTrade's existing client base and attracts new traders who want exchange-traded products without the complexity of traditional futures brokers. The 100 free trades offer and $100 minimum deposit make it accessible for testing.</p>
+      </AnalystNotes>
+
+      <!-- Company Information -->
+      <CompanyInfo
+        title="AvaFutures at a Glance"
+        subtitle="Key account information and trading conditions"
+        sections={companyInfoSections}
+        columns={3}
+        brokerName={BROKER_NAME}
+      />
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE SECTION -->
+  <section id="why-choose" class="section section-dark">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Why Choose AvaFutures?</h2>
+        <p class="body-large">Four reasons traders are switching to exchange-traded futures with AvaFutures</p>
+      </div>
+
+      <AnalystNotes title="Analyst Notes - The Real Advantages" id="why-choose-notes" variant="dark">
+        <h4>What Actually Sets AvaFutures Apart</h4>
+        <p>Let's cut through the marketing. Here's what genuinely differentiates AvaFutures from competitors:</p>
+
+        <h4>1. TradingView Integration Done Right</h4>
+        <p>Many brokers claim TradingView integration but offer delayed data or clunky execution. AvaFutures provides real-time futures data directly in TradingView with one-click trading. For traders who live in TradingView, this eliminates the friction of switching platforms.</p>
+
+        <h4>2. Honest Pricing Structure</h4>
+        <p>The 100 free trades for new accounts is genuine value, not a gimmick. After that, $1.75 per side ($3.50 round turn) is competitive with NinjaTrader's $1.49 and better than many retail futures brokers charging $2.00+. Exchange fees apply to everyone equally.</p>
+
+        <h4>3. Low Barrier to Entry</h4>
+        <p>A $100 minimum deposit is unusually low for futures. Most competitors require $500-$2,000. Combined with micro contracts (1/10th the size of standard E-minis), AvaFutures genuinely opens futures trading to smaller accounts.</p>
+
+        <h4>4. The AvaTrade Ecosystem</h4>
+        <p>Existing AvaTrade users can easily add futures to their portfolio. Same login credentials, familiar support team, integrated account management. For AvaTrade's 400,000+ clients, this is the path of least resistance into futures.</p>
+
+        <p><strong>The Catch:</strong> AvaFutures is introducing broker, not the actual FCM (Futures Commission Merchant). This means your funds are held at a clearing FCM, which adds a layer but is standard practice in the industry.</p>
+      </AnalystNotes>
+
+      <FeatureHighlights
+        features={whyChooseFeatures}
+        columns={4}
+        variant="dark"
+        brokerName={BROKER_NAME}
+        subtitle=""
+      />
+    </div>
+  </section>
+
+  <!-- FEES SECTION -->
+  <section id="fees" class="section section-light">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">AvaFutures Fees & Commissions</h2>
+        <p class="body-large">Transparent pricing with competitive commission structure</p>
+      </div>
+
+      <AnalystNotes title="Analyst Notes - The True Cost of Trading Futures" id="fees-notes">
+        <h4>Understanding Futures Costs (It's Not Just Commission)</h4>
+        <p>Futures pricing has multiple components. Here's the full breakdown for AvaFutures:</p>
+
+        <h4>Commission Structure</h4>
+        <ul>
+          <li><strong>New Accounts:</strong> Up to 100 commission-free trades</li>
+          <li><strong>After Free Trades:</strong> $1.75 per side ($3.50 round turn)</li>
+          <li><strong>Day Trading:</strong> Same rate applies</li>
+        </ul>
+
+        <h4>Exchange & Regulatory Fees (Everyone Pays These)</h4>
+        <p>These fees go directly to CME Group and regulators, not to AvaFutures:</p>
+        <ul>
+          <li><strong>E-mini S&P 500:</strong> ~$1.28 per side exchange fee</li>
+          <li><strong>Micro E-mini S&P 500:</strong> ~$0.25 per side exchange fee</li>
+          <li><strong>NFA Fee:</strong> $0.02 per side (regulatory fee)</li>
+        </ul>
+
+        <h4>Total Cost Example: E-mini S&P 500 Round Turn</h4>
+        <div class="cost-breakdown">
+          <p><strong>After free trades:</strong></p>
+          <ul>
+            <li>Commission: $3.50</li>
+            <li>Exchange fees: ~$2.56</li>
+            <li>NFA fees: $0.04</li>
+            <li><strong>Total: ~$6.10 round turn</strong></li>
+          </ul>
+        </div>
+
+        <h4>Data Fees</h4>
+        <p>Real-time CME market data may incur additional monthly fees depending on your usage tier and professional status. TradingView users should check their data subscription includes the exchanges they want to trade.</p>
+
+        <p><strong>Analyst Take:</strong> AvaFutures' commission structure is genuinely competitive. The 100 free trades provide real savings of $350+ for new traders. After that, total costs are in line with industry standards.</p>
+      </AnalystNotes>
+
+      <!-- Fee Table -->
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Fee Type</th>
+              <th>AvaFutures</th>
+              <th>Industry Average</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Commission (per side)</td>
+              <td><span class="highlight-best">$1.75 (100 free trades)</span></td>
+              <td>$2.00-$2.50</td>
+            </tr>
+            <tr>
+              <td>Minimum Deposit</td>
+              <td><span class="highlight-best">$100</span></td>
+              <td>$500-$2,000</td>
+            </tr>
+            <tr>
+              <td>Platform Fee</td>
+              <td><span class="highlight-best">Free (TradingView/MT5)</span></td>
+              <td>$0-$100/month</td>
+            </tr>
+            <tr>
+              <td>Inactivity Fee</td>
+              <td>$0</td>
+              <td>Varies</td>
+            </tr>
+            <tr>
+              <td>Exchange Fees</td>
+              <td>Pass-through (standard)</td>
+              <td>Pass-through</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLATFORMS SECTION -->
+  <section id="platforms" class="section section-gray">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Trading Platforms</h2>
+        <p class="body-large">Professional platforms for every trading style</p>
+      </div>
+
+      <AnalystNotes title="Analyst Notes - Platform Deep Dive" id="platforms-notes">
+        <h4>Three Platforms, Three Different Traders</h4>
+        <p>AvaFutures offers three distinct platform options, each serving different needs:</p>
+
+        <div class="grid-2 mt-md mb-md">
+          <div>
+            <h5><strong>TradingView</strong> - Best for Chart Traders</h5>
+            <ul>
+              <li>World-class charting with 100+ indicators</li>
+              <li>Trade directly from charts</li>
+              <li>Cloud-based, works anywhere</li>
+              <li>Large community for indicator sharing</li>
+              <li>Real-time futures data included</li>
+            </ul>
+            <p><em>Best for:</em> Technical analysts, discretionary traders</p>
+          </div>
+          <div>
+            <h5><strong>MetaTrader 5</strong> - Best for Algo Traders</h5>
+            <ul>
+              <li>MQL5 for custom indicators and EAs</li>
+              <li>Strategy Tester for backtesting</li>
+              <li>Multi-asset capability</li>
+              <li>Desktop-first stability</li>
+              <li>Familiar interface for MT4 users</li>
+            </ul>
+            <p><em>Best for:</em> Algorithmic traders, EA developers</p>
+          </div>
+        </div>
+
+        <h5><strong>CQG</strong> - Best for Professionals</h5>
+        <p>CQG is the institutional choice for futures execution. It offers superior order routing, advanced order types, and the fastest execution. However, it comes with a learning curve and potential additional fees. AvaFutures provides CQG access for traders who need institutional-grade tools.</p>
+
+        <p><strong>Platform Recommendation:</strong> For most traders, TradingView offers the best balance of functionality and ease of use. Start there, and graduate to CQG if you need advanced order types or faster execution.</p>
+      </AnalystNotes>
+
+      <!-- Platform Cards -->
+      <div class="platforms-grid">
+        <div class="platform-card featured">
+          <div class="platform-badge">Most Popular</div>
+          <div class="platform-icon">📊</div>
+          <h3>TradingView</h3>
+          <p class="platform-desc">Trade directly from the world's most popular charting platform with real-time futures data and one-click execution.</p>
+          <ul class="platform-features">
+            <li>100+ built-in indicators</li>
+            <li>Custom Pine Script indicators</li>
+            <li>Multi-device sync</li>
+            <li>Social trading features</li>
+            <li>Real-time CME data</li>
+          </ul>
+          <span class="platform-price">Free with AvaFutures</span>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-icon">🖥️</div>
+          <h3>MetaTrader 5</h3>
+          <p class="platform-desc">Industry-standard platform for algorithmic trading with Expert Advisors and strategy backtesting.</p>
+          <ul class="platform-features">
+            <li>Expert Advisors (EAs)</li>
+            <li>Strategy Tester</li>
+            <li>MQL5 programming</li>
+            <li>Mobile apps</li>
+            <li>Depth of Market</li>
+          </ul>
+          <span class="platform-price">Free with AvaFutures</span>
+        </div>
+
+        <div class="platform-card">
+          <div class="platform-icon">⚡</div>
+          <h3>CQG</h3>
+          <p class="platform-desc">Institutional-grade execution platform with advanced order types and superior order routing.</p>
+          <ul class="platform-features">
+            <li>Advanced order types</li>
+            <li>Spread trading tools</li>
+            <li>Ultra-fast execution</li>
+            <li>Professional DOM</li>
+            <li>Multi-leg orders</li>
+          </ul>
+          <span class="platform-price">Available</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETS SECTION -->
+  <section id="markets" class="section">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Available Futures Markets</h2>
+        <p class="body-large">Access 75+ futures products across major asset classes</p>
+      </div>
+
+      <AnalystNotes title="Analyst Notes - What You Can Actually Trade" id="markets-notes">
+        <h4>The Full Product Range</h4>
+        <p>AvaFutures provides access to CME Group exchanges, which includes CME (Chicago Mercantile Exchange), CBOT (Chicago Board of Trade), COMEX (Commodity Exchange), and NYMEX (New York Mercantile Exchange). Here's what that means in practice:</p>
+
+        <h4>Most Traded Products</h4>
+        <ul>
+          <li><strong>E-mini S&P 500 (ES):</strong> The world's most liquid futures contract, ideal for index exposure</li>
+          <li><strong>E-mini NASDAQ-100 (NQ):</strong> Tech-heavy index, higher volatility</li>
+          <li><strong>Micro E-mini S&P 500 (MES):</strong> 1/10th the size of ES, perfect for smaller accounts</li>
+          <li><strong>Crude Oil (CL):</strong> Most traded energy contract</li>
+          <li><strong>Gold (GC):</strong> Primary precious metals contract</li>
+          <li><strong>Euro FX (6E):</strong> EUR/USD currency futures</li>
+        </ul>
+
+        <h4>Why Micro Contracts Matter</h4>
+        <p>Micro E-mini contracts are a game-changer for retail traders. At 1/10th the size of standard E-minis:</p>
+        <ul>
+          <li><strong>Micro E-mini S&P 500:</strong> ~$5 per point vs $50 for standard</li>
+          <li><strong>Micro E-mini NASDAQ:</strong> ~$2 per point vs $20 for standard</li>
+          <li><strong>Micro Gold:</strong> ~$1 per tick vs $10 for standard</li>
+        </ul>
+        <p>This means you can trade futures with a fraction of the margin requirement and risk exposure, making proper position sizing possible even with smaller accounts.</p>
+
+        <p><strong>Analyst Note:</strong> Focus on liquid contracts (ES, NQ, CL, GC, 6E) for the tightest spreads and best fills. Exotic contracts may have wider spreads and lower liquidity.</p>
+      </AnalystNotes>
+
+      <!-- Markets Grid -->
+      <div class="markets-grid">
+        <div class="market-card">
+          <span class="market-icon">📈</span>
+          <h3>Equity Index Futures</h3>
+          <p>E-mini S&P 500, NASDAQ-100, Dow Jones, Russell 2000 plus Micro versions</p>
+          <span class="market-count">15+ products</span>
+        </div>
+        <div class="market-card">
+          <span class="market-icon">🪙</span>
+          <h3>Metals Futures</h3>
+          <p>Gold, Silver, Copper, Platinum, Palladium including Micro Gold</p>
+          <span class="market-count">10+ products</span>
+        </div>
+        <div class="market-card">
+          <span class="market-icon">🛢️</span>
+          <h3>Energy Futures</h3>
+          <p>Crude Oil (WTI), Natural Gas, Heating Oil, RBOB Gasoline</p>
+          <span class="market-count">10+ products</span>
+        </div>
+        <div class="market-card">
+          <span class="market-icon">💱</span>
+          <h3>Currency Futures</h3>
+          <p>Euro FX, British Pound, Japanese Yen, Australian Dollar, Swiss Franc</p>
+          <span class="market-count">15+ products</span>
+        </div>
+        <div class="market-card">
+          <span class="market-icon">🌾</span>
+          <h3>Agricultural Futures</h3>
+          <p>Corn, Wheat, Soybeans, Soybean Oil, Live Cattle, Lean Hogs</p>
+          <span class="market-count">15+ products</span>
+        </div>
+        <div class="market-card">
+          <span class="market-icon">📉</span>
+          <h3>Interest Rate Futures</h3>
+          <p>10-Year Treasury, 30-Year Treasury, 2-Year Treasury, Eurodollar</p>
+          <span class="market-count">10+ products</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCOUNT OPENING SECTION -->
+  <section id="accounts" class="section section-warm">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">How to Open an AvaFutures Account</h2>
+        <p class="body-large">Get started in minutes with just $100</p>
+      </div>
+
+      <ProcessSteps
+        steps={openingProcessSteps}
+        columns={3}
+      />
+
+      <!-- Partner Code Box -->
+      <div class="partner-code-box">
+        <div class="code-display">
+          <span class="code-label">Partner Code</span>
+          <span class="code-value">{PARTNER_CODE}</span>
+          <button class="copy-btn" data-code={PARTNER_CODE}>Copy</button>
+        </div>
+        <p>Use partner code <strong>{PARTNER_CODE}</strong> when signing up to receive up to 100 commission-free trades and exclusive welcome benefits.</p>
+        <a href="/brokers/avafutures/partner-code/" class="btn btn-primary">
+          View Full Bonus Details →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROS & CONS SECTION -->
+  <section id="pros-cons" class="section section-dark">
+    <div class="container">
+      <ProsCons
+        title="AvaFutures Pros & Cons"
+        subtitle="Honest assessment of strengths and weaknesses"
+        pros={pros}
+        cons={cons}
+        variant="dark"
+      />
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section id="faq" class="section section-gray">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Frequently Asked Questions</h2>
+        <p class="body-large">Everything you need to know about AvaFutures</p>
+      </div>
+
+      <div class="center-container">
+        {faqData.map((faq, index) => (
+          <div class="faq-item">
+            <button class="faq-question" data-faq-index={index}>
+              {faq.question}
+            </button>
+            <div class="faq-answer">
+              <p set:html={faq.answer}></p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- VERDICT SECTION -->
+  <section id="verdict" class="section">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Final Verdict</h2>
+
+        <div class="rating">
+          <span class="stars">★★★★☆</span>
+          <span class="rating-text">{verdictData.overallRating}/5</span>
+        </div>
+
+        <p class="body-large verdict-summary">AvaFutures delivers exactly what it promises: accessible futures trading with professional tools. The TradingView integration is genuinely useful, the commission structure is competitive, and the $100 minimum makes it approachable. For traders in CFD-restricted regions or anyone wanting transparent, exchange-traded products, it's a solid choice.</p>
+      </div>
+
+      <AnalystNotes title="Analyst Notes - Final Assessment" id="verdict-notes">
+        <h4>Who Should Use AvaFutures?</h4>
+        <p>AvaFutures occupies a specific niche: traders who want futures without the complexity of traditional futures brokers, and who value TradingView integration. It's not trying to compete with NinjaTrader on commissions or Interactive Brokers on product range – it's offering simplicity and accessibility.</p>
+
+        <h4>The Bottom Line</h4>
+        <p>AvaFutures earns 4.0/5 for delivering on its core promise. The TradingView integration is excellent, the 100 free trades provide real value, and the AvaTrade backing offers credibility. The main limitations are the lack of options on futures and the fact that you're working with an introducing broker rather than the FCM directly.</p>
+
+        <p><strong>Final Recommendation:</strong> If you're an AvaTrade user curious about futures, a Spanish/EU trader facing CFD restrictions, or a TradingView enthusiast wanting to trade futures directly from your charts, AvaFutures is worth trying. The $100 minimum and 100 free trades make the barrier to entry almost zero.</p>
+      </AnalystNotes>
+
+      <!-- Best For / Not Ideal For -->
+      <BestFor
+        bestFor={verdictData.bestFor}
+        notIdealFor={verdictData.notIdealFor}
+      />
+
+      <!-- Final CTA -->
+      <div class="cta-section">
+        <a href={AFFILIATE_LINK} target="_blank" rel="noopener" class="btn btn-primary btn-xxl">
+          Open AvaFutures Account →
+        </a>
+
+        <p class="cta-link">
+          <em>or, <a href="/brokers/avatrade/" class="brand-link">see AvaTrade CFD review</a></em>
+        </p>
+
+        <p class="disclaimer-text">
+          <strong>Risk Disclaimer:</strong> Futures trading involves substantial risk of loss and is not suitable for all investors. You could lose more than your initial investment. Consider whether you understand how futures work and can afford to take the high risk of losing your money.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero content width */
+  .hero.section .body-large {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Partner Code Callout */
+  .partner-code-callout {
+    margin-top: 2rem;
+    background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+    border: 2px solid var(--brand-orange, #ff4800);
+    border-radius: 1rem;
+    padding: 1.5rem 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .callout-content {
+    text-align: center;
+  }
+
+  .callout-badge {
+    display: inline-block;
+    background: var(--brand-orange, #ff4800);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    margin-bottom: 0.75rem;
+  }
+
+  .callout-text {
+    font-size: 1.125rem;
+    color: var(--charcoal, #1e2427);
+    margin: 0 0 1rem 0;
+    line-height: 1.5;
+  }
+
+  .callout-link {
+    display: inline-block;
+    background: var(--brand-orange, #ff4800);
+    color: white;
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .callout-link:hover {
+    background: #e04200;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 72, 0, 0.3);
+  }
+
+  /* Review Meta */
+  .review-meta {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--gray-600, #4b5563);
+  }
+
+  .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .meta-divider {
+    color: var(--gray-400, #9ca3af);
+  }
+
+  /* Platforms Grid */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .platform-card {
+    background: var(--white, #fff);
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .platform-card:hover {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .platform-card.featured {
+    border-color: var(--brand-orange, #ff4800);
+    border-width: 2px;
+  }
+
+  .platform-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--brand-orange, #ff4800);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 1rem;
+    border-radius: 9999px;
+  }
+
+  .platform-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .platform-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 0.75rem;
+  }
+
+  .platform-desc {
+    font-size: 0.9375rem;
+    color: var(--gray-600, #4b5563);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .platform-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    text-align: left;
+  }
+
+  .platform-features li {
+    font-size: 0.875rem;
+    color: var(--gray-700, #374151);
+    padding: 0.375rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .platform-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--brand-orange, #ff4800);
+    font-weight: 700;
+  }
+
+  .platform-price {
+    display: inline-block;
+    background: var(--gray-100, #f3f4f6);
+    color: var(--charcoal, #1e2427);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+  }
+
+  /* Markets Grid */
+  .markets-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .market-card {
+    background: var(--white, #fff);
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .market-card:hover {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .market-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .market-card h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 0.5rem;
+  }
+
+  .market-card p {
+    font-size: 0.875rem;
+    color: var(--gray-600, #4b5563);
+    line-height: 1.5;
+    margin: 0 0 0.75rem 0;
+  }
+
+  .market-count {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--brand-orange, #ff4800);
+    text-transform: uppercase;
+  }
+
+  /* Partner Code Box */
+  .partner-code-box {
+    background: linear-gradient(135deg, rgba(255, 72, 0, 0.05) 0%, var(--gray-50, #f9fafb) 100%);
+    border: 2px solid var(--brand-orange, #ff4800);
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    max-width: 600px;
+    margin: 2rem auto 0;
+  }
+
+  .code-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--white, #fff);
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .code-label {
+    font-size: 0.875rem;
+    color: var(--gray-600, #4b5563);
+  }
+
+  .code-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--brand-orange, #ff4800);
+    font-family: monospace;
+  }
+
+  .copy-btn {
+    padding: 0.5rem 1rem;
+    background: var(--gray-100, #f3f4f6);
+    border: 1px solid var(--gray-300, #d1d5db);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+
+  .copy-btn:hover {
+    background: var(--gray-200, #e5e7eb);
+  }
+
+  /* Verdict */
+  .verdict-summary {
+    max-width: 800px;
+    margin: 1rem auto 2rem;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .cta-link {
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+
+  .disclaimer-text {
+    margin-top: 2rem;
+    font-size: 0.875rem;
+    color: var(--gray-500, #6b7280);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Rating */
+  .rating {
+    margin: 1.5rem 0;
+  }
+
+  .stars {
+    font-size: 2rem;
+    color: var(--brand-orange, #ff4800);
+  }
+
+  .rating-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin-left: 0.5rem;
+  }
+
+  /* Table */
+  .table-container {
+    margin-top: 2rem;
+    overflow-x: auto;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white, #fff);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .table th,
+  .table td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-100, #f3f4f6);
+  }
+
+  .table th {
+    background: var(--gray-50, #f9fafb);
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+  }
+
+  .table td {
+    color: var(--gray-700, #374151);
+  }
+
+  .highlight-best {
+    color: #059669;
+    font-weight: 600;
+  }
+
+  /* Cost breakdown in analyst notes */
+  .cost-breakdown {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .cost-breakdown ul {
+    margin: 0.5rem 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 968px) {
+    .platforms-grid,
+    .markets-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .platforms-grid,
+    .markets-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .review-meta {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .meta-divider {
+      display: none;
+    }
+
+    .partner-code-callout {
+      padding: 1.25rem 1rem;
+    }
+
+    .code-display {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // FAQ functionality
+  const faqButtons = document.querySelectorAll('.faq-question');
+
+  faqButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const faqItem = this.parentElement;
+      const isOpen = faqItem.classList.contains('active');
+
+      if (isOpen) {
+        faqItem.classList.remove('active');
+      } else {
+        faqItem.classList.add('active');
+      }
+    });
+  });
+
+  // Copy button functionality
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const code = btn.dataset.code;
+      navigator.clipboard.writeText(code).then(() => {
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => {
+          btn.textContent = originalText;
+        }, 2000);
+      });
+    });
+  });
+});
+</script>

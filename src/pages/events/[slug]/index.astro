@@ -1,0 +1,1281 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import TrustBadges from '../../../components/TrustBadges.astro';
+import { tradingEvents, getEventBySlug, type TradingEvent } from '../../../data/events';
+import { getBrokerById } from '../../../data/brokers';
+
+export function getStaticPaths() {
+  return tradingEvents.map((event) => ({
+    params: { slug: event.slug },
+    props: { event }
+  }));
+}
+
+interface Props {
+  event: TradingEvent;
+}
+
+const { event } = Astro.props;
+
+// Get broker details for recommendations
+const brokerRecommendations = event.recommendedBrokers.map(rec => ({
+  ...rec,
+  broker: getBrokerById(rec.brokerId)
+})).filter(rec => rec.broker);
+
+// Category styling
+const categoryStyles = {
+  crypto: { bg: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b', label: 'Crypto' },
+  politics: { bg: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6', label: 'Politics' },
+  economic: { bg: 'rgba(16, 185, 129, 0.1)', color: '#10b981', label: 'Economic' },
+  geopolitical: { bg: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', label: 'Geopolitical' },
+  regulatory: { bg: 'rgba(139, 92, 246, 0.1)', color: '#8b5cf6', label: 'Regulatory' }
+};
+
+const impactStyles = {
+  'Low': { bg: 'rgba(107, 114, 128, 0.1)', color: '#6b7280' },
+  'Medium': { bg: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b' },
+  'High': { bg: 'rgba(239, 68, 68, 0.1)', color: '#ef4444' },
+  'Extreme': { bg: 'rgba(220, 38, 38, 0.15)', color: '#dc2626' }
+};
+
+const riskStyles = {
+  'Low': { bg: 'rgba(16, 185, 129, 0.1)', color: '#10b981' },
+  'Medium': { bg: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b' },
+  'High': { bg: 'rgba(239, 68, 68, 0.1)', color: '#ef4444' }
+};
+
+// Parse markdown-like content
+function parseContent(content: string): string {
+  return content
+    .replace(/## (.*)/g, '<h2 class="content-h2">$1</h2>')
+    .replace(/### (.*)/g, '<h3 class="content-h3">$1</h3>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/- \*\*(.*?)\*\*: (.*)/g, '<li><strong>$1:</strong> $2</li>')
+    .replace(/- (.*)/g, '<li>$1</li>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/<\/li>\n<li>/g, '</li><li>');
+}
+---
+
+<BaseLayout
+  title={event.metaTitle}
+  description={event.metaDescription}
+>
+  <!-- SEO Meta Tags -->
+  <meta slot="head" property="og:title" content={event.metaTitle}>
+  <meta slot="head" property="og:description" content={event.metaDescription}>
+  <meta slot="head" property="og:type" content="article">
+  <meta slot="head" property="og:url" content={`https://tradetheday.com/events/${event.slug}/`}>
+  <meta slot="head" name="twitter:card" content="summary_large_image">
+  <meta slot="head" name="keywords" content={event.keywords.join(', ')}>
+  <link slot="head" rel="canonical" href={`https://tradetheday.com/events/${event.slug}/`}>
+
+  <!-- JSON-LD Structured Data -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `https://tradetheday.com/events/${event.slug}/#article`,
+        "headline": event.title,
+        "description": event.description,
+        "dateModified": event.lastUpdated,
+        "author": {
+          "@type": "Organization",
+          "name": "TradeTheDay"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "TradeTheDay",
+          "url": "https://tradetheday.com/"
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `https://tradetheday.com/events/${event.slug}/`
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": `What is ${event.title}?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": event.description
+            }
+          },
+          {
+            "@type": "Question",
+            "name": `When does ${event.title} occur?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": event.eventDate || event.eventPeriod || "See event details"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": `How does ${event.title} affect markets?`,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": `${event.title} has ${event.impactLevel.toLowerCase()} impact on ${event.affectedMarkets.join(', ')}.`
+            }
+          }
+        ]
+      }
+    ]
+  })} />
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Trading Events', href: '/events/' },
+    { text: event.shortTitle, current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badges">
+          <span class="category-badge" style={`background: ${categoryStyles[event.category].bg}; color: ${categoryStyles[event.category].color}`}>
+            {categoryStyles[event.category].label}
+          </span>
+          <span class="impact-badge" style={`background: ${impactStyles[event.impactLevel].bg}; color: ${impactStyles[event.impactLevel].color}`}>
+            {event.impactLevel} Impact
+          </span>
+          <span class="status-badge" data-status={event.status}>
+            {event.status}
+          </span>
+        </div>
+
+        <div class="hero-icon">{event.icon}</div>
+
+        <h1 class="hero-title">{event.title}</h1>
+        <p class="hero-tagline">{event.tagline}</p>
+
+        <div class="hero-meta">
+          {event.eventDate && (
+            <div class="meta-item">
+              <span class="meta-icon">📅</span>
+              <span class="meta-label">Date:</span>
+              <span class="meta-value">{event.eventDate}</span>
+            </div>
+          )}
+          {event.eventPeriod && (
+            <div class="meta-item">
+              <span class="meta-icon">🔄</span>
+              <span class="meta-label">Frequency:</span>
+              <span class="meta-value">{event.eventPeriod}</span>
+            </div>
+          )}
+          <div class="meta-item">
+            <span class="meta-icon">📊</span>
+            <span class="meta-label">Affects:</span>
+            <span class="meta-value">{event.affectedMarkets.slice(0, 3).join(', ')}</span>
+          </div>
+        </div>
+
+        <p class="hero-description">{event.description}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BADGES -->
+  <TrustBadges variant="light" />
+
+  <!-- MAIN CONTENT AREA -->
+  <div class="content-wrapper">
+    <div class="container">
+      <div class="content-grid">
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+          <!-- Quick Stats -->
+          <section class="quick-stats">
+            <h2 class="section-title">Event Overview</h2>
+            <div class="stats-grid">
+              <div class="stat-card">
+                <span class="stat-icon">⚡</span>
+                <span class="stat-label">Impact Level</span>
+                <span class="stat-value" style={`color: ${impactStyles[event.impactLevel].color}`}>{event.impactLevel}</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-icon">📈</span>
+                <span class="stat-label">Markets Affected</span>
+                <span class="stat-value">{event.affectedMarkets.length}</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-icon">🎯</span>
+                <span class="stat-label">Trading Strategies</span>
+                <span class="stat-value">{event.tradingStrategies.length}</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-icon">🏦</span>
+                <span class="stat-label">Recommended Brokers</span>
+                <span class="stat-value">{event.recommendedBrokers.length}</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Full Description -->
+          <section class="content-section">
+            <div class="article-content" set:html={parseContent(event.fullDescription)} />
+          </section>
+
+          <!-- Historical Impact -->
+          {event.historicalImpact && (
+            <section class="content-section highlight-box">
+              <h2 class="section-title">Historical Impact</h2>
+              <p class="highlight-text">{event.historicalImpact}</p>
+            </section>
+          )}
+
+          <!-- Affected Instruments -->
+          <section class="content-section">
+            <h2 class="section-title">Affected Instruments</h2>
+            <div class="instruments-grid">
+              {event.affectedInstruments.map((instrument) => (
+                <span class="instrument-tag">{instrument}</span>
+              ))}
+            </div>
+          </section>
+
+          <!-- Trading Strategies -->
+          <section class="content-section strategies-section">
+            <h2 class="section-title">Trading Strategies</h2>
+            <div class="strategies-grid">
+              {event.tradingStrategies.map((strategy) => (
+                <div class="strategy-card">
+                  <div class="strategy-header">
+                    <h3 class="strategy-name">{strategy.name}</h3>
+                    <span class="risk-badge" style={`background: ${riskStyles[strategy.riskLevel].bg}; color: ${riskStyles[strategy.riskLevel].color}`}>
+                      {strategy.riskLevel} Risk
+                    </span>
+                  </div>
+                  <p class="strategy-description">{strategy.description}</p>
+                  <div class="strategy-meta">
+                    <div class="strategy-meta-item">
+                      <span class="meta-label">Timeframe:</span>
+                      <span class="meta-value">{strategy.timeframe}</span>
+                    </div>
+                    <div class="strategy-meta-item">
+                      <span class="meta-label">Instruments:</span>
+                      <div class="mini-instruments">
+                        {strategy.instruments.map((inst) => (
+                          <span class="mini-instrument">{inst}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- Key Dates -->
+          <section class="content-section">
+            <h2 class="section-title">Key Dates to Watch</h2>
+            <div class="dates-timeline">
+              {event.keyDatesToWatch.map((item) => (
+                <div class="timeline-item" data-importance={item.importance.toLowerCase()}>
+                  <div class="timeline-marker"></div>
+                  <div class="timeline-content">
+                    <span class="timeline-date">{item.date}</span>
+                    <span class="timeline-event">{item.event}</span>
+                    <span class="timeline-importance" data-importance={item.importance.toLowerCase()}>
+                      {item.importance}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <!-- Risk Factors -->
+          <section class="content-section risk-section">
+            <h2 class="section-title">Risk Factors</h2>
+            <div class="risk-list">
+              {event.riskFactors.map((risk) => (
+                <div class="risk-item">
+                  <span class="risk-icon">⚠️</span>
+                  <span class="risk-text">{risk}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        </main>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+          <!-- Recommended Brokers -->
+          <div class="sidebar-section broker-recommendations">
+            <h3 class="sidebar-title">Recommended Brokers</h3>
+            <p class="sidebar-subtitle">Best platforms for trading this event</p>
+
+            <div class="broker-cards">
+              {brokerRecommendations.map((rec) => rec.broker && (
+                <div class="broker-card">
+                  <div class="broker-header">
+                    <div class="broker-info">
+                      <span class="broker-name">{rec.broker.name}</span>
+                      <div class="broker-rating">
+                        <span class="stars">{'★'.repeat(Math.floor(rec.broker.scores.overall))}</span>
+                        <span class="rating-value">{rec.broker.scores.overall}/5</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="broker-reason">{rec.reason}</p>
+                  <div class="broker-best-for">
+                    <span class="best-for-label">Best for:</span>
+                    <span class="best-for-value">{rec.bestFor}</span>
+                  </div>
+                  <div class="broker-actions">
+                    <a href={rec.broker.reviewUrl} class="btn-secondary-small">Read Review</a>
+                    <a href={rec.broker.affiliateUrl} class="btn-primary-small" target="_blank" rel="noopener">
+                      Visit Broker →
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="sidebar-section">
+            <h3 class="sidebar-title">Quick Links</h3>
+            <nav class="quick-links">
+              <a href="/find-broker/" class="quick-link">
+                <span class="link-icon">🔍</span>
+                Find Your Broker
+              </a>
+              <a href="/events/" class="quick-link">
+                <span class="link-icon">📅</span>
+                All Trading Events
+              </a>
+              <a href="/guides/" class="quick-link">
+                <span class="link-icon">📚</span>
+                Trading Guides
+              </a>
+              <a href="/brokers/" class="quick-link">
+                <span class="link-icon">🏦</span>
+                Broker Reviews
+              </a>
+            </nav>
+          </div>
+
+          <!-- Share -->
+          <div class="sidebar-section share-section">
+            <h3 class="sidebar-title">Share This Guide</h3>
+            <div class="share-buttons">
+              <button class="share-btn" data-platform="twitter" title="Share on X (Twitter)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+              </button>
+              <button class="share-btn" data-platform="linkedin" title="Share on LinkedIn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+              </button>
+              <button class="share-btn copy-link" title="Copy link">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Last Updated -->
+          <div class="sidebar-section last-updated">
+            <span class="update-label">Last Updated:</span>
+            <span class="update-date">{event.lastUpdated}</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="cta-title">Ready to Trade {event.shortTitle}?</h2>
+        <p class="cta-description">
+          Find the perfect broker matched to your trading style. Our AI-powered quiz considers your experience,
+          risk tolerance, and preferred instruments.
+        </p>
+        <a href="/compare/" class="btn btn-primary btn-lg">
+          Find My Perfect Broker
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section class="disclaimer-section">
+    <div class="container">
+      <div class="disclaimer-content">
+        <p class="disclaimer-text">
+          <strong>Risk Warning:</strong> Trading involves substantial risk of loss and may not be suitable for all investors.
+          Past event performance does not guarantee future results. The information on this page is for educational purposes only
+          and should not be considered investment advice. Please trade responsibly.
+        </p>
+        <div class="disclaimer-links">
+          <a href="/risk-disclaimer/">Full Risk Disclosure</a>
+          <span class="separator">•</span>
+          <a href="/advertiser-disclosure/">Advertiser Disclosure</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Share functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const shareButtons = document.querySelectorAll('.share-btn');
+    const pageUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(document.title);
+
+    shareButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const platform = btn.dataset.platform;
+
+        if (platform === 'twitter') {
+          window.open(`https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`, '_blank', 'width=600,height=400');
+        } else if (platform === 'linkedin') {
+          window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${pageUrl}`, '_blank', 'width=600,height=400');
+        } else if (btn.classList.contains('copy-link')) {
+          navigator.clipboard.writeText(window.location.href).then(() => {
+            btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"></path></svg>';
+            setTimeout(() => {
+              btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>';
+            }, 2000);
+          });
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+
+.hero-section {
+  padding: var(--space-4xl) 0 var(--space-3xl);
+  background: linear-gradient(135deg, var(--charcoal) 0%, var(--charcoal-light) 100%);
+  color: var(--white);
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-badges {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.category-badge,
+.impact-badge,
+.status-badge {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge[data-status="upcoming"] {
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+.status-badge[data-status="active"] {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+}
+
+.status-badge[data-status="completed"] {
+  background: rgba(107, 114, 128, 0.2);
+  color: #d1d5db;
+}
+
+.hero-icon {
+  font-size: 4rem;
+  margin-bottom: var(--space-md);
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: var(--space-sm);
+}
+
+.hero-tagline {
+  font-size: var(--font-size-xl);
+  color: var(--brand-orange);
+  font-weight: 600;
+  margin-bottom: var(--space-lg);
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+}
+
+.meta-icon {
+  font-size: 1.2rem;
+}
+
+.meta-label {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.meta-value {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.hero-description {
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   CONTENT LAYOUT
+   ========================================================================== */
+
+.content-wrapper {
+  padding: var(--space-4xl) 0;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: var(--space-3xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main-content {
+  min-width: 0;
+}
+
+.content-section {
+  margin-bottom: var(--space-3xl);
+}
+
+.section-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--gray-200);
+}
+
+/* Quick Stats */
+.quick-stats {
+  margin-bottom: var(--space-3xl);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+}
+
+.stat-card {
+  background: var(--gray-50);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  border: 1px solid var(--gray-200);
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+  display: block;
+  font-size: 12px;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-xs);
+}
+
+.stat-value {
+  display: block;
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+/* Article Content */
+.article-content {
+  font-size: var(--font-size-base);
+  line-height: 1.8;
+  color: var(--gray-700);
+}
+
+.article-content :global(h2.content-h2) {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-md);
+}
+
+.article-content :global(h3.content-h3) {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-sm);
+}
+
+.article-content :global(p) {
+  margin-bottom: var(--space-md);
+}
+
+.article-content :global(li) {
+  margin-bottom: var(--space-xs);
+  padding-left: var(--space-md);
+  position: relative;
+}
+
+.article-content :global(li::before) {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--brand-orange);
+}
+
+/* Highlight Box */
+.highlight-box {
+  background: linear-gradient(135deg, rgba(255, 72, 0, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%);
+  border: 1px solid rgba(255, 72, 0, 0.2);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+}
+
+.highlight-text {
+  font-size: var(--font-size-lg);
+  color: var(--charcoal);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* Instruments */
+.instruments-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.instrument-tag {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  color: var(--charcoal);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  font-family: 'SF Mono', monospace;
+}
+
+/* Trading Strategies */
+.strategies-grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.strategy-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  transition: all 0.3s ease;
+}
+
+.strategy-card:hover {
+  border-color: var(--brand-orange);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.strategy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-md);
+  gap: var(--space-md);
+}
+
+.strategy-name {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.risk-badge {
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.strategy-description {
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin-bottom: var(--space-md);
+}
+
+.strategy-meta {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--gray-100);
+}
+
+.strategy-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.strategy-meta .meta-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+.strategy-meta .meta-value {
+  font-size: var(--font-size-sm);
+  color: var(--charcoal);
+  font-weight: 500;
+}
+
+.mini-instruments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.mini-instrument {
+  background: var(--gray-100);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-family: 'SF Mono', monospace;
+}
+
+/* Timeline */
+.dates-timeline {
+  position: relative;
+  padding-left: var(--space-xl);
+}
+
+.dates-timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--gray-200);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: var(--space-lg);
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: calc(-1 * var(--space-xl) + 4px);
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gray-400);
+  border: 2px solid var(--white);
+}
+
+.timeline-item[data-importance="high"] .timeline-marker {
+  background: var(--brand-orange);
+}
+
+.timeline-item[data-importance="medium"] .timeline-marker {
+  background: #f59e0b;
+}
+
+.timeline-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.timeline-date {
+  font-weight: 600;
+  color: var(--charcoal);
+  min-width: 120px;
+}
+
+.timeline-event {
+  flex: 1;
+  color: var(--gray-600);
+}
+
+.timeline-importance {
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.timeline-importance[data-importance="high"] {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.timeline-importance[data-importance="medium"] {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
+.timeline-importance[data-importance="low"] {
+  background: rgba(107, 114, 128, 0.1);
+  color: #6b7280;
+}
+
+/* Risk Section */
+.risk-section {
+  background: rgba(239, 68, 68, 0.03);
+  border: 1px solid rgba(239, 68, 68, 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+}
+
+.risk-list {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.risk-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  background: var(--white);
+  border-radius: var(--radius-md);
+}
+
+.risk-icon {
+  flex-shrink: 0;
+}
+
+.risk-text {
+  font-size: var(--font-size-sm);
+  color: var(--gray-700);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   SIDEBAR
+   ========================================================================== */
+
+.sidebar {
+  position: sticky;
+  top: var(--space-xl);
+  height: fit-content;
+}
+
+.sidebar-section {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-lg);
+}
+
+.sidebar-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: var(--space-xs);
+}
+
+.sidebar-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--gray-500);
+  margin-bottom: var(--space-lg);
+}
+
+/* Broker Cards */
+.broker-cards {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.broker-card {
+  background: var(--gray-50);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+}
+
+.broker-header {
+  margin-bottom: var(--space-sm);
+}
+
+.broker-name {
+  font-weight: 600;
+  color: var(--charcoal);
+  display: block;
+}
+
+.broker-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: 4px;
+}
+
+.stars {
+  color: var(--brand-orange);
+  font-size: 12px;
+}
+
+.rating-value {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+.broker-reason {
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+  line-height: 1.5;
+  margin-bottom: var(--space-sm);
+}
+
+.broker-best-for {
+  display: flex;
+  gap: var(--space-xs);
+  font-size: 12px;
+  margin-bottom: var(--space-md);
+}
+
+.best-for-label {
+  color: var(--gray-500);
+}
+
+.best-for-value {
+  color: var(--brand-orange);
+  font-weight: 500;
+}
+
+.broker-actions {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.btn-secondary-small,
+.btn-primary-small {
+  flex: 1;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary-small {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  color: var(--charcoal);
+}
+
+.btn-secondary-small:hover {
+  border-color: var(--brand-orange);
+  color: var(--brand-orange);
+}
+
+.btn-primary-small {
+  background: var(--gradient-primary);
+  color: var(--white);
+  border: none;
+}
+
+.btn-primary-small:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(255, 72, 0, 0.3);
+}
+
+/* Quick Links */
+.quick-links {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.quick-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  color: var(--gray-700);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.quick-link:hover {
+  background: var(--gray-50);
+  color: var(--brand-orange);
+}
+
+.link-icon {
+  font-size: 1.2rem;
+}
+
+/* Share Section */
+.share-buttons {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.share-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--gray-200);
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--gray-600);
+  transition: all 0.2s ease;
+}
+
+.share-btn:hover {
+  border-color: var(--brand-orange);
+  color: var(--brand-orange);
+}
+
+/* Last Updated */
+.last-updated {
+  background: var(--gray-50);
+  text-align: center;
+  padding: var(--space-md);
+}
+
+.update-label {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+.update-date {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--charcoal);
+  display: block;
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   CTA SECTION
+   ========================================================================== */
+
+.cta-section {
+  padding: var(--space-4xl) 0;
+  background: linear-gradient(135deg, var(--charcoal) 0%, var(--charcoal-light) 100%);
+}
+
+.cta-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: var(--space-md);
+}
+
+.cta-description {
+  font-size: var(--font-size-lg);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: var(--space-xl);
+}
+
+.cta-section .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* ==========================================================================
+   DISCLAIMER SECTION
+   ========================================================================== */
+
+.disclaimer-section {
+  padding: var(--space-2xl) 0;
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+}
+
+.disclaimer-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.disclaimer-text {
+  font-size: var(--font-size-sm);
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin-bottom: var(--space-md);
+}
+
+.disclaimer-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  font-size: var(--font-size-sm);
+}
+
+.disclaimer-links a {
+  color: var(--brand-orange);
+  text-decoration: none;
+}
+
+.disclaimer-links a:hover {
+  text-decoration: underline;
+}
+
+.separator {
+  color: var(--gray-400);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .sidebar-section.broker-recommendations {
+    grid-column: span 2;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+
+  .hero-meta {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .strategy-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-section.broker-recommendations {
+    grid-column: span 1;
+  }
+
+  .timeline-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-badges {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .strategy-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+</style>

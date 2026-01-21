@@ -1,0 +1,144 @@
+---
+interface Props {
+  title?: string;
+  content: string;
+  variant?: 'default' | 'info' | 'warning' | 'success';
+}
+
+const { 
+  title = "Cost Analysis:",
+  content,
+  variant = 'info'
+} = Astro.props;
+---
+
+<div class={`cost-analysis ${variant}`}>
+  <div class="analysis-content">
+    <h4 class="analysis-title">{title}</h4>
+    <p class="analysis-text">{content}</p>
+  </div>
+</div>
+
+<style>
+  .cost-analysis {
+    margin: var(--space-content) 0;
+    border-radius: 1rem;
+    border: 1px solid;
+    padding: 2rem 2.5rem;
+    position: relative;
+  }
+
+  .cost-analysis::before {
+    content: "💡";
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    font-size: 1.25rem;
+  }
+
+  .analysis-content {
+    margin-left: 2.5rem;
+  }
+
+  .analysis-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+    color: var(--charcoal, #1e2427);
+  }
+
+  .analysis-text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0;
+    color: var(--gray-700, #374151);
+  }
+
+  /* Variant styles */
+  .cost-analysis.info {
+    background: rgba(59, 130, 246, 0.05);
+    border-color: rgba(59, 130, 246, 0.2);
+    border-left: 4px solid #3b82f6;
+  }
+
+  .cost-analysis.info::before {
+    content: "ℹ️";
+  }
+
+  .cost-analysis.warning {
+    background: rgba(245, 158, 11, 0.05);
+    border-color: rgba(245, 158, 11, 0.2);
+    border-left: 4px solid #f59e0b;
+  }
+
+  .cost-analysis.warning::before {
+    content: "⚠️";
+  }
+
+  .cost-analysis.success {
+    background: rgba(16, 185, 129, 0.05);
+    border-color: rgba(16, 185, 129, 0.2);
+    border-left: 4px solid #10b981;
+  }
+
+  .cost-analysis.success::before {
+    content: "✅";
+  }
+
+  .cost-analysis.default {
+    background: rgba(107, 114, 128, 0.05);
+    border-color: rgba(107, 114, 128, 0.2);
+    border-left: 4px solid #6b7280;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .cost-analysis {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .cost-analysis::before {
+      top: 1.25rem;
+      left: 1.25rem;
+      font-size: 1.125rem;
+    }
+
+    .analysis-content {
+      margin-left: 2rem;
+    }
+
+    .analysis-title {
+      font-size: 0.9rem;
+    }
+
+    .analysis-text {
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cost-analysis {
+      padding: 1rem 1.25rem;
+    }
+
+    .cost-analysis::before {
+      position: static;
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+
+    .analysis-content {
+      margin-left: 0;
+      display: inline;
+    }
+
+    .analysis-title {
+      display: inline;
+      margin-right: 0.5rem;
+    }
+
+    .analysis-text {
+      display: inline;
+    }
+  }
+</style>

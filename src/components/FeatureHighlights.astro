@@ -1,0 +1,227 @@
+---
+interface Feature {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  features: Feature[];
+  columns?: number;
+  variant?: 'default' | 'dark';
+  brokerName?: string;
+}
+
+const { 
+  title,
+  subtitle,
+  features = [],
+  columns = 4,
+  variant = 'default',
+  brokerName = "this broker"
+} = Astro.props;
+
+// Generate dynamic title and subtitle if not provided
+const dynamicTitle = title || `${brokerName} Key Features`;
+const dynamicSubtitle = subtitle !== undefined ? subtitle : `What makes ${brokerName} stand out`;
+
+const sectionClasses = [
+  'feature-highlights-section',
+  variant !== 'default' ? `feature-highlights-${variant}` : ''
+].filter(Boolean).join(' ');
+---
+
+<div class={sectionClasses}>
+  {dynamicTitle && (
+    <div class="feature-highlights-header">
+      <h3 class="heading-3">{dynamicTitle}</h3>
+      {dynamicSubtitle && <p class="body-large feature-highlights-subtitle">{dynamicSubtitle}</p>}
+    </div>
+  )}
+  
+  <div class={`feature-highlights-grid columns-${columns}`}>
+    {features.map((feature) => (
+      <div class="feature-highlight-card">
+        <div class="feature-icon-container">
+          <span class="feature-icon">{feature.icon}</span>
+        </div>
+        <div class="feature-content">
+          <h4 class="feature-title">{feature.title}</h4>
+          <p class="feature-description">{feature.description}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .feature-highlights-section {
+    margin: var(--space-component) 0;
+  }
+
+  .feature-highlights-header {
+    text-align: center;
+    margin-bottom: var(--space-component);
+  }
+
+  .feature-highlights-subtitle {
+    color: var(--gray-600, #4b5563);
+    margin-top: var(--space-content);
+  }
+
+  .feature-highlights-grid {
+    display: grid;
+    gap: 2.5rem;
+    margin-top: var(--space-component);
+  }
+
+  .feature-highlights-grid.columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .feature-highlights-grid.columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .feature-highlights-grid.columns-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .feature-highlight-card {
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    height: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .feature-highlight-card:hover {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 8px 25px rgba(255, 72, 0, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .feature-icon-container {
+    margin-bottom: 2rem;
+  }
+
+  .feature-icon {
+    font-size: 3.5rem;
+    display: block;
+    line-height: 1;
+    margin-bottom: 0;
+  }
+
+  .feature-content {
+    text-align: center;
+  }
+
+  .feature-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin: 0 0 1.25rem 0;
+    line-height: 1.2;
+  }
+
+  .feature-description {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--gray-600, #4b5563);
+    margin: 0;
+  }
+
+  /* Dark variant for dark sections */
+  .feature-highlights-dark .feature-highlight-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 72, 0, 0.2);
+  }
+
+  .feature-highlights-dark .feature-highlight-card:hover {
+    background: white;
+    border-color: var(--brand-orange, #ff4800);
+  }
+
+  .feature-highlights-dark .feature-highlights-header h3 {
+    color: white;
+  }
+
+  .feature-highlights-dark .feature-highlights-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .feature-highlights-grid.columns-4 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .feature-highlights-grid.columns-3 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .feature-highlights-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 2rem;
+      margin-top: var(--space-content);
+    }
+    
+    .feature-highlight-card {
+      padding: 2rem 1.5rem;
+    }
+    
+    .feature-icon {
+      font-size: 3rem;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-description {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .feature-highlights-grid {
+      grid-template-columns: 1fr !important;
+      gap: 2rem;
+    }
+
+    .feature-highlight-card {
+      padding: 1.75rem 1.25rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .feature-icon-container {
+      margin-bottom: 1.5rem;
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+    }
+    
+    .feature-title {
+      font-size: 1.125rem;
+      margin-bottom: 0.875rem;
+    }
+    
+    .feature-description {
+      font-size: 0.8125rem;
+      line-height: 1.6;
+    }
+  }
+</style>

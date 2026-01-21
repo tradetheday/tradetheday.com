@@ -1,0 +1,265 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/pages/404.css';
+---
+
+<BaseLayout 
+  title="Page Not Found - 404 | TradeTheDay"
+  description="Sorry, the page you're looking for doesn't exist. Explore our broker reviews, bonus codes, and trading guides to find what you need."
+>
+  <!-- SEO Meta Tags -->
+  <meta slot="head" name="robots" content="noindex, follow">
+  <meta slot="head" property="og:title" content="Page Not Found - 404 | TradeTheDay">
+  <meta slot="head" property="og:description" content="Sorry, the page you're looking for doesn't exist. Explore our broker reviews, bonus codes, and trading guides.">
+  <meta slot="head" property="og:type" content="website">
+  <meta slot="head" property="og:url" content="https://tradetheday.com/404/">
+  <meta slot="head" property="og:site_name" content="TradeTheDay">
+  <meta slot="head" name="twitter:card" content="summary">
+  <meta slot="head" name="twitter:title" content="Page Not Found - 404 | TradeTheDay">
+  <meta slot="head" name="twitter:description" content="Sorry, the page you're looking for doesn't exist. Explore our broker reviews, bonus codes, and trading guides.">
+  <link slot="head" rel="canonical" href="https://tradetheday.com/404/">
+  
+  <!-- JSON-LD Structured Data -->
+  <script slot="head" type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://tradetheday.com/404/",
+        "url": "https://tradetheday.com/404/",
+        "name": "Page Not Found - 404 | TradeTheDay",
+        "description": "Sorry, the page you're looking for doesn't exist. Explore our broker reviews, bonus codes, and trading guides to find what you need.",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://tradetheday.com/#website"
+        },
+        "inLanguage": "en-US",
+        "potentialAction": [
+          {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://www.google.com/search?q=site:tradetheday.com {search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        ],
+        "mainEntity": {
+          "@type": "CollectionPage",
+          "name": "Popular Trading Resources",
+          "description": "Explore our most popular broker reviews, bonus codes, and trading guides.",
+          "hasPart": [
+            {
+              "@type": "WebPage",
+              "@id": "https://tradetheday.com/brokers/avatrade/",
+              "name": "AvaTrade Review",
+              "description": "Full broker analysis and ratings",
+              "url": "https://tradetheday.com/brokers/avatrade/"
+            },
+            {
+              "@type": "WebPage",
+              "@id": "https://tradetheday.com/brokers/avatrade/partner-code/",
+              "name": "AvaTrade Bonus Code",
+              "description": "Get up to $14,000 welcome bonus",
+              "url": "https://tradetheday.com/brokers/avatrade/partner-code/"
+            },
+            {
+              "@type": "WebPage",
+              "@id": "https://tradetheday.com/risk-disclaimer/",
+              "name": "Risk Disclosure",
+              "description": "Important trading risk information",
+              "url": "https://tradetheday.com/risk-disclaimer/"
+            },
+            {
+              "@type": "WebPage",
+              "@id": "https://tradetheday.com/rating-system/",
+              "name": "Rating System",
+              "description": "How we evaluate brokers",
+              "url": "https://tradetheday.com/rating-system/"
+            }
+          ]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://tradetheday.com/#website",
+        "url": "https://tradetheday.com/",
+        "name": "TradeTheDay",
+        "description": "Making Trading More Accessible - Real-time data and professional tools for everyone",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://tradetheday.com/#organization"
+        },
+        "potentialAction": [
+          {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://www.google.com/search?q=site:tradetheday.com {search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://tradetheday.com/#organization",
+        "name": "TradeTheDay",
+        "url": "https://tradetheday.com/",
+        "description": "Making Trading More Accessible - Real-time data and professional tools for everyone",
+        "sameAs": [
+          "https://twitter.com/tradetheday",
+          "https://linkedin.com/company/tradetheday"
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <main class="error-section" itemscope itemtype="https://schema.org/WebPage">
+    <div class="container">
+      <div class="error-content">
+        <!-- Error Code -->
+        <div class="error-code" aria-label="Error code 404">404</div>
+        
+        <!-- Error Message -->
+        <h1 class="error-title" itemprop="headline">Page Not Found</h1>
+        <p class="error-description" itemprop="description">
+          Sorry, we couldn't find the page you're looking for. The page might have been moved, deleted, or the URL might be incorrect.
+        </p>
+        
+        <!-- Quick Actions -->
+        <nav class="error-actions" aria-label="Error page navigation">
+          <a href="/" class="btn btn-primary" aria-label="Go to homepage">
+            <span class="btn-icon" aria-hidden="true">🏠</span>
+            Go Home
+          </a>
+          <button onclick="history.back()" class="btn btn-secondary" aria-label="Go to previous page">
+            <span class="btn-icon" aria-hidden="true">←</span>
+            Go Back
+          </button>
+        </nav>
+        
+        <!-- Popular Links -->
+        <section class="popular-links" itemscope itemtype="https://schema.org/CollectionPage">
+          <h2 class="popular-title" itemprop="headline">Popular Pages</h2>
+          <div class="links-grid" itemprop="mainEntity" itemscope itemtype="https://schema.org/ItemList">
+            <a href="/brokers/avatrade/" class="link-card" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <span class="link-icon" aria-hidden="true">📊</span>
+              <div class="link-content">
+                <h3 itemprop="name">AvaTrade Review</h3>
+                <p itemprop="description">Full broker analysis and ratings</p>
+              </div>
+              <meta itemprop="position" content="1">
+            </a>
+            
+            <a href="/brokers/avatrade/partner-code/" class="link-card" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <span class="link-icon" aria-hidden="true">💰</span>
+              <div class="link-content">
+                <h3 itemprop="name">AvaTrade Bonus Code</h3>
+                <p itemprop="description">Get up to $14,000 welcome bonus</p>
+              </div>
+              <meta itemprop="position" content="2">
+            </a>
+            
+            <a href="/risk-disclaimer/" class="link-card" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <span class="link-icon" aria-hidden="true">⚠️</span>
+              <div class="link-content">
+                <h3 itemprop="name">Risk Disclosure</h3>
+                <p itemprop="description">Important trading risk information</p>
+              </div>
+              <meta itemprop="position" content="3">
+            </a>
+            
+            <a href="/rating-system/" class="link-card" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+              <span class="link-icon" aria-hidden="true">⭐</span>
+              <div class="link-content">
+                <h3 itemprop="name">Rating System</h3>
+                <p itemprop="description">How we evaluate brokers</p>
+              </div>
+              <meta itemprop="position" content="4">
+            </a>
+          </div>
+        </section>
+        
+        <!-- Search Box -->
+        <section class="search-section" role="search" aria-label="Site search">
+          <h3 class="search-title">Looking for something specific?</h3>
+          <div class="search-box">
+            <label for="search404" class="visually-hidden">Search TradeTheDay.com</label>
+            <input 
+              type="search" 
+              placeholder="Search for brokers, guides, or bonus codes..." 
+              class="search-input" 
+              id="search404"
+              aria-describedby="search-description"
+              autocomplete="off"
+              spellcheck="false"
+            >
+            <button class="search-btn" onclick="performSearch()" aria-label="Search site">
+              <span class="search-icon" aria-hidden="true">🔍</span>
+              Search
+            </button>
+          </div>
+          <p class="search-description">Results will open in a new window using Google search across tradetheday.com</p>
+        </section>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+/**
+ * 404 Page Search Functionality
+ * Provides site search using Google with TradeTheDay.com filter
+ */
+(function() {
+  'use strict';
+  
+  // Search function
+  function performSearch() {
+    const searchInput = document.getElementById('search404');
+    const searchTerm = searchInput?.value?.trim();
+    
+    if (!searchTerm) {
+      // Focus back on input and show validation
+      searchInput?.focus();
+      return;
+    }
+    
+    // Use Google search with site filter for TradeTheDay.com
+    const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchTerm)} site:tradetheday.com`;
+    window.open(searchUrl, '_blank', 'noopener,noreferrer');
+    
+    // Clear search input after successful search
+    searchInput.value = '';
+  }
+  
+  // Make function globally available for onclick handler
+  window.performSearch = performSearch;
+  
+  // Initialize when DOM is ready
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search404');
+    const searchBtn = document.querySelector('.search-btn');
+    
+    // Enter key listener
+    searchInput?.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        performSearch();
+      }
+    });
+    
+    // Button click listener (backup to onclick)
+    searchBtn?.addEventListener('click', function(e) {
+      e.preventDefault();
+      performSearch();
+    });
+    
+    // Auto-focus search input for better UX
+    searchInput?.focus();
+  });
+})();
+</script>

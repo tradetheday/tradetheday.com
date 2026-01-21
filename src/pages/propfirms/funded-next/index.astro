@@ -1,0 +1,1434 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Chip from '../../../components/Chip.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import FAQ from '../../../components/FAQ.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import { getPropFirmBySlug } from '../../../data/propfirms';
+import { generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+
+// Get prop firm data
+const firm = getPropFirmBySlug('funded-next');
+
+if (!firm) {
+  return Astro.redirect('/propfirms/');
+}
+
+// Page Configuration
+const FIRM_NAME = 'Funded Next';
+const pageTitle = `Funded Next Review 2026: Earn During Evaluation, 95% Profit Split & $4M Scaling | TradeTheDay`;
+const pageDescription = `Complete Funded Next review by funded traders. See our ${firm.scores.overall}/5 rating, unique profit-sharing during evaluation, 95% max split, and $4M scaling potential.`;
+
+// Navigation links
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#challenges', text: 'Challenges' },
+  { href: '#rules', text: 'Rules' },
+  { href: '#payouts', text: 'Payouts' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#pros-cons', text: 'Pros & Cons' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+// Hero scorecard
+const heroScorecard = [
+  { value: firm.maxFunding, label: 'Max Funding' },
+  { value: firm.profitSplit, label: 'Profit Split' },
+  { value: firm.startingPrice, label: 'From' },
+  { value: `${firm.scores.overall}/5`, label: 'Our Rating' }
+];
+
+// Challenge comparison table
+const challengeTableHeaders = ['Account Size', 'Price', 'Profit Target', 'Max Drawdown', 'Daily Drawdown', 'Time Limit'];
+const challengeRows = firm.challenges.map(challenge => ({
+  cells: [
+    { content: challenge.accountSize, type: 'text', highlight: 'neutral' },
+    { content: challenge.price, type: 'text', highlight: 'good' },
+    { content: challenge.profitTarget, type: 'text', highlight: 'neutral' },
+    { content: challenge.maxDrawdown, type: 'text', highlight: 'good' },
+    { content: challenge.dailyDrawdown, type: 'text', highlight: 'warning' },
+    { content: challenge.timeLimit, type: 'text', highlight: 'best' }
+  ]
+}));
+
+// Competitor comparison
+const competitorHeaders = ['Feature', 'Funded Next', 'FTMO', 'Fidelcrest', 'The Funded Trader'];
+const competitorRows = [
+  {
+    cells: [
+      { content: 'Max Funding', type: 'text' },
+      { content: '$4,000,000', type: 'text', highlight: 'best' },
+      { content: '$400,000', type: 'text', highlight: 'neutral' },
+      { content: '$2,000,000', type: 'text', highlight: 'good' },
+      { content: '$600,000', type: 'text', highlight: 'neutral' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Max Profit Split', type: 'text' },
+      { content: '95%', type: 'text', highlight: 'best' },
+      { content: '90%', type: 'text', highlight: 'good' },
+      { content: '90%', type: 'text', highlight: 'good' },
+      { content: '90%', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Earn During Eval', type: 'text' },
+      { content: 'Yes (15%)', type: 'text', highlight: 'best' },
+      { content: 'No', type: 'text', highlight: 'warning' },
+      { content: 'No', type: 'text', highlight: 'warning' },
+      { content: 'No', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Time Limit', type: 'text' },
+      { content: 'Unlimited', type: 'text', highlight: 'best' },
+      { content: '30 days', type: 'text', highlight: 'warning' },
+      { content: '60 days', type: 'text', highlight: 'neutral' },
+      { content: '35 days', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Years Operating', type: 'text' },
+      { content: '2 years', type: 'text', highlight: 'warning' },
+      { content: '9+ years', type: 'text', highlight: 'best' },
+      { content: '6 years', type: 'text', highlight: 'good' },
+      { content: '3 years', type: 'text', highlight: 'neutral' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Starting Price', type: 'text' },
+      { content: '$59', type: 'text', highlight: 'best' },
+      { content: '$155', type: 'text', highlight: 'neutral' },
+      { content: '$99', type: 'text', highlight: 'good' },
+      { content: '$65', type: 'text', highlight: 'best' }
+    ]
+  }
+];
+
+// FAQ data
+const faqItems = [
+  {
+    question: 'Is Funded Next legitimate?',
+    answer: 'Funded Next is a legitimate prop firm founded in 2022 and based in Dubai, UAE. Despite being newer than competitors, they have grown rapidly and processed millions in payouts. However, their short track record means more due diligence is recommended compared to established firms like FTMO.'
+  },
+  {
+    question: 'Can you really earn during the Funded Next evaluation?',
+    answer: 'Yes, Funded Next offers 15% profit share during the evaluation phase. This is unique in the industry - if you make $10,000 during evaluation, you receive $1,500 regardless of whether you pass. This helps offset challenge costs and rewards skill during the proving process.'
+  },
+  {
+    question: 'What is the Funded Next profit split?',
+    answer: 'Funded Next starts at 80% profit split and scales up to 95% - the highest in the industry. You reach 90% after your first scale, and 95% at maximum scale. This is 5% higher than most competitors offering 90% maximum.'
+  },
+  {
+    question: 'How does Funded Next scaling work?',
+    answer: 'Funded Next offers scaling up to $4 million in maximum funding - the highest among major prop firms. Every 4 months with 10% profit, your account doubles. The profit split also increases: 80% → 85% → 90% → 95% as you scale.'
+  },
+  {
+    question: 'Does Funded Next have a time limit?',
+    answer: 'No, Funded Next offers unlimited time on their evaluation. You can take as long as needed to hit the profit target without any deadline pressure. This is a significant advantage over FTMO (30 days) and other time-limited competitors.'
+  },
+  {
+    question: 'What is the Funded Next Express model?',
+    answer: 'The Express model is a one-phase evaluation (instead of two phases) with a higher profit target of 25%. It is designed for confident traders who want to get funded faster. You still get 15% profit share during the evaluation.'
+  },
+  {
+    question: 'How fast are Funded Next payouts?',
+    answer: 'Funded Next processes payouts bi-weekly (every 14 days). Most withdrawals are processed within 24-48 hours after request. Payment methods include bank transfer, crypto, and various e-wallets.'
+  },
+  {
+    question: 'Is news trading allowed on Funded Next?',
+    answer: 'Yes, news trading is allowed without restrictions. You can trade during high-impact events like NFP, FOMC, and other news releases. Weekend holding is also permitted.'
+  }
+];
+
+// Schema markup
+const breadcrumbSchemaItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Prop Firms', url: '/propfirms/' },
+  { name: 'Funded Next Review', url: '/propfirms/funded-next/' }
+];
+
+const reviewSchema = generateReviewSchema({
+  itemReviewed: {
+    type: 'FinancialService',
+    name: 'Funded Next',
+    url: 'https://fundednext.com'
+  },
+  reviewRating: {
+    ratingValue: firm.scores.overall,
+    bestRating: 5,
+    worstRating: 1
+  },
+  reviewBody: `Comprehensive review of Funded Next prop trading firm. ${firm.scores.overall}/5 rating based on unique evaluation profit sharing, industry-leading scaling, and payout reliability.`,
+  author: 'TradeTheDay Research Team'
+});
+
+const faqSchema = generateFAQSchema(faqItems);
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbSchemaItems);
+
+// Breadcrumb items
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Prop Firms', href: '/propfirms/' },
+  { text: 'Funded Next Review', current: true }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  ogType="article"
+  schema={[reviewSchema, faqSchema, breadcrumbSchema]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- HERO SECTION -->
+  <section class="review-hero">
+    <div class="container">
+      <div class="review-hero-content">
+        <div class="review-hero-badge">
+          <Chip variant="badge" size="sm">Highest Profit Split Available</Chip>
+        </div>
+
+        <div class="review-hero-header">
+          <div class="review-hero-logo">
+            <span class="firm-initial">FN</span>
+          </div>
+          <div class="review-hero-title">
+            <h1 class="heading-1">{FIRM_NAME} Review</h1>
+            <div class="review-hero-rating">
+              <span class="stars">{'★'.repeat(Math.floor(firm.scores.overall))}</span>
+              <span class="rating-value">{firm.scores.overall}/5</span>
+              <span class="rating-count">• Dubai • Est. 2022</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="review-hero-tagline">{firm.tagline}</p>
+
+        <div class="review-hero-scorecard">
+          {heroScorecard.map((item) => (
+            <div class="scorecard-item">
+              <span class="scorecard-value">{item.value}</span>
+              <span class="scorecard-label">{item.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="review-hero-highlights">
+          <span class="highlight-item highlight-item--special">💰 15% Profit During Eval</span>
+          <span class="highlight-item">✓ 95% Max Profit Split</span>
+          <span class="highlight-item">✓ $4M Scaling</span>
+        </div>
+
+        <div class="review-hero-cta">
+          <a href={firm.affiliateUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xl">
+            Start Funded Next Challenge
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="#challenges" class="btn btn-secondary btn-xl">
+            See Challenge Options
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Navigation links={navigationLinks} />
+
+  <!-- OVERVIEW SECTION -->
+  <section id="overview" class="section">
+    <div class="container">
+      <h2 class="heading-2">Funded Next Overview</h2>
+      <p class="body-large">
+        Funded Next has disrupted the prop firm industry with innovations no other firm offers: 15% profit sharing during
+        evaluation, 95% maximum profit split, and $4 million scaling potential. Based in Dubai and founded in 2022, they've
+        grown rapidly by giving traders the best financial terms available anywhere.
+      </p>
+
+      <div class="overview-grid">
+        <div class="overview-card overview-card--highlight">
+          <div class="overview-icon">💰</div>
+          <h3>Earn During Evaluation</h3>
+          <p>Get 15% of profits during your challenge - unique in the industry. Make $10K, get $1,500 even before funding.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">📈</div>
+          <h3>95% Profit Split</h3>
+          <p>The highest profit split available anywhere. Scale from 80% to 95% - 5% more than competitors offering 90%.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">🚀</div>
+          <h3>$4 Million Scaling</h3>
+          <p>Double any other major firm's maximum funding. Build serious wealth through consistent trading.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">⏰</div>
+          <h3>No Time Limits</h3>
+          <p>Take as long as you need. No 30-day pressure. Perfect for patient, disciplined trading strategies.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="The Funded Next Revolution"
+        icon="🎯"
+        id="overview-notes"
+        variant="light"
+      >
+        <h4>Understanding Funded Next's Aggressive Value Proposition</h4>
+        <p>Funded Next has taken every metric traders care about and pushed it further than anyone else. But with great rewards come questions about sustainability. Let's analyze what they offer and what it means.</p>
+
+        <h5>The 15% Evaluation Profit Share</h5>
+        <p>This is genuinely revolutionary. Traditional prop firms profit when traders fail challenges - you pay the fee, fail, and they keep the money. Funded Next's model aligns their interests with yours during evaluation. If you make money, they share it with you. This suggests they're confident in their trading infrastructure and believe in their traders.</p>
+
+        <h5>The 95% Profit Split Reality</h5>
+        <p>At 95% profit split, Funded Next keeps only 5% of your profits. On a $100K account making $10K monthly, you keep $9,500 versus $9,000 at 90% firms or $8,000 at 80% firms. Over a year, that's $6,000-$18,000 more in your pocket.</p>
+
+        <h5>The Sustainability Question</h5>
+        <p>Here's the honest concern: how sustainable is this model? Funded Next is newer (2022) and hasn't weathered market crashes or regulatory scrutiny. They're growing aggressively with industry-leading terms. Historically, some aggressive prop firms have collapsed (MyForexFunds) while others thrive. Time will tell which path Funded Next takes.</p>
+
+        <h5>Our Recommendation</h5>
+        <p>Funded Next offers objectively the best financial terms in prop trading. The risk is their 2-year track record versus FTMO's 9 years. If you're comfortable with newer firms, Funded Next maximizes your profit potential. If you prioritize safety over returns, consider splitting between Funded Next and more established firms.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- CHALLENGES SECTION -->
+  <section id="challenges" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Funded Next Challenge Options</h2>
+      <p class="body-large">
+        Funded Next offers competitive pricing with their standard Evaluation model and an Express option for
+        traders who want one-phase funding.
+      </p>
+
+      <ComparisonTable
+        headers={challengeTableHeaders}
+        rows={challengeRows}
+        caption="Funded Next Evaluation challenge pricing and requirements (2026)"
+      />
+
+      <div class="model-comparison">
+        <h3 class="heading-3">Evaluation vs Express: Which Model?</h3>
+        <div class="model-cards">
+          <div class="model-card">
+            <div class="model-badge evaluation">Evaluation (2-Phase)</div>
+            <ul class="model-features">
+              <li><strong>Phase 1:</strong> 10% profit target</li>
+              <li><strong>Phase 2:</strong> 5% profit target</li>
+              <li><strong>Time Limit:</strong> Unlimited</li>
+              <li><strong>Eval Profit Share:</strong> 15%</li>
+              <li><strong>Funded Split:</strong> 80% → 95%</li>
+            </ul>
+            <p class="model-description">Best for: Most traders. Lower targets, more time to prove consistency.</p>
+          </div>
+          <div class="model-card express">
+            <div class="model-badge express">Express (1-Phase)</div>
+            <ul class="model-features">
+              <li><strong>Single Phase:</strong> 25% profit target</li>
+              <li><strong>Max Drawdown:</strong> 10%</li>
+              <li><strong>Time Limit:</strong> Unlimited</li>
+              <li><strong>Eval Profit Share:</strong> 15%</li>
+              <li><strong>Funded Split:</strong> 60% → 90%</li>
+            </ul>
+            <p class="model-description">Best for: Aggressive traders confident in quick, high returns.</p>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Maximizing Value from Funded Next's Programs"
+        icon="💡"
+        id="challenge-notes"
+        variant="dark"
+      >
+        <h4>Strategic Program Selection</h4>
+        <p>The choice between Evaluation and Express depends on your trading style and confidence level. Here's how to decide.</p>
+
+        <h5>Evaluation Model Analysis</h5>
+        <p>The standard Evaluation is the better choice for 90% of traders. 10% target in Phase 1, 5% in Phase 2, unlimited time. Plus, you earn 15% of profits during evaluation. If you make 15% getting to funded status, you've already earned back your challenge fee in profit share.</p>
+
+        <h5>Express Model Reality Check</h5>
+        <p>25% profit target is aggressive. With 10% max drawdown, that's a 2.5:1 required profit-to-risk ratio. Most traders can't consistently achieve this. The lower starting profit split (60% vs 80%) also means you earn less initially. Only consider Express if you regularly achieve 15%+ monthly returns.</p>
+
+        <h5>The 15% Eval Profit Math</h5>
+        <p>On a $100K Evaluation challenge ($519 fee):</p>
+        <ul>
+          <li>Phase 1: Make 12% ($12,000) to pass. You receive $1,800 (15%).</li>
+          <li>Phase 2: Make 6% ($6,000) to pass. You receive $900 (15%).</li>
+          <li>Total eval profit share: $2,700 - covering your $519 fee 5x over.</li>
+        </ul>
+        <p>Even if you fail, you might earn back part of your fee through profit sharing during the attempt.</p>
+
+        <h5>Account Size Recommendation</h5>
+        <p>Start with $50K-$100K accounts. The pricing is competitive, and the 15% eval profit share makes larger accounts even more valuable since you're earning real money while proving yourself.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- RULES SECTION -->
+  <section id="rules" class="section">
+    <div class="container">
+      <h2 class="heading-2">Funded Next Trading Rules</h2>
+      <p class="body-large">
+        Funded Next's rules are flexible and trader-friendly, with unlimited time being the standout feature.
+        Here's everything you need to stay compliant.
+      </p>
+
+      <div class="rules-grid">
+        <div class="rule-card rule-card--important">
+          <div class="rule-icon">⚠️</div>
+          <h3>Maximum Drawdown: 10%</h3>
+          <p>Your account equity cannot drop more than 10% below starting balance. Standard industry rule - manage your risk accordingly.</p>
+        </div>
+        <div class="rule-card rule-card--important">
+          <div class="rule-icon">📉</div>
+          <h3>Daily Drawdown: 5%</h3>
+          <p>Daily loss limit of 5% based on previous day's balance. Resets at midnight server time. The rule that fails most traders.</p>
+        </div>
+        <div class="rule-card rule-card--best">
+          <div class="rule-icon">⏰</div>
+          <h3>Time Limit: None</h3>
+          <p>Unlimited time on all challenges. Take months if needed. No pressure, no rushing, no forced overtrading.</p>
+        </div>
+        <div class="rule-card rule-card--best">
+          <div class="rule-icon">💰</div>
+          <h3>Eval Profit Share: 15%</h3>
+          <p>Earn 15% of profits during evaluation. Unique to Funded Next - get paid while proving yourself.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">📰</div>
+          <h3>News Trading: Allowed</h3>
+          <p>Trade during any news events without restrictions. NFP, FOMC, ECB - all fair game.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">🌙</div>
+          <h3>Weekend Holding: Allowed</h3>
+          <p>Keep positions open over weekends. Manage gap risk appropriately but no restrictions apply.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Navigating Funded Next's Rule Structure"
+        icon="🎓"
+        id="rules-notes"
+        variant="light"
+      >
+        <h4>The Flexible Rules Advantage</h4>
+        <p>Funded Next's rules are among the most trader-friendly available. But the standard drawdown rules still require careful risk management.</p>
+
+        <h5>The Unlimited Time Strategy</h5>
+        <p>With no time pressure, you can afford to wait for perfect setups. Many traders at time-limited firms force trades in the final week. At Funded Next, you could wait three months for ideal market conditions, then trade aggressively. Patience becomes your edge.</p>
+
+        <h5>Profit Share Optimization</h5>
+        <p>Since you earn 15% during evaluation, there's incentive to extend your challenge if you're profitable. Instead of barely hitting 10%, consider aiming for 15-20% during Phase 1. You'll earn more profit share and prove stronger consistency for the funded phase.</p>
+
+        <h5>The 5% Daily Drawdown Reality</h5>
+        <p>Despite flexible rules elsewhere, the 5% daily drawdown remains strict. On a $100K account, that's $5,000 maximum daily loss. Position size accordingly:</p>
+        <ul>
+          <li>Risk 1% per trade = 5 consecutive losses before daily limit</li>
+          <li>Risk 2% per trade = 2.5 consecutive losses before limit</li>
+          <li>Recommendation: Stay at 1% or below for safety margin</li>
+        </ul>
+
+        <h5>Weekend Risk Management</h5>
+        <p>Weekend holding is allowed, but gaps can be brutal. A 300-pip gap on Monday could breach your daily drawdown instantly. Consider closing or reducing positions before weekends if you're near drawdown limits.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PAYOUTS SECTION -->
+  <section id="payouts" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Funded Next Payouts & Scaling</h2>
+      <p class="body-large">
+        Funded Next offers industry-leading profit splits reaching 95% and the highest scaling potential at $4 million.
+      </p>
+
+      <div class="payout-highlights">
+        <div class="payout-card">
+          <div class="payout-value">15%</div>
+          <div class="payout-label">Evaluation Profit Share</div>
+          <p>Earn 15% of profits during your challenge - before even getting funded.</p>
+        </div>
+        <div class="payout-card payout-card--highlight">
+          <div class="payout-value">95%</div>
+          <div class="payout-label">Maximum Profit Split</div>
+          <p>Industry-leading split. Keep $9,500 of every $10,000 you make.</p>
+        </div>
+        <div class="payout-card">
+          <div class="payout-value">$4M</div>
+          <div class="payout-label">Maximum Funding</div>
+          <p>Double any competitor's max. The highest scaling potential available.</p>
+        </div>
+      </div>
+
+      <div class="profit-split-progression">
+        <h3 class="heading-3">Profit Split Progression</h3>
+        <div class="split-path">
+          <div class="split-step">
+            <span class="split-percentage">80%</span>
+            <span class="split-label">Initial Funded</span>
+          </div>
+          <div class="split-arrow">→</div>
+          <div class="split-step">
+            <span class="split-percentage">85%</span>
+            <span class="split-label">First Scale</span>
+          </div>
+          <div class="split-arrow">→</div>
+          <div class="split-step">
+            <span class="split-percentage">90%</span>
+            <span class="split-label">Second Scale</span>
+          </div>
+          <div class="split-arrow">→</div>
+          <div class="split-step highlight">
+            <span class="split-percentage">95%</span>
+            <span class="split-label">Maximum</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="scaling-potential">
+        <h3 class="heading-3">Scaling Path to $4 Million</h3>
+        <div class="scaling-path">
+          <div class="scaling-step">
+            <span class="scaling-amount">$100K</span>
+            <span class="scaling-label">Start</span>
+          </div>
+          <div class="scaling-arrow">→</div>
+          <div class="scaling-step">
+            <span class="scaling-amount">$200K</span>
+            <span class="scaling-label">4 months</span>
+          </div>
+          <div class="scaling-arrow">→</div>
+          <div class="scaling-step">
+            <span class="scaling-amount">$400K</span>
+            <span class="scaling-label">8 months</span>
+          </div>
+          <div class="scaling-arrow">→</div>
+          <div class="scaling-step">
+            <span class="scaling-amount">$1M</span>
+            <span class="scaling-label">12 months</span>
+          </div>
+          <div class="scaling-arrow">→</div>
+          <div class="scaling-step highlight">
+            <span class="scaling-amount">$4M</span>
+            <span class="scaling-label">24+ months</span>
+          </div>
+        </div>
+        <p class="scaling-note">Requires 10% profit per 4-month cycle to scale</p>
+      </div>
+
+      <AnalystNotes
+        title="Understanding Funded Next's Payout Structure"
+        icon="📈"
+        id="payout-notes"
+        variant="dark"
+      >
+        <h4>Maximizing Long-Term Earnings</h4>
+        <p>Funded Next's payout structure is designed to reward consistency over time. Here's how to think about the financial opportunity.</p>
+
+        <h5>The 95% Split Advantage</h5>
+        <p>At maximum scale with 95% split on a $4M account making 3% monthly ($120K):</p>
+        <ul>
+          <li>You keep: $114,000/month</li>
+          <li>At 90% elsewhere: $108,000/month</li>
+          <li>Annual difference: $72,000 more at Funded Next</li>
+        </ul>
+
+        <h5>Realistic Scaling Timeline</h5>
+        <p>The $4M maximum sounds impressive, but reaching it requires sustained excellence. At 10% per 4-month cycle, going from $100K to $4M takes roughly 6-7 scaling events over 24-28 months. Few traders achieve this. A more realistic goal is reaching $400K-$800K over 12-18 months.</p>
+
+        <h5>Payout Reliability</h5>
+        <p>Funded Next processes payouts bi-weekly, typically within 24-48 hours. They've maintained good payout consistency since launch. However, as a 2022 company, they lack the long track record of FTMO (9 years). Some traders split funds between firms to reduce single-firm risk.</p>
+
+        <h5>The Evaluation Profit Share Value</h5>
+        <p>Don't underestimate the 15% eval profit share. If you attempt three $100K challenges, making 15% each time before failing, that's $4,500 earned during evaluations - nearly covering all three challenge fees. You're compensated for skill even during the proving process.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PLATFORMS SECTION -->
+  <section id="platforms" class="section">
+    <div class="container">
+      <h2 class="heading-2">Trading Platforms</h2>
+      <p class="body-large">
+        Funded Next supports MetaTrader 4 and 5, the industry-standard platforms used by most prop firms.
+      </p>
+
+      <div class="platforms-grid">
+        {firm.platforms.map((platform) => (
+          <div class="platform-card">
+            <h3 class="platform-name">{platform}</h3>
+            <div class="platform-status">
+              <span class="status-dot"></span>
+              Supported
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="instruments-section">
+        <h3 class="heading-3">Tradeable Instruments</h3>
+        <div class="instruments-grid">
+          {firm.instruments.map((instrument) => (
+            <div class="instrument-chip">{instrument}</div>
+          ))}
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Platform & Execution Considerations"
+        icon="💻"
+        id="platform-notes"
+        variant="light"
+      >
+        <h4>MetaTrader Focus</h4>
+        <p>Funded Next keeps it simple with MT4 and MT5. For most traders, this covers all needs. If you require cTrader, you'll need to look at FTMO or other firms.</p>
+
+        <h5>Execution Quality</h5>
+        <p>Funded Next uses reputable liquidity providers with competitive spreads. Execution is suitable for all trading styles including scalping. However, during high-impact news events, spreads can widen significantly - normal for all prop firms.</p>
+
+        <h5>Expert Advisors</h5>
+        <p>All EAs and automated trading are permitted. If you have a profitable algorithm, Funded Next's terms (95% split, $4M scaling) make it potentially the best home for EA traders among major prop firms.</p>
+
+        <h5>Copy Trading</h5>
+        <p>You can copy trades between your own accounts. Some traders use this to run multiple Funded Next accounts simultaneously. Be aware that each account's drawdown is calculated independently.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- COMPETITOR COMPARISON -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Funded Next vs Competitors</h2>
+      <p class="body-large">
+        How does Funded Next compare to the competition? Here's an honest analysis of where they win and lose.
+      </p>
+
+      <ComparisonTable
+        headers={competitorHeaders}
+        rows={competitorRows}
+        caption="Funded Next compared to major prop firm competitors (2026)"
+      />
+
+      <AnalystNotes
+        title="Honest Comparison: Funded Next's Trade-Offs"
+        icon="🏅"
+        id="comparison-notes"
+        variant="dark"
+      >
+        <h4>Where Funded Next Excels</h4>
+        <ul>
+          <li><strong>Financial Terms:</strong> 95% split and $4M max are industry-leading</li>
+          <li><strong>Eval Profit Share:</strong> Unique 15% during evaluation - no one else offers this</li>
+          <li><strong>Time Flexibility:</strong> Unlimited evaluation time</li>
+          <li><strong>Pricing:</strong> Competitive fees starting at $59</li>
+        </ul>
+
+        <h4>Where Funded Next Falls Short</h4>
+        <ul>
+          <li><strong>Track Record:</strong> Only 2 years vs. FTMO's 9 years - significant risk consideration</li>
+          <li><strong>Platform Options:</strong> MT4/MT5 only, no cTrader or proprietary platforms</li>
+          <li><strong>Support:</strong> Rapid growth has strained customer support at times</li>
+          <li><strong>Rule Complexity:</strong> Different models (Eval, Express) add decision complexity</li>
+        </ul>
+
+        <h5>The Core Trade-Off</h5>
+        <p>Funded Next offers the best financial terms in the industry. The trade-off is trusting a newer company with your trading future. FTMO has proven they survive market crashes and regulatory scrutiny. Funded Next hasn't faced these tests yet.</p>
+
+        <h5>Our Recommendation</h5>
+        <p>For experienced prop traders comfortable with newer firms: Funded Next maximizes your profit potential. For first-time prop traders or those prioritizing security: consider <a href="/propfirms/ftmo/">FTMO</a> for reliability, or split between Funded Next and an established firm to balance risk and reward.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PROS AND CONS -->
+  <section id="pros-cons" class="section">
+    <div class="container">
+      <h2 class="heading-2">Funded Next Pros & Cons</h2>
+
+      <ProsCons
+        pros={firm.pros}
+        cons={firm.cons}
+      />
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <h2 class="heading-2">Frequently Asked Questions</h2>
+      <FAQ questions={faqItems} />
+    </div>
+  </section>
+
+  <!-- VERDICT SECTION -->
+  <section id="verdict" class="section">
+    <div class="container">
+      <div class="verdict-card">
+        <div class="verdict-header">
+          <h2 class="heading-2">Our Verdict: {firm.scores.overall}/5</h2>
+          <div class="verdict-stars">{'★'.repeat(Math.floor(firm.scores.overall))}</div>
+        </div>
+
+        <div class="verdict-summary">
+          <p class="body-large">
+            Funded Next offers objectively the best financial terms in the prop trading industry: 95% profit split,
+            $4 million scaling, and unique 15% profit sharing during evaluation. The trade-off is their shorter 2-year
+            track record compared to established firms. For traders comfortable with newer companies, Funded Next
+            maximizes profit potential. For those prioritizing proven reliability, consider splitting between Funded Next
+            and more established firms.
+          </p>
+        </div>
+
+        <div class="verdict-scores">
+          <div class="score-item">
+            <span class="score-label">Trustworthiness</span>
+            <span class="score-value">{firm.scores.trustworthiness}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Payout Reliability</span>
+            <span class="score-value">{firm.scores.payouts}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Trading Rules</span>
+            <span class="score-value">{firm.scores.rules}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Support</span>
+            <span class="score-value">{firm.scores.support}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Pricing</span>
+            <span class="score-value">{firm.scores.pricing}/5</span>
+          </div>
+        </div>
+
+        <div class="verdict-best-for">
+          <h3>Best For:</h3>
+          <div class="best-for-tags">
+            {firm.bestFor.map((item) => (
+              <span class="best-for-tag">{item}</span>
+            ))}
+          </div>
+        </div>
+
+        <div class="verdict-cta">
+          <a href={firm.affiliateUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xl">
+            Start Funded Next Challenge →
+          </a>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Final Thoughts from Our Research Team"
+        icon="📝"
+        id="verdict-notes"
+        variant="light"
+      >
+        <h4>The Bottom Line on Funded Next</h4>
+        <p>Funded Next earns 4.3/5 - strong marks for financial terms, slightly tempered by their newer status. They've built the most trader-favorable prop firm offering available today.</p>
+
+        <h5>The Bull Case</h5>
+        <p>If Funded Next maintains their current trajectory, they could become the dominant prop firm within 3-5 years. Their terms are so favorable that traders who trust them benefit significantly. The 15% eval profit share alone is worth the risk for many traders.</p>
+
+        <h5>The Bear Case</h5>
+        <p>Prop firm history includes collapses (MyForexFunds, others). Funded Next is growing aggressively with industry-best terms - a model that requires significant capital reserves and operational excellence. If the company faces challenges, traders could be affected.</p>
+
+        <h5>Our Recommendation</h5>
+        <p>For experienced traders: Funded Next is hard to beat on pure financial terms. Consider making them your primary prop firm while maintaining funded accounts elsewhere as backup.</p>
+        <p>For newer traders: Start with <a href="/propfirms/ftmo/">FTMO</a> for the security of their track record. Once comfortable with prop trading, consider adding Funded Next accounts for the superior profit split.</p>
+        <p>For all traders: Never have more capital at risk with any single prop firm than you can afford to lose. Diversification applies to prop firms just like investments.</p>
+      </AnalystNotes>
+
+      <!-- Related Links -->
+      <div class="related-section">
+        <h3>Compare Funded Next with Other Prop Firms</h3>
+        <div class="related-grid">
+          <a href="/propfirms/ftmo/" class="related-card">
+            <span class="related-title">FTMO Review</span>
+            <span class="related-desc">Industry leader with 9+ years track record</span>
+          </a>
+          <a href="/propfirms/fidelcrest/" class="related-card">
+            <span class="related-title">Fidelcrest Review</span>
+            <span class="related-desc">$2M scaling with 6-year track record</span>
+          </a>
+          <a href="/propfirms/" class="related-card">
+            <span class="related-title">All Prop Firms</span>
+            <span class="related-desc">Compare all prop trading firms side by side</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .review-hero {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    padding: var(--space-2xl) 0;
+    color: var(--white);
+  }
+
+  .review-hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .review-hero-badge {
+    margin-bottom: var(--space-md);
+  }
+
+  .review-hero-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .review-hero-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .firm-initial {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+
+  .review-hero-title h1 {
+    color: var(--white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .review-hero-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
+  .stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+  }
+
+  .rating-value {
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+  }
+
+  .rating-count {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-sm);
+  }
+
+  .review-hero-tagline {
+    font-size: var(--font-size-xl);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--space-xl);
+  }
+
+  .review-hero-scorecard {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .scorecard-item {
+    text-align: center;
+  }
+
+  .scorecard-value {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+  }
+
+  .scorecard-label {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .review-hero-highlights {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .highlight-item {
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+  }
+
+  .highlight-item--special {
+    background: rgba(16, 185, 129, 0.3);
+    border-color: rgba(16, 185, 129, 0.5);
+  }
+
+  .review-hero-cta {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Overview Grid */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .overview-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .overview-card--highlight {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.05);
+  }
+
+  .overview-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .overview-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .overview-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Model Comparison */
+  .model-comparison {
+    margin-top: var(--space-2xl);
+  }
+
+  .model-comparison h3 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .model-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .model-card {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  .model-card.express {
+    border-color: #f59e0b;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(217, 119, 6, 0.05));
+  }
+
+  .model-badge {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .model-badge.evaluation {
+    background: var(--gray-100);
+    color: var(--gray-700);
+  }
+
+  .model-badge.express {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+  }
+
+  .model-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-md) 0;
+  }
+
+  .model-features li {
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .model-features li:last-child {
+    border-bottom: none;
+  }
+
+  .model-description {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Rules Grid */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .rule-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .rule-card--important {
+    border-color: var(--warning);
+    background: rgba(245, 158, 11, 0.05);
+  }
+
+  .rule-card--best {
+    border-color: var(--success);
+    background: rgba(16, 185, 129, 0.05);
+  }
+
+  .rule-icon {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .rule-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .rule-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Payout Section */
+  .payout-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .payout-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    text-align: center;
+  }
+
+  .payout-card--highlight {
+    border-color: #f59e0b;
+    box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
+  }
+
+  .payout-value {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+  }
+
+  .payout-label {
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-sm);
+  }
+
+  .payout-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Profit Split Progression */
+  .profit-split-progression {
+    margin: var(--space-2xl) 0;
+    text-align: center;
+  }
+
+  .split-path {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin: var(--space-xl) 0;
+  }
+
+  .split-step {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md) var(--space-lg);
+    text-align: center;
+  }
+
+  .split-step.highlight {
+    border-color: #f59e0b;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
+  }
+
+  .split-percentage {
+    display: block;
+    font-size: var(--font-size-xl);
+    font-weight: 800;
+    color: var(--charcoal);
+  }
+
+  .split-step.highlight .split-percentage {
+    color: #f59e0b;
+  }
+
+  .split-label {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .split-arrow {
+    color: var(--gray-300);
+    font-size: var(--font-size-xl);
+  }
+
+  /* Scaling Section */
+  .scaling-potential {
+    margin-top: var(--space-2xl);
+    text-align: center;
+  }
+
+  .scaling-path {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin: var(--space-xl) 0;
+  }
+
+  .scaling-step {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md) var(--space-lg);
+    text-align: center;
+  }
+
+  .scaling-step.highlight {
+    border-color: #f59e0b;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.1));
+  }
+
+  .scaling-amount {
+    display: block;
+    font-size: var(--font-size-xl);
+    font-weight: 800;
+    color: var(--charcoal);
+  }
+
+  .scaling-step.highlight .scaling-amount {
+    color: #f59e0b;
+  }
+
+  .scaling-label {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .scaling-arrow {
+    color: var(--gray-300);
+    font-size: var(--font-size-xl);
+  }
+
+  .scaling-note {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    font-style: italic;
+  }
+
+  /* Platforms Grid */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin: var(--space-xl) 0;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .platform-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .platform-name {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .platform-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    color: var(--success);
+    font-size: var(--font-size-sm);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--success);
+    border-radius: 50%;
+  }
+
+  .instruments-section {
+    margin-top: var(--space-xl);
+    text-align: center;
+  }
+
+  .instruments-grid {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-top: var(--space-lg);
+  }
+
+  .instrument-chip {
+    background: var(--gray-100);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Verdict Card */
+  .verdict-card {
+    background: var(--white);
+    border: 2px solid #f59e0b;
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .verdict-header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-header h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .verdict-stars {
+    color: #f59e0b;
+    font-size: var(--font-size-2xl);
+  }
+
+  .verdict-summary {
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-scores {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+  }
+
+  .score-item {
+    text-align: center;
+  }
+
+  .score-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--space-xs);
+  }
+
+  .score-value {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: #f59e0b;
+  }
+
+  .verdict-best-for {
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-best-for h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-sm);
+  }
+
+  .best-for-tags {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .best-for-tag {
+    background: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Related Section */
+  .related-section {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .related-section h3 {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .related-card {
+    display: block;
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .related-card:hover {
+    border-color: #f59e0b;
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .related-title {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .related-desc {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .overview-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .rules-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .model-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .review-hero-header {
+      flex-direction: column;
+    }
+
+    .review-hero-scorecard {
+      gap: var(--space-lg);
+    }
+
+    .review-hero-highlights {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .overview-grid,
+    .platforms-grid,
+    .rules-grid,
+    .payout-highlights,
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .split-path,
+    .scaling-path {
+      flex-direction: column;
+    }
+
+    .split-arrow,
+    .scaling-arrow {
+      transform: rotate(90deg);
+    }
+
+    .verdict-scores {
+      gap: var(--space-md);
+    }
+  }
+</style>

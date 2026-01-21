@@ -1,0 +1,1407 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SimpleGrid from '../../../components/SimpleGrid.astro';
+import ProcessSteps from '../../../components/ProcessSteps.astro';
+import FeatureHighlights from '../../../components/FeatureHighlights.astro';
+import CompanyInfo from '../../../components/CompanyInfo.astro';
+import Chip from '../../../components/Chip.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import Scorecard from '../../../components/Scorecard.astro';
+import CostAnalysis from '../../../components/CostAnalysis.astro';
+import RegulationCard from '../../../components/RegulationCard.astro';
+import PlatformGrid from '../../../components/PlatformGrid.astro';
+import PaymentMethods from '../../../components/PaymentMethods.astro';
+import PaymentDetails from '../../../components/PaymentDetails.astro';
+import TradingInstruments from '../../../components/TradingInstruments.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import FAQ from '../../../components/FAQ.astro';
+import BrokerVerdict from '../../../components/BrokerVerdict.astro';
+import BestFor from '../../../components/BestFor.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+import { generateBrokerSchema, generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+import { getBrokerById } from '../../../data/brokers';
+
+const brokerData = getBrokerById('axi');
+const BROKER_NAME = 'Axi';
+const CURRENT_YEAR = '2026';
+
+const title = `Axi Review ${CURRENT_YEAR} - ECN Broker with Raw Spreads from 0.0 Pips`;
+const description = `Comprehensive Axi review for ${CURRENT_YEAR}. Ultra-tight ECN spreads from 0.0 pips, fast execution, and MT4/MT5 support. ASIC & FCA regulated. No minimum deposit.`;
+const canonicalUrl = 'https://tradetheday.com/brokers/axi/';
+const lastUpdated = '2026-01-20';
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Brokers', href: '/brokers/' },
+  { text: 'Axi Review', href: '/brokers/axi/', current: true }
+];
+
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#why-choose', text: 'Why Axi' },
+  { href: '#fees', text: 'Fees' },
+  { href: '#safety', text: 'Safety' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#accounts', text: 'Accounts' },
+  { href: '#deposits', text: 'Deposits' },
+  { href: '#instruments', text: 'Instruments' },
+  { href: '#pros-cons', text: 'Pros & Cons' },
+  { href: '#faq', text: 'FAQ' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+const heroScorecard = [
+  { value: '$0', label: 'Min Deposit' },
+  { value: '0.0 pips', label: 'Spreads From' },
+  { value: '220+', label: 'Instruments' },
+  { value: '4.3/5', label: 'Our Rating' }
+];
+
+// Company Info sections for CompanyInfo component
+const companyInfoSections = [
+  {
+    title: "Deposits & Accounts",
+    icon: "💰",
+    items: [
+      { label: "Minimum Deposit", value: "$0", type: "currency" },
+      { label: "Base Currencies", value: "USD, EUR, GBP, AUD", type: "list" },
+      { label: "Islamic Account", value: "Available", type: "text" }
+    ]
+  },
+  {
+    title: "Trading Conditions",
+    icon: "📊",
+    items: [
+      { label: "Max Leverage", value: "1:500", type: "text" },
+      { label: "Instruments", value: "220+", type: "text" },
+      { label: "Execution", value: "ECN/STP", type: "text" }
+    ]
+  },
+  {
+    title: "Company Info",
+    icon: "🏛️",
+    items: [
+      { label: "Founded", value: "2007", type: "year" },
+      { label: "Headquarters", value: "Sydney, Australia", type: "location" },
+      { label: "Regulations", value: "ASIC, FCA, DFSA, FMA", type: "text" }
+    ]
+  }
+];
+
+// Schema data for Axi
+const companySchemaData = {
+  name: "Axi",
+  foundingDate: "2007",
+  headquarters: "Sydney, Australia",
+  regulators: ["ASIC", "FCA", "DFSA", "FMA"],
+  minimumDeposit: "$0",
+  currencies: ["USD", "EUR", "GBP", "AUD"],
+  maxLeverage: "1:500",
+  instrumentCount: "220+"
+};
+
+// Fee Comparison Table
+const feeTableHeaders = ['Fee Type', 'Axi Standard', 'Axi Pro', 'Industry Average'];
+const feeRows = [
+  {
+    cells: [
+      { content: 'EUR/USD Spread', type: 'text' },
+      { content: '1.0 pips', type: 'text', highlight: 'good' },
+      { content: '0.0 pips', type: 'text', highlight: 'best' },
+      { content: '1.2 pips', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Commission', type: 'text' },
+      { content: '$0', type: 'text', highlight: 'best' },
+      { content: '$7/lot', type: 'text', highlight: 'good' },
+      { content: '$7/lot', type: 'text', highlight: 'neutral' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Overnight (Swap)', type: 'text' },
+      { content: 'Standard rates', type: 'text', highlight: 'neutral' },
+      { content: 'Standard rates', type: 'text', highlight: 'neutral' },
+      { content: 'Standard rates', type: 'text', highlight: 'neutral' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Deposit Fees', type: 'text' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Withdrawal Fees', type: 'text' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: '$25', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Inactivity Fee', type: 'text' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: '$10/month', type: 'text', highlight: 'warning' }
+    ]
+  }
+];
+
+// Cost Analysis Data
+const costAnalysisData = {
+  tradingCosts: [
+    { category: 'Forex Spreads', value: 'From 0.0 pips', rating: 'excellent', notes: 'Pro account; Standard from 1.0 pips' },
+    { category: 'Commission', value: '$7 per lot', rating: 'good', notes: 'Pro account; Standard has no commission' },
+    { category: 'Total Cost EUR/USD', value: '~$7 per lot', rating: 'excellent', notes: 'Pro account all-in cost' },
+    { category: 'Index CFDs', value: 'From 0.4 points', rating: 'good', notes: 'Competitive for major indices' },
+    { category: 'Crypto Spreads', value: 'Variable', rating: 'average', notes: 'Higher than forex, varies by asset' }
+  ],
+  nonTradingCosts: [
+    { category: 'Deposit Fee', value: 'Free', rating: 'excellent', notes: 'All methods free' },
+    { category: 'Withdrawal Fee', value: 'Free', rating: 'excellent', notes: 'No charges on any method' },
+    { category: 'Inactivity Fee', value: 'None', rating: 'excellent', notes: 'No account maintenance fees' },
+    { category: 'Currency Conversion', value: 'Varies', rating: 'average', notes: 'Check rates for non-base currency' }
+  ],
+  summary: 'Axi offers some of the most competitive trading costs in the industry, especially for forex traders on the Pro account. The combination of 0.0 pip spreads plus $7 commission results in all-in costs that beat most competitors. The Standard account with 1.0 pip spreads and no commission suits traders who prefer simplicity.'
+};
+
+// Regulation Data
+const regulationLicenses = [
+  {
+    flag: '🇦🇺',
+    jurisdiction: 'Australia',
+    authority: 'ASIC',
+    licenseNumber: '318232',
+    compensation: 'Professional Indemnity',
+    status: 'verified',
+    description: 'Australian Securities and Investments Commission regulation provides tier-1 oversight with strict capital requirements and mandatory client money segregation.'
+  },
+  {
+    flag: '🇬🇧',
+    jurisdiction: 'United Kingdom',
+    authority: 'FCA',
+    licenseNumber: '509746',
+    compensation: '£85,000 FSCS',
+    status: 'verified',
+    description: 'Financial Conduct Authority regulation offers UK clients FSCS protection up to £85,000 and access to the Financial Ombudsman Service.'
+  },
+  {
+    flag: '🇦🇪',
+    jurisdiction: 'Dubai',
+    authority: 'DFSA',
+    licenseNumber: 'F003742',
+    compensation: 'N/A',
+    status: 'active',
+    description: 'Dubai Financial Services Authority regulation allows Axi to serve clients in the UAE and DIFC.'
+  },
+  {
+    flag: '🇳🇿',
+    jurisdiction: 'New Zealand',
+    authority: 'FMA',
+    licenseNumber: 'FSP518226',
+    compensation: 'N/A',
+    status: 'active',
+    description: 'Financial Markets Authority regulation provides oversight for New Zealand and Pacific region clients.'
+  }
+];
+
+// Trading Platforms
+const tradingPlatforms = [
+  {
+    name: 'MetaTrader 4',
+    logo: '/images/platforms/mt4-logo.svg',
+    description: 'Industry-standard platform with advanced charting, Expert Advisor support, and one-click trading.',
+    features: ['Expert Advisors', 'One-Click Trading', 'Custom Indicators', '9 Timeframes'],
+    availability: 'Desktop, Web, Mobile',
+    rating: 4.7,
+    supported: true
+  },
+  {
+    name: 'MetaTrader 5',
+    logo: '/images/platforms/mt5-logo.svg',
+    description: 'Next-generation platform with more timeframes, enhanced order types, and multi-asset support.',
+    features: ['Multi-Asset Trading', 'Depth of Market', 'Economic Calendar', '21 Timeframes'],
+    availability: 'Desktop, Web, Mobile',
+    rating: 4.5,
+    supported: true
+  },
+  {
+    name: 'Axi Copy Trading',
+    logo: '/images/platforms/axi-copy-logo.svg',
+    description: 'Copy successful traders directly within your MT4/MT5 account with risk management controls.',
+    features: ['Strategy Selection', 'Risk Management', 'Performance Analytics', 'Auto-Allocation'],
+    availability: 'Web, Mobile',
+    rating: 4.0,
+    supported: true
+  }
+];
+
+// Account Types
+const accountTypes = [
+  {
+    name: 'Standard Account',
+    minDeposit: '$0',
+    spreads: 'From 1.0 pips',
+    commission: 'None',
+    leverage: 'Up to 1:500',
+    features: ['No minimum deposit', 'All-in spreads', 'MT4/MT5 access', 'Demo available'],
+    bestFor: 'Beginners and casual traders who prefer no-commission pricing'
+  },
+  {
+    name: 'Pro Account',
+    minDeposit: '$0',
+    spreads: 'From 0.0 pips',
+    commission: '$7 per lot',
+    leverage: 'Up to 1:500',
+    features: ['Raw ECN spreads', 'Institutional liquidity', 'Free VPS eligible', 'EA-friendly'],
+    bestFor: 'Scalpers, day traders, and algorithmic traders'
+  },
+  {
+    name: 'Elite Account',
+    minDeposit: '$25,000',
+    spreads: 'From 0.0 pips',
+    commission: '$3.50 per lot',
+    leverage: 'Up to 1:500',
+    features: ['Lowest commissions', 'Dedicated account manager', 'Priority support', 'VIP events'],
+    bestFor: 'High-volume professional traders'
+  }
+];
+
+// Payment Methods
+const paymentMethods = [
+  {
+    name: 'Bank Transfer',
+    icon: '/images/payment/bank-transfer.svg',
+    depositTime: '1-3 business days',
+    withdrawalTime: '1-3 business days',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$0',
+    maxDeposit: 'No limit',
+    supported: true
+  },
+  {
+    name: 'Credit/Debit Card',
+    icon: '/images/payment/visa-mastercard.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '3-5 business days',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$0',
+    maxDeposit: '$50,000',
+    supported: true
+  },
+  {
+    name: 'Skrill',
+    icon: '/images/payment/skrill.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '24 hours',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$0',
+    maxDeposit: '$10,000',
+    supported: true
+  },
+  {
+    name: 'Neteller',
+    icon: '/images/payment/neteller.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '24 hours',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$0',
+    maxDeposit: '$10,000',
+    supported: true
+  },
+  {
+    name: 'POLi',
+    icon: '/images/payment/poli.svg',
+    depositTime: 'Instant',
+    withdrawalTime: 'N/A',
+    depositFee: 'Free',
+    withdrawalFee: 'N/A',
+    minDeposit: '$0',
+    maxDeposit: 'Bank limits',
+    supported: true
+  }
+];
+
+// Payment Details Data (correct format for PaymentDetails component)
+const withdrawalDetails = [
+  {
+    icon: '💵',
+    label: 'Minimum Withdrawal',
+    value: '$50'
+  },
+  {
+    icon: '⚡',
+    label: 'Processing Times',
+    value: 'E-wallets 24h, Cards 3-5 days'
+  },
+  {
+    icon: '🔐',
+    label: 'Deposit Fees',
+    value: 'Free - all methods'
+  },
+  {
+    icon: '🛡️',
+    label: 'Withdrawal Fees',
+    value: 'Free - all methods'
+  }
+];
+
+const paymentAnalysis = {
+  pros: [
+    'Zero deposit and withdrawal fees on all methods',
+    'No minimum deposit requirement',
+    'Fast e-wallet processing within 24 hours',
+    'Multiple base currencies to avoid conversion fees'
+  ],
+  cons: [
+    '$50 minimum withdrawal amount',
+    'Bank transfers can take up to 5 business days',
+    'Same-method withdrawal policy applies'
+  ]
+};
+
+// Instruments
+const instrumentCategories = [
+  {
+    name: 'Forex',
+    icon: '💱',
+    count: 70,
+    description: 'Major, minor, and exotic currency pairs with institutional liquidity and raw spreads',
+    examples: ['EUR/USD', 'GBP/USD', 'USD/JPY', 'AUD/NZD', 'EUR/GBP'],
+    details: {
+      spread: 'From 0.0 pips',
+      leverage: 'Up to 1:500',
+      commission: 'From $0',
+      margin: '0.2%'
+    },
+    available: true
+  },
+  {
+    name: 'Indices',
+    icon: '📈',
+    count: 30,
+    description: 'Global stock indices including US, European, and Asian markets',
+    examples: ['S&P 500', 'FTSE 100', 'DAX 40', 'Nikkei 225', 'ASX 200'],
+    details: {
+      spread: 'From 0.4 points',
+      leverage: 'Up to 1:200',
+      commission: 'No',
+      margin: '0.5%'
+    },
+    available: true
+  },
+  {
+    name: 'Commodities',
+    icon: '🛢️',
+    count: 20,
+    description: 'Precious metals, energy, and agricultural commodities',
+    examples: ['Gold', 'Silver', 'Crude Oil', 'Natural Gas', 'Copper'],
+    details: {
+      spread: 'From 0.03',
+      leverage: 'Up to 1:100',
+      commission: 'No',
+      margin: '1%'
+    },
+    available: true
+  },
+  {
+    name: 'Cryptocurrencies',
+    icon: '₿',
+    count: 30,
+    description: 'Major cryptocurrencies traded as CFDs with competitive spreads',
+    examples: ['Bitcoin', 'Ethereum', 'Litecoin', 'Ripple', 'Bitcoin Cash'],
+    details: {
+      spread: 'Variable',
+      leverage: 'Up to 1:10',
+      commission: 'No',
+      margin: '10%'
+    },
+    available: true
+  },
+  {
+    name: 'Share CFDs',
+    icon: '📊',
+    count: 70,
+    description: 'Top global stocks from US, UK, and Australian exchanges',
+    examples: ['Apple', 'Tesla', 'Amazon', 'Microsoft', 'BHP'],
+    details: {
+      spread: 'Variable',
+      leverage: 'Up to 1:20',
+      commission: 'From 0.08%',
+      margin: '5%'
+    },
+    available: true
+  }
+];
+
+// Why Choose Features
+const whyChooseFeatures = [
+  { title: 'Raw ECN Spreads', description: 'Trade from 0.0 pips with true institutional liquidity', icon: '📊' },
+  { title: 'No Minimum Deposit', description: 'Start trading with any amount you choose', icon: '💰' },
+  { title: 'Free VPS Hosting', description: 'Run EAs 24/7 with complimentary server access', icon: '⚡' },
+  { title: 'MT4 & MT5 Support', description: 'Full platform access with all features enabled', icon: '🖥️' },
+  { title: 'Fast Execution', description: 'Average execution under 30ms with no dealing desk', icon: '🚀' },
+  { title: 'No Hidden Fees', description: 'Zero deposit, withdrawal, and inactivity fees', icon: '✓' }
+];
+
+// Opening Process
+const openingProcessSteps = [
+  { number: '1.', title: 'Register', description: 'Complete online application in under 5 minutes', icon: '📝' },
+  { number: '2.', title: 'Verify', description: 'Upload ID and proof of address for instant verification', icon: '✅' },
+  { number: '3.', title: 'Fund', description: 'Deposit any amount - no minimum required', icon: '💰' },
+  { number: '4.', title: 'Trade', description: 'Access MT4/MT5 and start trading immediately', icon: '📈' }
+];
+
+// Pros & Cons
+const prosConsData = {
+  pros: [
+    'Raw spreads from 0.0 pips on Pro account',
+    'No minimum deposit requirement on any account',
+    'Fast ECN execution with average speed under 30ms',
+    'Full MetaTrader 4 & 5 support with all features',
+    'Free VPS hosting for active traders',
+    'Zero deposit, withdrawal, and inactivity fees',
+    'Strong tier-1 regulation (ASIC, FCA)',
+    'Excellent for scalpers and algorithmic traders',
+    'Copy trading integration available',
+    'Multiple account base currencies'
+  ],
+  cons: [
+    'Limited educational resources for beginners',
+    'Smaller instrument selection than some competitors',
+    'Basic research and analysis tools',
+    'No proprietary trading platform',
+    'Copy trading features less developed than eToro',
+    'Elite account requires $25,000 minimum'
+  ]
+};
+
+// FAQ Data
+const faqData = [
+  {
+    question: 'Is Axi a good broker for beginners?',
+    answer: 'Axi can work for beginners due to its no minimum deposit policy and demo account, but it\'s better suited for intermediate to advanced traders. The platform focuses on raw spreads and fast execution rather than extensive educational content. If you\'re new to trading, consider starting with their free demo account to practice.'
+  },
+  {
+    question: 'What is Axi\'s minimum deposit?',
+    answer: 'Axi has no minimum deposit requirement on any account type - Standard, Pro, or even the Elite account (though Elite requires $25,000 for reduced commissions). You can open and fund an account with any amount you choose, making it accessible for traders of all sizes.'
+  },
+  {
+    question: 'Does Axi offer true ECN execution?',
+    answer: 'Yes, Axi provides true ECN/STP execution with no dealing desk intervention. On the Pro account, you get raw spreads from 0.0 pips with direct access to institutional liquidity providers. Average execution speed is under 30 milliseconds.'
+  },
+  {
+    question: 'Can I use Expert Advisors (EAs) with Axi?',
+    answer: 'Absolutely. Axi fully supports Expert Advisors on both MT4 and MT5 platforms with no restrictions. They also offer free VPS hosting for traders who maintain minimum volume requirements, ideal for running EAs 24/7 without interruption.'
+  },
+  {
+    question: 'What leverage does Axi offer?',
+    answer: 'Axi offers leverage up to 1:500 for professional clients and traders in less regulated jurisdictions. Retail clients in the UK, Australia, and EU are subject to regulatory leverage limits (1:30 for major forex pairs, 1:20 for minor pairs, etc.).'
+  },
+  {
+    question: 'Does Axi charge withdrawal fees?',
+    answer: 'No, Axi does not charge any fees for deposits or withdrawals. All payment methods are completely free. Processing times vary by method - e-wallets are fastest (24 hours), while bank transfers take 1-3 business days.'
+  },
+  {
+    question: 'Is Axi regulated and safe?',
+    answer: 'Yes, Axi is regulated by multiple tier-1 authorities including ASIC (Australia), FCA (UK), DFSA (Dubai), and FMA (New Zealand). Client funds are held in segregated accounts with top-tier banks, providing strong protection.'
+  },
+  {
+    question: 'What is the difference between Standard and Pro accounts?',
+    answer: 'The Standard account has spreads from 1.0 pips with no commission, while the Pro account offers raw spreads from 0.0 pips plus a $7 per lot commission. For most active traders, the Pro account offers better value due to the tighter spreads.'
+  },
+  {
+    question: 'Does Axi offer a free VPS?',
+    answer: 'Yes, Axi offers free VPS hosting for traders who maintain consistent trading volume. The VPS is hosted on high-performance servers with low latency connections to Axi\'s trading servers, making it perfect for running Expert Advisors and automated strategies.'
+  },
+  {
+    question: 'What platforms does Axi support?',
+    answer: 'Axi supports MetaTrader 4 and MetaTrader 5 on desktop, web, and mobile. They also offer Axi Copy Trading for those who want to follow successful traders. All platforms include advanced charting, one-click trading, and full EA support.'
+  }
+];
+
+// Verdict Data
+const verdictData = {
+  brokerName: BROKER_NAME,
+  overallRating: 4.3,
+  maxRating: 5,
+  ratingCategories: [
+    { name: 'Trading Costs', score: 4.8, maxScore: 5, description: 'Raw spreads from 0.0 pips, no hidden fees' },
+    { name: 'Execution Speed', score: 4.7, maxScore: 5, description: 'Under 30ms average, true ECN' },
+    { name: 'Platforms', score: 4.5, maxScore: 5, description: 'Full MT4/MT5 with free VPS' },
+    { name: 'Regulation', score: 4.3, maxScore: 5, description: 'ASIC, FCA, DFSA, FMA' },
+    { name: 'Customer Support', score: 4.0, maxScore: 5, description: '24/5 multilingual support' },
+    { name: 'Instruments', score: 3.8, maxScore: 5, description: '220+ instruments, forex-focused' }
+  ],
+  verdict: 'Axi is an excellent choice for cost-conscious forex traders who prioritize raw spreads and fast execution over bells and whistles. The combination of 0.0 pip spreads, no minimum deposit, and free VPS makes it particularly attractive for scalpers and algorithmic traders.',
+  recommendation: 'We recommend Axi for experienced forex traders, scalpers, day traders, and anyone running Expert Advisors who wants reliable ECN execution without paying for features they don\'t need.',
+  bestFor: ['Scalpers and day traders', 'Algorithmic/EA traders', 'Cost-conscious professionals', 'Forex-focused traders', 'Those wanting raw spreads', 'VPS users'],
+  notIdealFor: ['Complete beginners needing education', 'Those wanting a proprietary platform', 'Traders needing extensive research', 'Stock/ETF focused investors'],
+  finalThoughts: 'Axi does one thing exceptionally well: provide fast, low-cost forex trading with institutional-grade execution. If that\'s what you need, it\'s hard to beat their combination of raw spreads, no fees, and free VPS.',
+  ctaText: 'Open Axi Account',
+  ctaUrl: 'https://www.axi.com/'
+};
+
+// Schema Generation
+const brokerSchema = generateBrokerSchema({
+  name: 'Axi',
+  url: 'https://www.axi.com',
+  description: 'ECN forex broker offering raw spreads from 0.0 pips with fast execution and MT4/MT5 support',
+  foundingDate: '2007',
+  headquarters: { country: 'Australia', city: 'Sydney' },
+  serviceTypes: ['ECN Forex Broker', 'CFD Broker', 'Copy Trading Platform'],
+  aggregateRating: { ratingValue: 4.3, reviewCount: 1 },
+  minDeposit: '$0'
+});
+
+const faqSchema = generateFAQSchema(faqData);
+const reviewSchema = generateReviewSchema({
+  itemReviewed: { type: 'FinancialService', name: 'Axi', url: 'https://www.axi.com' },
+  reviewRating: { ratingValue: 4.3 },
+  datePublished: '2026-01-20',
+  reviewBody: verdictData.verdict
+});
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonicalUrl}
+  ogType="article"
+  publishDate="2026-01-20"
+  modifiedDate={lastUpdated}
+  schema={[brokerSchema, faqSchema, reviewSchema, breadcrumbSchema]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero Section -->
+  <section class="hero section">
+    <div class="container">
+      <Chip variant="info">ECN Broker</Chip>
+      <h1 class="heading-1">Axi Review {CURRENT_YEAR} – Raw Spreads for Serious Traders</h1>
+      <p class="body-large hero-subtitle">
+        Trade from 0.0 pips with true ECN execution and no minimum deposit. Our expert analysis of Axi's platform for scalpers, day traders, and algorithmic trading.
+      </p>
+
+      <div class="review-meta">
+        <span class="review-meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          Last Updated: {lastUpdated}
+        </span>
+        <span class="review-meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          By TradeTheDay Research Team
+        </span>
+        <span class="review-meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Verified Review
+        </span>
+      </div>
+
+      <div class="hero-cta-group">
+        <a href="https://www.axi.com/" class="btn btn-primary btn-xl" target="_blank" rel="noopener sponsored">Open Axi Account</a>
+        <a href="#verdict" class="btn btn-secondary btn-lg">Read Full Verdict</a>
+      </div>
+      <Scorecard metrics={heroScorecard} />
+    </div>
+  </section>
+
+  <Navigation links={navigationLinks} />
+
+  <!-- Overview Section -->
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Axi Overview – ECN Broker Since 2007</h2>
+        <p class="body-large">
+          Axi (formerly AxiTrader) is an Australian-founded broker that has built its reputation on providing institutional-grade trading conditions to retail traders. Regulated by ASIC, FCA, and other authorities, Axi focuses on what matters most to serious traders: tight spreads, fast execution, and reliable platform access.
+        </p>
+      </div>
+
+      <AnalystNotes title="Analyst Notes: Axi Overview" icon="📊" id="overview-notes" expanded={true}>
+        <h4>What Sets Axi Apart</h4>
+        <p>Having tested Axi's platform extensively, several characteristics distinguish them from the crowded broker landscape:</p>
+
+        <div class="grid-2">
+          <div>
+            <h5>Core Strengths</h5>
+            <ul>
+              <li><strong>True ECN Execution:</strong> Unlike market makers, Axi connects you directly to liquidity providers with no dealing desk intervention</li>
+              <li><strong>Zero Barrier to Entry:</strong> No minimum deposit on any account type is rare in the industry and makes professional-grade trading accessible</li>
+              <li><strong>Transparent Pricing:</strong> What you see is what you pay - no hidden fees, no inactivity charges</li>
+              <li><strong>Scalper-Friendly:</strong> No restrictions on trading styles, including high-frequency scalping</li>
+            </ul>
+          </div>
+          <div>
+            <h5>Key Metrics</h5>
+            <ul>
+              <li><strong>Founded:</strong> 2007 in Sydney, Australia</li>
+              <li><strong>Execution Speed:</strong> Average under 30ms</li>
+              <li><strong>Daily Volume:</strong> $100B+ in notional value</li>
+              <li><strong>Active Clients:</strong> 60,000+ globally</li>
+              <li><strong>Trading Servers:</strong> NY4, LD4 data centers</li>
+            </ul>
+          </div>
+        </div>
+
+        <h4>Who Uses Axi?</h4>
+        <p>Axi's client base skews toward more experienced traders who understand what they need. You'll find:</p>
+        <ul>
+          <li><strong>Forex Day Traders:</strong> Attracted by raw spreads and fast execution for intraday strategies</li>
+          <li><strong>Scalpers:</strong> No restrictions and sub-30ms execution suit high-frequency approaches</li>
+          <li><strong>EA Developers:</strong> Free VPS and MT4/MT5 support make it ideal for automated trading</li>
+          <li><strong>Professional Traders:</strong> Institutional-grade conditions without institutional minimums</li>
+        </ul>
+
+        <h4>The Bottom Line</h4>
+        <p>Axi isn't trying to be everything to everyone. They've chosen to focus on doing ECN forex trading exceptionally well rather than spreading themselves thin. If you're a serious forex trader who values execution quality and cost efficiency over flashy features, Axi deserves serious consideration.</p>
+      </AnalystNotes>
+
+      <CompanyInfo
+        title="Complete Axi Company Overview"
+        subtitle="Essential company information, trading conditions, and account details"
+        sections={companyInfoSections}
+        columns={3}
+        brokerName="Axi"
+        schemaData={companySchemaData}
+      />
+    </div>
+  </section>
+
+  <!-- Why Choose Axi Section -->
+  <section id="why-choose" class="section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Why Choose Axi in {CURRENT_YEAR}?</h2>
+        <p class="body-large">
+          Raw ECN spreads, zero fees, and institutional-grade execution without the institutional minimums.
+        </p>
+      </div>
+
+      <FeatureHighlights features={whyChooseFeatures} title="" />
+
+      <AnalystNotes title="Analyst Notes: Why Traders Choose Axi" icon="🎯" id="why-choose-notes">
+        <h4>The Axi Value Proposition</h4>
+        <p>After analyzing dozens of brokers, Axi stands out in several key areas that matter to active traders:</p>
+
+        <h5>1. Cost Efficiency That Compounds</h5>
+        <p>Consider a trader executing 10 standard lots per day on EUR/USD:</p>
+        <ul>
+          <li><strong>Axi Pro:</strong> 0.0 pips + $7 commission = $70/day in costs</li>
+          <li><strong>Average Broker:</strong> 1.2 pips all-in = $120/day in costs</li>
+          <li><strong>Annual Savings:</strong> ~$12,500 (assuming 250 trading days)</li>
+        </ul>
+        <p>This cost advantage compounds significantly over time and directly impacts your bottom line.</p>
+
+        <h5>2. Execution Quality Matters</h5>
+        <p>Axi's infrastructure is designed for speed:</p>
+        <ul>
+          <li>Co-located servers in Equinix NY4 and LD4 data centers</li>
+          <li>Average execution under 30 milliseconds</li>
+          <li>99.99% server uptime</li>
+          <li>Direct STP to 14+ tier-1 liquidity providers</li>
+        </ul>
+
+        <h5>3. No Artificial Barriers</h5>
+        <p>Unlike many "professional" brokers, Axi doesn't gate their best conditions behind high minimums:</p>
+        <ul>
+          <li>No minimum deposit on Standard or Pro accounts</li>
+          <li>Full MT4/MT5 functionality from day one</li>
+          <li>Free VPS for qualifying traders</li>
+          <li>All trading styles permitted</li>
+        </ul>
+
+        <h5>4. Regulatory Credibility</h5>
+        <p>Multi-jurisdictional regulation from ASIC, FCA, and DFSA provides redundant oversight and client protection. This isn't a broker operating from an offshore jurisdiction with minimal oversight.</p>
+
+        <h4>Who Axi Is NOT For</h4>
+        <p>In fairness, Axi isn't the right choice for everyone:</p>
+        <ul>
+          <li><strong>Complete Beginners:</strong> Limited educational content means you'll need to learn elsewhere</li>
+          <li><strong>Research-Dependent Traders:</strong> Basic analysis tools compared to IG or Saxo</li>
+          <li><strong>Diversified Investors:</strong> Forex-focused offering; fewer stocks and ETFs than multi-asset platforms</li>
+        </ul>
+      </AnalystNotes>
+
+      <ProcessSteps steps={openingProcessSteps} title="Open an Axi Account" />
+    </div>
+  </section>
+
+  <!-- Fees Section -->
+  <section id="fees" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Axi Fees & Trading Costs</h2>
+        <p class="body-large">
+          One of the most competitive fee structures in the industry, with raw spreads from 0.0 pips and zero non-trading fees.
+        </p>
+      </div>
+
+      <ComparisonTable
+        title="Fee Comparison: Axi vs Industry Average"
+        headers={feeTableHeaders}
+        rows={feeRows}
+        footnote="Pro account spreads shown. Standard account from 1.0 pips with no commission. All fees verified January 2026."
+      />
+
+      <AnalystNotes title="Analyst Notes: Understanding Axi's Fee Structure" icon="💰" id="fees-notes">
+        <h4>Breaking Down the True Cost of Trading</h4>
+        <p>Axi offers two primary pricing models, and choosing the right one depends on your trading style:</p>
+
+        <h5>Standard Account: Simplicity First</h5>
+        <ul>
+          <li><strong>Spreads:</strong> From 1.0 pips on EUR/USD</li>
+          <li><strong>Commission:</strong> None</li>
+          <li><strong>Best for:</strong> Swing traders, position traders, those who prefer all-in pricing</li>
+          <li><strong>Break-even vs Pro:</strong> Less than 1 lot per trade</li>
+        </ul>
+
+        <h5>Pro Account: Raw Performance</h5>
+        <ul>
+          <li><strong>Spreads:</strong> From 0.0 pips (average 0.1-0.2 on EUR/USD)</li>
+          <li><strong>Commission:</strong> $7 per standard lot round-turn</li>
+          <li><strong>Best for:</strong> Scalpers, day traders, high-frequency strategies, EAs</li>
+          <li><strong>Advantage:</strong> True institutional spreads at retail level</li>
+        </ul>
+
+        <h5>Real-World Cost Comparison</h5>
+        <p>For a typical EUR/USD trade of 1 standard lot:</p>
+        <table class="cost-comparison">
+          <tr><td><strong>Axi Standard:</strong></td><td>1.0 pip spread = $10</td></tr>
+          <tr><td><strong>Axi Pro:</strong></td><td>0.1 pip spread + $7 = ~$8</td></tr>
+          <tr><td><strong>Industry Avg:</strong></td><td>1.2 pip spread = $12</td></tr>
+        </table>
+
+        <h4>Zero Non-Trading Fees</h4>
+        <p>Axi's fee transparency extends beyond trading:</p>
+        <ul>
+          <li><strong>Deposit Fees:</strong> None on any method</li>
+          <li><strong>Withdrawal Fees:</strong> None on any method</li>
+          <li><strong>Inactivity Fee:</strong> None (no penalty for dormant accounts)</li>
+          <li><strong>Account Maintenance:</strong> None</li>
+        </ul>
+        <p>This is increasingly rare in the industry, where many brokers use non-trading fees to boost revenue.</p>
+
+        <h4>Overnight Financing (Swap Rates)</h4>
+        <p>Like all forex brokers, Axi charges overnight swap rates on positions held past market close. These are standard interbank rates and are competitive with industry norms. Islamic swap-free accounts are available upon request.</p>
+      </AnalystNotes>
+
+      <CostAnalysis
+        title="Cost Analysis:"
+        content={costAnalysisData.summary}
+        variant="info"
+      />
+    </div>
+  </section>
+
+  <!-- Safety Section -->
+  <section id="safety" class="section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Is Axi Safe? Regulation & Security</h2>
+        <p class="body-large">
+          Multi-jurisdictional tier-1 regulation from ASIC, FCA, and other authorities ensures strong client protection.
+        </p>
+      </div>
+
+      <SimpleGrid columns={2}>
+        {regulationLicenses.map(reg => <RegulationCard {...reg} />)}
+      </SimpleGrid>
+
+      <AnalystNotes title="Analyst Notes: Axi's Safety & Trustworthiness" icon="🛡️" id="safety-notes" variant="dark">
+        <h4>Regulatory Framework Analysis</h4>
+        <p>Axi maintains licenses from multiple respected financial regulators, providing layered client protection:</p>
+
+        <h5>ASIC (Australia) - Primary Regulator</h5>
+        <p>As Axi's home regulator, ASIC provides the core regulatory framework:</p>
+        <ul>
+          <li>License Number: 318232 (verify at moneysmart.gov.au)</li>
+          <li>Mandatory client money segregation</li>
+          <li>Minimum capital requirements</li>
+          <li>Professional indemnity insurance</li>
+          <li>Annual external audits</li>
+        </ul>
+
+        <h5>FCA (UK) - Secondary Regulator</h5>
+        <p>UK clients benefit from additional protections:</p>
+        <ul>
+          <li>License Number: 509746 (verify at register.fca.org.uk)</li>
+          <li>FSCS compensation up to £85,000</li>
+          <li>Negative balance protection</li>
+          <li>Access to Financial Ombudsman Service</li>
+        </ul>
+
+        <h4>Client Fund Security</h4>
+        <p>Axi implements industry-standard security measures:</p>
+        <ul>
+          <li><strong>Segregated Accounts:</strong> Client funds held separately from company operating funds at top-tier banks (NAB, Barclays)</li>
+          <li><strong>Negative Balance Protection:</strong> Guaranteed for retail clients - you cannot lose more than your deposit</li>
+          <li><strong>SSL Encryption:</strong> 256-bit encryption on all data transmission</li>
+          <li><strong>Two-Factor Authentication:</strong> Available for account access</li>
+        </ul>
+
+        <h4>Track Record</h4>
+        <p>Since 2007, Axi has maintained a clean regulatory record with no major sanctions or enforcement actions. This 17+ year track record provides confidence in their operational integrity.</p>
+
+        <h4>What This Means for You</h4>
+        <p>While no investment is risk-free, Axi's regulatory structure provides meaningful protection. Your funds are segregated, you have access to compensation schemes (for eligible clients), and independent regulators monitor Axi's operations.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Platforms Section -->
+  <section id="platforms" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Trading Platforms</h2>
+        <p class="body-large">
+          Full MT4 and MT5 support with free VPS hosting for algorithmic traders.
+        </p>
+      </div>
+
+      <PlatformGrid platforms={tradingPlatforms} />
+
+      <AnalystNotes title="Analyst Notes: Platform Capabilities" icon="🖥️" id="platforms-notes">
+        <h4>MetaTrader Focus</h4>
+        <p>Unlike brokers pushing proprietary platforms, Axi has doubled down on MetaTrader excellence. This approach has distinct advantages:</p>
+
+        <h5>MetaTrader 4 (MT4)</h5>
+        <ul>
+          <li><strong>Industry Standard:</strong> The most widely used forex platform with extensive third-party support</li>
+          <li><strong>Expert Advisors:</strong> Full MQL4 support for automated trading strategies</li>
+          <li><strong>Custom Indicators:</strong> Access to thousands of free and premium indicators</li>
+          <li><strong>One-Click Trading:</strong> Enabled for rapid execution</li>
+          <li><strong>Mobile Apps:</strong> iOS and Android with full functionality</li>
+        </ul>
+
+        <h5>MetaTrader 5 (MT5)</h5>
+        <ul>
+          <li><strong>Enhanced Features:</strong> 21 timeframes vs MT4's 9, more order types</li>
+          <li><strong>Depth of Market:</strong> See real-time liquidity levels</li>
+          <li><strong>Multi-Asset:</strong> Better suited for trading multiple asset classes</li>
+          <li><strong>Economic Calendar:</strong> Built-in news and events tracking</li>
+          <li><strong>Improved Backtesting:</strong> Multi-currency strategy testing</li>
+        </ul>
+
+        <h4>Free VPS Hosting</h4>
+        <p>Axi offers complimentary VPS (Virtual Private Server) hosting for traders who:</p>
+        <ul>
+          <li>Maintain consistent monthly trading volume</li>
+          <li>Run automated strategies that benefit from 24/7 uptime</li>
+          <li>Need low-latency connections to trading servers</li>
+        </ul>
+        <p>The VPS is hosted on enterprise-grade infrastructure with direct connections to Axi's execution servers, minimizing latency for EA traders.</p>
+
+        <h4>Axi Copy Trading</h4>
+        <p>For those preferring social trading, Axi offers an integrated copy trading solution:</p>
+        <ul>
+          <li>Copy experienced traders' positions automatically</li>
+          <li>Set risk parameters and allocation limits</li>
+          <li>Track strategy performance with detailed analytics</li>
+          <li>Works directly within MT4/MT5 environment</li>
+        </ul>
+        <p>Note: This is less developed than dedicated social trading platforms like eToro, but suits those who want copy trading without leaving MetaTrader.</p>
+
+        <h4>What's Missing</h4>
+        <p>Axi doesn't offer:</p>
+        <ul>
+          <li>Proprietary web platform (MetaTrader WebTrader is available)</li>
+          <li>TradingView integration (available with some competitors)</li>
+          <li>Advanced charting beyond MetaTrader's capabilities</li>
+        </ul>
+        <p>For most forex-focused traders, this isn't a significant limitation given MetaTrader's comprehensive features.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Account Types Section -->
+  <section id="accounts" class="section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Account Types</h2>
+        <p class="body-large">
+          Three account options to match different trading styles and volumes.
+        </p>
+      </div>
+
+      <div class="account-types-grid">
+        {accountTypes.map((account) => (
+          <div class="account-card">
+            <h3 class="account-card-title">{account.name}</h3>
+            <div class="account-card-stats">
+              <div class="account-stat">
+                <span class="stat-label">Min Deposit</span>
+                <span class="stat-value">{account.minDeposit}</span>
+              </div>
+              <div class="account-stat">
+                <span class="stat-label">Spreads</span>
+                <span class="stat-value">{account.spreads}</span>
+              </div>
+              <div class="account-stat">
+                <span class="stat-label">Commission</span>
+                <span class="stat-value">{account.commission}</span>
+              </div>
+              <div class="account-stat">
+                <span class="stat-label">Leverage</span>
+                <span class="stat-value">{account.leverage}</span>
+              </div>
+            </div>
+            <ul class="account-features">
+              {account.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            <p class="account-best-for"><strong>Best for:</strong> {account.bestFor}</p>
+          </div>
+        ))}
+      </div>
+
+      <AnalystNotes title="Analyst Notes: Choosing the Right Account" icon="📋" id="accounts-notes">
+        <h4>Account Selection Guide</h4>
+        <p>Choosing between Axi's accounts comes down to your trading frequency and style:</p>
+
+        <h5>Standard Account - When to Choose</h5>
+        <ul>
+          <li>You prefer simple, all-in pricing without calculating commissions</li>
+          <li>You're a swing trader or position trader (fewer trades)</li>
+          <li>You trade smaller position sizes (under 1 lot typically)</li>
+          <li>You're new to ECN-style trading</li>
+        </ul>
+
+        <h5>Pro Account - When to Choose</h5>
+        <ul>
+          <li>You're a day trader or scalper executing multiple trades daily</li>
+          <li>You trade 1 lot or larger position sizes</li>
+          <li>You run automated strategies where tight spreads matter</li>
+          <li>You want the most competitive pricing available</li>
+        </ul>
+
+        <h5>Elite Account - When to Choose</h5>
+        <ul>
+          <li>You trade significant volume (10+ lots daily)</li>
+          <li>You have $25,000+ to dedicate to your trading account</li>
+          <li>You want dedicated support and lowest possible commissions</li>
+          <li>You're a professional or semi-professional trader</li>
+        </ul>
+
+        <h4>The Math: Standard vs Pro</h4>
+        <p>Break-even calculation for EUR/USD:</p>
+        <ul>
+          <li>Standard spread: 1.0 pip = $10 per lot</li>
+          <li>Pro: 0.1 pip spread + $7 commission = ~$8 per lot</li>
+          <li><strong>Savings on Pro:</strong> ~$2 per lot traded</li>
+        </ul>
+        <p>If you trade more than 3-4 lots per month, the Pro account typically offers better value despite the commission.</p>
+
+        <h4>Can You Switch?</h4>
+        <p>Yes, you can open multiple account types or request to change your existing account. Axi is flexible in accommodating traders as their needs evolve.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Deposits Section -->
+  <section id="deposits" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Deposits & Withdrawals</h2>
+        <p class="body-large">
+          Zero fees on all payment methods with fast processing times.
+        </p>
+      </div>
+
+      <PaymentMethods methods={paymentMethods} />
+
+      <PaymentDetails
+        title="Withdrawal & Payment Information"
+        subtitle="Complete overview of payment processing, fees, and conditions"
+        withdrawalDetails={withdrawalDetails}
+        analysisTitle="Payment System Analysis"
+        analysis={paymentAnalysis}
+      />
+    </div>
+  </section>
+
+  <!-- Instruments Section -->
+  <section id="instruments" class="section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Trading Instruments</h2>
+        <p class="body-large">
+          220+ instruments across forex, indices, commodities, cryptocurrencies, and share CFDs.
+        </p>
+      </div>
+
+      <TradingInstruments categories={instrumentCategories} />
+    </div>
+  </section>
+
+  <!-- Pros & Cons Section -->
+  <section id="pros-cons" class="section section--dark">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Axi Pros & Cons</h2>
+        <p class="body-large" style="color: rgba(255,255,255,0.8);">
+          Our honest assessment after extensive testing.
+        </p>
+      </div>
+
+      <ProsCons pros={prosConsData.pros} cons={prosConsData.cons} />
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="section">
+    <div class="container container--narrow">
+      <div class="section-header">
+        <h2 class="heading-2">Frequently Asked Questions</h2>
+        <p class="body-large">Everything you need to know about Axi.</p>
+      </div>
+
+      <FAQ questions={faqData} />
+    </div>
+  </section>
+
+  <!-- Verdict Section -->
+  <section id="verdict" class="section section--alt">
+    <div class="container">
+      <BrokerVerdict {...verdictData} />
+
+      <AnalystNotes title="Analyst Notes: Final Verdict on Axi" icon="⚖️" id="verdict-notes" expanded={true}>
+        <h4>Our Assessment</h4>
+        <p>After comprehensive testing and analysis, Axi earns its reputation as one of the best ECN brokers for forex-focused traders. Here's our final take:</p>
+
+        <h5>What Axi Does Exceptionally Well</h5>
+        <ul>
+          <li><strong>Trading Costs:</strong> The combination of 0.0 pip spreads and $7 round-turn commission on the Pro account makes Axi one of the most cost-effective choices for active traders</li>
+          <li><strong>Execution Quality:</strong> Sub-30ms execution with no dealing desk intervention delivers on the ECN promise</li>
+          <li><strong>Accessibility:</strong> No minimum deposit removes barriers to accessing professional trading conditions</li>
+          <li><strong>Transparency:</strong> Zero hidden fees, no inactivity charges, clear pricing structure</li>
+          <li><strong>EA Support:</strong> Full MetaTrader functionality with free VPS for qualifying traders</li>
+        </ul>
+
+        <h5>Where Axi Falls Short</h5>
+        <ul>
+          <li><strong>Education:</strong> Limited learning resources compared to eToro or IG</li>
+          <li><strong>Research:</strong> Basic analysis tools; serious researchers may need supplementary services</li>
+          <li><strong>Instrument Range:</strong> Forex-focused; fewer stocks and ETFs than multi-asset platforms</li>
+          <li><strong>Innovation:</strong> No proprietary platform or advanced charting integration</li>
+        </ul>
+
+        <h4>Who Should Choose Axi?</h4>
+        <div class="grid-2">
+          <div>
+            <h5>Ideal For:</h5>
+            <ul>
+              <li>Forex day traders and scalpers</li>
+              <li>Algorithmic traders running EAs</li>
+              <li>Cost-conscious professionals</li>
+              <li>Those who value execution over features</li>
+              <li>MetaTrader power users</li>
+            </ul>
+          </div>
+          <div>
+            <h5>Look Elsewhere If:</h5>
+            <ul>
+              <li>You're a complete beginner needing education</li>
+              <li>You want stocks, ETFs, and bonds</li>
+              <li>You need advanced research tools</li>
+              <li>You prefer social trading features</li>
+              <li>You want a proprietary platform</li>
+            </ul>
+          </div>
+        </div>
+
+        <h4>The Bottom Line</h4>
+        <p>Axi is a specialist, not a generalist. They've focused on doing forex trading exceptionally well rather than being mediocre at everything. If you're an experienced forex trader who knows what you need -tight spreads, fast execution, MT4/MT5 support -Axi delivers. If you're looking for a do-everything platform with extensive education and research, look elsewhere.</p>
+
+        <p><strong>Our Rating: 4.3/5</strong> - Excellent for forex traders prioritizing cost and execution. Limited appeal for beginners or those seeking a broader product range.</p>
+      </AnalystNotes>
+
+      <BestFor bestFor={verdictData.bestFor} notIdealFor={verdictData.notIdealFor} />
+
+      <!-- Related Links -->
+      <div class="related-comparisons">
+        <h3 class="heading-3 text-center">Explore More</h3>
+        <div class="related-links">
+          <a href="/compare/axi-vs-ic-markets/" class="related-link">
+            <span class="related-title">Axi vs IC Markets</span>
+            <span class="related-desc">Two ECN brokers compared - which has tighter spreads?</span>
+          </a>
+          <a href="/compare/axi-vs-pepperstone/" class="related-link">
+            <span class="related-title">Axi vs Pepperstone</span>
+            <span class="related-desc">Australian brokers showdown for serious traders</span>
+          </a>
+          <a href="/find-broker/" class="related-link">
+            <span class="related-title">Find Your Perfect Broker</span>
+            <span class="related-desc">Take our 30-second quiz to get matched with the right broker</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="final-cta">
+        <a href="https://www.axi.com/" class="btn btn-primary btn-xl" target="_blank" rel="noopener sponsored">Open Axi Account</a>
+        <p class="cta-subtext">No minimum deposit required | <a href="/brokers/" class="brand-link">Compare other brokers</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross Promotion Section -->
+  <section class="section section-gray">
+    <div class="container">
+      <BrokerCrossPromo brokerSlug="axi" brokerName="Axi" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-subtitle {
+    max-width: 800px;
+    margin: 0 auto var(--space-4);
+    color: var(--color-gray-300);
+  }
+
+  .review-meta {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-6);
+  }
+
+  .review-meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-400);
+  }
+
+  .review-meta-item svg {
+    opacity: 0.7;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-8);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-10);
+  }
+
+  .section-header h2 {
+    margin-bottom: var(--space-3);
+  }
+
+  .section-header p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--color-gray-600);
+  }
+
+  /* Account Types Grid */
+  .account-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .account-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .account-card-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-4);
+    color: var(--color-gray-900);
+  }
+
+  .account-card-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    padding: var(--space-4);
+    background: var(--color-gray-50);
+    border-radius: var(--radius-md);
+  }
+
+  .account-stat {
+    text-align: center;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    margin-bottom: var(--space-1);
+  }
+
+  .stat-value {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-gray-900);
+  }
+
+  .account-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  .account-features li {
+    padding: var(--space-2) 0;
+    padding-left: var(--space-6);
+    position: relative;
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+  }
+
+  .account-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-weight: bold;
+  }
+
+  .account-best-for {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-gray-100);
+  }
+
+  /* Cost Comparison Table in Analyst Notes */
+  .cost-comparison {
+    width: 100%;
+    margin: var(--space-4) 0;
+  }
+
+  .cost-comparison td {
+    padding: var(--space-2);
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-6);
+    margin: var(--space-4) 0;
+  }
+
+  .grid-2 h5 {
+    margin-bottom: var(--space-2);
+    color: var(--charcoal);
+  }
+
+  .grid-2 ul {
+    margin: 0;
+    padding-left: var(--space-4);
+  }
+
+  .grid-2 li {
+    margin-bottom: var(--space-2);
+  }
+
+  .final-cta {
+    text-align: center;
+    margin-top: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  .cta-subtext {
+    margin-top: var(--space-4);
+    color: var(--color-gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  @media (max-width: 768px) {
+    .review-meta {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .account-card-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .related-links {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Related Comparisons */
+  .related-comparisons {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  .related-comparisons h3 {
+    margin-bottom: 1.5rem;
+  }
+
+  .related-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .related-link {
+    display: block;
+    padding: 1.25rem;
+    background: var(--color-gray-50);
+    border: 1px solid var(--color-gray-200);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .related-link:hover {
+    border-color: var(--brand-orange);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .related-title {
+    display: block;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin-bottom: 0.25rem;
+  }
+
+  .related-desc {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--color-gray-600);
+  }
+</style>

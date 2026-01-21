@@ -1,0 +1,225 @@
+<!-- Homepage Hero 1: Best Brokers Table -->
+<!-- Copy this entire section to use the best brokers homepage hero -->
+<section class="hero-homepage-best section">
+    <div class="container">
+        <div class="homepage-hero-content">
+            <div class="homepage-intro">
+                <span class="chip">2025 Rankings</span>
+                <h1 class="heading-1">Best Trading Brokers</h1>
+                <p class="body-large">Compare top-rated brokers based on fees, platforms, regulation, and user satisfaction.</p>
+            </div>
+            
+            <div class="homepage-table-container">
+                <table class="homepage-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Broker</th>
+                            <th>Min Deposit</th>
+                            <th>Spreads From</th>
+                            <th>Rating</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="rank-gold">
+                            <td><span class="rank-badge gold">🥇 1</span></td>
+                            <td><strong>IC Markets</strong></td>
+                            <td>$200</td>
+                            <td>0.0 pips</td>
+                            <td>★★★★★ 4.8</td>
+                            <td><a href="#" class="btn btn-primary btn-sm">Visit</a></td>
+                        </tr>
+                        <tr class="rank-silver">
+                            <td><span class="rank-badge silver">🥈 2</span></td>
+                            <td><strong>IG</strong></td>
+                            <td>$250</td>
+                            <td>0.6 pips</td>
+                            <td>★★★★☆ 4.5</td>
+                            <td><a href="#" class="btn btn-primary btn-sm">Visit</a></td>
+                        </tr>
+                        <tr class="rank-bronze">
+                            <td><span class="rank-badge bronze">🥉 3</span></td>
+                            <td><strong>AvaTrade</strong></td>
+                            <td>$100</td>
+                            <td>0.9 pips</td>
+                            <td>★★★★☆ 4.2</td>
+                            <td><a href="#" class="btn btn-primary btn-sm">Visit</a></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><strong>Plus500</strong></td>
+                            <td>$100</td>
+                            <td>1.2 pips</td>
+                            <td>★★★☆☆ 3.9</td>
+                            <td><a href="#" class="btn btn-ghost btn-sm">Visit</a></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><strong>XTB</strong></td>
+                            <td>$250</td>
+                            <td>0.8 pips</td>
+                            <td>★★★★☆ 4.1</td>
+                            <td><a href="#" class="btn btn-ghost btn-sm">Visit</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="homepage-cta">
+                <p class="body-sm">Updated January 2025 • <a href="#methodology" class="text-link">See our methodology</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Homepage Hero 1: Best Brokers Table */
+.hero-homepage-best {
+    background: var(--gradient-light);
+    padding: var(--space-4xl) 0;
+}
+
+.homepage-hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.homepage-intro {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+}
+
+.homepage-intro .chip {
+    margin-bottom: var(--space-md);
+}
+
+.homepage-table-container {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.homepage-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.homepage-table th {
+    background: var(--gray-50);
+    padding: var(--space-md) var(--space-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--gray-700);
+    font-size: var(--font-size-sm);
+    text-align: left;
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.homepage-table td {
+    padding: var(--space-md) var(--space-sm);
+    border-bottom: 1px solid var(--gray-100);
+    vertical-align: middle;
+}
+
+.homepage-table tbody tr:hover {
+    background: var(--gray-25);
+}
+
+.rank-gold {
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
+}
+
+.rank-silver {
+    background: linear-gradient(90deg, rgba(192, 192, 192, 0.1) 0%, transparent 100%);
+}
+
+.rank-bronze {
+    background: linear-gradient(90deg, rgba(205, 127, 50, 0.1) 0%, transparent 100%);
+}
+
+.rank-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-weight: var(--font-weight-bold);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-sm);
+}
+
+.rank-badge.gold {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+    color: #B8860B;
+}
+
+.rank-badge.silver {
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.2) 0%, rgba(192, 192, 192, 0.1) 100%);
+    color: #708090;
+}
+
+.rank-badge.bronze {
+    background: linear-gradient(135deg, rgba(205, 127, 50, 0.2) 0%, rgba(205, 127, 50, 0.1) 100%);
+    color: #CD7F32;
+}
+
+.homepage-cta {
+    text-align: center;
+    color: var(--gray-600);
+}
+
+.text-link {
+    color: var(--brand-orange);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+}
+
+.text-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .homepage-table {
+        font-size: var(--font-size-sm);
+    }
+    
+    .homepage-table th,
+    .homepage-table td {
+        padding: var(--space-sm) var(--space-xs);
+    }
+    
+    .rank-badge {
+        font-size: var(--font-size-xs);
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Perfect for homepage broker rankings and comparisons
+2. Features gold/silver/bronze ranking system with visual badges
+3. Clean table design with hover effects and responsive layout
+4. Update broker data with your actual comparison information
+5. Customize ranking badges and colors as needed
+6. Table automatically adjusts for mobile screens
+
+Customization Options:
+- Update brokers: Replace with your featured brokers
+- Modify rankings: Change order and add/remove brokers
+- Customize badges: Update ranking colors and icons
+- Change data: Update spreads, deposits, ratings
+- Add columns: Extend table with more comparison points
+- Remove rankings: Use without gold/silver/bronze if preferred
+- Update CTA: Modify methodology link and date
+
+Ranking System:
+- Gold badge for #1 broker with gold accent background
+- Silver badge for #2 broker with silver accent background
+- Bronze badge for #3 broker with bronze accent background
+- Standard rows for remaining brokers
+- Hover effects on all rows for interactivity
+
+Required CSS: design-system.css + embedded styles above
+-->

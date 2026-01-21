@@ -1,0 +1,591 @@
+---
+interface Props {
+  variant?: 'compact' | 'full' | 'card';
+  showDetails?: boolean;
+}
+
+const { variant = 'full', showDetails = true } = Astro.props;
+
+// Trading performance data - update this with real results
+const performance = {
+  accountAge: "18 months",
+  totalReturn: 127.4,
+  monthlyAvg: 7.1,
+  winRate: 68,
+  profitFactor: 2.3,
+  maxDrawdown: 12.4,
+  totalTrades: 847,
+  avgTradeReturn: 0.15,
+  bestMonth: 18.7,
+  worstMonth: -4.2,
+  sharpeRatio: 1.8,
+  verified: true,
+  verificationUrl: "#", // Link to Myfxbook or similar
+  lastUpdated: "January 2026",
+
+  // Monthly returns for chart
+  monthlyReturns: [
+    { month: "Jan 25", return: 8.2 },
+    { month: "Feb 25", return: 5.4 },
+    { month: "Mar 25", return: -2.1 },
+    { month: "Apr 25", return: 9.8 },
+    { month: "May 25", return: 6.3 },
+    { month: "Jun 25", return: 4.7 },
+    { month: "Jul 25", return: 11.2 },
+    { month: "Aug 25", return: -4.2 },
+    { month: "Sep 25", return: 7.9 },
+    { month: "Oct 25", return: 18.7 },
+    { month: "Nov 25", return: 3.4 },
+    { month: "Dec 25", return: 8.1 },
+    { month: "Jan 26", return: 6.8 }
+  ],
+
+  // Recent trades
+  recentTrades: [
+    { pair: "EUR/USD", direction: "BUY", result: 2.4, pips: 48, date: "Jan 20" },
+    { pair: "GBP/USD", direction: "SELL", result: -0.8, pips: -16, date: "Jan 19" },
+    { pair: "Gold", direction: "BUY", result: 3.1, pips: 62, date: "Jan 18" },
+    { pair: "USD/JPY", direction: "SELL", result: 1.5, pips: 30, date: "Jan 17" },
+    { pair: "EUR/GBP", direction: "BUY", result: 0.9, pips: 18, date: "Jan 16" }
+  ]
+};
+
+// Calculate max return for chart scaling
+const maxReturn = Math.max(...performance.monthlyReturns.map(m => Math.abs(m.return)));
+---
+
+{variant === 'full' && (
+  <div class="trading-results trading-results-full">
+    <div class="results-header">
+      <div class="results-title-row">
+        <h2 class="results-title">Our Trading Performance</h2>
+        {performance.verified && (
+          <a href={performance.verificationUrl} class="verified-badge" target="_blank" rel="noopener">
+            <span class="verified-icon">✓</span>
+            Verified Results
+          </a>
+        )}
+      </div>
+      <p class="results-subtitle">Transparent, verified trading results. Updated {performance.lastUpdated}.</p>
+    </div>
+
+    <!-- Key Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card highlight">
+        <div class="stat-value positive">+{performance.totalReturn}%</div>
+        <div class="stat-label">Total Return</div>
+        <div class="stat-sublabel">{performance.accountAge}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">+{performance.monthlyAvg}%</div>
+        <div class="stat-label">Avg Monthly</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">{performance.winRate}%</div>
+        <div class="stat-label">Win Rate</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">{performance.profitFactor}</div>
+        <div class="stat-label">Profit Factor</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value negative">-{performance.maxDrawdown}%</div>
+        <div class="stat-label">Max Drawdown</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">{performance.totalTrades}</div>
+        <div class="stat-label">Total Trades</div>
+      </div>
+    </div>
+
+    {showDetails && (
+      <>
+        <!-- Monthly Returns Chart -->
+        <div class="chart-section">
+          <h3 class="section-label">Monthly Returns</h3>
+          <div class="returns-chart">
+            {performance.monthlyReturns.map(month => (
+              <div class="chart-bar-container">
+                <div
+                  class={`chart-bar ${month.return >= 0 ? 'positive' : 'negative'}`}
+                  style={`height: ${(Math.abs(month.return) / maxReturn) * 100}%`}
+                >
+                  <span class="bar-value">{month.return > 0 ? '+' : ''}{month.return}%</span>
+                </div>
+                <span class="bar-label">{month.month}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Recent Trades -->
+        <div class="trades-section">
+          <h3 class="section-label">Recent Trades</h3>
+          <div class="trades-list">
+            {performance.recentTrades.map(trade => (
+              <div class="trade-row">
+                <div class="trade-pair">
+                  <span class={`trade-direction ${trade.direction.toLowerCase()}`}>{trade.direction}</span>
+                  <span class="trade-symbol">{trade.pair}</span>
+                </div>
+                <div class="trade-date">{trade.date}</div>
+                <div class={`trade-result ${trade.result >= 0 ? 'positive' : 'negative'}`}>
+                  {trade.result > 0 ? '+' : ''}{trade.result}%
+                  <span class="trade-pips">({trade.pips > 0 ? '+' : ''}{trade.pips} pips)</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </>
+    )}
+
+    <div class="results-disclaimer">
+      <p>Past performance is not indicative of future results. Trading involves risk. Only trade with money you can afford to lose.</p>
+    </div>
+  </div>
+)}
+
+{variant === 'compact' && (
+  <div class="trading-results trading-results-compact">
+    <div class="compact-header">
+      <span class="compact-title">Live Performance</span>
+      {performance.verified && <span class="compact-verified">✓ Verified</span>}
+    </div>
+    <div class="compact-stats">
+      <div class="compact-stat">
+        <span class="compact-value positive">+{performance.totalReturn}%</span>
+        <span class="compact-label">Total</span>
+      </div>
+      <div class="compact-stat">
+        <span class="compact-value">{performance.winRate}%</span>
+        <span class="compact-label">Win Rate</span>
+      </div>
+      <div class="compact-stat">
+        <span class="compact-value">{performance.totalTrades}</span>
+        <span class="compact-label">Trades</span>
+      </div>
+    </div>
+    <a href="/results/" class="compact-link">View Full Results →</a>
+  </div>
+)}
+
+{variant === 'card' && (
+  <div class="trading-results trading-results-card">
+    <div class="card-badge">LIVE RESULTS</div>
+    <div class="card-main-stat">
+      <span class="card-value positive">+{performance.totalReturn}%</span>
+      <span class="card-period">{performance.accountAge}</span>
+    </div>
+    <div class="card-stats-row">
+      <div class="card-stat">
+        <span class="card-stat-value">{performance.winRate}%</span>
+        <span class="card-stat-label">Win Rate</span>
+      </div>
+      <div class="card-stat">
+        <span class="card-stat-value">+{performance.monthlyAvg}%</span>
+        <span class="card-stat-label">Avg/Month</span>
+      </div>
+      <div class="card-stat">
+        <span class="card-stat-value">{performance.profitFactor}</span>
+        <span class="card-stat-label">Profit Factor</span>
+      </div>
+    </div>
+    {performance.verified && (
+      <a href={performance.verificationUrl} class="card-verified" target="_blank" rel="noopener">
+        ✓ Independently Verified
+      </a>
+    )}
+  </div>
+)}
+
+<style>
+  /* Full Variant */
+  .trading-results-full {
+    background: var(--gray-900);
+    border: 1px solid var(--gray-800);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+  }
+
+  .results-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .results-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .results-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+  }
+
+  .verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-md);
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: 100px;
+    color: #10b981;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .verified-badge:hover {
+    background: rgba(16, 185, 129, 0.2);
+  }
+
+  .results-subtitle {
+    color: var(--gray-500);
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-2xl);
+  }
+
+  @media (max-width: 968px) {
+    .stats-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 500px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .stat-card {
+    background: var(--gray-800);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .stat-card.highlight {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, var(--gray-800) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+  }
+
+  .stat-value {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    margin-bottom: var(--space-xs);
+  }
+
+  .stat-value.positive {
+    color: #10b981;
+  }
+
+  .stat-value.negative {
+    color: #ef4444;
+  }
+
+  .stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .stat-sublabel {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    margin-top: var(--space-xs);
+  }
+
+  /* Chart Section */
+  .chart-section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .section-label {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+    color: var(--gray-500);
+  }
+
+  .returns-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 200px;
+    padding: var(--space-md);
+    background: var(--gray-800);
+    border-radius: var(--radius-lg);
+    gap: var(--space-xs);
+  }
+
+  .chart-bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .chart-bar {
+    width: 100%;
+    max-width: 40px;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: var(--space-xs);
+    min-height: 20px;
+    transition: height 0.3s ease;
+  }
+
+  .chart-bar.positive {
+    background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+  }
+
+  .chart-bar.negative {
+    background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
+  }
+
+  .bar-value {
+    font-size: 9px;
+    font-weight: 700;
+    color: white;
+    white-space: nowrap;
+  }
+
+  .bar-label {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    margin-top: var(--space-xs);
+    white-space: nowrap;
+  }
+
+  /* Trades Section */
+  .trades-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .trades-list {
+    background: var(--gray-800);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .trade-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--gray-700);
+  }
+
+  .trade-row:last-child {
+    border-bottom: none;
+  }
+
+  .trade-pair {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .trade-direction {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+  }
+
+  .trade-direction.buy {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+  }
+
+  .trade-direction.sell {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+  }
+
+  .trade-symbol {
+    font-weight: 600;
+  }
+
+  .trade-date {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .trade-result {
+    font-weight: 700;
+    text-align: right;
+  }
+
+  .trade-result.positive {
+    color: #10b981;
+  }
+
+  .trade-result.negative {
+    color: #ef4444;
+  }
+
+  .trade-pips {
+    font-size: var(--font-size-xs);
+    font-weight: 400;
+    color: var(--gray-500);
+    margin-left: var(--space-xs);
+  }
+
+  /* Disclaimer */
+  .results-disclaimer {
+    padding: var(--space-md);
+    background: var(--gray-800);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    text-align: center;
+  }
+
+  /* Compact Variant */
+  .trading-results-compact {
+    background: var(--gray-900);
+    border: 1px solid var(--gray-800);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .compact-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+  }
+
+  .compact-title {
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+  }
+
+  .compact-verified {
+    font-size: var(--font-size-xs);
+    color: #10b981;
+  }
+
+  .compact-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+  }
+
+  .compact-stat {
+    text-align: center;
+  }
+
+  .compact-value {
+    display: block;
+    font-weight: 700;
+    font-size: var(--font-size-base);
+  }
+
+  .compact-value.positive {
+    color: #10b981;
+  }
+
+  .compact-label {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+  }
+
+  .compact-link {
+    display: block;
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--brand-orange);
+    text-decoration: none;
+  }
+
+  .compact-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Card Variant */
+  .trading-results-card {
+    background: var(--gray-900);
+    border: 1px solid var(--gray-800);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+  }
+
+  .card-badge {
+    display: inline-block;
+    background: var(--brand-orange);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+  }
+
+  .card-main-stat {
+    margin-bottom: var(--space-lg);
+  }
+
+  .card-value {
+    display: block;
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+  }
+
+  .card-value.positive {
+    color: #10b981;
+  }
+
+  .card-period {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+  }
+
+  .card-stats-row {
+    display: flex;
+    justify-content: space-around;
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--gray-800);
+    border-bottom: 1px solid var(--gray-800);
+    margin-bottom: var(--space-md);
+  }
+
+  .card-stat-value {
+    display: block;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .card-stat-label {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+  }
+
+  .card-verified {
+    display: inline-block;
+    color: #10b981;
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+  }
+
+  .card-verified:hover {
+    text-decoration: underline;
+  }
+</style>

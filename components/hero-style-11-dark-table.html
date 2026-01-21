@@ -1,0 +1,271 @@
+<!-- Hero Style 11: Dark Comparison Table Hero -->
+<!-- Copy this entire section to use the dark comparison table hero style -->
+<section class="hero-dark-table section">
+    <div class="container">
+        <div class="text-center hero-dark-intro">
+            <span class="chip-dark">Broker Comparison</span>
+            <h1 class="heading-1">AvaTrade vs Top Competitors</h1>
+            <p class="body-large">See how AvaTrade compares across key metrics that matter most to traders.</p>
+        </div>
+        
+        <div class="hero-table-container">
+            <table class="hero-table">
+                <thead>
+                    <tr>
+                        <th>Broker</th>
+                        <th>Min Deposit</th>
+                        <th>EUR/USD</th>
+                        <th>Rating</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="hero-table-featured">
+                        <td class="broker-cell">
+                            <div class="broker-info">
+                                <div class="broker-logo">AT</div>
+                                <div>
+                                    <div class="broker-name">AvaTrade</div>
+                                    <div class="broker-badge">Our Pick</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="highlight-good"><span class="currency-mini">$100</span></td>
+                        <td><span class="spread-mini">0.9 pips</span></td>
+                        <td><span class="rating-mini">★★★★☆ 4.2</span></td>
+                        <td><a href="#" class="btn-mini btn-primary-mini">Trade Now</a></td>
+                    </tr>
+                    <tr>
+                        <td class="broker-cell">
+                            <div class="broker-info">
+                                <div class="broker-logo">IC</div>
+                                <div>
+                                    <div class="broker-name">IC Markets</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="currency-mini">$200</span></td>
+                        <td class="highlight-good"><span class="spread-mini">0.1 pips</span></td>
+                        <td><span class="rating-mini">★★★★★ 4.5</span></td>
+                        <td><a href="#" class="btn-mini btn-outline-mini">Compare</a></td>
+                    </tr>
+                    <tr>
+                        <td class="broker-cell">
+                            <div class="broker-info">
+                                <div class="broker-logo">P5</div>
+                                <div>
+                                    <div class="broker-name">Plus500</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="currency-mini">$100</span></td>
+                        <td class="highlight-warning"><span class="spread-mini">2.2 pips</span></td>
+                        <td><span class="rating-mini">★★★☆☆ 3.8</span></td>
+                        <td><a href="#" class="btn-mini btn-outline-mini">Compare</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="text-center hero-dark-cta">
+            <a href="#" class="btn btn-primary btn-xl">Start Trading with AvaTrade</a>
+            <p class="body-xs-light">76% of retail CFD accounts lose money • Trade responsibly</p>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Hero Style 11: Dark Comparison Table */
+.hero-dark-table {
+    background: linear-gradient(135deg, #1a1f2e 0%, #2d3748 100%);
+    color: var(--white);
+    padding: var(--space-4xl) 0;
+}
+
+.hero-dark-intro {
+    margin-bottom: var(--space-2xl);
+}
+
+.hero-dark-table .heading-1,
+.hero-dark-table .body-large {
+    color: var(--white);
+}
+
+.chip-dark {
+    background: rgba(255, 72, 0, 0.2);
+    color: var(--brand-orange-light);
+    border: 1px solid rgba(255, 72, 0, 0.4);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    display: inline-block;
+    margin-bottom: var(--space-md);
+}
+
+.hero-table-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-xl);
+    padding: var(--space-lg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: var(--space-xl) 0;
+}
+
+.hero-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.hero-table th {
+    color: var(--white);
+    font-weight: var(--font-weight-semibold);
+    padding: var(--space-md);
+    text-align: left;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-table td {
+    padding: var(--space-md);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-table-featured {
+    background: rgba(255, 72, 0, 0.1);
+    border: 2px solid rgba(255, 72, 0, 0.3);
+}
+
+.broker-cell {
+    min-width: 150px;
+}
+
+.broker-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.broker-logo {
+    width: 40px;
+    height: 40px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-sm);
+}
+
+.broker-name {
+    color: var(--white);
+    font-weight: var(--font-weight-semibold);
+}
+
+.broker-badge {
+    background: var(--gradient-primary);
+    color: var(--white);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+}
+
+.currency-mini {
+    color: var(--success);
+    font-weight: var(--font-weight-semibold);
+}
+
+.spread-mini {
+    color: var(--white);
+    font-weight: var(--font-weight-medium);
+}
+
+.rating-mini {
+    color: var(--brand-orange);
+    font-weight: var(--font-weight-medium);
+}
+
+.btn-mini {
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    display: inline-block;
+    transition: var(--transition-base);
+}
+
+.btn-primary-mini {
+    background: var(--gradient-primary);
+    color: var(--white);
+}
+
+.btn-outline-mini {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-outline-mini:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.hero-dark-cta {
+    margin-top: var(--space-xl);
+}
+
+.body-xs-light {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-xs);
+    margin-top: var(--space-sm);
+}
+
+.highlight-good {
+    background: rgba(16, 185, 129, 0.1);
+    border-left: 3px solid var(--success);
+    padding-left: var(--space-sm);
+}
+
+.highlight-warning {
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 3px solid var(--error);
+    padding-left: var(--space-sm);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-table-container {
+        overflow-x: auto;
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Perfect for broker comparisons with embedded table in hero section
+2. Dark theme creates premium feel and emphasizes data
+3. Features your recommended broker with highlighting
+4. Update table data to match your broker comparison
+5. Customize broker logos/initials and ratings
+6. Table automatically scrolls horizontally on mobile
+
+Customization Options:
+- Update brokers: Replace broker names, logos, and data
+- Modify table columns: Add/remove columns as needed
+- Change highlighting: Update .highlight-good/.highlight-warning classes
+- Customize badges: Update "Our Pick" badge text
+- Add more rows: Copy table row structure for more brokers
+- Update CTA: Modify button text and link
+- Change colors: Adjust dark background gradient
+
+Table Features:
+- Broker logos with initials or replace with actual images
+- Highlighted featured broker row
+- Color-coded performance indicators
+- Compact mini buttons for actions
+- Responsive horizontal scroll on mobile
+
+Required CSS: design-system.css + embedded styles above
+-->

@@ -1,0 +1,1165 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Chip from '../../../components/Chip.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import FAQ from '../../../components/FAQ.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import { getPropFirmBySlug } from '../../../data/propfirms';
+import { generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+
+// Get prop firm data
+const firm = getPropFirmBySlug('the-funded-trader');
+
+if (!firm) {
+  return Astro.redirect('/propfirms/');
+}
+
+// Page Configuration
+const FIRM_NAME = 'The Funded Trader';
+const pageTitle = `The Funded Trader Review 2026: Flexible Rules & Up to $600K Funding | TradeTheDay`;
+const pageDescription = `Honest The Funded Trader review. See our ${firm.scores.overall}/5 rating, challenge options, flexible trading rules, and whether TFT is right for you.`;
+
+// Navigation links
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#challenges', text: 'Challenges' },
+  { href: '#rules', text: 'Rules' },
+  { href: '#payouts', text: 'Payouts' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#pros-cons', text: 'Pros & Cons' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+// Hero scorecard
+const heroScorecard = [
+  { value: firm.maxFunding, label: 'Max Funding' },
+  { value: firm.profitSplit, label: 'Profit Split' },
+  { value: firm.startingPrice, label: 'From' },
+  { value: `${firm.scores.overall}/5`, label: 'Our Rating' }
+];
+
+// Challenge comparison table
+const challengeTableHeaders = ['Account Size', 'Price', 'Profit Target', 'Max Drawdown', 'Daily Drawdown', 'Time Limit'];
+const challengeRows = firm.challenges.map(challenge => ({
+  cells: [
+    { content: challenge.accountSize, type: 'text', highlight: 'neutral' },
+    { content: challenge.price, type: 'text', highlight: 'good' },
+    { content: challenge.profitTarget, type: 'text', highlight: 'neutral' },
+    { content: challenge.maxDrawdown, type: 'text', highlight: 'warning' },
+    { content: challenge.dailyDrawdown, type: 'text', highlight: 'warning' },
+    { content: challenge.timeLimit, type: 'text', highlight: 'neutral' }
+  ]
+}));
+
+// FAQ data
+const faqItems = [
+  {
+    question: 'Is The Funded Trader legitimate?',
+    answer: 'Yes, The Funded Trader is a legitimate prop firm founded in 2021 in Liberty Hill, Texas. They have paid out over $50 million to traders and maintain a solid reputation in the industry. However, as a newer company, they don\'t have the long track record of firms like FTMO.'
+  },
+  {
+    question: 'How does The Funded Trader challenge work?',
+    answer: 'TFT offers multiple challenge types. The Standard Challenge has two phases: Phase 1 requires 10% profit in 35 days, Phase 2 requires 5% profit in 60 days. Both phases have 10% max drawdown and 5% daily drawdown limits. Pass both to become funded.'
+  },
+  {
+    question: 'What is the TFT profit split?',
+    answer: 'The Funded Trader starts with an 80% profit split, meaning you keep 80% of profits. Through their scaling program, this can increase to 90% as you demonstrate consistent profitability over time.'
+  },
+  {
+    question: 'Can I trade news with The Funded Trader?',
+    answer: 'Yes, news trading is allowed on The Funded Trader accounts. This is one of their more flexible rules compared to some competitors who restrict trading around high-impact news events.'
+  },
+  {
+    question: 'Does TFT allow weekend holding?',
+    answer: 'Yes, you can hold positions over weekends with The Funded Trader. Be aware of potential gaps when markets reopen that could affect your drawdown limits.'
+  },
+  {
+    question: 'How fast are TFT payouts?',
+    answer: 'The Funded Trader processes payouts bi-weekly. Most traders report receiving funds within 1-5 business days, though some have reported occasional delays during high-volume periods. They pay via bank transfer and crypto.'
+  },
+  {
+    question: 'What makes TFT different from FTMO?',
+    answer: 'TFT offers lower prices ($65 starting vs $155), higher max funding ($600K vs $400K), and more challenge types including Rapid and Knight challenges. However, FTMO has a longer track record and more reliable payout history.'
+  },
+  {
+    question: 'What is the TFT Knight Challenge?',
+    answer: 'The Knight Challenge is TFT\'s aggressive option with higher profit targets but also higher potential rewards. It\'s designed for confident traders willing to take on more demanding requirements for faster funding.'
+  }
+];
+
+// Schema markup
+const breadcrumbSchemaItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Prop Firms', url: '/propfirms/' },
+  { name: 'The Funded Trader Review', url: '/propfirms/the-funded-trader/' }
+];
+
+const reviewSchema = generateReviewSchema({
+  itemReviewed: {
+    type: 'FinancialService',
+    name: 'The Funded Trader',
+    url: 'https://thefundedtrader.com'
+  },
+  reviewRating: {
+    ratingValue: firm.scores.overall,
+    bestRating: 5,
+    worstRating: 1
+  },
+  reviewBody: `Comprehensive review of The Funded Trader prop firm. ${firm.scores.overall}/5 rating based on pricing, rules flexibility, and payout reliability.`,
+  author: 'TradeTheDay Research Team'
+});
+
+const faqSchema = generateFAQSchema(faqItems);
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbSchemaItems);
+
+// Breadcrumb items
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Prop Firms', href: '/propfirms/' },
+  { text: 'The Funded Trader Review', current: true }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  ogType="article"
+  schema={[reviewSchema, faqSchema, breadcrumbSchema]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- HERO SECTION -->
+  <section class="review-hero">
+    <div class="container">
+      <div class="review-hero-content">
+        <div class="review-hero-badge">
+          <Chip variant="badge" size="sm">Best Value 2026</Chip>
+        </div>
+
+        <div class="review-hero-header">
+          <div class="review-hero-logo">
+            <span class="firm-initial">T</span>
+          </div>
+          <div class="review-hero-title">
+            <h1 class="heading-1">{FIRM_NAME} Review</h1>
+            <div class="review-hero-rating">
+              <span class="stars">{'★'.repeat(Math.floor(firm.scores.overall))}</span>
+              <span class="rating-value">{firm.scores.overall}/5</span>
+              <span class="rating-count">• Flexible Trading Rules</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="review-hero-tagline">{firm.tagline}</p>
+
+        <div class="review-hero-scorecard">
+          {heroScorecard.map((item) => (
+            <div class="scorecard-item">
+              <span class="scorecard-value">{item.value}</span>
+              <span class="scorecard-label">{item.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="review-hero-cta">
+          <a href={firm.affiliateUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xl">
+            Start TFT Challenge
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="#challenges" class="btn btn-secondary btn-xl">
+            See Challenge Options
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Navigation links={navigationLinks} />
+
+  <!-- OVERVIEW SECTION -->
+  <section id="overview" class="section">
+    <div class="container">
+      <h2 class="heading-2">The Funded Trader Overview</h2>
+      <p class="body-large">
+        The Funded Trader (TFT) is a US-based prop firm founded in 2021 that has quickly become one of the most popular
+        alternatives to FTMO. Known for competitive pricing, flexible rules, and multiple challenge types, TFT offers
+        funding up to $600,000 - the highest in the industry.
+      </p>
+
+      <div class="overview-grid">
+        <div class="overview-card">
+          <div class="overview-icon">💰</div>
+          <h3>Budget Friendly</h3>
+          <p>Challenges starting from just $65 - one of the lowest entry points in the prop firm industry.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">📈</div>
+          <h3>$600K Max Funding</h3>
+          <p>Scale to the industry's highest funding level through consistent profitability.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">🎯</div>
+          <h3>Multiple Challenge Types</h3>
+          <p>Standard, Rapid, and Knight challenges to match your trading style and risk tolerance.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">📰</div>
+          <h3>News Trading Allowed</h3>
+          <p>Trade high-impact news events without restrictions - more flexibility than most competitors.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="The Funded Trader: Value vs Trust Trade-off"
+        icon="⚖️"
+        id="overview-notes"
+        variant="light"
+      >
+        <h4>Understanding TFT's Position in the Market</h4>
+        <p>The Funded Trader occupies an interesting position: they offer better pricing and higher funding limits than FTMO, but with less track record. Here's how to think about this trade-off.</p>
+
+        <h5>The Value Proposition</h5>
+        <p>TFT's $50K challenge costs $299 versus FTMO's $345 - a $46 saving. Their $200K challenge is $949 versus FTMO's $1,080 - a $131 difference. For traders taking multiple challenges, these savings compound. Plus, TFT's $600K max funding exceeds FTMO's $400K cap.</p>
+
+        <h5>The Trust Consideration</h5>
+        <p>Founded in 2021, TFT has roughly 3 years of history versus FTMO's 9+ years. They've paid out over $50M to traders - impressive, but less than FTMO's $200M+. Some traders have reported payout delays, though most eventually receive their funds. The company hasn't faced regulatory action, but hasn't been tested through major industry turmoil either.</p>
+
+        <h5>Who Should Choose TFT Over FTMO</h5>
+        <p>TFT makes sense if you're (1) budget-conscious and the lower fees meaningfully impact your decisions, (2) targeting funding above $400K where FTMO caps out, (3) want specific challenge types like Rapid or Knight that FTMO doesn't offer, or (4) comfortable with slightly higher counterparty risk for cost savings.</p>
+
+        <h5>Who Should Stick With FTMO</h5>
+        <p>Choose FTMO if you prioritize reliability over price, this is your first prop firm experience, or you're funding a trading business where payout certainty matters more than a few hundred dollars in fees.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- CHALLENGES SECTION -->
+  <section id="challenges" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Challenge Options</h2>
+      <p class="body-large">
+        TFT offers multiple challenge types. The Standard Challenge is most popular, but Rapid and Knight options
+        suit different trading styles.
+      </p>
+
+      <ComparisonTable
+        headers={challengeTableHeaders}
+        rows={challengeRows}
+        caption="The Funded Trader Standard Challenge pricing and requirements"
+      />
+
+      <div class="challenge-types">
+        <h3 class="heading-3">Challenge Types Explained</h3>
+        <div class="types-grid">
+          <div class="type-card">
+            <div class="type-badge">Most Popular</div>
+            <h4>Standard Challenge</h4>
+            <p>Two-phase evaluation with 10% then 5% profit targets. 35 + 60 day timeframes. Balanced approach for most traders.</p>
+            <ul>
+              <li>Phase 1: 10% profit in 35 days</li>
+              <li>Phase 2: 5% profit in 60 days</li>
+              <li>10% max drawdown</li>
+              <li>5% daily drawdown</li>
+            </ul>
+          </div>
+          <div class="type-card">
+            <h4>Rapid Challenge</h4>
+            <p>Single-phase evaluation for faster funding. Higher profit target but no verification phase needed.</p>
+            <ul>
+              <li>One phase only</li>
+              <li>8% profit target</li>
+              <li>5% max drawdown</li>
+              <li>Faster to funded</li>
+            </ul>
+          </div>
+          <div class="type-card">
+            <h4>Knight Challenge</h4>
+            <p>Aggressive option for confident traders. Higher targets with potentially better reward structure.</p>
+            <ul>
+              <li>12% profit target</li>
+              <li>Higher risk/reward</li>
+              <li>For experienced traders</li>
+              <li>Unique scaling benefits</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Which TFT Challenge Should You Choose?"
+        icon="🎯"
+        id="challenge-notes"
+        variant="dark"
+      >
+        <h4>Challenge Selection Strategy</h4>
+        <p>Different challenge types suit different trading personalities. Here's how to decide.</p>
+
+        <h5>Standard Challenge: The Safe Choice</h5>
+        <p>If you're unsure, go Standard. The two-phase structure gives you more time and lower Phase 2 targets. You get 35 days for 10%, then 60 days for 5% - that's nearly 100 days total to prove yourself. The rules are familiar to anyone who's studied prop firms.</p>
+
+        <h5>Rapid Challenge: For the Impatient</h5>
+        <p>One phase means faster funding if you pass. But the tighter drawdown (5% max vs 10%) leaves less room for error. Good for traders with proven systems who don't need extended evaluation periods. Bad for anyone who might need time to adjust to prop firm psychology.</p>
+
+        <h5>Knight Challenge: High Risk, High Reward</h5>
+        <p>The 12% target is demanding - that's 12% profit with the same drawdown limits as Standard. Only choose this if your backtested strategy regularly produces 3%+ monthly returns with controlled drawdowns. The failure rate is higher, but successful traders get better terms.</p>
+
+        <h5>Account Size Recommendation</h5>
+        <p>TFT's sweet spot is the $50K Standard Challenge at $299. It's large enough to trade comfortably, priced reasonably, and positions you well for scaling to their $600K maximum. The $5K challenge ($65) is cheap but limits your position sizing significantly.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- RULES SECTION -->
+  <section id="rules" class="section">
+    <div class="container">
+      <h2 class="heading-2">Trading Rules</h2>
+      <p class="body-large">
+        TFT is known for flexible rules. Here's what you need to know to pass and stay funded.
+      </p>
+
+      <div class="rules-grid">
+        <div class="rule-card rule-card--important">
+          <div class="rule-icon">⚠️</div>
+          <h3>Maximum Drawdown: 10%</h3>
+          <p>Your equity cannot drop more than 10% below your initial balance. This is the same as FTMO and industry standard for most challenges.</p>
+        </div>
+        <div class="rule-card rule-card--important">
+          <div class="rule-icon">📉</div>
+          <h3>Daily Drawdown: 5%</h3>
+          <p>Daily loss limit of 5% based on the previous day's closing balance. Resets at server rollover time.</p>
+        </div>
+        <div class="rule-card rule-card--good">
+          <div class="rule-icon">📰</div>
+          <h3>News Trading: Allowed</h3>
+          <p>Trade during NFP, FOMC, and other high-impact events without restrictions. More flexibility than many competitors.</p>
+        </div>
+        <div class="rule-card rule-card--good">
+          <div class="rule-icon">🌙</div>
+          <h3>Weekend Holding: Allowed</h3>
+          <p>Hold positions through weekends. Be mindful of potential gaps affecting your drawdown limits.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">📅</div>
+          <h3>Minimum Trading Days: 5</h3>
+          <p>Must trade on at least 5 separate days during each evaluation phase. Slightly higher than FTMO's 4-day minimum.</p>
+        </div>
+        <div class="rule-card">
+          <div class="rule-icon">🤖</div>
+          <h3>EAs: Allowed</h3>
+          <p>Automated trading via Expert Advisors is permitted. Copy trading services are also allowed within their guidelines.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="TFT Rules: More Flexible Than You Think"
+        icon="📋"
+        id="rules-notes"
+        variant="light"
+      >
+        <h4>What Sets TFT's Rules Apart</h4>
+        <p>While the core drawdown rules match industry standards, TFT offers more flexibility in how you trade.</p>
+
+        <h5>News Trading Advantage</h5>
+        <p>Many prop firms restrict trading within 2-5 minutes of high-impact news. TFT doesn't. This matters for news traders who specifically target NFP, rate decisions, or employment data. Just remember: more flexibility means more rope to hang yourself. The 5% daily drawdown doesn't care whether you lost it on news or not.</p>
+
+        <h5>The 5 Trading Days Requirement</h5>
+        <p>TFT requires 5 minimum trading days versus FTMO's 4. This prevents pure "one big trade" approaches and encourages consistent behavior. For most traders, this is irrelevant - you'll trade more than 5 days anyway. But if you're a position trader making only a few trades per month, factor this in.</p>
+
+        <h5>EA and Copy Trading Allowance</h5>
+        <p>TFT permits Expert Advisors and copy trading services, though they monitor for specific prohibited strategies like arbitrage or latency exploitation. If your EA is a legitimate trading system rather than an exploit, you're fine. Check their current terms for specific copy trading provider guidelines.</p>
+
+        <h5>Rule Enforcement</h5>
+        <p>TFT uses automated systems for drawdown monitoring - breaches are immediate and non-negotiable. They're less likely to offer discretionary "good faith" exceptions compared to FTMO. Know the rules exactly and stay well within limits rather than pushing edges.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PAYOUTS SECTION -->
+  <section id="payouts" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Payouts & Profit Split</h2>
+      <p class="body-large">
+        TFT offers competitive profit splits with bi-weekly payout cycles once funded.
+      </p>
+
+      <div class="payout-highlights">
+        <div class="payout-card">
+          <div class="payout-value">80%</div>
+          <div class="payout-label">Starting Profit Split</div>
+          <p>Keep 80% of all profits from your first payout as a funded trader.</p>
+        </div>
+        <div class="payout-card payout-card--highlight">
+          <div class="payout-value">90%</div>
+          <div class="payout-label">Maximum Profit Split</div>
+          <p>Scale to 90% through consistent profitable trading over time.</p>
+        </div>
+        <div class="payout-card">
+          <div class="payout-value">14 Days</div>
+          <div class="payout-label">Payout Frequency</div>
+          <p>Bi-weekly withdrawal requests once you become a funded trader.</p>
+        </div>
+      </div>
+
+      <div class="payout-methods">
+        <h3 class="heading-3">Withdrawal Methods</h3>
+        <div class="methods-grid">
+          <div class="method-item">
+            <span class="method-icon">🏦</span>
+            <span class="method-name">Bank Transfer</span>
+          </div>
+          <div class="method-item">
+            <span class="method-icon">₿</span>
+            <span class="method-name">Cryptocurrency</span>
+          </div>
+          <div class="method-item">
+            <span class="method-icon">💳</span>
+            <span class="method-name">Rise (Digital Wallet)</span>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="TFT Payout Reality Check"
+        icon="💸"
+        id="payout-notes"
+        variant="dark"
+      >
+        <h4>What to Expect From TFT Payouts</h4>
+        <p>TFT has paid over $50M to traders, but their payout experience isn't always smooth. Here's the honest picture.</p>
+
+        <h5>The Good</h5>
+        <p>Most traders receive payouts within 1-5 business days of processing. The bi-weekly cycle is reliable. Crypto payouts tend to be faster than bank transfers. The profit split structure (80% → 90%) matches industry standards.</p>
+
+        <h5>The Not-So-Good</h5>
+        <p>During busy periods, some traders report delays of 1-2 weeks beyond normal processing times. Customer support during payout issues can be slow to respond. There have been occasional complaints about payout request rejections that required escalation to resolve.</p>
+
+        <h5>Mitigation Strategies</h5>
+        <p>Keep records of all your trading and payout requests. Use crypto withdrawals if speed matters - they're consistently faster. Don't rely on a specific payout date for expenses. Join TFT's Discord community where payout issues get more attention.</p>
+
+        <h5>Scaling to $600K</h5>
+        <p>TFT's scaling program can take you from a $50K account to $600K - the highest in the industry. Requirements involve consistent profitability over multiple months. At $600K with 90% split, a 3% monthly return is $16,200 take-home. That's life-changing income from a $299 initial challenge fee.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PLATFORMS SECTION -->
+  <section id="platforms" class="section">
+    <div class="container">
+      <h2 class="heading-2">Trading Platforms</h2>
+      <p class="body-large">
+        TFT supports the major trading platforms. Choose based on your preferred trading style.
+      </p>
+
+      <div class="platforms-grid">
+        {firm.platforms.map((platform) => (
+          <div class="platform-card">
+            <h3 class="platform-name">{platform}</h3>
+            <div class="platform-status">
+              <span class="status-dot"></span>
+              Supported
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="instruments-section">
+        <h3 class="heading-3">Tradeable Instruments</h3>
+        <div class="instruments-grid">
+          {firm.instruments.map((instrument) => (
+            <div class="instrument-chip">{instrument}</div>
+          ))}
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Platform Choice for TFT Traders"
+        icon="💻"
+        id="platform-notes"
+        variant="light"
+      >
+        <h4>Platform Recommendations</h4>
+        <p>Your platform choice should match your trading style and technical requirements.</p>
+
+        <h5>MetaTrader 4: Best for Forex Focus</h5>
+        <p>If you're primarily trading forex pairs with established indicators or EAs, MT4 remains the most reliable choice. Massive community support, proven stability, and universal familiarity. Most TFT traders use MT4.</p>
+
+        <h5>MetaTrader 5: For Multi-Asset Traders</h5>
+        <p>If you want to trade TFT's full instrument range including indices and crypto CFDs with more advanced features, MT5 is the better choice. More timeframes, better strategy tester, and access to more markets.</p>
+
+        <h5>cTrader: The Scalper's Choice</h5>
+        <p>cTrader offers superior execution speed and a cleaner interface. If you're a discretionary scalper who values quick order execution over EA capability, cTrader is worth considering. Less third-party indicator support than MT4/5 though.</p>
+
+        <h5>Execution Quality Note</h5>
+        <p>TFT uses specific liquidity providers for each platform. Execution quality can vary - some traders report better fills on MT4 vs cTrader or vice versa. If execution is critical to your strategy, test on demo first before committing to a challenge.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PROS AND CONS -->
+  <section id="pros-cons" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Pros & Cons</h2>
+
+      <ProsCons
+        pros={firm.pros}
+        cons={firm.cons}
+      />
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section">
+    <div class="container container--narrow">
+      <h2 class="heading-2">Frequently Asked Questions</h2>
+      <FAQ questions={faqItems} />
+    </div>
+  </section>
+
+  <!-- VERDICT SECTION -->
+  <section id="verdict" class="section section--alt">
+    <div class="container">
+      <div class="verdict-card">
+        <div class="verdict-header">
+          <h2 class="heading-2">Our Verdict: {firm.scores.overall}/5</h2>
+          <div class="verdict-stars">{'★'.repeat(Math.floor(firm.scores.overall))}</div>
+        </div>
+
+        <div class="verdict-summary">
+          <p class="body-large">
+            The Funded Trader offers excellent value with competitive pricing, flexible rules, and industry-leading
+            $600K max funding. While not as established as FTMO, TFT is a solid choice for budget-conscious traders
+            willing to accept slightly more counterparty risk for better terms.
+          </p>
+        </div>
+
+        <div class="verdict-scores">
+          <div class="score-item">
+            <span class="score-label">Trustworthiness</span>
+            <span class="score-value">{firm.scores.trustworthiness}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Payout Reliability</span>
+            <span class="score-value">{firm.scores.payouts}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Trading Rules</span>
+            <span class="score-value">{firm.scores.rules}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Support</span>
+            <span class="score-value">{firm.scores.support}/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Pricing</span>
+            <span class="score-value">{firm.scores.pricing}/5</span>
+          </div>
+        </div>
+
+        <div class="verdict-best-for">
+          <h3>Best For:</h3>
+          <div class="best-for-tags">
+            {firm.bestFor.map((item) => (
+              <span class="best-for-tag">{item}</span>
+            ))}
+          </div>
+        </div>
+
+        <div class="verdict-cta">
+          <a href={firm.affiliateUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xl">
+            Start TFT Challenge →
+          </a>
+          <p class="verdict-alternative">
+            Prefer more track record? <a href="/propfirms/ftmo/">Check out FTMO</a> instead.
+          </p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Final Assessment"
+        icon="📝"
+        id="verdict-notes"
+        variant="light"
+      >
+        <h4>Who Should Use The Funded Trader</h4>
+        <p>TFT is right for you if price sensitivity matters, you're targeting funding above $400K, you want news trading flexibility, or you're okay with slightly less proven payout reliability in exchange for better terms.</p>
+
+        <h5>Who Should Choose Elsewhere</h5>
+        <p>If this is your first prop firm experience, if you need absolute certainty on payouts, or if you're building a trading business where reliability trumps cost - FTMO remains the safer choice despite higher fees.</p>
+
+        <h5>The Bottom Line</h5>
+        <p>The Funded Trader has earned its place as the #2 prop firm in the industry. They're not FTMO, but they don't charge FTMO prices either. For traders who understand the trade-offs, TFT offers genuinely good value. Just go in with realistic expectations about payout timing and support quality.</p>
+      </AnalystNotes>
+
+      <!-- Related Links -->
+      <div class="related-section">
+        <h3>Compare The Funded Trader</h3>
+        <div class="related-grid">
+          <a href="/compare/ftmo-vs-funded-trader/" class="related-card">
+            <span class="related-title">FTMO vs The Funded Trader</span>
+            <span class="related-desc">See how TFT compares to the industry leader</span>
+          </a>
+          <a href="/propfirms/ftmo/" class="related-card">
+            <span class="related-title">FTMO Review</span>
+            <span class="related-desc">The most trusted prop firm in the industry</span>
+          </a>
+          <a href="/propfirms/" class="related-card">
+            <span class="related-title">All Prop Firms</span>
+            <span class="related-desc">Compare all prop trading firms side by side</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .review-hero {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    padding: var(--space-2xl) 0;
+    color: var(--white);
+  }
+
+  .review-hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .review-hero-badge {
+    margin-bottom: var(--space-md);
+  }
+
+  .review-hero-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .review-hero-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .firm-initial {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 800;
+  }
+
+  .review-hero-title h1 {
+    color: var(--white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .review-hero-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
+  .stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+  }
+
+  .rating-value {
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+  }
+
+  .rating-count {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-sm);
+  }
+
+  .review-hero-tagline {
+    font-size: var(--font-size-xl);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--space-xl);
+  }
+
+  .review-hero-scorecard {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .scorecard-item {
+    text-align: center;
+  }
+
+  .scorecard-value {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+  }
+
+  .scorecard-label {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .review-hero-cta {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Overview Grid */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .overview-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .overview-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .overview-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .overview-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Challenge Types */
+  .challenge-types {
+    margin-top: var(--space-2xl);
+  }
+
+  .challenge-types h3 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .types-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .type-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    position: relative;
+  }
+
+  .type-badge {
+    position: absolute;
+    top: -10px;
+    left: var(--space-lg);
+    background: var(--brand-orange);
+    color: white;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .type-card h4 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .type-card p {
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
+
+  .type-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .type-card li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+    color: var(--gray-700);
+  }
+
+  .type-card li::before {
+    content: '✓ ';
+    color: var(--success);
+    font-weight: 600;
+  }
+
+  /* Rules Grid */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .rule-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .rule-card--important {
+    border-color: var(--warning);
+    background: rgba(245, 158, 11, 0.05);
+  }
+
+  .rule-card--good {
+    border-color: var(--success);
+    background: rgba(16, 185, 129, 0.05);
+  }
+
+  .rule-icon {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .rule-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .rule-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Payout Section */
+  .payout-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .payout-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    text-align: center;
+  }
+
+  .payout-card--highlight {
+    border-color: var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.15);
+  }
+
+  .payout-value {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+    line-height: 1;
+    margin-bottom: var(--space-xs);
+  }
+
+  .payout-label {
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-sm);
+  }
+
+  .payout-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  .payout-methods {
+    margin-top: var(--space-xl);
+  }
+
+  .methods-grid {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    margin-top: var(--space-lg);
+  }
+
+  .method-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .method-icon {
+    font-size: 2rem;
+  }
+
+  .method-name {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Platforms Grid */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    margin: var(--space-xl) 0;
+  }
+
+  .platform-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .platform-name {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .platform-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    color: var(--success);
+    font-size: var(--font-size-sm);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--success);
+    border-radius: 50%;
+  }
+
+  .instruments-section {
+    margin-top: var(--space-xl);
+    text-align: center;
+  }
+
+  .instruments-grid {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+    margin-top: var(--space-lg);
+  }
+
+  .instrument-chip {
+    background: var(--gray-100);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Verdict Card */
+  .verdict-card {
+    background: var(--white);
+    border: 2px solid var(--brand-orange);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .verdict-header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-header h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .verdict-stars {
+    color: #f59e0b;
+    font-size: var(--font-size-2xl);
+  }
+
+  .verdict-summary {
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-scores {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+  }
+
+  .score-item {
+    text-align: center;
+  }
+
+  .score-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--space-xs);
+  }
+
+  .score-value {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+  }
+
+  .verdict-best-for {
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-best-for h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-sm);
+  }
+
+  .best-for-tags {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .best-for-tag {
+    background: rgba(255, 72, 0, 0.1);
+    color: var(--brand-orange);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .verdict-alternative {
+    margin-top: var(--space-md);
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .verdict-alternative a {
+    color: var(--brand-orange);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Related Section */
+  .related-section {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .related-section h3 {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .related-card {
+    display: block;
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .related-card:hover {
+    border-color: var(--brand-orange);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .related-title {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .related-desc {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .overview-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .types-grid,
+    .rules-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .platforms-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .review-hero-header {
+      flex-direction: column;
+    }
+
+    .review-hero-scorecard {
+      gap: var(--space-lg);
+    }
+
+    .overview-grid,
+    .types-grid,
+    .rules-grid,
+    .payout-highlights,
+    .platforms-grid,
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .verdict-scores {
+      gap: var(--space-md);
+    }
+  }
+</style>

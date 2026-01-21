@@ -1,0 +1,59 @@
+<!-- Analyst Notes Component -->
+<!-- Copy this entire section to add expandable expert analysis -->
+<section class="section">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="heading-2">Analysis & Insights</h2>
+            <p class="body-large">Expert analysis and detailed insights</p>
+        </div>
+        
+        <!-- Analyst Notes Component -->
+        <div class="analyst-notes">
+            <button class="analyst-notes-button" data-target="your-unique-id">
+                📊 Expert Analysis — Detailed Insights
+                <span id="your-unique-icon">▼</span>
+            </button>
+            <div id="your-unique-id" class="analyst-notes-content" style="display: none;">
+                <h4 class="heading-3">Expert Analysis Title</h4>
+                <p class="body">This is where you would include detailed analysis, insights, and expert commentary on the topic at hand.</p>
+                
+                <h5 class="heading-5">Key Point 1</h5>
+                <p class="body">Detailed explanation of the first key point with supporting evidence and reasoning.</p>
+                
+                <h5 class="heading-5">Key Point 2</h5>
+                <p class="body">Detailed explanation of the second key point with supporting evidence and reasoning.</p>
+                
+                <p class="body"><strong>Expert Verdict:</strong> Summary conclusion with actionable recommendations.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Usage Instructions:
+1. Change "your-unique-id" to a unique identifier for this analyst notes section (e.g., "overview-analysis", "features-analysis")
+2. Update "your-unique-icon" to match (e.g., "overview-icon", "features-icon")
+3. Replace the button text with your specific analysis topic
+4. Replace the content inside the analyst-notes-content div with your actual analysis
+5. Add more key points or remove them as needed
+6. You can have multiple analyst notes sections on the same page - just use different IDs
+7. Ensure design-system.js is included for the toggle functionality
+-->
+
+<!-- Required JavaScript (add to bottom of page): -->
+<!--
+<script src="assets/js/design-system.js"></script>
+-->
+
+<!-- Alternative: Multiple Analyst Notes on Same Page -->
+<!--
+<div class="analyst-notes">
+    <button class="analyst-notes-button" data-target="second-analysis">
+        💰 Cost Analysis — Fee Breakdown
+        <span id="second-icon">▼</span>
+    </button>
+    <div id="second-analysis" class="analyst-notes-content" style="display: none;">
+        <h4 class="heading-3">Cost Analysis</h4>
+        <p class="body">Detailed cost breakdown and fee analysis...</p>
+    </div>
+</div>
+-->

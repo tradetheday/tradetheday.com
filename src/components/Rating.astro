@@ -1,0 +1,162 @@
+---
+export interface Props {
+  score: number;
+  maxScore?: number;
+  showStars?: boolean;
+  showLabel?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+  label?: string;
+}
+
+const { 
+  score,
+  maxScore = 5,
+  showStars = true,
+  showLabel = true,
+  size = 'md',
+  label = getRatingLabel(score, maxScore)
+} = Astro.props;
+
+function getRatingLabel(score: number, maxScore: number): string {
+  const percentage = (score / maxScore) * 100;
+  if (percentage >= 90) return 'Excellent';
+  if (percentage >= 80) return 'Very Good';
+  if (percentage >= 70) return 'Good';
+  if (percentage >= 60) return 'Average';
+  return 'Poor';
+}
+
+function getStarDisplay(score: number, maxScore: number): string {
+  const fullStars = Math.floor(score);
+  const hasHalfStar = score % 1 >= 0.5;
+  const emptyStars = maxScore - fullStars - (hasHalfStar ? 1 : 0);
+  
+  return '★'.repeat(fullStars) + 
+         (hasHalfStar ? '☆' : '') + 
+         '☆'.repeat(emptyStars);
+}
+
+const ratingClasses = `rating rating-${size}`;
+const percentage = (score / maxScore) * 100;
+const colorClass = percentage >= 80 ? 'rating-excellent' : 
+                   percentage >= 60 ? 'rating-good' : 'rating-average';
+---
+
+<div class={`${ratingClasses} ${colorClass}`}>
+  <div class="rating-display">
+    <span class="rating-score">{score}</span>
+    <span class="rating-separator">/</span>
+    <span class="rating-max">{maxScore}</span>
+  </div>
+  
+  {showStars && (
+    <div class="rating-stars" role="img" aria-label={`${score} out of ${maxScore} stars`}>
+      <span aria-hidden="true">{getStarDisplay(score, maxScore)}</span>
+    </div>
+  )}
+  
+  {showLabel && label && (
+    <div class="rating-label">{label}</div>
+  )}
+</div>
+
+<style>
+.rating {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rating-display {
+  display: flex;
+  align-items: baseline;
+  font-weight: 700;
+}
+
+.rating-score {
+  font-size: 2rem;
+}
+
+.rating-separator {
+  font-size: 1.5rem;
+  margin: 0 0.25rem;
+  opacity: 0.6;
+}
+
+.rating-max {
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.rating-stars {
+  color: var(--brand-orange, #ff4800);
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+}
+
+.rating-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Size variations */
+.rating-sm .rating-score {
+  font-size: 1.5rem;
+}
+
+.rating-sm .rating-separator {
+  font-size: 1.1rem;
+}
+
+.rating-sm .rating-max {
+  font-size: 0.9rem;
+}
+
+.rating-sm .rating-stars {
+  font-size: 1rem;
+}
+
+.rating-sm .rating-label {
+  font-size: 0.75rem;
+}
+
+.rating-lg .rating-score {
+  font-size: 3rem;
+}
+
+.rating-lg .rating-separator {
+  font-size: 2rem;
+}
+
+.rating-lg .rating-max {
+  font-size: 1.5rem;
+}
+
+.rating-lg .rating-stars {
+  font-size: 1.5rem;
+}
+
+.rating-lg .rating-label {
+  font-size: 1rem;
+}
+
+/* Color variations */
+.rating-excellent {
+  color: var(--success, #10b981);
+}
+
+.rating-good {
+  color: var(--brand-orange, #ff4800);
+}
+
+.rating-average {
+  color: var(--warning-dark, #d97706);
+}
+
+.rating-poor {
+  color: var(--error, #ef4444);
+}
+</style>

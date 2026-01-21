@@ -1,0 +1,1410 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SimpleGrid from '../../../components/SimpleGrid.astro';
+import ProcessSteps from '../../../components/ProcessSteps.astro';
+import FeatureHighlights from '../../../components/FeatureHighlights.astro';
+import CompanyInfo from '../../../components/CompanyInfo.astro';
+import PaymentDetails from '../../../components/PaymentDetails.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import Chip from '../../../components/Chip.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import Scorecard from '../../../components/Scorecard.astro';
+import RegulationCard from '../../../components/RegulationCard.astro';
+import PlatformGrid from '../../../components/PlatformGrid.astro';
+import PaymentMethods from '../../../components/PaymentMethods.astro';
+import TradingInstruments from '../../../components/TradingInstruments.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import BrokerVerdict from '../../../components/BrokerVerdict.astro';
+import CostAnalysis from '../../../components/CostAnalysis.astro';
+import BestFor from '../../../components/BestFor.astro';
+import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+import { generateBrokerSchema, generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+import { getBrokerById } from '../../../data/brokers';
+
+const brokerData = getBrokerById('pepperstone');
+const BROKER_NAME = 'Pepperstone';
+
+const title = 'Pepperstone Review 2026 - Fees, Spreads, Platforms & Safety';
+const description = 'In-depth Pepperstone review for 2026. Ultra-fast execution, raw spreads from 0.0 pips, MT4/MT5/cTrader/TradingView. ASIC, FCA, BaFin regulated. No minimum deposit.';
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Brokers', href: '/brokers/' },
+  { text: 'Pepperstone Review', href: '/brokers/pepperstone/', current: true }
+];
+
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#fees', text: 'Costs' },
+  { href: '#safety', text: 'Safety' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#accounts', text: 'Trading' },
+  { href: '#pros-cons', text: 'Review' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+const heroScorecard = [
+  { value: '$0', label: 'Min Deposit' },
+  { value: '0.0 pips', label: 'Spreads From' },
+  { value: '1,200+', label: 'Instruments' },
+  { value: '4.5/5', label: 'Our Rating' }
+];
+
+const feeTableHeaders = ['Fee Type', 'Pepperstone Standard', 'Pepperstone Razor', 'IC Markets', 'Industry Average'];
+const feeRows = [
+  {
+    cells: [
+      { content: 'EUR/USD Spread', type: 'text' },
+      { content: '1.0 pips', type: 'text', highlight: 'good' },
+      { content: '0.0 pips', type: 'text', highlight: 'best' },
+      { content: '0.0 pips', type: 'text', highlight: 'best' },
+      { content: '1.2 pips', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Commission', type: 'text' },
+      { content: '$0', type: 'text', highlight: 'best' },
+      { content: '$3.50/lot', type: 'text', highlight: 'best' },
+      { content: '$3.50/lot', type: 'text', highlight: 'best' },
+      { content: '$7/lot', type: 'text', highlight: 'neutral' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'GBP/USD Spread', type: 'text' },
+      { content: '1.2 pips', type: 'text', highlight: 'good' },
+      { content: '0.1 pips', type: 'text', highlight: 'best' },
+      { content: '0.2 pips', type: 'text', highlight: 'best' },
+      { content: '1.8 pips', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Deposit Fees', type: 'text' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Withdrawal Fees', type: 'text' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: '$25', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Inactivity Fee', type: 'text' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: '$10/month', type: 'text', highlight: 'good' },
+      { content: '$15/month', type: 'text', highlight: 'warning' }
+    ]
+  }
+];
+
+const regulationLicenses = [
+  {
+    flag: '🇦🇺',
+    jurisdiction: 'Australia',
+    authority: 'ASIC',
+    licenseNumber: '414530',
+    compensation: 'Professional Indemnity',
+    status: 'verified',
+    description: 'ASIC (Australian Securities and Investments Commission) is one of the world\'s most respected financial regulators. Pepperstone\'s ASIC license requires strict capital adequacy ratios, segregated client funds in top-tier Australian banks, negative balance protection, and comprehensive compliance frameworks. Professional Indemnity Insurance provides additional protection for client claims.'
+  },
+  {
+    flag: '🇬🇧',
+    jurisdiction: 'United Kingdom',
+    authority: 'FCA',
+    licenseNumber: '684312',
+    compensation: '£85,000',
+    status: 'verified',
+    description: 'The FCA (Financial Conduct Authority) is the UK\'s premier financial regulator, offering world-class investor protection. UK clients benefit from FSCS protection up to £85,000 per person, mandatory negative balance protection, and access to the Financial Ombudsman Service for dispute resolution. Client funds are held in segregated accounts with Barclays Bank.'
+  },
+  {
+    flag: '🇩🇪',
+    jurisdiction: 'Germany',
+    authority: 'BaFin',
+    licenseNumber: '151148',
+    compensation: '€20,000',
+    status: 'verified',
+    description: 'BaFin (Bundesanstalt für Finanzdienstleistungsaufsicht) is Germany\'s federal financial supervisory authority. This license provides EU-wide passporting rights under MiFID II, with Investor Compensation Fund coverage up to €20,000. German regulation is known for thorough compliance monitoring and strict operational requirements.'
+  },
+  {
+    flag: '🇨🇾',
+    jurisdiction: 'Cyprus',
+    authority: 'CySEC',
+    licenseNumber: '388/20',
+    compensation: '€20,000',
+    status: 'active',
+    description: 'CySEC regulation enables Pepperstone to serve EU clients with full MiFID II protections including negative balance protection, segregated client funds, and access to the Investor Compensation Fund up to €20,000. Cyprus offers a balanced regulatory environment with professional account options for experienced traders.'
+  },
+  {
+    flag: '🇦🇪',
+    jurisdiction: 'UAE',
+    authority: 'DFSA',
+    licenseNumber: 'F004356',
+    compensation: 'N/A',
+    status: 'active',
+    description: 'DFSA (Dubai Financial Services Authority) regulation allows Pepperstone to operate in the Dubai International Financial Centre (DIFC). This provides a gateway to serve Middle Eastern and North African clients under a respected regulatory framework with segregated client funds and comprehensive compliance requirements.'
+  },
+  {
+    flag: '🇰🇪',
+    jurisdiction: 'Kenya',
+    authority: 'CMA',
+    licenseNumber: '128',
+    compensation: 'N/A',
+    status: 'active',
+    description: 'Kenya\'s Capital Markets Authority (CMA) license enables Pepperstone to serve the growing African retail trading market. This demonstrates Pepperstone\'s commitment to expanding regulated services to emerging markets while maintaining compliance standards.'
+  }
+];
+
+const tradingPlatforms = [
+  {
+    name: 'MetaTrader 4',
+    logo: '/images/platforms/mt4-logo.svg',
+    description: 'The world\'s most popular forex platform with advanced charting, Expert Advisors, and extensive customization options',
+    features: ['Expert Advisors', 'One-Click Trading', 'Custom Indicators', '9 Timeframes', 'Mobile Apps'],
+    availability: 'Desktop, Web, Mobile',
+    rating: 4.7,
+    supported: true
+  },
+  {
+    name: 'MetaTrader 5',
+    logo: '/images/platforms/mt5-logo.svg',
+    description: 'Next-generation platform with multi-asset capabilities, more timeframes, depth of market, and enhanced backtesting',
+    features: ['Multi-Asset Trading', 'Depth of Market', 'Economic Calendar', '21 Timeframes', 'MQL5 Development'],
+    availability: 'Desktop, Web, Mobile',
+    rating: 4.6,
+    supported: true
+  },
+  {
+    name: 'cTrader',
+    logo: '/images/platforms/ctrader-logo.svg',
+    description: 'Professional-grade ECN platform with advanced order types, level II pricing, and cAlgo for sophisticated automated trading',
+    features: ['Level II Pricing', 'Advanced Charts', 'cAlgo Trading', 'Copy Trading', 'Detachable Charts'],
+    availability: 'Desktop, Web, Mobile',
+    rating: 4.8,
+    supported: true
+  },
+  {
+    name: 'TradingView',
+    logo: '/images/platforms/tradingview-logo.svg',
+    description: 'World-class charting platform with social features and direct trading integration - trade directly from TradingView charts',
+    features: ['Advanced Charting', 'Pine Script', 'Social Trading', '100+ Indicators', 'Direct Execution'],
+    availability: 'Web, Mobile',
+    rating: 4.9,
+    supported: true
+  }
+];
+
+const paymentMethods = [
+  {
+    name: 'Bank Transfer',
+    icon: '/images/payment/bank-transfer.svg',
+    depositTime: '1-3 business days',
+    withdrawalTime: '1-3 business days',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$0',
+    maxDeposit: 'No limit',
+    supported: true
+  },
+  {
+    name: 'Credit/Debit Card',
+    icon: '/images/payment/visa-mastercard.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '3-5 business days',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$0',
+    maxDeposit: '$100,000',
+    supported: true,
+    notes: 'Visa, Mastercard accepted'
+  },
+  {
+    name: 'PayPal',
+    icon: '/images/payment/paypal.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '24 hours',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$0',
+    maxDeposit: '$60,000',
+    supported: true
+  },
+  {
+    name: 'Skrill',
+    icon: '/images/payment/skrill.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '24 hours',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$0',
+    maxDeposit: '$10,000',
+    supported: true
+  },
+  {
+    name: 'Neteller',
+    icon: '/images/payment/neteller.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '24 hours',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$0',
+    maxDeposit: '$10,000',
+    supported: true
+  }
+];
+
+const instrumentCategories = [
+  {
+    name: 'Forex',
+    icon: '💱',
+    count: 62,
+    description: 'Major, minor, and exotic currency pairs with institutional-grade spreads and deep liquidity',
+    examples: ['EUR/USD', 'GBP/USD', 'USD/JPY', 'AUD/CAD'],
+    details: {
+      spread: 'From 0.0 pips',
+      leverage: 'Up to 1:500',
+      commission: 'From $3.50/lot',
+      margin: '0.2%'
+    },
+    available: true
+  },
+  {
+    name: 'Indices',
+    icon: '📈',
+    count: 28,
+    description: 'Trade global stock indices with tight spreads and fast execution',
+    examples: ['S&P 500', 'NASDAQ 100', 'FTSE 100', 'DAX 40'],
+    details: {
+      spread: 'From 0.4 points',
+      leverage: 'Up to 1:200',
+      commission: 'No',
+      margin: '0.5%'
+    },
+    available: true
+  },
+  {
+    name: 'Commodities',
+    icon: '🛢️',
+    count: 26,
+    description: 'Precious metals, energy, and soft commodities with competitive pricing',
+    examples: ['Gold', 'Silver', 'Crude Oil', 'Natural Gas'],
+    details: {
+      spread: 'From $0.03',
+      leverage: 'Up to 1:100',
+      commission: 'No',
+      margin: '1%'
+    },
+    available: true
+  },
+  {
+    name: 'Cryptocurrencies',
+    icon: '₿',
+    count: 30,
+    description: '24/7 crypto CFD trading on major digital assets',
+    examples: ['Bitcoin', 'Ethereum', 'Litecoin', 'Ripple'],
+    details: {
+      spread: 'Variable',
+      leverage: 'Up to 1:10',
+      commission: 'No',
+      margin: '10%'
+    },
+    available: true
+  },
+  {
+    name: 'Stocks',
+    icon: '📊',
+    count: 1000,
+    description: 'CFDs on leading global stocks from US, UK, EU, and Australian markets',
+    examples: ['Apple', 'Tesla', 'Amazon', 'Microsoft'],
+    details: {
+      spread: 'From $0.01',
+      leverage: 'Up to 1:20',
+      commission: 'From $0.02/share',
+      margin: '5%'
+    },
+    available: true
+  },
+  {
+    name: 'ETFs',
+    icon: '📋',
+    count: 100,
+    description: 'Exchange-traded funds covering various sectors and regions',
+    examples: ['SPY', 'QQQ', 'GLD', 'VTI'],
+    details: {
+      spread: 'Variable',
+      leverage: 'Up to 1:5',
+      commission: 'From $0.02/share',
+      margin: '20%'
+    },
+    available: true
+  },
+  {
+    name: 'Currency Indices',
+    icon: '📉',
+    count: 6,
+    description: 'Trade USD, EUR, GBP, and other currency indices for basket exposure',
+    examples: ['USDX', 'EURX', 'JPYX'],
+    details: {
+      spread: 'Variable',
+      leverage: 'Up to 1:100',
+      commission: 'No',
+      margin: '1%'
+    },
+    available: true
+  }
+];
+
+const prosConsData = {
+  pros: [
+    'Razor-sharp spreads from 0.0 pips with low $3.50/lot commission',
+    'Ultra-fast execution averaging 30ms with no requotes',
+    'No minimum deposit requirement - start with any amount',
+    'Four professional platforms: MT4, MT5, cTrader, TradingView',
+    'Tier-1 regulation from ASIC, FCA, BaFin, CySEC, DFSA',
+    'Award-winning 24/7 customer service in multiple languages',
+    'No deposit, withdrawal, or inactivity fees',
+    'Excellent for scalping and algorithmic trading - no restrictions',
+    'Deep institutional liquidity from multiple tier-1 providers',
+    'Free VPS hosting for qualifying traders (2+ lots/month)'
+  ],
+  cons: [
+    'Limited educational resources compared to AvaTrade or IG',
+    'No proprietary trading platform - relies on third-party solutions',
+    'Research and market analysis tools are basic',
+    'No guaranteed stop losses available',
+    'Higher margin requirements on some exotic instruments',
+    'No social trading features beyond cTrader copy'
+  ]
+};
+
+const faqData = [
+  {
+    question: 'Is Pepperstone regulated and safe?',
+    answer: 'Yes, Pepperstone is regulated by multiple tier-1 authorities including ASIC (Australia), FCA (UK), BaFin (Germany), CySEC (Cyprus), and DFSA (Dubai). Client funds are held in segregated accounts with major banks including Barclays and NAB. UK clients have FSCS protection up to £85,000, while EU clients have up to €20,000 through the Investor Compensation Fund.'
+  },
+  {
+    question: 'What is Pepperstone\'s minimum deposit?',
+    answer: 'Pepperstone has no minimum deposit requirement. You can open an account and fund it with any amount you choose, making it accessible for traders of all sizes. However, we recommend starting with at least $200-500 for proper risk management with appropriate position sizing.'
+  },
+  {
+    question: 'What is the difference between Standard and Razor accounts?',
+    answer: 'The Standard account offers commission-free trading with spreads from 1.0 pips - ideal for beginners and casual traders. The Razor account offers raw spreads from 0.0 pips plus a commission of $3.50 per lot per side ($7 round turn) - better for active traders. For anyone trading more than 2-3 lots per month, the Razor account typically offers lower overall costs.'
+  },
+  {
+    question: 'Does Pepperstone support TradingView?',
+    answer: 'Yes, Pepperstone has a direct integration with TradingView, allowing you to trade directly from TradingView charts without switching platforms. This is a major advantage for technical analysts who rely on TradingView\'s superior charting tools. You get full TradingView functionality plus Pepperstone\'s fast execution.'
+  },
+  {
+    question: 'Can I scalp with Pepperstone?',
+    answer: 'Yes, Pepperstone is one of the best brokers for scalping. There are no restrictions on trading styles, no minimum stop distances, and no limitations on trade frequency. Their ultra-fast execution (averaging 30ms), raw spreads, and direct market access make them ideal for high-frequency strategies including scalping, day trading, and algorithmic trading.'
+  },
+  {
+    question: 'Does Pepperstone offer a demo account?',
+    answer: 'Yes, Pepperstone offers free demo accounts for all platforms (MT4, MT5, cTrader) with $50,000 virtual funds. Demo accounts mirror live market conditions and are valid for 30 days, but can be extended on request by contacting support. TradingView also offers paper trading which works with Pepperstone.'
+  },
+  {
+    question: 'What leverage does Pepperstone offer?',
+    answer: 'Pepperstone offers up to 1:500 leverage for professional clients in certain jurisdictions. Retail clients in regulated jurisdictions are limited to lower leverage per regulatory requirements: 1:30 for forex in UK/EU/AU (ESMA/ASIC rules). Professional account status requires meeting specific criteria and accepting reduced protections.'
+  },
+  {
+    question: 'Does Pepperstone charge inactivity fees?',
+    answer: 'No, Pepperstone does not charge any inactivity fees. Your account will remain active and fee-free regardless of how long you go without trading. This is a significant advantage over many competitors who charge $10-25 per month for dormant accounts.'
+  },
+  {
+    question: 'How fast is Pepperstone\'s execution?',
+    answer: 'Pepperstone\'s average execution speed is approximately 30 milliseconds on the Razor account, with 99.62% of orders filled at the requested price or better. They use Equinix data centers (NY4, LD4, TY3) with direct connections to major liquidity providers including banks and ECNs for institutional-grade execution quality.'
+  },
+  {
+    question: 'Does Pepperstone support Expert Advisors (EAs)?',
+    answer: 'Yes, Pepperstone fully supports Expert Advisors on MT4 and MT5 with no restrictions on EA strategies. cTrader users can use cAlgo for automated trading. For high-frequency EAs, Pepperstone offers free VPS hosting (requires 2+ standard lots per month) with servers co-located near their trading servers for minimal latency.'
+  }
+];
+
+const verdictData = {
+  brokerName: BROKER_NAME,
+  overallRating: 4.5,
+  maxRating: 5,
+  ratingCategories: [
+    { name: 'Regulation & Safety', score: 4.6, maxScore: 5, description: 'Multiple tier-1 licenses including ASIC, FCA, BaFin with strong fund protection' },
+    { name: 'Trading Platforms', score: 4.8, maxScore: 5, description: 'MT4, MT5, cTrader, and TradingView - exceptional platform diversity' },
+    { name: 'Fees & Spreads', score: 4.9, maxScore: 5, description: 'Raw spreads from 0.0 pips with industry-low commissions' },
+    { name: 'Execution Speed', score: 4.9, maxScore: 5, description: 'Ultra-fast 30ms execution with 99.62% fill quality' },
+    { name: 'Customer Support', score: 4.3, maxScore: 5, description: 'Award-winning 24/7 multilingual support' },
+    { name: 'Trading Instruments', score: 4.4, maxScore: 5, description: '1,200+ instruments across 6 asset classes' }
+  ],
+  verdict: 'Pepperstone has earned its reputation as one of the best forex brokers for serious traders who demand raw spreads, ultra-fast execution, and professional-grade platforms. Their combination of tier-1 multi-jurisdiction regulation, no minimum deposit, and exceptional platform diversity make them a standout choice in 2026.',
+  recommendation: 'We recommend Pepperstone for experienced forex traders, scalpers, day traders, and anyone running algorithmic strategies. The TradingView integration is particularly valuable for technical analysts who want professional charting with fast execution.',
+  bestFor: [
+    'Scalpers and high-frequency day traders',
+    'Algorithmic and Expert Advisor traders',
+    'TradingView users wanting direct execution',
+    'Professional traders needing raw spreads',
+    'Cost-conscious active traders',
+    'cTrader enthusiasts'
+  ],
+  notIdealFor: [
+    'Complete beginners needing extensive education',
+    'Traders wanting guaranteed stop losses',
+    'Those seeking comprehensive research tools',
+    'Long-term buy-and-hold investors',
+    'Traders preferring proprietary platforms',
+    'Social trading focused users'
+  ],
+  finalThoughts: 'Pepperstone has consistently delivered on its promise of institutional-grade trading conditions at retail prices. While they may not have the educational resources of IG or the unique features of AvaTrade, their focus on execution quality and competitive pricing makes them a top choice for performance-focused traders.',
+  ctaText: 'Open Pepperstone Account',
+  ctaUrl: 'https://www.pepperstone.com/'
+};
+
+const whyChooseFeatures = [
+  { title: "Raw Spreads", description: "True ECN spreads from 0.0 pips on Razor account with transparent pricing", icon: "📊" },
+  { title: "Ultra-Fast Execution", description: "30ms average execution with no dealing desk and 99.62% fill quality", icon: "⚡" },
+  { title: "4 Pro Platforms", description: "MT4, MT5, cTrader, and TradingView integration for any trading style", icon: "🖥️" },
+  { title: "Zero Fees", description: "No deposit fees, no withdrawal fees, no inactivity fees - ever", icon: "💰" }
+];
+
+const openingProcessSteps = [
+  { number: "1.", title: "Register Online", description: "Complete the 5-minute application form with basic personal details", icon: "📝" },
+  { number: "2.", title: "Verify Identity", description: "Upload ID and proof of address (usually verified within hours)", icon: "✅" },
+  { number: "3.", title: "Fund & Trade", description: "No minimum deposit - fund any amount and start trading immediately", icon: "💰" }
+];
+
+const companyInfoSections = [
+  {
+    title: "Deposits & Accounts",
+    icon: "💰",
+    items: [
+      { label: "Minimum Deposit", value: "$0 (No minimum)", type: "currency" },
+      { label: "Base Currencies", value: "AUD, USD, EUR, GBP, SGD, JPY, NZD, CAD, CHF, HKD", type: "list" },
+      { label: "Islamic Account", value: "Available", type: "text" }
+    ]
+  },
+  {
+    title: "Trading Conditions",
+    icon: "📊",
+    items: [
+      { label: "Max Leverage", value: "1:500 (1:30 EU/AU)", type: "text" },
+      { label: "Instruments", value: "1,200+", type: "text" },
+      { label: "Execution Model", value: "ECN/STP", type: "text" }
+    ]
+  },
+  {
+    title: "Company Info",
+    icon: "🏛️",
+    items: [
+      { label: "Founded", value: "2010", type: "year" },
+      { label: "Headquarters", value: "Melbourne, Australia", type: "location" },
+      { label: "Regulations", value: "6 Licenses (ASIC, FCA, BaFin, CySEC, DFSA, CMA)", type: "text" }
+    ]
+  }
+];
+
+const withdrawalDetails = [
+  { icon: "💵", label: "Minimum Withdrawal", value: "No minimum" },
+  { icon: "⚡", label: "Processing Times", value: "E-wallets 24hrs, Cards 3-5 days, Bank 1-3 days" },
+  { icon: "🔐", label: "First Withdrawal", value: "Verification may be required" },
+  { icon: "🛡️", label: "Security", value: "Withdrawals processed to original funding source" }
+];
+
+const paymentAnalysis = {
+  pros: [
+    "All deposits completely free",
+    "All withdrawals completely free",
+    "No hidden payment fees of any kind",
+    "Wide range of payment options"
+  ],
+  cons: [
+    "Some regional payment methods unavailable",
+    "Bank transfers can take 1-3 days",
+    "PayPal not available in all countries"
+  ]
+};
+
+const brokerSchema = generateBrokerSchema({
+  name: 'Pepperstone',
+  url: 'https://www.pepperstone.com',
+  description: 'Award-winning forex and CFD broker offering raw spreads from 0.0 pips with ultra-fast execution',
+  foundingDate: '2010',
+  headquarters: { country: 'Australia', city: 'Melbourne' },
+  serviceTypes: ['ECN Forex Broker', 'CFD Broker'],
+  aggregateRating: { ratingValue: 4.5, reviewCount: 1 },
+  minDeposit: '$0'
+});
+
+const faqSchema = generateFAQSchema(faqData);
+const reviewSchema = generateReviewSchema({
+  itemReviewed: { type: 'FinancialService', name: 'Pepperstone', url: 'https://www.pepperstone.com' },
+  reviewRating: { ratingValue: 4.5 },
+  datePublished: '2026-01-20',
+  reviewBody: verdictData.verdict
+});
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogType="article"
+  publishDate="2026-01-01"
+  modifiedDate="2026-01-20"
+  schema={[brokerSchema, faqSchema, reviewSchema, breadcrumbSchema]}
+>
+  <!-- SEO Meta Tags -->
+  <link slot="head" rel="canonical" href="https://tradetheday.com/brokers/pepperstone/" />
+  <meta slot="head" property="og:title" content="Pepperstone Review 2026 – Raw Spreads & Fast Execution" />
+  <meta slot="head" property="og:description" content="Complete Pepperstone review for 2026. Raw spreads from 0.0 pips, 30ms execution, MT4/MT5/cTrader/TradingView. 4.5/5 rating." />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="og:url" content="https://tradetheday.com/brokers/pepperstone/" />
+  <meta slot="head" name="author" content="TradeTheDay Research Team" />
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={breadcrumbItems} />
+
+  <!-- HERO SECTION -->
+  <section class="hero section">
+    <div class="container">
+      <Chip variant="badge" size="sm">Award-Winning ECN Broker</Chip>
+      <div class="hero-logo-bg" title="Pepperstone Logo"></div>
+
+      <h1 class="heading-1">Pepperstone Review 2026 – Raw Spreads, Fast Execution & Is It Worth It?</h1>
+
+      <p class="body-large">Founded in 2010, Pepperstone has grown to serve 400,000+ traders with raw spreads from 0.0 pips and 30ms execution. We analyze their platforms, fees, and regulation to see if they deserve their reputation.</p>
+
+      <a href="https://www.pepperstone.com/" target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xl btn-hero">
+        Open Pepperstone Account →
+      </a>
+
+      <Scorecard metrics={heroScorecard} />
+
+      <!-- Last Updated & Author -->
+      <div class="review-meta">
+        <span class="meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Last Updated: January 2026
+        </span>
+        <span class="meta-divider">|</span>
+        <span class="meta-item">Reviewed by TradeTheDay Research Team</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAVIGATION -->
+  <Navigation links={navigationLinks} />
+
+  <!-- OVERVIEW SECTION -->
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Complete Pepperstone Overview 2026</h2>
+        <p class="body-large">Pepperstone is an Australian-headquartered ECN forex and CFD broker founded in 2010 by ex-traders who wanted to build the broker they wished they could trade with. With six regulatory licenses, four professional trading platforms, and raw spreads from 0.0 pips, they've established themselves as the go-to choice for serious forex traders worldwide.</p>
+      </div>
+
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Analyst Notes  - Pepperstone's Market Position" id="overview-notes">
+        <h4 class="heading-3">Analyst Insight: Pepperstone's Evolution from Startup to Industry Leader</h4>
+        <p class="body">What sets Pepperstone apart isn't just their competitive pricing – it's their laser focus on execution quality. Founded by traders for traders, the company has consistently prioritized the metrics that matter most to active traders: execution speed, spread consistency, and platform reliability.</p>
+
+        <p class="body">Pepperstone processes over 7.5 million trades per day with an average execution time of 30 milliseconds. This institutional-grade infrastructure, combined with direct market access to tier-1 liquidity providers, creates trading conditions that rival what hedge funds and banks experience.</p>
+
+        <h4 class="heading-3">The TradingView Integration Advantage</h4>
+        <p class="body">Pepperstone's 2023 integration with TradingView was a strategic masterstroke. By allowing traders to execute directly from TradingView charts, they captured a massive audience of technical analysts who previously had to switch between charting and trading platforms. This single feature has driven significant client acquisition from competitors.</p>
+
+        <h4 class="heading-3">Should You Trade with Pepperstone?</h4>
+        <p class="body"><strong>Analyst Verdict:</strong> Pepperstone delivers exceptional value for traders who prioritize execution quality and competitive pricing over bells and whistles. While their educational resources and research tools are basic compared to IG or Saxo, the trading conditions themselves are among the best in the retail forex industry. If you're an active trader who knows what you want, Pepperstone should be at the top of your list.</p>
+      </AnalystNotes>
+
+      <!-- Company Information -->
+      <CompanyInfo
+        title="Pepperstone Company Overview"
+        subtitle="Essential company information, trading conditions, and account details"
+        sections={companyInfoSections}
+        columns={3}
+        brokerName={BROKER_NAME}
+      />
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE PEPPERSTONE -->
+  <section id="why-choose" class="section section-dark">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Why Choose Pepperstone?</h2>
+        <p class="body-large">Four key reasons traders choose Pepperstone over competitors</p>
+      </div>
+
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Analyst Notes  - Why Pepperstone Stands Out" id="why-choose-notes" variant="dark">
+        <h4 class="heading-3">The ECN Advantage Explained</h4>
+        <p class="body">Unlike market makers who may trade against their clients, Pepperstone operates a true ECN/STP (Electronic Communication Network / Straight Through Processing) model. Every trade is routed directly to liquidity providers without a dealing desk. This creates a fundamental alignment of interests: Pepperstone profits when you trade more, not when you lose.</p>
+
+        <h4 class="heading-3">Raw Spreads vs Standard Account: The Real Math</h4>
+        <p class="body">Many traders wonder whether to choose Standard (commission-free, wider spreads) or Razor (raw spreads + commission). Here's the breakdown:</p>
+        <ul class="list">
+          <li><strong>Standard Account:</strong> 1.0 pip EUR/USD average = $10 per standard lot in spread cost</li>
+          <li><strong>Razor Account:</strong> 0.0-0.1 pip EUR/USD + $7 commission = $7-8 per standard lot total cost</li>
+        </ul>
+        <p class="body">For any trader executing more than a few trades per week, the Razor account offers superior value – typically 20-30% lower trading costs.</p>
+
+        <h4 class="heading-3">Platform Diversity Strategy</h4>
+        <p class="body">Rather than developing a proprietary platform (expensive, time-consuming, often inferior), Pepperstone made the strategic decision to integrate with the industry's best platforms. This gives traders access to MT4's EA ecosystem, MT5's multi-asset capabilities, cTrader's professional features, and TradingView's superior charting – all through a single broker.</p>
+
+        <p class="body"><strong>Analyst Take:</strong> Pepperstone's focus on core trading infrastructure over marketing gimmicks reflects their trader-founded heritage. This approach resonates with serious traders who evaluate brokers on execution quality rather than flashy features.</p>
+      </AnalystNotes>
+
+      <FeatureHighlights
+        features={whyChooseFeatures}
+        columns={4}
+        variant="dark"
+        brokerName={BROKER_NAME}
+        subtitle=""
+      />
+    </div>
+  </section>
+
+  <!-- FEES & SPREADS SECTION -->
+  <section id="fees">
+    <ComparisonTable
+      title="Pepperstone Fees & Spreads Compared"
+      subtitle="How Pepperstone's costs compare to IC Markets and the industry average"
+      headers={feeTableHeaders}
+      rows={feeRows}
+      showGuide={true}
+    >
+      <CostAnalysis
+        content="Pepperstone's Razor account offers some of the tightest spreads in the retail forex market. The combination of 0.0 pip raw spreads plus low $3.50/lot commission results in all-in costs that rival institutional trading. For active traders, the absence of deposit, withdrawal, and inactivity fees provides additional cost savings."
+        variant="info"
+      />
+    </ComparisonTable>
+  </section>
+
+  <!-- SAFETY & REGULATION SECTION -->
+  <section id="safety" class="section section-light">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Safety & Regulation</h2>
+        <p class="body-large">Six-jurisdiction regulation providing comprehensive global coverage and maximum trader protection</p>
+      </div>
+
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Analyst Notes  - Regulatory Framework Analysis" id="safety-notes">
+        <h4 class="heading-3">Multi-Jurisdiction Licensing: Strategic or Necessary?</h4>
+        <p class="body">Pepperstone's six regulatory licenses aren't just about compliance – they're a strategic asset. Each jurisdiction offers different advantages: ASIC for Australian credibility, FCA for UK client protection, BaFin for German precision, CySEC for EU passporting, DFSA for Middle East access, and CMA for African expansion.</p>
+
+        <h4 class="heading-3">Client Fund Protection Compared</h4>
+        <div class="grid-2 mt-md mb-md">
+          <div>
+            <h5 class="body"><strong>UK Clients (FCA):</strong></h5>
+            <ul class="list">
+              <li>FSCS protection up to £85,000</li>
+              <li>Funds held at Barclays Bank</li>
+              <li>Negative balance protection mandatory</li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="body"><strong>EU Clients (CySEC/BaFin):</strong></h5>
+            <ul class="list">
+              <li>ICF protection up to €20,000</li>
+              <li>MiFID II compliant operations</li>
+              <li>Segregated client accounts</li>
+            </ul>
+          </div>
+        </div>
+
+        <h4 class="heading-3">Operational Security</h4>
+        <p class="body">Beyond regulatory compliance, Pepperstone employs additional security measures: 256-bit SSL encryption, two-factor authentication, anti-fraud monitoring, and regular third-party security audits. Their servers are housed in Equinix data centers – the same facilities used by major banks and exchanges.</p>
+
+        <p class="body"><strong>Analyst Take:</strong> Pepperstone's regulatory framework is robust and well-structured. The combination of tier-1 licenses and institutional-grade infrastructure provides strong protection for client funds and data.</p>
+      </AnalystNotes>
+
+      <RegulationCard
+        licenses={regulationLicenses}
+        variant="default"
+      />
+
+      <!-- Client Fund Protection -->
+      <div class="client-fund-protection">
+        <div class="text-center mb-lg">
+          <h3 class="heading-3">Client Fund Protection</h3>
+          <p class="body-large">Multiple layers of security for your trading capital</p>
+        </div>
+
+        <div class="protection-features-grid">
+          <div class="protection-feature">
+            <div class="protection-icon">🛡️</div>
+            <h4 class="protection-title">Segregated Accounts</h4>
+            <p class="protection-description">Client funds held separately from company funds at top-tier banks</p>
+          </div>
+          <div class="protection-feature">
+            <div class="protection-icon">🔒</div>
+            <h4 class="protection-title">Negative Balance Protection</h4>
+            <p class="protection-description">Your account cannot go below zero – guaranteed</p>
+          </div>
+          <div class="protection-feature">
+            <div class="protection-icon">💰</div>
+            <h4 class="protection-title">Compensation Schemes</h4>
+            <p class="protection-description">Up to £85,000 (UK) or €20,000 (EU) protection per client</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADING PLATFORMS SECTION -->
+  <section id="platforms" class="section section-gray">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Trading Platforms</h2>
+        <p class="body-large">Four professional platforms to suit every trading style</p>
+      </div>
+
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Analyst Notes  - Platform Selection Strategy" id="platforms-notes">
+        <h4 class="heading-3">Choosing the Right Platform</h4>
+        <p class="body">Pepperstone's platform diversity means you can select the tool that best matches your trading style. Here's our recommendation based on trader type:</p>
+
+        <div class="grid-2 mt-md mb-md">
+          <div>
+            <h5 class="body"><strong>MetaTrader 4 - Best For:</strong></h5>
+            <ul class="list">
+              <li>Expert Advisor (EA) traders</li>
+              <li>Traders with existing MT4 indicators</li>
+              <li>Those who prefer simplicity</li>
+              <li>Forex-focused trading</li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="body"><strong>MetaTrader 5 - Best For:</strong></h5>
+            <ul class="list">
+              <li>Multi-asset traders (stocks, indices)</li>
+              <li>Advanced backtesting needs</li>
+              <li>MQL5 developers</li>
+              <li>Those wanting more timeframes (21 vs 9)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid-2 mt-md mb-md">
+          <div>
+            <h5 class="body"><strong>cTrader - Best For:</strong></h5>
+            <ul class="list">
+              <li>Scalpers needing Level II pricing</li>
+              <li>Professional day traders</li>
+              <li>cAlgo automated strategy users</li>
+              <li>Those wanting detachable charts</li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="body"><strong>TradingView - Best For:</strong></h5>
+            <ul class="list">
+              <li>Technical analysts</li>
+              <li>Pine Script strategy users</li>
+              <li>Social/community traders</li>
+              <li>Those prioritizing charting above all</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="body"><strong>Analyst Take:</strong> The TradingView integration is Pepperstone's secret weapon. For technical traders who've been frustrated by MT4's dated charting, this changes everything. You can finally use world-class charts with fast ECN execution.</p>
+      </AnalystNotes>
+
+      <PlatformGrid
+        title=""
+        subtitle=""
+        platforms={tradingPlatforms}
+        columns={2}
+      />
+    </div>
+  </section>
+
+  <!-- ACCOUNT TYPES & OPENING SECTION -->
+  <section id="accounts" class="section section-warm">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Account Types & Opening Process</h2>
+        <p class="body-large">Simple account structure with options for every trader</p>
+      </div>
+
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Analyst Notes  - Account Selection Guide" id="accounts-notes">
+        <h4 class="heading-3">Standard vs Razor: Which Should You Choose?</h4>
+        <p class="body">This is the most common question new Pepperstone traders ask. Here's our definitive guide:</p>
+
+        <h4 class="heading-3">Choose Standard Account If:</h4>
+        <ul class="list">
+          <li>You're new to forex and want simple, predictable costs</li>
+          <li>You trade infrequently (less than 10 trades per week)</li>
+          <li>You prefer seeing all costs in the spread</li>
+          <li>You trade micro lots where commissions have higher relative impact</li>
+        </ul>
+
+        <h4 class="heading-3">Choose Razor Account If:</h4>
+        <ul class="list">
+          <li>You're an active trader (10+ trades per week)</li>
+          <li>You scalp or day trade and need tight spreads</li>
+          <li>You run EAs or automated strategies</li>
+          <li>You trade standard lots (1.0+) where commission impact is minimal</li>
+          <li>You want the most competitive overall costs</li>
+        </ul>
+
+        <h4 class="heading-3">Professional Account Considerations</h4>
+        <p class="body">Pepperstone offers Professional accounts for eligible traders, providing leverage up to 1:500. However, accepting professional status means giving up certain retail protections including ICF/FSCS coverage and negative balance protection. Only apply if you meet the criteria AND understand the trade-offs.</p>
+
+        <p class="body"><strong>Analyst Take:</strong> For most traders reading this review, the Razor account is the better choice. The math is simple: if you trade regularly, the lower spreads more than compensate for the commission.</p>
+      </AnalystNotes>
+
+      <!-- Account Types Table -->
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Account Type</th>
+              <th>Minimum Deposit</th>
+              <th>Spreads</th>
+              <th>Commission</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>📈 Standard</strong></td>
+              <td><span class="highlight-best">$0</span></td>
+              <td>From 1.0 pips</td>
+              <td><span class="highlight-best">$0</span></td>
+              <td>Beginners, casual traders</td>
+            </tr>
+            <tr>
+              <td><strong>⚡ Razor</strong></td>
+              <td><span class="highlight-best">$0</span></td>
+              <td><span class="highlight-best">From 0.0 pips</span></td>
+              <td>$3.50/lot</td>
+              <td>Active traders, scalpers, EAs</td>
+            </tr>
+            <tr>
+              <td><strong>☪️ Islamic (Swap-Free)</strong></td>
+              <td><span class="highlight-best">$0</span></td>
+              <td>From 1.0 pips</td>
+              <td>$0</td>
+              <td>Sharia-compliant trading</td>
+            </tr>
+            <tr>
+              <td><strong>💼 Professional</strong></td>
+              <td><span class="highlight-best">$0</span></td>
+              <td>From 0.0 pips</td>
+              <td>$3.50/lot</td>
+              <td>High-volume, experienced</td>
+            </tr>
+            <tr>
+              <td><strong>🎮 Demo</strong></td>
+              <td><span class="highlight-best">Free</span></td>
+              <td>Live conditions</td>
+              <td>N/A</td>
+              <td>Practice, strategy testing</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Opening Process -->
+      <ProcessSteps
+        steps={openingProcessSteps}
+        columns={3}
+      />
+    </div>
+  </section>
+
+  <!-- DEPOSITS & WITHDRAWALS SECTION -->
+  <section id="deposits" class="section section-gray">
+    <div class="container">
+      <PaymentMethods
+        title="Deposit & Withdrawal Methods"
+        subtitle="All deposits and withdrawals are completely free"
+        methods={paymentMethods}
+        variant="table"
+      />
+
+      <!-- Payment Details -->
+      <PaymentDetails
+        title="Withdrawal & Payment Information"
+        subtitle="Complete overview of payment processing and conditions"
+        withdrawalDetails={withdrawalDetails}
+        analysisTitle="Payment System Analysis"
+        analysis={paymentAnalysis}
+      />
+    </div>
+  </section>
+
+  <!-- TRADING INSTRUMENTS SECTION -->
+  <section id="instruments" class="section section-light">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Trading Instruments & Asset Classes</h2>
+        <p class="body-large">1,200+ instruments across forex, indices, commodities, crypto, stocks, and ETFs</p>
+      </div>
+
+      <TradingInstruments
+        title=""
+        subtitle=""
+        categories={instrumentCategories}
+        layout="grid"
+        showDetails={true}
+      />
+    </div>
+  </section>
+
+  <!-- PROS & CONS SECTION -->
+  <section id="pros-cons" class="section section-dark">
+    <div class="container">
+      <ProsCons
+        title="Pepperstone Pros & Cons"
+        subtitle="Balanced analysis of Pepperstone's strengths and weaknesses"
+        pros={prosConsData.pros}
+        cons={prosConsData.cons}
+        variant="dark"
+      />
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section id="faq" class="section section-gray">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Frequently Asked Questions</h2>
+        <p class="body-large">Expert answers to common Pepperstone questions</p>
+      </div>
+
+      <div class="center-container">
+        {faqData.map((faq, index) => (
+          <div class="faq-item">
+            <button class="faq-question" data-faq-index={index}>
+              {faq.question}
+            </button>
+            <div class="faq-answer">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL VERDICT SECTION -->
+  <section id="verdict" class="section">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Final Verdict</h2>
+
+        <div class="rating">
+          <span class="stars">★★★★★</span>
+          <span class="rating-text">4.5/5</span>
+        </div>
+
+        <p class="body-large">Pepperstone has earned its reputation as one of the best forex brokers for serious traders who demand raw spreads, ultra-fast execution, and professional-grade platforms. Their combination of tier-1 multi-jurisdiction regulation, no minimum deposit, and exceptional platform diversity make them a standout choice.</p>
+      </div>
+
+      <!-- Analyst Notes -->
+      <AnalystNotes title="Analyst Notes  - Final Assessment & Recommendation" id="verdict-notes">
+        <h4 class="heading-3">Market Position Analysis</h4>
+        <p class="body">Pepperstone occupies a unique position in the retail brokerage landscape: institutional-grade execution at retail-accessible prices. While brokers like IG offer better research and AvaTrade provides more educational resources, Pepperstone wins on the metrics that matter most to active traders – execution speed, spread consistency, and trading costs.</p>
+
+        <h4 class="heading-3">Who Should Consider Pepperstone?</h4>
+        <p class="body">Based on our comprehensive testing, Pepperstone is ideal for:</p>
+        <ul class="list">
+          <li>Forex traders who prioritize execution quality over auxiliary features</li>
+          <li>Scalpers and day traders who need tight spreads and fast fills</li>
+          <li>EA and algorithmic traders requiring reliable infrastructure</li>
+          <li>TradingView users who want direct execution from their favorite charts</li>
+          <li>Cost-conscious traders seeking the best value per trade</li>
+        </ul>
+
+        <h4 class="heading-3">Who Should Look Elsewhere?</h4>
+        <p class="body">Pepperstone may not be the best fit for:</p>
+        <ul class="list">
+          <li>Complete beginners who need extensive hand-holding and education</li>
+          <li>Traders who rely heavily on broker-provided research</li>
+          <li>Those wanting guaranteed stop losses (consider IG instead)</li>
+          <li>Social trading enthusiasts (consider eToro instead)</li>
+        </ul>
+
+        <p class="body"><strong>Final Recommendation:</strong> Pepperstone earns a strong 4.5/5 rating and our recommendation for experienced forex traders and anyone who prioritizes execution quality. The combination of raw spreads, fast execution, platform diversity, and zero-fee structure creates compelling value that's hard to beat in 2026.</p>
+      </AnalystNotes>
+
+      <!-- Rating Breakdown -->
+      <div class="rating-breakdown mt-lg">
+        <h4 class="breakdown-title">Rating Breakdown</h4>
+        <div class="category-ratings">
+          {verdictData.ratingCategories.map((category) => {
+            const categoryPercentage = (category.score / category.maxScore) * 100;
+            return (
+              <div class="category-item">
+                <div class="category-header">
+                  <span class="category-name">{category.name}</span>
+                  <span class="category-score">{category.score}/{category.maxScore}</span>
+                </div>
+                <div class="category-bar">
+                  <div
+                    class="category-progress"
+                    style={`width: ${categoryPercentage}%`}
+                  ></div>
+                </div>
+                {category.description && (
+                  <p class="category-description">{category.description}</p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- Best For / Not Ideal For -->
+      <BestFor
+        bestFor={verdictData.bestFor}
+        notIdealFor={verdictData.notIdealFor}
+      />
+
+      <!-- CTA Section -->
+      <div class="cta-section">
+        <a href={verdictData.ctaUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xxl">
+          {verdictData.ctaText} →
+        </a>
+
+        <p class="cta-link">
+          <em>or, <a href="/brokers/" class="brand-link">compare other brokers</a></em>
+        </p>
+
+        <p class="disclaimer-text">
+          <strong>Risk Disclaimer:</strong> Trading forex, CFDs, and crypto carries high risk. 74-89% of retail investor accounts lose money when trading CFDs. Consider whether you can afford the risk of losing your money.
+        </p>
+      </div>
+
+      <!-- Related Links -->
+      <div class="related-comparisons">
+        <h3 class="heading-3 text-center">Related Comparisons & Resources</h3>
+        <div class="related-links">
+          <a href="/compare/pepperstone-vs-ic-markets/" class="related-link">
+            <span class="related-title">Pepperstone vs IC Markets</span>
+            <span class="related-desc">ECN broker showdown - see how they compare</span>
+          </a>
+          <a href="/brokers/ic-markets/" class="related-link">
+            <span class="related-title">IC Markets Review</span>
+            <span class="related-desc">Another top ECN broker for serious traders</span>
+          </a>
+          <a href="/find-broker/" class="related-link">
+            <span class="related-title">Find Your Perfect Broker</span>
+            <span class="related-desc">AI-powered broker matching in 30 seconds</span>
+          </a>
+          <a href="/bonus-codes/" class="related-link">
+            <span class="related-title">All Bonus Codes</span>
+            <span class="related-desc">Exclusive partner codes for top brokers</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross Promotion Section -->
+  <section class="section section-gray">
+    <div class="container">
+      <BrokerCrossPromo brokerSlug="pepperstone" brokerName="Pepperstone" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero-logo-bg {
+    background-image: url('/images/brokers/pepperstone/pepperstone-logo-dark.svg') !important;
+  }
+
+  .hero.section .body-large {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Review Meta */
+  .review-meta {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--gray-600, #4b5563);
+  }
+
+  .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .meta-item svg {
+    opacity: 0.7;
+  }
+
+  .meta-divider {
+    color: var(--gray-400, #9ca3af);
+  }
+
+  /* Client Fund Protection */
+  .client-fund-protection {
+    margin-top: 3rem;
+  }
+
+  .protection-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 0 auto;
+  }
+
+  .protection-feature {
+    text-align: center;
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+  }
+
+  .protection-feature:hover {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 8px 25px rgba(255, 72, 0, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .protection-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .protection-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin: 0 0 1rem 0;
+    line-height: 1.3;
+  }
+
+  .protection-description {
+    font-size: 0.9375rem;
+    color: var(--gray-600, #4b5563);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .mb-lg {
+    margin-bottom: 3rem;
+  }
+
+  /* Rating Breakdown */
+  .rating-breakdown {
+    background: var(--gray-50, #f9fafb);
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 700px;
+    margin: 2rem auto;
+  }
+
+  .breakdown-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .category-ratings {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .category-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .category-name {
+    font-weight: 600;
+    color: var(--charcoal);
+    font-size: 0.9375rem;
+  }
+
+  .category-score {
+    font-weight: 700;
+    color: var(--brand-orange);
+    font-size: 0.9375rem;
+  }
+
+  .category-bar {
+    height: 8px;
+    background: var(--gray-200);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .category-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--brand-orange), #ff6b35);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+
+  .category-description {
+    font-size: 0.8125rem;
+    color: var(--gray-600);
+    margin: 0;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .cta-link {
+    margin-top: 1rem;
+    color: var(--gray-600);
+  }
+
+  .disclaimer-text {
+    margin-top: 2rem;
+    font-size: 0.8125rem;
+    color: var(--gray-500);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .review-meta {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .meta-divider {
+      display: none;
+    }
+
+    .protection-features-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      max-width: 400px;
+    }
+
+    .protection-feature {
+      padding: 1.75rem 1.25rem;
+    }
+
+    .protection-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .protection-title {
+      font-size: 1.125rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .protection-description {
+      font-size: 0.875rem;
+    }
+
+    .rating-breakdown {
+      padding: 1.5rem;
+    }
+
+    .related-links {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Related Comparisons */
+  .related-comparisons {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-200, #e5e7eb);
+  }
+
+  .related-comparisons h3 {
+    margin-bottom: 1.5rem;
+  }
+
+  .related-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .related-link {
+    display: block;
+    padding: 1.25rem;
+    background: var(--gray-50, #f9fafb);
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .related-link:hover {
+    border-color: var(--brand-orange, #ff4800);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .related-title {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 0.25rem;
+  }
+
+  .related-desc {
+    font-size: 0.875rem;
+    color: var(--gray-500, #6b7280);
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const faqButtons = document.querySelectorAll('.faq-question');
+
+  faqButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const faqItem = this.parentElement;
+      const isOpen = faqItem.classList.contains('active');
+
+      if (isOpen) {
+        faqItem.classList.remove('active');
+      } else {
+        faqItem.classList.add('active');
+      }
+    });
+  });
+});
+</script>

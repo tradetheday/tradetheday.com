@@ -1,0 +1,274 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+// Page metadata
+const pageTitle = "Trade Global Markets | Stocks, Forex, Crypto, Gold & More";
+const pageDescription = "Trade 180+ global markets including stocks, forex, cryptocurrencies, commodities, and indices. Start with $100, access professional tools, and trade with regulated brokers.";
+
+// Trading categories data
+const tradingCategories = [
+  {
+    id: 'commodities',
+    title: 'Commodities',
+    subtitle: 'Gold, Oil, Silver & More',
+    icon: '🥇',
+    gradientClass: 'gradient-commodities',
+    description: 'Trade precious metals, energy, and agricultural products. Gold and oil are among the most popular trading instruments worldwide.',
+    features: ['Safe Haven Assets', 'Inflation Hedge', 'High Liquidity', '24/5 Trading'],
+    stats: { volume: '$2.1T', topAsset: 'Gold', volatility: 'Medium-High' },
+    href: '/trade/gold/'
+  },
+  {
+    id: 'crypto',
+    title: 'Cryptocurrencies',
+    subtitle: 'Bitcoin, Ethereum & Altcoins',
+    icon: '₿',
+    gradientClass: 'gradient-crypto',
+    description: 'Trade digital assets and cryptocurrencies 24/7. Access Bitcoin, Ethereum, Solana and more through regulated brokers.',
+    features: ['24/7 Trading', 'No Wallet Needed', 'Go Long or Short', 'Leverage Available'],
+    stats: { volume: '$50B', topAsset: 'Bitcoin', volatility: 'Very High' },
+    href: '/trade/bitcoin/'
+  },
+  {
+    id: 'forex',
+    title: 'Forex',
+    subtitle: 'Currency Pairs',
+    icon: '💱',
+    gradientClass: 'gradient-forex',
+    description: 'Trade the world\'s largest market with $7.5 trillion daily volume. Access major, minor, and exotic currency pairs.',
+    features: ['High Liquidity', 'Low Spreads', '24/5 Market', 'Leverage Up to 30:1'],
+    stats: { volume: '$7.5T', topAsset: 'EUR/USD', volatility: 'Medium' },
+    href: '/trade/eurusd/'
+  },
+  {
+    id: 'stocks',
+    title: 'Stocks',
+    subtitle: 'Global Company Shares',
+    icon: '📈',
+    gradientClass: 'gradient-stocks',
+    description: 'Trade shares from leading companies worldwide. Go long or short on Apple, Tesla, Microsoft and thousands more.',
+    features: ['Fractional Shares', 'Global Markets', 'Dividends', 'No Stamp Duty'],
+    stats: { volume: '$200B', topAsset: 'Apple', volatility: 'Medium' },
+    href: '/trade/apple/'
+  },
+  {
+    id: 'indices',
+    title: 'Indices',
+    subtitle: 'Stock Market Indices',
+    icon: '📊',
+    gradientClass: 'gradient-indices',
+    description: 'Trade the performance of entire markets. S&P 500, NASDAQ, FTSE 100, DAX and more major global indices.',
+    features: ['Diversification', 'Lower Risk', 'Extended Hours', 'Cash Settlement'],
+    stats: { volume: '$150B', topAsset: 'S&P 500', volatility: 'Medium' },
+    href: '/trade/sp500/'
+  }
+];
+
+// Hero statistics
+const heroStats = [
+  { icon: '📊', value: '$10T+', label: 'Daily Volume' },
+  { icon: '🌍', value: '180+', label: 'Markets' },
+  { icon: '⏰', value: '24/5', label: 'Trading Hours' },
+  { icon: '💰', value: '$100', label: 'Min Deposit' }
+];
+
+// Popular markets
+const popularMarkets = [
+  { name: 'Gold', symbol: 'XAU/USD', icon: '🥇', category: 'commodities', gradientClass: 'gradient-commodities' },
+  { name: 'Bitcoin', symbol: 'BTC/USD', icon: '₿', category: 'crypto', gradientClass: 'gradient-crypto' },
+  { name: 'EUR/USD', symbol: 'Forex', icon: '💱', category: 'forex', gradientClass: 'gradient-forex' },
+  { name: 'S&P 500', symbol: 'SPX500', icon: '📊', category: 'indices', gradientClass: 'gradient-indices' },
+  { name: 'Apple', symbol: 'AAPL', icon: '📈', category: 'stocks', gradientClass: 'gradient-stocks' },
+  { name: 'Crude Oil', symbol: 'WTI/USD', icon: '🛢️', category: 'commodities', gradientClass: 'gradient-commodities' },
+  { name: 'Tesla', symbol: 'TSLA', icon: '⚡', category: 'stocks', gradientClass: 'gradient-stocks' },
+  { name: 'Ethereum', symbol: 'ETH/USD', icon: '💎', category: 'crypto', gradientClass: 'gradient-crypto' }
+];
+
+// Trading advantages
+const tradingAdvantages = [
+  {
+    icon: '⚡',
+    title: 'Lightning-Fast Execution',
+    description: 'Institutional-grade technology with millisecond execution and minimal slippage.'
+  },
+  {
+    icon: '🔒',
+    title: 'Regulated Partners Only',
+    description: 'Trade with confidence through tier-1 regulated brokers with segregated accounts.'
+  },
+  {
+    icon: '📱',
+    title: 'Multi-Platform Trading',
+    description: 'Professional trading platforms for mobile, tablet, and desktop access.'
+  },
+  {
+    icon: '🎓',
+    title: 'Expert Education',
+    description: 'Free trading courses, webinars, and market analysis from partner brokers.'
+  }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+>
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Trade', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-badge">
+        <span class="page-hero-badge-icon">🌍</span>
+        GLOBAL TRADING HUB
+      </div>
+
+      <h1>Trade <span>Global Markets</span></h1>
+
+      <p class="page-hero-description">
+        Access 180+ markets including stocks, forex, cryptocurrencies, commodities, and indices. Start trading with as little as $100 and join millions of traders worldwide.
+      </p>
+
+      <div class="page-hero-stats">
+        {heroStats.map((stat) => (
+          <div class="page-hero-stat">
+            <span class="page-hero-stat-icon">{stat.icon}</span>
+            <span class="page-hero-stat-value">{stat.value}</span>
+            <span class="page-hero-stat-label">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="page-hero-cta">
+        <a href="/brokers/" class="btn btn-primary btn-lg">Start Trading Now</a>
+        <a href="/guides/what-is-trading/" class="btn btn-ghost-light btn-lg">Learn to Trade First</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPULAR MARKETS SECTION -->
+  <section class="page-section page-section-alt">
+    <div class="container">
+      <div class="page-section-header">
+        <h2 class="page-section-title">Most Popular Markets</h2>
+        <p class="page-section-description">
+          Start with these top-performing markets favored by professional traders worldwide
+        </p>
+      </div>
+
+      <div class="example-grid">
+        {popularMarkets.map((market) => (
+          <a href={`/trade/${market.category}/`} class="example-card">
+            <div class={`example-card-icon ${market.gradientClass}`}>
+              {market.icon}
+            </div>
+            <div class="example-card-info">
+              <span class="example-card-name">{market.name}</span>
+              <span class="example-card-symbol">{market.symbol}</span>
+            </div>
+            <span class="example-card-tag">{market.category}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADING CATEGORIES SECTION -->
+  <section class="page-section">
+    <div class="container">
+      <div class="page-section-header">
+        <h2 class="page-section-title">Choose Your Market</h2>
+        <p class="page-section-description">
+          Explore different asset classes and find the perfect markets for your trading style
+        </p>
+      </div>
+
+      <div class="category-grid">
+        {tradingCategories.map((category) => (
+          <a href={category.href} class="category-card">
+            <div class={`category-card-header ${category.gradientClass}`}>
+              <span class="category-card-icon">{category.icon}</span>
+              <h3 class="category-card-title">{category.title}</h3>
+              <p class="category-card-subtitle">{category.subtitle}</p>
+            </div>
+
+            <div class="category-card-body">
+              <p class="category-card-description">{category.description}</p>
+
+              <div class="category-card-features">
+                {category.features.map((feature) => (
+                  <span class="category-card-feature">
+                    <span class="category-card-feature-icon">✓</span>
+                    {feature}
+                  </span>
+                ))}
+              </div>
+
+              <div class="category-card-stats">
+                {Object.entries(category.stats).map(([key, value]) => (
+                  <div class="category-card-stat">
+                    <span class="category-card-stat-value">{value}</span>
+                    <span class="category-card-stat-label">{key}</span>
+                  </div>
+                ))}
+              </div>
+
+              <span class="category-card-cta">
+                Trade {category.title} →
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ADVANTAGES SECTION -->
+  <section class="page-section page-section-alt">
+    <div class="container">
+      <div class="page-section-header">
+        <h2 class="page-section-title">Why Trade Through Our Partner Brokers</h2>
+        <p class="page-section-description">
+          Access professional-grade trading tools and features through our carefully vetted partners
+        </p>
+      </div>
+
+      <div class="advantage-grid">
+        {tradingAdvantages.map((advantage) => (
+          <div class="advantage-card">
+            <div class="advantage-card-icon">{advantage.icon}</div>
+            <h3 class="advantage-card-title">{advantage.title}</h3>
+            <p class="advantage-card-description">{advantage.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA SECTION -->
+  <section class="final-cta">
+    <div class="container">
+      <div class="final-cta-content">
+        <h2 class="final-cta-title">Ready to Start Trading?</h2>
+        <p class="final-cta-description">
+          Join millions of traders worldwide through our partner brokers and exchanges. Compare regulated platforms and start trading global markets in minutes.
+        </p>
+        <div class="final-cta-buttons">
+          <a href="/brokers/" class="btn btn-primary btn-lg">Compare Partner Brokers</a>
+          <a href="/guides/" class="btn btn-ghost-light btn-lg">View Trading Guides</a>
+        </div>
+        <div class="final-cta-features">
+          <span class="final-cta-feature">✓ Vetted partner brokers</span>
+          <span class="final-cta-feature">✓ Regulated platforms only</span>
+          <span class="final-cta-feature">✓ Free demo accounts</span>
+          <span class="final-cta-feature">✓ Expert support available</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

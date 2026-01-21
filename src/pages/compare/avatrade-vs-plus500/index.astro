@@ -1,0 +1,960 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import FAQ from '../../../components/FAQ.astro';
+import { getBrokerBySlug } from '../../../data/brokers';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+
+// Get broker data
+const avatrade = getBrokerBySlug('avatrade');
+const plus500 = getBrokerBySlug('plus500');
+
+if (!avatrade || !plus500) {
+  return Astro.redirect('/compare/');
+}
+
+// Page metadata
+const pageTitle = 'AvaTrade vs Plus500 2026: Which CFD Broker Is Better? | TradeTheDay';
+const pageDescription = 'AvaTrade vs Plus500 comparison. Compare platforms, fees, regulation, and features. Find out which CFD broker suits your trading style.';
+
+// Comparison tables
+const overviewHeaders = ['Feature', 'AvaTrade', 'Plus500', 'Winner'];
+const overviewRows = [
+  {
+    cells: [
+      { content: 'Founded', type: 'text' },
+      { content: '2006', type: 'text', highlight: 'best' },
+      { content: '2008', type: 'text' },
+      { content: 'AvaTrade', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Minimum Deposit', type: 'text' },
+      { content: '$100', type: 'text' },
+      { content: '$100', type: 'text' },
+      { content: 'Tie', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Instruments', type: 'text' },
+      { content: '1,250+', type: 'text' },
+      { content: '2,800+', type: 'text', highlight: 'best' },
+      { content: 'Plus500', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Platforms', type: 'text' },
+      { content: 'MT4, MT5, WebTrader, AvaTradeGO', type: 'text', highlight: 'best' },
+      { content: 'Proprietary only', type: 'text' },
+      { content: 'AvaTrade', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Education', type: 'text' },
+      { content: 'Comprehensive', type: 'text', highlight: 'best' },
+      { content: 'Basic', type: 'text' },
+      { content: 'AvaTrade', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Listed Company', type: 'text' },
+      { content: 'No', type: 'text' },
+      { content: 'Yes (LSE)', type: 'text', highlight: 'best' },
+      { content: 'Plus500', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Our Rating', type: 'text' },
+      { content: `${avatrade.scores.overall}/5`, type: 'text', highlight: 'best' },
+      { content: `${plus500.scores.overall}/5`, type: 'text' },
+      { content: 'AvaTrade', type: 'text', highlight: 'good' }
+    ]
+  }
+];
+
+const feesHeaders = ['Fee Type', 'AvaTrade', 'Plus500', 'Winner'];
+const feesRows = [
+  {
+    cells: [
+      { content: 'EUR/USD Spread', type: 'text' },
+      { content: '0.9 pips', type: 'text', highlight: 'best' },
+      { content: '0.6 pips (variable)', type: 'text', highlight: 'best' },
+      { content: 'Plus500*', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Commission', type: 'text' },
+      { content: 'No', type: 'text', highlight: 'best' },
+      { content: 'No', type: 'text', highlight: 'best' },
+      { content: 'Tie', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Overnight Fee', type: 'text' },
+      { content: 'Standard swap', type: 'text' },
+      { content: 'Funding rate', type: 'text' },
+      { content: 'Similar', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Withdrawal Fee', type: 'text' },
+      { content: '1 free/month', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Tie', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Inactivity Fee', type: 'text' },
+      { content: '$50/quarter', type: 'text', highlight: 'warning' },
+      { content: '$10/month', type: 'text', highlight: 'good' },
+      { content: 'Plus500', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Guaranteed Stop', type: 'text' },
+      { content: 'No', type: 'text' },
+      { content: 'Yes (fee applies)', type: 'text', highlight: 'good' },
+      { content: 'Plus500', type: 'text', highlight: 'good' }
+    ]
+  }
+];
+
+// FAQ data
+const faqItems = [
+  {
+    question: 'Is AvaTrade or Plus500 better for beginners?',
+    answer: 'AvaTrade is better for beginners who want to learn trading. They offer comprehensive educational resources, demo accounts, and multiple platform options including MT4 which has extensive learning resources online. Plus500 has a simpler interface which some beginners prefer, but limited educational content.'
+  },
+  {
+    question: 'Which has lower spreads, AvaTrade or Plus500?',
+    answer: 'Plus500 advertises tighter spreads (0.6 pips on EUR/USD vs 0.9 pips for AvaTrade), but Plus500 spreads are variable and can widen significantly during volatile markets. AvaTrade\'s spreads tend to be more stable. For consistent costs, AvaTrade may actually be cheaper during news events.'
+  },
+  {
+    question: 'Can I use MT4 with Plus500?',
+    answer: 'No, Plus500 only offers their proprietary platform and mobile app. If you want to use MetaTrader 4 or MetaTrader 5, you\'ll need to choose AvaTrade or another broker that supports these industry-standard platforms.'
+  },
+  {
+    question: 'Is Plus500 safer because it\'s publicly listed?',
+    answer: 'Being listed on the London Stock Exchange (LSE) does add a layer of transparency as Plus500 must publish regular financial reports. However, both brokers are well-regulated by tier-1 authorities. AvaTrade has more regulatory licenses (6+ vs 3-4), which some traders prefer.'
+  },
+  {
+    question: 'Which broker offers better customer support?',
+    answer: 'AvaTrade generally offers better customer support with phone, email, and live chat available. Plus500 relies more heavily on email support and their help center. AvaTrade also provides dedicated account managers for larger accounts.'
+  },
+  {
+    question: 'Do either offer copy trading?',
+    answer: 'AvaTrade offers copy trading through DupliTrade and ZuluTrade integrations. Plus500 does not offer any copy trading or social trading features. If copy trading interests you, AvaTrade is the clear choice.'
+  },
+  {
+    question: 'Which is better for automated trading?',
+    answer: 'AvaTrade, by a significant margin. They support MT4 and MT5 which allow Expert Advisors (automated trading bots). Plus500\'s proprietary platform does not support any form of automated trading or algorithmic strategies.'
+  },
+  {
+    question: 'Does either broker offer a welcome bonus?',
+    answer: 'AvaTrade offers a welcome bonus of up to $10,000 with partner code 128979 (terms apply, regional restrictions may exist). Plus500 occasionally offers promotional credits but doesn\'t have a consistent bonus program.'
+  }
+];
+
+// Schema and breadcrumbs
+const breadcrumbSchemaItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Compare', url: '/compare/' },
+  { name: 'AvaTrade vs Plus500', url: '/compare/avatrade-vs-plus500/' }
+];
+
+const faqSchema = generateFAQSchema(faqItems);
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbSchemaItems);
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Compare', href: '/compare/' },
+  { text: 'AvaTrade vs Plus500', current: true }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  ogType="article"
+  schema={[faqSchema, breadcrumbSchema]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- HERO SECTION -->
+  <section class="comparison-hero">
+    <div class="container">
+      <div class="comparison-hero-content">
+        <h1 class="heading-1">AvaTrade vs Plus500</h1>
+        <p class="comparison-hero-sub">
+          Two popular CFD brokers compared. Which platform better serves your trading needs?
+        </p>
+      </div>
+
+      <div class="verdict-cards">
+        <div class="verdict-card verdict-card--winner">
+          <div class="winner-badge">Our Pick</div>
+          <div class="broker-logo-placeholder">A</div>
+          <h3>AvaTrade</h3>
+          <div class="verdict-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="score">{avatrade.scores.overall}/5</span>
+          </div>
+          <p class="verdict-best">Better platforms, education, regulation</p>
+          <a href={avatrade.partnerCode?.pageUrl || avatrade.reviewUrl} class="btn btn-primary">
+            Get Bonus →
+          </a>
+        </div>
+
+        <div class="vs-badge">VS</div>
+
+        <div class="verdict-card">
+          <div class="broker-logo-placeholder">+</div>
+          <h3>Plus500</h3>
+          <div class="verdict-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="score">{plus500.scores.overall}/5</span>
+          </div>
+          <p class="verdict-best">Simple interface, publicly listed</p>
+          <a href={plus500.reviewUrl} class="btn btn-secondary">
+            Read Review →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK SUMMARY -->
+  <section class="section">
+    <div class="container">
+      <div class="quick-summary">
+        <h2 class="heading-3">Quick Summary</h2>
+        <div class="summary-grid">
+          <div class="summary-card summary-card--avatrade">
+            <h4>Choose AvaTrade If You Want:</h4>
+            <ul>
+              <li>Industry-standard platforms (MT4/MT5)</li>
+              <li>Comprehensive education resources</li>
+              <li>Copy trading capabilities</li>
+              <li>Automated trading (EAs)</li>
+              <li>Up to $10,000 welcome bonus</li>
+            </ul>
+          </div>
+          <div class="summary-card summary-card--plus500">
+            <h4>Choose Plus500 If You Want:</h4>
+            <ul>
+              <li>Simple, easy-to-use platform</li>
+              <li>Publicly traded company transparency</li>
+              <li>Guaranteed stop-loss orders</li>
+              <li>More instruments (2,800+)</li>
+              <li>Lower inactivity fees</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="The Key Difference Between These Brokers"
+        icon="🎯"
+        id="key-difference"
+        variant="light"
+      >
+        <h4>Platform Philosophy: Professional vs Simple</h4>
+        <p>The fundamental difference between AvaTrade and Plus500 comes down to platform philosophy. AvaTrade embraces the professional trading ecosystem with MT4/MT5 support. Plus500 built their own simplified platform and doubled down on ease of use.</p>
+
+        <h5>AvaTrade: The Professional Approach</h5>
+        <p>AvaTrade supports MetaTrader 4, MetaTrader 5, and their own WebTrader/mobile apps. This gives you access to thousands of custom indicators, automated trading strategies (Expert Advisors), and a platform used by professionals worldwide. The learning curve is steeper, but the capabilities are far greater.</p>
+
+        <h5>Plus500: The Simplicity Approach</h5>
+        <p>Plus500 developed their own proprietary platform focused purely on simplicity. No clutter, no complex charting tools, no automation. You see the price, you click buy or sell. For casual traders who want exposure without complexity, this works well. For anyone wanting to develop as a trader, it's limiting.</p>
+
+        <h5>Long-term Consideration</h5>
+        <p>If you're planning to trade seriously over years, AvaTrade's platform flexibility is valuable. Skills learned on MT4 transfer to any broker. Plus500's platform skills are non-transferable - you'd start from scratch if you ever switched. This matters more than most comparisons mention.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- OVERVIEW COMPARISON -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Overview Comparison</h2>
+      <ComparisonTable
+        headers={overviewHeaders}
+        rows={overviewRows}
+        caption="AvaTrade vs Plus500: Key features side-by-side"
+      />
+    </div>
+  </section>
+
+  <!-- FEES COMPARISON -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2">Fees & Costs Comparison</h2>
+      <ComparisonTable
+        headers={feesHeaders}
+        rows={feesRows}
+        caption="AvaTrade vs Plus500: Trading costs breakdown"
+        footnote="*Plus500 spreads are variable and can widen significantly during volatile market conditions"
+      />
+
+      <AnalystNotes
+        title="Understanding the True Cost Difference"
+        icon="💰"
+        id="fees-analysis"
+        variant="dark"
+      >
+        <h4>Variable vs Stable Spreads</h4>
+        <p>Plus500 advertises lower spreads, but there's a catch: they're highly variable. Here's what this means in practice.</p>
+
+        <h5>Normal Market Conditions</h5>
+        <p>During calm markets (Asian session, midweek), Plus500 may indeed offer 0.6 pip EUR/USD spreads compared to AvaTrade's 0.9 pips. On these trades, Plus500 is cheaper.</p>
+
+        <h5>During News/Volatility</h5>
+        <p>When NFP releases, central bank announcements happen, or markets spike - Plus500 spreads can jump to 3-5+ pips temporarily. AvaTrade's spreads also widen but typically less dramatically because they use fixed-spread account types.</p>
+
+        <h5>Guaranteed Stop Orders</h5>
+        <p>Plus500 offers guaranteed stop orders - your stop will execute at exactly your specified price regardless of slippage or gaps. This costs extra (built into the spread), but provides certainty. AvaTrade doesn't offer this, so your stops may slip during gaps.</p>
+
+        <h5>The Inactivity Trap</h5>
+        <p>Plus500 wins on inactivity fees: $10/month after 3 months vs AvaTrade's $50/quarter after 3 months. If you trade sporadically, Plus500 charges less for dormant accounts. However, if you're active, this is irrelevant.</p>
+
+        <h5>Real-World Cost Comparison</h5>
+        <p>For an active day trader executing 10 standard lots per week on forex, AvaTrade's consistent spreads likely cost about the same as Plus500 in the long run - volatility spikes on Plus500 offset their base spread advantage.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PLATFORMS SECTION -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Trading Platforms</h2>
+
+      <div class="platforms-comparison">
+        <div class="platform-column">
+          <h3>AvaTrade Platforms</h3>
+          <div class="platform-list">
+            <div class="platform-item">
+              <h4>MetaTrader 4</h4>
+              <p>Industry standard with EAs, custom indicators, mobile trading</p>
+              <span class="platform-badge">Most Popular</span>
+            </div>
+            <div class="platform-item">
+              <h4>MetaTrader 5</h4>
+              <p>More timeframes, better backtesting, multi-asset support</p>
+            </div>
+            <div class="platform-item">
+              <h4>AvaTradeGO</h4>
+              <p>Proprietary mobile app with AvaProtect risk management</p>
+            </div>
+            <div class="platform-item">
+              <h4>WebTrader</h4>
+              <p>Browser-based, no downloads required</p>
+            </div>
+            <div class="platform-item">
+              <h4>Copy Trading</h4>
+              <p>DupliTrade and ZuluTrade integration</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="platform-column">
+          <h3>Plus500 Platform</h3>
+          <div class="platform-list">
+            <div class="platform-item platform-item--primary">
+              <h4>Plus500 WebTrader</h4>
+              <p>Simple, clean interface focused on ease of use</p>
+              <span class="platform-badge">Proprietary Only</span>
+            </div>
+            <div class="platform-item">
+              <h4>Plus500 Mobile App</h4>
+              <p>Full-featured mobile trading, mirrors web platform</p>
+              <span class="platform-badge">Well-Rated</span>
+            </div>
+            <div class="platform-item platform-item--warning">
+              <p><strong>Limitations:</strong></p>
+              <ul>
+                <li>No MT4/MT5 support</li>
+                <li>No automated trading (EAs)</li>
+                <li>No copy trading</li>
+                <li>Limited charting tools</li>
+                <li>No custom indicators</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Why Platform Choice Matters Long-Term"
+        icon="💻"
+        id="platform-analysis"
+        variant="light"
+      >
+        <h4>The Hidden Cost of Platform Lock-in</h4>
+        <p>Choosing Plus500 means accepting their platform exclusively. This has implications most traders don't consider.</p>
+
+        <h5>Skill Development</h5>
+        <p>MT4/MT5 skills transfer across hundreds of brokers worldwide. Plus500 platform skills are useful only on Plus500. If you spend a year learning Plus500's interface, then decide you need MT4 features, you're starting over.</p>
+
+        <h5>Strategy Implementation</h5>
+        <p>On MT4 (via AvaTrade), you can run automated strategies, backtest systems over decades of data, use custom indicators from a massive community, and execute based on precise technical signals. On Plus500, you click buttons manually. For systematic trading, this is the difference between a calculator and pencil math.</p>
+
+        <h5>When Plus500's Simplicity Wins</h5>
+        <p>If you just want to occasionally speculate on Tesla's stock price or catch Bitcoin moves without learning complex platforms - Plus500's simplicity is genuinely useful. Not everyone needs MT4. But if there's any chance you'll want more sophisticated tools later, starting with AvaTrade saves the platform transition.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- REGULATION COMPARISON -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2">Regulation & Safety</h2>
+
+      <div class="regulation-comparison">
+        <div class="reg-column">
+          <h3>AvaTrade Regulation</h3>
+          <p class="reg-count">6+ Regulatory Licenses</p>
+          <ul class="reg-list">
+            <li class="tier-1">🇮🇪 Central Bank of Ireland</li>
+            <li class="tier-1">🇬🇧 FCA (UK)</li>
+            <li class="tier-1">🇦🇺 ASIC (Australia)</li>
+            <li class="tier-1">🇯🇵 JFSA (Japan)</li>
+            <li class="tier-2">🇨🇾 CySEC (Cyprus)</li>
+            <li class="tier-2">🇿🇦 FSCA (South Africa)</li>
+          </ul>
+        </div>
+        <div class="reg-column">
+          <h3>Plus500 Regulation</h3>
+          <p class="reg-count">4 Regulatory Licenses + LSE Listed</p>
+          <ul class="reg-list">
+            <li class="tier-1">🇬🇧 FCA (UK)</li>
+            <li class="tier-1">🇦🇺 ASIC (Australia)</li>
+            <li class="tier-2">🇨🇾 CySEC (Cyprus)</li>
+            <li class="tier-2">🇮🇱 ISA (Israel)</li>
+            <li class="public">📊 LSE Listed (Public Company)</li>
+          </ul>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Public Company vs Private: Does It Matter?"
+        icon="🔒"
+        id="safety-analysis"
+        variant="dark"
+      >
+        <h4>Evaluating Broker Safety</h4>
+        <p>Plus500 being publicly listed on the London Stock Exchange is often cited as a safety advantage. Let's examine this objectively.</p>
+
+        <h5>The Public Company Advantage</h5>
+        <p>Plus500 must publish quarterly financial reports, annual statements, and material announcements. Their financials are audited. This transparency is valuable - you can literally check their balance sheet and see how much cash they hold.</p>
+
+        <h5>The Regulatory Advantage (AvaTrade)</h5>
+        <p>AvaTrade holds more regulatory licenses across more jurisdictions. Each regulator adds oversight. The Central Bank of Ireland (AvaTrade's primary regulator) is arguably stricter than CySEC (Plus500's primary for EU). More licenses = more regulatory oversight.</p>
+
+        <h5>Both Are Safe</h5>
+        <p>Let's be clear: both brokers are well-regulated, established, and safe for retail trading. Neither is likely to run off with your money. The differences are in degree of transparency (Plus500 wins) vs breadth of regulation (AvaTrade wins).</p>
+
+        <h5>Client Fund Protection</h5>
+        <p>Both offer segregated client funds, negative balance protection, and access to compensation schemes (FSCS in UK, etc.). In practice, your funds are similarly protected at either broker.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <h2 class="heading-2">Frequently Asked Questions</h2>
+      <FAQ questions={faqItems} />
+    </div>
+  </section>
+
+  <!-- VERDICT SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="final-verdict">
+        <h2 class="heading-2">Final Verdict: AvaTrade Wins Overall</h2>
+
+        <div class="verdict-grid">
+          <div class="verdict-box verdict-box--winner">
+            <h3>AvaTrade Wins If:</h3>
+            <ul>
+              <li>You want to learn proper trading skills</li>
+              <li>MT4/MT5 platforms matter to you</li>
+              <li>You want copy trading options</li>
+              <li>Education resources are important</li>
+              <li>You want the $10K welcome bonus</li>
+            </ul>
+            <a href={avatrade.partnerCode?.pageUrl || avatrade.reviewUrl} class="btn btn-primary">
+              Get AvaTrade Bonus →
+            </a>
+          </div>
+
+          <div class="verdict-box">
+            <h3>Plus500 Wins If:</h3>
+            <ul>
+              <li>Simplicity is your top priority</li>
+              <li>You want a publicly traded broker</li>
+              <li>You need guaranteed stop orders</li>
+              <li>You're a casual, occasional trader</li>
+              <li>You don't need MT4 or automation</li>
+            </ul>
+            <a href={plus500.reviewUrl} class="btn btn-secondary">
+              Read Plus500 Review →
+            </a>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Our Recommendation"
+          icon="🏆"
+          id="verdict-notes"
+          variant="light"
+        >
+          <h4>Why We Recommend AvaTrade</h4>
+          <p>For most traders reading this comparison, AvaTrade is the better choice. Here's our reasoning.</p>
+
+          <h5>Platform Flexibility Future-Proofs You</h5>
+          <p>Trading is a journey. You might start simple but eventually want more tools. AvaTrade grows with you - from basic manual trading to sophisticated automated strategies. Plus500 is the same platform whether you're day one or year five.</p>
+
+          <h5>Education Accelerates Learning</h5>
+          <p>AvaTrade's educational resources (webinars, tutorials, trading guides) help you improve faster. Plus500 has minimal education - you're largely on your own. For long-term development, AvaTrade's resources add significant value.</p>
+
+          <h5>The Bonus Sweetens the Deal</h5>
+          <p>AvaTrade's welcome bonus of up to $10,000 with partner code 128979 provides meaningful starting capital. Plus500 doesn't offer comparable bonuses. For new traders, this extra capital can make a real difference.</p>
+
+          <h5>When Plus500 Makes Sense</h5>
+          <p>If you specifically want the simplest possible interface, don't plan to use MT4 ever, and value Plus500's public company transparency - it's a fine broker. Just know what you're giving up in platform capabilities.</p>
+        </AnalystNotes>
+
+        <!-- Related Links -->
+        <div class="related-resources">
+          <h3>Full Reviews & Resources</h3>
+          <div class="resource-grid">
+            <a href="/brokers/avatrade/" class="resource-link">
+              <span class="resource-title">AvaTrade Full Review</span>
+              <span class="resource-desc">Complete 2026 analysis with fees, platforms, regulation</span>
+            </a>
+            <a href="/brokers/plus500/" class="resource-link">
+              <span class="resource-title">Plus500 Full Review</span>
+              <span class="resource-desc">In-depth look at the simplest CFD platform</span>
+            </a>
+            <a href="/bonus-codes/avatrade-partner-code/" class="resource-link resource-highlight">
+              <span class="resource-title">AvaTrade Partner Code: 128979</span>
+              <span class="resource-desc">Claim up to $10,000 welcome bonus</span>
+            </a>
+            <a href="/compare/avatrade-vs-etoro/" class="resource-link">
+              <span class="resource-title">AvaTrade vs eToro</span>
+              <span class="resource-desc">Copy trading comparison</span>
+            </a>
+            <a href="/find-broker/" class="resource-link">
+              <span class="resource-title">AI Broker Matcher</span>
+              <span class="resource-desc">Find your perfect broker in 30 seconds</span>
+            </a>
+            <a href="/brokers/" class="resource-link">
+              <span class="resource-title">All Broker Reviews</span>
+              <span class="resource-desc">Compare 15+ regulated brokers</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .comparison-hero {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    padding: var(--space-2xl) 0;
+    color: white;
+  }
+
+  .comparison-hero-content {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .comparison-hero h1 {
+    color: white;
+    margin-bottom: var(--space-md);
+  }
+
+  .comparison-hero-sub {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-size-xl);
+  }
+
+  .verdict-cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .verdict-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+    min-width: 280px;
+    color: var(--charcoal);
+    position: relative;
+  }
+
+  .verdict-card--winner {
+    border: 2px solid var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.2);
+  }
+
+  .winner-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--brand-orange);
+    color: white;
+    padding: 4px 16px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .broker-logo-placeholder {
+    width: 60px;
+    height: 60px;
+    background: var(--gray-100);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin: 0 auto var(--space-md);
+  }
+
+  .verdict-card h3 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .verdict-rating {
+    margin-bottom: var(--space-sm);
+  }
+
+  .stars {
+    color: var(--brand-orange);
+  }
+
+  .score {
+    color: var(--brand-orange);
+    font-weight: 700;
+    margin-left: var(--space-xs);
+  }
+
+  .verdict-best {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
+
+  .vs-badge {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.2);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quick-summary h2 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .summary-card {
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+  }
+
+  .summary-card--avatrade {
+    background: rgba(255, 72, 0, 0.05);
+    border: 1px solid rgba(255, 72, 0, 0.2);
+  }
+
+  .summary-card--plus500 {
+    background: rgba(0, 82, 204, 0.05);
+    border: 1px solid rgba(0, 82, 204, 0.2);
+  }
+
+  .summary-card h4 {
+    margin-bottom: var(--space-md);
+  }
+
+  .summary-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .summary-card li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+  }
+
+  .summary-card li::before {
+    content: '✓ ';
+    color: var(--success);
+    font-weight: 600;
+  }
+
+  .platforms-comparison {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .platform-column h3 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .platform-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .platform-item {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .platform-item--primary {
+    border-color: var(--brand-orange);
+  }
+
+  .platform-item--warning {
+    background: rgba(245, 158, 11, 0.05);
+    border-color: var(--warning);
+  }
+
+  .platform-item h4 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .platform-item p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  .platform-item ul {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-sm) 0 0;
+  }
+
+  .platform-item li {
+    font-size: var(--font-size-sm);
+    padding: var(--space-xs) 0;
+    color: var(--gray-700);
+  }
+
+  .platform-item li::before {
+    content: '✗ ';
+    color: var(--warning);
+  }
+
+  .platform-badge {
+    display: inline-block;
+    margin-top: var(--space-sm);
+    padding: 2px 8px;
+    background: var(--brand-orange);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+  }
+
+  .regulation-comparison {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .reg-column h3 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .reg-count {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-lg);
+  }
+
+  .reg-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .reg-list li {
+    padding: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    background: var(--white);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+  }
+
+  .reg-list li.tier-1 {
+    border-left: 3px solid var(--success);
+  }
+
+  .reg-list li.tier-2 {
+    border-left: 3px solid var(--brand-orange);
+  }
+
+  .reg-list li.public {
+    border-left: 3px solid #0052cc;
+    background: rgba(0, 82, 204, 0.05);
+  }
+
+  .final-verdict h2 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-box {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  .verdict-box--winner {
+    border-color: var(--brand-orange);
+  }
+
+  .verdict-box h3 {
+    margin-bottom: var(--space-md);
+  }
+
+  .verdict-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg) 0;
+  }
+
+  .verdict-box li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+  }
+
+  .verdict-box li::before {
+    content: '✓ ';
+    color: var(--success);
+  }
+
+  @media (max-width: 768px) {
+    .verdict-cards {
+      flex-direction: column;
+    }
+
+    .vs-badge {
+      transform: rotate(90deg);
+    }
+
+    .summary-grid,
+    .platforms-comparison,
+    .regulation-comparison,
+    .verdict-grid,
+    .resource-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Related Resources */
+  .related-resources {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .related-resources h3 {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .resource-link {
+    display: block;
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .resource-link:hover {
+    border-color: var(--brand-orange);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .resource-link.resource-highlight {
+    background: rgba(255, 72, 0, 0.05);
+    border-color: rgba(255, 72, 0, 0.3);
+  }
+
+  .resource-title {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .resource-desc {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+</style>

@@ -1,0 +1,334 @@
+---
+interface Props {
+  variant?: 'inline' | 'full' | 'minimal';
+  headline?: string;
+  subheadline?: string;
+  buttonText?: string;
+  leadMagnet?: string;
+}
+
+const {
+  variant = 'inline',
+  headline = 'Get Trading Insights Weekly',
+  subheadline = 'Join 5,000+ traders receiving free market analysis, trading tips, and exclusive deals.',
+  buttonText = 'Subscribe Free',
+  leadMagnet = ''
+} = Astro.props;
+---
+
+<div class={`newsletter-signup newsletter-${variant}`}>
+  {variant === 'full' && (
+    <div class="newsletter-badge">FREE</div>
+  )}
+
+  <h3 class="newsletter-headline">{headline}</h3>
+
+  {(variant === 'full' || variant === 'inline') && (
+    <p class="newsletter-subheadline">{subheadline}</p>
+  )}
+
+  {leadMagnet && (
+    <div class="lead-magnet-preview">
+      <span class="lm-icon">📥</span>
+      <span class="lm-text">Plus get: <strong>{leadMagnet}</strong></span>
+    </div>
+  )}
+
+  <form class="newsletter-form" data-newsletter-form>
+    <div class="form-row">
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter your email address"
+        required
+        class="newsletter-input"
+      />
+      <button type="submit" class="newsletter-button">
+        <span class="btn-text">{buttonText}</span>
+        <span class="btn-loading" style="display: none;">
+          <svg class="spinner" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" opacity="0.3"/>
+            <path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+    <p class="newsletter-privacy">No spam ever. Unsubscribe anytime.</p>
+  </form>
+
+  <div class="newsletter-success" style="display: none;" data-newsletter-success>
+    <span class="success-icon">🎉</span>
+    <p class="success-text">Welcome aboard! Check your email to confirm.</p>
+  </div>
+
+  {variant === 'full' && (
+    <div class="newsletter-features">
+      <div class="nf-item">
+        <span class="nf-icon">📊</span>
+        <span class="nf-text">Weekly Market Analysis</span>
+      </div>
+      <div class="nf-item">
+        <span class="nf-icon">💡</span>
+        <span class="nf-text">Pro Trading Tips</span>
+      </div>
+      <div class="nf-item">
+        <span class="nf-icon">🎁</span>
+        <span class="nf-text">Exclusive Broker Deals</span>
+      </div>
+    </div>
+  )}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const forms = document.querySelectorAll('[data-newsletter-form]');
+
+    forms.forEach(form => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = form.querySelector('input[name="email"]').value;
+        const button = form.querySelector('.newsletter-button');
+        const btnText = button.querySelector('.btn-text');
+        const btnLoading = button.querySelector('.btn-loading');
+        const successEl = form.parentElement.querySelector('[data-newsletter-success]');
+
+        // Show loading state
+        btnText.style.display = 'none';
+        btnLoading.style.display = 'block';
+        button.disabled = true;
+
+        // Simulate API call (replace with your email service integration)
+        // For ConvertKit, Mailchimp, etc., you'd POST to their API here
+        try {
+          // Example: await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) });
+
+          // Simulate delay for demo
+          await new Promise(resolve => setTimeout(resolve, 1000));
+
+          // Show success
+          form.style.display = 'none';
+          successEl.style.display = 'flex';
+
+          // Track conversion (for analytics)
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'newsletter_signup', { email_domain: email.split('@')[1] });
+          }
+        } catch (error) {
+          // Reset on error
+          btnText.style.display = 'block';
+          btnLoading.style.display = 'none';
+          button.disabled = false;
+          alert('Something went wrong. Please try again.');
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .newsletter-signup {
+    position: relative;
+  }
+
+  /* Full Variant */
+  .newsletter-full {
+    background: linear-gradient(135deg, var(--gray-900) 0%, var(--charcoal) 100%);
+    border: 1px solid var(--gray-800);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    text-align: center;
+  }
+
+  .newsletter-badge {
+    display: inline-block;
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+  }
+
+  /* Inline Variant */
+  .newsletter-inline {
+    background: var(--gray-900);
+    border: 1px solid var(--gray-800);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  /* Minimal Variant */
+  .newsletter-minimal {
+    padding: var(--space-md) 0;
+  }
+
+  .newsletter-minimal .newsletter-headline {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-sm);
+  }
+
+  .newsletter-headline {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    margin-bottom: var(--space-sm);
+    color: var(--white);
+  }
+
+  .newsletter-subheadline {
+    color: var(--gray-500);
+    margin-bottom: var(--space-lg);
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .lead-magnet-preview {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(255, 72, 0, 0.1);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-lg);
+    font-size: var(--font-size-sm);
+  }
+
+  .lm-text {
+    color: var(--gray-500);
+  }
+
+  .lm-text strong {
+    color: var(--brand-orange);
+  }
+
+  .newsletter-form {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .form-row {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  @media (max-width: 500px) {
+    .form-row {
+      flex-direction: column;
+    }
+  }
+
+  .newsletter-input {
+    flex: 1;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--gray-800);
+    border: 2px solid var(--gray-700);
+    border-radius: var(--radius-md);
+    color: var(--white);
+    font-size: var(--font-size-base);
+  }
+
+  .newsletter-input:focus {
+    outline: none;
+    border-color: var(--brand-orange);
+  }
+
+  .newsletter-input::placeholder {
+    color: var(--gray-500);
+  }
+
+  .newsletter-button {
+    padding: var(--space-md) var(--space-xl);
+    background: var(--brand-orange);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: var(--font-size-base);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+  }
+
+  .newsletter-button:hover:not(:disabled) {
+    background: #cc3a00;
+    transform: translateY(-2px);
+  }
+
+  .newsletter-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .spinner {
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .newsletter-privacy {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    margin-top: var(--space-sm);
+    text-align: center;
+  }
+
+  .newsletter-success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-lg);
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-md);
+  }
+
+  .success-icon {
+    font-size: 1.5rem;
+  }
+
+  .success-text {
+    color: #10b981;
+    font-weight: 600;
+  }
+
+  .newsletter-features {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--gray-800);
+  }
+
+  @media (max-width: 600px) {
+    .newsletter-features {
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+  }
+
+  .nf-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .nf-icon {
+    font-size: 1.25rem;
+  }
+</style>

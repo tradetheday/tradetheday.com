@@ -1,0 +1,288 @@
+---
+import Rating from './Rating.astro';
+
+export interface Props {
+  title?: string;
+  rating: number;
+  maxRating?: number;
+  summary: string;
+  bestFor: string[];
+  notIdealFor: string[];
+  primaryButtonText: string;
+  primaryButtonHref: string;
+  secondaryText?: string;
+  secondaryHref?: string;
+  disclaimer?: string;
+  showDetailedRating?: boolean;
+  ratingBreakdown?: Array<{
+    category: string;
+    score: number;
+    maxScore?: number;
+  }>;
+}
+
+const {
+  title = "Final Verdict",
+  rating,
+  maxRating = 5,
+  summary,
+  bestFor,
+  notIdealFor,
+  primaryButtonText,
+  primaryButtonHref,
+  secondaryText,
+  secondaryHref,
+  disclaimer,
+  showDetailedRating = false,
+  ratingBreakdown = []
+} = Astro.props;
+---
+
+<section class="section">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="heading-2">{title}</h2>
+      
+      <!-- Rating Display -->
+      <div class="verdict-rating">
+        <Rating score={rating} maxScore={maxRating} size="lg" />
+      </div>
+      
+      <p class="body-large verdict-summary">{summary}</p>
+    </div>
+    
+    {showDetailedRating && ratingBreakdown.length > 0 && (
+      <div class="rating-breakdown">
+        <h3 class="heading-3">Detailed Rating Breakdown</h3>
+        <div class="breakdown-grid">
+          {ratingBreakdown.map(({ category, score, maxScore = 5 }) => (
+            <div class="breakdown-item">
+              <div class="breakdown-header">
+                <span class="breakdown-category">{category}</span>
+                <span class="breakdown-score">{score}/{maxScore}</span>
+              </div>
+              <div class="breakdown-bar">
+                <div 
+                  class="breakdown-fill" 
+                  style={`width: ${(score / maxScore) * 100}%`}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+    
+    <!-- Best For / Not Ideal For Cards -->
+    <div class="verdict-cards">
+      <div class="verdict-card verdict-card-positive">
+        <h3 class="verdict-card-title">✓ Best For</h3>
+        <ul class="verdict-list">
+          {bestFor.map(item => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+      
+      <div class="verdict-card verdict-card-negative">
+        <h3 class="verdict-card-title">✗ Not Ideal For</h3>
+        <ul class="verdict-list">
+          {notIdealFor.map(item => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Call to Action -->
+    <div class="verdict-actions">
+      <a href={primaryButtonHref} class="btn btn-primary btn-xl">
+        {primaryButtonText}
+      </a>
+      
+      {secondaryText && secondaryHref && (
+        <p class="verdict-secondary">
+          <em>or, <a href={secondaryHref}>{secondaryText}</a></em>
+        </p>
+      )}
+      
+      {disclaimer && (
+        <p class="verdict-disclaimer">
+          <strong>Disclaimer:</strong> {disclaimer}
+        </p>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+.verdict-rating {
+  margin: 2rem 0;
+}
+
+.verdict-summary {
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+}
+
+.rating-breakdown {
+  background: var(--gray-50, #f9fafb);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 3rem 0;
+}
+
+.rating-breakdown h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--charcoal, #1e2427);
+}
+
+.breakdown-grid {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.breakdown-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.breakdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.breakdown-category {
+  font-weight: 600;
+  color: var(--charcoal, #1e2427);
+}
+
+.breakdown-score {
+  font-weight: 700;
+  color: var(--brand-orange, #ff4800);
+}
+
+.breakdown-bar {
+  height: 8px;
+  background: var(--gray-200, #e5e7eb);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.breakdown-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--success, #10b981) 0%, var(--brand-orange, #ff4800) 50%, var(--error, #ef4444) 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.verdict-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.verdict-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.verdict-card-positive {
+  border-left: 4px solid var(--success, #10b981);
+}
+
+.verdict-card-negative {
+  border-left: 4px solid var(--error, #ef4444);
+}
+
+.verdict-card-title {
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.verdict-card-positive .verdict-card-title {
+  color: var(--success, #10b981);
+}
+
+.verdict-card-negative .verdict-card-title {
+  color: var(--error, #ef4444);
+}
+
+.verdict-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.verdict-list li {
+  padding: 0.5rem 0;
+  color: var(--gray-700, #374151);
+  position: relative;
+  padding-left: 1rem;
+}
+
+.verdict-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--gray-400, #9ca3af);
+}
+
+.verdict-actions {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.verdict-secondary {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--gray-500, #6b7280);
+}
+
+.verdict-secondary a {
+  color: var(--brand-orange, #ff4800);
+  text-decoration: none;
+}
+
+.verdict-secondary a:hover {
+  text-decoration: underline;
+}
+
+.verdict-disclaimer {
+  max-width: 600px;
+  margin: 2rem auto 0;
+  font-size: 0.75rem;
+  color: var(--gray-500, #6b7280);
+  line-height: 1.4;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .verdict-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .verdict-card {
+    padding: 1.5rem;
+  }
+  
+  .breakdown-grid {
+    gap: 1rem;
+  }
+  
+  .rating-breakdown {
+    padding: 1.5rem;
+  }
+}
+</style>

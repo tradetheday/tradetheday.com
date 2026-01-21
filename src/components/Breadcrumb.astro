@@ -1,0 +1,244 @@
+---
+export interface Props {
+  items: Array<{
+    text: string;
+    href?: string;
+    current?: boolean;
+  }>;
+  className?: string;
+}
+
+const { items, className = '' } = Astro.props;
+
+// Generate JSON-LD structured data for breadcrumbs
+const baseUrl = "https://tradetheday.com";
+const currentUrl = Astro.url.pathname;
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": items.map((item, index) => {
+    const listItem = {
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.text
+    };
+    
+    // Add URL for all items
+    if (item.href) {
+      listItem.item = item.href.startsWith('/') ? `${baseUrl}${item.href}` : item.href;
+    } else if (item.current) {
+      // For current page, use the current URL
+      listItem.item = currentUrl.startsWith('/') ? `${baseUrl}${currentUrl}` : currentUrl;
+    }
+    
+    return listItem;
+  })
+};
+---
+
+<!-- JSON-LD Structured Data for Breadcrumbs -->
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+
+<nav class={`breadcrumb ${className}`} aria-label="Breadcrumb navigation" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <div class="container">
+    <ol class="breadcrumb-list">
+      {items.map((item, index) => (
+        <li class={`breadcrumb-item ${item.current ? 'breadcrumb-current' : ''}`} itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          {item.href && !item.current ? (
+            <a href={item.href} class="breadcrumb-link" itemprop="item" itemscope itemtype="https://schema.org/WebPage">
+              <span itemprop="name">{item.text}</span>
+              <meta itemprop="url" content={item.href.startsWith('/') ? `${baseUrl}${item.href}` : item.href} />
+            </a>
+          ) : (
+            <span class="breadcrumb-text" itemprop="item" itemscope itemtype="https://schema.org/WebPage">
+              <span itemprop="name">{item.text}</span>
+              <meta itemprop="url" content={currentUrl.startsWith('/') ? `${baseUrl}${currentUrl}` : currentUrl} />
+            </span>
+          )}
+          <meta itemprop="position" content={index + 1} />
+          {index < items.length - 1 && (
+            <span class="breadcrumb-separator" aria-hidden="true">/</span>
+          )}
+        </li>
+      ))}
+    </ol>
+  </div>
+</nav>
+
+<style>
+/* ==========================================================================
+   BREADCRUMB COMPONENT
+   ========================================================================== */
+
+.breadcrumb {
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid var(--gray-200);
+  background: var(--white);
+}
+
+.breadcrumb .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-2xl);
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: var(--font-size-sm);
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.breadcrumb-link {
+  color: var(--gray-600);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  border-radius: var(--radius-sm);
+  padding: 2px 4px;
+  margin: -2px -4px;
+}
+
+.breadcrumb-link:hover,
+.breadcrumb-link:focus {
+  color: var(--brand-orange);
+  background: rgba(255, 72, 0, 0.05);
+  outline: none;
+}
+
+.breadcrumb-text {
+  color: var(--gray-900);
+  font-weight: var(--font-weight-medium);
+}
+
+.breadcrumb-current .breadcrumb-text {
+  color: var(--brand-orange);
+  font-weight: var(--font-weight-semibold);
+}
+
+.breadcrumb-separator {
+  color: var(--gray-400);
+  font-size: var(--font-size-sm);
+  user-select: none;
+  margin: 0 var(--space-xs);
+}
+
+/* Breadcrumb variants */
+.breadcrumb-compact {
+  padding: var(--space-xs) 0;
+  border-bottom: none;
+  background: transparent;
+  position: static;
+}
+
+.breadcrumb-minimal {
+  border-bottom: none;
+  background: transparent;
+  padding: var(--space-xs) 0;
+}
+
+.breadcrumb-minimal .breadcrumb-link {
+  padding: 2px 4px;
+  margin: -2px -4px;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+  .breadcrumb {
+    padding: var(--space-xs) 0;
+  }
+
+  .breadcrumb .container {
+    padding: 0 var(--space-lg);
+  }
+
+  .breadcrumb-list {
+    font-size: var(--font-size-xs);
+    gap: 2px;
+  }
+
+  .breadcrumb-separator {
+    margin: 0 2px;
+  }
+
+  .breadcrumb-link {
+    padding: 2px 4px;
+    margin: -2px -4px;
+  }
+
+  /* Hide intermediate items on very small screens */
+  .breadcrumb-item:not(:first-child):not(:last-child) {
+    display: none;
+  }
+
+  /* Show ellipsis when items are hidden */
+  .breadcrumb-item:first-child:not(:nth-last-child(2))::after {
+    content: "...";
+    color: var(--gray-400);
+    margin: 0 2px;
+  }
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .breadcrumb {
+    border-bottom-color: var(--gray-800);
+  }
+  
+  .breadcrumb-link {
+    border: 1px solid transparent;
+  }
+  
+  .breadcrumb-link:hover,
+  .breadcrumb-link:focus {
+    border-color: var(--brand-orange);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .breadcrumb-link {
+    transition: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .breadcrumb {
+    background: var(--charcoal-light);
+    border-bottom-color: var(--gray-700);
+  }
+  
+  .breadcrumb-link {
+    color: var(--gray-300);
+  }
+  
+  .breadcrumb-link:hover,
+  .breadcrumb-link:focus {
+    color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.1);
+  }
+  
+  .breadcrumb-text {
+    color: var(--white);
+  }
+  
+  .breadcrumb-separator {
+    color: var(--gray-500);
+  }
+}
+</style>

@@ -1,0 +1,446 @@
+---
+/**
+ * ScarcityCountdown Component
+ *
+ * Displays countdown timers for bonus expiry and limited spots.
+ * Uses Cialdini's "Scarcity" principle - people want what's rare.
+ *
+ * Features:
+ * - Countdown to end of month (for bonus validity)
+ * - Limited spots indicator
+ * - Attention-grabbing but not aggressive design
+ * - Session-persistent remaining spots
+ */
+
+interface Props {
+  variant?: 'banner' | 'inline' | 'card';
+  spotsTotal?: number;
+  message?: string;
+  ctaText?: string;
+  ctaHref?: string;
+}
+
+const {
+  variant = 'banner',
+  spotsTotal = 100,
+  message = 'January bonus tier - claim before it expires',
+  ctaText = 'Claim Now',
+  ctaHref = '/compare/'
+} = Astro.props;
+---
+
+<div class={`scarcity scarcity--${variant}`} id="scarcityCountdown">
+  <div class="scarcity-inner">
+    <div class="scarcity-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+    </div>
+
+    <div class="scarcity-content">
+      <div class="scarcity-message">
+        <span class="scarcity-label">{message}</span>
+      </div>
+
+      <div class="scarcity-details">
+        <div class="countdown" id="countdown">
+          <div class="countdown-item">
+            <span class="countdown-value" id="countdownDays">00</span>
+            <span class="countdown-unit">days</span>
+          </div>
+          <div class="countdown-separator">:</div>
+          <div class="countdown-item">
+            <span class="countdown-value" id="countdownHours">00</span>
+            <span class="countdown-unit">hrs</span>
+          </div>
+          <div class="countdown-separator">:</div>
+          <div class="countdown-item">
+            <span class="countdown-value" id="countdownMinutes">00</span>
+            <span class="countdown-unit">min</span>
+          </div>
+          <div class="countdown-separator">:</div>
+          <div class="countdown-item">
+            <span class="countdown-value" id="countdownSeconds">00</span>
+            <span class="countdown-unit">sec</span>
+          </div>
+        </div>
+
+        <div class="spots-remaining">
+          <span class="spots-indicator"></span>
+          <span class="spots-text">
+            <strong id="spotsRemaining">43</strong> spots left at top bonus tier
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <a href={ctaHref} class="scarcity-cta btn btn-primary">
+      {ctaText}
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+    </a>
+
+    <!-- Close button - dismisses sticky behavior -->
+    <button type="button" class="scarcity-close" id="scarcityClose" aria-label="Dismiss sticky banner">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6L6 18M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .scarcity {
+    background: linear-gradient(135deg, var(--charcoal, #1E2427) 0%, #2a3136 100%);
+    border-bottom: 2px solid var(--brand-orange, #FF4800);
+    position: relative;
+  }
+
+  .scarcity--banner {
+    padding: var(--space-md, 24px) 0;
+    /* Sticky below header on scroll */
+    position: sticky;
+    top: 60px; /* Header height */
+    z-index: 999;
+    transition: all 0.3s ease;
+  }
+
+  /* Dismissed state - returns to normal document flow */
+  .scarcity--banner.is-dismissed {
+    position: relative;
+    top: auto;
+    z-index: auto;
+  }
+
+  .scarcity--banner.is-dismissed .scarcity-close {
+    display: none;
+  }
+
+  .scarcity--inline {
+    padding: var(--space-sm, 16px);
+    border-radius: var(--radius-lg, 16px);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+    margin: var(--space-lg, 32px) 0;
+  }
+
+  .scarcity--card {
+    padding: var(--space-lg, 32px);
+    border-radius: var(--radius-xl, 24px);
+    border: 2px solid rgba(255, 72, 0, 0.4);
+    margin: var(--space-xl, 48px) 0;
+  }
+
+  .scarcity-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg, 32px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg, 32px);
+    flex-wrap: wrap;
+  }
+
+  .scarcity-icon {
+    color: var(--brand-orange, #FF4800);
+    animation: pulse-icon 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-icon {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+  }
+
+  .scarcity-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl, 48px);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .scarcity-message {
+    color: white;
+  }
+
+  .scarcity-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .scarcity-details {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl, 48px);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* Countdown Timer */
+  .countdown {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .countdown-item {
+    text-align: center;
+    background: rgba(255, 72, 0, 0.15);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+    border-radius: var(--radius-md, 12px);
+    padding: 6px 10px;
+    min-width: 50px;
+  }
+
+  .countdown-value {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--brand-orange, #FF4800);
+    font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+    line-height: 1.2;
+  }
+
+  .countdown-unit {
+    display: block;
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .countdown-separator {
+    color: var(--brand-orange, #FF4800);
+    font-weight: 700;
+    font-size: 16px;
+    opacity: 0.5;
+  }
+
+  /* Spots Remaining */
+  .spots-remaining {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .spots-indicator {
+    width: 8px;
+    height: 8px;
+    background: var(--success, #10B981);
+    border-radius: 50%;
+    animation: pulse-dot 1.5s infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  }
+
+  .spots-text {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .spots-text strong {
+    color: var(--success, #10B981);
+    font-weight: 700;
+  }
+
+  /* CTA Button */
+  .scarcity-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .scarcity-cta svg {
+    transition: transform 0.2s ease;
+  }
+
+  .scarcity-cta:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Close Button */
+  .scarcity-close {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.2s ease;
+  }
+
+  .scarcity-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .scarcity-close {
+      right: 8px;
+      top: 8px;
+      transform: none;
+    }
+
+    .scarcity-inner {
+      flex-direction: column;
+      gap: var(--space-md, 24px);
+      text-align: center;
+      padding-right: 40px; /* Space for close button */
+    }
+
+    .scarcity-icon {
+      display: none;
+    }
+
+    .scarcity-content {
+      flex-direction: column;
+      gap: var(--space-md, 24px);
+    }
+
+    .scarcity-details {
+      flex-direction: column;
+      gap: var(--space-sm, 16px);
+    }
+
+    .countdown-item {
+      padding: 4px 8px;
+      min-width: 44px;
+    }
+
+    .countdown-value {
+      font-size: 16px;
+    }
+
+    .scarcity-cta {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  /* Inline variant adjustments */
+  .scarcity--inline .scarcity-inner {
+    padding: 0;
+    gap: var(--space-md, 24px);
+  }
+
+  .scarcity--inline .scarcity-cta {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+</style>
+
+<script define:vars={{ spotsTotal }}>
+  function initScarcityCountdown() {
+    const daysEl = document.getElementById('countdownDays');
+    const hoursEl = document.getElementById('countdownHours');
+    const minutesEl = document.getElementById('countdownMinutes');
+    const secondsEl = document.getElementById('countdownSeconds');
+    const spotsEl = document.getElementById('spotsRemaining');
+
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+    // Calculate end of current month
+    function getEndOfMonth() {
+      const now = new Date();
+      return new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+    }
+
+    function updateCountdown() {
+      const now = new Date();
+      const end = getEndOfMonth();
+      const diff = end.getTime() - now.getTime();
+
+      if (diff <= 0) {
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      daysEl.textContent = String(days).padStart(2, '0');
+      hoursEl.textContent = String(hours).padStart(2, '0');
+      minutesEl.textContent = String(minutes).padStart(2, '0');
+      secondsEl.textContent = String(seconds).padStart(2, '0');
+    }
+
+    // Initialize spots (persisted in session)
+    function initSpots() {
+      if (!spotsEl) return;
+
+      let spots = sessionStorage.getItem('scarcitySpots');
+
+      if (!spots) {
+        // Generate a random number between 30-60 for realism
+        spots = String(30 + Math.floor(Math.random() * 31));
+        sessionStorage.setItem('scarcitySpots', spots);
+      }
+
+      spotsEl.textContent = spots;
+
+      // Occasionally decrease spots (1 in 20 chance on page load)
+      if (Math.random() < 0.05 && parseInt(spots) > 15) {
+        const newSpots = parseInt(spots) - 1;
+        sessionStorage.setItem('scarcitySpots', String(newSpots));
+      }
+    }
+
+    // Start countdown
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Initialize spots
+    initSpots();
+
+    // Handle dismiss button
+    initDismiss();
+  }
+
+  function initDismiss() {
+    const banner = document.getElementById('scarcityCountdown');
+    const closeBtn = document.getElementById('scarcityClose');
+
+    if (!banner || !closeBtn) return;
+
+    // Check if already dismissed this session
+    if (sessionStorage.getItem('scarcityDismissed') === 'true') {
+      banner.classList.add('is-dismissed');
+    }
+
+    // Handle close click
+    closeBtn.addEventListener('click', () => {
+      banner.classList.add('is-dismissed');
+      sessionStorage.setItem('scarcityDismissed', 'true');
+    });
+  }
+
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScarcityCountdown);
+  } else {
+    initScarcityCountdown();
+  }
+</script>

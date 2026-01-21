@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Title - Trade the Day</title>
+    <meta name="description" content="Page description for SEO">
+    
+    <!-- Design System CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/design-system.css">
+    
+    <!-- Table Highlight Styles (if using comparison tables) -->
+    <style>
+        .table .highlight-best {
+            background: rgba(16, 185, 129, 0.08) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #10B981 !important;
+            font-weight: 600 !important;
+            position: relative;
+        }
+        
+        .table .highlight-best::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+            color: #10B981;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .table .highlight-good {
+            background: rgba(245, 158, 11, 0.06) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #F59E0B !important;
+            font-weight: 500 !important;
+        }
+        
+        .table .highlight-warning {
+            background: rgba(239, 68, 68, 0.06) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #EF4444 !important;
+            font-weight: 500 !important;
+        }
+        
+        .table .highlight-brand {
+            background: rgba(255, 72, 0, 0.06) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #FF4800 !important;
+            font-weight: 600 !important;
+        }
+        
+        .table .highlight-neutral {
+            background: rgba(115, 115, 115, 0.04) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #a3a3a3 !important;
+            font-weight: 500 !important;
+        }
+        
+        .table .currency {
+            color: #059669 !important;
+            font-weight: 600 !important;
+            background: rgba(16, 185, 129, 0.08) !important;
+            padding: 2px 4px !important;
+            border-radius: 3px !important;
+        }
+        
+        .table .percentage {
+            color: #D97706 !important;
+            font-weight: 600 !important;
+            background: rgba(245, 158, 11, 0.08) !important;
+            padding: 2px 4px !important;
+            border-radius: 3px !important;
+        }
+        
+        .table .rating {
+            color: #FF4800 !important;
+            font-weight: 600 !important;
+            background: rgba(255, 72, 0, 0.08) !important;
+            padding: 2px 4px !important;
+            border-radius: 3px !important;
+            font-size: 16px !important;
+        }
+        
+        .table .number-highlight {
+            background: rgba(255, 72, 0, 0.08) !important;
+            color: #FF4800 !important;
+            font-family: 'SF Mono', 'Monaco', 'Menlo', monospace !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            padding: 3px 6px !important;
+            border-radius: 4px !important;
+            display: inline-block;
+        }
+        
+        .table th,
+        .table td {
+            padding: 8px 24px !important;
+            line-height: 1.4 !important;
+        }
+    </style>
+</head>
+<body>
+
+<!-- COPY COMPONENTS FROM OTHER FILES INTO THIS TEMPLATE -->
+
+<!-- 1. HERO SECTION (required) -->
+<!-- Copy from: hero-section.html -->
+
+<!-- 2. NAVIGATION (optional, for long pages) -->  
+<!-- Copy from: navigation.html -->
+
+<!-- 3. CONTENT SECTIONS (mix and match as needed) -->
+<!-- Copy from: content-section.html -->
+<!-- Copy from: card-grid.html -->
+<!-- Copy from: comparison-table.html -->
+<!-- Copy from: analyst-notes.html -->
+
+<!-- 4. PROS & CONS (optional) -->
+<!-- Copy from: pros-cons.html -->
+
+<!-- 5. FAQ SECTION (optional) -->
+<!-- Copy from: faq-section.html -->
+
+<!-- 6. FINAL VERDICT (recommended for reviews) -->
+<!-- Copy from: final-verdict.html -->
+
+<!-- Design System JavaScript -->
+<script>
+// JavaScript for interactive components
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded');
+    
+    // Analyst Notes functionality
+    function toggleAnalystNotes(id) {
+        const content = document.getElementById(id);
+        const icon = document.getElementById(id.replace('-notes', '-icon'));
+        
+        if (!content) return;
+        
+        if (content.style.display === 'none' || content.style.display === '') {
+            content.style.display = 'block';
+            if (icon) icon.textContent = '▲';
+        } else {
+            content.style.display = 'none';
+            if (icon) icon.textContent = '▼';
+        }
+    }
+    
+    // FAQ functionality
+    function toggleFAQ(element) {
+        const faqItem = element.parentElement;
+        const isActive = faqItem.classList.contains('active');
+        
+        // Close all FAQ items
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Open clicked item if it wasn't active
+        if (!isActive) {
+            faqItem.classList.add('active');
+        }
+    }
+    
+    // Add click listeners to FAQ questions
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleFAQ(this);
+        });
+    });
+    
+    // Navigation smooth scroll
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                const nav = document.querySelector('.nav');
+                const navHeight = nav ? nav.offsetHeight : 0;
+                const extraOffset = 20;
+                
+                const elementPosition = targetElement.offsetTop;
+                const offsetPosition = elementPosition - navHeight - extraOffset;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Add click listeners to analyst notes buttons
+    document.querySelectorAll('.analyst-notes-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('data-target');
+            if (targetId) {
+                toggleAnalystNotes(targetId);
+            }
+        });
+    });
+    
+    // Make functions available globally
+    window.toggleAnalystNotes = toggleAnalystNotes;
+    window.toggleFAQ = toggleFAQ;
+});
+</script>
+
+</body>
+</html>
+
+<!-- USAGE INSTRUCTIONS:
+1. Update the <title> and meta description
+2. Copy components from individual component files
+3. Paste them between the body tags in the order you want
+4. Customize content in each component as needed
+5. Remove unused CSS from the <style> section if not using tables
+6. Test all interactive components (FAQ, analyst notes, navigation)
+
+COMPONENT ORDER RECOMMENDATIONS:
+- Hero Section (always first)
+- Navigation (if using multiple sections)  
+- Content sections in logical order
+- Comparison table (if applicable)
+- Analyst notes (for detailed analysis)
+- Pros & cons (for balanced evaluation)
+- FAQ section (to address common questions)
+- Final verdict (conclusion with rating and CTA)
+
+FILE STRUCTURE:
+/components/
+├── hero-section.html         # Hero with scorecard
+├── navigation.html           # Sticky navigation
+├── content-section.html      # Basic content layouts
+├── card-grid.html           # Feature cards (2, 3, 4 column)
+├── comparison-table.html     # Highlighted comparison table
+├── analyst-notes.html       # Expandable expert analysis  
+├── pros-cons.html           # Side-by-side pros/cons
+├── faq-section.html         # FAQ accordion
+├── final-verdict.html       # Rating and final recommendations
+└── page-template.html       # This complete page template
+
+REQUIRED FILES:
+- assets/css/design-system.css
+- assets/js/design-system.js (optional, embedded in template)
+- Inter font from Google Fonts
+-->

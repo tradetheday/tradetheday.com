@@ -1,0 +1,270 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import '../styles/pages/coming-soon.css';
+
+// Get the referring page from query params or use default
+const pageTitle = Astro.url.searchParams.get('page') || 'This Page';
+const category = Astro.url.searchParams.get('category') || '';
+const returnUrl = Astro.url.searchParams.get('return') || '/guides/';
+---
+
+<BaseLayout 
+  title="Coming Soon | TradeTheDay"
+  description="This page is coming soon. We're working hard to bring you quality trading guides and educational content."
+>
+  <!-- SEO Meta Tags -->
+  <meta slot="head" name="robots" content="noindex, follow">
+  <meta slot="head" property="og:title" content="Coming Soon | TradeTheDay">
+  <meta slot="head" property="og:description" content="This page is coming soon. We're working hard to bring you quality trading guides and educational content.">
+  <meta slot="head" property="og:type" content="website">
+  <meta slot="head" property="og:url" content="https://tradetheday.com/coming-soon/">
+  <meta slot="head" property="og:site_name" content="TradeTheDay">
+  <meta slot="head" name="twitter:card" content="summary">
+  <meta slot="head" name="twitter:title" content="Coming Soon | TradeTheDay">
+  <meta slot="head" name="twitter:description" content="This page is coming soon. We're working hard to bring you quality trading guides and educational content.">
+  <link slot="head" rel="canonical" href="https://tradetheday.com/coming-soon/">
+  
+  <!-- JSON-LD Structured Data -->
+  <script slot="head" type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://tradetheday.com/coming-soon/",
+        "url": "https://tradetheday.com/coming-soon/",
+        "name": "Coming Soon | TradeTheDay",
+        "description": "This page is coming soon. We're working hard to bring you quality trading guides and educational content.",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://tradetheday.com/#website"
+        },
+        "inLanguage": "en-US",
+        "mainEntity": {
+          "@type": "AboutPage",
+          "name": "Coming Soon Page",
+          "description": "Information about upcoming trading guides and educational content."
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://tradetheday.com/#website",
+        "url": "https://tradetheday.com/",
+        "name": "TradeTheDay",
+        "description": "Making Trading More Accessible - Real-time data and professional tools for everyone",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://tradetheday.com/#organization"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://tradetheday.com/#organization",
+        "name": "TradeTheDay",
+        "url": "https://tradetheday.com/",
+        "description": "Making Trading More Accessible - Real-time data and professional tools for everyone",
+        "sameAs": [
+          "https://twitter.com/tradetheday",
+          "https://linkedin.com/company/tradetheday"
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Guides', href: '/guides/' },
+    { text: 'Coming Soon', current: true }
+  ]} />
+
+  <!-- COMING SOON SECTION -->
+  <main class="coming-soon-section" itemscope itemtype="https://schema.org/WebPage">
+    <div class="container">
+      <div class="coming-soon-content">
+        <!-- Animated Icon -->
+        <div class="coming-soon-icon" aria-label="Coming soon animation">
+          <div class="icon-container">
+            <div class="icon-bg"></div>
+            <div class="icon-bg icon-bg-2"></div>
+            <div class="icon-bg icon-bg-3"></div>
+            <span class="icon-emoji" aria-hidden="true">🚀</span>
+          </div>
+        </div>
+        
+        <!-- Main Content -->
+        <h1 class="coming-soon-title" itemprop="headline">
+          <span class="title-gradient">{category ? `${category} Guides` : pageTitle}</span> Coming Soon!
+        </h1>
+        
+        <p class="coming-soon-description" itemprop="description">
+          We're working hard to create comprehensive {category ? category.toLowerCase() : 'trading'} guides and educational content. 
+          This section will include detailed tutorials, strategies, and expert insights to help you master the markets.
+        </p>
+        
+        <!-- Features Preview -->
+        <section class="features-preview" itemscope itemtype="https://schema.org/ItemList">
+          <h3 class="features-title" itemprop="name">What's Coming:</h3>
+          <div class="features-grid">
+            <div class="feature-card" itemscope itemtype="https://schema.org/ListItem">
+              <div class="feature-icon-wrapper">
+                <span class="feature-icon" aria-hidden="true">📚</span>
+              </div>
+              <h4 class="feature-heading">Step-by-Step Tutorials</h4>
+              <p class="feature-description" itemprop="name">Comprehensive guides from basics to advanced strategies</p>
+              <meta itemprop="position" content="1" />
+            </div>
+            <div class="feature-card" itemscope itemtype="https://schema.org/ListItem">
+              <div class="feature-icon-wrapper">
+                <span class="feature-icon" aria-hidden="true">💡</span>
+              </div>
+              <h4 class="feature-heading">Expert Strategies</h4>
+              <p class="feature-description" itemprop="name">Professional trading techniques and market insights</p>
+              <meta itemprop="position" content="2" />
+            </div>
+            <div class="feature-card" itemscope itemtype="https://schema.org/ListItem">
+              <div class="feature-icon-wrapper">
+                <span class="feature-icon" aria-hidden="true">📊</span>
+              </div>
+              <h4 class="feature-heading">Real Examples</h4>
+              <p class="feature-description" itemprop="name">Live market analysis and case studies</p>
+              <meta itemprop="position" content="3" />
+            </div>
+            <div class="feature-card" itemscope itemtype="https://schema.org/ListItem">
+              <div class="feature-icon-wrapper">
+                <span class="feature-icon" aria-hidden="true">🎯</span>
+              </div>
+              <h4 class="feature-heading">Practice Exercises</h4>
+              <p class="feature-description" itemprop="name">Interactive challenges to test your knowledge</p>
+              <meta itemprop="position" content="4" />
+            </div>
+          </div>
+        </section>
+        
+        <!-- Newsletter Signup -->
+        <section class="notify-section" itemscope itemtype="https://schema.org/ContactPoint">
+          <h3 class="notify-title">Get Notified When It's Ready</h3>
+          <p class="notify-description">Be the first to know when we launch this section</p>
+          
+          <form class="notify-form" id="notifyForm" role="form" aria-label="Email notification signup">
+            <div class="form-group">
+              <label for="notifyEmail" class="visually-hidden">Email address for notifications</label>
+              <input 
+                type="email" 
+                placeholder="Enter your email address" 
+                class="notify-input" 
+                id="notifyEmail"
+                name="email"
+                required
+                aria-describedby="email-description"
+                autocomplete="email"
+              >
+              <button type="submit" class="notify-btn" aria-label="Subscribe to notifications">
+                <span class="btn-text">Notify Me</span>
+                <span class="btn-icon" aria-hidden="true">✉️</span>
+              </button>
+            </div>
+            <p class="form-disclaimer" id="email-description">
+              We'll send you one email when this content is ready. No spam, ever.
+            </p>
+          </form>
+        </section>
+        
+        <!-- Action Buttons -->
+        <nav class="action-buttons" aria-label="Navigation options">
+          <a href={returnUrl} class="btn btn-primary" rel="prev">
+            <span class="btn-icon" aria-hidden="true">←</span>
+            Back to Guides
+          </a>
+          <a href="/" class="btn btn-secondary">
+            <span class="btn-icon" aria-hidden="true">🏠</span>
+            Go Home
+          </a>
+        </nav>
+        
+        <!-- Progress Indicator -->
+        <section class="progress-section" role="status" aria-label="Development progress">
+          <div class="progress-header">
+            <span class="progress-label">Development Progress</span>
+            <span class="progress-percent" aria-label="65 percent complete">65%</span>
+          </div>
+          <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="Development progress: 65% complete">
+            <div class="progress-fill progress-65"></div>
+          </div>
+          <div class="timeline-info">
+            <div class="timeline-item">
+              <span class="timeline-icon">📅</span>
+              <span class="timeline-text">Expected Launch: <strong>Q1 2026</strong></span>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-icon">⏰</span>
+              <span class="timeline-text" id="countdown">Loading...</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Form handling
+  const form = document.getElementById('notifyForm');
+  const emailInput = document.getElementById('notifyEmail');
+  const submitBtn = form?.querySelector('.notify-btn');
+  
+  if (form && emailInput && submitBtn) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = emailInput.value.trim();
+      if (!email) return;
+      
+      // Disable form
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="btn-text">Thanks!</span> <span class="btn-icon">✅</span>';
+      emailInput.disabled = true;
+      
+      // Show success message
+      setTimeout(() => {
+        const successMsg = document.createElement('p');
+        successMsg.className = 'success-message';
+        successMsg.textContent = "Thanks! We'll notify you when this content is ready.";
+        form.parentNode?.appendChild(successMsg);
+      }, 500);
+      
+      // In a real implementation, you'd send this to your backend
+    });
+  }
+
+  // Countdown timer
+  function updateCountdown() {
+    const countdownEl = document.getElementById('countdown');
+    if (!countdownEl) return;
+
+    // Set target date to March 31, 2026
+    const targetDate = new Date('2026-03-31T00:00:00').getTime();
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+    
+    if (distance < 0) {
+      countdownEl.innerHTML = 'Launching Soon!';
+      return;
+    }
+    
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    
+    countdownEl.innerHTML = `<strong>${days}</strong> days, <strong>${hours}</strong> hours, <strong>${minutes}</strong> minutes`;
+  }
+  
+  // Update countdown immediately and then every minute
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
+});
+</script>
+

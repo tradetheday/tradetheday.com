@@ -1,0 +1,1345 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SimpleGrid from '../../../components/SimpleGrid.astro';
+import ProcessSteps from '../../../components/ProcessSteps.astro';
+import FeatureHighlights from '../../../components/FeatureHighlights.astro';
+import CompanyInfo from '../../../components/CompanyInfo.astro';
+import Chip from '../../../components/Chip.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import Scorecard from '../../../components/Scorecard.astro';
+import CostAnalysis from '../../../components/CostAnalysis.astro';
+import RegulationCard from '../../../components/RegulationCard.astro';
+import PlatformGrid from '../../../components/PlatformGrid.astro';
+import PaymentMethods from '../../../components/PaymentMethods.astro';
+import PaymentDetails from '../../../components/PaymentDetails.astro';
+import TradingInstruments from '../../../components/TradingInstruments.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import FAQ from '../../../components/FAQ.astro';
+import BrokerVerdict from '../../../components/BrokerVerdict.astro';
+import BestFor from '../../../components/BestFor.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+import { generateBrokerSchema, generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+
+const BROKER_NAME = 'IG';
+const CURRENT_YEAR = '2026';
+
+const title = `IG Review ${CURRENT_YEAR} - World's #1 CFD Provider | Fees & Safety`;
+const description = `Complete IG review for ${CURRENT_YEAR}. World's largest CFD broker with 50+ years experience, 17,000+ markets. FCA, ASIC, BaFin regulated. ProRealTime, L2 Dealer, spread betting.`;
+const canonicalUrl = 'https://tradetheday.com/brokers/ig/';
+const lastUpdated = '2026-01-20';
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Brokers', href: '/brokers/' },
+  { text: 'IG Review', href: '/brokers/ig/', current: true }
+];
+
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#why-choose', text: 'Why IG' },
+  { href: '#fees', text: 'Fees' },
+  { href: '#safety', text: 'Safety' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#accounts', text: 'Accounts' },
+  { href: '#deposits', text: 'Deposits' },
+  { href: '#instruments', text: 'Instruments' },
+  { href: '#pros-cons', text: 'Pros & Cons' },
+  { href: '#faq', text: 'FAQ' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+const heroScorecard = [
+  { value: '$250', label: 'Min Deposit' },
+  { value: '0.6 pips', label: 'Spreads From' },
+  { value: '17,000+', label: 'Markets' },
+  { value: '4.4/5', label: 'Our Rating' }
+];
+
+// Company Info sections for CompanyInfo component
+const companyInfoSections = [
+  {
+    title: "Deposits & Accounts",
+    icon: "💰",
+    items: [
+      { label: "Minimum Deposit", value: "$250", type: "currency" },
+      { label: "Base Currencies", value: "USD, EUR, GBP, AUD, CHF, JPY", type: "list" },
+      { label: "Islamic Account", value: "Available", type: "text" }
+    ]
+  },
+  {
+    title: "Trading Conditions",
+    icon: "📊",
+    items: [
+      { label: "Max Leverage", value: "1:30 (UK retail)", type: "text" },
+      { label: "Instruments", value: "17,000+", type: "text" },
+      { label: "Execution", value: "Market Maker/DMA", type: "text" }
+    ]
+  },
+  {
+    title: "Company Info",
+    icon: "🏛️",
+    items: [
+      { label: "Founded", value: "1974", type: "year" },
+      { label: "Headquarters", value: "London, UK", type: "location" },
+      { label: "Regulations", value: "FCA, ASIC, BaFin, CFTC", type: "text" }
+    ]
+  }
+];
+
+// Schema data for CompanyInfo component
+const companySchemaData = {
+  name: "IG",
+  foundingDate: "1974",
+  headquarters: "London, UK",
+  regulators: ["FCA", "ASIC", "BaFin", "CFTC"],
+  minimumDeposit: "$250",
+  currencies: ["USD", "EUR", "GBP", "AUD", "CHF", "JPY"],
+  maxLeverage: "1:30",
+  instrumentCount: "17,000+"
+};
+
+// Fee Comparison Table
+const feeTableHeaders = ['Fee Type', 'IG', 'Saxo Bank', 'Industry Average'];
+const feeRows = [
+  {
+    cells: [
+      { content: 'EUR/USD Spread', type: 'text' },
+      { content: '0.6 pips', type: 'text', highlight: 'best' },
+      { content: '0.4 pips', type: 'text', highlight: 'best' },
+      { content: '1.2 pips', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Stock CFD Commission', type: 'text' },
+      { content: '0.1% min $10', type: 'text', highlight: 'good' },
+      { content: '0.1% min $10', type: 'text', highlight: 'good' },
+      { content: '0.2%', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'UK Spread Bet', type: 'text' },
+      { content: 'From 0.6', type: 'text', highlight: 'best' },
+      { content: 'N/A', type: 'text', highlight: 'neutral' },
+      { content: 'From 1.0', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Deposit Fee', type: 'text' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Withdrawal Fee', type: 'text' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: '$25', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Inactivity Fee', type: 'text' },
+      { content: '$12/month', type: 'text', highlight: 'warning' },
+      { content: '$100/year', type: 'text', highlight: 'warning' },
+      { content: '$10/month', type: 'text', highlight: 'warning' }
+    ]
+  }
+];
+
+// Cost Analysis Data
+const costAnalysisData = {
+  tradingCosts: [
+    { category: 'Forex Spreads', value: 'From 0.6 pips', rating: 'good', notes: 'Competitive for major pairs, tiered for active traders' },
+    { category: 'Index CFDs', value: 'From 0.8 points', rating: 'good', notes: 'Wall Street from 1.4, Germany 40 from 1.0' },
+    { category: 'Stock CFDs', value: '0.1% min $10', rating: 'average', notes: 'Commission-based; can add up on smaller trades' },
+    { category: 'Spread Betting', value: 'Same as CFDs', rating: 'excellent', notes: 'Tax-free for UK residents' },
+    { category: 'Crypto CFDs', value: 'Variable', rating: 'average', notes: 'Higher spreads than specialists' }
+  ],
+  nonTradingCosts: [
+    { category: 'Deposit Fee', value: 'Free', rating: 'excellent', notes: 'All methods free' },
+    { category: 'Withdrawal Fee', value: 'Free', rating: 'excellent', notes: 'No charges on any method' },
+    { category: 'Inactivity Fee', value: '$12/month', rating: 'poor', notes: 'After 24 months of no trading' },
+    { category: 'Data Feeds', value: 'Variable', rating: 'average', notes: 'Real-time data may incur monthly fees' }
+  ],
+  summary: 'IG offers competitive spreads on forex and indices, though stock CFD commissions can be expensive for smaller trades. The standout is spread betting for UK clients, offering the same tight spreads tax-free. The inactivity fee is notable but only kicks in after 2 years.'
+};
+
+// Regulation Data
+const regulationLicenses = [
+  {
+    flag: '🇬🇧',
+    jurisdiction: 'United Kingdom',
+    authority: 'FCA',
+    licenseNumber: '195355',
+    compensation: '£85,000 FSCS',
+    status: 'verified',
+    description: 'IG has been FCA-regulated since 1974, making them one of the longest-standing regulated brokers. UK clients benefit from FSCS protection up to £85,000.'
+  },
+  {
+    flag: '🇦🇺',
+    jurisdiction: 'Australia',
+    authority: 'ASIC',
+    licenseNumber: '515106',
+    compensation: 'Professional Indemnity',
+    status: 'verified',
+    description: 'Australian Securities and Investments Commission regulation ensures strict compliance with client money segregation and capital requirements.'
+  },
+  {
+    flag: '🇩🇪',
+    jurisdiction: 'Germany',
+    authority: 'BaFin',
+    licenseNumber: '148759',
+    compensation: '€20,000 EdW',
+    status: 'verified',
+    description: 'BaFin regulation provides German and EU clients with robust investor protection under the MiFID II framework.'
+  },
+  {
+    flag: '🇺🇸',
+    jurisdiction: 'United States',
+    authority: 'CFTC/NFA',
+    licenseNumber: '0509630',
+    compensation: 'N/A',
+    status: 'active',
+    description: 'Registered Futures Commission Merchant and Retail Foreign Exchange Dealer allowing forex trading for US clients.'
+  }
+];
+
+// Trading Platforms
+const tradingPlatforms = [
+  {
+    name: 'IG Trading Platform',
+    logo: '/images/platforms/ig-logo.svg',
+    description: 'Award-winning proprietary platform with advanced charting, news feed, and comprehensive risk management tools.',
+    features: ['Advanced Charts', 'News Feed', 'Economic Calendar', 'Risk Management'],
+    availability: 'Web, Desktop, Mobile',
+    rating: 4.6,
+    supported: true
+  },
+  {
+    name: 'MetaTrader 4',
+    logo: '/images/platforms/mt4-logo.svg',
+    description: 'Industry-standard platform with Expert Advisors support and custom indicators.',
+    features: ['Expert Advisors', 'Custom Indicators', 'Automated Trading', 'Mobile Apps'],
+    availability: 'Desktop, Web, Mobile',
+    rating: 4.5,
+    supported: true
+  },
+  {
+    name: 'ProRealTime',
+    logo: '/images/platforms/prorealtime-logo.svg',
+    description: 'Professional-grade charting platform with 100+ indicators, pattern recognition, and automated trading.',
+    features: ['100+ Indicators', 'Pattern Recognition', 'Automated Trading', 'Scanner'],
+    availability: 'Web',
+    rating: 4.8,
+    supported: true
+  },
+  {
+    name: 'L2 Dealer',
+    logo: '/images/platforms/l2-dealer-logo.svg',
+    description: 'Direct Market Access platform for professional traders with Level 2 pricing and algorithmic trading.',
+    features: ['DMA Access', 'Level 2 Pricing', 'Advanced Orders', 'Algo Trading'],
+    availability: 'Desktop',
+    rating: 4.7,
+    supported: true
+  }
+];
+
+// Account Types
+const accountTypes = [
+  {
+    name: 'CFD Account',
+    minDeposit: '$250',
+    spreads: 'From 0.6 pips',
+    features: ['17,000+ markets', 'Leveraged trading', 'Long and short', 'All platforms access'],
+    bestFor: 'Traders who want leveraged access to global markets'
+  },
+  {
+    name: 'Spread Betting Account',
+    minDeposit: '$250',
+    spreads: 'From 0.6 pips',
+    features: ['Tax-free profits (UK)', 'Same spreads as CFDs', 'Leveraged trading', 'All markets access'],
+    bestFor: 'UK/Ireland residents seeking tax-efficient trading'
+  },
+  {
+    name: 'Share Dealing Account',
+    minDeposit: '£0',
+    spreads: 'Commission-based',
+    features: ['Own real shares', 'Dividend payments', 'ISA eligible', 'Long-term investing'],
+    bestFor: 'Investors who want to own actual shares'
+  }
+];
+
+// Payment Methods
+const paymentMethods = [
+  {
+    name: 'Bank Transfer',
+    icon: '/images/payment/bank-transfer.svg',
+    depositTime: '1-3 business days',
+    withdrawalTime: '1-3 business days',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$250',
+    maxDeposit: 'No limit',
+    supported: true
+  },
+  {
+    name: 'Credit/Debit Card',
+    icon: '/images/payment/visa-mastercard.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '2-5 business days',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$250',
+    maxDeposit: '$50,000',
+    supported: true
+  },
+  {
+    name: 'PayPal',
+    icon: '/images/payment/paypal.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '24 hours',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$250',
+    maxDeposit: '$30,000',
+    supported: true
+  },
+  {
+    name: 'Apple Pay',
+    icon: '/images/payment/apple-pay.svg',
+    depositTime: 'Instant',
+    withdrawalTime: 'N/A',
+    depositFee: 'Free',
+    withdrawalFee: 'N/A',
+    minDeposit: '$250',
+    maxDeposit: '$10,000',
+    supported: true
+  }
+];
+
+// Payment Details Data (for PaymentDetails component)
+const withdrawalDetails = [
+  { icon: '💵', label: 'Minimum Deposit', value: '$250' },
+  { icon: '⚡', label: 'Deposit Processing', value: 'Instant (cards/e-wallets)' },
+  { icon: '🔐', label: 'All Fees', value: 'Free' },
+  { icon: '🛡️', label: 'Withdrawal Time', value: '24h - 5 days' }
+];
+
+const paymentAnalysis = {
+  pros: [
+    'All deposits and withdrawals completely free',
+    'Instant deposits via cards and e-wallets',
+    'PayPal withdrawals within 24 hours',
+    '9 base currencies to avoid conversion fees'
+  ],
+  cons: [
+    '$250 minimum deposit required',
+    '$100 minimum withdrawal',
+    'Bank transfers take 1-3 business days'
+  ]
+};
+
+// Instruments
+const instrumentCategories = [
+  {
+    name: 'Forex',
+    icon: '💱',
+    count: 80,
+    description: 'Major, minor, and exotic currency pairs with tight spreads',
+    examples: ['EUR/USD', 'GBP/USD', 'USD/JPY', 'AUD/USD', 'EUR/GBP'],
+    details: {
+      spread: 'From 0.6 pips',
+      leverage: 'Up to 1:30',
+      commission: 'No',
+      margin: '3.33%'
+    },
+    available: true
+  },
+  {
+    name: 'Indices',
+    icon: '📈',
+    count: 80,
+    description: 'Global stock indices including 24-hour markets',
+    examples: ['Wall Street', 'FTSE 100', 'Germany 40', 'Australia 200', 'Japan 225'],
+    details: {
+      spread: 'From 0.8 points',
+      leverage: 'Up to 1:20',
+      commission: 'No',
+      margin: '5%'
+    },
+    available: true
+  },
+  {
+    name: 'Stocks',
+    icon: '📊',
+    count: 12000,
+    description: 'CFDs on shares from global exchanges plus real share dealing',
+    examples: ['Apple', 'Tesla', 'Amazon', 'Microsoft', 'NVIDIA'],
+    details: {
+      spread: 'Variable',
+      leverage: 'Up to 1:5',
+      commission: '0.1% min $10',
+      margin: '20%'
+    },
+    available: true
+  },
+  {
+    name: 'Commodities',
+    icon: '🛢️',
+    count: 35,
+    description: 'Precious metals, energy, and agricultural commodities',
+    examples: ['Gold', 'Silver', 'Crude Oil', 'Natural Gas', 'Copper'],
+    details: {
+      spread: 'From 0.3',
+      leverage: 'Up to 1:20',
+      commission: 'No',
+      margin: '5%'
+    },
+    available: true
+  },
+  {
+    name: 'Cryptocurrencies',
+    icon: '₿',
+    count: 11,
+    description: 'Major cryptocurrencies as CFDs',
+    examples: ['Bitcoin', 'Ethereum', 'Litecoin', 'Ripple', 'Bitcoin Cash'],
+    details: {
+      spread: 'Variable',
+      leverage: 'Up to 1:2',
+      commission: 'No',
+      margin: '50%'
+    },
+    available: true
+  },
+  {
+    name: 'Bonds',
+    icon: '📜',
+    count: 10,
+    description: 'Government bond futures from major economies',
+    examples: ['US T-Bond', 'German Bund', 'UK Gilt', 'Japanese JGB'],
+    details: {
+      spread: 'From 2',
+      leverage: 'Up to 1:10',
+      commission: 'No',
+      margin: '10%'
+    },
+    available: true
+  }
+];
+
+// Why Choose Features
+const whyChooseFeatures = [
+  { title: '50+ Years Experience', description: 'Operating since 1974, FTSE 250 listed company', icon: '🏛️' },
+  { title: '17,000+ Markets', description: 'Largest market selection of any broker', icon: '📊' },
+  { title: 'ProRealTime Included', description: 'Professional charting platform free with active trading', icon: '📈' },
+  { title: 'Spread Betting', description: 'Tax-free trading for UK clients', icon: '🇬🇧' },
+  { title: 'DMA Access', description: 'L2 Dealer for direct market access', icon: '⚡' },
+  { title: 'Research Excellence', description: 'Industry-leading analysis and education', icon: '🔬' }
+];
+
+// Opening Process
+const openingProcessSteps = [
+  { number: '1.', title: 'Apply', description: 'Complete online application (5-10 minutes)', icon: '📝' },
+  { number: '2.', title: 'Verify', description: 'Upload ID and proof of address', icon: '✅' },
+  { number: '3.', title: 'Fund', description: 'Deposit $250 or more to activate', icon: '💰' },
+  { number: '4.', title: 'Trade', description: 'Access 17,000+ markets immediately', icon: '📈' }
+];
+
+// Pros & Cons
+const prosConsData = {
+  pros: [
+    '50+ years of experience since 1974',
+    'FTSE 250 publicly traded company',
+    '17,000+ tradeable markets - largest selection',
+    'Advanced ProRealTime charting (free with 4+ trades/month)',
+    'Excellent research and educational content',
+    'Spread betting available (tax-free for UK)',
+    'L2 Dealer for direct market access',
+    'Strong multi-jurisdiction regulation',
+    'Real share dealing alongside CFDs',
+    'Weekend trading on select markets'
+  ],
+  cons: [
+    'Higher minimum deposit ($250)',
+    '$12/month inactivity fee after 2 years',
+    'Complex fee structure for beginners',
+    'Stock CFD commissions (0.1% min $10)',
+    'Limited cryptocurrency selection (11 coins)',
+    'No copy trading feature',
+    'ProRealTime charges apply if under 4 trades/month'
+  ]
+};
+
+// FAQ Data
+const faqData = [
+  {
+    question: 'Is IG a safe broker?',
+    answer: 'IG is one of the safest brokers globally. Founded in 1974, they are regulated by FCA (UK), ASIC (Australia), BaFin (Germany), and CFTC (US). As a FTSE 250 public company with £3+ billion market cap, they maintain the highest standards of transparency, with audited accounts publicly available.'
+  },
+  {
+    question: 'What is IG\'s minimum deposit?',
+    answer: 'IG requires a minimum deposit of $250 (or equivalent) to open a CFD or spread betting account. This is higher than some competitors but reflects their focus on more experienced traders. The Share Dealing account has no minimum deposit requirement.'
+  },
+  {
+    question: 'Does IG offer spread betting?',
+    answer: 'Yes, IG offers spread betting for UK and Ireland residents. Spread betting is completely tax-free in the UK (no capital gains tax or stamp duty on profits), making it highly attractive for active traders. Spreads are identical to CFD trading.'
+  },
+  {
+    question: 'What platforms does IG offer?',
+    answer: 'IG offers four main platforms: their proprietary IG Trading Platform (web/mobile/desktop), MetaTrader 4 for EA users, ProRealTime for advanced charting, and L2 Dealer for direct market access. Each serves different trading styles and experience levels.'
+  },
+  {
+    question: 'Does IG charge inactivity fees?',
+    answer: 'Yes, IG charges a $12 monthly inactivity fee if you haven\'t placed a trade for 24 consecutive months. This is more generous than many competitors who charge after just 3-12 months. Placing just one trade resets the clock.'
+  },
+  {
+    question: 'What is ProRealTime on IG?',
+    answer: 'ProRealTime is a professional charting and analysis platform integrated with IG. It includes 100+ indicators, pattern recognition, automated trading capabilities, and advanced scanning tools. It\'s free if you place 4+ trades per month; otherwise, there\'s a monthly subscription fee.'
+  },
+  {
+    question: 'Can I trade US stocks on IG?',
+    answer: 'Yes, IG offers CFDs on 12,000+ stocks including major US companies. Through the Share Dealing service, you can also buy and own actual US shares. Stock CFDs have a commission of 0.1% with a minimum of $10 per trade.'
+  },
+  {
+    question: 'Does IG accept US clients?',
+    answer: 'Yes, IG accepts US clients through IG US, which offers forex trading via their CFTC/NFA-regulated entity. However, CFDs and spread betting are not available to US residents due to regulatory restrictions.'
+  },
+  {
+    question: 'What leverage does IG offer?',
+    answer: 'For retail clients: 1:30 for forex, 1:20 for indices and commodities, 1:5 for stocks, and 1:2 for crypto. Professional clients who meet eligibility criteria can access higher leverage up to 1:200 on forex.'
+  },
+  {
+    question: 'How does IG compare to Interactive Brokers?',
+    answer: 'IG excels in CFD trading, spread betting, and has better research tools. Interactive Brokers is better for actual stock ownership, options, and offers lower commissions for high-volume traders. IG has a more user-friendly interface, while IBKR offers more asset classes globally.'
+  }
+];
+
+// Verdict Data
+const verdictData = {
+  brokerName: BROKER_NAME,
+  overallRating: 4.4,
+  maxRating: 5,
+  ratingCategories: [
+    { name: 'Regulation & Safety', score: 4.9, maxScore: 5, description: '50+ years, FTSE 250, multi-regulated' },
+    { name: 'Trading Platforms', score: 4.6, maxScore: 5, description: 'ProRealTime, L2 Dealer, MT4' },
+    { name: 'Fees & Spreads', score: 3.8, maxScore: 5, description: 'Competitive but inactivity fee' },
+    { name: 'Research & Education', score: 4.7, maxScore: 5, description: 'Industry-leading quality' },
+    { name: 'Customer Support', score: 4.2, maxScore: 5, description: '24/5 professional support' },
+    { name: 'Trading Instruments', score: 4.8, maxScore: 5, description: '17,000+ markets' }
+  ],
+  verdict: 'IG is the gold standard for CFD and spread betting trading with unmatched market access, premium platforms, and 50+ years of proven reliability. While not the absolute cheapest, their quality, research, and regulatory credentials justify the premium for serious traders.',
+  recommendation: 'We recommend IG for experienced traders who value research, platform quality, and regulatory security over rock-bottom pricing. The spread betting option makes them particularly attractive for UK traders seeking tax-efficient trading.',
+  bestFor: ['UK spread bettors', 'Research-focused traders', 'Platform power users', 'Investors wanting CFDs + share dealing', 'Those seeking long-term trusted relationships'],
+  notIdealFor: ['Cost-sensitive beginners', 'Scalpers needing lowest spreads', 'Crypto-focused traders', 'Copy trading users', 'Traders with small accounts'],
+  finalThoughts: 'IG has earned their position as the world\'s #1 CFD provider through five decades of excellence. If you\'re serious about trading and want a broker that will be around for another 50 years, IG deserves strong consideration.',
+  ctaText: 'Open IG Account',
+  ctaUrl: 'https://www.ig.com/'
+};
+
+// Schema Generation
+const brokerSchema = generateBrokerSchema({
+  name: 'IG',
+  url: 'https://www.ig.com',
+  description: 'World\'s #1 CFD provider with 50+ years experience and 17,000+ markets',
+  foundingDate: '1974',
+  headquarters: { country: 'United Kingdom', city: 'London' },
+  serviceTypes: ['CFD Broker', 'Spread Betting Provider', 'Share Dealer'],
+  aggregateRating: { ratingValue: 4.4, reviewCount: 1 },
+  minDeposit: '$250'
+});
+
+const faqSchema = generateFAQSchema(faqData);
+const reviewSchema = generateReviewSchema({
+  itemReviewed: { type: 'FinancialService', name: 'IG', url: 'https://www.ig.com' },
+  reviewRating: { ratingValue: 4.4 },
+  datePublished: '2026-01-20',
+  reviewBody: verdictData.verdict
+});
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonical={canonicalUrl}
+  ogType="article"
+  publishDate="2026-01-20"
+  modifiedDate={lastUpdated}
+  schema={[brokerSchema, faqSchema, reviewSchema, breadcrumbSchema]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero Section -->
+  <section class="hero section">
+    <div class="container">
+      <Chip variant="premium">World's #1 CFD Provider</Chip>
+      <h1 class="heading-1">IG Review {CURRENT_YEAR} – 50 Years of Trading Excellence</h1>
+      <p class="body-large hero-subtitle">
+        The world's largest CFD broker with 17,000+ markets, ProRealTime charting, and 50+ years of regulatory excellence. Our expert analysis for serious traders.
+      </p>
+
+      <div class="review-meta">
+        <span class="review-meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          Last Updated: {lastUpdated}
+        </span>
+        <span class="review-meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          By TradeTheDay Research Team
+        </span>
+        <span class="review-meta-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Verified Review
+        </span>
+      </div>
+
+      <div class="hero-cta-group">
+        <a href="https://www.ig.com/" class="btn btn-primary btn-xl" target="_blank" rel="noopener sponsored">Open IG Account</a>
+        <a href="#verdict" class="btn btn-secondary btn-lg">Read Full Verdict</a>
+      </div>
+      <Scorecard metrics={heroScorecard} />
+    </div>
+  </section>
+
+  <Navigation links={navigationLinks} />
+
+  <!-- Overview Section -->
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">IG Overview – The Original CFD Broker</h2>
+        <p class="body-large">
+          IG is the world's largest CFD and spread betting provider, founded in London in 1974 by Stuart Wheeler. A FTSE 250 company with 313,000+ active clients and £3+ billion market cap, they pioneered financial spread betting and remain the industry benchmark for quality and reliability.
+        </p>
+      </div>
+
+      <AnalystNotes title="Analyst Notes: IG Overview" icon="📊" id="overview-notes" expanded={true}>
+        <h4>The Industry Standard</h4>
+        <p>IG isn't just another broker - they effectively invented the retail CFD and spread betting industry. Here's what sets them apart:</p>
+
+        <div class="grid-2">
+          <div>
+            <h5>Unmatched Heritage</h5>
+            <ul>
+              <li><strong>Founded:</strong> 1974 - predating most competitors by decades</li>
+              <li><strong>First Mover:</strong> Pioneered financial spread betting in 1974</li>
+              <li><strong>IPO:</strong> Listed on London Stock Exchange since 2000</li>
+              <li><strong>FTSE 250:</strong> One of UK's largest financial services firms</li>
+              <li><strong>Survived Everything:</strong> 1987 crash, 2000 bubble, 2008 crisis, COVID-19</li>
+            </ul>
+          </div>
+          <div>
+            <h5>Key Metrics</h5>
+            <ul>
+              <li><strong>Market Cap:</strong> £3+ billion</li>
+              <li><strong>Active Clients:</strong> 313,000+</li>
+              <li><strong>Markets:</strong> 17,000+ tradeable instruments</li>
+              <li><strong>Revenue:</strong> £800M+ annually</li>
+              <li><strong>Employees:</strong> 2,500+ globally</li>
+              <li><strong>Offices:</strong> 17 countries worldwide</li>
+            </ul>
+          </div>
+        </div>
+
+        <h4>Why Experience Matters</h4>
+        <p>In an industry where brokers come and go, IG's 50-year track record provides meaningful assurance:</p>
+        <ul>
+          <li><strong>Regulatory Relationships:</strong> Decades of working with FCA, ASIC, and other regulators</li>
+          <li><strong>Technology Investment:</strong> Billions invested in trading infrastructure over the years</li>
+          <li><strong>Risk Management:</strong> Proven systems tested through multiple market crises</li>
+          <li><strong>Corporate Governance:</strong> Public company scrutiny with institutional shareholders</li>
+        </ul>
+
+        <h4>Target Audience</h4>
+        <p>IG positions itself for experienced, serious traders who value quality over rock-bottom costs. They're not trying to compete on price alone but rather on the total trading experience.</p>
+      </AnalystNotes>
+
+      <CompanyInfo
+        title="Complete IG Company Overview"
+        subtitle="Essential company information, trading conditions, and account details"
+        sections={companyInfoSections}
+        columns={3}
+        brokerName="IG"
+        schemaData={companySchemaData}
+      />
+    </div>
+  </section>
+
+  <!-- Why Choose IG Section -->
+  <section id="why-choose" class="section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Why Choose IG in {CURRENT_YEAR}?</h2>
+        <p class="body-large">
+          50 years of excellence, 17,000+ markets, and platforms that professionals actually use.
+        </p>
+      </div>
+
+      <FeatureHighlights features={whyChooseFeatures} title="" />
+
+      <AnalystNotes title="Analyst Notes: Why Traders Choose IG" icon="🎯" id="why-choose-notes">
+        <h4>The Premium Proposition</h4>
+        <p>IG isn't trying to be the cheapest broker - they're competing on quality. Here's who benefits from their approach:</p>
+
+        <h5>1. UK Spread Bettors</h5>
+        <p>IG's spread betting offering is unmatched:</p>
+        <ul>
+          <li><strong>Tax-Free Profits:</strong> No capital gains tax or stamp duty on spread betting profits in the UK</li>
+          <li><strong>Same Tight Spreads:</strong> Identical pricing to CFDs</li>
+          <li><strong>Full Market Access:</strong> 17,000+ markets available via spread betting</li>
+          <li><strong>Integrated Platforms:</strong> Switch between CFDs and spread betting seamlessly</li>
+        </ul>
+        <p>For UK residents trading actively, the tax savings can be substantial - potentially thousands of pounds annually.</p>
+
+        <h5>2. Research-Driven Traders</h5>
+        <p>IG's research offering is industry-leading:</p>
+        <ul>
+          <li>Daily analysis from in-house team</li>
+          <li>Market reports and trading ideas</li>
+          <li>Economic calendar with forecasts</li>
+          <li>News feed integrated into platforms</li>
+          <li>IG Academy for education</li>
+        </ul>
+
+        <h5>3. Platform Power Users</h5>
+        <p>Multiple professional-grade platforms:</p>
+        <ul>
+          <li><strong>ProRealTime:</strong> 100+ indicators, pattern recognition, automated trading</li>
+          <li><strong>L2 Dealer:</strong> Direct market access with Level 2 pricing</li>
+          <li><strong>MT4:</strong> Full Expert Advisor support</li>
+        </ul>
+
+        <h4>When IG Isn't the Right Choice</h4>
+        <p>Be honest about trade-offs:</p>
+        <ul>
+          <li><strong>Tight Budget:</strong> $250 minimum and inactivity fees suit larger accounts</li>
+          <li><strong>Scalping Focus:</strong> ECN specialists may offer tighter spreads</li>
+          <li><strong>Crypto Traders:</strong> Only 11 cryptocurrencies available</li>
+          <li><strong>Social Trading:</strong> No copy trading feature</li>
+        </ul>
+      </AnalystNotes>
+
+      <ProcessSteps steps={openingProcessSteps} title="Open an IG Account" />
+    </div>
+  </section>
+
+  <!-- Fees Section -->
+  <section id="fees" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">IG Fees & Trading Costs</h2>
+        <p class="body-large">
+          Competitive spreads with transparent pricing. Premium features may have costs.
+        </p>
+      </div>
+
+      <ComparisonTable
+        title="Fee Comparison: IG vs Competitors"
+        headers={feeTableHeaders}
+        rows={feeRows}
+        footnote="Spreads are minimum/typical. Stock CFDs charged commission. ProRealTime free with 4+ trades/month. All fees verified January 2026."
+      />
+
+      <AnalystNotes title="Analyst Notes: Understanding IG's Fee Structure" icon="💰" id="fees-notes">
+        <h4>Fee Structure Breakdown</h4>
+        <p>IG's pricing is competitive but has nuances worth understanding:</p>
+
+        <h5>Forex & Index CFDs/Spread Bets</h5>
+        <ul>
+          <li><strong>EUR/USD:</strong> 0.6 pips typical (competitive with industry)</li>
+          <li><strong>Wall Street:</strong> 2.4 points (24-hour market available)</li>
+          <li><strong>FTSE 100:</strong> 1.0 point typical</li>
+          <li>No commission on forex, indices, commodities</li>
+        </ul>
+
+        <h5>Stock CFDs</h5>
+        <p>This is where costs can add up:</p>
+        <ul>
+          <li>Commission: 0.1% of trade value</li>
+          <li>Minimum: $10 per trade</li>
+          <li>Example: $5,000 trade = $10 commission (0.2% effective)</li>
+          <li>Example: $50,000 trade = $50 commission (0.1% effective)</li>
+        </ul>
+        <p>Stock CFD commissions favor larger trade sizes. For small positions, the minimum charge is proportionally expensive.</p>
+
+        <h5>Premium Platform Costs</h5>
+        <table class="cost-comparison">
+          <tr><th>Platform</th><th>Cost</th><th>Free If...</th></tr>
+          <tr><td>ProRealTime</td><td>£30/month</td><td>4+ trades per month</td></tr>
+          <tr><td>L2 Dealer</td><td>£40/month</td><td>Contact requirement</td></tr>
+          <tr><td>Live Data Feeds</td><td>Varies</td><td>Exchange dependent</td></tr>
+        </table>
+
+        <h4>The Inactivity Fee</h4>
+        <p>IG charges $12/month after 24 months of no trading:</p>
+        <ul>
+          <li>More generous than most (eToro charges after 12 months)</li>
+          <li>Easy to avoid: one trade every 2 years resets the clock</li>
+          <li>Only charged if account has funds</li>
+        </ul>
+
+        <h4>The Tax Advantage (UK Only)</h4>
+        <p>For UK residents, spread betting profits are completely tax-free:</p>
+        <ul>
+          <li>No capital gains tax (currently 10-20%)</li>
+          <li>No stamp duty on shares (0.5%)</li>
+          <li>Losses not deductible against other income</li>
+        </ul>
+        <p>This tax efficiency can make IG's spread betting more cost-effective than competitors offering lower spreads on taxable CFDs.</p>
+      </AnalystNotes>
+
+      <CostAnalysis
+        title="Complete Cost Analysis"
+        tradingCosts={costAnalysisData.tradingCosts}
+        nonTradingCosts={costAnalysisData.nonTradingCosts}
+        summary={costAnalysisData.summary}
+      />
+    </div>
+  </section>
+
+  <!-- Safety Section -->
+  <section id="safety" class="section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Is IG Safe? Regulation & Security</h2>
+        <p class="body-large">
+          50+ years of regulatory excellence with tier-1 licenses across multiple jurisdictions.
+        </p>
+      </div>
+
+      <SimpleGrid columns={2}>
+        {regulationLicenses.map(reg => <RegulationCard {...reg} />)}
+      </SimpleGrid>
+
+      <AnalystNotes title="Analyst Notes: IG's Safety & Trustworthiness" icon="🛡️" id="safety-notes" variant="dark">
+        <h4>Unmatched Regulatory Credentials</h4>
+        <p>IG's regulatory standing is exceptional, even among well-regulated brokers:</p>
+
+        <h5>50 Years with FCA</h5>
+        <ul>
+          <li>License Number: 195355 (one of the earliest FCA registrations)</li>
+          <li>Continuous operation under UK regulation since 1974</li>
+          <li>£85,000 FSCS compensation for UK clients</li>
+          <li>Regular FCA supervision and audits</li>
+        </ul>
+
+        <h5>Public Company Accountability</h5>
+        <p>As a FTSE 250 company, IG faces exceptional scrutiny:</p>
+        <ul>
+          <li>Quarterly earnings reports publicly available</li>
+          <li>Annual accounts audited by Big 4 firms</li>
+          <li>Institutional shareholders provide governance</li>
+          <li>Executive compensation tied to performance</li>
+        </ul>
+
+        <h4>Client Protection Measures</h4>
+        <ul>
+          <li><strong>Segregated Funds:</strong> Client money held separately at tier-1 banks</li>
+          <li><strong>Negative Balance Protection:</strong> Cannot lose more than deposited (retail clients)</li>
+          <li><strong>2FA Authentication:</strong> Two-factor security available</li>
+          <li><strong>Encryption:</strong> Bank-grade SSL encryption</li>
+        </ul>
+
+        <h4>Crisis Track Record</h4>
+        <p>IG has navigated every major market crisis since 1974:</p>
+        <ul>
+          <li><strong>1987 Black Monday:</strong> Remained solvent and operational</li>
+          <li><strong>2000 Dot-com Crash:</strong> Continued serving clients</li>
+          <li><strong>2008 Financial Crisis:</strong> No client fund issues</li>
+          <li><strong>2015 Swiss Franc Shock:</strong> Honored all trades, absorbed losses</li>
+          <li><strong>2020 COVID Volatility:</strong> Systems handled record volumes</li>
+        </ul>
+        <p>This track record provides confidence that IG can handle extreme market conditions.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Platforms Section -->
+  <section id="platforms" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Trading Platforms</h2>
+        <p class="body-large">
+          Four professional platforms including ProRealTime and L2 Dealer for direct market access.
+        </p>
+      </div>
+
+      <PlatformGrid platforms={tradingPlatforms} />
+
+      <AnalystNotes title="Analyst Notes: Platform Capabilities" icon="🖥️" id="platforms-notes">
+        <h4>Platform Portfolio Analysis</h4>
+        <p>IG offers the most comprehensive platform selection of any major broker:</p>
+
+        <h5>IG Trading Platform</h5>
+        <p>The flagship proprietary platform:</p>
+        <ul>
+          <li>Award-winning interface (multiple industry awards)</li>
+          <li>Advanced charting with 50+ technical indicators</li>
+          <li>Integrated news feed and economic calendar</li>
+          <li>Risk management tools including guaranteed stops</li>
+          <li>Available on web, desktop, and mobile</li>
+        </ul>
+        <p><strong>Best for:</strong> Most traders; excellent balance of features and usability.</p>
+
+        <h5>ProRealTime</h5>
+        <p>Professional-grade charting platform:</p>
+        <ul>
+          <li>100+ technical indicators</li>
+          <li>Pattern recognition technology</li>
+          <li>Automated trading via ProOrder</li>
+          <li>Market screener and scanner</li>
+          <li>Backtesting capabilities</li>
+        </ul>
+        <p><strong>Cost:</strong> Free with 4+ trades/month; £30/month otherwise.</p>
+        <p><strong>Best for:</strong> Technical analysts and system traders.</p>
+
+        <h5>L2 Dealer</h5>
+        <p>Direct Market Access for professionals:</p>
+        <ul>
+          <li>Level 2 order book visibility</li>
+          <li>Direct exchange access</li>
+          <li>Algorithmic trading support</li>
+          <li>Advanced order types</li>
+        </ul>
+        <p><strong>Best for:</strong> Professional traders needing DMA.</p>
+
+        <h5>MetaTrader 4</h5>
+        <p>For Expert Advisor users:</p>
+        <ul>
+          <li>Full EA support</li>
+          <li>Custom indicators</li>
+          <li>Automated trading</li>
+          <li>Familiar interface for MT4 users</li>
+        </ul>
+        <p><strong>Best for:</strong> Traders with existing MT4 systems.</p>
+
+        <h4>Platform Verdict</h4>
+        <p>IG's platform offering is exceptional. Whether you're a beginner needing simplicity, a technical analyst wanting ProRealTime, or a professional requiring DMA, there's a platform that fits. This flexibility is a significant competitive advantage.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Account Types Section -->
+  <section id="accounts" class="section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Account Types</h2>
+        <p class="body-large">
+          CFD trading, spread betting, and share dealing all available under one roof.
+        </p>
+      </div>
+
+      <div class="account-types-grid">
+        {accountTypes.map((account) => (
+          <div class="account-card">
+            <h3 class="account-card-title">{account.name}</h3>
+            <div class="account-card-stats">
+              <div class="account-stat">
+                <span class="stat-label">Min Deposit</span>
+                <span class="stat-value">{account.minDeposit}</span>
+              </div>
+              <div class="account-stat">
+                <span class="stat-label">Spreads</span>
+                <span class="stat-value">{account.spreads}</span>
+              </div>
+            </div>
+            <ul class="account-features">
+              {account.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            <p class="account-best-for"><strong>Best for:</strong> {account.bestFor}</p>
+          </div>
+        ))}
+      </div>
+
+      <AnalystNotes title="Analyst Notes: Account Selection" icon="📋" id="accounts-notes">
+        <h4>Choosing the Right Account Type</h4>
+
+        <h5>CFD Account</h5>
+        <p>The standard choice for most traders:</p>
+        <ul>
+          <li>Access to all 17,000+ markets</li>
+          <li>Leverage available (1:30 forex retail)</li>
+          <li>Go long and short</li>
+          <li>Overnight financing applies</li>
+          <li>Profits subject to capital gains tax</li>
+        </ul>
+
+        <h5>Spread Betting Account (UK/Ireland Only)</h5>
+        <p>Identical markets and spreads with tax benefits:</p>
+        <ul>
+          <li>Profits completely tax-free</li>
+          <li>Same tight spreads as CFDs</li>
+          <li>Same leverage options</li>
+          <li>Losses not tax-deductible</li>
+        </ul>
+        <p>For UK active traders, spread betting is typically more tax-efficient.</p>
+
+        <h5>Share Dealing Account</h5>
+        <p>For investors wanting actual share ownership:</p>
+        <ul>
+          <li>Own real shares (not derivatives)</li>
+          <li>Receive dividends</li>
+          <li>No leverage (buy with cash)</li>
+          <li>ISA and SIPP eligible</li>
+          <li>Commission: £8 per trade (or £3 with Active Trader)</li>
+        </ul>
+
+        <h4>Can You Have Multiple Accounts?</h4>
+        <p>Yes, you can operate all three account types simultaneously, switching between CFDs for short-term trading, spread betting for tax efficiency, and share dealing for long-term investing.</p>
+
+        <h4>Professional Client Status</h4>
+        <p>Experienced traders can apply for professional status:</p>
+        <ul>
+          <li>Higher leverage (up to 1:200 forex)</li>
+          <li>Loss of negative balance protection</li>
+          <li>Loss of compensation scheme eligibility</li>
+          <li>Must meet 2 of 3 criteria (trading frequency, portfolio size, professional experience)</li>
+        </ul>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Deposits Section -->
+  <section id="deposits" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Deposits & Withdrawals</h2>
+        <p class="body-large">
+          Free deposits and withdrawals with multiple payment options.
+        </p>
+      </div>
+
+      <PaymentMethods methods={paymentMethods} />
+
+      <PaymentDetails
+        title="Withdrawal & Payment Information"
+        subtitle="Complete overview of payment processing, fees, and conditions"
+        withdrawalDetails={withdrawalDetails}
+        analysisTitle="Payment System Analysis"
+        analysis={paymentAnalysis}
+      />
+    </div>
+  </section>
+
+  <!-- Instruments Section -->
+  <section id="instruments" class="section section--alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Trading Instruments</h2>
+        <p class="body-large">
+          17,000+ markets across forex, indices, stocks, commodities, crypto, and bonds.
+        </p>
+      </div>
+
+      <TradingInstruments categories={instrumentCategories} />
+    </div>
+  </section>
+
+  <!-- Pros & Cons Section -->
+  <section id="pros-cons" class="section section--dark">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">IG Pros & Cons</h2>
+        <p class="body-large" style="color: rgba(255,255,255,0.8);">
+          Our honest assessment based on comprehensive testing.
+        </p>
+      </div>
+
+      <ProsCons pros={prosConsData.pros} cons={prosConsData.cons} />
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="section">
+    <div class="container container--narrow">
+      <div class="section-header">
+        <h2 class="heading-2">Frequently Asked Questions</h2>
+        <p class="body-large">Everything you need to know about IG.</p>
+      </div>
+
+      <FAQ questions={faqData} />
+    </div>
+  </section>
+
+  <!-- Verdict Section -->
+  <section id="verdict" class="section section--alt">
+    <div class="container">
+      <BrokerVerdict {...verdictData} />
+
+      <AnalystNotes title="Analyst Notes: Final Verdict on IG" icon="⚖️" id="verdict-notes" expanded={true}>
+        <h4>Our Assessment</h4>
+        <p>After extensive testing and analysis, IG earns its position as the industry benchmark. Here's our final take:</p>
+
+        <h5>What IG Does Exceptionally Well</h5>
+        <ul>
+          <li><strong>Trust & Reliability:</strong> 50+ years, FTSE 250, survived every market crisis</li>
+          <li><strong>Market Access:</strong> 17,000+ instruments is genuinely unmatched</li>
+          <li><strong>Platform Quality:</strong> ProRealTime and L2 Dealer are genuinely professional-grade</li>
+          <li><strong>Research:</strong> Industry-leading analysis and education</li>
+          <li><strong>Spread Betting:</strong> Tax-free trading for UK clients with identical spreads</li>
+          <li><strong>Regulatory Standing:</strong> Multi-jurisdictional tier-1 regulation</li>
+        </ul>
+
+        <h5>Where IG Falls Short</h5>
+        <ul>
+          <li><strong>Minimum Deposit:</strong> $250 excludes smaller accounts</li>
+          <li><strong>Inactivity Fee:</strong> $12/month after 2 years (though generous timeframe)</li>
+          <li><strong>Stock CFD Commissions:</strong> 0.1% minimum $10 can be expensive for small trades</li>
+          <li><strong>Crypto Selection:</strong> Only 11 cryptocurrencies vs. 50+ at specialists</li>
+          <li><strong>No Copy Trading:</strong> Missing feature that eToro and others offer</li>
+        </ul>
+
+        <h4>Who Should Choose IG?</h4>
+        <div class="grid-2">
+          <div>
+            <h5>Ideal For:</h5>
+            <ul>
+              <li>UK spread bettors seeking tax efficiency</li>
+              <li>Research-driven traders</li>
+              <li>Platform power users (ProRealTime/L2)</li>
+              <li>Those wanting CFDs + share dealing</li>
+              <li>Traders valuing long-term stability</li>
+              <li>Experienced traders with larger accounts</li>
+            </ul>
+          </div>
+          <div>
+            <h5>Look Elsewhere If:</h5>
+            <ul>
+              <li>You have a small account (&lt;$500)</li>
+              <li>You need the absolute lowest spreads</li>
+              <li>You're crypto-focused</li>
+              <li>You want copy trading</li>
+              <li>You need MetaTrader 5 (only MT4 available)</li>
+            </ul>
+          </div>
+        </div>
+
+        <h4>The Bottom Line</h4>
+        <p>IG has earned their position as the world's #1 CFD provider through five decades of consistent excellence. They're not the cheapest option, but for traders who value quality, reliability, and comprehensive service, IG sets the standard others aspire to.</p>
+
+        <p><strong>Our Rating: 4.4/5</strong> - The benchmark for serious CFD and spread betting trading. Premium service at premium prices, justified for the right trader profile.</p>
+      </AnalystNotes>
+
+      <BestFor bestFor={verdictData.bestFor} notIdealFor={verdictData.notIdealFor} />
+
+      <div class="final-cta">
+        <a href="https://www.ig.com/" class="btn btn-primary btn-xl" target="_blank" rel="noopener sponsored">Open IG Account</a>
+        <p class="cta-subtext">$250 minimum deposit | <a href="/brokers/" class="brand-link">Compare other brokers</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross Promotion Section -->
+  <section class="section section-gray">
+    <div class="container">
+      <BrokerCrossPromo brokerSlug="ig" brokerName="IG" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-subtitle {
+    max-width: 800px;
+    margin: 0 auto var(--space-4);
+    color: var(--color-gray-300);
+  }
+
+  .review-meta {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-6);
+  }
+
+  .review-meta-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-400);
+  }
+
+  .review-meta-item svg {
+    opacity: 0.7;
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-8);
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-10);
+  }
+
+  .section-header h2 {
+    margin-bottom: var(--space-3);
+  }
+
+  .section-header p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--color-gray-600);
+  }
+
+  /* Account Types Grid */
+  .account-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+
+  .account-card {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+
+  .account-card-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-4);
+    color: var(--color-gray-900);
+  }
+
+  .account-card-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    padding: var(--space-4);
+    background: var(--color-gray-50);
+    border-radius: var(--radius-md);
+  }
+
+  .account-stat {
+    text-align: center;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    margin-bottom: var(--space-1);
+  }
+
+  .stat-value {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-gray-900);
+  }
+
+  .account-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-4) 0;
+  }
+
+  .account-features li {
+    padding: var(--space-2) 0;
+    padding-left: var(--space-6);
+    position: relative;
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+  }
+
+  .account-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-weight: bold;
+  }
+
+  .account-best-for {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-gray-100);
+  }
+
+  /* Cost Comparison Table in Analyst Notes */
+  .cost-comparison {
+    width: 100%;
+    margin: var(--space-4) 0;
+    border-collapse: collapse;
+  }
+
+  .cost-comparison th,
+  .cost-comparison td {
+    padding: var(--space-2) var(--space-3);
+    text-align: left;
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .cost-comparison th {
+    background: var(--color-gray-50);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-6);
+    margin: var(--space-4) 0;
+  }
+
+  .grid-2 h5 {
+    margin-bottom: var(--space-2);
+    color: var(--charcoal);
+  }
+
+  .grid-2 ul {
+    margin: 0;
+    padding-left: var(--space-4);
+  }
+
+  .grid-2 li {
+    margin-bottom: var(--space-2);
+  }
+
+  .final-cta {
+    text-align: center;
+    margin-top: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  .cta-subtext {
+    margin-top: var(--space-4);
+    color: var(--color-gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  @media (max-width: 768px) {
+    .review-meta {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .account-card-stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

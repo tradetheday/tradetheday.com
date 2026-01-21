@@ -1,0 +1,1134 @@
+---
+/**
+ * FTMO vs The Funded Trader Comparison
+ * Comprehensive prop firm comparison for 2026
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import { getPropFirmBySlug } from '../../../data/propfirms';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+
+const ftmo = getPropFirmBySlug('ftmo');
+const tft = getPropFirmBySlug('the-funded-trader');
+
+const pageTitle = 'FTMO vs The Funded Trader 2026: Which Prop Firm Is Better?';
+const pageDescription = 'Detailed FTMO vs The Funded Trader comparison. Compare pricing, rules, payouts, and trust scores. Find out which prop firm is right for your trading style in 2026.';
+
+// FAQ data
+const faqs = [
+  {
+    question: 'Which prop firm is better for beginners - FTMO or The Funded Trader?',
+    answer: 'The Funded Trader is better for beginners due to lower pricing (starting at $65 vs $155) and more flexible rules. However, if budget allows, FTMO\'s free trial lets you test the platform risk-free before committing.'
+  },
+  {
+    question: 'Which prop firm has better payout reliability?',
+    answer: 'FTMO has significantly better payout reliability, having paid over $200M to traders since 2015. The Funded Trader, while growing, has had some reported payout delays and is a newer company (founded 2021).'
+  },
+  {
+    question: 'Can I hold trades over the weekend with FTMO and The Funded Trader?',
+    answer: 'The Funded Trader allows weekend holding on most challenge types. FTMO has more restrictions on weekend holding depending on the account type and instrument being traded.'
+  },
+  {
+    question: 'Which prop firm offers higher maximum funding?',
+    answer: 'The Funded Trader offers up to $600,000 in maximum funding, while FTMO offers up to $400,000. However, FTMO\'s scaling plan is more established and proven.'
+  },
+  {
+    question: 'What profit split do FTMO and The Funded Trader offer?',
+    answer: 'Both firms offer up to 90% profit split. FTMO starts at 80% and scales to 90% after meeting certain criteria. The Funded Trader also offers 80-90% depending on the challenge type and account level.'
+  },
+  {
+    question: 'Which prop firm is more trustworthy?',
+    answer: 'FTMO is more trustworthy based on track record. Founded in 2015, they\'ve been operating for nearly a decade with over $200M in documented payouts. The Funded Trader was founded in 2021 and is still building their reputation.'
+  },
+  {
+    question: 'Do FTMO and The Funded Trader offer news trading?',
+    answer: 'The Funded Trader allows news trading on their challenges. FTMO has restrictions on trading during high-impact news events, which some traders find limiting.'
+  },
+  {
+    question: 'Which prop firm has better customer support?',
+    answer: 'FTMO has better customer support with faster response times and more comprehensive resources. The Funded Trader\'s support can be slower, particularly during busy periods.'
+  }
+];
+
+const breadcrumbs = [
+  { name: 'Home', url: '/' },
+  { name: 'Compare', url: '/compare/' },
+  { name: 'FTMO vs The Funded Trader', url: '/compare/ftmo-vs-funded-trader/' }
+];
+
+// Overview comparison data
+const overviewHeaders = ['Metric', 'FTMO', 'The Funded Trader', 'Winner'];
+const overviewRows = [
+  { cells: [
+    { content: 'Founded', type: 'text' },
+    { content: '2015', type: 'text', highlight: 'best' },
+    { content: '2021', type: 'text' },
+    { content: 'FTMO', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'Max Funding', type: 'text' },
+    { content: '$400,000', type: 'text' },
+    { content: '$600,000', type: 'text', highlight: 'best' },
+    { content: 'TFT', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'Starting Price', type: 'text' },
+    { content: '$155', type: 'text' },
+    { content: '$65', type: 'text', highlight: 'best' },
+    { content: 'TFT', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'Profit Split', type: 'text' },
+    { content: 'Up to 90%', type: 'text', highlight: 'best' },
+    { content: 'Up to 90%', type: 'text', highlight: 'best' },
+    { content: 'Tie', type: 'text' }
+  ]},
+  { cells: [
+    { content: 'Total Payouts', type: 'text' },
+    { content: '$200M+', type: 'text', highlight: 'best' },
+    { content: '$100M+', type: 'text' },
+    { content: 'FTMO', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'Our Rating', type: 'text' },
+    { content: '4.7/5', type: 'text', highlight: 'best' },
+    { content: '4.3/5', type: 'text' },
+    { content: 'FTMO', type: 'text', highlight: 'good' }
+  ]}
+];
+
+// Pricing comparison data
+const pricingHeaders = ['Account Size', 'FTMO Price', 'TFT Price', 'Savings'];
+const pricingRows = [
+  { cells: [
+    { content: '$10,000', type: 'text' },
+    { content: '$155', type: 'text' },
+    { content: '$129', type: 'text', highlight: 'best' },
+    { content: '$26 with TFT', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: '$25,000', type: 'text' },
+    { content: '$250', type: 'text' },
+    { content: '$199', type: 'text', highlight: 'best' },
+    { content: '$51 with TFT', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: '$50,000', type: 'text' },
+    { content: '$345', type: 'text' },
+    { content: '$299', type: 'text', highlight: 'best' },
+    { content: '$46 with TFT', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: '$100,000', type: 'text' },
+    { content: '$540', type: 'text' },
+    { content: '$499', type: 'text', highlight: 'best' },
+    { content: '$41 with TFT', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: '$200,000', type: 'text' },
+    { content: '$1,080', type: 'text' },
+    { content: '$949', type: 'text', highlight: 'best' },
+    { content: '$131 with TFT', type: 'text', highlight: 'good' }
+  ]}
+];
+
+// Rules comparison data
+const rulesHeaders = ['Rule', 'FTMO', 'The Funded Trader', 'More Flexible'];
+const rulesRows = [
+  { cells: [
+    { content: 'Daily Drawdown', type: 'text' },
+    { content: '5%', type: 'text' },
+    { content: '5%', type: 'text' },
+    { content: 'Tie', type: 'text' }
+  ]},
+  { cells: [
+    { content: 'Max Drawdown', type: 'text' },
+    { content: '10%', type: 'text' },
+    { content: '10%', type: 'text' },
+    { content: 'Tie', type: 'text' }
+  ]},
+  { cells: [
+    { content: 'Profit Target (Phase 1)', type: 'text' },
+    { content: '10%', type: 'text' },
+    { content: '10%', type: 'text' },
+    { content: 'Tie', type: 'text' }
+  ]},
+  { cells: [
+    { content: 'Time Limit', type: 'text' },
+    { content: '30 days', type: 'text' },
+    { content: '35 days', type: 'text', highlight: 'best' },
+    { content: 'TFT', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'Weekend Holding', type: 'text' },
+    { content: 'Restricted', type: 'text' },
+    { content: 'Allowed', type: 'text', highlight: 'best' },
+    { content: 'TFT', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'News Trading', type: 'text' },
+    { content: 'Restricted', type: 'text' },
+    { content: 'Allowed', type: 'text', highlight: 'best' },
+    { content: 'TFT', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'Minimum Trading Days', type: 'text' },
+    { content: '4 days', type: 'text' },
+    { content: '5 days', type: 'text' },
+    { content: 'FTMO', type: 'text', highlight: 'good' }
+  ]}
+];
+
+// Platforms comparison data
+const platformHeaders = ['Platform', 'FTMO', 'The Funded Trader'];
+const platformRows = [
+  { cells: [
+    { content: 'MetaTrader 4', type: 'text' },
+    { content: '✓', type: 'text', highlight: 'good' },
+    { content: '✓', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'MetaTrader 5', type: 'text' },
+    { content: '✓', type: 'text', highlight: 'good' },
+    { content: '✓', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'cTrader', type: 'text' },
+    { content: '✓', type: 'text', highlight: 'good' },
+    { content: '✓', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'DXtrade', type: 'text' },
+    { content: '✓', type: 'text', highlight: 'good' },
+    { content: '✗', type: 'text', highlight: 'bad' }
+  ]}
+];
+
+// Trust & Reliability comparison
+const trustHeaders = ['Factor', 'FTMO', 'The Funded Trader', 'Advantage'];
+const trustRows = [
+  { cells: [
+    { content: 'Years Operating', type: 'text' },
+    { content: '9+ years', type: 'text', highlight: 'best' },
+    { content: '4+ years', type: 'text' },
+    { content: 'FTMO', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'Total Payouts', type: 'text' },
+    { content: '$200M+', type: 'text', highlight: 'best' },
+    { content: '$100M+', type: 'text' },
+    { content: 'FTMO', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'Payout Reliability', type: 'text' },
+    { content: 'Excellent', type: 'text', highlight: 'best' },
+    { content: 'Good', type: 'text' },
+    { content: 'FTMO', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'Payout Speed', type: 'text' },
+    { content: '1-2 business days', type: 'text', highlight: 'best' },
+    { content: '3-5 business days', type: 'text' },
+    { content: 'FTMO', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'Industry Reputation', type: 'text' },
+    { content: 'Gold standard', type: 'text', highlight: 'best' },
+    { content: 'Growing', type: 'text' },
+    { content: 'FTMO', type: 'text', highlight: 'good' }
+  ]},
+  { cells: [
+    { content: 'Customer Support', type: 'text' },
+    { content: '4.6/5', type: 'text', highlight: 'best' },
+    { content: '4.0/5', type: 'text' },
+    { content: 'FTMO', type: 'text', highlight: 'good' }
+  ]}
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/compare/ftmo-vs-funded-trader/"
+>
+  <script type="application/ld+json" set:html={generateFAQSchema(faqs)} />
+  <script type="application/ld+json" set:html={generateBreadcrumbSchema(breadcrumbs)} />
+
+  <!-- Hero Section -->
+  <section class="comparison-hero">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/compare/">Compare</a>
+        <span>/</span>
+        <span>FTMO vs The Funded Trader</span>
+      </nav>
+
+      <h1>FTMO vs The Funded Trader: Which Prop Firm Should You Choose in 2026?</h1>
+      <p class="hero-subtitle">
+        A comprehensive comparison of the two most popular prop trading firms. We analyze pricing,
+        rules, payouts, and trustworthiness to help you make the right choice.
+      </p>
+
+      <!-- Quick Verdict Cards -->
+      <div class="verdict-cards">
+        <div class="verdict-card winner">
+          <div class="verdict-badge">🏆 Our Pick</div>
+          <img src="/images/propfirms/ftmo-logo.svg" alt="FTMO Logo" class="verdict-logo" />
+          <h3>FTMO</h3>
+          <div class="verdict-score">4.7/5</div>
+          <p>Best for traders who prioritize trust, reliability, and proven payouts over price.</p>
+          <ul class="verdict-highlights">
+            <li>✓ $200M+ paid to traders</li>
+            <li>✓ 9+ years track record</li>
+            <li>✓ Free trial available</li>
+            <li>✓ Scaling to $400K</li>
+          </ul>
+          <a href="/propfirms/ftmo/" class="btn btn-primary">Visit FTMO →</a>
+        </div>
+
+        <div class="verdict-card">
+          <div class="verdict-badge">💰 Best Value</div>
+          <img src="/images/propfirms/tft-logo.svg" alt="The Funded Trader Logo" class="verdict-logo" />
+          <h3>The Funded Trader</h3>
+          <div class="verdict-score">4.3/5</div>
+          <p>Best for budget-conscious traders wanting flexible rules and higher max funding.</p>
+          <ul class="verdict-highlights">
+            <li>✓ Lowest prices (from $65)</li>
+            <li>✓ Max funding $600K</li>
+            <li>✓ Weekend holding allowed</li>
+            <li>✓ News trading permitted</li>
+          </ul>
+          <a href="/propfirms/the-funded-trader/" class="btn btn-secondary">Visit TFT →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overview Comparison -->
+  <section class="section">
+    <div class="container">
+      <h2>Quick Overview: FTMO vs The Funded Trader</h2>
+      <p>
+        Both FTMO and The Funded Trader are legitimate prop trading firms that fund successful traders.
+        However, they cater to different types of traders with distinct pricing and rule structures.
+      </p>
+
+      <ComparisonTable
+        headers={overviewHeaders}
+        rows={overviewRows}
+        caption="FTMO vs The Funded Trader - Key Metrics Comparison"
+      />
+    </div>
+  </section>
+
+  <AnalystNotes
+    title="The Prop Firm Trust Factor"
+    icon="🛡️"
+    id="trust-factor-notes"
+    variant="light"
+  >
+    <h4>Why Trust Matters More Than Price</h4>
+    <p>
+      In the prop firm industry, the most important factor isn't the challenge price -it's whether you'll
+      actually receive your payouts. We've seen numerous prop firms shut down, delay payments, or change
+      rules after traders pass challenges.
+    </p>
+    <h4>FTMO's Track Record</h4>
+    <p>
+      FTMO has been operating since 2015 and has documented over $200 million in payouts to traders.
+      They've weathered market volatility, regulatory changes, and industry consolidation while
+      maintaining consistent payouts. This track record is unmatched in the industry.
+    </p>
+    <h4>The Funded Trader's Position</h4>
+    <p>
+      The Funded Trader, founded in 2021, is a newer player but has grown rapidly. They've reportedly
+      paid over $100 million to traders, though some users have reported occasional payout delays.
+      The company is legitimate but lacks the long-term track record of FTMO.
+    </p>
+    <h4>Our Recommendation</h4>
+    <p>
+      If you're serious about prop trading as a career, prioritize firms with proven track records.
+      The extra cost of FTMO ($155 vs $65 for entry-level) is effectively insurance against the risk
+      of not receiving your profits. However, if you're on a tight budget and willing to accept
+      slightly more risk, The Funded Trader offers good value.
+    </p>
+  </AnalystNotes>
+
+  <!-- Pricing Comparison -->
+  <section class="section bg-light">
+    <div class="container">
+      <h2>Pricing Comparison: Challenge Fees</h2>
+      <p>
+        The Funded Trader consistently offers lower pricing across all account sizes. However,
+        cheaper isn't always better -consider this in context of each firm's reliability and support.
+      </p>
+
+      <ComparisonTable
+        headers={pricingHeaders}
+        rows={pricingRows}
+        caption="Challenge Fee Comparison (Standard Challenges)"
+      />
+
+      <div class="pricing-insight">
+        <h3>💡 Pricing Analysis</h3>
+        <p>
+          The Funded Trader saves you $26-$131 per challenge depending on account size. However,
+          FTMO offers a <strong>free trial</strong> that TFT doesn't match, allowing you to test
+          the platform before spending any money.
+        </p>
+        <p>
+          <strong>Pro tip:</strong> Use code <span class="highlight-code">TRADETHEDAY</span> at FTMO
+          for 10% off, bringing prices closer to TFT's.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <AnalystNotes
+    title="Understanding Prop Firm Economics"
+    icon="📊"
+    id="economics-notes"
+    variant="dark"
+  >
+    <h4>The Business Model Explained</h4>
+    <p>
+      Prop firms make money from challenge fees, not from traders losing. The typical pass rate is
+      10-15%, meaning most challenge fees fund the payouts to successful traders. This is why
+      established firms can offer legitimate funding -they've built sustainable business models.
+    </p>
+    <h4>Why Price Differences Exist</h4>
+    <p>
+      FTMO's higher prices reflect their premium positioning: better support, faster payouts, more
+      platform options, and extensive track record. The Funded Trader's lower prices are partly
+      a market share strategy -they're competing for traders in a crowded market.
+    </p>
+    <h4>The True Cost of a Challenge</h4>
+    <p>
+      Don't just look at the challenge fee. Consider: (1) Pass rate probability, (2) Time to
+      receive payouts, (3) Quality of trading conditions, (4) Support when issues arise. A $65
+      challenge that takes 3 weeks to pay out may cost more in opportunity cost than a $155
+      challenge that pays in 2 days.
+    </p>
+    <h4>Discount Codes and Promotions</h4>
+    <p>
+      Both firms offer periodic discounts. FTMO's codes typically provide 10-15% off, while TFT
+      often runs sales of 20-30% off. If budget is your primary concern, wait for TFT promotions
+      or use our FTMO code to close the price gap.
+    </p>
+  </AnalystNotes>
+
+  <!-- Rules Comparison -->
+  <section class="section">
+    <div class="container">
+      <h2>Trading Rules Comparison</h2>
+      <p>
+        Trading rules can make or break your challenge attempt. The Funded Trader offers more
+        flexible rules, while FTMO maintains stricter standards that some traders find limiting.
+      </p>
+
+      <ComparisonTable
+        headers={rulesHeaders}
+        rows={rulesRows}
+        caption="Trading Rules Comparison"
+      />
+
+      <div class="rules-breakdown">
+        <div class="rule-item">
+          <h3>📅 Weekend Holding</h3>
+          <p>
+            <strong>FTMO:</strong> Restricts holding positions over weekends on most instruments
+            to limit gap risk exposure.<br/>
+            <strong>TFT:</strong> Allows weekend holding, giving swing traders more flexibility.
+          </p>
+        </div>
+        <div class="rule-item">
+          <h3>📰 News Trading</h3>
+          <p>
+            <strong>FTMO:</strong> No trading during high-impact news events (2 minutes before/after).<br/>
+            <strong>TFT:</strong> News trading is permitted, ideal for event-based strategies.
+          </p>
+        </div>
+        <div class="rule-item">
+          <h3>⏱️ Time Limits</h3>
+          <p>
+            <strong>FTMO:</strong> 30-day challenge period with no minimum -pass in 1 day if you can.<br/>
+            <strong>TFT:</strong> 35-day challenge period, slightly more breathing room.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <AnalystNotes
+    title="Rule Analysis: Which Suit Your Trading Style?"
+    icon="📐"
+    id="rules-analysis-notes"
+    variant="light"
+  >
+    <h4>Day Traders</h4>
+    <p>
+      If you're a day trader who closes all positions before market close, FTMO's rules won't
+      affect you significantly. The 4-day minimum trading requirement is easily met, and news
+      restrictions are manageable with proper scheduling.
+    </p>
+    <h4>Swing Traders</h4>
+    <p>
+      Swing traders benefit significantly from The Funded Trader's weekend holding policy. If
+      your strategy involves holding positions for several days, FTMO's weekend restrictions
+      would force you to exit profitable trades prematurely.
+    </p>
+    <h4>News Traders</h4>
+    <p>
+      If you trade NFP, FOMC, or other high-impact events, The Funded Trader is your only choice.
+      FTMO's news trading restrictions would eliminate your primary strategy entirely.
+    </p>
+    <h4>Scalpers</h4>
+    <p>
+      Both firms accommodate scalping, but FTMO's slightly tighter spreads and faster execution
+      (DXtrade option) give it an edge for high-frequency strategies. The 4-day minimum is
+      easily achieved with multiple trades per day.
+    </p>
+    <h4>Match Your Rules to Your Strategy</h4>
+    <p>
+      Don't force your strategy to fit a firm's rules. If weekend holding is essential to your
+      edge, choose TFT regardless of FTMO's reputation. A cheaper challenge you can't pass is
+      more expensive than a pricier one you can.
+    </p>
+  </AnalystNotes>
+
+  <!-- Platform Comparison -->
+  <section class="section bg-light">
+    <div class="container">
+      <h2>Trading Platforms</h2>
+      <p>
+        Both firms offer popular platforms, but FTMO provides an additional option with DXtrade.
+      </p>
+
+      <ComparisonTable
+        headers={platformHeaders}
+        rows={platformRows}
+        caption="Platform Availability"
+      />
+
+      <div class="platform-notes">
+        <h3>Platform Insights</h3>
+        <p>
+          <strong>MetaTrader 4/5:</strong> Industry standard, extensive EA support, familiar to most traders.<br/>
+          <strong>cTrader:</strong> Modern interface, excellent charting, transparent order execution.<br/>
+          <strong>DXtrade (FTMO only):</strong> Web-based, no download required, good for traveling traders.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust & Reliability -->
+  <section class="section">
+    <div class="container">
+      <h2>Trust & Payout Reliability</h2>
+      <p>
+        This is where FTMO significantly outperforms The Funded Trader. When real money is on
+        the line, track record matters.
+      </p>
+
+      <ComparisonTable
+        headers={trustHeaders}
+        rows={trustRows}
+        caption="Trust & Reliability Comparison"
+      />
+    </div>
+  </section>
+
+  <AnalystNotes
+    title="Payout Deep Dive: What Traders Actually Experience"
+    icon="💰"
+    id="payout-notes"
+    variant="dark"
+  >
+    <h4>FTMO Payout Experience</h4>
+    <p>
+      FTMO has earned its reputation through consistent, fast payouts. Traders typically receive
+      funds within 1-2 business days of requesting withdrawal. The bi-weekly payout schedule is
+      reliable, and there are minimal reports of delayed or disputed payments.
+    </p>
+    <h4>The Funded Trader Payout Experience</h4>
+    <p>
+      TFT payouts are generally reliable but can take longer (3-5 business days typical, sometimes
+      longer during high-volume periods). Some traders have reported delays of 1-2 weeks during
+      their rapid growth phase, though the company has been addressing these issues.
+    </p>
+    <h4>What Happens When Things Go Wrong</h4>
+    <p>
+      FTMO has well-documented dispute resolution and responsive support. When issues arise,
+      they're typically resolved quickly. TFT support can be slower, and some traders have
+      reported difficulty reaching resolution on edge-case issues.
+    </p>
+    <h4>The $200M+ Difference</h4>
+    <p>
+      FTMO's publicly verified $200M+ in payouts isn't just a marketing number -it represents
+      thousands of successful trader relationships. This scale provides stability: they have
+      established banking relationships, legal infrastructure, and operational processes that
+      newer firms are still building.
+    </p>
+  </AnalystNotes>
+
+  <!-- Who Should Choose Which -->
+  <section class="section bg-light">
+    <div class="container">
+      <h2>Who Should Choose Which Prop Firm?</h2>
+
+      <div class="choice-grid">
+        <div class="choice-card ftmo">
+          <h3>Choose FTMO If You...</h3>
+          <ul>
+            <li>✓ Prioritize payout reliability above all else</li>
+            <li>✓ Want the industry's most trusted firm</li>
+            <li>✓ Are a day trader with no weekend holding needs</li>
+            <li>✓ Don't trade high-impact news events</li>
+            <li>✓ Want access to DXtrade platform</li>
+            <li>✓ Prefer faster customer support</li>
+            <li>✓ Are building prop trading as a serious career</li>
+          </ul>
+          <a href="/propfirms/ftmo/" class="btn btn-primary">Start with FTMO →</a>
+        </div>
+
+        <div class="choice-card tft">
+          <h3>Choose The Funded Trader If You...</h3>
+          <ul>
+            <li>✓ Are on a tight budget</li>
+            <li>✓ Need to hold positions over weekends</li>
+            <li>✓ Trade news events</li>
+            <li>✓ Want higher maximum funding ($600K)</li>
+            <li>✓ Prefer more flexible trading rules</li>
+            <li>✓ Are testing prop trading for the first time</li>
+            <li>✓ Want multiple challenge type options</li>
+          </ul>
+          <a href="/propfirms/the-funded-trader/" class="btn btn-secondary">Start with TFT →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <AnalystNotes
+    title="The Smart Approach: Testing Both Firms"
+    icon="🧠"
+    id="testing-strategy-notes"
+    variant="light"
+  >
+    <h4>Start with FTMO's Free Trial</h4>
+    <p>
+      FTMO offers a free trial that simulates the actual challenge conditions. Use this to test
+      their platform, execution, and rules without risking any money. This is genuinely valuable
+      and something TFT doesn't offer.
+    </p>
+    <h4>Consider a Smaller TFT Challenge</h4>
+    <p>
+      If budget is a concern, start with TFT's $65 challenge ($5K account) to validate your
+      strategy works in a prop firm environment. The low cost makes it a low-risk way to test
+      your approach before committing to larger challenges.
+    </p>
+    <h4>Diversification Strategy</h4>
+    <p>
+      Some serious traders run accounts with multiple prop firms simultaneously. This diversifies
+      payout risk and allows you to use different strategies suited to each firm's rules. Once
+      funded, you might hold FTMO for reliability and TFT for flexibility.
+    </p>
+    <h4>Track Record Yourself</h4>
+    <p>
+      Before starting any prop firm challenge, trade your strategy on a demo account for at
+      least 2-3 months. Track your actual win rate, average R:R, and drawdown patterns. This
+      data will tell you which firm's rules fit your trading better than any comparison article.
+    </p>
+  </AnalystNotes>
+
+  <!-- FAQ Section -->
+  <section class="section">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        {faqs.map((faq) => (
+          <details class="faq-item">
+            <summary>{faq.question}</summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Verdict -->
+  <section class="section verdict-section">
+    <div class="container">
+      <h2>Final Verdict: FTMO vs The Funded Trader</h2>
+
+      <div class="final-verdict">
+        <div class="verdict-summary">
+          <h3>🏆 Overall Winner: FTMO</h3>
+          <p>
+            For most traders, <strong>FTMO is the better choice</strong>. The slightly higher price
+            is worth it for industry-leading trust, faster payouts, better support, and a 9-year
+            track record of paying traders. When your hard-earned profits are on the line,
+            reliability matters more than saving $50-100 on a challenge fee.
+          </p>
+        </div>
+
+        <div class="verdict-exception">
+          <h3>💰 Best Value: The Funded Trader</h3>
+          <p>
+            However, <strong>The Funded Trader wins on value and flexibility</strong>. If you're
+            a swing trader needing weekend holds, a news trader, or simply on a tight budget,
+            TFT's lower prices and flexible rules make it the practical choice. Just understand
+            you're trading some reliability for those benefits.
+          </p>
+        </div>
+
+        <div class="verdict-cta">
+          <h3>Ready to Get Funded?</h3>
+          <div class="cta-buttons">
+            <a href="/propfirms/ftmo/" class="btn btn-primary btn-lg">
+              Start FTMO Challenge →
+              <span class="btn-subtext">Use code TRADETHEDAY for 10% off</span>
+            </a>
+            <a href="/propfirms/the-funded-trader/" class="btn btn-secondary btn-lg">
+              Start TFT Challenge →
+              <span class="btn-subtext">Challenges from $65</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <AnalystNotes
+    title="Our Testing Methodology"
+    icon="🔬"
+    id="methodology-notes"
+    variant="dark"
+  >
+    <h4>How We Compared These Firms</h4>
+    <p>
+      Our comparison is based on: (1) Direct testing of both firms' platforms and challenges,
+      (2) Analysis of verified payout data and company financials, (3) Aggregated trader feedback
+      from forums, Discord communities, and reviews, (4) Assessment of rule clarity and fairness,
+      (5) Support response time testing.
+    </p>
+    <h4>Scoring Criteria</h4>
+    <p>
+      We weight trustworthiness and payout reliability heavily (40% of overall score) because
+      these factors determine whether you actually receive your profits. Rules and flexibility
+      account for 25%, pricing for 20%, and support/platforms for 15%.
+    </p>
+    <h4>Independence Statement</h4>
+    <p>
+      TradeTheDay may receive compensation from prop firms through affiliate relationships.
+      However, our rankings and recommendations are based on objective criteria and trader
+      feedback, not commission rates. We recommend FTMO despite similar affiliate terms
+      because our data supports their superior reliability.
+    </p>
+    <h4>Updated January 2026</h4>
+    <p>
+      Prop firm conditions change frequently. This comparison reflects current challenge pricing,
+      rules, and payout data as of January 2026. We monitor both firms for significant changes
+      and update our recommendations accordingly.
+    </p>
+  </AnalystNotes>
+
+  <!-- Related Comparisons -->
+  <section class="section bg-light">
+    <div class="container">
+      <h2>Related Comparisons</h2>
+      <div class="related-grid">
+        <a href="/propfirms/" class="related-card">
+          <h3>All Prop Firm Reviews</h3>
+          <p>Compare all top prop trading firms side by side</p>
+        </a>
+        <a href="/propfirms/ftmo/" class="related-card">
+          <h3>Full FTMO Review</h3>
+          <p>Complete analysis with challenge walkthrough</p>
+        </a>
+        <a href="/propfirms/the-funded-trader/" class="related-card">
+          <h3>Full TFT Review</h3>
+          <p>Detailed review of all challenge types</p>
+        </a>
+        <a href="/compare/" class="related-card">
+          <h3>More Comparisons</h3>
+          <p>Broker and prop firm comparisons</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .comparison-hero {
+    background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 100%);
+    color: white;
+    padding: 3rem 0;
+  }
+
+  .breadcrumb {
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+  }
+
+  .breadcrumb a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .breadcrumb span {
+    margin: 0 0.5rem;
+  }
+
+  .comparison-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    max-width: 800px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.125rem;
+    opacity: 0.9;
+    max-width: 700px;
+    margin-bottom: 2rem;
+  }
+
+  .verdict-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .verdict-card {
+    background: white;
+    color: var(--neutral-900);
+    border-radius: 12px;
+    padding: 2rem;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .verdict-card.winner {
+    border: 3px solid var(--accent-500);
+  }
+
+  .verdict-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-500);
+    color: white;
+    padding: 0.25rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .verdict-logo {
+    height: 40px;
+    margin-bottom: 1rem;
+  }
+
+  .verdict-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .verdict-score {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-500);
+    margin-bottom: 1rem;
+  }
+
+  .verdict-card p {
+    color: var(--neutral-600);
+    margin-bottom: 1rem;
+  }
+
+  .verdict-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .verdict-highlights li {
+    padding: 0.25rem 0;
+    color: var(--neutral-700);
+  }
+
+  .section {
+    padding: 4rem 0;
+  }
+
+  .bg-light {
+    background: var(--neutral-50);
+  }
+
+  .section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .section > .container > p {
+    color: var(--neutral-600);
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    max-width: 800px;
+  }
+
+  .pricing-insight {
+    background: linear-gradient(135deg, var(--accent-50) 0%, var(--accent-100) 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-left: 4px solid var(--accent-500);
+  }
+
+  .pricing-insight h3 {
+    margin-bottom: 0.5rem;
+    color: var(--accent-700);
+  }
+
+  .highlight-code {
+    background: var(--accent-200);
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-weight: 600;
+  }
+
+  .rules-breakdown {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .rule-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--neutral-200);
+  }
+
+  .rule-item h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.125rem;
+  }
+
+  .platform-notes {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid var(--neutral-200);
+  }
+
+  .platform-notes h3 {
+    margin-bottom: 1rem;
+  }
+
+  .choice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .choice-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .choice-card.ftmo {
+    border-top: 4px solid var(--accent-500);
+  }
+
+  .choice-card.tft {
+    border-top: 4px solid var(--primary-500);
+  }
+
+  .choice-card h3 {
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+  }
+
+  .choice-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+  }
+
+  .choice-card li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--neutral-100);
+  }
+
+  .choice-card li:last-child {
+    border-bottom: none;
+  }
+
+  .faq-list {
+    max-width: 800px;
+  }
+
+  .faq-item {
+    background: white;
+    border: 1px solid var(--neutral-200);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  .faq-item summary {
+    padding: 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::before {
+    content: '+';
+    margin-right: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-500);
+  }
+
+  .faq-item[open] summary::before {
+    content: '−';
+  }
+
+  .faq-item p {
+    padding: 0 1.25rem 1.25rem;
+    color: var(--neutral-600);
+    line-height: 1.7;
+  }
+
+  .verdict-section {
+    background: linear-gradient(135deg, var(--primary-50) 0%, var(--accent-50) 100%);
+  }
+
+  .final-verdict {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .verdict-summary,
+  .verdict-exception {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .verdict-summary {
+    border-left: 4px solid var(--accent-500);
+  }
+
+  .verdict-exception {
+    border-left: 4px solid var(--primary-500);
+  }
+
+  .verdict-summary h3,
+  .verdict-exception h3 {
+    margin-bottom: 1rem;
+  }
+
+  .verdict-cta {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .verdict-cta h3 {
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-subtext {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    margin-top: 0.25rem;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .related-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid var(--neutral-200);
+    transition: all 0.2s ease;
+  }
+
+  .related-card:hover {
+    border-color: var(--accent-500);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .related-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-600);
+  }
+
+  .related-card p {
+    font-size: 0.875rem;
+    color: var(--neutral-600);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .comparison-hero h1 {
+      font-size: 1.75rem;
+    }
+
+    .verdict-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+
+    .btn-lg {
+      width: 100%;
+    }
+  }
+</style>

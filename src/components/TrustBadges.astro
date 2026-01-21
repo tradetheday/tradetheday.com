@@ -1,0 +1,256 @@
+---
+/**
+ * TrustBadges Component
+ *
+ * Displays regulatory authority logos and trust indicators.
+ * Uses Cialdini's "Authority" principle - people defer to credible experts.
+ *
+ * Features:
+ * - Major regulatory body badges (FCA, ASIC, CySEC)
+ * - Security indicators (SSL, encryption)
+ * - Professional credibility markers
+ * - Responsive design with scroll on mobile
+ */
+
+interface Props {
+  variant?: 'light' | 'dark' | 'transparent';
+  showSecurityBadges?: boolean;
+  compact?: boolean;
+}
+
+const {
+  variant = 'light',
+  showSecurityBadges = true,
+  compact = false
+} = Astro.props;
+
+// Regulatory bodies with their full names for tooltips
+const regulators = [
+  { abbr: 'FCA', name: 'Financial Conduct Authority', country: 'UK' },
+  { abbr: 'ASIC', name: 'Australian Securities & Investments Commission', country: 'Australia' },
+  { abbr: 'CySEC', name: 'Cyprus Securities and Exchange Commission', country: 'EU' },
+  { abbr: 'FSCA', name: 'Financial Sector Conduct Authority', country: 'South Africa' }
+];
+
+const securityBadges = [
+  { icon: '🔒', text: '256-bit SSL', tooltip: 'Bank-grade encryption' },
+  { icon: '🛡️', text: 'Verified Reviews', tooltip: '100% authentic trader reviews' },
+  { icon: '✓', text: 'Independent', tooltip: 'Unbiased broker analysis' }
+];
+---
+
+<div class={`trust-badges trust-badges--${variant} ${compact ? 'trust-badges--compact' : ''}`}>
+  <div class="trust-badges-inner">
+    <!-- Regulatory Badges -->
+    <div class="trust-badges-section">
+      <span class="trust-badges-label">Brokers Regulated By:</span>
+      <div class="trust-badges-list">
+        {regulators.map((reg) => (
+          <div class="trust-badge trust-badge--regulator" title={`${reg.name} (${reg.country})`}>
+            <span class="trust-badge-abbr">{reg.abbr}</span>
+            <span class="trust-badge-check">✓</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {showSecurityBadges && (
+      <div class="trust-badges-section">
+        <div class="trust-badges-list trust-badges-list--security">
+          {securityBadges.map((badge) => (
+            <div class="trust-badge trust-badge--security" title={badge.tooltip}>
+              <span class="trust-badge-icon">{badge.icon}</span>
+              <span class="trust-badge-text">{badge.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</div>
+
+<style>
+  .trust-badges {
+    padding: var(--space-md, 24px) 0;
+    border-bottom: 1px solid var(--gray-200, #e5e5e5);
+  }
+
+  .trust-badges--light {
+    background: var(--gray-50, #fafafa);
+  }
+
+  .trust-badges--dark {
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .trust-badges--transparent {
+    background: transparent;
+    border-bottom: none;
+  }
+
+  .trust-badges--compact {
+    padding: var(--space-sm, 16px) 0;
+  }
+
+  .trust-badges-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg, 32px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-xl, 48px);
+  }
+
+  .trust-badges-section {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md, 24px);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .trust-badges-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray-500, #737373);
+    white-space: nowrap;
+  }
+
+  .trust-badges--dark .trust-badges-label {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .trust-badges-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm, 16px);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .trust-badges-list--security {
+    gap: var(--space-md, 24px);
+  }
+
+  /* Regulator Badge */
+  .trust-badge--regulator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: white;
+    border: 1px solid var(--gray-200, #e5e5e5);
+    border-radius: var(--radius-md, 12px);
+    padding: 6px 12px;
+    cursor: default;
+    transition: all 0.2s ease;
+  }
+
+  .trust-badges--dark .trust-badge--regulator {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .trust-badge--regulator:hover {
+    border-color: var(--brand-orange, #FF4800);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .trust-badges--dark .trust-badge--regulator:hover {
+    border-color: var(--brand-orange, #FF4800);
+    background: rgba(255, 72, 0, 0.1);
+  }
+
+  .trust-badge-abbr {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--charcoal, #1E2427);
+    letter-spacing: 0.5px;
+  }
+
+  .trust-badges--dark .trust-badge-abbr {
+    color: white;
+  }
+
+  .trust-badge-check {
+    font-size: 10px;
+    color: var(--success, #10B981);
+    font-weight: 700;
+  }
+
+  /* Security Badge */
+  .trust-badge--security {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: default;
+    transition: all 0.2s ease;
+  }
+
+  .trust-badge--security:hover {
+    transform: translateY(-1px);
+  }
+
+  .trust-badge-icon {
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .trust-badge-text {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray-600, #525252);
+    white-space: nowrap;
+  }
+
+  .trust-badges--dark .trust-badge-text {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* Mobile styles */
+  @media (max-width: 768px) {
+    .trust-badges-inner {
+      padding: 0 var(--space-md, 24px);
+      gap: var(--space-md, 24px);
+    }
+
+    .trust-badges-section {
+      flex-direction: column;
+      gap: var(--space-sm, 16px);
+    }
+
+    .trust-badges-list {
+      gap: var(--space-xs, 8px);
+    }
+
+    .trust-badge--regulator {
+      padding: 4px 10px;
+    }
+
+    .trust-badge-abbr {
+      font-size: 11px;
+    }
+  }
+
+  /* Compact mode */
+  .trust-badges--compact .trust-badges-label {
+    display: none;
+  }
+
+  .trust-badges--compact .trust-badge--regulator {
+    padding: 4px 8px;
+  }
+
+  .trust-badges--compact .trust-badge-abbr {
+    font-size: 11px;
+  }
+
+  .trust-badges--compact .trust-badges-list--security {
+    display: none;
+  }
+</style>

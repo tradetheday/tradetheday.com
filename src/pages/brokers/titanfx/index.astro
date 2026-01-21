@@ -1,0 +1,1152 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import Chip from '../../../components/Chip.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import FAQ from '../../../components/FAQ.astro';
+import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+import { generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+import { getBrokerById } from '../../../data/brokers';
+
+const brokerData = getBrokerById('titanfx');
+const BROKER_NAME = 'Titan FX';
+
+const title = 'Titan FX Review 2026 - Zero Point Execution, Raw Spreads & 500:1 Leverage';
+const description = 'In-depth Titan FX review for 2026. Zero Point technology execution, raw spreads from 0.0 pips, up to 500:1 leverage. Ideal for scalpers and day traders.';
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Brokers', href: '/brokers/' },
+  { text: 'Titan FX Review', href: '/brokers/titanfx/', current: true }
+];
+
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#fees', text: 'Costs' },
+  { href: '#safety', text: 'Safety' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#accounts', text: 'Accounts' },
+  { href: '#pros-cons', text: 'Review' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+const heroScorecard = [
+  { value: '$200', label: 'Min Deposit' },
+  { value: '0.0 pips', label: 'Spreads From' },
+  { value: '500:1', label: 'Max Leverage' },
+  { value: '4.0/5', label: 'Our Rating' }
+];
+
+// Fee comparison table
+const feeTableHeaders = ['Fee Type', 'Titan FX Zero Blade', 'Titan FX Standard', 'Pepperstone', 'IC Markets'];
+const feeRows = [
+  {
+    cells: [
+      { content: 'EUR/USD Spread', type: 'text' },
+      { content: '0.0 pips', type: 'text', highlight: 'best' },
+      { content: '1.2 pips', type: 'text', highlight: 'good' },
+      { content: '0.0 pips', type: 'text', highlight: 'best' },
+      { content: '0.0 pips', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Commission', type: 'text' },
+      { content: '$3.60/lot', type: 'text', highlight: 'good' },
+      { content: '$0', type: 'text', highlight: 'best' },
+      { content: '$3.50/lot', type: 'text', highlight: 'best' },
+      { content: '$3.50/lot', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Leverage', type: 'text' },
+      { content: '500:1', type: 'text', highlight: 'best' },
+      { content: '500:1', type: 'text', highlight: 'best' },
+      { content: '500:1', type: 'text', highlight: 'best' },
+      { content: '500:1', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Min Deposit', type: 'text' },
+      { content: '$200', type: 'text', highlight: 'good' },
+      { content: '$200', type: 'text', highlight: 'good' },
+      { content: '$0', type: 'text', highlight: 'best' },
+      { content: '$200', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Execution Speed', type: 'text' },
+      { content: '<37ms avg', type: 'text', highlight: 'best' },
+      { content: '<37ms avg', type: 'text', highlight: 'best' },
+      { content: '<30ms avg', type: 'text', highlight: 'best' },
+      { content: '<40ms avg', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Inactivity Fee', type: 'text' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: '$10/month', type: 'text', highlight: 'warning' }
+    ]
+  }
+];
+
+// Account types comparison
+const accountHeaders = ['Feature', 'Zero Micro', 'Zero Standard', 'Zero Blade'];
+const accountRows = [
+  {
+    cells: [
+      { content: 'Min Deposit', type: 'text' },
+      { content: '$200', type: 'text' },
+      { content: '$200', type: 'text' },
+      { content: '$200', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Spreads', type: 'text' },
+      { content: 'From 1.0 pips', type: 'text' },
+      { content: 'From 1.0 pips', type: 'text' },
+      { content: 'From 0.0 pips', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Commission', type: 'text' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: '$3.60/lot RT', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Lot Size', type: 'text' },
+      { content: '0.01 (micro)', type: 'text' },
+      { content: '0.01 (standard)', type: 'text' },
+      { content: '0.01 (standard)', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Leverage', type: 'text' },
+      { content: 'Up to 1000:1', type: 'text', highlight: 'best' },
+      { content: 'Up to 500:1', type: 'text' },
+      { content: 'Up to 500:1', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Best For', type: 'text' },
+      { content: 'Small accounts', type: 'text' },
+      { content: 'Swing traders', type: 'text' },
+      { content: 'Scalpers', type: 'text', highlight: 'best' }
+    ]
+  }
+];
+
+// FAQ data
+const faqItems = [
+  {
+    question: 'Is Titan FX regulated?',
+    answer: 'Titan FX is regulated by the Vanuatu Financial Services Commission (VFSC) with license number 40313, and the Financial Services Authority (FSA) of Mauritius. These are tier-3 offshore regulators, meaning less investor protection compared to FCA or ASIC regulated brokers. However, Titan FX has operated since 2014 without major incidents.'
+  },
+  {
+    question: 'What is Titan FX Zero Point technology?',
+    answer: 'Zero Point is Titan FX\'s proprietary execution technology designed to eliminate dealing desk intervention. It routes orders directly to liquidity providers with average execution speeds under 37 milliseconds and no requotes. This is particularly valuable for scalpers and high-frequency traders who need reliable fills.'
+  },
+  {
+    question: 'What is the minimum deposit for Titan FX?',
+    answer: 'The minimum deposit for all Titan FX accounts (Zero Micro, Zero Standard, and Zero Blade) is $200 USD. You can deposit via bank transfer, credit card, Skrill, Neteller, bitwallet, or cryptocurrency.'
+  },
+  {
+    question: 'What leverage does Titan FX offer?',
+    answer: 'Titan FX offers up to 500:1 leverage on forex pairs for Standard and Blade accounts, and up to 1000:1 on the Zero Micro account. Leverage varies by instrument - indices offer up to 200:1, commodities up to 100:1, and crypto up to 100:1.'
+  },
+  {
+    question: 'Which account type is best for scalping?',
+    answer: 'The Zero Blade account is best for scalping due to its raw spreads from 0.0 pips and the low commission of $3.60 per round turn lot. Combined with Zero Point execution, scalpers get minimal trading costs and fast fills essential for scalping strategies.'
+  },
+  {
+    question: 'Does Titan FX accept US clients?',
+    answer: 'No, Titan FX does not accept clients from the United States due to regulatory restrictions. They serve clients from most other countries including Europe, Asia, Africa, and Oceania.'
+  },
+  {
+    question: 'What platforms does Titan FX support?',
+    answer: 'Titan FX supports MetaTrader 4 and MetaTrader 5 for desktop, web, and mobile trading. They also offer Titan FX Social for copy trading. VPS hosting is available for automated trading strategies.'
+  },
+  {
+    question: 'Is Titan FX good for beginners?',
+    answer: 'Titan FX is better suited for intermediate to advanced traders due to its focus on execution quality and ECN trading. Beginners may prefer brokers with more educational content and lower minimum deposits. However, the Zero Micro account with $200 minimum and 1000:1 leverage can work for learning with small positions.'
+  }
+];
+
+// Schema markup
+const breadcrumbSchemaItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Brokers', url: '/brokers/' },
+  { name: 'Titan FX Review', url: '/brokers/titanfx/' }
+];
+
+const reviewSchema = generateReviewSchema({
+  itemReviewed: {
+    type: 'FinancialService',
+    name: 'Titan FX',
+    url: 'https://titanfx.com'
+  },
+  reviewRating: {
+    ratingValue: 4.0,
+    bestRating: 5,
+    worstRating: 1
+  },
+  reviewBody: 'Comprehensive review of Titan FX forex broker. 4.0/5 rating based on Zero Point execution, raw spreads, high leverage, and overall trading conditions.',
+  author: 'TradeTheDay Research Team'
+});
+
+const faqSchema = generateFAQSchema(faqItems);
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbSchemaItems);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogType="article"
+  schema={[reviewSchema, faqSchema, breadcrumbSchema]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- HERO SECTION -->
+  <section class="review-hero">
+    <div class="container">
+      <div class="review-hero-content">
+        <div class="review-hero-badge">
+          <Chip variant="badge" size="sm">ECN Specialist</Chip>
+        </div>
+
+        <div class="review-hero-header">
+          <div class="review-hero-logo">
+            <span class="broker-initial">TFX</span>
+          </div>
+          <div class="review-hero-title">
+            <h1 class="heading-1">{BROKER_NAME} Review 2026</h1>
+            <div class="review-hero-rating">
+              <span class="stars">★★★★</span>
+              <span class="rating-value">4.0/5</span>
+              <span class="rating-count">• Zero Point Execution</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="review-hero-tagline">Zero Point Technology Trading - Raw Spreads & Ultra-Fast Execution</p>
+
+        <div class="review-hero-scorecard">
+          {heroScorecard.map((item) => (
+            <div class="scorecard-item">
+              <span class="scorecard-value">{item.value}</span>
+              <span class="scorecard-label">{item.label}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="review-hero-highlights">
+          <span class="highlight-item">✓ 0.0 pip spreads</span>
+          <span class="highlight-item">✓ <37ms execution</span>
+          <span class="highlight-item">✓ 500:1 leverage</span>
+        </div>
+
+        <div class="review-hero-cta">
+          <a href="https://www.titanfx.com/" target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xl">
+            Open Titan FX Account
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="#fees" class="btn btn-secondary btn-xl">
+            See Trading Costs
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Navigation links={navigationLinks} />
+
+  <!-- OVERVIEW SECTION -->
+  <section id="overview" class="section">
+    <div class="container">
+      <h2 class="heading-2">Titan FX Overview</h2>
+      <p class="body-large">
+        Titan FX is an ECN broker founded in 2014, headquartered in Vanuatu. They've built their reputation on
+        ultra-fast execution through their proprietary Zero Point technology, raw spreads from 0.0 pips, and
+        high leverage up to 500:1. While they lack tier-1 regulation, they've earned respect among scalpers
+        and day traders who prioritize execution quality over regulatory prestige.
+      </p>
+
+      <div class="overview-grid">
+        <div class="overview-card">
+          <div class="overview-icon">⚡</div>
+          <h3>Zero Point Execution</h3>
+          <p>Proprietary technology eliminating dealing desk intervention with average execution under 37ms.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">📊</div>
+          <h3>Raw Spreads</h3>
+          <p>True ECN spreads from 0.0 pips on the Blade account with $3.60 round-turn commission per lot.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">📈</div>
+          <h3>High Leverage</h3>
+          <p>Up to 500:1 on forex, and 1000:1 on Micro accounts. Trade larger positions with less margin.</p>
+        </div>
+        <div class="overview-card">
+          <div class="overview-icon">₿</div>
+          <h3>Crypto Deposits</h3>
+          <p>Deposit via Bitcoin and other cryptocurrencies for fast, anonymous funding.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Understanding Titan FX's Market Position"
+        icon="🎯"
+        id="overview-notes"
+        variant="light"
+      >
+        <h4>Who is Titan FX Actually For?</h4>
+        <p>Titan FX has positioned themselves specifically for traders who prioritize execution quality and competitive pricing over regulatory protection. This isn't a broker for cautious beginners - it's for experienced traders who know what they want.</p>
+
+        <h5>The Zero Point Advantage</h5>
+        <p>Titan FX's Zero Point technology is their key differentiator. Unlike market makers who may trade against you, Zero Point routes orders directly to liquidity providers. Average execution is under 37 milliseconds with no requotes - crucial for scalpers where every millisecond and every pip matters.</p>
+
+        <h5>The Regulation Trade-Off</h5>
+        <p>Let's be direct: Titan FX's Vanuatu regulation is tier-3 - offshore with limited investor protection. You won't get £85,000 FSCS protection like with an FCA broker or segregated funds in an Australian bank like ASIC brokers. The trade-off? Higher leverage (500:1 vs 30:1 in EU), fewer restrictions, and arguably better execution. This appeals to traders who trust their risk management more than they trust regulators.</p>
+
+        <h5>The Ideal Titan FX Trader</h5>
+        <p>You should consider Titan FX if you: (1) are an experienced trader comfortable with offshore brokers, (2) scalp or day trade and need fast execution, (3) want high leverage for capital efficiency, and (4) don't need extensive educational resources. If you need hand-holding or maximum regulatory protection, look elsewhere.</p>
+
+        <h5>Operating Since 2014</h5>
+        <p>A decade of operation without major scandals counts for something. Titan FX has processed millions in withdrawals and maintained a reasonable reputation in trading communities. That said, past performance doesn't guarantee future security - never deposit more than you can afford to lose with any offshore broker.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- FEES SECTION -->
+  <section id="fees" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Titan FX Trading Costs</h2>
+      <p class="body-large">
+        Titan FX offers competitive pricing especially on their Zero Blade account. Raw spreads from 0.0 pips
+        with $3.60 round-turn commission per lot puts them among the cheapest ECN brokers available.
+      </p>
+
+      <ComparisonTable
+        headers={feeTableHeaders}
+        rows={feeRows}
+        caption="Titan FX fees compared to major ECN competitors (2026)"
+      />
+
+      <AnalystNotes
+        title="Breaking Down Titan FX's Fee Structure"
+        icon="💰"
+        id="fees-notes"
+        variant="dark"
+      >
+        <h4>The Real Cost of Trading at Titan FX</h4>
+        <p>Understanding trading costs requires looking beyond just spreads. Let's calculate the true cost of trading at Titan FX versus alternatives.</p>
+
+        <h5>Zero Blade Account Cost Analysis</h5>
+        <p>On the Blade account, you pay raw spreads plus $3.60 per round-turn lot (buy + sell). During typical London/NY sessions, EUR/USD spreads average 0.1-0.3 pips. For a standard lot trade:</p>
+        <ul>
+          <li>Spread cost: ~$1-3 (0.1-0.3 pip spread)</li>
+          <li>Commission: $3.60</li>
+          <li>Total per trade: ~$4.60-6.60</li>
+        </ul>
+        <p>This is competitive with Pepperstone's Razor ($3.50 commission) and IC Markets ($3.50 commission).</p>
+
+        <h5>Zero Standard vs Zero Blade</h5>
+        <p>Standard account has no commission but wider spreads (from 1.0 pips). At 1.2 pip average on EUR/USD, that's $12 per lot - more expensive than Blade's ~$5.60 total. Blade wins for any trader doing reasonable volume.</p>
+
+        <h5>Hidden Cost: Swap Rates</h5>
+        <p>Titan FX swap rates (overnight financing) are standard industry rates. If you hold positions overnight, compare their swap calculator to competitors. For day traders and scalpers who close before rollover, this doesn't matter.</p>
+
+        <h5>No Deposit/Withdrawal Fees (Mostly)</h5>
+        <p>Titan FX doesn't charge deposit or withdrawal fees themselves, but your payment provider might. Bank wires typically have fees; crypto deposits are free. No inactivity fee either - a nice touch compared to brokers charging $10-25/month for dormant accounts.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- SAFETY SECTION -->
+  <section id="safety" class="section">
+    <div class="container">
+      <h2 class="heading-2">Titan FX Safety & Regulation</h2>
+      <p class="body-large">
+        Titan FX is regulated by the Vanuatu Financial Services Commission (VFSC) and the Mauritius Financial
+        Services Authority. These are tier-3 offshore regulators with limited investor protection compared to
+        FCA, ASIC, or CySEC.
+      </p>
+
+      <div class="regulation-cards">
+        <div class="regulation-card">
+          <div class="regulation-flag">🇻🇺</div>
+          <h3>Vanuatu - VFSC</h3>
+          <p class="license-number">License #40313</p>
+          <p>The Vanuatu Financial Services Commission provides basic regulatory oversight. Segregated client funds are required, but no investor compensation scheme exists. Lower barriers than tier-1 regulators.</p>
+          <span class="regulation-tier tier-3">Tier 3 - Offshore</span>
+        </div>
+        <div class="regulation-card">
+          <div class="regulation-flag">🇲🇺</div>
+          <h3>Mauritius - FSA</h3>
+          <p class="license-number">License #GB20025832</p>
+          <p>The Mauritius Financial Services Authority provides additional regulatory coverage. Similar to Vanuatu - basic requirements without extensive investor protection.</p>
+          <span class="regulation-tier tier-3">Tier 3 - Offshore</span>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Honest Assessment of Titan FX Safety"
+        icon="🔒"
+        id="safety-notes"
+        variant="light"
+      >
+        <h4>The Regulation Reality Check</h4>
+        <p>Let's be brutally honest about Titan FX's regulatory status and what it means for your money.</p>
+
+        <h5>What You Don't Get</h5>
+        <ul>
+          <li><strong>No investor compensation:</strong> If Titan FX fails, no government scheme protects your funds</li>
+          <li><strong>Limited legal recourse:</strong> Disputes would be handled under Vanuatu law - expensive and impractical for most traders</li>
+          <li><strong>No negative balance protection guarantee:</strong> Though Titan FX claims to offer it, there's no regulatory requirement</li>
+          <li><strong>Less oversight:</strong> VFSC doesn't audit as rigorously as FCA or ASIC</li>
+        </ul>
+
+        <h5>What You Do Get</h5>
+        <ul>
+          <li><strong>Segregated funds:</strong> Client money is kept separate from company operational funds</li>
+          <li><strong>10-year track record:</strong> Operating since 2014 without major issues</li>
+          <li><strong>Reasonable reputation:</strong> Consistent withdrawal processing reported in trading communities</li>
+          <li><strong>Higher leverage:</strong> 500:1 vs 30:1 under EU/UK rules</li>
+        </ul>
+
+        <h5>Risk Management Approach</h5>
+        <p>If you choose Titan FX despite offshore regulation:</p>
+        <ul>
+          <li>Never deposit more than you can afford to lose entirely</li>
+          <li>Withdraw profits regularly - don't let large balances accumulate</li>
+          <li>Diversify across multiple brokers if you have significant capital</li>
+          <li>Keep records of all transactions for potential disputes</li>
+        </ul>
+
+        <h5>Why Traders Accept This Risk</h5>
+        <p>Experienced traders often prioritize execution quality over regulatory protection. They trust their risk management, want high leverage, and prefer a broker that doesn't restrict their trading. That's the Titan FX value proposition - professional conditions with professional responsibility.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PLATFORMS SECTION -->
+  <section id="platforms" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Trading Platforms</h2>
+      <p class="body-large">
+        Titan FX offers MetaTrader 4 and MetaTrader 5 - the industry standards - plus their social trading
+        platform for copy trading. VPS hosting is available for automated strategies.
+      </p>
+
+      <div class="platforms-grid">
+        <div class="platform-card">
+          <h3>MetaTrader 4</h3>
+          <p>The world's most popular forex platform with Expert Advisor support, extensive customization, and proven reliability.</p>
+          <ul class="platform-features">
+            <li>Expert Advisors (EAs)</li>
+            <li>Custom Indicators</li>
+            <li>One-Click Trading</li>
+            <li>9 Timeframes</li>
+            <li>Mobile Apps</li>
+          </ul>
+          <span class="platform-status">✓ Supported</span>
+        </div>
+        <div class="platform-card">
+          <h3>MetaTrader 5</h3>
+          <p>Next-gen platform with more timeframes, depth of market, economic calendar, and improved backtesting capabilities.</p>
+          <ul class="platform-features">
+            <li>21 Timeframes</li>
+            <li>Depth of Market</li>
+            <li>Economic Calendar</li>
+            <li>Multi-Asset Trading</li>
+            <li>MQL5 Development</li>
+          </ul>
+          <span class="platform-status">✓ Supported</span>
+        </div>
+        <div class="platform-card">
+          <h3>Titan FX Social</h3>
+          <p>Copy trading platform allowing you to follow and automatically copy successful traders' strategies.</p>
+          <ul class="platform-features">
+            <li>Copy Trading</li>
+            <li>Strategy Providers</li>
+            <li>Performance Stats</li>
+            <li>Risk Controls</li>
+            <li>Mobile Access</li>
+          </ul>
+          <span class="platform-status">✓ Supported</span>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Platform Recommendations for Titan FX Traders"
+        icon="💻"
+        id="platforms-notes"
+        variant="dark"
+      >
+        <h4>Maximizing Your Trading Platform</h4>
+        <p>Titan FX's platform offering is straightforward - MT4, MT5, and Social. Here's how to choose and optimize your setup.</p>
+
+        <h5>MT4 vs MT5 at Titan FX</h5>
+        <p>MT4 remains the better choice for most Titan FX traders because:</p>
+        <ul>
+          <li>Larger library of free indicators and EAs</li>
+          <li>More proven track record with high-frequency strategies</li>
+          <li>Better compatibility with existing trading systems</li>
+        </ul>
+        <p>Choose MT5 if you need: more timeframes, depth of market for scalping, or plan to trade stocks/futures in the future.</p>
+
+        <h5>VPS for Serious Traders</h5>
+        <p>Titan FX offers VPS hosting for automated strategies. If you run EAs, a VPS ensures 24/7 operation close to their servers, reducing latency. Essential for any serious algorithmic trader - even a few milliseconds matter when scalping.</p>
+
+        <h5>Missing: TradingView Integration</h5>
+        <p>Unlike Pepperstone and IC Markets, Titan FX doesn't offer TradingView integration. If you prefer TradingView's charting, you can use it for analysis but execute trades on MT4/MT5 - less convenient but workable.</p>
+
+        <h5>Mobile Trading</h5>
+        <p>Both MT4 and MT5 have mobile apps. Adequate for monitoring and basic trading, but serious scalping should be done on desktop. Mobile is best for position management and swing trading when away from your main setup.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- ACCOUNTS SECTION -->
+  <section id="accounts" class="section">
+    <div class="container">
+      <h2 class="heading-2">Account Types</h2>
+      <p class="body-large">
+        Titan FX offers three account types - Zero Micro, Zero Standard, and Zero Blade. All require $200
+        minimum deposit but differ in spreads, commissions, and target traders.
+      </p>
+
+      <ComparisonTable
+        headers={accountHeaders}
+        rows={accountRows}
+        caption="Titan FX account types comparison"
+      />
+
+      <AnalystNotes
+        title="Choosing the Right Titan FX Account"
+        icon="📋"
+        id="accounts-notes"
+        variant="light"
+      >
+        <h4>Account Selection Strategy</h4>
+        <p>The right account depends entirely on your trading style. Here's how to choose.</p>
+
+        <h5>Zero Blade: For Active Traders</h5>
+        <p>If you trade more than 5 lots per month, Zero Blade is mathematically cheaper. Raw spreads + $3.60 commission beats the wider spreads on Standard. Scalpers, day traders, and algorithmic traders should always choose Blade.</p>
+
+        <h5>Zero Standard: For Casual Traders</h5>
+        <p>If you trade infrequently or prefer simpler cost calculation, Standard works. No commission math - just the spread you see. Good for swing traders who hold positions for days and don't need the tightest spreads.</p>
+
+        <h5>Zero Micro: For Small Accounts</h5>
+        <p>Micro allows micro lot trading (0.01 lots = 1,000 units) and offers 1000:1 leverage - highest among Titan FX accounts. Useful for: learning, testing strategies with real money, or trading with very small capital. The higher leverage is a double-edged sword - use responsibly.</p>
+
+        <h5>Our Recommendation</h5>
+        <p>Start with Zero Blade unless you have a specific reason not to. The raw spreads and low commission benefit virtually every trading strategy. Even swing traders benefit from better entry prices - the commission is negligible on longer-term trades.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PROS AND CONS -->
+  <section id="pros-cons" class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Titan FX Pros & Cons</h2>
+
+      <ProsCons
+        pros={[
+          'Zero Point execution technology - no dealing desk',
+          'Raw spreads from 0.0 pips on Blade account',
+          'Fast execution averaging under 37ms',
+          'High leverage up to 500:1 (1000:1 on Micro)',
+          'No inactivity fees',
+          'Crypto deposit options'
+        ]}
+        cons={[
+          'Offshore regulation only (Vanuatu/Mauritius)',
+          'Limited instrument selection (150+)',
+          '$200 minimum deposit',
+          'No TradingView integration',
+          'Limited educational resources'
+        ]}
+      />
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section">
+    <div class="container container--narrow">
+      <h2 class="heading-2">Frequently Asked Questions</h2>
+      <FAQ questions={faqItems} />
+    </div>
+  </section>
+
+  <!-- VERDICT SECTION -->
+  <section id="verdict" class="section section--alt">
+    <div class="container">
+      <div class="verdict-card">
+        <div class="verdict-header">
+          <h2 class="heading-2">Our Verdict: 4.0/5</h2>
+          <div class="verdict-stars">★★★★</div>
+        </div>
+
+        <div class="verdict-summary">
+          <p class="body-large">
+            Titan FX delivers excellent execution quality and competitive pricing for traders who prioritize
+            performance over regulatory prestige. Their Zero Point technology, raw spreads, and high leverage
+            make them ideal for scalpers and day traders. The offshore regulation is a legitimate concern that
+            limits our rating, but for experienced traders who manage their risk appropriately, Titan FX offers
+            professional-grade trading conditions.
+          </p>
+        </div>
+
+        <div class="verdict-scores">
+          <div class="score-item">
+            <span class="score-label">Fees</span>
+            <span class="score-value">4.6/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Platforms</span>
+            <span class="score-value">4.2/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Safety</span>
+            <span class="score-value">3.5/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Service</span>
+            <span class="score-value">4.0/5</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Education</span>
+            <span class="score-value">3.2/5</span>
+          </div>
+        </div>
+
+        <div class="verdict-best-for">
+          <h3>Best For:</h3>
+          <div class="best-for-tags">
+            <span class="best-for-tag">Scalpers</span>
+            <span class="best-for-tag">Day Traders</span>
+            <span class="best-for-tag">High-Leverage Traders</span>
+            <span class="best-for-tag">ECN Enthusiasts</span>
+          </div>
+        </div>
+
+        <div class="verdict-cta">
+          <a href="https://www.titanfx.com/" target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xl">
+            Open Titan FX Account →
+          </a>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Final Thoughts from Our Research Team"
+        icon="📝"
+        id="verdict-notes"
+        variant="light"
+      >
+        <h4>The Bottom Line on Titan FX</h4>
+        <p>Titan FX earns a solid 4.0/5 - a good broker for the right trader, but not for everyone. They've built a reputation on execution quality, and it shows in their Zero Point technology and competitive pricing.</p>
+
+        <h5>Who Should Use Titan FX</h5>
+        <p>You're a good fit for Titan FX if you:</p>
+        <ul>
+          <li>Are an experienced trader comfortable managing your own risk</li>
+          <li>Scalp or day trade where execution speed matters</li>
+          <li>Want high leverage without EU/UK restrictions</li>
+          <li>Don't need extensive educational resources</li>
+          <li>Are comfortable with offshore regulation</li>
+        </ul>
+
+        <h5>Who Should Look Elsewhere</h5>
+        <p>Consider alternatives if you:</p>
+        <ul>
+          <li>Need tier-1 regulatory protection (choose <a href="/brokers/pepperstone/">Pepperstone</a> or <a href="/brokers/ic-markets/">IC Markets</a>)</li>
+          <li>Are a beginner requiring education (choose <a href="/brokers/avatrade/">AvaTrade</a>)</li>
+          <li>Want TradingView integration (choose Pepperstone)</li>
+          <li>Have a large account requiring maximum security</li>
+        </ul>
+
+        <h5>The Execution Factor</h5>
+        <p>Where Titan FX truly shines is execution. Their Zero Point technology delivers consistently fast fills without requotes. For scalpers doing dozens of trades daily, this matters more than regulatory prestige. The milliseconds saved and slippage avoided often exceed any theoretical benefit from tier-1 regulation.</p>
+
+        <p>If you prioritize execution quality and competitive pricing over regulatory hand-holding, Titan FX delivers. Just manage your deposits wisely and never trade with money you can't afford to lose.</p>
+      </AnalystNotes>
+
+      <!-- Related Links -->
+      <div class="related-comparisons">
+        <h3 class="heading-3 text-center">Related Comparisons & Resources</h3>
+        <div class="related-links">
+          <a href="/brokers/pepperstone/" class="related-link">
+            <span class="related-icon">⚡</span>
+            <h4>Pepperstone Review</h4>
+            <p>Tier-1 regulated ECN alternative</p>
+          </a>
+          <a href="/brokers/ic-markets/" class="related-link">
+            <span class="related-icon">📊</span>
+            <h4>IC Markets Review</h4>
+            <p>True ECN with $1T+ monthly volume</p>
+          </a>
+          <a href="/compare/pepperstone-vs-ic-markets/" class="related-link">
+            <span class="related-icon">⚔️</span>
+            <h4>Pepperstone vs IC Markets</h4>
+            <p>Head-to-head ECN comparison</p>
+          </a>
+          <a href="/find-broker/" class="related-link">
+            <span class="related-icon">🤖</span>
+            <h4>AI Broker Matcher</h4>
+            <p>Find your perfect broker match</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross Promotion Section -->
+  <section class="section section-gray">
+    <div class="container">
+      <BrokerCrossPromo brokerSlug="titanfx" brokerName="Titan FX" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .review-hero {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    padding: var(--space-2xl) 0;
+    color: var(--white);
+  }
+
+  .review-hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .review-hero-badge {
+    margin-bottom: var(--space-md);
+  }
+
+  .review-hero-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .review-hero-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #1e3a5f, #0d253f);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #3b82f6;
+  }
+
+  .broker-initial {
+    color: #3b82f6;
+    font-size: 1.25rem;
+    font-weight: 800;
+  }
+
+  .review-hero-title h1 {
+    color: var(--white);
+    margin-bottom: var(--space-xs);
+  }
+
+  .review-hero-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
+  .stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+  }
+
+  .rating-value {
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+  }
+
+  .rating-count {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-sm);
+  }
+
+  .review-hero-tagline {
+    font-size: var(--font-size-xl);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: var(--space-xl);
+  }
+
+  .review-hero-scorecard {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .scorecard-item {
+    text-align: center;
+  }
+
+  .scorecard-value {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+  }
+
+  .scorecard-label {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .review-hero-highlights {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .highlight-item {
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+  }
+
+  .review-hero-cta {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Overview Grid */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .overview-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .overview-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .overview-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .overview-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Regulation Cards */
+  .regulation-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .regulation-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  .regulation-flag {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .regulation-card h3 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .license-number {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .regulation-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .regulation-tier {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+  }
+
+  .tier-3 {
+    background: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+  }
+
+  /* Platforms Grid */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin: var(--space-xl) 0;
+  }
+
+  .platform-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  .platform-card h3 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .platform-card > p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .platform-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-md) 0;
+  }
+
+  .platform-features li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .platform-features li:last-child {
+    border-bottom: none;
+  }
+
+  .platform-status {
+    color: var(--success);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+  }
+
+  /* Verdict Card */
+  .verdict-card {
+    background: var(--white);
+    border: 2px solid #3b82f6;
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .verdict-header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-header h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .verdict-stars {
+    color: #f59e0b;
+    font-size: var(--font-size-2xl);
+  }
+
+  .verdict-summary {
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-scores {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+  }
+
+  .score-item {
+    text-align: center;
+  }
+
+  .score-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--space-xs);
+  }
+
+  .score-value {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: #3b82f6;
+  }
+
+  .verdict-best-for {
+    margin-bottom: var(--space-lg);
+  }
+
+  .verdict-best-for h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-sm);
+  }
+
+  .best-for-tags {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .best-for-tag {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* Related Comparisons */
+  .related-comparisons {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .related-links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+
+  .related-link {
+    display: block;
+    padding: var(--space-lg);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .related-link:hover {
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .related-icon {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-sm);
+    display: block;
+  }
+
+  .related-link h4 {
+    color: var(--charcoal);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-xs);
+  }
+
+  .related-link p {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .overview-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .platforms-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .related-links {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .review-hero-header {
+      flex-direction: column;
+    }
+
+    .review-hero-scorecard {
+      gap: var(--space-lg);
+    }
+
+    .review-hero-highlights {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .overview-grid,
+    .regulation-cards,
+    .platforms-grid,
+    .related-links {
+      grid-template-columns: 1fr;
+    }
+
+    .verdict-scores {
+      gap: var(--space-md);
+    }
+  }
+</style>

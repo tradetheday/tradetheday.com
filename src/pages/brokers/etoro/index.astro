@@ -1,0 +1,1350 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SimpleGrid from '../../../components/SimpleGrid.astro';
+import ProcessSteps from '../../../components/ProcessSteps.astro';
+import FeatureHighlights from '../../../components/FeatureHighlights.astro';
+import CompanyInfo from '../../../components/CompanyInfo.astro';
+import Chip from '../../../components/Chip.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import Scorecard from '../../../components/Scorecard.astro';
+import RegulationCard from '../../../components/RegulationCard.astro';
+import PlatformGrid from '../../../components/PlatformGrid.astro';
+import PaymentMethods from '../../../components/PaymentMethods.astro';
+import PaymentDetails from '../../../components/PaymentDetails.astro';
+import TradingInstruments from '../../../components/TradingInstruments.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import FAQ from '../../../components/FAQ.astro';
+import BrokerVerdict from '../../../components/BrokerVerdict.astro';
+import BestFor from '../../../components/BestFor.astro';
+import CostAnalysis from '../../../components/CostAnalysis.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+import { generateBrokerSchema, generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+import { getBrokerById } from '../../../data/brokers';
+
+const brokerData = getBrokerById('etoro');
+const BROKER_NAME = 'eToro';
+
+const title = 'eToro Review 2026 – Social Trading, Fees & Is It Worth It? | TradeTheDay';
+const description = 'Honest eToro review for 2026. We tested their social trading platform, copy trading features, fees, and regulation. FCA, CySEC, ASIC regulated. Min deposit $50. 4.0/5 rating.';
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Brokers', href: '/brokers/' },
+  { text: 'eToro Review', href: '/brokers/etoro/', current: true }
+];
+
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#why-choose', text: 'Why Choose' },
+  { href: '#fees', text: 'Costs' },
+  { href: '#safety', text: 'Safety' },
+  { href: '#copy-trading', text: 'Copy Trading' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#deposits', text: 'Deposits' },
+  { href: '#instruments', text: 'Instruments' },
+  { href: '#pros-cons', text: 'Review' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+const heroScorecard = [
+  { value: '$50', label: 'Min Deposit' },
+  { value: '30M+', label: 'Users' },
+  { value: '3,000+', label: 'Instruments' },
+  { value: '4.0/5', label: 'Our Rating' }
+];
+
+const feeTableHeaders = ['Fee Type', 'eToro', 'AvaTrade', 'IC Markets', 'Industry Average'];
+const feeRows = [
+  {
+    cells: [
+      { content: 'Stock Commission', type: 'text' },
+      { content: '0%', type: 'text', highlight: 'best' },
+      { content: '$5/trade', type: 'text', highlight: 'neutral' },
+      { content: 'From $0.02', type: 'text', highlight: 'good' },
+      { content: '$7/trade', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'EUR/USD Spread', type: 'text' },
+      { content: '1.0 pips', type: 'text', highlight: 'neutral' },
+      { content: '0.9 pips', type: 'text', highlight: 'good' },
+      { content: '0.0 pips', type: 'text', highlight: 'best' },
+      { content: '1.2 pips', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Crypto Spread', type: 'text' },
+      { content: '1.0%', type: 'text', highlight: 'neutral' },
+      { content: 'Variable', type: 'text', highlight: 'neutral' },
+      { content: 'Variable', type: 'text', highlight: 'neutral' },
+      { content: '1.5%', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Withdrawal Fee', type: 'text' },
+      { content: '$5', type: 'text', highlight: 'warning' },
+      { content: 'First free', type: 'text', highlight: 'good' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: '$25', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Inactivity Fee', type: 'text' },
+      { content: '$10/month', type: 'text', highlight: 'neutral' },
+      { content: '$50/quarter', type: 'text', highlight: 'warning' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: '$15/month', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Currency Conversion', type: 'text' },
+      { content: '0.5-1.5%', type: 'text', highlight: 'warning' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Variable', type: 'text', highlight: 'neutral' }
+    ]
+  }
+];
+
+const regulationLicenses = [
+  {
+    flag: '🇬🇧',
+    jurisdiction: 'United Kingdom',
+    authority: 'FCA',
+    licenseNumber: '583263',
+    compensation: '£85,000',
+    status: 'verified',
+    description: 'FCA regulation provides UK clients with the highest level of protection including segregated funds, FSCS coverage up to £85,000, and access to the Financial Ombudsman Service for dispute resolution.'
+  },
+  {
+    flag: '🇨🇾',
+    jurisdiction: 'Cyprus',
+    authority: 'CySEC',
+    licenseNumber: '109/10',
+    compensation: '€20,000',
+    status: 'verified',
+    description: 'CySEC regulation enables eToro to serve EU clients with MiFID II protections, negative balance protection, and Investor Compensation Fund coverage up to €20,000 per client.'
+  },
+  {
+    flag: '🇦🇺',
+    jurisdiction: 'Australia',
+    authority: 'ASIC',
+    licenseNumber: '491139',
+    compensation: 'AU$250K',
+    status: 'active',
+    description: 'ASIC provides tier-1 regulation for Australian clients with strict capital requirements, client money rules, and dispute resolution through the Australian Financial Complaints Authority (AFCA).'
+  },
+  {
+    flag: '🇺🇸',
+    jurisdiction: 'United States',
+    authority: 'FinCEN/FINRA',
+    licenseNumber: 'MSB Registered',
+    compensation: 'SIPC $500K',
+    status: 'active',
+    description: 'US operations are registered with FinCEN and regulated by FINRA for securities trading. US clients have SIPC protection up to $500,000 for securities and cash.'
+  }
+];
+
+const tradingPlatforms = [
+  {
+    name: 'eToro Web Platform',
+    logo: '/images/platforms/etoro-logo.svg',
+    description: 'Proprietary social trading platform with intuitive interface and comprehensive copy trading features',
+    features: ['Copy Trading', 'Social Feed', 'Portfolio Analytics', 'Smart Portfolios'],
+    availability: 'Web Browser',
+    rating: 4.5,
+    supported: true
+  },
+  {
+    name: 'eToro Mobile App',
+    logo: '/images/platforms/etoro-mobile-logo.svg',
+    description: 'Award-winning mobile app with full trading functionality and social features on the go',
+    features: ['Full Trading', 'Copy Trading', 'Price Alerts', 'Touch ID/Face ID'],
+    availability: 'iOS, Android',
+    rating: 4.6,
+    supported: true
+  }
+];
+
+const paymentMethods = [
+  {
+    name: 'Credit/Debit Card',
+    icon: '/images/payment/visa-mastercard.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '1-3 business days',
+    depositFee: 'Free',
+    withdrawalFee: '$5',
+    minDeposit: '$50',
+    maxDeposit: '$40,000',
+    supported: true,
+    notes: 'Visa, Mastercard, Diners Club accepted'
+  },
+  {
+    name: 'PayPal',
+    icon: '/images/payment/paypal.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '1-2 business days',
+    depositFee: 'Free',
+    withdrawalFee: '$5',
+    minDeposit: '$50',
+    maxDeposit: '$10,000',
+    supported: true
+  },
+  {
+    name: 'Bank Transfer',
+    icon: '/images/payment/bank-transfer.svg',
+    depositTime: '3-7 business days',
+    withdrawalTime: '3-8 business days',
+    depositFee: 'Free',
+    withdrawalFee: '$5',
+    minDeposit: '$500',
+    maxDeposit: 'No limit',
+    supported: true
+  },
+  {
+    name: 'Skrill',
+    icon: '/images/payment/skrill.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '1-2 business days',
+    depositFee: 'Free',
+    withdrawalFee: '$5',
+    minDeposit: '$50',
+    maxDeposit: '$10,000',
+    supported: true
+  },
+  {
+    name: 'Neteller',
+    icon: '/images/payment/neteller.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '1-2 business days',
+    depositFee: 'Free',
+    withdrawalFee: '$5',
+    minDeposit: '$50',
+    maxDeposit: '$10,000',
+    supported: true
+  }
+];
+
+const instrumentCategories = [
+  {
+    name: 'Stocks',
+    icon: '📊',
+    count: 2800,
+    description: 'Commission-free trading on real stocks from 17 global exchanges',
+    examples: ['Apple', 'Tesla', 'Amazon', 'Google', 'Microsoft'],
+    details: {
+      spread: 'Market spread',
+      leverage: 'Up to 1:5',
+      commission: '0%',
+      margin: '20%'
+    },
+    available: true
+  },
+  {
+    name: 'Cryptocurrencies',
+    icon: '₿',
+    count: 75,
+    description: 'Buy real crypto or trade crypto CFDs with leverage',
+    examples: ['Bitcoin', 'Ethereum', 'Cardano', 'Solana', 'XRP'],
+    details: {
+      spread: 'From 1.0%',
+      leverage: 'Up to 1:2',
+      commission: 'No',
+      margin: '50%'
+    },
+    available: true
+  },
+  {
+    name: 'ETFs',
+    icon: '📋',
+    count: 260,
+    description: 'Commission-free ETF trading covering sectors, themes, and indices',
+    examples: ['SPY', 'QQQ', 'VTI', 'ARKK', 'VOO'],
+    details: {
+      spread: 'Market spread',
+      leverage: 'Up to 1:5',
+      commission: '0%',
+      margin: '20%'
+    },
+    available: true
+  },
+  {
+    name: 'Forex',
+    icon: '💱',
+    count: 49,
+    description: 'Major, minor, and exotic currency pairs',
+    examples: ['EUR/USD', 'GBP/USD', 'USD/JPY', 'AUD/USD'],
+    details: {
+      spread: 'From 1.0 pips',
+      leverage: 'Up to 1:30',
+      commission: 'No',
+      margin: '3.33%'
+    },
+    available: true
+  },
+  {
+    name: 'Commodities',
+    icon: '🛢️',
+    count: 30,
+    description: 'Precious metals, energy, and agricultural commodities',
+    examples: ['Gold', 'Silver', 'Oil', 'Natural Gas'],
+    details: {
+      spread: 'From 45 pips',
+      leverage: 'Up to 1:20',
+      commission: 'No',
+      margin: '5%'
+    },
+    available: true
+  },
+  {
+    name: 'Indices',
+    icon: '📈',
+    count: 20,
+    description: 'Major global stock indices as CFDs',
+    examples: ['S&P 500', 'NASDAQ 100', 'FTSE 100', 'DAX 40'],
+    details: {
+      spread: 'From 100 pips',
+      leverage: 'Up to 1:20',
+      commission: 'No',
+      margin: '5%'
+    },
+    available: true
+  }
+];
+
+const prosConsData = {
+  pros: [
+    'Industry-leading copy trading with CopyTrader feature',
+    'Commission-free stock and ETF trading (0%)',
+    'Low minimum deposit of just $50',
+    'User-friendly platform perfect for beginners',
+    'Massive social trading community of 30M+ users',
+    'Wide range of 3,000+ tradeable instruments',
+    'Multi-regulated by FCA, CySEC, ASIC, and FinCEN',
+    'Innovative Smart Portfolios for thematic investing',
+    'Free $100K virtual demo account',
+    'Excellent mobile trading app (iOS & Android)',
+    'Real stocks and crypto ownership (not just CFDs)',
+    'eToro Club rewards program for active traders'
+  ],
+  cons: [
+    '$5 flat withdrawal fee on all withdrawals',
+    'Currency conversion fees (0.5-1.5%) for non-USD deposits',
+    'No MetaTrader 4/5 platform support',
+    'Higher forex spreads compared to ECN brokers',
+    '$10/month inactivity fee after 12 months dormancy',
+    'Limited advanced charting and technical analysis tools',
+    'Customer service response times can be slow during peak periods'
+  ]
+};
+
+const faqData = [
+  {
+    question: 'Is eToro safe and regulated?',
+    answer: 'Yes, eToro is considered safe and legitimate. It\'s regulated by four major authorities: FCA (UK - License 583263), CySEC (Cyprus - License 109/10), ASIC (Australia - License 491139), and FinCEN/FINRA (USA). Client funds are held in segregated accounts with tier-1 banks and protected by investor compensation schemes up to £85,000 (UK), €20,000 (EU), or $500,000 (US SIPC).'
+  },
+  {
+    question: 'What is eToro\'s minimum deposit?',
+    answer: 'eToro\'s minimum deposit is $50 in most countries including the US, UK, and Australia. Some regions require $200 or more. Bank transfers require a minimum of $500. Deposits can be made via credit/debit card, bank transfer, PayPal, Skrill, Neteller, and other e-wallets.'
+  },
+  {
+    question: 'Does eToro charge withdrawal fees?',
+    answer: 'Yes, eToro charges a flat $5 withdrawal fee regardless of the withdrawal amount. The minimum withdrawal is $30. Withdrawals are typically processed within 1-3 business days for cards and e-wallets, or 3-8 business days for bank transfers.'
+  },
+  {
+    question: 'How does eToro copy trading work?',
+    answer: 'eToro\'s CopyTrader feature lets you automatically replicate the trades of successful traders. You browse traders by performance, risk score, and strategy, then allocate a minimum of $200 to copy them. Their future trades are proportionally copied in your account in real-time. You can stop copying at any time with one click and there are no additional fees for copy trading.'
+  },
+  {
+    question: 'Can I buy real stocks on eToro?',
+    answer: 'Yes, eToro offers commission-free trading on real stocks from 17 global exchanges. When you buy stocks without leverage on eToro, you own the underlying asset with full voting and dividend rights. If you use leverage, you\'re trading stock CFDs instead of owning the actual shares.'
+  },
+  {
+    question: 'Does eToro offer a demo account?',
+    answer: 'Yes, eToro provides a free demo account (Virtual Portfolio) with $100,000 in virtual funds. You can practice trading all instruments, test copy trading features, and explore the platform without risking real money. The demo account is available indefinitely.'
+  },
+  {
+    question: 'Is eToro good for beginners?',
+    answer: 'Yes, eToro is excellent for beginners. The platform features an intuitive interface, social trading community for learning, copy trading to follow experienced traders, extensive educational resources, and a low $50 minimum deposit. The ability to learn by observing and copying successful traders makes it ideal for those new to trading.'
+  },
+  {
+    question: 'Does eToro support MetaTrader?',
+    answer: 'No, eToro uses its proprietary platform exclusively and does not support MetaTrader 4 or MetaTrader 5. This may be a drawback for traders who prefer MT4/MT5 for algorithmic trading, Expert Advisors, or advanced technical indicators. However, eToro\'s platform offers unique social trading features not available on MetaTrader.'
+  },
+  {
+    question: 'What are eToro Smart Portfolios?',
+    answer: 'Smart Portfolios are themed investment strategies created by eToro\'s team of analysts. They bundle together assets around specific themes (like renewable energy, 5G technology, or e-commerce) with automatic rebalancing. Minimum investment is $500, and there are no management fees – only the underlying trading costs apply.'
+  },
+  {
+    question: 'Does eToro accept US clients?',
+    answer: 'Yes, eToro accepts US clients and is registered with FinCEN as a Money Services Business. US clients can trade stocks, ETFs, and cryptocurrencies through eToro USA. However, forex and CFD trading are not available to US residents due to regulatory restrictions.'
+  }
+];
+
+const verdictData = {
+  brokerName: BROKER_NAME,
+  overallRating: 4.0,
+  maxRating: 5,
+  ratingCategories: [
+    { name: 'Regulation & Safety', score: 4.5, maxScore: 5, description: 'Multi-jurisdiction regulation: FCA, CySEC, ASIC, FinCEN' },
+    { name: 'Trading Platforms', score: 4.0, maxScore: 5, description: 'User-friendly proprietary platform, but no MT4/MT5' },
+    { name: 'Fees & Spreads', score: 3.5, maxScore: 5, description: 'Free stocks offset by withdrawal and conversion fees' },
+    { name: 'Copy Trading', score: 4.8, maxScore: 5, description: 'Industry-leading social and copy trading features' },
+    { name: 'Customer Support', score: 3.5, maxScore: 5, description: 'Responsive but can be slow during high-traffic' },
+    { name: 'Trading Instruments', score: 4.2, maxScore: 5, description: '3,000+ instruments including real stocks and crypto' }
+  ],
+  verdict: 'eToro has revolutionized retail trading by pioneering social and copy trading. While not the cheapest option for active forex traders, their commission-free stocks, innovative copy trading features, and beginner-friendly platform create genuine value for their target audience.',
+  recommendation: 'We recommend eToro for beginner traders, passive investors who want to copy successful strategies, social traders who value community interaction, and long-term stock/ETF investors seeking commission-free trading.',
+  bestFor: ['Beginners learning to trade', 'Social trading enthusiasts', 'Copy traders following successful investors', 'Long-term stock and ETF investors', 'Mobile-first traders', 'Crypto investors wanting real ownership'],
+  notIdealFor: ['Active forex scalpers and day traders', 'MetaTrader 4/5 users and EA traders', 'Cost-sensitive high-volume traders', 'Advanced technical analysts', 'Those needing deep research tools', 'Traders preferring ECN execution'],
+  finalThoughts: 'eToro has carved out a unique position by focusing on social trading rather than competing on spreads. For their target audience of beginners and social traders, the platform delivers genuine value through copy trading innovation and commission-free stock trading.',
+  ctaText: 'Start Trading with eToro',
+  ctaUrl: 'https://www.etoro.com/en-au/'
+};
+
+const whyChooseFeatures = [
+  { title: "Copy Trading Leader", description: "Pioneering CopyTrader lets you replicate successful traders automatically", icon: "👥" },
+  { title: "0% Stock Commission", description: "Commission-free trading on 2,800+ real stocks from global exchanges", icon: "💰" },
+  { title: "30M+ Community", description: "World's largest social trading community with millions of active users", icon: "🌍" },
+  { title: "Beginner Friendly", description: "Intuitive platform designed to make trading accessible for everyone", icon: "✨" }
+];
+
+const openingProcessSteps = [
+  { number: "1.", title: "Sign Up Online", description: "Create your account in minutes with email verification", icon: "📝" },
+  { number: "2.", title: "Verify Identity", description: "Upload ID and proof of address for KYC compliance", icon: "✅" },
+  { number: "3.", title: "Fund & Trade", description: "Deposit from $50 and start trading or copying traders", icon: "💰" }
+];
+
+// Company Info sections
+const companyInfoSections = [
+  {
+    title: "Deposits & Accounts",
+    icon: "💰",
+    items: [
+      { label: "Minimum Deposit", value: "$50", type: "currency" },
+      { label: "Base Currency", value: "USD only", type: "text" },
+      { label: "Demo Account", value: "$100K virtual", type: "text" }
+    ]
+  },
+  {
+    title: "Trading Conditions",
+    icon: "📊",
+    items: [
+      { label: "Max Leverage", value: "1:30 (EU/UK)", type: "text" },
+      { label: "Instruments", value: "3,000+", type: "text" },
+      { label: "Execution", value: "Market Maker", type: "text" }
+    ]
+  },
+  {
+    title: "Company Info",
+    icon: "🏛️",
+    items: [
+      { label: "Founded", value: "2007", type: "year" },
+      { label: "Headquarters", value: "Tel Aviv, Israel", type: "location" },
+      { label: "Regulations", value: "FCA, CySEC, ASIC, FinCEN", type: "text" }
+    ]
+  }
+];
+
+// Schema data
+const etoroSchemaData = {
+  name: "eToro",
+  foundingDate: "2007",
+  headquarters: "Tel Aviv, Israel",
+  regulators: ["FCA", "CySEC", "ASIC", "FinCEN"],
+  minimumDeposit: "$50",
+  currencies: ["USD"],
+  maxLeverage: "1:30",
+  instrumentCount: "3,000+"
+};
+
+// Payment Details
+const withdrawalDetails = [
+  { icon: "💵", label: "Minimum Withdrawal", value: "$30" },
+  { icon: "⚡", label: "Processing Times", value: "E-wallets 1-2 days, Bank 3-8 days" },
+  { icon: "🔐", label: "Verification", value: "Full KYC required before first withdrawal" },
+  { icon: "🛡️", label: "Security", value: "Withdrawals to verified payment methods only" }
+];
+
+const paymentAnalysis = {
+  pros: [
+    "Low $50 minimum deposit for most methods",
+    "Instant deposits via card and e-wallets",
+    "Multiple e-wallet options (PayPal, Skrill, Neteller)",
+    "No deposit fees"
+  ],
+  cons: [
+    "$5 flat fee on all withdrawals",
+    "Currency conversion fee (0.5-1.5%) for non-USD",
+    "Bank transfers require $500 minimum",
+    "USD-only base currency"
+  ]
+};
+
+const brokerSchema = generateBrokerSchema({
+  name: 'eToro',
+  url: 'https://www.etoro.com',
+  description: 'Social trading and investment platform offering stocks, crypto, forex, and CFD trading with copy trading features',
+  foundingDate: '2007',
+  headquarters: { country: 'Israel', city: 'Tel Aviv' },
+  serviceTypes: ['Social Trading Platform', 'Stock Broker', 'Cryptocurrency Exchange', 'CFD Broker'],
+  aggregateRating: { ratingValue: 4.0, reviewCount: 1 },
+  minDeposit: '$50'
+});
+
+const faqSchema = generateFAQSchema(faqData);
+const reviewSchema = generateReviewSchema({
+  itemReviewed: { type: 'FinancialService', name: 'eToro', url: 'https://www.etoro.com' },
+  reviewRating: { ratingValue: 4.0 },
+  datePublished: '2026-01-20',
+  reviewBody: verdictData.verdict
+});
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogType="article"
+  publishDate="2026-01-20"
+  modifiedDate="2026-01-20"
+  schema={[brokerSchema, faqSchema, reviewSchema, breadcrumbSchema]}
+>
+  <!-- SEO Meta Tags -->
+  <link slot="head" rel="canonical" href="https://tradetheday.com/brokers/etoro/" />
+  <meta slot="head" property="og:title" content="eToro Review 2026 – Social Trading, Fees & Is It Worth It?" />
+  <meta slot="head" property="og:description" content="Complete eToro review. Copy trading, 0% stock commission, 30M+ users. FCA, CySEC, ASIC regulated. 4.0/5 rating." />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="og:url" content="https://tradetheday.com/brokers/etoro/" />
+  <meta slot="head" property="og:site_name" content="TradeTheDay" />
+  <meta slot="head" name="twitter:card" content="summary_large_image" />
+  <meta slot="head" name="author" content="TradeTheDay Research Team" />
+
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- HERO SECTION -->
+  <section class="hero section">
+    <div class="container">
+      <Chip variant="badge" size="sm">Social Trading Leader</Chip>
+
+      <h1 class="heading-1">eToro Review 2026 – Social Trading Done Right?</h1>
+
+      <p class="body-large hero-subtitle">
+        With 30M+ users worldwide and pioneering copy trading features, we examine if eToro lives up to the hype.
+        Our honest review covers fees, copy trading, and whether it's right for your trading style.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="https://www.etoro.com/en-au/" class="btn btn-primary btn-xl btn-hero" target="_blank" rel="noopener sponsored">Start Trading with eToro →</a>
+        <a href="#verdict" class="btn btn-secondary btn-lg">Read Full Review</a>
+      </div>
+
+      <Scorecard metrics={heroScorecard} />
+
+      <!-- Review Meta -->
+      <div class="review-meta">
+        <span class="meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Last Updated: January 2026
+        </span>
+        <span class="meta-divider">|</span>
+        <span class="meta-item">Reviewed by TradeTheDay Research Team</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAVIGATION -->
+  <Navigation links={navigationLinks} />
+
+  <!-- OVERVIEW SECTION -->
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Complete eToro Overview</h2>
+        <p class="body-large">eToro is a Tel Aviv-based social trading platform founded in 2007, revolutionizing retail trading with its pioneering copy trading features. Regulated by FCA, CySEC, ASIC, and FinCEN, the platform serves over 30 million users worldwide with access to stocks, crypto, forex, and CFDs through an intuitive social trading interface.</p>
+      </div>
+
+      <!-- Analyst Notes - Overview -->
+      <AnalystNotes title="Analyst Notes  - Detailed eToro Analysis" id="overview-notes">
+        <h4>Analyst Insight: eToro's Market Position in 2026</h4>
+        <p>Founded in 2007 by brothers Yoni and Ronen Assia alongside David Ring, eToro emerged from a simple insight: retail traders wanted to learn from successful investors, not just trade in isolation. This vision of "social trading" has grown into a platform serving 30+ million users – a number that dwarfs most traditional brokers.</p>
+
+        <p>eToro's genius lies in gamifying trading while maintaining regulatory legitimacy. Their CopyTrader feature isn't just a gimmick – it's backed by genuine transparency, with copied traders' entire history visible for analysis. This creates a flywheel effect: successful traders gain followers (and income), while beginners gain mentorship through observation and automatic replication.</p>
+
+        <p>The platform's decision to offer commission-free stock trading in 2019 positioned them to compete with Robinhood in the US market, while their crypto offering (real ownership, not just CFDs) appeals to the growing digital asset investor base. This multi-asset approach differentiates eToro from both traditional brokers and pure crypto exchanges.</p>
+
+        <h4>Should You Trade with eToro?</h4>
+        <p><strong>Analyst Verdict:</strong> eToro is ideal for beginners, social traders, and passive investors who value community learning over execution speed or cost optimization. If you're looking to learn by observing successful traders or want commission-free stock investing, eToro delivers genuine value. However, active forex traders seeking tight spreads should look elsewhere.</p>
+      </AnalystNotes>
+
+      <!-- Company Information -->
+      <CompanyInfo
+        title="Complete eToro Company Overview"
+        subtitle="Essential company information, trading conditions, and account details"
+        sections={companyInfoSections}
+        columns={3}
+        brokerName={BROKER_NAME}
+        schemaData={etoroSchemaData}
+      />
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE ETORO SECTION -->
+  <section id="why-choose" class="section section-dark">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Why Choose eToro?</h2>
+        <p class="body-large">Four key reasons traders choose eToro over traditional brokers</p>
+      </div>
+
+      <!-- Analyst Notes - Why Choose -->
+      <AnalystNotes title="Analyst Notes  - Why eToro Stands Out" id="why-choose-notes" variant="dark">
+        <h4>Analyst Insight: The Social Trading Revolution</h4>
+        <p>eToro didn't just create a trading platform – they created a social network for traders. This distinction matters because it fundamentally changes how beginners approach the learning curve. Instead of studying charts in isolation, new traders can observe, follow, and automatically copy traders with proven track records.</p>
+
+        <h4>The Copy Trading Ecosystem</h4>
+        <p>eToro's Popular Investor Program creates aligned incentives between successful traders and their followers. Top traders earn up to 2% AUM annually from their copiers – a significant income stream that motivates them to perform consistently and communicate their strategies. This transparency is unprecedented in retail trading.</p>
+
+        <h4>Commission-Free Stock Trading: The Real Deal</h4>
+        <p>Unlike some brokers who claim "commission-free" but make it up on spreads, eToro's stock trading is genuinely free for buy-and-hold investors. When you buy stocks without leverage, you own the actual shares with voting rights and dividend eligibility. The catch? They make money on spreads when you trade CFDs, forex, or use leverage – but for stock investors, the value proposition is real.</p>
+
+        <h4>The 30M User Network Effect</h4>
+        <p>eToro's 30+ million users create a self-reinforcing advantage: more users mean more data on successful strategies, more traders to copy, more social validation, and ultimately better outcomes for the community. This network effect is difficult for competitors to replicate.</p>
+
+        <p><strong>Analyst Take:</strong> eToro's competitive moat is social, not technical. They've built a community that creates value through shared knowledge and performance transparency. For their target audience of beginners and social traders, this matters more than raw execution speed.</p>
+      </AnalystNotes>
+
+      <FeatureHighlights
+        features={whyChooseFeatures}
+        columns={4}
+        variant="dark"
+        brokerName={BROKER_NAME}
+        subtitle=""
+      />
+    </div>
+  </section>
+
+  <!-- FEES & SPREADS SECTION -->
+  <section id="fees" class="section">
+    <div class="container">
+      <ComparisonTable
+        title="eToro Fees & Costs Compared"
+        subtitle="How eToro's costs stack up against AvaTrade, IC Markets, and the Industry Average"
+        headers={feeTableHeaders}
+        rows={feeRows}
+        showGuide={true}
+      />
+
+      <!-- Analyst Notes - Fees -->
+      <AnalystNotes title="Analyst Notes  - eToro Fee Structure Breakdown" id="fees-notes">
+        <h4>Understanding eToro's Fee Model</h4>
+        <p>eToro's fee structure reflects their business model: make money on active trading (CFDs, forex) while using commission-free stocks as a customer acquisition tool. This creates a clear divide in value – excellent for stock investors, less competitive for forex traders.</p>
+
+        <h4>The Hidden Costs to Watch</h4>
+        <ul>
+          <li><strong>Currency Conversion (0.5-1.5%):</strong> Since eToro accounts are USD-only, non-US users pay conversion fees on every deposit and withdrawal. For a £1,000 deposit, that's £10-15 in fees before you even trade.</li>
+          <li><strong>Withdrawal Fee ($5):</strong> While small for large withdrawals, the flat $5 fee is proportionally significant for smaller accounts. A $100 withdrawal loses 5% immediately.</li>
+          <li><strong>Overnight Fees:</strong> CFD positions held overnight incur swap fees. These can accumulate significantly for long-term CFD holders.</li>
+        </ul>
+
+        <h4>Where eToro Offers Real Value</h4>
+        <ul>
+          <li><strong>Stock Trading:</strong> Genuinely 0% commission with no hidden spreads on non-leveraged positions</li>
+          <li><strong>Copy Trading:</strong> No additional fees to copy traders – you pay only the same trading costs</li>
+          <li><strong>Crypto Ownership:</strong> Real crypto with transfer capability (after verification)</li>
+        </ul>
+
+        <p><strong>Analyst Take:</strong> eToro is cost-effective for US-based stock investors but expensive for non-USD forex traders. Know your use case before committing.</p>
+      </AnalystNotes>
+
+      <CostAnalysis
+        content="eToro's 0% commission on stocks is genuine value for long-term investors. However, the currency conversion fee (0.5-1.5%) significantly impacts non-USD users, and the $5 withdrawal fee adds up for frequent withdrawers. For forex and CFD trading, spreads are wider than ECN brokers like IC Markets. Best for: US stock investors and copy traders. Consider alternatives for: Active forex trading."
+        variant="info"
+      />
+    </div>
+  </section>
+
+  <!-- SAFETY & REGULATION SECTION -->
+  <section id="safety" class="section section-light">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Safety & Regulation</h2>
+        <p class="body-large">Multi-jurisdiction regulation with FCA, CySEC, ASIC, and FinCEN oversight</p>
+      </div>
+
+      <!-- Analyst Notes - Safety -->
+      <AnalystNotes title="Analyst Notes  - Regulatory Framework Analysis" id="safety-notes">
+        <h4>Understanding eToro's Regulatory Structure</h4>
+        <p>eToro operates through multiple regulated entities to serve clients globally. UK clients use eToro (UK) Ltd under FCA regulation, EU clients use eToro (Europe) Ltd under CySEC, Australian clients use eToro AUS Capital Pty Ltd under ASIC, and US clients use eToro USA LLC registered with FinCEN.</p>
+
+        <p>This multi-entity structure isn't just regulatory arbitrage – it provides genuine protection tailored to each jurisdiction's requirements. UK clients get FSCS protection up to £85,000, EU clients have €20,000 ICF coverage, and US clients benefit from SIPC protection up to $500,000 for securities.</p>
+
+        <h4>Fund Security Measures</h4>
+        <p>Client funds are held in segregated accounts with tier-1 banks, completely separate from eToro's operational funds. In the event of eToro's insolvency (unlikely given their scale), client funds would be protected and returned to clients through the applicable compensation scheme.</p>
+
+        <h4>The 17-Year Track Record</h4>
+        <p>eToro's 17+ years of operation without major regulatory incidents is itself a trust signal. They've navigated multiple regulatory changes (ESMA leverage restrictions, crypto regulations) and emerged stronger each time. This operational history provides assurance that their compliance infrastructure is robust.</p>
+
+        <p><strong>Analyst Take:</strong> eToro's regulatory coverage is comprehensive and their track record is clean. For a platform of their scale (30M+ users), this level of multi-jurisdiction compliance demonstrates serious commitment to regulatory legitimacy.</p>
+      </AnalystNotes>
+
+      <SimpleGrid columns={3}>
+        {regulationLicenses.slice(0, 3).map(reg => <RegulationCard {...reg} />)}
+      </SimpleGrid>
+
+      <!-- Client Protection Features -->
+      <div class="client-fund-protection">
+        <div class="text-center mb-lg">
+          <h3 class="heading-3">Client Protection Features</h3>
+          <p class="body-large">Multiple layers of security for your funds and account</p>
+        </div>
+
+        <div class="protection-features-grid">
+          <div class="protection-feature">
+            <div class="protection-icon">🛡️</div>
+            <h4 class="protection-title">Segregated Accounts</h4>
+            <p class="protection-description">Client funds held separately from company funds with tier-1 banks</p>
+          </div>
+          <div class="protection-feature">
+            <div class="protection-icon">🔒</div>
+            <h4 class="protection-title">Negative Balance Protection</h4>
+            <p class="protection-description">Cannot lose more than deposited (retail clients)</p>
+          </div>
+          <div class="protection-feature">
+            <div class="protection-icon">💰</div>
+            <h4 class="protection-title">Investor Compensation</h4>
+            <p class="protection-description">Up to £85,000 (UK), €20,000 (EU), $500K (US SIPC)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COPY TRADING SECTION -->
+  <section id="copy-trading" class="section section-gray">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">eToro Copy Trading</h2>
+        <p class="body-large">The feature that made eToro famous – automatically replicate successful traders' strategies</p>
+      </div>
+
+      <!-- Analyst Notes - Copy Trading -->
+      <AnalystNotes title="Analyst Notes  - Copy Trading Deep Dive" id="copy-trading-notes">
+        <h4>How CopyTrader Actually Works</h4>
+        <p>eToro's CopyTrader is more sophisticated than it appears. When you copy a trader, the system doesn't just mirror their trades – it proportionally scales positions based on your allocated funds. If you allocate $1,000 to copy a trader with $100,000, your positions are 1% of theirs. This scaling works in real-time, including for new positions and closures.</p>
+
+        <h4>Selecting Traders to Copy: What the Data Shows</h4>
+        <p>eToro provides extensive data on each trader: verified track record, risk score (1-10), maximum drawdown, monthly returns, instrument breakdown, and copy count. However, the critical insight most users miss is that <strong>past performance is especially misleading in copy trading</strong>. A trader's success often correlates with market conditions that may not repeat.</p>
+
+        <h4>The Popular Investor Program</h4>
+        <p>eToro's top traders earn income based on Assets Under Management (AUM) from copiers:</p>
+        <ul>
+          <li><strong>Cadet:</strong> $0 (building track record)</li>
+          <li><strong>Rising Star:</strong> $500/month + spread rebates</li>
+          <li><strong>Champion:</strong> $1,000/month + 1.5% AUM</li>
+          <li><strong>Elite:</strong> $1,500/month + 2% AUM (up to $100K/year)</li>
+        </ul>
+        <p>This program creates aligned incentives but also means top traders are incentivized to grow AUM, not necessarily maximize returns.</p>
+
+        <h4>Copy Trading Best Practices</h4>
+        <ul>
+          <li>Diversify across 5-10 traders with different strategies</li>
+          <li>Prioritize consistency over high returns</li>
+          <li>Check maximum drawdown – can you stomach a 30% decline?</li>
+          <li>Look for at least 12 months of verified history</li>
+          <li>Never allocate more than 10-20% of your portfolio to any single trader</li>
+        </ul>
+
+        <p><strong>Analyst Take:</strong> Copy trading is a powerful tool for beginners, but it's not "set and forget." Treat copied traders like any investment – monitor, diversify, and be prepared to stop copying if their strategy changes or underperforms.</p>
+      </AnalystNotes>
+
+      <!-- Copy Trading Cards -->
+      <div class="copy-trading-grid">
+        <div class="copy-trading-card">
+          <h3 class="heading-3">How CopyTrader Works</h3>
+          <ol class="steps-list">
+            <li>Browse top-performing traders by returns, risk, and strategy</li>
+            <li>Analyze their complete trading history and portfolio</li>
+            <li>Allocate minimum $200 to start copying</li>
+            <li>Their trades automatically replicate proportionally in your account</li>
+            <li>Stop copying anytime with one click – no penalties</li>
+          </ol>
+        </div>
+
+        <div class="copy-trading-card">
+          <h3 class="heading-3">Copy Trading Limits</h3>
+          <ul class="feature-icon-list">
+            <li><span class="feature-icon brand">💰</span> <strong>$200</strong> minimum per copied trader</li>
+            <li><span class="feature-icon brand">👥</span> <strong>100</strong> maximum traders you can copy</li>
+            <li><span class="feature-icon brand">📊</span> <strong>$500K</strong> maximum per copied trader</li>
+            <li><span class="feature-icon brand">🎯</span> <strong>$1</strong> minimum trade amount per copy</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout callout-warning">
+        <p><strong>Copy Trading Risk Warning:</strong> Past performance is not indicative of future results. Copy trading involves significant risk. You could lose all invested capital. 77% of retail investor accounts lose money when trading CFDs with this provider. Always diversify and never invest more than you can afford to lose.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADING PLATFORMS SECTION -->
+  <section id="platforms" class="section">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Trading Platforms</h2>
+        <p class="body-large">eToro's proprietary platform designed for social trading (no MT4/MT5 support)</p>
+      </div>
+
+      <PlatformGrid platforms={tradingPlatforms} />
+
+      <div class="callout callout-info">
+        <p><strong>No MetaTrader Support:</strong> eToro uses only its proprietary platform. If you require MetaTrader 4/5 for Expert Advisors, algorithmic trading, or advanced technical analysis, consider alternatives like IC Markets or Pepperstone.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOSITS & WITHDRAWALS SECTION -->
+  <section id="deposits" class="section section-gray">
+    <div class="container">
+      <PaymentMethods
+        title="Deposit & Withdrawal Methods"
+        subtitle="Multiple payment options with a flat $5 withdrawal fee"
+        methods={paymentMethods}
+        variant="table"
+      />
+
+      <PaymentDetails
+        title="Withdrawal & Payment Information"
+        subtitle="Complete overview of payment processing, fees, and conditions"
+        withdrawalDetails={withdrawalDetails}
+        analysisTitle="Payment System Analysis"
+        analysis={paymentAnalysis}
+      />
+    </div>
+  </section>
+
+  <!-- TRADING INSTRUMENTS SECTION -->
+  <section id="instruments" class="section section-light">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Trading Instruments</h2>
+        <p class="body-large">3,000+ instruments across stocks, crypto, ETFs, forex, commodities, and indices</p>
+      </div>
+
+      <TradingInstruments
+        title=""
+        subtitle=""
+        categories={instrumentCategories}
+        layout="grid"
+        showDetails={true}
+      />
+    </div>
+  </section>
+
+  <!-- PROS & CONS SECTION -->
+  <section id="pros-cons" class="section section-dark">
+    <div class="container">
+      <ProsCons
+        title="eToro Pros & Cons"
+        subtitle="Balanced analysis of eToro's strengths and weaknesses"
+        pros={prosConsData.pros}
+        cons={prosConsData.cons}
+        variant="dark"
+      />
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section id="faq" class="section section-gray">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Frequently Asked Questions</h2>
+        <p class="body-large">Expert answers to common eToro questions</p>
+      </div>
+
+      <div class="center-container">
+        {faqData.map((faq, index) => (
+          <div class="faq-item">
+            <button class="faq-question" data-faq-index={index}>
+              {faq.question}
+            </button>
+            <div class="faq-answer">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL VERDICT SECTION -->
+  <section id="verdict" class="section">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Final Verdict</h2>
+
+        <div class="rating">
+          <span class="stars">★★★★☆</span>
+          <span class="rating-text">4.0/5</span>
+        </div>
+
+        <p class="body-large">eToro has carved out a unique position by pioneering social trading. While not the cheapest for active forex trading, their commission-free stocks, innovative copy trading, and beginner-friendly approach create genuine value for their target audience.</p>
+      </div>
+
+      <!-- Analyst Notes - Verdict -->
+      <AnalystNotes title="Analyst Notes  - Final Assessment & Recommendation" id="verdict-notes">
+        <h4>Market Position Analysis</h4>
+        <p>eToro occupies a unique niche: they're not trying to compete with ECN brokers on execution or with discount brokers on cost. Instead, they've built a social trading community that creates value through shared knowledge, copy trading innovation, and an accessible user experience.</p>
+
+        <h4>Who Should Use eToro</h4>
+        <p>eToro delivers strong value for:</p>
+        <ol>
+          <li><strong>Beginners:</strong> The social learning environment and copy trading accelerate the learning curve</li>
+          <li><strong>Stock Investors:</strong> Commission-free trading on real stocks is genuinely competitive</li>
+          <li><strong>Passive Investors:</strong> Copy trading enables a hands-off approach with active management by others</li>
+          <li><strong>Social Traders:</strong> The community features and trader transparency are unmatched</li>
+        </ol>
+
+        <h4>Who Should Look Elsewhere</h4>
+        <p>eToro is less suitable for:</p>
+        <ol>
+          <li><strong>Active Forex Traders:</strong> Spreads are wider than ECN alternatives</li>
+          <li><strong>Algorithmic Traders:</strong> No MT4/MT5 means no EA support</li>
+          <li><strong>Cost-Sensitive Traders:</strong> Currency conversion and withdrawal fees add up</li>
+        </ol>
+
+        <p><strong>Final Recommendation:</strong> eToro earns a solid 4.0/5 for their target audience of beginners, social traders, and stock investors. They're not trying to be everything to everyone, and that focus has created genuine innovation in social trading. If you fit their user profile, eToro delivers real value.</p>
+      </AnalystNotes>
+
+      <!-- Rating Breakdown -->
+      <div class="rating-breakdown mt-lg">
+        <h4 class="breakdown-title">Rating Breakdown</h4>
+        <div class="category-ratings">
+          {verdictData.ratingCategories.map((category) => {
+            const categoryPercentage = (category.score / category.maxScore) * 100;
+            return (
+              <div class="category-item">
+                <div class="category-header">
+                  <span class="category-name">{category.name}</span>
+                  <span class="category-score">{category.score}/{category.maxScore}</span>
+                </div>
+                <div class="category-bar">
+                  <div
+                    class="category-progress"
+                    style={`width: ${categoryPercentage}%`}
+                  ></div>
+                </div>
+                {category.description && (
+                  <p class="category-description">{category.description}</p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- Best For / Not Ideal For -->
+      <BestFor
+        bestFor={verdictData.bestFor}
+        notIdealFor={verdictData.notIdealFor}
+      />
+
+      <!-- CTA Section -->
+      <div class="cta-section">
+        <a href={verdictData.ctaUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xxl">
+          {verdictData.ctaText} →
+        </a>
+
+        <p class="cta-link">
+          <em>or, <a href="/brokers/" class="brand-link">compare other brokers</a></em>
+        </p>
+
+        <p class="disclaimer-text">
+          <strong>Risk Disclaimer:</strong> 77% of retail investor accounts lose money when trading CFDs with this provider. You should consider whether you can afford to take the high risk of losing your money.
+        </p>
+      </div>
+
+      <!-- Related Links -->
+      <div class="related-comparisons">
+        <h3 class="heading-3 text-center">Related Comparisons & Resources</h3>
+        <div class="related-links">
+          <a href="/compare/avatrade-vs-etoro/" class="related-link">
+            <span class="related-title">eToro vs AvaTrade</span>
+            <span class="related-desc">Copy trading showdown - see how they compare</span>
+          </a>
+          <a href="/brokers/avatrade/" class="related-link">
+            <span class="related-title">AvaTrade Review</span>
+            <span class="related-desc">Multi-regulated broker with social trading</span>
+          </a>
+          <a href="/bonus-codes/avatrade-partner-code/" class="related-link">
+            <span class="related-title">AvaTrade Partner Code</span>
+            <span class="related-desc">Get up to $10,000 bonus with code 128979</span>
+          </a>
+          <a href="/find-broker/" class="related-link">
+            <span class="related-title">Find Your Perfect Broker</span>
+            <span class="related-desc">AI-powered broker matching in 30 seconds</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross Promotion Section -->
+  <section class="section section-gray">
+    <div class="container">
+      <BrokerCrossPromo brokerSlug="etoro" brokerName="eToro" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero-subtitle {
+    max-width: 800px;
+    margin: 0 auto var(--space-6);
+    color: var(--color-gray-300);
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-8);
+  }
+
+  /* Review Meta */
+  .review-meta {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--gray-600, #4b5563);
+  }
+
+  .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .meta-item svg {
+    opacity: 0.7;
+  }
+
+  .meta-divider {
+    color: var(--gray-400, #9ca3af);
+  }
+
+  @media (max-width: 768px) {
+    .review-meta {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .meta-divider {
+      display: none;
+    }
+  }
+
+  /* Client Fund Protection */
+  .client-fund-protection {
+    margin-top: 3rem;
+  }
+
+  .protection-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 0 auto;
+  }
+
+  .protection-feature {
+    text-align: center;
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+  }
+
+  .protection-feature:hover {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 8px 25px rgba(255, 72, 0, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .protection-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .protection-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin: 0 0 1rem 0;
+    line-height: 1.3;
+  }
+
+  .protection-description {
+    font-size: 0.9375rem;
+    color: var(--gray-600, #4b5563);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .mb-lg {
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .protection-features-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .protection-feature {
+      padding: 1.75rem 1.25rem;
+    }
+
+    .protection-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .protection-title {
+      font-size: 1.125rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .protection-description {
+      font-size: 0.875rem;
+    }
+  }
+
+  /* Copy Trading Grid */
+  .copy-trading-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6, 1.5rem);
+    margin-bottom: var(--space-6, 1.5rem);
+  }
+
+  .copy-trading-card {
+    padding: var(--space-6, 1.5rem);
+    background: var(--color-white, white);
+    border: 1px solid var(--color-gray-200, #e5e7eb);
+    border-radius: var(--radius-lg, 1rem);
+  }
+
+  .copy-trading-card h3 {
+    margin-bottom: var(--space-4, 1rem);
+  }
+
+  .steps-list {
+    list-style: decimal;
+    padding-left: var(--space-6, 1.5rem);
+  }
+
+  .steps-list li {
+    padding: var(--space-2, 0.5rem) 0;
+    color: var(--color-gray-700, #374151);
+  }
+
+  @media (max-width: 768px) {
+    .copy-trading-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Rating Breakdown */
+  .rating-breakdown {
+    max-width: 600px;
+    margin: 2rem auto;
+  }
+
+  .breakdown-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .category-ratings {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .category-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  .category-name {
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+  }
+
+  .category-score {
+    font-weight: 700;
+    color: var(--brand-orange, #ff4800);
+  }
+
+  .category-bar {
+    height: 8px;
+    background: var(--gray-200, #e5e7eb);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .category-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--brand-orange, #ff4800), #ff6a33);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+
+  .category-description {
+    font-size: 0.875rem;
+    color: var(--gray-600, #4b5563);
+    margin-top: 0.375rem;
+    margin-bottom: 0;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-200, #e5e7eb);
+  }
+
+  .cta-link {
+    margin-top: 1rem;
+    color: var(--gray-600, #4b5563);
+  }
+
+  .disclaimer-text {
+    margin-top: 2rem;
+    font-size: 0.8125rem;
+    color: var(--gray-500, #6b7280);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Rating Stars */
+  .rating {
+    margin: 1rem 0 1.5rem;
+  }
+
+  .stars {
+    font-size: 2rem;
+    color: var(--brand-orange, #ff4800);
+  }
+
+  .rating-text {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin-top: 0.25rem;
+  }
+
+  /* Related Comparisons */
+  .related-comparisons {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-200, #e5e7eb);
+  }
+
+  .related-comparisons h3 {
+    margin-bottom: 1.5rem;
+  }
+
+  .related-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .related-link {
+    display: block;
+    padding: 1.25rem;
+    background: var(--gray-50, #f9fafb);
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .related-link:hover {
+    border-color: var(--brand-orange, #ff4800);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .related-title {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 0.25rem;
+  }
+
+  .related-desc {
+    font-size: 0.875rem;
+    color: var(--gray-500, #6b7280);
+  }
+
+  @media (max-width: 768px) {
+    .related-links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // FAQ functionality
+  const faqButtons = document.querySelectorAll('.faq-question');
+
+  faqButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const faqItem = this.parentElement;
+      const isOpen = faqItem.classList.contains('active');
+
+      if (isOpen) {
+        faqItem.classList.remove('active');
+      } else {
+        faqItem.classList.add('active');
+      }
+    });
+  });
+});
+</script>

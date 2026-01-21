@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CardGrid from '../components/CardGrid.astro';
+import Card from '../components/Card.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import '../styles/pages/advertiser-disclosure.css';
+---
+
+<BaseLayout 
+  title="Advertiser Disclosure | TradeTheDay"
+  description="Learn about our affiliate relationships and how we maintain editorial independence while providing honest broker reviews."
+>
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Advertiser Disclosure', current: true }
+  ]} />
+
+  <section class="section">
+    <div class="container">
+      <div class="center-container">
+        <!-- Page Header -->
+        <div class="text-center mb-xl">
+          <h1 class="heading-1">Advertiser Disclosure</h1>
+          <p class="body-large">Transparency About Our Partner Relationships</p>
+          <p class="body-sm mt-md">Last Updated: January 2026</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="card mb-lg">
+          <h2 class="heading-2">Our Commitment to Transparency</h2>
+          <p class="body">
+            At TradeTheDay, we believe in complete transparency about how we fund our operations and maintain this free resource for traders worldwide. This page explains our relationships with brokers and exchanges, and how we ensure our reviews remain honest and unbiased.
+          </p>
+        </div>
+
+        <!-- How We Make Money -->
+        <div class="card mb-lg">
+          <h2 class="heading-3">How We Make Money</h2>
+          <p class="body mb-md">
+            TradeTheDay receives compensation from some of the brokers and exchanges featured on our website. This compensation comes in several forms:
+          </p>
+          <ul class="list mb-md">
+            <li><strong>Affiliate Commissions:</strong> We earn a commission when you sign up with a broker through our links and meet certain trading criteria</li>
+            <li><strong>CPA (Cost Per Acquisition):</strong> Some partners pay us a fixed fee for qualified new customers</li>
+            <li><strong>Revenue Sharing:</strong> Occasionally, we participate in revenue-sharing agreements based on trading volume</li>
+            <li><strong>Advertising:</strong> Display advertising and sponsored content clearly marked as such</li>
+          </ul>
+          <div class="callout callout-info">
+            <p class="body-sm">
+              <strong>Important:</strong> You do NOT pay anything extra when signing up through our links. In many cases, we negotiate exclusive bonuses or better terms for our readers.
+            </p>
+          </div>
+        </div>
+
+        <!-- Editorial Independence -->
+        <div class="card mb-lg">
+          <h2 class="heading-3">Editorial Independence</h2>
+          <p class="body mb-md">
+            Our editorial content is produced independently of our business relationships. Here's how we maintain objectivity:
+          </p>
+          
+          <!-- Using CardGrid component for editorial independence points -->
+          <div class="grid-2 mb-md">
+            <div class="card card-compact">
+              <h4 class="heading-4">Separation of Teams</h4>
+              <p class="body-sm">Our content team operates independently from our partnerships team, ensuring reviews aren't influenced by commercial relationships.</p>
+            </div>
+            <div class="card card-compact">
+              <h4 class="heading-4">Consistent Methodology</h4>
+              <p class="body-sm">All brokers are evaluated using the same criteria and scoring system, regardless of partnership status.</p>
+            </div>
+            <div class="card card-compact">
+              <h4 class="heading-4">Negative Reviews</h4>
+              <p class="body-sm">We publish critical reviews of partners when warranted. Poor service is called out regardless of commercial relationships.</p>
+            </div>
+            <div class="card card-compact">
+              <h4 class="heading-4">User Feedback</h4>
+              <p class="body-sm">Real user reviews and feedback are incorporated into our ratings and cannot be influenced by brokers.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- What This Means For You -->
+        <div class="card mb-lg">
+          <h2 class="heading-3">What This Means For You</h2>
+          <ul class="list">
+            <li><strong>Free Access:</strong> Our compensation model allows us to provide all content, tools, and resources completely free to you</li>
+            <li><strong>Better Deals:</strong> We often negotiate exclusive bonuses and promotions for our readers</li>
+            <li><strong>Honest Reviews:</strong> Commercial relationships don't guarantee positive reviews - we call out issues regardless</li>
+            <li><strong>Your Choice:</strong> We present multiple options and let you decide what's best for your trading needs</li>
+            <li><strong>No Pressure:</strong> We never push you toward any specific broker - the choice is always yours</li>
+          </ul>
+        </div>
+
+        <!-- Identifying Partnerships -->
+        <div class="card mb-lg">
+          <h2 class="heading-3">Identifying Partnerships</h2>
+          <p class="body mb-md">
+            While we may have commercial relationships with many brokers we review, not all links are affiliate links. We aim to be transparent about partnerships through:
+          </p>
+          <ul class="list">
+            <li>This disclosure page, which you're reading now</li>
+            <li>Footer disclaimers on all pages</li>
+            <li>Clear labeling of sponsored content when applicable</li>
+            <li>Disclosure statements within reviews where relevant</li>
+          </ul>
+        </div>
+
+        <!-- Questions -->
+        <div class="card">
+          <h2 class="heading-3">Questions About Our Policies?</h2>
+          <p class="body mb-md">
+            We welcome questions about our disclosure policies and business model. Transparency is core to our mission of helping traders make informed decisions.
+          </p>
+          <a href="/contact/" class="btn btn-primary btn-md">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

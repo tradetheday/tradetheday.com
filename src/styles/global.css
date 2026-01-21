@@ -1,0 +1,66 @@
+/* Import existing styles */
+@import './styles.css';
+
+/* Additional global styles for Astro */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* Universal Back to Top Button */
+.back-to-top {
+  position: fixed !important;
+  bottom: 2rem !important;
+  right: 2rem !important;
+  width: 50px !important;
+  height: 50px !important;
+  background: #ff4800 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 50% !important;
+  font-size: 1.25rem !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: scale(0.8) !important;
+  transition: all 0.3s ease !important;
+  z-index: 9999 !important;
+  box-shadow: 0 4px 12px rgba(255, 72, 0, 0.3) !important;
+  display: block !important;
+}
+
+.back-to-top.visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: scale(1) !important;
+}
+
+.back-to-top:hover {
+  background: var(--brand-orange-dark, #e63e00);
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(255, 72, 0, 0.4);
+}
+
+.back-to-top:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.125rem;
+  }
+}

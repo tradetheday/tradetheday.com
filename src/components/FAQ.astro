@@ -1,0 +1,70 @@
+---
+export interface Props {
+  questions: {
+    question: string;
+    answer: string;
+  }[];
+  title?: string;
+}
+
+const { questions, title = "Frequently Asked Questions" } = Astro.props;
+---
+
+<section class="section section-light">
+  <div class="container">
+    <h2 class="heading-2">{title}</h2>
+    
+    <div class="faq-list">
+      {questions.map(({ question, answer }) => (
+        <details class="faq-item">
+          <summary class="faq-question">{question}</summary>
+          <div class="faq-answer">
+            <p set:html={answer}></p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-list {
+    margin-top: 2rem;
+  }
+  
+  .faq-item {
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+    background: var(--white);
+  }
+  
+  .faq-question {
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+  
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+  
+  .faq-question::before {
+    content: "▶";
+    display: inline-block;
+    margin-right: 0.5rem;
+    transition: transform 0.2s;
+    speak: none; /* Hide from screen readers */
+  }
+  
+  details[open] .faq-question::before {
+    transform: rotate(90deg);
+  }
+  
+  .faq-answer {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--gray-100);
+  }
+</style>

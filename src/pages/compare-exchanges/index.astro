@@ -1,0 +1,418 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import TrustBadges from '../../components/TrustBadges.astro';
+import '../../styles/hero-components.css';
+
+const title = 'Compare Crypto Exchanges 2026 - Side-by-Side Reviews';
+const description = 'Compare the best cryptocurrency exchanges side-by-side. Fees, security, supported coins, and features compared.';
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Compare', href: '/compare/' },
+  { text: 'Exchanges', current: true }
+];
+
+// Exchange comparisons
+const comparisons = [
+  {
+    slug: 'binance-vs-coinbase',
+    title: 'Binance vs Coinbase',
+    subtitle: 'Global Giants Clash',
+    description: 'The world\'s largest exchange vs America\'s most trusted platform.',
+    exchange1: { name: 'Binance', score: 4.4 },
+    exchange2: { name: 'Coinbase', score: 4.2 },
+    highlights: ['Trading fees', 'Coin selection', 'Security'],
+    verdict: 'Binance for fees; Coinbase for beginners'
+  },
+  {
+    slug: 'binance-vs-kraken',
+    title: 'Binance vs Kraken',
+    subtitle: 'Volume vs Security',
+    description: 'Compare the highest volume exchange with the security-focused veteran.',
+    exchange1: { name: 'Binance', score: 4.4 },
+    exchange2: { name: 'Kraken', score: 4.3 },
+    highlights: ['Security record', 'Fee structure', 'Staking'],
+    verdict: 'Binance for variety; Kraken for security'
+  },
+  {
+    slug: 'coinbase-vs-kraken',
+    title: 'Coinbase vs Kraken',
+    subtitle: 'US Exchange Battle',
+    description: 'Two of America\'s most trusted crypto exchanges compared.',
+    exchange1: { name: 'Coinbase', score: 4.2 },
+    exchange2: { name: 'Kraken', score: 4.3 },
+    highlights: ['Regulation', 'Fees', 'Advanced features'],
+    verdict: 'Coinbase for ease; Kraken for pros'
+  },
+  {
+    slug: 'binance-vs-bybit',
+    title: 'Binance vs Bybit',
+    subtitle: 'Derivatives Showdown',
+    description: 'Compare the top exchanges for futures and derivatives trading.',
+    exchange1: { name: 'Binance', score: 4.4 },
+    exchange2: { name: 'Bybit', score: 4.1 },
+    highlights: ['Futures fees', 'Leverage options', 'Liquidity'],
+    verdict: 'Binance for spot; Bybit for derivatives UX'
+  },
+  {
+    slug: 'kraken-vs-gemini',
+    title: 'Kraken vs Gemini',
+    subtitle: 'Security-First Battle',
+    description: 'Two exchanges known for regulatory compliance and security compared.',
+    exchange1: { name: 'Kraken', score: 4.3 },
+    exchange2: { name: 'Gemini', score: 4.0 },
+    highlights: ['Insurance', 'Regulation', 'Earn products'],
+    verdict: 'Kraken for features; Gemini for compliance'
+  },
+  {
+    slug: 'coinbase-vs-crypto-com',
+    title: 'Coinbase vs Crypto.com',
+    subtitle: 'Ecosystem Comparison',
+    description: 'Compare two exchanges with extensive crypto ecosystems and cards.',
+    exchange1: { name: 'Coinbase', score: 4.2 },
+    exchange2: { name: 'Crypto.com', score: 4.0 },
+    highlights: ['Crypto cards', 'Staking rewards', 'DeFi access'],
+    verdict: 'Coinbase for simplicity; Crypto.com for rewards'
+  }
+];
+
+// Shuffle and pick random comparisons for featured section
+const shuffled = [...comparisons].sort(() => Math.random() - 0.5);
+const featured = shuffled.slice(0, 3);
+---
+
+<BaseLayout title={title} description={description}>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero -->
+  <section class="hero hero-standard">
+    <div class="container">
+      <div class="hero-social-proof">
+        <span class="social-proof-badge">
+          <span class="social-proof-dot"></span>
+          {comparisons.length} exchange comparisons available
+        </span>
+      </div>
+      <h1 class="heading-1">Compare Crypto Exchanges</h1>
+      <p class="body-large">
+        Finding the right crypto exchange? Compare fees, security, supported coins, and features across top platforms.
+      </p>
+      <a href="/exchanges/" class="btn btn-primary btn-lg">View All Exchanges</a>
+      <div class="hero-trust-row">
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Real Fee Data
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Security Audited
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Updated Monthly
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <TrustBadges variant="light" compact={true} />
+
+  <!-- Featured Comparisons -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="heading-2">Featured Comparisons</h2>
+        <p class="body-large">Popular exchange matchups picked for you</p>
+      </div>
+
+      <div class="comparisons-grid">
+        {featured.map((comp) => (
+          <a href={`/compare/${comp.slug}/`} class="comparison-card featured">
+            <div class="comparison-header">
+              <div class="vs-display">
+                <span class="broker-badge">{comp.exchange1.name}</span>
+                <span class="vs">VS</span>
+                <span class="broker-badge">{comp.exchange2.name}</span>
+              </div>
+            </div>
+            <h3 class="comparison-title">{comp.title}</h3>
+            <span class="comparison-subtitle">{comp.subtitle}</span>
+            <p class="comparison-desc">{comp.description}</p>
+            <div class="comparison-tags">
+              {comp.highlights.map((h) => (
+                <span class="tag">{h}</span>
+              ))}
+            </div>
+            <span class="comparison-cta">Read Comparison →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- All Comparisons -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">All Exchange Comparisons</h2>
+
+      <div class="comparison-list">
+        {comparisons.map((comp) => (
+          <a href={`/compare/${comp.slug}/`} class="comparison-row">
+            <div class="comparison-row-left">
+              <div class="vs-compact">
+                <span>{comp.exchange1.name}</span>
+                <span class="vs-small">vs</span>
+                <span>{comp.exchange2.name}</span>
+              </div>
+              <span class="row-subtitle">{comp.subtitle}</span>
+            </div>
+            <div class="comparison-row-right">
+              <span class="row-verdict">{comp.verdict}</span>
+              <span class="row-arrow">→</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-card">
+        <h2 class="heading-3">Ready to Trade Crypto?</h2>
+        <p>Check out our complete exchange reviews with exclusive sign-up bonuses.</p>
+        <a href="/exchanges/" class="btn btn-primary btn-lg">View All Exchanges →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero styles from hero-components.css */
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .section-header h2 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-header p {
+    color: var(--gray-600);
+  }
+
+  .comparisons-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .comparison-card {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .comparison-card:hover {
+    border-color: var(--brand-orange);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .comparison-card.featured {
+    border-color: var(--brand-orange);
+    background: linear-gradient(135deg, rgba(255, 72, 0, 0.02) 0%, transparent 100%);
+  }
+
+  .comparison-header {
+    margin-bottom: var(--space-md);
+  }
+
+  .vs-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+  }
+
+  .broker-badge {
+    background: var(--charcoal);
+    color: var(--white);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+  }
+
+  .vs {
+    color: var(--brand-orange);
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+  }
+
+  .comparison-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .comparison-subtitle {
+    color: var(--brand-orange);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .comparison-desc {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+    flex: 1;
+  }
+
+  .comparison-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+  }
+
+  .tag {
+    background: var(--gray-100);
+    color: var(--gray-700);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+  }
+
+  .comparison-cta {
+    color: var(--brand-orange);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+  }
+
+  /* Comparison List */
+  .comparison-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .comparison-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .comparison-row:hover {
+    border-color: var(--brand-orange);
+    background: var(--gray-50);
+  }
+
+  .comparison-row-left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .vs-compact {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .vs-small {
+    color: var(--gray-400);
+    font-weight: 400;
+    font-size: var(--font-size-sm);
+  }
+
+  .row-subtitle {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+  }
+
+  .comparison-row-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .row-verdict {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  .row-arrow {
+    color: var(--brand-orange);
+    font-weight: 600;
+  }
+
+  /* CTA Card */
+  .cta-card {
+    text-align: center;
+    padding: var(--space-2xl);
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--brand-orange);
+  }
+
+  .cta-card h2 {
+    color: var(--white);
+    margin-bottom: var(--space-sm);
+  }
+
+  .cta-card p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-lg);
+  }
+
+  @media (max-width: 968px) {
+    .comparisons-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .comparisons-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .comparison-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
+
+    .comparison-row-left {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+
+    .row-verdict {
+      display: none;
+    }
+  }
+</style>

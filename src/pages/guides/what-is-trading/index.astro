@@ -1,0 +1,516 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import '../../../styles/pages/guides-what-is-trading-index.css';
+
+// Hero statistics data
+const heroStats = [
+  {
+    icon: "💹",
+    value: "$7.5T",
+    label: "Daily trading volume"
+  },
+  {
+    icon: "👥", 
+    value: "50M+",
+    label: "Active traders worldwide"
+  },
+  {
+    icon: "⏰",
+    value: "24/5",
+    label: "Market hours"
+  },
+  {
+    icon: "💰",
+    value: "$100",
+    label: "Minimum to start"
+  }
+];
+
+// Trading concepts data
+const tradingConcepts = [
+  {
+    icon: "💱",
+    title: "Buy Low, Sell High",
+    description: "The fundamental principle: purchase assets when prices are low and sell when prices rise. Successful traders identify these opportunities through analysis and timing."
+  },
+  {
+    icon: "⚡",
+    title: "Price Movements", 
+    description: "Markets constantly fluctuate due to supply and demand, economic news, and trader sentiment. These movements create opportunities for profit."
+  },
+  {
+    icon: "📊",
+    title: "Market Analysis",
+    description: "Traders use technical and fundamental analysis to predict price direction and make informed decisions about when to enter and exit positions."
+  },
+  {
+    icon: "🎯",
+    title: "Risk Management",
+    description: "Successful trading requires careful risk management, including stop-losses, position sizing, and diversification to protect capital."
+  }
+];
+
+// Trading styles data
+const tradingStyles = [
+  {
+    title: "Day Trading",
+    timeFrame: "⏰ Minutes to Hours",
+    description: "Buying and selling within the same trading day. Requires full-time attention and quick decision-making. No overnight risk, but high stress and capital requirements.",
+    requirements: [
+      "$25,000 minimum (US stocks)",
+      "Full-time availability", 
+      "Fast internet connection",
+      "High risk tolerance"
+    ],
+    featured: false
+  },
+  {
+    title: "Swing Trading",
+    timeFrame: "📅 Days to Weeks", 
+    description: "Holding positions for several days to weeks to capture larger price swings. Perfect for those with day jobs who can't monitor markets constantly.",
+    requirements: [
+      "$500+ recommended",
+      "Part-time monitoring",
+      "Patience for setups", 
+      "Moderate risk tolerance"
+    ],
+    featured: true,
+    badge: "Most Popular"
+  },
+  {
+    title: "Position Trading",
+    timeFrame: "📈 Weeks to Months",
+    description: "Long-term approach similar to investing but with more active management. Focuses on major market trends and economic cycles.",
+    requirements: [
+      "$1,000+ recommended",
+      "Long-term perspective",
+      "Economic understanding",
+      "Lower risk tolerance"
+    ],
+    featured: false
+  },
+  {
+    title: "Scalping",
+    timeFrame: "⚡ Seconds to Minutes",
+    description: "Ultra-short-term trading focusing on tiny price movements. Requires advanced skills, lightning-fast execution, and significant capital.",
+    requirements: [
+      "$10,000+ recommended",
+      "Professional tools",
+      "Extreme focus",
+      "Very high risk tolerance"
+    ],
+    featured: false
+  }
+];
+
+// Trading markets data
+const tradingMarkets = [
+  {
+    id: "forex",
+    icon: "💱",
+    title: "Forex (Currency)",
+    dailyVolume: "$7.5T daily volume",
+    tradingHours: "24/5 trading",
+    description: "Trade currency pairs like EUR/USD, GBP/JPY. The world's largest financial market with high liquidity and leverage options.",
+    highlights: [
+      "Highest liquidity",
+      "24-hour trading", 
+      "Low barriers to entry"
+    ],
+    ctaText: "Learn Forex Trading →",
+    ctaLink: "/trade/forex/"
+  },
+  {
+    id: "stocks",
+    icon: "📈", 
+    title: "Stocks & Indices",
+    dailyVolume: "$200B daily volume",
+    tradingHours: "Market hours only",
+    description: "Trade individual company shares or broad market indices like S&P 500, NASDAQ. Long-term wealth building potential.",
+    highlights: [
+      "Company ownership",
+      "Dividend potential",
+      "Strong regulation"
+    ],
+    ctaText: "Start Stock Trading →", 
+    ctaLink: "/guides/stock-trading-for-beginners/"
+  },
+  {
+    id: "commodities",
+    icon: "🥇",
+    title: "Commodities", 
+    dailyVolume: "$50B daily volume",
+    tradingHours: "Extended hours",
+    description: "Trade precious metals, oil, and agricultural products. Great hedge against inflation and economic uncertainty.",
+    highlights: [
+      "Inflation hedge",
+      "Tangible assets",
+      "Portfolio diversification"
+    ],
+    links: [
+      { text: "Trade Gold →", href: "/trade/gold/" },
+      { text: "Trade Oil →", href: "/trade/oil/" }
+    ]
+  },
+  {
+    id: "crypto",
+    icon: "₿",
+    title: "Cryptocurrencies",
+    dailyVolume: "$100B daily volume", 
+    tradingHours: "24/7 trading",
+    description: "Trade Bitcoin, Ethereum, and altcoins. High volatility offers significant profit potential but requires careful risk management.",
+    highlights: [
+      "24/7 availability",
+      "High volatility", 
+      "Innovation exposure"
+    ],
+    links: [
+      { text: "Trade Bitcoin →", href: "/trade/bitcoin/" },
+      { text: "Trade Ethereum →", href: "/trade/ethereum/" }
+    ]
+  }
+];
+
+// Trading process steps data
+const processSteps = [
+  {
+    number: 1,
+    title: "Market Analysis",
+    description: "Traders analyze markets using technical indicators, chart patterns, economic news, and fundamental data to identify potential trading opportunities.",
+    details: "Moving averages, RSI, support/resistance levels, economic calendars"
+  },
+  {
+    number: 2,
+    title: "Trade Execution", 
+    description: "Once an opportunity is identified, traders place buy or sell orders through their broker's platform. Orders can be market orders (immediate) or limit orders (at specific prices).",
+    details: "Market, limit, stop-loss, take-profit, trailing stop"
+  },
+  {
+    number: 3,
+    title: "Position Management",
+    description: "Active monitoring and management of open positions, including setting stop-losses to limit losses and take-profits to secure gains.",
+    details: "Risk-reward ratio, position sizing, portfolio diversification"
+  },
+  {
+    number: 4,
+    title: "Trade Closure",
+    description: "Closing positions when profit targets are reached, stop-losses are triggered, or market conditions change. Learning from both profitable and losing trades.",
+    details: "Profit targets, trailing stops, time-based exits, technical signals"
+  }
+];
+
+// Featured brokers data
+const featuredBrokers = [
+  {
+    name: "Interactive Brokers",
+    logo: "/images/brokers/interactive-brokers-logo.svg",
+    rating: "★★★★★ 4.8/5",
+    badge: "🔥 MOST POPULAR",
+    highlights: [
+      "Global market access",
+      "Low commissions",
+      "Professional tools", 
+      "$100 welcome bonus"
+    ],
+    ctaText: "Start Trading →",
+    ctaLink: "/brokers/interactive-brokers/",
+    featured: true
+  },
+  {
+    name: "AvaTrade",
+    logo: "/images/brokers/avatrade-logo.svg", 
+    rating: "★★★★☆ 4.6/5",
+    badge: "BEST FOR BEGINNERS",
+    highlights: [
+      "Extensive education",
+      "Demo accounts",
+      "Multiple platforms",
+      "$10,000 welcome bonus"
+    ],
+    ctaText: "Learn More →",
+    ctaLink: "/brokers/avatrade/",
+    featured: false
+  },
+  {
+    name: "Eightcap",
+    logo: "/images/brokers/eightcap-logo.svg",
+    rating: "★★★★☆ 4.5/5", 
+    badge: "LOW COSTS",
+    highlights: [
+      "Ultra-low spreads",
+      "No minimum deposit",
+      "Fast execution",
+      "$50 welcome bonus"
+    ],
+    ctaText: "Get Started →",
+    ctaLink: "/brokers/eightcap-review/",
+    featured: false
+  }
+];
+
+// Risk statistics data
+const riskStats = [
+  {
+    number: "74-89%",
+    label: "of retail traders lose money"
+  },
+  {
+    number: "High", 
+    label: "volatility in markets"
+  },
+  {
+    number: "Leverage",
+    label: "amplifies both gains and losses"
+  }
+];
+---
+
+<BaseLayout 
+  title="What is Trading? Complete Guide to Financial Markets | Trade the Day"
+  description="Learn what trading means, how financial markets work, and discover the most popular trading opportunities. Start your trading journey with expert guidance."
+>
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Guides', href: '/guides/' },
+    { text: 'What is Trading', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-icon">📈</span>
+          FINANCIAL MARKETS HUB
+        </div>
+        <h1 class="hero-title">What is Trading?</h1>
+        <p class="hero-description">
+          Trading is the art of buying and selling financial instruments to profit from price movements. Discover how millions of people worldwide generate income from stocks, forex, commodities, and cryptocurrencies.
+        </p>
+        <div class="stats-grid">
+          {heroStats.map((stat) => (
+            <div class="stat-card">
+              <div class="stat-icon">{stat.icon}</div>
+              <span class="stat-value">{stat.value}</span>
+              <span class="stat-label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS / ANCHOR MENU -->
+  <section class="table-of-contents-section">
+    <div class="container">
+      <nav class="table-of-contents" aria-label="Page contents">
+        <h2 class="toc-title">What You'll Learn</h2>
+        <ul class="toc-menu">
+          <li><a href="#fundamentals" class="toc-link">📚 Trading Fundamentals</a></li>
+          <li><a href="#trading-styles" class="toc-link">⚡ Types of Trading</a></li>
+          <li><a href="#markets" class="toc-link">📈 Popular Markets</a></li>
+          <li><a href="#how-it-works" class="toc-link">⚙️ How Trading Works</a></li>
+          <li><a href="#brokers" class="toc-link">🏢 Best Brokers</a></li>
+          <li><a href="#risks" class="toc-link">⚠️ Risk Warning</a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- TRADING FUNDAMENTALS SECTION -->
+  <section id="fundamentals" class="fundamentals-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Understanding Trading: The Fundamentals</h2>
+        <p class="section-description">
+          Trading involves buying and selling financial instruments with the goal of profiting from price changes. Unlike investing, which focuses on long-term growth, trading seeks to capitalize on short-term market movements.
+        </p>
+      </div>
+      
+      <div class="concepts-grid">
+        {tradingConcepts.map((concept) => (
+          <div class="concept-card">
+            <div class="concept-icon">{concept.icon}</div>
+            <h3 class="concept-title">{concept.title}</h3>
+            <p class="concept-description">{concept.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADING STYLES SECTION -->
+  <section id="trading-styles" class="styles-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Types of Trading</h2>
+        <p class="section-description">
+          Different trading styles suit different personalities, schedules, and risk tolerances. Choose the approach that matches your goals and lifestyle.
+        </p>
+      </div>
+      
+      <div class="styles-grid">
+        {tradingStyles.map((style) => (
+          <div class={`style-card ${style.featured ? 'featured' : ''}`}>
+            {style.badge && <div class="style-badge">{style.badge}</div>}
+            <h3 class="style-title">{style.title}</h3>
+            <div class="time-frame">{style.timeFrame}</div>
+            <p class="style-description">{style.description}</p>
+            <div class="style-requirements">
+              <strong>Requirements:</strong>
+              <ul>
+                {style.requirements.map((requirement) => (
+                  <li>{requirement}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETS SECTION -->
+  <section id="markets" class="markets-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Popular Trading Markets</h2>
+        <p class="section-description">
+          Explore the most active and profitable trading markets. Each offers unique opportunities and characteristics suited to different trading styles.
+        </p>
+      </div>
+      
+      <div class="markets-grid">
+        {tradingMarkets.map((market) => (
+          <div class={`market-card market-${market.id}`}>
+            <div class="market-header">
+              <div class="market-icon">{market.icon}</div>
+              <div class="market-info">
+                <h3 class="market-title">{market.title}</h3>
+                <div class="market-stats">
+                  <span>{market.dailyVolume}</span>
+                  <span>{market.tradingHours}</span>
+                </div>
+              </div>
+            </div>
+            <p class="market-description">{market.description}</p>
+            <div class="market-highlights">
+              {market.highlights.map((highlight) => (
+                <div class="highlight">✓ {highlight}</div>
+              ))}
+            </div>
+            {market.ctaText && market.ctaLink && (
+              <a href={market.ctaLink} class="market-cta">{market.ctaText}</a>
+            )}
+            {market.links && (
+              <div class="market-links">
+                {market.links.map((link) => (
+                  <a href={link.href} class="market-cta">{link.text}</a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS SECTION -->
+  <section id="how-it-works" class="process-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">How Trading Actually Works</h2>
+        <p class="section-description">
+          Understanding the mechanics behind trading helps you make informed decisions and avoid common pitfalls.
+        </p>
+      </div>
+      
+      <div class="process-steps">
+        {processSteps.map((step) => (
+          <div class="step-item">
+            <div class="step-number">{step.number}</div>
+            <div class="step-content">
+              <h3 class="step-title">{step.title}</h3>
+              <p class="step-description">{step.description}</p>
+              <div class="step-details">
+                <strong>Common tools:</strong> {step.details}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BROKERS SECTION -->
+  <section id="brokers" class="brokers-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Start Trading Today</h2>
+        <p class="section-description">
+          Ready to begin your trading journey? Choose a reputable broker and start with a demo account to practice risk-free.
+        </p>
+      </div>
+      
+      <div class="brokers-grid">
+        {featuredBrokers.map((broker) => (
+          <div class={`broker-card ${broker.featured ? 'featured' : ''}`}>
+            <div class="broker-badge">{broker.badge}</div>
+            <div class="broker-header">
+              <img src={broker.logo} alt={broker.name} class="broker-logo">
+              <div class="broker-info">
+                <h3 class="broker-name">{broker.name}</h3>
+                <div class="broker-rating">{broker.rating}</div>
+              </div>
+            </div>
+            <div class="broker-highlights">
+              {broker.highlights.map((highlight) => (
+                <div class="highlight">✓ {highlight}</div>
+              ))}
+            </div>
+            <a href={broker.ctaLink} class="broker-cta">{broker.ctaText}</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- RISK WARNING SECTION -->
+  <section id="risks" class="risk-section">
+    <div class="container">
+      <div class="risk-warning">
+        <h3 class="risk-title">⚠️ Important Risk Warning</h3>
+        <p class="risk-description">
+          Trading involves substantial risk of loss and is not suitable for all investors. The value of investments can go down as well as up. Past performance is not indicative of future results. Only trade with money you can afford to lose completely.
+        </p>
+        <div class="risk-stats">
+          {riskStats.map((stat) => (
+            <div class="risk-stat">
+              <span class="risk-number">{stat.number}</span>
+              <span class="risk-label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="final-cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2 class="cta-title">Ready to Start Your Trading Journey?</h2>
+        <p class="cta-description">
+          Join millions of traders worldwide and start building your financial future. Choose your market, pick your broker, and begin trading today.
+        </p>
+        <div class="cta-buttons">
+          <a href="/brokers/interactive-brokers/" class="cta-button primary">Start Trading Now →</a>
+          <a href="/guides/stock-trading-for-beginners/" class="cta-button secondary">Learn the Basics First →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

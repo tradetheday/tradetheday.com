@@ -1,0 +1,186 @@
+---
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  steps: Step[];
+  columns?: number;
+}
+
+const { 
+  title = "Process Steps",
+  subtitle = "Follow these simple steps",
+  steps = [],
+  columns = 3
+} = Astro.props;
+---
+
+<div class="process-steps-section">
+  {title && (
+    <div class="process-steps-header">
+      <h3 class="heading-3">{title}</h3>
+      {subtitle && <p class="body-large process-steps-subtitle">{subtitle}</p>}
+    </div>
+  )}
+  
+  <div class={`process-steps-grid columns-${columns}`}>
+    {steps.map((step) => (
+      <div class="process-step-card">
+        <div class="step-icon-container">
+          <span class="step-icon">{step.icon}</span>
+        </div>
+        <div class="step-content">
+          <h4 class="step-title">{step.number} {step.title}</h4>
+          <p class="step-description">{step.description}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .process-steps-section {
+    margin: var(--space-component) 0;
+  }
+
+  .process-steps-header {
+    text-align: center;
+    margin-bottom: var(--space-component);
+  }
+
+  .process-steps-subtitle {
+    color: var(--gray-600, #4b5563);
+    margin-top: var(--space-content);
+  }
+
+  .process-steps-grid {
+    display: grid;
+    gap: 2.5rem;
+    margin-top: var(--space-component);
+  }
+
+  .process-steps-grid.columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .process-steps-grid.columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .process-steps-grid.columns-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .process-step-card {
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    height: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  .process-step-card:hover {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 8px 25px rgba(255, 72, 0, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .step-icon-container {
+    margin-bottom: 2rem;
+  }
+
+  .step-icon {
+    font-size: 3.5rem;
+    display: block;
+    line-height: 1;
+    margin-bottom: 0;
+  }
+
+  .step-content {
+    text-align: center;
+  }
+
+  .step-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin: 0 0 1.25rem 0;
+    line-height: 1.2;
+  }
+
+  .step-description {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--gray-600, #4b5563);
+    margin: 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .process-steps-grid.columns-4,
+    .process-steps-grid.columns-3 {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .process-steps-grid {
+      grid-template-columns: 1fr !important;
+      gap: 2rem;
+      margin-top: var(--space-content);
+    }
+    
+    .process-step-card {
+      padding: 2rem 1.5rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .step-icon {
+      font-size: 3rem;
+    }
+
+    .step-title {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .step-description {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .process-step-card {
+      padding: 1.75rem 1.25rem;
+    }
+    
+    .step-icon-container {
+      margin-bottom: 1.5rem;
+    }
+    
+    .step-icon {
+      font-size: 2.5rem;
+    }
+    
+    .step-title {
+      font-size: 1.125rem;
+      margin-bottom: 0.875rem;
+    }
+    
+    .step-description {
+      font-size: 0.8125rem;
+      line-height: 1.6;
+    }
+  }
+</style>

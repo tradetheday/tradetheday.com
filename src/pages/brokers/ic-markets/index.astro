@@ -1,0 +1,1441 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import SimpleGrid from '../../../components/SimpleGrid.astro';
+import ProcessSteps from '../../../components/ProcessSteps.astro';
+import FeatureHighlights from '../../../components/FeatureHighlights.astro';
+import CompanyInfo from '../../../components/CompanyInfo.astro';
+import Chip from '../../../components/Chip.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import Scorecard from '../../../components/Scorecard.astro';
+import RegulationCard from '../../../components/RegulationCard.astro';
+import PlatformGrid from '../../../components/PlatformGrid.astro';
+import PaymentMethods from '../../../components/PaymentMethods.astro';
+import PaymentDetails from '../../../components/PaymentDetails.astro';
+import TradingInstruments from '../../../components/TradingInstruments.astro';
+import ProsCons from '../../../components/ProsCons.astro';
+import FAQ from '../../../components/FAQ.astro';
+import BrokerVerdict from '../../../components/BrokerVerdict.astro';
+import BestFor from '../../../components/BestFor.astro';
+import CostAnalysis from '../../../components/CostAnalysis.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+import { generateBrokerSchema, generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+import { getBrokerById } from '../../../data/brokers';
+
+const brokerData = getBrokerById('ic-markets');
+const BROKER_NAME = 'IC Markets';
+
+const title = 'IC Markets Review 2026 – True ECN Broker with Raw Spreads | TradeTheDay';
+const description = 'Complete IC Markets review for 2026. True ECN execution, raw spreads from 0.0 pips, $1 trillion+ monthly volume. ASIC & CySEC regulated. MT4, MT5, cTrader, TradingView.';
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Brokers', href: '/brokers/' },
+  { text: 'IC Markets Review', href: '/brokers/ic-markets/', current: true }
+];
+
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#why-choose', text: 'Why Choose' },
+  { href: '#fees', text: 'Costs' },
+  { href: '#safety', text: 'Safety' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#accounts', text: 'Accounts' },
+  { href: '#deposits', text: 'Deposits' },
+  { href: '#instruments', text: 'Instruments' },
+  { href: '#pros-cons', text: 'Review' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+const heroScorecard = [
+  { value: '$200', label: 'Min Deposit' },
+  { value: '0.0 pips', label: 'Spreads From' },
+  { value: '2,250+', label: 'Instruments' },
+  { value: '4.6/5', label: 'Our Rating' }
+];
+
+const feeTableHeaders = ['Fee Type', 'IC Markets Standard', 'IC Markets Raw', 'Pepperstone', 'Industry Average'];
+const feeRows = [
+  {
+    cells: [
+      { content: 'EUR/USD Spread', type: 'text' },
+      { content: '0.8 pips', type: 'text', highlight: 'good' },
+      { content: '0.0 pips', type: 'text', highlight: 'best' },
+      { content: '0.1 pips', type: 'text', highlight: 'best' },
+      { content: '1.2 pips', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Commission', type: 'text' },
+      { content: '$0', type: 'text', highlight: 'best' },
+      { content: '$3.50/lot', type: 'text', highlight: 'best' },
+      { content: '$3.50/lot', type: 'text', highlight: 'best' },
+      { content: '$7/lot', type: 'text', highlight: 'neutral' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'GBP/USD Spread', type: 'text' },
+      { content: '1.0 pips', type: 'text', highlight: 'good' },
+      { content: '0.1 pips', type: 'text', highlight: 'best' },
+      { content: '0.2 pips', type: 'text', highlight: 'best' },
+      { content: '1.8 pips', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Deposit Fees', type: 'text' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Withdrawal Fees', type: 'text' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: 'Free', type: 'text', highlight: 'best' },
+      { content: '$25', type: 'text', highlight: 'warning' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Inactivity Fee', type: 'text' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: 'None', type: 'text', highlight: 'best' },
+      { content: '$10/month', type: 'text', highlight: 'warning' }
+    ]
+  }
+];
+
+const regulationLicenses = [
+  {
+    flag: '🇦🇺',
+    jurisdiction: 'Australia',
+    authority: 'ASIC',
+    licenseNumber: '335692',
+    compensation: 'Professional Indemnity',
+    status: 'verified',
+    description: 'ASIC regulation provides tier-1 oversight with strict capital requirements, client money segregation, and robust operational compliance frameworks. IC Markets has been ASIC-regulated since 2007.'
+  },
+  {
+    flag: '🇨🇾',
+    jurisdiction: 'Cyprus',
+    authority: 'CySEC',
+    licenseNumber: '362/18',
+    compensation: '€20,000',
+    status: 'verified',
+    description: 'CySEC regulation enables IC Markets to serve EU clients with MiFID II protections, Investor Compensation Fund coverage up to €20,000, and negative balance protection for retail clients.'
+  },
+  {
+    flag: '🇸🇨',
+    jurisdiction: 'Seychelles',
+    authority: 'FSA',
+    licenseNumber: 'SD018',
+    compensation: 'N/A',
+    status: 'active',
+    description: 'The Seychelles FSA license allows IC Markets to offer higher leverage options up to 1:500 for non-EU clients while maintaining standard operational requirements and client fund protection.'
+  }
+];
+
+const tradingPlatforms = [
+  {
+    name: 'MetaTrader 4',
+    logo: '/images/platforms/mt4-logo.svg',
+    description: 'Industry-standard platform with extensive EA support and advanced charting capabilities',
+    features: ['Expert Advisors', 'One-Click Trading', 'Custom Indicators', 'Alerts'],
+    availability: 'Desktop, Web, Mobile',
+    rating: 4.7,
+    supported: true
+  },
+  {
+    name: 'MetaTrader 5',
+    logo: '/images/platforms/mt5-logo.svg',
+    description: 'Next-generation trading platform with enhanced multi-asset capabilities',
+    features: ['Multi-Asset Trading', 'Depth of Market', 'Economic Calendar', '21 Timeframes'],
+    availability: 'Desktop, Web, Mobile',
+    rating: 4.6,
+    supported: true
+  },
+  {
+    name: 'cTrader',
+    logo: '/images/platforms/ctrader-logo.svg',
+    description: 'Professional-grade platform with level II pricing and advanced order types',
+    features: ['Level II Pricing', 'Advanced Charts', 'cAlgo Trading', 'Detach Charts'],
+    availability: 'Desktop, Web, Mobile',
+    rating: 4.8,
+    supported: true
+  },
+  {
+    name: 'TradingView',
+    logo: '/images/platforms/tradingview-logo.svg',
+    description: 'World-class charting platform with social features and direct trading',
+    features: ['Advanced Charting', 'Social Trading', 'Alerts', 'Pine Script'],
+    availability: 'Web, Mobile',
+    rating: 4.9,
+    supported: true
+  }
+];
+
+const paymentMethods = [
+  {
+    name: 'Bank Transfer',
+    icon: '/images/payment/bank-transfer.svg',
+    depositTime: '1-3 business days',
+    withdrawalTime: '1-3 business days',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$200',
+    maxDeposit: 'No limit',
+    supported: true
+  },
+  {
+    name: 'Credit/Debit Card',
+    icon: '/images/payment/visa-mastercard.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '3-5 business days',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$200',
+    maxDeposit: '$100,000',
+    supported: true
+  },
+  {
+    name: 'PayPal',
+    icon: '/images/payment/paypal.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '24 hours',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$200',
+    maxDeposit: '$50,000',
+    supported: true
+  },
+  {
+    name: 'Skrill',
+    icon: '/images/payment/skrill.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '24 hours',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$200',
+    maxDeposit: '$10,000',
+    supported: true
+  },
+  {
+    name: 'Neteller',
+    icon: '/images/payment/neteller.svg',
+    depositTime: 'Instant',
+    withdrawalTime: '24 hours',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$200',
+    maxDeposit: '$10,000',
+    supported: true
+  },
+  {
+    name: 'Cryptocurrency',
+    icon: '/images/payment/crypto.svg',
+    depositTime: 'Network confirmation',
+    withdrawalTime: '24 hours',
+    depositFee: 'Free',
+    withdrawalFee: 'Free',
+    minDeposit: '$200',
+    maxDeposit: 'No limit',
+    supported: true,
+    notes: 'BTC, ETH, USDT accepted'
+  }
+];
+
+const instrumentCategories = [
+  {
+    name: 'Forex',
+    icon: '💱',
+    count: 61,
+    description: 'Major, minor, and exotic currency pairs with institutional-grade liquidity',
+    examples: ['EUR/USD', 'GBP/USD', 'USD/JPY', 'AUD/NZD'],
+    details: {
+      spread: 'From 0.0 pips',
+      leverage: 'Up to 1:500',
+      commission: 'From $3/lot',
+      margin: '0.2%'
+    },
+    available: true
+  },
+  {
+    name: 'Indices',
+    icon: '📈',
+    count: 25,
+    description: 'Trade global stock indices with competitive spreads',
+    examples: ['S&P 500', 'NASDAQ 100', 'FTSE 100', 'DAX 40'],
+    details: {
+      spread: 'From 0.4 points',
+      leverage: 'Up to 1:200',
+      commission: 'No',
+      margin: '0.5%'
+    },
+    available: true
+  },
+  {
+    name: 'Commodities',
+    icon: '🛢️',
+    count: 22,
+    description: 'Precious metals, energy, and soft commodities with tight spreads',
+    examples: ['Gold', 'Silver', 'Crude Oil', 'Natural Gas'],
+    details: {
+      spread: 'From $0.02',
+      leverage: 'Up to 1:100',
+      commission: 'No',
+      margin: '1%'
+    },
+    available: true
+  },
+  {
+    name: 'Cryptocurrencies',
+    icon: '₿',
+    count: 21,
+    description: '24/7 crypto CFD trading with competitive conditions',
+    examples: ['Bitcoin', 'Ethereum', 'Litecoin', 'Ripple'],
+    details: {
+      spread: 'Variable',
+      leverage: 'Up to 1:10',
+      commission: 'No',
+      margin: '10%'
+    },
+    available: true
+  },
+  {
+    name: 'Stocks',
+    icon: '📊',
+    count: 2100,
+    description: 'CFDs on leading global stocks from US, EU, UK, and Australian markets',
+    examples: ['Apple', 'Tesla', 'Amazon', 'Microsoft'],
+    details: {
+      spread: 'From $0.01',
+      leverage: 'Up to 1:20',
+      commission: 'From $0.02/share',
+      margin: '5%'
+    },
+    available: true
+  },
+  {
+    name: 'Bonds',
+    icon: '📜',
+    count: 10,
+    description: 'Government bonds from major economies',
+    examples: ['US T-Bond', 'German Bund', 'UK Gilt', 'Japan JGB'],
+    details: {
+      spread: 'From 0.01',
+      leverage: 'Up to 1:100',
+      commission: 'No',
+      margin: '1%'
+    },
+    available: true
+  },
+  {
+    name: 'Futures',
+    icon: '📋',
+    count: 4,
+    description: 'Commodity futures on major products',
+    examples: ['Oil Futures', 'Gold Futures'],
+    details: {
+      spread: 'Variable',
+      leverage: 'Up to 1:100',
+      commission: 'No',
+      margin: '1%'
+    },
+    available: true
+  }
+];
+
+const prosConsData = {
+  pros: [
+    'True ECN execution with no dealing desk interference',
+    'Industry-leading raw spreads from 0.0 pips on major pairs',
+    '$1 trillion+ monthly trading volume for deep liquidity',
+    'Four professional platforms: MT4, MT5, cTrader, TradingView',
+    'ASIC and CySEC tier-1 regulation with segregated funds',
+    'No deposit or withdrawal fees on any payment method',
+    'No inactivity fees ever charged',
+    'Excellent for scalping, day trading, and algorithmic trading',
+    'Cryptocurrency deposits accepted (BTC, ETH, USDT)',
+    'Free VPS hosting for qualifying traders',
+    '2,250+ trading instruments across all asset classes',
+    'Ultra-fast execution under 40ms average'
+  ],
+  cons: [
+    '$200 minimum deposit may be higher than some competitors',
+    'Limited educational content for beginners',
+    'No proprietary trading platform',
+    'Basic research and analysis tools',
+    'No guaranteed stop losses available',
+    'Seychelles entity offers less regulatory protection'
+  ]
+};
+
+const faqData = [
+  {
+    question: 'Is IC Markets regulated and safe?',
+    answer: 'Yes, IC Markets is regulated by ASIC (Australia - License 335692) and CySEC (Cyprus - License 362/18). These are tier-1 regulatory bodies. Client funds are held in segregated accounts with major banks including Westpac and National Australia Bank. EU clients have access to the Investor Compensation Fund with coverage up to €20,000.'
+  },
+  {
+    question: 'What is IC Markets\' minimum deposit?',
+    answer: 'IC Markets requires a minimum deposit of $200 (or equivalent in other currencies). This applies to all account types including Standard, Raw Spread, and cTrader accounts. There are no differences in minimum deposit requirements between account types.'
+  },
+  {
+    question: 'Is IC Markets a true ECN broker?',
+    answer: 'Yes, IC Markets operates a true ECN/STP model with no dealing desk intervention. They aggregate liquidity from over 25 tier-1 banks and liquidity providers including JPMorgan, HSBC, Citibank, and UBS, passing orders directly to the interbank market with no last-look execution.'
+  },
+  {
+    question: 'What is IC Markets\' monthly trading volume?',
+    answer: 'IC Markets processes over $1 trillion in monthly trading volume, making them one of the largest forex brokers globally by volume. This exceptional volume contributes to their deep liquidity pools and consistently tight spreads across all trading sessions.'
+  },
+  {
+    question: 'Does IC Markets support TradingView?',
+    answer: 'Yes, IC Markets has a direct integration with TradingView, allowing you to trade directly from TradingView\'s world-class charting interface. This is in addition to MT4, MT5, and cTrader platforms, giving traders four professional platforms to choose from.'
+  },
+  {
+    question: 'Can I scalp with IC Markets?',
+    answer: 'Yes, IC Markets is excellent for scalping. There are no restrictions on trading styles including scalping, hedging, or news trading. Their true ECN execution, raw spreads from 0.0 pips, and high-speed infrastructure with Equinix servers make them ideal for high-frequency strategies.'
+  },
+  {
+    question: 'What leverage does IC Markets offer?',
+    answer: 'IC Markets offers up to 1:500 leverage through their Seychelles entity (FSA). EU clients via CySEC are limited to 1:30 for major forex pairs, 1:20 for minor pairs, and lower for other instruments per ESMA regulatory requirements. Australian retail clients have 1:30 leverage.'
+  },
+  {
+    question: 'Does IC Markets accept cryptocurrency deposits?',
+    answer: 'Yes, IC Markets accepts deposits in Bitcoin (BTC), Ethereum (ETH), and Tether (USDT). Crypto deposits are processed after network confirmations and converted to your account base currency. There are no fees charged by IC Markets for crypto deposits.'
+  },
+  {
+    question: 'How fast is IC Markets\' execution?',
+    answer: 'IC Markets offers ultra-fast execution with servers located in Equinix NY4 (New York) and LD5 (London) data centers. Average execution speed is under 40 milliseconds with minimal slippage due to their deep liquidity from 25+ providers. Free VPS hosting is available for qualifying traders.'
+  },
+  {
+    question: 'Does IC Markets charge inactivity fees?',
+    answer: 'No, IC Markets does not charge any inactivity fees regardless of how long your account remains dormant. Your account will remain active and fee-free regardless of trading activity, making them ideal for part-time traders.'
+  }
+];
+
+const verdictData = {
+  brokerName: BROKER_NAME,
+  overallRating: 4.6,
+  maxRating: 5,
+  ratingCategories: [
+    { name: 'Regulation & Safety', score: 4.5, maxScore: 5, description: 'ASIC and CySEC tier-1 regulation with segregated funds' },
+    { name: 'Trading Platforms', score: 4.8, maxScore: 5, description: 'Four platforms: MT4, MT5, cTrader, and TradingView' },
+    { name: 'Fees & Spreads', score: 4.9, maxScore: 5, description: 'Industry-best raw spreads from 0.0 pips' },
+    { name: 'Execution Quality', score: 4.9, maxScore: 5, description: 'True ECN with $1T+ monthly volume' },
+    { name: 'Customer Support', score: 4.2, maxScore: 5, description: '24/7 multilingual support via chat, email, phone' },
+    { name: 'Trading Instruments', score: 4.5, maxScore: 5, description: '2,250+ instruments across all asset classes' }
+  ],
+  verdict: 'IC Markets is a top-tier ECN broker that delivers on its promise of raw spreads, true ECN execution, and institutional-grade liquidity. Their $1 trillion+ monthly volume and four professional platform options make them one of the best choices for serious forex traders globally.',
+  recommendation: 'We recommend IC Markets for experienced traders, scalpers, day traders, and algorithmic traders who demand the tightest spreads and fastest execution. The $200 minimum deposit is accessible for most serious traders seeking professional trading conditions.',
+  bestFor: ['High-volume forex traders', 'Scalpers and day traders', 'Algorithmic and EA traders', 'Professional and institutional traders', 'Traders seeking true ECN execution', 'cTrader enthusiasts'],
+  notIdealFor: ['Complete beginners needing education', 'Traders wanting a proprietary platform', 'Those seeking extensive research tools', 'Casual investors trading infrequently', 'Traders requiring guaranteed stops'],
+  finalThoughts: 'IC Markets has built its reputation on execution quality and pricing transparency. If you want raw spreads, true ECN conditions, and access to deep institutional liquidity, IC Markets is hard to beat in today\'s retail broker market.',
+  ctaText: 'Open IC Markets Account',
+  ctaUrl: 'https://www.icmarkets.com/'
+};
+
+const whyChooseFeatures = [
+  { title: "True ECN", description: "No dealing desk, direct market access to 25+ liquidity providers", icon: "🎯" },
+  { title: "0.0 Spreads", description: "Raw spreads from zero pips on Raw Spread accounts", icon: "📊" },
+  { title: "$1T+ Volume", description: "Institutional-grade liquidity and deep order books", icon: "💹" },
+  { title: "4 Platforms", description: "MT4, MT5, cTrader, and TradingView integration", icon: "🖥️" }
+];
+
+const openingProcessSteps = [
+  { number: "1.", title: "Register Online", description: "Complete the application form with personal details in minutes", icon: "📝" },
+  { number: "2.", title: "Verify Identity", description: "Upload government ID and proof of address for KYC compliance", icon: "✅" },
+  { number: "3.", title: "Fund & Trade", description: "Deposit $200+ via card, bank, e-wallet, or crypto and start trading", icon: "💰" }
+];
+
+// Company Info sections for CompanyInfo component
+const companyInfoSections = [
+  {
+    title: "Deposits & Accounts",
+    icon: "💰",
+    items: [
+      { label: "Minimum Deposit", value: "$200", type: "currency" },
+      { label: "Base Currencies", value: "USD, EUR, GBP, AUD, JPY, CHF, NZD, SGD, HKD", type: "list" },
+      { label: "Islamic Account", value: "Available", type: "text" }
+    ]
+  },
+  {
+    title: "Trading Conditions",
+    icon: "📊",
+    items: [
+      { label: "Max Leverage", value: "1:500 (1:30 EU)", type: "text" },
+      { label: "Instruments", value: "2,250+", type: "text" },
+      { label: "Execution", value: "True ECN/STP", type: "text" }
+    ]
+  },
+  {
+    title: "Company Info",
+    icon: "🏛️",
+    items: [
+      { label: "Founded", value: "2007", type: "year" },
+      { label: "Headquarters", value: "Sydney, Australia", type: "location" },
+      { label: "Regulations", value: "ASIC, CySEC, FSA", type: "text" }
+    ]
+  }
+];
+
+// Schema data for IC Markets
+const icMarketsSchemaData = {
+  name: "IC Markets",
+  foundingDate: "2007",
+  headquarters: "Sydney, Australia",
+  regulators: ["ASIC", "CySEC", "FSA"],
+  minimumDeposit: "$200",
+  currencies: ["USD", "EUR", "GBP", "AUD", "JPY", "CHF", "NZD", "SGD", "HKD"],
+  maxLeverage: "1:500",
+  instrumentCount: "2,250+"
+};
+
+// Payment Details data
+const withdrawalDetails = [
+  {
+    icon: "💵",
+    label: "Minimum Withdrawal",
+    value: "$50 (or equivalent)"
+  },
+  {
+    icon: "⚡",
+    label: "Processing Times",
+    value: "E-wallets 24h, Cards 3-5 days, Bank 1-3 days"
+  },
+  {
+    icon: "🔐",
+    label: "First Withdrawal",
+    value: "Additional KYC verification may be required"
+  },
+  {
+    icon: "🛡️",
+    label: "Security",
+    value: "Withdrawals processed to original funding source only"
+  }
+];
+
+const paymentAnalysis = {
+  pros: [
+    "Zero fees on all deposit methods",
+    "Zero fees on all withdrawal methods",
+    "Cryptocurrency deposits accepted",
+    "Multiple e-wallet options",
+    "No inactivity fees ever"
+  ],
+  cons: [
+    "$200 minimum deposit higher than some brokers",
+    "Bank transfers can take 1-3 days",
+    "Crypto converted to fiat at market rate"
+  ]
+};
+
+const brokerSchema = generateBrokerSchema({
+  name: 'IC Markets',
+  url: 'https://www.icmarkets.com',
+  description: 'True ECN forex and CFD broker offering raw spreads from 0.0 pips with institutional-grade liquidity',
+  foundingDate: '2007',
+  headquarters: { country: 'Australia', city: 'Sydney' },
+  serviceTypes: ['ECN Forex Broker', 'CFD Broker'],
+  aggregateRating: { ratingValue: 4.6, reviewCount: 1 },
+  minDeposit: '$200'
+});
+
+const faqSchema = generateFAQSchema(faqData);
+const reviewSchema = generateReviewSchema({
+  itemReviewed: { type: 'FinancialService', name: 'IC Markets', url: 'https://www.icmarkets.com' },
+  reviewRating: { ratingValue: 4.6 },
+  datePublished: '2026-01-20',
+  reviewBody: verdictData.verdict
+});
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogType="article"
+  publishDate="2026-01-20"
+  modifiedDate="2026-01-20"
+  schema={[brokerSchema, faqSchema, reviewSchema, breadcrumbSchema]}
+>
+  <!-- SEO Meta Tags -->
+  <link slot="head" rel="canonical" href="https://tradetheday.com/brokers/ic-markets/" />
+  <meta slot="head" property="og:title" content="IC Markets Review 2026 – True ECN Broker with Raw Spreads" />
+  <meta slot="head" property="og:description" content="Complete IC Markets review. True ECN execution, raw spreads from 0.0 pips, $1T+ monthly volume. ASIC & CySEC regulated. 4.6/5 rating." />
+  <meta slot="head" property="og:type" content="article" />
+  <meta slot="head" property="og:url" content="https://tradetheday.com/brokers/ic-markets/" />
+  <meta slot="head" property="og:site_name" content="TradeTheDay" />
+  <meta slot="head" name="twitter:card" content="summary_large_image" />
+  <meta slot="head" name="author" content="TradeTheDay Research Team" />
+
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- HERO SECTION -->
+  <section class="hero section">
+    <div class="container">
+      <Chip variant="badge" size="sm">True ECN Broker</Chip>
+
+      <h1 class="heading-1">IC Markets Review 2026 – True ECN with $1T+ Monthly Volume</h1>
+
+      <p class="body-large hero-subtitle">
+        With raw spreads from 0.0 pips, $1 trillion+ monthly trading volume, and true ECN execution, we analyze whether IC Markets delivers the institutional-grade conditions serious traders demand.
+      </p>
+
+      <div class="hero-cta-group">
+        <a href="https://www.icmarkets.com/" class="btn btn-primary btn-xl btn-hero" target="_blank" rel="noopener sponsored">Open IC Markets Account →</a>
+        <a href="#verdict" class="btn btn-secondary btn-lg">Read Full Review</a>
+      </div>
+
+      <Scorecard metrics={heroScorecard} />
+
+      <!-- Review Meta -->
+      <div class="review-meta">
+        <span class="meta-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Last Updated: January 2026
+        </span>
+        <span class="meta-divider">|</span>
+        <span class="meta-item">Reviewed by TradeTheDay Research Team</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAVIGATION -->
+  <Navigation links={navigationLinks} />
+
+  <!-- OVERVIEW SECTION -->
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Complete IC Markets Overview</h2>
+        <p class="body-large">IC Markets is an Australian-based true ECN broker founded in 2007 in Sydney. Known for raw spreads starting from 0.0 pips, institutional-grade liquidity, and processing over $1 trillion in monthly trading volume, they serve professional traders globally with ASIC and CySEC tier-1 regulation.</p>
+      </div>
+
+      <!-- Analyst Notes - Overview -->
+      <AnalystNotes title="Analyst Notes  - Detailed IC Markets Analysis" id="overview-notes">
+        <h4>Analyst Insight: IC Markets' Market Position in 2026</h4>
+        <p>Founded in 2007 by Andrew Budzinski, IC Markets has grown from a small Australian broker into one of the world's largest forex brokers by trading volume. Their focus on true ECN execution and institutional-grade pricing has attracted a loyal following among professional traders, scalpers, and algorithmic trading firms.</p>
+
+        <p>What truly sets IC Markets apart is their trading volume – processing over $1 trillion monthly puts them in the same league as institutional platforms. This massive flow creates self-reinforcing liquidity that keeps spreads tight even during volatile sessions. Their infrastructure investment in Equinix NY4 and LD5 data centers ensures sub-40ms execution for traders worldwide.</p>
+
+        <p>The broker's decision to offer four professional platforms (MT4, MT5, cTrader, and TradingView) reflects their understanding that different trading styles require different tools. While MT4 remains dominant for EA traders, cTrader's advanced order management appeals to manual scalpers, and TradingView integration satisfies chartists who refuse to compromise on analysis tools.</p>
+
+        <h4>Should You Trade with IC Markets?</h4>
+        <p><strong>Analyst Verdict:</strong> IC Markets represents the gold standard for ECN forex trading. If you're a serious trader who demands raw spreads, true ECN execution, and deep liquidity, IC Markets should be at the top of your shortlist. The $200 minimum deposit is accessible, and the absence of inactivity fees makes them suitable for traders of all activity levels.</p>
+      </AnalystNotes>
+
+      <!-- Company Information -->
+      <CompanyInfo
+        title="Complete IC Markets Company Overview"
+        subtitle="Essential company information, trading conditions, and account details"
+        sections={companyInfoSections}
+        columns={3}
+        brokerName={BROKER_NAME}
+        schemaData={icMarketsSchemaData}
+      />
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE IC MARKETS SECTION -->
+  <section id="why-choose" class="section section-dark">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Why Choose IC Markets?</h2>
+        <p class="body-large">Four key reasons traders choose IC Markets over competitors</p>
+      </div>
+
+      <!-- Analyst Notes - Why Choose -->
+      <AnalystNotes title="Analyst Notes  - Why IC Markets Stands Out" id="why-choose-notes" variant="dark">
+        <h4>Analyst Insight: The True ECN Advantage</h4>
+        <p>In a market flooded with brokers claiming "ECN execution," IC Markets is one of the few that actually delivers. Their true ECN model means your orders go directly to liquidity providers without any dealing desk interference – no requotes, no price manipulation, just pure market execution.</p>
+
+        <h4>The Liquidity Moat</h4>
+        <p>IC Markets' $1 trillion+ monthly volume creates a virtuous cycle: more volume attracts more liquidity providers, which tightens spreads, which attracts more traders. They aggregate prices from over 25 tier-1 banks and liquidity providers including JPMorgan, HSBC, Citibank, UBS, and Credit Suisse. This deep liquidity means you can execute large positions without significant slippage – a critical advantage for professional traders.</p>
+
+        <h4>Infrastructure That Matters</h4>
+        <p>IC Markets has invested heavily in trading infrastructure with servers in Equinix NY4 (New York) and LD5 (London) data centers – the same facilities used by major banks and hedge funds. Average execution speed under 40ms and free VPS hosting for qualifying traders demonstrates their commitment to serving algorithmic and high-frequency traders.</p>
+
+        <h4>Platform Flexibility</h4>
+        <p>Offering MT4, MT5, cTrader, and TradingView under one roof is rare in the industry. This flexibility means you can run your legacy MT4 EAs while also accessing TradingView's superior charting or cTrader's advanced order management – all from the same account.</p>
+
+        <p><strong>Analyst Take:</strong> IC Markets' competitive moat is built on genuine execution quality and infrastructure investment, not marketing. For traders who understand the importance of these factors, IC Markets is the clear choice.</p>
+      </AnalystNotes>
+
+      <FeatureHighlights
+        features={whyChooseFeatures}
+        columns={4}
+        variant="dark"
+        brokerName={BROKER_NAME}
+        subtitle=""
+      />
+    </div>
+  </section>
+
+  <!-- FEES & SPREADS SECTION -->
+  <section id="fees" class="section">
+    <div class="container">
+      <ComparisonTable
+        title="IC Markets Fees & Spreads Compared"
+        subtitle="How IC Markets' costs stack up against Pepperstone and the Industry Average"
+        headers={feeTableHeaders}
+        rows={feeRows}
+        showGuide={true}
+      />
+
+      <CostAnalysis
+        content="IC Markets offers some of the lowest trading costs in the industry. Their Raw Spread account with 0.0 pip spreads plus $3.50 commission per lot is significantly cheaper than the $7/lot industry standard. The Standard account's 0.8 pip spreads with no commission is competitive with other market makers. Zero deposit fees, zero withdrawal fees, and zero inactivity fees make IC Markets exceptionally cost-effective for all trader types."
+        variant="info"
+      />
+    </div>
+  </section>
+
+  <!-- SAFETY & REGULATION SECTION -->
+  <section id="safety" class="section section-light">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Safety & Regulation</h2>
+        <p class="body-large">Multi-jurisdiction regulation with ASIC and CySEC tier-1 oversight</p>
+      </div>
+
+      <!-- Analyst Notes - Safety -->
+      <AnalystNotes title="Analyst Notes  - Regulatory Analysis & Fund Safety" id="safety-notes">
+        <h4>Understanding IC Markets' Regulatory Structure</h4>
+        <p>IC Markets operates under a multi-jurisdiction regulatory model that balances client protection with trading flexibility. Their Australian ASIC license (335692) has been active since 2007, providing nearly two decades of regulatory compliance history – an important trust signal in an industry where many brokers come and go.</p>
+
+        <p>The CySEC license (362/18) enables IC Markets to serve EU clients with full MiFID II protections, including the €20,000 Investor Compensation Fund coverage, negative balance protection, and leverage caps designed to protect retail traders from excessive risk.</p>
+
+        <h4>Fund Segregation & Security</h4>
+        <p>Client funds are held in segregated accounts with tier-1 banks including Westpac Banking Corporation and National Australia Bank. This segregation means your trading capital is legally separated from IC Markets' operational funds – in the unlikely event of broker insolvency, client funds cannot be used to pay creditors.</p>
+
+        <h4>The Seychelles Entity Consideration</h4>
+        <p>IC Markets' Seychelles entity (FSA SD018) allows them to offer higher leverage (up to 1:500) to non-EU clients. While Seychelles regulation offers less protection than ASIC or CySEC, it's a legitimate regulatory framework used by many brokers to serve international clients. Professional traders who understand leverage risks often prefer this flexibility.</p>
+
+        <p><strong>Analyst Take:</strong> IC Markets' 17+ year regulatory history with ASIC and their EU presence via CySEC provides strong assurance of their operational integrity. The multi-entity structure is standard industry practice and allows them to serve different client needs appropriately.</p>
+      </AnalystNotes>
+
+      <SimpleGrid columns={3}>
+        {regulationLicenses.map(reg => <RegulationCard {...reg} />)}
+      </SimpleGrid>
+
+      <!-- Client Fund Protection -->
+      <div class="client-fund-protection">
+        <div class="text-center mb-lg">
+          <h3 class="heading-3">Client Fund Protection</h3>
+          <p class="body-large">Multiple layers of security for your trading capital</p>
+        </div>
+
+        <div class="protection-features-grid">
+          <div class="protection-feature">
+            <div class="protection-icon">🛡️</div>
+            <h4 class="protection-title">Segregated Accounts</h4>
+            <p class="protection-description">Client funds held separately from company funds with tier-1 banks (Westpac, NAB)</p>
+          </div>
+          <div class="protection-feature">
+            <div class="protection-icon">🔒</div>
+            <h4 class="protection-title">Negative Balance Protection</h4>
+            <p class="protection-description">Account cannot go below zero for EU retail clients</p>
+          </div>
+          <div class="protection-feature">
+            <div class="protection-icon">💰</div>
+            <h4 class="protection-title">Compensation Schemes</h4>
+            <p class="protection-description">Up to €20,000 protection for EU clients via ICF</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADING PLATFORMS SECTION -->
+  <section id="platforms" class="section section-gray">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Trading Platforms</h2>
+        <p class="body-large">Four professional platforms including industry-first TradingView integration</p>
+      </div>
+
+      <!-- Analyst Notes - Platforms -->
+      <AnalystNotes title="Analyst Notes  - Platform Selection Strategy" id="platforms-notes">
+        <h4>IC Markets' Platform Advantage</h4>
+        <p>IC Markets offers what might be the most comprehensive platform lineup in retail forex: MetaTrader 4, MetaTrader 5, cTrader, and TradingView. This isn't just about choice – each platform serves a specific trader profile, and having all four under one broker eliminates the need to split your capital across multiple accounts.</p>
+
+        <h4>Platform Comparison: Which Should You Choose?</h4>
+        <div class="grid-2 mt-md mb-md">
+          <div>
+            <h5><strong>MetaTrader 4:</strong></h5>
+            <ul>
+              <li>Best for: EA and algorithmic traders</li>
+              <li>Largest marketplace of Expert Advisors</li>
+              <li>Maximum stability for automated systems</li>
+              <li>Extensive third-party indicator support</li>
+            </ul>
+          </div>
+          <div>
+            <h5><strong>MetaTrader 5:</strong></h5>
+            <ul>
+              <li>Best for: Multi-asset traders</li>
+              <li>21 timeframes vs MT4's 9</li>
+              <li>Built-in economic calendar</li>
+              <li>Improved backtesting capabilities</li>
+            </ul>
+          </div>
+        </div>
+        <div class="grid-2 mt-md mb-md">
+          <div>
+            <h5><strong>cTrader:</strong></h5>
+            <ul>
+              <li>Best for: Manual scalpers and day traders</li>
+              <li>Level II pricing and depth of market</li>
+              <li>Advanced order management</li>
+              <li>Detachable charts for multi-monitor setups</li>
+            </ul>
+          </div>
+          <div>
+            <h5><strong>TradingView:</strong></h5>
+            <ul>
+              <li>Best for: Technical analysis enthusiasts</li>
+              <li>World-class charting capabilities</li>
+              <li>Social features and idea sharing</li>
+              <li>Pine Script for custom indicators</li>
+            </ul>
+          </div>
+        </div>
+
+        <p><strong>Analyst Take:</strong> The TradingView integration is particularly noteworthy – IC Markets was among the first major brokers to offer direct trading from TradingView charts. This matters because many traders analyze on TradingView but were forced to execute on separate platforms, creating friction and potential errors.</p>
+      </AnalystNotes>
+
+      <PlatformGrid platforms={tradingPlatforms} />
+    </div>
+  </section>
+
+  <!-- ACCOUNT TYPES SECTION -->
+  <section id="accounts" class="section section-warm">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Account Types & Opening Process</h2>
+        <p class="body-large">Simple account setup with Raw Spread and Standard options for different trading styles</p>
+      </div>
+
+      <!-- Analyst Notes - Accounts -->
+      <AnalystNotes title="Analyst Notes  - Account Selection Guide" id="accounts-notes">
+        <h4>Raw Spread vs Standard: Which Account is Right for You?</h4>
+        <p>IC Markets offers two main account structures, each optimized for different trading approaches. Understanding the cost implications is crucial for maximizing your trading efficiency.</p>
+
+        <h4>Raw Spread Account Analysis</h4>
+        <p>The Raw Spread account offers spreads from 0.0 pips plus a $3.50 commission per lot per side ($7 round turn). This structure benefits high-volume traders because the cost is predictable and often lower than spread-only pricing. For example, on EUR/USD:</p>
+        <ul>
+          <li>Raw: 0.1 pip spread + $7 commission = $8 total cost per lot</li>
+          <li>Standard: 0.8 pip spread, no commission = $8 total cost per lot</li>
+        </ul>
+        <p>The breakeven is similar, but Raw Spread provides tighter entry/exit prices, which matters for scalping strategies.</p>
+
+        <h4>Standard Account Analysis</h4>
+        <p>The Standard account builds the commission into the spread (typically 0.8 pips on EUR/USD). This simplifies cost tracking and may appeal to traders who prefer all-inclusive pricing without calculating commissions.</p>
+
+        <h4>Leverage Considerations by Region</h4>
+        <ul>
+          <li><strong>EU Clients (CySEC):</strong> Maximum 1:30 on majors, 1:20 on minors per ESMA rules</li>
+          <li><strong>Australian Retail:</strong> Maximum 1:30 per ASIC requirements</li>
+          <li><strong>International (Seychelles):</strong> Up to 1:500 available</li>
+        </ul>
+
+        <p><strong>Analyst Take:</strong> For most active traders, the Raw Spread account offers better value due to tighter execution prices. The Standard account suits beginners who prefer simpler cost structures. Both account types have identical minimum deposits ($200) and access to all platforms.</p>
+      </AnalystNotes>
+
+      <!-- Account Types Table -->
+      <div class="table-container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Account Type</th>
+              <th>Minimum Deposit</th>
+              <th>Spreads</th>
+              <th>Commission</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>📊 Raw Spread (MT4/MT5)</strong></td>
+              <td><span class="highlight-good">$200</span></td>
+              <td><span class="highlight-best">From 0.0 pips</span></td>
+              <td>$3.50/lot</td>
+              <td>Scalpers, high-volume traders</td>
+            </tr>
+            <tr>
+              <td><strong>📈 Standard</strong></td>
+              <td><span class="highlight-good">$200</span></td>
+              <td>From 0.8 pips</td>
+              <td><span class="highlight-best">$0</span></td>
+              <td>Beginners, swing traders</td>
+            </tr>
+            <tr>
+              <td><strong>⚡ cTrader Raw</strong></td>
+              <td><span class="highlight-good">$200</span></td>
+              <td><span class="highlight-best">From 0.0 pips</span></td>
+              <td>$3/lot</td>
+              <td>cTrader users, manual scalpers</td>
+            </tr>
+            <tr>
+              <td><strong>☪️ Islamic</strong></td>
+              <td><span class="highlight-good">$200</span></td>
+              <td>Same as base account</td>
+              <td>Same as base</td>
+              <td>Sharia-compliant traders</td>
+            </tr>
+            <tr>
+              <td><strong>🎮 Demo</strong></td>
+              <td><span class="highlight-best">Free</span></td>
+              <td>Real market spreads</td>
+              <td>N/A</td>
+              <td>Practice, strategy testing</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Opening Process -->
+      <ProcessSteps
+        steps={openingProcessSteps}
+        columns={3}
+      />
+
+      <!-- ESMA Warning -->
+      <div class="callout callout-warning">
+        <p class="body"><strong>⚠️ Leverage Restrictions:</strong> EU and Australian retail clients are limited to maximum 1:30 leverage on major pairs per ESMA and ASIC regulations. Professional clients and international traders via Seychelles can access higher leverage up to 1:500.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOSITS & WITHDRAWALS SECTION -->
+  <section id="deposits" class="section section-gray">
+    <div class="container">
+      <PaymentMethods
+        title="Deposit & Withdrawal Methods"
+        subtitle="Zero fees on all deposit and withdrawal methods"
+        methods={paymentMethods}
+        variant="table"
+      />
+
+      <!-- Payment Details -->
+      <PaymentDetails
+        title="Withdrawal & Payment Information"
+        subtitle="Complete overview of payment processing, fees, and conditions"
+        withdrawalDetails={withdrawalDetails}
+        analysisTitle="Payment System Analysis"
+        analysis={paymentAnalysis}
+      />
+    </div>
+  </section>
+
+  <!-- TRADING INSTRUMENTS SECTION -->
+  <section id="instruments" class="section section-light">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Trading Instruments & Asset Classes</h2>
+        <p class="body-large">Access to 2,250+ instruments across forex, indices, commodities, crypto, stocks, bonds, and futures</p>
+      </div>
+
+      <TradingInstruments
+        title=""
+        subtitle=""
+        categories={instrumentCategories}
+        layout="grid"
+        showDetails={true}
+      />
+    </div>
+  </section>
+
+  <!-- PROS & CONS SECTION -->
+  <section id="pros-cons" class="section section-dark">
+    <div class="container">
+      <ProsCons
+        title="IC Markets Pros & Cons"
+        subtitle="Balanced analysis of IC Markets' strengths and weaknesses"
+        pros={prosConsData.pros}
+        cons={prosConsData.cons}
+        variant="dark"
+      />
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section id="faq" class="section section-gray">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Frequently Asked Questions</h2>
+        <p class="body-large">Expert answers to common IC Markets questions</p>
+      </div>
+
+      <div class="center-container">
+        {faqData.map((faq, index) => (
+          <div class="faq-item">
+            <button class="faq-question" data-faq-index={index}>
+              {faq.question}
+            </button>
+            <div class="faq-answer">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL VERDICT SECTION -->
+  <section id="verdict" class="section">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="heading-2">Final Verdict</h2>
+
+        <div class="rating">
+          <span class="stars">★★★★★</span>
+          <span class="rating-text">4.6/5</span>
+        </div>
+
+        <p class="body-large">IC Markets stands out as a premier ECN broker delivering genuine raw spreads, true ECN execution, and institutional-grade liquidity. With $1 trillion+ monthly volume, four professional platforms, and ASIC/CySEC regulation, they represent the gold standard for serious forex traders.</p>
+      </div>
+
+      <!-- Analyst Notes - Verdict -->
+      <AnalystNotes title="Analyst Notes  - Final Assessment & Recommendation" id="verdict-notes">
+        <h4>Market Position Analysis</h4>
+        <p>IC Markets has successfully positioned themselves as the go-to broker for professional retail traders who demand institutional-grade conditions. Their $1 trillion+ monthly volume isn't just a marketing number – it translates directly into tighter spreads, better fills, and reduced slippage that active traders can measure in their results.</p>
+
+        <h4>Competitive Advantages</h4>
+        <p>Three factors give IC Markets a sustainable competitive edge:</p>
+        <ol>
+          <li><strong>Liquidity depth:</strong> 25+ tier-1 liquidity providers create spreads that consistently beat competitors</li>
+          <li><strong>Infrastructure investment:</strong> Equinix data centers and sub-40ms execution attract algorithmic traders</li>
+          <li><strong>Platform diversity:</strong> Four professional platforms under one roof is unmatched in retail forex</li>
+        </ol>
+
+        <h4>Areas for Improvement</h4>
+        <p>IC Markets prioritizes execution over education. Beginners will find limited educational resources compared to brokers like AvaTrade or IG. The basic research tools mean serious analysts will need to supplement with external services. These are conscious trade-offs that align with their professional trader focus.</p>
+
+        <p><strong>Final Recommendation:</strong> IC Markets earns a strong 4.6/5 rating and our recommendation for experienced traders, scalpers, algorithmic traders, and anyone who prioritizes execution quality over hand-holding. If you understand what ECN execution means and why it matters, IC Markets delivers.</p>
+      </AnalystNotes>
+
+      <!-- Rating Breakdown -->
+      <div class="rating-breakdown mt-lg">
+        <h4 class="breakdown-title">Rating Breakdown</h4>
+        <div class="category-ratings">
+          {verdictData.ratingCategories.map((category) => {
+            const categoryPercentage = (category.score / category.maxScore) * 100;
+            return (
+              <div class="category-item">
+                <div class="category-header">
+                  <span class="category-name">{category.name}</span>
+                  <span class="category-score">{category.score}/{category.maxScore}</span>
+                </div>
+                <div class="category-bar">
+                  <div
+                    class="category-progress"
+                    style={`width: ${categoryPercentage}%`}
+                  ></div>
+                </div>
+                {category.description && (
+                  <p class="category-description">{category.description}</p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- Best For / Not Ideal For -->
+      <BestFor
+        bestFor={verdictData.bestFor}
+        notIdealFor={verdictData.notIdealFor}
+      />
+
+      <!-- CTA Section -->
+      <div class="cta-section">
+        <a href={verdictData.ctaUrl} target="_blank" rel="noopener sponsored" class="btn btn-primary btn-xxl">
+          {verdictData.ctaText} →
+        </a>
+
+        <p class="cta-link">
+          <em>or, <a href="/brokers/" class="brand-link">compare other brokers</a></em>
+        </p>
+
+        <p class="disclaimer-text">
+          <strong>Risk Disclaimer:</strong> Trading forex, CFDs, and crypto is high risk. 72–89% of retail investors lose money. Consider whether you can afford this risk.
+        </p>
+      </div>
+
+      <!-- Related Links -->
+      <div class="related-comparisons">
+        <h3 class="heading-3 text-center">Related Comparisons & Resources</h3>
+        <div class="related-links">
+          <a href="/compare/pepperstone-vs-ic-markets/" class="related-link">
+            <span class="related-title">IC Markets vs Pepperstone</span>
+            <span class="related-desc">ECN broker comparison - detailed analysis</span>
+          </a>
+          <a href="/brokers/pepperstone/" class="related-link">
+            <span class="related-title">Pepperstone Review</span>
+            <span class="related-desc">Top-tier ECN alternative to IC Markets</span>
+          </a>
+          <a href="/find-broker/" class="related-link">
+            <span class="related-title">Find Your Perfect Broker</span>
+            <span class="related-desc">AI-powered broker matching in 30 seconds</span>
+          </a>
+          <a href="/bonus-codes/" class="related-link">
+            <span class="related-title">All Bonus Codes</span>
+            <span class="related-desc">Exclusive partner codes for top brokers</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross Promotion Section -->
+  <section class="section section-gray">
+    <div class="container">
+      <BrokerCrossPromo brokerSlug="ic-markets" brokerName="IC Markets" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero-subtitle {
+    max-width: 800px;
+    margin: 0 auto var(--space-6);
+    color: var(--color-gray-300);
+  }
+
+  .hero-cta-group {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-8);
+  }
+
+  /* Review Meta */
+  .review-meta {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--gray-600, #4b5563);
+  }
+
+  .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .meta-item svg {
+    opacity: 0.7;
+  }
+
+  .meta-divider {
+    color: var(--gray-400, #9ca3af);
+  }
+
+  @media (max-width: 768px) {
+    .review-meta {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .meta-divider {
+      display: none;
+    }
+  }
+
+  /* Section Headers */
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-10);
+  }
+
+  .section-header h2 {
+    margin-bottom: var(--space-3);
+  }
+
+  .section-header p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--color-gray-600);
+  }
+
+  /* Client Fund Protection */
+  .client-fund-protection {
+    margin-top: 3rem;
+  }
+
+  .protection-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 0 auto;
+  }
+
+  .protection-feature {
+    text-align: center;
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+  }
+
+  .protection-feature:hover {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 8px 25px rgba(255, 72, 0, 0.15);
+    transform: translateY(-4px);
+  }
+
+  .protection-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .protection-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin: 0 0 1rem 0;
+    line-height: 1.3;
+  }
+
+  .protection-description {
+    font-size: 0.9375rem;
+    color: var(--gray-600, #4b5563);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .mb-lg {
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .protection-features-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      max-width: 400px;
+    }
+
+    .protection-feature {
+      padding: 1.75rem 1.25rem;
+    }
+
+    .protection-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .protection-title {
+      font-size: 1.125rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .protection-description {
+      font-size: 0.875rem;
+    }
+  }
+
+  /* Final CTA Section */
+  .final-cta {
+    text-align: center;
+    margin-top: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  .cta-subtext {
+    margin-top: var(--space-4);
+    color: var(--color-gray-600);
+  }
+
+  /* Rating Breakdown */
+  .rating-breakdown {
+    max-width: 600px;
+    margin: 2rem auto;
+  }
+
+  .breakdown-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .category-ratings {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .category-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+
+  .category-name {
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+  }
+
+  .category-score {
+    font-weight: 700;
+    color: var(--brand-orange, #ff4800);
+  }
+
+  .category-bar {
+    height: 8px;
+    background: var(--gray-200, #e5e7eb);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .category-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--brand-orange, #ff4800), #ff6a33);
+    border-radius: 4px;
+    transition: width 0.5s ease;
+  }
+
+  .category-description {
+    font-size: 0.875rem;
+    color: var(--gray-600, #4b5563);
+    margin-top: 0.375rem;
+    margin-bottom: 0;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-200, #e5e7eb);
+  }
+
+  .cta-link {
+    margin-top: 1rem;
+    color: var(--gray-600, #4b5563);
+  }
+
+  .disclaimer-text {
+    margin-top: 2rem;
+    font-size: 0.8125rem;
+    color: var(--gray-500, #6b7280);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Rating Stars */
+  .rating {
+    margin: 1rem 0 1.5rem;
+  }
+
+  .stars {
+    font-size: 2rem;
+    color: var(--brand-orange, #ff4800);
+  }
+
+  .rating-text {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--charcoal, #1e2427);
+    margin-top: 0.25rem;
+  }
+
+  /* Related Comparisons */
+  .related-comparisons {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray-200, #e5e7eb);
+  }
+
+  .related-comparisons h3 {
+    margin-bottom: 1.5rem;
+  }
+
+  .related-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .related-link {
+    display: block;
+    padding: 1.25rem;
+    background: var(--gray-50, #f9fafb);
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .related-link:hover {
+    border-color: var(--brand-orange, #ff4800);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .related-title {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 0.25rem;
+  }
+
+  .related-desc {
+    font-size: 0.875rem;
+    color: var(--gray-500, #6b7280);
+  }
+
+  @media (max-width: 768px) {
+    .related-links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // FAQ functionality
+  const faqButtons = document.querySelectorAll('.faq-question');
+
+  faqButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const faqItem = this.parentElement;
+      const isOpen = faqItem.classList.contains('active');
+
+      if (isOpen) {
+        faqItem.classList.remove('active');
+      } else {
+        faqItem.classList.add('active');
+      }
+    });
+  });
+});
+</script>

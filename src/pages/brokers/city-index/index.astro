@@ -1,0 +1,1793 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import CompanyInfo from '../../../components/CompanyInfo.astro';
+import CostAnalysis from '../../../components/CostAnalysis.astro';
+import PaymentDetails from '../../../components/PaymentDetails.astro';
+import FAQ from '../../../components/FAQ.astro';
+import TrustBadges from '../../../components/TrustBadges.astro';
+import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+import { brokers } from '../../../data/brokers';
+
+// Get broker data
+const broker = brokers.find(b => b.slug === 'city-index');
+
+const pageTitle = "City Index Review 2026: UK Spread Betting & CFDs - 40 Years of Excellence";
+const pageDescription = "Complete City Index review for 2026. FCA & ASIC regulated since 1983, TradingView integration, tax-free spread betting, 13,500+ markets. Honest analysis from TradeTheDay.";
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Brokers', href: '/brokers/' },
+  { text: 'City Index', current: true }
+];
+
+// Navigation sections
+const navSections = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'why-choose', label: 'Why Choose' },
+  { id: 'fees', label: 'Fees & Costs' },
+  { id: 'safety', label: 'Safety' },
+  { id: 'platforms', label: 'Platforms' },
+  { id: 'accounts', label: 'Accounts' },
+  { id: 'support', label: 'Support' },
+  { id: 'faq', label: 'FAQ' },
+  { id: 'verdict', label: 'Verdict' }
+];
+
+// Pros and Cons
+const pros = [
+  '40+ years of trading heritage since 1983 - one of UK\'s oldest brokers',
+  'Part of StoneX Group (NASDAQ: SNEX) - publicly traded financial stability',
+  'FCA and ASIC Tier-1 regulation with £85,000 FSCS protection',
+  'TradingView integration with direct execution - industry-leading feature',
+  'Tax-free spread betting for UK residents (no CGT or stamp duty)',
+  '13,500+ tradeable markets - exceptional instrument range',
+  'Award-winning proprietary platform with professional research',
+  'Free trading signals and comprehensive market analysis'
+];
+
+const cons = [
+  '£12/month inactivity fee after 12 months of no trading',
+  'Complex platforms may overwhelm complete beginners',
+  'Limited cryptocurrency selection (only ~10 coins)',
+  'No social or copy trading features available',
+  'MT4 only - no MetaTrader 5 support',
+  'Higher minimum for some premium features'
+];
+
+// FAQ Data
+const faqData = [
+  {
+    question: "Is City Index safe and regulated?",
+    answer: "Yes, City Index is exceptionally safe. They are regulated by the FCA (UK) with license 113942, ASIC (Australia) with license 345646, and MAS (Singapore). As part of StoneX Group, a NASDAQ-listed company, they benefit from corporate financial stability and public accountability. UK clients receive £85,000 FSCS protection."
+  },
+  {
+    question: "What is the minimum deposit for City Index?",
+    answer: "City Index requires a minimum deposit of £100 (or equivalent in other currencies). This provides full access to all 13,500+ markets, spread betting, CFD trading, and their complete platform suite including TradingView integration."
+  },
+  {
+    question: "Is spread betting on City Index tax-free?",
+    answer: "Yes, for UK residents, spread betting profits on City Index are completely tax-free. You pay no capital gains tax or stamp duty on spread betting profits. This is a significant advantage over CFD trading for UK traders who make consistent profits."
+  },
+  {
+    question: "Does City Index integrate with TradingView?",
+    answer: "Yes, City Index offers direct TradingView integration, allowing you to execute trades directly from TradingView charts. This means you get TradingView's superior charting, Pine Script custom indicators, community ideas, and multi-chart layouts with City Index's execution and pricing."
+  },
+  {
+    question: "What platforms does City Index offer?",
+    answer: "City Index offers four platforms: their award-winning proprietary web platform, TradingView integration for direct execution, MetaTrader 4 for EA traders, and mobile apps for iOS and Android. The proprietary platform is particularly strong for research and analysis."
+  },
+  {
+    question: "Does City Index charge inactivity fees?",
+    answer: "Yes, City Index charges a £12 monthly inactivity fee if there has been no trading activity for 12 consecutive months. This can easily be avoided by placing at least one trade per year to keep your account active."
+  },
+  {
+    question: "What leverage does City Index offer?",
+    answer: "City Index offers leverage up to 1:30 for major forex pairs, 1:20 for indices and commodities, 1:5 for individual stocks, and 1:2 for cryptocurrencies for UK retail clients. Professional clients can access higher leverage after qualification."
+  },
+  {
+    question: "Is City Index good for beginners?",
+    answer: "City Index is better suited for intermediate to advanced traders due to the platform complexity and feature depth. However, beginners can start with their free demo account, educational resources, and progress as they develop skills. The £100 minimum is accessible."
+  },
+  {
+    question: "What stocks can I trade on City Index?",
+    answer: "City Index offers spread betting and CFDs on over 9,500 stocks from global exchanges including UK (FTSE), US (NYSE, NASDAQ), European, and Asian markets. This includes major names like Apple, Tesla, BP, HSBC, and thousands more."
+  },
+  {
+    question: "How fast are withdrawals from City Index?",
+    answer: "Withdrawal speeds at City Index are competitive: PayPal withdrawals process within 24 hours, credit/debit cards take 2-5 business days, and bank transfers take 1-3 business days. All withdrawals are completely free of charge."
+  }
+];
+
+// Company Info sections for CompanyInfo component
+const companyInfoSections = [
+  {
+    title: "Deposits & Accounts",
+    icon: "💰",
+    items: [
+      { label: "Minimum Deposit", value: "£100", type: "currency" },
+      { label: "Base Currencies", value: "GBP, EUR, USD, AUD", type: "list" },
+      { label: "Islamic Account", value: "Not Available", type: "text" }
+    ]
+  },
+  {
+    title: "Trading Conditions",
+    icon: "📊",
+    items: [
+      { label: "Max Leverage", value: "1:30 (UK retail)", type: "text" },
+      { label: "Instruments", value: "13,500+", type: "text" },
+      { label: "Execution", value: "Market Maker", type: "text" }
+    ]
+  },
+  {
+    title: "Company Info",
+    icon: "🏛️",
+    items: [
+      { label: "Founded", value: "1983", type: "year" },
+      { label: "Headquarters", value: "London, UK", type: "location" },
+      { label: "Regulations", value: "FCA, ASIC, MAS", type: "text" }
+    ]
+  }
+];
+
+// Schema data for CompanyInfo component
+const companySchemaData = {
+  name: "City Index",
+  foundingDate: "1983",
+  headquarters: "London, United Kingdom",
+  regulators: ["FCA", "ASIC", "MAS"],
+  minimumDeposit: "£100",
+  currencies: ["GBP", "EUR", "USD", "AUD"],
+  maxLeverage: "1:30",
+  instrumentCount: "13,500+"
+};
+
+// Cost analysis data
+const costData = {
+  spreads: {
+    eurusd: '0.5 pips',
+    gbpusd: '0.9 pips',
+    usdjpy: '0.6 pips',
+    gold: '0.3 points'
+  },
+  commissions: {
+    forex: 'No commission (spread only)',
+    indices: 'No commission (spread only)',
+    stocks: '0.08% min £10',
+    crypto: 'No commission (spread only)'
+  },
+  overnight: 'Variable swap rates',
+  inactivity: '£12/month after 12 months',
+  deposit: 'Free',
+  withdrawal: 'Free'
+};
+
+// Payment methods (for display table)
+const paymentMethods = [
+  { method: 'Bank Transfer', depositTime: '1-3 days', withdrawTime: '1-3 days', fee: 'Free' },
+  { method: 'Credit/Debit Card', depositTime: 'Instant', withdrawTime: '2-5 days', fee: 'Free' },
+  { method: 'PayPal', depositTime: 'Instant', withdrawTime: '24 hours', fee: 'Free' },
+  { method: 'Apple Pay', depositTime: 'Instant', withdrawTime: 'N/A', fee: 'Free' }
+];
+
+// Payment Details Data (for PaymentDetails component)
+const withdrawalDetails = [
+  { icon: '💵', label: 'Minimum Deposit', value: '£100' },
+  { icon: '⚡', label: 'Deposit Processing', value: 'Instant (cards/e-wallets)' },
+  { icon: '🔐', label: 'All Fees', value: 'Free' },
+  { icon: '🛡️', label: 'Withdrawal Time', value: '24h - 5 days' }
+];
+
+const paymentAnalysis = {
+  pros: [
+    'All deposits and withdrawals completely free',
+    'Instant deposits via cards and e-wallets',
+    'PayPal withdrawals process within 24 hours',
+    'Multiple base currencies (GBP, EUR, USD, AUD)'
+  ],
+  cons: [
+    'Bank transfers take 1-3 business days',
+    '£100 minimum deposit required',
+    'Apple Pay deposits only (no withdrawals)'
+  ]
+};
+
+// Generate structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FinancialService",
+      "name": "City Index",
+      "description": pageDescription,
+      "url": "https://www.cityindex.com",
+      "logo": "https://www.cityindex.com/logo.png",
+      "foundingDate": "1983",
+      "parentOrganization": {
+        "@type": "Corporation",
+        "name": "StoneX Group Inc",
+        "tickerSymbol": "SNEX"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "London",
+        "addressCountry": "United Kingdom"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": broker?.scores.overall || 4.2,
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "3421"
+      }
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "FinancialService",
+        "name": "City Index"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": broker?.scores.overall || 4.2,
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "TradeTheDay"
+      },
+      "datePublished": "2026-01-20",
+      "dateModified": "2026-01-20"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqData.map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbItems.map((item, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": item.text,
+        "item": item.href ? `https://tradetheday.com${item.href}` : undefined
+      }))
+    }
+  ]
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </Fragment>
+
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero Section -->
+  <section class="broker-hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">UK Spread Betting Specialist Since 1983</div>
+        <h1 class="heading-1">City Index Review 2026</h1>
+        <p class="hero-tagline">40 Years of Trading Excellence with TradingView Integration</p>
+
+        <div class="hero-rating">
+          <div class="rating-score">{broker?.scores.overall || 4.2}</div>
+          <div class="rating-stars">★★★★☆</div>
+          <div class="rating-label">Our Rating</div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">{broker?.minDepositDisplay || '£100'}</span>
+            <span class="stat-label">Min Deposit</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">{broker?.spreadsFrom || '0.5 pips'}</span>
+            <span class="stat-label">Spreads From</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">{broker?.instrumentsDisplay || '13,500+'}</span>
+            <span class="stat-label">Markets</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">1983</span>
+            <span class="stat-label">Founded</span>
+          </div>
+        </div>
+
+        <div class="hero-trust">
+          <span class="trust-item">🇬🇧 FCA Regulated</span>
+          <span class="trust-item">🇦🇺 ASIC Licensed</span>
+          <span class="trust-item">📊 TradingView</span>
+          <span class="trust-item">🏛️ NASDAQ Parent</span>
+        </div>
+
+        <div class="hero-cta">
+          <a href="https://www.cityindex.com/" class="btn btn-primary btn-xl" target="_blank" rel="noopener sponsored">
+            Open City Index Account
+          </a>
+          <a href="#verdict" class="btn btn-secondary btn-lg">Read Full Verdict</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Navigation -->
+  <nav class="broker-nav">
+    <div class="container">
+      <ul class="nav-list">
+        {navSections.map(section => (
+          <li><a href={`#${section.id}`}>{section.label}</a></li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Overview Section -->
+  <section id="overview" class="section">
+    <div class="container">
+      <h2 class="heading-2">City Index Overview</h2>
+
+      <div class="overview-intro">
+        <p class="body-large">
+          City Index is one of the UK's most established spread betting and CFD brokers, with an unbroken 40+ year track record since 1983. Now part of StoneX Group (NASDAQ: SNEX), they combine decades of trading expertise with modern technology, most notably their industry-leading TradingView integration that allows direct execution from TradingView charts.
+        </p>
+        <p>
+          What sets City Index apart is their focus on serious traders. With 13,500+ markets, award-winning platforms, professional research, and tax-free spread betting for UK residents, they cater to those who demand institutional-quality tools. Their FCA and ASIC Tier-1 regulation provides best-in-class safety, while the StoneX backing ensures long-term financial stability.
+        </p>
+      </div>
+
+      <AnalystNotes
+        title="Analyst's Overview Notes"
+        icon="📊"
+        id="overview-notes"
+        variant="dark"
+      >
+        <h4>What Our Analysis Reveals</h4>
+        <p>
+          City Index represents the establishment end of UK retail trading. In a market increasingly dominated by aggressive fintech startups and social trading platforms, City Index takes a different approach: professional-grade tools, extensive research, and a focus on experienced traders who value substance over gimmicks.
+        </p>
+
+        <h5>The Heritage Factor</h5>
+        <p>
+          Forty years in business isn't just a marketing point -it's evidence of sustainable operations through multiple market cycles, regulatory changes, and industry upheavals. City Index has survived the 1987 crash, dot-com bubble, 2008 financial crisis, and countless other market events. This longevity provides genuine confidence that they'll be around for your trading career.
+        </p>
+
+        <h5>StoneX Backing</h5>
+        <p>
+          Being owned by StoneX Group (NASDAQ: SNEX) adds a layer of security that privately-held brokers can't match. StoneX is a Fortune 500 company with quarterly SEC filings, institutional oversight, and public accountability. If you're depositing substantial sums, this corporate structure matters.
+        </p>
+
+        <h5>Market Position Assessment</h5>
+        <p>
+          City Index positions themselves as the "professional trader's choice" in the UK market. They compete less on headline spreads and more on platform quality, research depth, and execution reliability. The TradingView integration is a genuine differentiator -few brokers offer direct execution from TradingView, making this a significant competitive advantage.
+        </p>
+
+        <h5>Who This Broker Suits</h5>
+        <p>
+          City Index is ideal for UK traders who want tax-free spread betting with professional tools, TradingView enthusiasts who want direct broker execution, and experienced traders who value research and analysis. Complete beginners or those seeking the absolute lowest costs should consider simpler alternatives.
+        </p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Pros & Cons Section -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="heading-2">City Index Pros & Cons</h2>
+
+      <div class="pros-cons-grid">
+        <div class="pros-card">
+          <h3 class="pros-title">✓ Advantages</h3>
+          <ul class="pros-list">
+            {pros.map(pro => (
+              <li>{pro}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="cons-card">
+          <h3 class="cons-title">✗ Disadvantages</h3>
+          <ul class="cons-list">
+            {cons.map(con => (
+              <li>{con}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Section -->
+  <section id="why-choose" class="section">
+    <div class="container">
+      <h2 class="heading-2">Why Choose City Index?</h2>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🏛️</div>
+          <h3>40+ Years Heritage</h3>
+          <p>Founded in 1983, one of the UK's oldest and most established spread betting providers.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>TradingView Integration</h3>
+          <p>Execute trades directly from TradingView charts. Industry-leading feature for technical analysts.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🇬🇧</div>
+          <h3>Tax-Free Spread Betting</h3>
+          <p>UK residents pay no capital gains tax or stamp duty on spread betting profits.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🌍</div>
+          <h3>13,500+ Markets</h3>
+          <p>One of the largest market selections available. Trade virtually any asset class.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🏢</div>
+          <h3>StoneX Backing</h3>
+          <p>Owned by NASDAQ-listed StoneX Group. Corporate financial stability and public accountability.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📈</div>
+          <h3>Professional Research</h3>
+          <p>Award-winning market analysis, trading signals, and comprehensive research tools included.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Why Choose City Index - Analyst's Perspective"
+        icon="🎯"
+        id="why-choose-notes"
+        variant="dark"
+      >
+        <h4>The Case for City Index</h4>
+        <p>
+          City Index makes sense for a specific type of trader: someone who values substance over flash, prefers professional tools over social features, and understands that the cheapest broker isn't always the best broker. If that describes you, City Index delivers genuine value.
+        </p>
+
+        <h5>The TradingView Advantage</h5>
+        <p>
+          The TradingView integration is genuinely transformative for technical traders. Most TradingView users have to manually copy signals to their broker, introducing delays and errors. With City Index, you can draw your analysis, set your alerts, and execute directly from the same interface. This workflow improvement is substantial for active traders who rely on TradingView's superior charting.
+        </p>
+
+        <h5>Tax-Free Trading Reality</h5>
+        <p>
+          For profitable UK traders, the tax advantages of spread betting are significant. A trader making £50,000 annual profit through CFDs would pay approximately £10,000 in capital gains tax (20%). The same profit through spread betting is tax-free. Over a trading career, this difference compounds dramatically. City Index's spread betting offering is among the best available.
+        </p>
+
+        <h5>The Research Edge</h5>
+        <p>
+          City Index includes professional-grade research that competitors often charge separately for. Their market analysis, trading signals, and commentary come from experienced analysts. For traders who incorporate fundamental analysis or need market context, this added value is meaningful -especially when compared to brokers offering bare-bones research.
+        </p>
+
+        <h5>Who Should Consider City Index</h5>
+        <ul>
+          <li><strong>UK Spread Bettors:</strong> Tax-free trading with professional tools</li>
+          <li><strong>TradingView Users:</strong> Direct execution from the world's best charting platform</li>
+          <li><strong>Technical Analysts:</strong> Superior charting and research integration</li>
+          <li><strong>Index Traders:</strong> Tight spreads on major indices with 24-hour access</li>
+          <li><strong>Safety-Conscious Traders:</strong> FCA + ASIC + NASDAQ parent company</li>
+        </ul>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Fees Section -->
+  <section id="fees" class="section section-alt">
+    <div class="container">
+      <h2 class="heading-2">City Index Fees & Spreads</h2>
+
+      <p class="section-intro">
+        City Index operates a spread-based model for most instruments, with commissions only applying to share CFDs (0.08% min £10). Their forex spreads start from 0.5 pips, which is competitive for a Tier-1 regulated broker. All deposits and withdrawals are free.
+      </p>
+
+      <CostAnalysis
+        spreads={costData.spreads}
+        commissions={costData.commissions}
+        overnight={costData.overnight}
+        inactivity={costData.inactivity}
+        depositFee={costData.deposit}
+        withdrawalFee={costData.withdrawal}
+      />
+
+      <div class="fee-comparison">
+        <h3>Spread Betting vs CFD Costs</h3>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Consideration</th>
+              <th>Spread Betting</th>
+              <th>CFDs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>UK Tax Status</td>
+              <td class="highlight-good">Tax-free profits</td>
+              <td>Subject to CGT</td>
+            </tr>
+            <tr>
+              <td>Spread</td>
+              <td>Same as CFDs</td>
+              <td>Same as spread betting</td>
+            </tr>
+            <tr>
+              <td>Position Sizing</td>
+              <td>£ per point</td>
+              <td>Contracts/lots</td>
+            </tr>
+            <tr>
+              <td>Hedging</td>
+              <td>Limited</td>
+              <td class="highlight-good">More flexibility</td>
+            </tr>
+            <tr>
+              <td>Best For</td>
+              <td>UK traders, tax efficiency</td>
+              <td>International, hedging</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <AnalystNotes
+        title="Fee Analysis - Analyst's Breakdown"
+        icon="💰"
+        id="fees-notes"
+        variant="dark"
+      >
+        <h4>Understanding City Index's Cost Structure</h4>
+        <p>
+          City Index isn't the cheapest broker on every metric, but their pricing is competitive when you consider what you're getting: Tier-1 regulation, professional platforms, TradingView integration, and comprehensive research. Let's break down the real costs.
+        </p>
+
+        <h5>Forex Spread Analysis</h5>
+        <p>
+          EUR/USD from 0.5 pips is competitive for an FCA-regulated broker. Compare this to discount brokers claiming 0.0 pips but adding commissions -City Index's all-in cost is often similar. For UK spread bettors, the tax savings far outweigh any marginal spread difference. On major pairs, City Index's pricing is fair.
+        </p>
+
+        <h5>Index Spread Excellence</h5>
+        <p>
+          City Index really shines on indices. UK 100 from 0.8 points, Wall Street from 1.0 points -these are among the tightest spreads available for spread betting. For traders focused on index movements, City Index is genuinely competitive. The 24-hour index trading also provides flexibility that some competitors lack.
+        </p>
+
+        <h5>Stock Trading Costs</h5>
+        <p>
+          Share CFDs carry a 0.08% commission with a £10 minimum. This is slightly below IG's 0.1% and competitive with the industry. For active stock traders, this commission is reasonable; for occasional stock trades, the £10 minimum means small positions are less cost-effective.
+        </p>
+
+        <h5>The Inactivity Fee Reality</h5>
+        <p>
+          The £12/month inactivity fee after 12 months is higher than some competitors (typically £10). However, it only applies after a full year of no activity -if you're inactive that long, the fee is the least of your concerns. Place one trade annually to avoid it entirely.
+        </p>
+
+        <h5>Total Cost Perspective</h5>
+        <p>
+          For UK spread bettors, the tax savings on profits make City Index incredibly cost-effective despite slightly higher spreads than some discount brokers. A profitable trader saving £10,000+ in annual CGT easily covers any spread differential. Factor in the free TradingView integration (TradingView Pro costs £165/year), and City Index's value proposition is strong.
+        </p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Safety Section -->
+  <section id="safety" class="section">
+    <div class="container">
+      <h2 class="heading-2">City Index Safety & Regulation</h2>
+
+      <div class="safety-intro">
+        <p class="body-large">
+          City Index holds Tier-1 regulation from the FCA (UK) and ASIC (Australia), plus MAS authorization for Singapore. As part of StoneX Group (NASDAQ: SNEX), they benefit from publicly-traded corporate oversight. UK clients receive £85,000 FSCS protection -one of the highest compensation limits globally.
+        </p>
+      </div>
+
+      <div class="regulation-grid">
+        <div class="regulation-card">
+          <div class="reg-flag">🇬🇧</div>
+          <div class="reg-details">
+            <h4>FCA (United Kingdom)</h4>
+            <p class="reg-number">License: 113942</p>
+            <p class="reg-tier">Tier 1 Regulator</p>
+            <p>Financial Conduct Authority provides gold-standard regulation. UK clients benefit from £85,000 FSCS protection, Financial Ombudsman access, and strict operational requirements.</p>
+          </div>
+        </div>
+
+        <div class="regulation-card">
+          <div class="reg-flag">🇦🇺</div>
+          <div class="reg-details">
+            <h4>ASIC (Australia)</h4>
+            <p class="reg-number">License: 345646</p>
+            <p class="reg-tier">Tier 1 Regulator</p>
+            <p>Australian Securities and Investments Commission regulation for Australian clients. Strict compliance, segregated funds, and AFCA dispute resolution.</p>
+          </div>
+        </div>
+
+        <div class="regulation-card">
+          <div class="reg-flag">🇸🇬</div>
+          <div class="reg-details">
+            <h4>MAS (Singapore)</h4>
+            <p class="reg-number">License: CMS100035</p>
+            <p class="reg-tier">Tier 1 Regulator</p>
+            <p>Monetary Authority of Singapore provides robust regulatory oversight for Asian clients with high compliance standards.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="safety-features">
+        <h3>Client Protection Measures</h3>
+        <div class="protection-grid">
+          <div class="protection-item">
+            <span class="protection-icon">🏦</span>
+            <h4>Segregated Funds</h4>
+            <p>Client funds held separately from company funds in major UK banks</p>
+          </div>
+          <div class="protection-item">
+            <span class="protection-icon">🛡️</span>
+            <h4>£85,000 FSCS</h4>
+            <p>Financial Services Compensation Scheme protection for UK clients</p>
+          </div>
+          <div class="protection-item">
+            <span class="protection-icon">📈</span>
+            <h4>NASDAQ Parent</h4>
+            <p>StoneX Group provides corporate financial stability and public oversight</p>
+          </div>
+          <div class="protection-item">
+            <span class="protection-icon">🔒</span>
+            <h4>Negative Balance</h4>
+            <p>Cannot lose more than deposited under FCA retail client rules</p>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Safety Assessment - Analyst's View"
+        icon="🔒"
+        id="safety-notes"
+        variant="dark"
+      >
+        <h4>Regulatory Strength Analysis</h4>
+        <p>
+          City Index's safety profile is among the strongest in the retail trading industry. The combination of FCA + ASIC Tier-1 regulation, 40-year track record, and NASDAQ-listed parent company creates a layered security structure that few competitors can match.
+        </p>
+
+        <h5>FCA Regulation Deep Dive</h5>
+        <p>
+          The FCA is consistently ranked among the world's strictest financial regulators. City Index must maintain substantial capital reserves, submit to regular audits, keep client funds in UK-regulated banks, and follow extensive conduct rules. The £85,000 FSCS protection is significantly higher than EU schemes (€20,000), providing genuine safety for substantial deposits.
+        </p>
+
+        <h5>The StoneX Factor</h5>
+        <p>
+          Being owned by a NASDAQ-listed company adds accountability that privately-held brokers lack. StoneX files quarterly SEC reports, maintains institutional compliance, and faces public market scrutiny. If anything went wrong, there's corporate accountability and assets to pursue. This structure provides peace of mind for larger account holders.
+        </p>
+
+        <h5>40-Year Track Record</h5>
+        <p>
+          City Index has operated continuously since 1983, surviving every major market crisis without client fund issues. This operational history demonstrates sustainable practices and effective risk management. In an industry where brokers regularly fail, this track record is genuinely impressive.
+        </p>
+
+        <h5>Realistic Risk Assessment</h5>
+        <p>
+          No broker is zero-risk, but City Index is about as safe as retail brokers get. The combination of Tier-1 regulation, FSCS protection, corporate backing, and operational history puts them in the top tier of broker safety. For traders prioritizing fund security, City Index provides genuine confidence.
+        </p>
+
+        <h5>Safety Verdict</h5>
+        <p>
+          City Index is among the safest broker choices available. FCA regulation with £85,000 protection, ASIC oversight, NASDAQ parent company, and 40-year track record create comprehensive safety. If you're depositing substantial sums or simply value regulatory protection, City Index delivers.
+        </p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Platforms Section -->
+  <section id="platforms" class="section section-alt">
+    <div class="container">
+      <h2 class="heading-2">City Index Trading Platforms</h2>
+
+      <p class="section-intro">
+        City Index offers four trading platforms: their award-winning proprietary web platform, industry-leading TradingView integration, MetaTrader 4 for EA traders, and full-featured mobile apps. The TradingView integration is particularly notable -few brokers offer direct execution from TradingView.
+      </p>
+
+      <div class="platforms-grid">
+        <div class="platform-card">
+          <h3>City Index Web Platform</h3>
+          <div class="platform-rating">★★★★½</div>
+          <p>Award-winning proprietary platform with advanced charting, market analysis, trading signals, and customizable layouts. Excellent for research-focused traders.</p>
+          <ul class="platform-features">
+            <li>Advanced charting</li>
+            <li>Market analysis</li>
+            <li>Trading signals</li>
+            <li>Price alerts</li>
+            <li>Customizable layouts</li>
+          </ul>
+        </div>
+
+        <div class="platform-card featured">
+          <div class="featured-badge">Standout Feature</div>
+          <h3>TradingView Integration</h3>
+          <div class="platform-rating">★★★★★</div>
+          <p>Execute trades directly from TradingView charts. Access Pine Script, community ideas, and superior charting with City Index pricing and execution.</p>
+          <ul class="platform-features">
+            <li>Direct execution</li>
+            <li>Pine Script support</li>
+            <li>Community ideas</li>
+            <li>Multi-chart layouts</li>
+            <li>Superior charting</li>
+          </ul>
+        </div>
+
+        <div class="platform-card">
+          <h3>MetaTrader 4</h3>
+          <div class="platform-rating">★★★★½</div>
+          <p>Industry-standard platform with full Expert Advisor support. Essential for traders using automated strategies or preferring the MT4 ecosystem.</p>
+          <ul class="platform-features">
+            <li>Expert Advisors (EAs)</li>
+            <li>Custom indicators</li>
+            <li>Automated trading</li>
+            <li>Strategy backtesting</li>
+            <li>Mobile apps</li>
+          </ul>
+        </div>
+
+        <div class="platform-card">
+          <h3>Mobile Apps</h3>
+          <div class="platform-rating">★★★★</div>
+          <p>Full-featured iOS and Android apps with biometric login, advanced charting, push notifications, and complete account management.</p>
+          <ul class="platform-features">
+            <li>Biometric login</li>
+            <li>Advanced charting</li>
+            <li>Push notifications</li>
+            <li>Full trading</li>
+            <li>Account management</li>
+          </ul>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Platform Analysis - Analyst's Deep Dive"
+        icon="🖥️"
+        id="platforms-notes"
+        variant="dark"
+      >
+        <h4>Platform Ecosystem Evaluation</h4>
+        <p>
+          City Index's platform strategy centers on their TradingView integration -a genuine differentiator that elevates them above competitors relying solely on MT4/MT5. For traders who use TradingView (and millions do), this integration is transformative.
+        </p>
+
+        <h5>TradingView Integration: A Game Changer</h5>
+        <p>
+          The ability to execute directly from TradingView is rare and valuable. TradingView's charting is widely considered the best in the industry, but most users have to manually transfer signals to their broker. City Index eliminates this friction -draw your trendlines, set your alerts, and execute without leaving TradingView. For technical traders, this workflow improvement is substantial.
+        </p>
+
+        <h5>Proprietary Platform Assessment</h5>
+        <p>
+          City Index's web platform is genuinely good -not just adequate. The charting is comprehensive, the research integration is seamless, and the trading signals add real value. It may lack TradingView's charting depth, but for traders who want everything in one interface with integrated research, it's excellent.
+        </p>
+
+        <h5>MT4 Reality</h5>
+        <p>
+          City Index offers MT4 but not MT5. For traders using Expert Advisors, this is fine -most EAs are MT4-based anyway. However, traders wanting MT5's additional features or who've built MT5-specific strategies will be disappointed. If MT5 is essential, look elsewhere.
+        </p>
+
+        <h5>Mobile Experience</h5>
+        <p>
+          The City Index mobile apps are polished and fully functional. Biometric login adds convenience, the charting is better than most mobile platforms, and you can manage your entire account on the go. For traders who need mobile access, the apps deliver.
+        </p>
+
+        <h5>Platform Recommendation</h5>
+        <p>
+          Use TradingView integration if you're a technical trader who relies on charting. Use the City Index web platform if you want integrated research and signals. Use MT4 if you run Expert Advisors. The mobile apps work well for monitoring and quick trades on the go.
+        </p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Account Types Section -->
+  <section id="accounts" class="section">
+    <div class="container">
+      <h2 class="heading-2">City Index Account Types</h2>
+
+      <div class="accounts-grid">
+        <div class="account-card featured">
+          <div class="featured-badge">Standard Account</div>
+          <h3>Spread Betting Account</h3>
+          <div class="account-feature highlight">Tax-Free (UK)</div>
+          <ul class="account-details">
+            <li><strong>Spreads:</strong> From 0.5 pips</li>
+            <li><strong>Commission:</strong> No commission</li>
+            <li><strong>Min Deposit:</strong> £100</li>
+            <li><strong>Leverage:</strong> Up to 30:1</li>
+            <li><strong>Tax:</strong> Tax-free profits</li>
+            <li><strong>Markets:</strong> 13,500+</li>
+          </ul>
+          <p class="account-description">UK residents only. Tax-free profits with no capital gains tax or stamp duty. Position sizes in £ per point.</p>
+        </div>
+
+        <div class="account-card">
+          <h3>CFD Account</h3>
+          <div class="account-feature highlight">International</div>
+          <ul class="account-details">
+            <li><strong>Spreads:</strong> From 0.5 pips</li>
+            <li><strong>Commission:</strong> 0.08% on shares</li>
+            <li><strong>Min Deposit:</strong> £100</li>
+            <li><strong>Leverage:</strong> Up to 30:1</li>
+            <li><strong>Tax:</strong> Subject to CGT</li>
+            <li><strong>Markets:</strong> 13,500+</li>
+          </ul>
+          <p class="account-description">Available internationally. More flexible for hedging. Position sizes in contracts/lots.</p>
+        </div>
+
+        <div class="account-card">
+          <h3>Professional Account</h3>
+          <div class="account-feature highlight">Higher Leverage</div>
+          <ul class="account-details">
+            <li><strong>Spreads:</strong> Same as retail</li>
+            <li><strong>Commission:</strong> Same as retail</li>
+            <li><strong>Min Deposit:</strong> £100</li>
+            <li><strong>Leverage:</strong> Up to 200:1</li>
+            <li><strong>Protection:</strong> Reduced</li>
+            <li><strong>Qualification:</strong> Required</li>
+          </ul>
+          <p class="account-description">Must meet 2 of 3 criteria: trading frequency, portfolio size, or professional experience. Reduced regulatory protection.</p>
+        </div>
+      </div>
+
+      <p class="accounts-note">UK traders can have both Spread Betting and CFD accounts to use each where appropriate.</p>
+    </div>
+  </section>
+
+  <!-- Deposits & Withdrawals Section -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="heading-2">Deposits & Withdrawals</h2>
+
+      <PaymentDetails
+        title="Withdrawal & Payment Information"
+        subtitle="Complete overview of payment processing, fees, and conditions"
+        withdrawalDetails={withdrawalDetails}
+        analysisTitle="Payment System Analysis"
+        analysis={paymentAnalysis}
+      />
+    </div>
+  </section>
+
+  <!-- Customer Support Section -->
+  <section id="support" class="section">
+    <div class="container">
+      <h2 class="heading-2">Customer Support</h2>
+
+      <div class="support-grid">
+        <div class="support-card">
+          <div class="support-icon">📞</div>
+          <h3>Phone Support</h3>
+          <p>UK-based telephone support</p>
+          <p class="support-hours">Mon-Fri: 8am-9pm GMT</p>
+        </div>
+
+        <div class="support-card">
+          <div class="support-icon">💬</div>
+          <h3>Live Chat</h3>
+          <p>Real-time web chat assistance</p>
+          <p class="support-hours">Mon-Fri: 8am-9pm GMT</p>
+        </div>
+
+        <div class="support-card">
+          <div class="support-icon">✉️</div>
+          <h3>Email Support</h3>
+          <p>Detailed query resolution</p>
+          <p class="support-hours">Response within 24 hours</p>
+        </div>
+
+        <div class="support-card">
+          <div class="support-icon">📚</div>
+          <h3>Help Center</h3>
+          <p>Comprehensive knowledge base</p>
+          <p class="support-hours">Available 24/7</p>
+        </div>
+      </div>
+
+      <div class="support-note">
+        <p><strong>Note:</strong> City Index's UK-based support team is knowledgeable and professional. While they're not available 24/7, coverage during UK market hours is comprehensive. The FCA regulation also gives UK clients access to the Financial Ombudsman for unresolved complaints.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="section section-alt">
+    <div class="container container-narrow">
+      <h2 class="heading-2">Frequently Asked Questions</h2>
+      <FAQ questions={faqData} />
+    </div>
+  </section>
+
+  <!-- Verdict Section -->
+  <section id="verdict" class="section">
+    <div class="container">
+      <h2 class="heading-2">City Index Final Verdict</h2>
+
+      <div class="verdict-summary">
+        <div class="verdict-score">
+          <div class="score-large">{broker?.scores.overall || 4.2}</div>
+          <div class="score-stars">★★★★☆</div>
+          <div class="score-label">Overall Rating</div>
+        </div>
+
+        <div class="verdict-breakdown">
+          <div class="rating-row">
+            <span class="rating-category">Safety</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 94%"></span></span>
+            <span class="rating-value">4.7</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Platforms</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 88%"></span></span>
+            <span class="rating-value">4.4</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Research</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 86%"></span></span>
+            <span class="rating-value">4.3</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Education</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 84%"></span></span>
+            <span class="rating-value">4.2</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Customer Service</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 82%"></span></span>
+            <span class="rating-value">4.1</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Fees & Spreads</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 78%"></span></span>
+            <span class="rating-value">3.9</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="verdict-recommendation">
+        <h3>Best For</h3>
+        <ul class="best-for-list">
+          <li>UK traders seeking tax-free spread betting with professional tools</li>
+          <li>TradingView enthusiasts wanting direct broker execution</li>
+          <li>Technical analysts requiring superior charting integration</li>
+          <li>Safety-conscious traders valuing FCA + ASIC + NASDAQ backing</li>
+          <li>Research-focused traders wanting comprehensive analysis</li>
+        </ul>
+
+        <h3>Not Ideal For</h3>
+        <ul class="not-for-list">
+          <li>Complete beginners (platform complexity)</li>
+          <li>Cryptocurrency-focused traders (limited selection)</li>
+          <li>Social/copy trading users (no features)</li>
+          <li>Those seeking absolute lowest costs</li>
+        </ul>
+      </div>
+
+      <AnalystNotes
+        title="Final Verdict - Analyst's Conclusion"
+        icon="⚖️"
+        id="verdict-notes"
+        variant="dark"
+      >
+        <h4>The Bottom Line on City Index</h4>
+        <p>
+          City Index represents the gold standard of UK spread betting: 40 years of heritage, Tier-1 regulation, NASDAQ corporate backing, and industry-leading TradingView integration. They're not the cheapest broker, but they deliver genuine value for traders who appreciate professional-grade tools and regulatory safety.
+        </p>
+
+        <h5>Strengths That Matter</h5>
+        <p>
+          The TradingView integration alone makes City Index compelling for technical traders. Add tax-free spread betting for UK residents, comprehensive research, 13,500+ markets, and FCA + ASIC regulation, and you have a complete package for serious trading. The StoneX backing provides confidence that few privately-held brokers can match.
+        </p>
+
+        <h5>Limitations to Consider</h5>
+        <p>
+          City Index isn't for everyone. The platform depth may overwhelm beginners. The £12/month inactivity fee requires annual activity. Limited crypto selection disappoints those wanting extensive digital asset access. No social trading means looking elsewhere for community features. The focus is clearly on experienced, independent traders.
+        </p>
+
+        <h5>The Value Proposition</h5>
+        <p>
+          For UK spread bettors, the tax savings alone justify City Index. A profitable trader saves thousands annually in capital gains tax -far more than any spread differential with discount brokers. Add TradingView integration (worth £165/year), professional research, and unmatched safety, and City Index delivers genuine value despite not being the cheapest option.
+        </p>
+
+        <h5>Our Recommendation</h5>
+        <p>
+          We confidently recommend City Index for UK traders seeking tax-free spread betting with professional tools, TradingView users wanting seamless broker integration, and anyone prioritizing safety and research. They're a premium choice that delivers premium value -just ensure you're active enough to avoid the inactivity fee.
+        </p>
+
+        <h5>Final Score Justification</h5>
+        <p>
+          Our 4.2/5 rating reflects City Index's exceptional safety (4.7), strong platforms (4.4), and comprehensive research (4.3), balanced against slightly higher costs (3.9). They excel at what they focus on -professional spread betting for serious UK traders -while accepting they're not competing for beginner market share. For their target audience, they're among the best choices available.
+        </p>
+      </AnalystNotes>
+
+      <div class="verdict-cta">
+        <a href="https://www.cityindex.com/" class="btn btn-primary btn-xl" target="_blank" rel="noopener sponsored">
+          Open City Index Account
+        </a>
+        <p class="cta-note">£100 minimum deposit • FCA regulated • Tax-free spread betting</p>
+        <p class="cta-links">
+          <a href="/compare/" class="text-link">Compare with other brokers</a> |
+          <a href="/brokers/" class="text-link">View all broker reviews</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Info -->
+  <section class="section section-alt">
+    <div class="container">
+      <CompanyInfo
+        title="Complete City Index Company Overview"
+        subtitle="Essential company information, trading conditions, and account details"
+        sections={companyInfoSections}
+        columns={3}
+        brokerName="City Index"
+        schemaData={companySchemaData}
+      />
+    </div>
+  </section>
+
+  <TrustBadges variant="light" compact={true} />
+
+  <!-- Cross Promotion Section -->
+  <section class="section section-gray">
+    <div class="container">
+      <BrokerCrossPromo brokerSlug="city-index" brokerName="City Index" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .broker-hero {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    padding: var(--space-2xl) 0;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255, 72, 0, 0.15);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+    color: var(--brand-orange);
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-hero .heading-1 {
+    color: var(--white);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero-tagline {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-rating {
+    margin-bottom: var(--space-lg);
+  }
+
+  .rating-score {
+    font-size: 3rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+    line-height: 1;
+  }
+
+  .rating-stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+  }
+
+  .rating-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-size-sm);
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    display: block;
+    color: var(--white);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .stat-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-size-sm);
+  }
+
+  .hero-trust {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-xl);
+  }
+
+  .trust-item {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-size-sm);
+  }
+
+  .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  /* Navigation */
+  .broker-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-list {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) 0;
+    list-style: none;
+    margin: 0;
+    flex-wrap: wrap;
+  }
+
+  .nav-list a {
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+  }
+
+  .nav-list a:hover {
+    background: var(--gray-100);
+    color: var(--brand-orange);
+  }
+
+  /* Section Styles */
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .section-alt {
+    background: var(--gray-50);
+  }
+
+  .section-intro {
+    font-size: var(--font-size-lg);
+    color: var(--gray-600);
+    max-width: 800px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .container-narrow {
+    max-width: 800px;
+  }
+
+  /* Overview */
+  .overview-intro {
+    max-width: 900px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .overview-intro p {
+    margin-bottom: var(--space-md);
+    color: var(--gray-700);
+  }
+
+  /* Pros & Cons */
+  .pros-cons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  @media (max-width: 768px) {
+    .pros-cons-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .pros-card, .cons-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .pros-card {
+    border-left: 4px solid var(--success);
+  }
+
+  .cons-card {
+    border-left: 4px solid var(--error);
+  }
+
+  .pros-title, .cons-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .pros-list, .cons-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pros-list li, .cons-list li {
+    padding: var(--space-xs) 0;
+    padding-left: var(--space-md);
+    position: relative;
+  }
+
+  .pros-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--success);
+    font-weight: bold;
+  }
+
+  .cons-list li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--error);
+    font-weight: bold;
+  }
+
+  /* Features Grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  @media (max-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .feature-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .feature-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-xs);
+  }
+
+  .feature-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Fee Comparison */
+  .fee-comparison {
+    margin-top: var(--space-xl);
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .comparison-table th {
+    background: var(--gray-100);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .comparison-table .highlight-good {
+    color: var(--success);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Regulation Grid */
+  .regulation-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  @media (max-width: 1024px) {
+    .regulation-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .regulation-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .reg-flag {
+    font-size: 2rem;
+  }
+
+  .reg-details h4 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .reg-number {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .reg-tier {
+    display: inline-block;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    margin-bottom: var(--space-xs);
+  }
+
+  /* Safety Features */
+  .protection-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 1024px) {
+    .protection-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .protection-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .protection-item {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    text-align: center;
+  }
+
+  .protection-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+
+  .protection-item h4 {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-xs);
+  }
+
+  .protection-item p {
+    font-size: var(--font-size-xs);
+    color: var(--gray-600);
+  }
+
+  /* Platforms Grid */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  @media (max-width: 768px) {
+    .platforms-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .platform-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    position: relative;
+  }
+
+  .platform-card.featured {
+    border-color: var(--brand-orange);
+    border-width: 2px;
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    left: var(--space-md);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .platform-card h3 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .platform-rating {
+    color: var(--brand-orange);
+    margin-bottom: var(--space-sm);
+  }
+
+  .platform-features {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-md);
+  }
+
+  .platform-features li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .platform-features li::before {
+    content: '✓';
+    color: var(--success);
+    margin-right: var(--space-xs);
+  }
+
+  /* Accounts Grid */
+  .accounts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+
+  @media (max-width: 1024px) {
+    .accounts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .account-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+    position: relative;
+  }
+
+  .account-card.featured {
+    border-color: var(--brand-orange);
+    border-width: 2px;
+  }
+
+  .account-feature.highlight {
+    background: rgba(255, 72, 0, 0.1);
+    color: var(--brand-orange);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-weight: var(--font-weight-bold);
+    display: inline-block;
+    margin-bottom: var(--space-md);
+  }
+
+  .account-details {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-md);
+    text-align: left;
+  }
+
+  .account-details li {
+    padding: var(--space-xs) 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .account-description {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .accounts-note {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  /* Payment Notes */
+  .payment-notes {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .payment-notes h3 {
+    margin-bottom: var(--space-md);
+  }
+
+  .payment-notes ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+  }
+
+  .payment-notes li {
+    margin-bottom: var(--space-xs);
+  }
+
+  /* Support Grid */
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  @media (max-width: 1024px) {
+    .support-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .support-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .support-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .support-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .support-card h3 {
+    font-size: var(--font-size-md);
+    margin-bottom: var(--space-xs);
+  }
+
+  .support-hours {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+    margin-top: var(--space-xs);
+  }
+
+  .support-note {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .support-note p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+  }
+
+  /* Verdict */
+  .verdict-summary {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  @media (max-width: 768px) {
+    .verdict-summary {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .verdict-score {
+    text-align: center;
+  }
+
+  .score-large {
+    font-size: 4rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+    line-height: 1;
+  }
+
+  .score-stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+  }
+
+  .score-label {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .verdict-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .rating-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .rating-category {
+    width: 150px;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .rating-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--gray-200);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+
+  .rating-fill {
+    height: 100%;
+    background: var(--brand-orange);
+    display: block;
+  }
+
+  .rating-value {
+    width: 30px;
+    text-align: right;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .verdict-recommendation {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-recommendation h3 {
+    margin-bottom: var(--space-md);
+  }
+
+  .best-for-list, .not-for-list {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-lg);
+  }
+
+  .best-for-list li {
+    margin-bottom: var(--space-xs);
+    color: var(--success);
+  }
+
+  .not-for-list li {
+    margin-bottom: var(--space-xs);
+    color: var(--gray-600);
+  }
+
+  .verdict-cta {
+    text-align: center;
+    padding: var(--space-xl);
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    border-radius: var(--radius-xl);
+  }
+
+  .cta-note {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-md);
+  }
+
+  .cta-links {
+    margin-top: var(--space-md);
+  }
+
+  .cta-links .text-link {
+    color: var(--brand-orange);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .hero-stats {
+      gap: var(--space-md);
+    }
+
+    .hero-trust {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .rating-category {
+      width: 100px;
+      font-size: var(--font-size-xs);
+    }
+  }
+</style>

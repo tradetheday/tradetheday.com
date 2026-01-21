@@ -1,0 +1,223 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CardGrid from '../components/CardGrid.astro';
+import Card from '../components/Card.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import '../styles/pages/rating-system.css';
+---
+
+<BaseLayout 
+  title="Rating System | TradeTheDay"
+  description="Learn how TradeTheDay rates and evaluates brokers using our comprehensive 5-point scoring system across costs, safety, platforms, and trading conditions."
+  noindex={true}
+>
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Rating System', current: true }
+  ]} />
+
+  <section class="section">
+    <div class="container">
+      <div class="center-container">
+        <!-- Page Header -->
+        <div class="text-center mb-xl">
+          <h1 class="heading-1">Our Rating System</h1>
+          <p class="body-large">How We Score and Evaluate Trading Brokers</p>
+          <p class="body-sm mt-md">Last Updated: January 2026</p>
+        </div>
+
+        <!-- Introduction -->
+        <div class="card mb-lg">
+          <h2 class="heading-2">Objective, Data-Driven Evaluations</h2>
+          <p class="body">
+            At TradeTheDay, we use a comprehensive 5-point rating system to evaluate every broker fairly and consistently. Our methodology combines quantitative data analysis with qualitative assessment to provide you with accurate, actionable insights for your trading decisions.
+          </p>
+        </div>
+
+        <!-- Rating Scale -->
+        <div class="card mb-lg">
+          <h2 class="heading-3">Our 5-Point Rating Scale</h2>
+          <div class="rating-scale">
+            <div class="rating-item">
+              <div class="rating-stars">★★★★★</div>
+              <div class="rating-text">
+                <strong>5.0 - Excellent:</strong> Industry leader, exceptional across all areas
+              </div>
+            </div>
+            <div class="rating-item">
+              <div class="rating-stars">★★★★☆</div>
+              <div class="rating-text">
+                <strong>4.0-4.9 - Very Good:</strong> Strong performer with minor weaknesses
+              </div>
+            </div>
+            <div class="rating-item">
+              <div class="rating-stars">★★★☆☆</div>
+              <div class="rating-text">
+                <strong>3.0-3.9 - Good:</strong> Solid choice with some limitations
+              </div>
+            </div>
+            <div class="rating-item">
+              <div class="rating-stars">★★☆☆☆</div>
+              <div class="rating-text">
+                <strong>2.0-2.9 - Fair:</strong> Adequate but with notable concerns
+              </div>
+            </div>
+            <div class="rating-item">
+              <div class="rating-stars">★☆☆☆☆</div>
+              <div class="rating-text">
+                <strong>1.0-1.9 - Poor:</strong> Significant issues, not recommended
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rating Categories -->
+        <div class="card mb-lg">
+          <h2 class="heading-3">Key Rating Categories</h2>
+          <p class="body mb-md">
+            Each broker is evaluated across five critical areas that matter most to traders:
+          </p>
+          
+          <div class="grid-2 mb-md">
+            <div class="card card-compact">
+              <h4 class="heading-4">💰 Costs & Fees (25%)</h4>
+              <ul class="category-list">
+                <li>Spread competitiveness</li>
+                <li>Commission structure</li>
+                <li>Deposit/withdrawal fees</li>
+                <li>Inactivity charges</li>
+                <li>Hidden costs analysis</li>
+              </ul>
+            </div>
+            <div class="card card-compact">
+              <h4 class="heading-4">🛡️ Safety & Regulation (25%)</h4>
+              <ul class="category-list">
+                <li>Regulatory licenses</li>
+                <li>Client fund protection</li>
+                <li>Financial stability</li>
+                <li>Segregated accounts</li>
+                <li>Compensation schemes</li>
+              </ul>
+            </div>
+            <div class="card card-compact">
+              <h4 class="heading-4">📱 Platforms & Tools (20%)</h4>
+              <ul class="category-list">
+                <li>Platform reliability</li>
+                <li>Mobile app quality</li>
+                <li>Charting tools</li>
+                <li>Order execution speed</li>
+                <li>User experience</li>
+              </ul>
+            </div>
+            <div class="card card-compact">
+              <h4 class="heading-4">📈 Trading Conditions (20%)</h4>
+              <ul class="category-list">
+                <li>Instrument selection</li>
+                <li>Leverage options</li>
+                <li>Minimum deposits</li>
+                <li>Account types</li>
+                <li>Execution quality</li>
+              </ul>
+            </div>
+            <div class="card card-compact">
+              <h4 class="heading-4">🎓 Education & Support (10%)</h4>
+              <ul class="category-list">
+                <li>Customer service quality</li>
+                <li>Educational resources</li>
+                <li>Market analysis</li>
+                <li>Response times</li>
+                <li>Support channels</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Methodology -->
+        <div class="card mb-lg">
+          <h2 class="heading-3">Our Testing Methodology</h2>
+          <p class="body mb-md">
+            Every broker review follows our standardized testing process:
+          </p>
+          
+          <div class="methodology-steps">
+            <div class="step-item">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4 class="heading-4">Account Opening</h4>
+                <p class="body-sm">We open real accounts with each broker to test the actual user experience from signup to trading.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4 class="heading-4">Platform Testing</h4>
+                <p class="body-sm">Comprehensive testing of all platforms (web, desktop, mobile) including order execution and reliability.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4 class="heading-4">Cost Analysis</h4>
+                <p class="body-sm">Detailed breakdown of all costs including spreads, commissions, and fees across different account types.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">4</div>
+              <div class="step-content">
+                <h4 class="heading-4">Customer Service</h4>
+                <p class="body-sm">Testing response times, helpfulness, and availability across all support channels.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-number">5</div>
+              <div class="step-content">
+                <h4 class="heading-4">Regulatory Verification</h4>
+                <p class="body-sm">Verification of licenses, regulatory status, and client protection measures.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Sources -->
+        <div class="card mb-lg">
+          <h2 class="heading-3">Data Sources & Verification</h2>
+          <p class="body mb-md">
+            Our ratings are based on verified, up-to-date information from multiple sources:
+          </p>
+          <ul class="list">
+            <li><strong>Direct Testing:</strong> Real trading accounts and live testing of all features</li>
+            <li><strong>Official Documentation:</strong> Terms of service, fee schedules, and regulatory filings</li>
+            <li><strong>Regulatory Databases:</strong> License verification through official regulatory websites</li>
+            <li><strong>User Feedback:</strong> Verified trader reviews and community feedback</li>
+            <li><strong>Industry Data:</strong> Market data providers and financial databases</li>
+            <li><strong>Regular Updates:</strong> Quarterly reviews and updates to ensure accuracy</li>
+          </ul>
+        </div>
+
+        <!-- Independence -->
+        <div class="card mb-lg">
+          <h2 class="heading-3">Editorial Independence</h2>
+          <div class="callout callout-info">
+            <p class="body-sm">
+              <strong>Important:</strong> Our ratings are completely independent of our business relationships. Commercial partnerships do not influence scores, and we maintain strict editorial separation between our content and partnerships teams.
+            </p>
+          </div>
+          <p class="body mt-md">
+            We believe in providing honest, unbiased evaluations that help you make the best decisions for your trading needs. Poor performance is called out regardless of partnership status, and high ratings must be earned through superior service.
+          </p>
+        </div>
+
+        <!-- Questions -->
+        <div class="card">
+          <h2 class="heading-3">Questions About Our Ratings?</h2>
+          <p class="body mb-md">
+            We welcome questions about our rating methodology and are always working to improve our evaluation process. If you have feedback or suggestions, we'd love to hear from you.
+          </p>
+          <a href="/contact/" class="btn btn-primary btn-md">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

@@ -1,0 +1,37 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  columns?: 2 | 3 | 4;
+  sectionVariant?: 'default' | 'alt' | 'dark';
+}
+
+const {
+  title,
+  subtitle,
+  columns = 3,
+  sectionVariant = 'default'
+} = Astro.props;
+
+const sectionClasses = [
+  'section',
+  sectionVariant !== 'default' ? `section-${sectionVariant}` : ''
+].filter(Boolean).join(' ');
+
+const gridClasses = `grid grid-${columns}`;
+---
+
+<section class={sectionClasses}>
+  <div class="container">
+    {(title || subtitle) && (
+      <div class="text-center">
+        {title && <h2 class="heading-2">{title}</h2>}
+        {subtitle && <p class="body-large">{subtitle}</p>}
+      </div>
+    )}
+    
+    <div class={gridClasses}>
+      <slot />
+    </div>
+  </div>
+</section>

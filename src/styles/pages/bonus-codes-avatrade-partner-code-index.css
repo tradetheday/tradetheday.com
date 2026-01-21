@@ -1,0 +1,423 @@
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+
+.hero {
+  background: var(--charcoal, #1e2427);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1.375rem;
+  margin-bottom: 3rem;
+  opacity: 0.95;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-hero {
+  margin-top: 2rem;
+}
+
+/* ==========================================================================
+   COUPON TICKET COMPONENT
+   ========================================================================== */
+
+.coupon-ticket {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px dashed var(--brand-orange, #ff4800);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.coupon-dark {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.coupon-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--gray-600, #4b5563);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.coupon-code {
+  background: var(--gray-100, #f3f4f6);
+  border: 1px solid var(--gray-200, #e5e7eb);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.coupon-code-dark {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.coupon-code-text {
+  font-family: 'Courier New', monospace;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--charcoal, #1e2427);
+  text-align: center;
+  letter-spacing: 0.1em;
+}
+
+.coupon-copy-btn {
+  background: var(--brand-orange, #ff4800);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.coupon-copy-btn:hover {
+  background: var(--brand-orange-dark, #e63e00);
+  transform: translateY(-2px);
+}
+
+.coupon-copy-btn.copied {
+  background: var(--success, #10b981);
+}
+
+.coupon-description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--gray-600, #4b5563);
+  font-weight: 500;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  background: var(--success, #10b981);
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ==========================================================================
+   HOW TO CLAIM STEPS
+   ========================================================================== */
+
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: var(--gray-50, #f9fafb);
+  border: 1px solid var(--gray-100, #f3f4f6);
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  background: var(--brand-orange, #ff4800);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--charcoal, #1e2427);
+  margin-bottom: 0.5rem;
+}
+
+.step-description {
+  color: var(--gray-600, #4b5563);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.highlight {
+  background: var(--brand-orange, #ff4800);
+  color: white;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+/* ==========================================================================
+   BONUS TABLE
+   ========================================================================== */
+
+.bonus-table-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.bonus-table {
+  background: white;
+  border: 1px solid var(--gray-200, #e5e7eb);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.bonus-table-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--gray-50, #f9fafb);
+  border-bottom: 1px solid var(--gray-200, #e5e7eb);
+}
+
+.header-deposit,
+.header-bonus {
+  padding: 1rem;
+  font-weight: 700;
+  color: var(--charcoal, #1e2427);
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.header-deposit {
+  border-right: 1px solid var(--gray-200, #e5e7eb);
+}
+
+.bonus-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--gray-200, #e5e7eb);
+}
+
+.bonus-row:last-child {
+  border-bottom: none;
+}
+
+.bonus-deposit,
+.bonus-amount {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.bonus-deposit {
+  border-right: 1px solid var(--gray-200, #e5e7eb);
+  font-weight: 600;
+  color: var(--charcoal, #1e2427);
+}
+
+.bonus-amount {
+  font-weight: 700;
+  color: var(--brand-orange, #ff4800);
+}
+
+/* ==========================================================================
+   REASON CARDS
+   ========================================================================== */
+
+.reason-cards .card {
+  background: white;
+  border: 1px solid var(--gray-200, #e5e7eb);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.reason-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--charcoal, #1e2427);
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ==========================================================================
+   PARTNER CODE ANIMATION
+   ========================================================================== */
+
+.partner-code-animation {
+  margin-top: 3rem;
+}
+
+.animation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--gray-50, #f9fafb);
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid var(--gray-200, #e5e7eb);
+}
+
+.partner-code-gif {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 500px;
+}
+
+/* ==========================================================================
+   UTILITY CLASSES & COMPONENTS
+   ========================================================================== */
+
+.center-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.mb-xl { margin-bottom: 3rem; }
+.mb-lg { margin-bottom: 2rem; }
+.mt-lg { margin-top: 2rem; }
+
+.text-white { color: white !important; }
+.opacity-80 { opacity: 0.8; }
+
+.spacer-large {
+  height: 4rem;
+  width: 100%;
+}
+
+.cta-review-link {
+  margin-top: 3rem !important;
+}
+
+/* Review Links */
+.review-link {
+  color: var(--brand-orange, #ff4800) !important;
+  text-decoration: underline;
+  transition: all 0.2s ease;
+}
+
+.review-link:hover {
+  color: var(--brand-orange-light, #ff5c1a) !important;
+  text-decoration: none;
+}
+
+.benefits-review-link {
+  color: var(--brand-orange, #ff4800);
+  text-decoration: underline;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.benefits-review-link:hover {
+  color: var(--brand-orange-dark, #e63e00);
+  text-decoration: none;
+}
+
+/* Callout */
+.callout {
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+}
+
+.callout-info {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-left: 4px solid #3b82f6;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Hero */
+  .hero-title { font-size: 2.5rem; }
+  .hero-subtitle { font-size: 1.125rem; }
+
+  /* Coupon */
+  .coupon-ticket {
+    padding: 1.5rem;
+    margin: 1.5rem auto;
+  }
+  .coupon-code-text { font-size: 1.5rem; }
+
+  /* Steps */
+  .step-item {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.25rem;
+  }
+  .step-number {
+    align-self: flex-start;
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Containers */
+  .center-container { padding: 0 1rem; }
+  
+  /* Bonus Table */
+  .bonus-table-container {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+  .header-deposit,
+  .header-bonus,
+  .bonus-deposit,
+  .bonus-amount {
+    padding: 0.75rem;
+    font-size: 0.8125rem;
+  }
+}

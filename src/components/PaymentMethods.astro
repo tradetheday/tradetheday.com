@@ -1,0 +1,431 @@
+---
+interface PaymentMethod {
+  name: string;
+  icon: string;
+  depositTime: string;
+  withdrawalTime: string;
+  depositFee: string;
+  withdrawalFee: string;
+  minDeposit?: string;
+  maxDeposit?: string;
+  supported: boolean;
+  notes?: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  methods: PaymentMethod[];
+  showTable?: boolean;
+  variant?: 'grid' | 'table';
+}
+
+const { 
+  title = "Payment Methods",
+  subtitle = "Multiple ways to fund your account and withdraw profits",
+  methods = [],
+  showTable = true,
+  variant = 'table'
+} = Astro.props;
+---
+
+<div class="payment-methods-section">
+  {title && (
+    <div class="payment-header">
+      <h2 class="heading-2">{title}</h2>
+      {subtitle && <p class="body-large payment-subtitle">{subtitle}</p>}
+    </div>
+  )}
+
+  {variant === 'grid' ? (
+    <div class="payment-grid">
+      {methods.map((method) => (
+        <div class={`payment-card ${!method.supported ? 'unsupported' : ''}`}>
+          <div class="payment-icon-container">
+            <img src={method.icon} alt={method.name} class="payment-icon" loading="lazy" />
+            {!method.supported && <span class="unsupported-overlay">✕</span>}
+          </div>
+          <div class="payment-info">
+            <h4 class="payment-name">{method.name}</h4>
+            <div class="payment-details">
+              <div class="detail-row">
+                <span class="detail-label">Deposit:</span>
+                <span class="detail-value">{method.depositTime}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Withdrawal:</span>
+                <span class="detail-value">{method.withdrawalTime}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Fees:</span>
+                <span class="detail-value">{method.depositFee} / {method.withdrawalFee}</span>
+              </div>
+            </div>
+            {method.notes && (
+              <p class="payment-notes">{method.notes}</p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div class="payment-table-container">
+      <table class="payment-table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Deposit Time</th>
+            <th>Withdrawal Time</th>
+            <th>Deposit Fee</th>
+            <th>Withdrawal Fee</th>
+            <th>Min/Max</th>
+          </tr>
+        </thead>
+        <tbody>
+          {methods.map((method) => (
+            <tr class={!method.supported ? 'unsupported-row' : ''}>
+              <td class="method-cell">
+                <div class="method-info">
+                  <img src={method.icon} alt={method.name} class="method-icon" loading="lazy" />
+                  <span class="method-name">{method.name}</span>
+                  {!method.supported && <span class="unsupported-badge">N/A</span>}
+                </div>
+              </td>
+              <td class="time-cell deposit-time">{method.depositTime}</td>
+              <td class="time-cell withdrawal-time">{method.withdrawalTime}</td>
+              <td class="fee-cell deposit-fee">{method.depositFee}</td>
+              <td class="fee-cell withdrawal-fee">{method.withdrawalFee}</td>
+              <td class="limit-cell">
+                {method.minDeposit && method.maxDeposit ? (
+                  <div class="limit-info">
+                    <span class="min-limit">{method.minDeposit}</span>
+                    <span class="limit-separator">/</span>
+                    <span class="max-limit">{method.maxDeposit}</span>
+                  </div>
+                ) : (
+                  <span class="no-limit">-</span>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      
+      {methods.some(method => method.notes) && (
+        <div class="payment-notes-section">
+          <h4 class="notes-title">Additional Notes:</h4>
+          <ul class="notes-list">
+            {methods.filter(method => method.notes).map((method) => (
+              <li class="note-item">
+                <strong>{method.name}:</strong> {method.notes}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  )}
+</div>
+
+<style>
+  .payment-methods-section {
+    margin: 2rem 0;
+  }
+
+  .payment-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .payment-subtitle {
+    color: var(--gray-600, #4b5563);
+    margin-top: 0.5rem;
+  }
+
+  /* Grid Variant */
+  .payment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .payment-card {
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+
+  .payment-card:hover:not(.unsupported) {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .payment-card.unsupported {
+    opacity: 0.6;
+    background: var(--gray-50, #f9fafb);
+  }
+
+  .payment-icon-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    position: relative;
+    height: 48px;
+  }
+
+  .payment-icon {
+    height: 32px;
+    max-width: 80px;
+    object-fit: contain;
+  }
+
+  .unsupported-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--danger, #ef4444);
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .payment-info {
+    text-align: center;
+  }
+
+  .payment-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 1rem;
+  }
+
+  .payment-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+  }
+
+  .detail-label {
+    color: var(--gray-500, #6b7280);
+  }
+
+  .detail-value {
+    color: var(--charcoal, #1e2427);
+    font-weight: 600;
+  }
+
+  .payment-notes {
+    font-size: 0.75rem;
+    color: var(--gray-500, #6b7280);
+    margin-top: 1rem;
+    font-style: italic;
+  }
+
+  /* Table Variant */
+  .payment-table-container {
+    overflow-x: auto;
+    border-radius: 1rem;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    background: white;
+  }
+
+  .payment-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .payment-table th,
+  .payment-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-200, #e5e7eb);
+  }
+
+  .payment-table th {
+    background: var(--gray-50, #f9fafb);
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    font-size: 0.875rem;
+  }
+
+  .payment-table td {
+    font-size: 0.875rem;
+    color: var(--gray-700, #374151);
+  }
+
+  .payment-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .payment-table tbody tr:hover:not(.unsupported-row) {
+    background: var(--gray-50, #f9fafb);
+  }
+
+  .unsupported-row {
+    opacity: 0.6;
+    background: var(--gray-25, #fefefe);
+  }
+
+  .method-cell {
+    min-width: 140px;
+  }
+
+  .method-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .method-icon {
+    height: 24px;
+    max-width: 40px;
+    object-fit: contain;
+  }
+
+  .method-name {
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+  }
+
+  .unsupported-badge {
+    background: var(--gray-100, #f3f4f6);
+    color: var(--gray-600, #4b5563);
+    font-size: 0.75rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 1rem;
+    font-weight: 600;
+  }
+
+  .time-cell {
+    min-width: 100px;
+  }
+
+  .fee-cell {
+    min-width: 80px;
+    font-weight: 600;
+  }
+
+  .deposit-fee {
+    color: var(--success, #10b981);
+  }
+
+  .withdrawal-fee {
+    color: var(--brand-orange, #ff4800);
+  }
+
+  .limit-cell {
+    min-width: 100px;
+  }
+
+  .limit-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .min-limit,
+  .max-limit {
+    font-size: 0.8125rem;
+  }
+
+  .min-limit {
+    color: var(--success, #10b981);
+  }
+
+  .max-limit {
+    color: var(--gray-600, #4b5563);
+  }
+
+  .limit-separator {
+    display: none;
+  }
+
+  .no-limit {
+    color: var(--gray-400, #9ca3af);
+  }
+
+  .payment-notes-section {
+    padding: 1.5rem;
+    background: var(--gray-50, #f9fafb);
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  .notes-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 0.75rem;
+  }
+
+  .notes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .note-item {
+    font-size: 0.8125rem;
+    color: var(--gray-600, #4b5563);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .payment-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .payment-table-container {
+      border-radius: 0.5rem;
+    }
+    
+    .payment-table th,
+    .payment-table td {
+      padding: 0.75rem 0.5rem;
+    }
+    
+    .method-info {
+      gap: 0.5rem;
+    }
+    
+    .method-icon {
+      height: 20px;
+      max-width: 32px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .payment-table {
+      font-size: 0.8125rem;
+    }
+    
+    .payment-table th,
+    .payment-table td {
+      padding: 0.5rem 0.375rem;
+    }
+    
+    .limit-info {
+      flex-direction: row;
+      gap: 0.25rem;
+    }
+    
+    .limit-separator {
+      display: inline;
+      color: var(--gray-400, #9ca3af);
+    }
+  }
+</style>

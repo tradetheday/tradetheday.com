@@ -1,0 +1,714 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import '../../../styles/pages/guides-stock-trading-for-beginners-index.css';
+
+// Guide metadata
+const guideStats = [
+  { number: "2M+", label: "New traders yearly" },
+  { number: "$200B+", label: "Daily trading volume" },
+  { number: "5,000+", label: "US stocks available" }
+];
+
+// Table of contents
+const tocItems = [
+  { text: "Stock Market Fundamentals", href: "#basics" },
+  { text: "Understanding Risks & Rewards", href: "#risks" },
+  { text: "Research & Analysis Methods", href: "#research" },
+  { text: "Smart Trading Strategies", href: "#strategies" },
+  { text: "Choosing the Right Broker", href: "#brokers" },
+  { text: "Getting Started Today", href: "#getting-started" }
+];
+
+// Stock market concepts
+const concepts = [
+  {
+    icon: "📈",
+    title: "What Are Stocks?",
+    description: "Stocks represent partial ownership in a company. When you buy shares, you become a shareholder with a claim on the company's assets and earnings."
+  },
+  {
+    icon: "🏢",
+    title: "Stock Exchanges",
+    description: "Stocks trade on exchanges like NYSE and NASDAQ. These platforms facilitate buying and selling between investors worldwide."
+  },
+  {
+    icon: "💰",
+    title: "Price Movement",
+    description: "Stock prices fluctuate based on supply and demand. More buyers push prices up, while more sellers drive prices down."
+  },
+  {
+    icon: "⏰",
+    title: "Trading Hours",
+    description: "US markets are open Monday-Friday, 9:30 AM to 4:00 PM ET. Extended hours trading is available through some brokers."
+  }
+];
+
+// Trading types
+const tradingTypes = [
+  {
+    title: "Day Trading",
+    description: "Buying and selling stocks within the same trading day. Requires significant time, capital, and experience.",
+    pros: "Quick profits, no overnight risk",
+    cons: "High stress, requires $25K minimum",
+    featured: false
+  },
+  {
+    title: "Swing Trading",
+    description: "Holding positions for several days to weeks. Ideal for beginners with limited time.",
+    pros: "Less time-intensive, good for beginners",
+    cons: "Overnight risk, requires patience",
+    featured: true
+  },
+  {
+    title: "Position Trading",
+    description: "Long-term positions held for months or years. More like traditional investing.",
+    pros: "Low maintenance, compound growth",
+    cons: "Slow returns, requires patience",
+    featured: false
+  }
+];
+
+// Risk types
+const riskTypes = [
+  {
+    title: "Market Risk",
+    description: "Entire markets can decline due to economic factors, geopolitical events, or market sentiment changes.",
+    level: "Risk Level: High",
+    type: "market-risk"
+  },
+  {
+    title: "Company Risk",
+    description: "Individual companies can fail, lose market share, or face scandals that tank their stock price.",
+    level: "Risk Level: Medium",
+    type: "company-risk"
+  },
+  {
+    title: "Liquidity Risk",
+    description: "Some stocks are harder to sell quickly without affecting the price, especially smaller companies.",
+    level: "Risk Level: Low-Medium",
+    type: "liquidity-risk"
+  }
+];
+
+// Risk management rules
+const riskRules = [
+  {
+    number: "1",
+    title: "Never Risk More Than 2% Per Trade",
+    description: "This ensures that even 10 losing trades in a row won't devastate your account."
+  },
+  {
+    number: "2",
+    title: "Diversify Your Holdings",
+    description: "Don't put all your money in one stock or sector. Spread risk across different industries."
+  },
+  {
+    number: "3",
+    title: "Use Stop-Loss Orders",
+    description: "Automatically sell if a stock drops to a predetermined price to limit losses."
+  },
+  {
+    number: "4",
+    title: "Start Small",
+    description: "Begin with a small amount while you're learning. You can always increase position sizes later."
+  }
+];
+
+// Trading strategies
+const strategies = [
+  {
+    title: "Dollar-Cost Averaging (DCA)",
+    description: "Invest a fixed amount of money at regular intervals, regardless of market conditions.",
+    example: "Invest $500 every month in the same stock or ETF. When prices are high, you buy fewer shares. When prices are low, you buy more shares. This averages out your cost over time.",
+    pros: ["Reduces timing risk", "Forces disciplined investing", "Reduces emotional decision-making"],
+    cons: ["May miss significant opportunities", "Slower to react to market changes"],
+    recommended: true
+  },
+  {
+    title: "Buy and Hold",
+    description: "Purchase quality stocks and hold them for years, ignoring short-term market fluctuations.",
+    example: "Find companies with strong competitive advantages, buy them at reasonable prices, and hold for decades. Think years, not months.",
+    pros: ["Minimal time commitment", "Lower transaction costs", "Tax-efficient (long-term gains)"],
+    cons: ["Requires patience", "May hold declining stocks too long"],
+    recommended: false
+  },
+  {
+    title: "Trend Following",
+    description: "Buy stocks moving upward and sell stocks moving downward. \"The trend is your friend.\"",
+    example: "Buy when a stock breaks above its 50-day moving average with high volume. Sell when it drops below the 50-day average.",
+    pros: ["Catches major moves", "Clear rules for entry/exit", "Works in trending markets"],
+    cons: ["Many false signals", "Requires active monitoring", "Poor performance in sideways markets"],
+    recommended: false
+  }
+];
+
+// Broker selection criteria
+const brokerCriteria = [
+  {
+    title: "Commission-Free Trading",
+    description: "Most major brokers now offer $0 commissions on stock trades. Avoid brokers that still charge per trade."
+  },
+  {
+    title: "Account Minimums",
+    description: "Look for brokers with low or no minimum account requirements, especially when starting out."
+  },
+  {
+    title: "Educational Resources",
+    description: "Quality research, tutorials, and market analysis can accelerate your learning curve significantly."
+  },
+  {
+    title: "User-Friendly Platform",
+    description: "The interface should be intuitive, especially for beginners. Complex platforms can lead to costly mistakes."
+  }
+];
+
+// Recommended brokers
+const recommendedBrokers = [
+  {
+    name: "Interactive Brokers",
+    logo: "/images/brokers/interactive-brokers-logo.svg",
+    rating: "★★★★★ 4.8/5",
+    badge: "Best Overall",
+    features: [
+      "$0 stock commissions",
+      "Access to global markets",
+      "Advanced research tools",
+      "Low margin rates",
+      "$100 welcome bonus"
+    ],
+    bestFor: "Serious traders who want professional-grade tools",
+    ctaText: "Start Trading →",
+    ctaLink: "/brokers/interactive-brokers/",
+    featured: true
+  },
+  {
+    name: "AvaTrade",
+    logo: "/images/brokers/avatrade-logo.svg",
+    rating: "★★★★☆ 4.6/5",
+    badge: "Best for Beginners",
+    features: [
+      "Extensive education center",
+      "Demo account available",
+      "Multiple platform options",
+      "24/5 customer support",
+      "$10,000 welcome bonus"
+    ],
+    bestFor: "New traders who need guidance and education",
+    ctaText: "Learn More →",
+    ctaLink: "/brokers/avatrade/",
+    featured: false
+  },
+  {
+    name: "Eightcap",
+    logo: "/images/brokers/eightcap-logo.svg",
+    rating: "★★★★☆ 4.5/5",
+    badge: "Low Costs",
+    features: [
+      "Ultra-low spreads",
+      "No minimum deposit",
+      "Fast execution",
+      "MetaTrader platforms",
+      "$50 welcome bonus"
+    ],
+    bestFor: "Cost-conscious traders with smaller accounts",
+    ctaText: "Get Started →",
+    ctaLink: "/brokers/eightcap-review/",
+    featured: false
+  }
+];
+
+// Getting started steps
+const gettingStartedSteps = [
+  {
+    number: "1",
+    title: "Choose Your Broker",
+    description: "Based on our recommendations above, select a broker that matches your needs and experience level.",
+    action: "Compare Brokers ↑",
+    actionLink: "#brokers",
+    tips: []
+  },
+  {
+    number: "2",
+    title: "Open and Fund Your Account",
+    description: "Complete the application process and make your initial deposit. Start with an amount you can afford to lose.",
+    tips: [
+      "Have your ID and bank information ready",
+      "Consider starting with $500-$1,000",
+      "Choose a cash account over margin initially"
+    ]
+  },
+  {
+    number: "3",
+    title: "Practice with Paper Trading",
+    description: "Most brokers offer demo accounts where you can practice with virtual money before risking real capital.",
+    tips: [
+      "Learn the trading platform",
+      "Test your strategy",
+      "Make 10+ practice trades",
+      "Track your performance"
+    ]
+  },
+  {
+    number: "4",
+    title: "Make Your First Real Trade",
+    description: "Start small with a well-researched stock. Use limit orders and set stop-losses to manage risk.",
+    tips: [
+      "Risk no more than 1-2% of your account",
+      "Choose a large, stable company",
+      "Set a stop-loss at -10% to -15%",
+      "Have a clear exit strategy"
+    ]
+  },
+  {
+    number: "5",
+    title: "Keep Learning and Adapting",
+    description: "Track your trades, learn from mistakes, and continuously educate yourself. Success in trading is a marathon, not a sprint.",
+    tips: [
+      "Keep a trading journal",
+      "Read financial news daily",
+      "Join trading communities",
+      "Review and adjust your strategy quarterly"
+    ]
+  }
+];
+
+// Final reminders
+const finalReminders = [
+  {
+    icon: "🎯",
+    title: "Stay Disciplined",
+    description: "Stick to your trading plan and risk management rules, even when emotions run high."
+  },
+  {
+    icon: "📚",
+    title: "Never Stop Learning",
+    description: "Markets evolve constantly. Successful traders are lifelong students of the market."
+  },
+  {
+    icon: "💰",
+    title: "Manage Risk First",
+    description: "Protecting your capital is more important than maximizing returns, especially early on."
+  },
+  {
+    icon: "⏳",
+    title: "Be Patient",
+    description: "Building wealth through trading takes time. Avoid get-rich-quick schemes and focus on consistent growth."
+  }
+];
+---
+
+<BaseLayout 
+  title="Stock Trading for Beginners: Complete Guide to Getting Started | TradeTheDay"
+  description="Learn how to start trading stocks with our comprehensive beginner's guide. Discover the fundamentals, strategies, and best brokers to begin your trading journey."
+>
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Guides', href: '/guides/' },
+    { text: 'Stock Trading for Beginners', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="guide-meta">
+          <span class="guide-category">Beginner Guide</span>
+          <span class="reading-time">12 min read</span>
+        </div>
+        <h1 class="hero-title">Stock Trading for Beginners: Complete Guide to Getting Started</h1>
+        <p class="hero-description">
+          Master the fundamentals of stock trading with our comprehensive beginner's guide. Learn proven strategies, avoid common mistakes, and discover the best platforms to start your trading journey.
+        </p>
+        <div class="guide-stats">
+          {guideStats.map((stat) => (
+            <div class="stat-item">
+              <span class="stat-number">{stat.number}</span>
+              <span class="stat-label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABLE OF CONTENTS -->
+  <section class="section toc-section">
+    <div class="container">
+      <div class="toc-card">
+        <h3>What You'll Learn</h3>
+        <div class="toc-grid">
+          <div class="toc-column">
+            <ul class="toc-list">
+              {tocItems.slice(0, 3).map((item) => (
+                <li><a href={item.href}>{item.text}</a></li>
+              ))}
+            </ul>
+          </div>
+          <div class="toc-column">
+            <ul class="toc-list">
+              {tocItems.slice(3).map((item) => (
+                <li><a href={item.href}>{item.text}</a></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK START CTA -->
+  <section class="section quick-start">
+    <div class="container">
+      <div class="quick-start-card">
+        <h3>🚀 Ready to Start Trading?</h3>
+        <p>Skip ahead to our recommended brokers and start your trading journey today</p>
+        <a href="#brokers" class="cta-button primary">See Best Brokers →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <div class="guide-content">
+    <div class="container">
+      <div class="content-wrapper">
+        
+        <!-- STOCK MARKET BASICS -->
+        <section id="basics" class="content-section">
+          <h2>Understanding Stock Market Fundamentals</h2>
+          
+          <p class="section-intro">Before diving into trading, it's crucial to understand how the stock market works. Think of it as a massive marketplace where millions of investors buy and sell ownership stakes in companies.</p>
+          
+          <div class="concept-grid">
+            {concepts.map((concept) => (
+              <div class="concept-card">
+                <div class="concept-icon">{concept.icon}</div>
+                <h4>{concept.title}</h4>
+                <p>{concept.description}</p>
+              </div>
+            ))}
+          </div>
+          
+          <div class="key-insight">
+            <h4>💡 Key Insight</h4>
+            <p>The goal is simple: buy low, sell high. However, timing the market perfectly is nearly impossible, which is why strategy and risk management are crucial.</p>
+          </div>
+          
+          <h3>Types of Stock Trading</h3>
+          <div class="trading-types">
+            {tradingTypes.map((type) => (
+              <div class={`type-card ${type.featured ? 'featured' : ''}`}>
+                <h4>{type.title}</h4>
+                <p>{type.description}</p>
+                <div class="type-pros-cons">
+                  <div class="pros">
+                    <strong>Pros:</strong> {type.pros}
+                  </div>
+                  <div class="cons">
+                    <strong>Cons:</strong> {type.cons}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- UNDERSTANDING RISKS -->
+        <section id="risks" class="content-section">
+          <h2>Understanding Risks & Rewards</h2>
+          
+          <div class="risk-warning-box">
+            <h4>⚠️ Critical Risk Warning</h4>
+            <p>Stock trading involves substantial risk of loss. Never invest money you cannot afford to lose completely. Past performance does not guarantee future results.</p>
+          </div>
+          
+          <p>Successful trading isn't about avoiding all risks -it's about managing them intelligently. Here's what every beginner must understand:</p>
+          
+          <div class="risk-grid">
+            {riskTypes.map((risk) => (
+              <div class={`risk-card ${risk.type}`}>
+                <h4>{risk.title}</h4>
+                <p>{risk.description}</p>
+                <div class="risk-level">{risk.level}</div>
+              </div>
+            ))}
+          </div>
+          
+          <h3>Essential Risk Management Rules</h3>
+          <div class="rules-list">
+            {riskRules.map((rule) => (
+              <div class="rule-item">
+                <span class="rule-number">{rule.number}</span>
+                <div class="rule-content">
+                  <h4>{rule.title}</h4>
+                  <p>{rule.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- RESEARCH METHODS -->
+        <section id="research" class="content-section">
+          <h2>Research & Analysis Methods</h2>
+          
+          <p>Successful trading requires thorough research. Random stock picking is gambling, not investing. Here are the two main analysis approaches:</p>
+          
+          <div class="analysis-comparison">
+            <div class="analysis-card fundamental">
+              <h3>Fundamental Analysis</h3>
+              <p>Evaluating a company's financial health, business model, and growth prospects.</p>
+              
+              <h4>Key Metrics to Study:</h4>
+              <ul>
+                <li><strong>Revenue Growth:</strong> Is the company making more money each year?</li>
+                <li><strong>Profit Margins:</strong> How much profit does the company keep from sales?</li>
+                <li><strong>Debt Levels:</strong> Is the company heavily borrowed?</li>
+                <li><strong>P/E Ratio:</strong> How much are you paying for each dollar of earnings?</li>
+                <li><strong>Market Position:</strong> Does the company have competitive advantages?</li>
+              </ul>
+              
+              <div class="best-for">
+                <strong>Best for:</strong> Long-term investing, value investing
+              </div>
+            </div>
+            
+            <div class="analysis-card technical">
+              <h3>Technical Analysis</h3>
+              <p>Using charts and patterns to predict future price movements based on historical data.</p>
+              
+              <h4>Common Technical Indicators:</h4>
+              <ul>
+                <li><strong>Moving Averages:</strong> Smooth out price action to identify trends</li>
+                <li><strong>RSI (Relative Strength Index):</strong> Identifies overbought/oversold conditions</li>
+                <li><strong>Support/Resistance:</strong> Price levels where stocks tend to bounce</li>
+                <li><strong>Volume:</strong> How many shares are being traded</li>
+                <li><strong>Chart Patterns:</strong> Recurring formations that suggest future moves</li>
+              </ul>
+              
+              <div class="best-for">
+                <strong>Best for:</strong> Short-term trading, timing entry/exit points
+              </div>
+            </div>
+          </div>
+          
+          <div class="research-tools">
+            <h3>Free Research Tools</h3>
+            <div class="tools-grid">
+              <div class="tool-card">
+                <h4>Yahoo Finance</h4>
+                <p>Free stock quotes, news, and basic financial data</p>
+              </div>
+              <div class="tool-card">
+                <h4>SEC EDGAR</h4>
+                <p>Official company filings and financial reports</p>
+              </div>
+              <div class="tool-card">
+                <h4>Google Finance</h4>
+                <p>Stock screening and portfolio tracking</p>
+              </div>
+              <div class="tool-card">
+                <h4>TradingView</h4>
+                <p>Advanced charting and technical analysis tools</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TRADING STRATEGIES -->
+        <section id="strategies" class="content-section">
+          <h2>Smart Trading Strategies for Beginners</h2>
+          
+          <p>As a beginner, focus on simple, proven strategies rather than complex trading systems. Here are three approaches that work well for new traders:</p>
+          
+          <div class="strategy-cards">
+            {strategies.map((strategy) => (
+              <div class={`strategy-card ${strategy.recommended ? 'recommended' : ''}`}>
+                {strategy.recommended && <div class="strategy-badge">Recommended for Beginners</div>}
+                <h3>{strategy.title}</h3>
+                <p>{strategy.description}</p>
+                
+                <div class="strategy-example">
+                  <h4>Example:</h4>
+                  <p>{strategy.example}</p>
+                </div>
+                
+                <div class="strategy-pros-cons">
+                  <div class="pros">
+                    <strong>Pros:</strong>
+                    <ul>
+                      {strategy.pros.map((pro) => (
+                        <li>{pro}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div class="cons">
+                    <strong>Cons:</strong>
+                    <ul>
+                      {strategy.cons.map((con) => (
+                        <li>{con}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div class="beginner-recommendation">
+            <h3>Our Recommendation for Absolute Beginners</h3>
+            <p>Start with dollar-cost averaging into broad market ETFs like SPY or VTI. This gives you instant diversification and market exposure while you learn the ropes. Once you're comfortable, you can add individual stock picks to your portfolio.</p>
+          </div>
+        </section>
+
+        <!-- BROKER SELECTION -->
+        <section id="brokers" class="content-section broker-section">
+          <h2>Choosing the Right Broker</h2>
+          
+          <p>Your broker is your gateway to the markets. The right choice can save you thousands in fees and provide valuable tools for success. Here's what matters most:</p>
+          
+          <div class="broker-criteria">
+            <h3>Essential Broker Features</h3>
+            <div class="criteria-grid">
+              {brokerCriteria.map((criteria) => (
+                <div class="criteria-card">
+                  <h4>{criteria.title}</h4>
+                  <p>{criteria.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <h3>Top Recommended Brokers for Beginners</h3>
+          <div class="recommended-brokers">
+            {recommendedBrokers.map((broker) => (
+              <div class={`broker-card ${broker.featured ? 'featured' : ''}`}>
+                <div class="broker-badge">{broker.badge}</div>
+                <div class="broker-header">
+                  <img src={broker.logo} alt={broker.name} class="broker-logo">
+                  <div class="broker-info">
+                    <h4>{broker.name}</h4>
+                    <div class="broker-rating">{broker.rating}</div>
+                  </div>
+                </div>
+                <div class="broker-features">
+                  <ul>
+                    {broker.features.map((feature) => (
+                      <li>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div class="broker-best-for">
+                  <strong>Best for:</strong> {broker.bestFor}
+                </div>
+                <a href={broker.ctaLink} class="broker-cta">{broker.ctaText}</a>
+              </div>
+            ))}
+          </div>
+          
+          <div class="broker-comparison">
+            <h3>Quick Comparison</h3>
+            <div class="comparison-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Broker</th>
+                    <th>Min. Deposit</th>
+                    <th>Stock Commissions</th>
+                    <th>Education Quality</th>
+                    <th>Best For</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Interactive Brokers</strong></td>
+                    <td>$0</td>
+                    <td>$0</td>
+                    <td>Excellent</td>
+                    <td>Experienced traders</td>
+                  </tr>
+                  <tr>
+                    <td><strong>AvaTrade</strong></td>
+                    <td>$100</td>
+                    <td>Spreads apply</td>
+                    <td>Outstanding</td>
+                    <td>Complete beginners</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Eightcap</strong></td>
+                    <td>$0</td>
+                    <td>Low spreads</td>
+                    <td>Good</td>
+                    <td>Budget-conscious</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- GETTING STARTED -->
+        <section id="getting-started" class="content-section">
+          <h2>Getting Started: Your First Trade</h2>
+          
+          <p>Ready to make your first trade? Follow this step-by-step checklist to ensure you start on the right foot:</p>
+          
+          <div class="getting-started-steps">
+            {gettingStartedSteps.map((step) => (
+              <div class="step-item">
+                <div class="step-number">{step.number}</div>
+                <div class="step-content">
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                  {step.action && (
+                    <div class="step-action">
+                      <a href={step.actionLink} class="action-link">{step.action}</a>
+                    </div>
+                  )}
+                  {step.tips && step.tips.length > 0 && (
+                    <div class="step-tips">
+                      <strong>Tips:</strong>
+                      <ul>
+                        {step.tips.map((tip) => (
+                          <li>{tip}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div class="final-reminder">
+            <h3>Final Reminders for Success</h3>
+            <div class="reminder-grid">
+              {finalReminders.map((reminder) => (
+                <div class="reminder-card">
+                  <h4>{reminder.icon} {reminder.title}</h4>
+                  <p>{reminder.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <section class="section final-cta">
+    <div class="container">
+      <div class="cta-card">
+        <h2>Ready to Start Your Trading Journey?</h2>
+        <p>Join millions of traders who started with the fundamentals and built their wealth over time. Choose your broker and take the first step today.</p>
+        <div class="cta-buttons">
+          <a href="/brokers/interactive-brokers/" class="cta-button primary">Start with Interactive Brokers →</a>
+          <a href="/brokers/avatrade/" class="cta-button secondary">Explore AvaTrade →</a>
+        </div>
+        <p class="cta-disclaimer">Risk Warning: Trading stocks involves substantial risk of loss. Only trade with money you can afford to lose.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

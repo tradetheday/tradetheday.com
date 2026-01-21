@@ -1,0 +1,1166 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import FAQ from '../../../components/FAQ.astro';
+import { getBrokerBySlug } from '../../../data/brokers';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+
+// Get broker data
+const avatrade = getBrokerBySlug('avatrade');
+const etoro = getBrokerBySlug('etoro');
+
+if (!avatrade || !etoro) {
+  return Astro.redirect('/compare/');
+}
+
+// Page metadata
+const pageTitle = 'AvaTrade vs eToro 2026: Detailed Comparison | TradeTheDay';
+const pageDescription = 'AvaTrade vs eToro: Which broker is better? Compare fees, features, platforms, regulation, and more. Honest side-by-side analysis to help you choose.';
+
+// Comparison table data
+const overviewHeaders = ['Feature', 'AvaTrade', 'eToro', 'Winner'];
+const overviewRows = [
+  {
+    cells: [
+      { content: 'Founded', type: 'text' },
+      { content: '2006', type: 'text' },
+      { content: '2007', type: 'text' },
+      { content: 'AvaTrade', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Minimum Deposit', type: 'text' },
+      { content: '$100', type: 'text' },
+      { content: '$50', type: 'text', highlight: 'best' },
+      { content: 'eToro', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Instruments', type: 'text' },
+      { content: '1,250+', type: 'text' },
+      { content: '3,000+', type: 'text', highlight: 'best' },
+      { content: 'eToro', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Platforms', type: 'text' },
+      { content: 'MT4, MT5, WebTrader, AvaTradeGO', type: 'text', highlight: 'best' },
+      { content: 'Proprietary only', type: 'text' },
+      { content: 'AvaTrade', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Copy Trading', type: 'text' },
+      { content: 'DupliTrade, ZuluTrade', type: 'text' },
+      { content: 'CopyTrader (native)', type: 'text', highlight: 'best' },
+      { content: 'eToro', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Regulation', type: 'text' },
+      { content: '6+ regulators (FCA, ASIC, CBI)', type: 'text', highlight: 'best' },
+      { content: '3 regulators (FCA, ASIC, CySEC)', type: 'text' },
+      { content: 'AvaTrade', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Our Rating', type: 'text' },
+      { content: '4.2/5', type: 'text', highlight: 'best' },
+      { content: '4.0/5', type: 'text' },
+      { content: 'AvaTrade', type: 'text', highlight: 'good' }
+    ]
+  }
+];
+
+const feesHeaders = ['Fee Type', 'AvaTrade', 'eToro', 'Winner'];
+const feesRows = [
+  {
+    cells: [
+      { content: 'EUR/USD Spread', type: 'text' },
+      { content: '0.9 pips', type: 'text', highlight: 'best' },
+      { content: '1.0 pips', type: 'text' },
+      { content: 'AvaTrade', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Stock Trading', type: 'text' },
+      { content: 'CFDs only (spread)', type: 'text' },
+      { content: 'Commission-free', type: 'text', highlight: 'best' },
+      { content: 'eToro', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Crypto Trading', type: 'text' },
+      { content: 'CFDs (spread)', type: 'text' },
+      { content: '1% fee + spread', type: 'text' },
+      { content: 'Tie', type: 'text' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Withdrawal Fee', type: 'text' },
+      { content: '1 free/month', type: 'text', highlight: 'best' },
+      { content: '$5 per withdrawal', type: 'text' },
+      { content: 'AvaTrade', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Inactivity Fee', type: 'text' },
+      { content: '$50/quarter after 3mo', type: 'text', highlight: 'warning' },
+      { content: '$10/month after 12mo', type: 'text', highlight: 'good' },
+      { content: 'eToro', type: 'text', highlight: 'good' }
+    ]
+  },
+  {
+    cells: [
+      { content: 'Currency Conversion', type: 'text' },
+      { content: '0.5%', type: 'text' },
+      { content: '1.5%', type: 'text', highlight: 'warning' },
+      { content: 'AvaTrade', type: 'text', highlight: 'good' }
+    ]
+  }
+];
+
+// FAQ data
+const faqItems = [
+  {
+    question: 'Is AvaTrade or eToro better for beginners?',
+    answer: 'Both are excellent for beginners, but for different reasons. eToro is better if you want to copy successful traders automatically (CopyTrader) and prefer a simple interface. AvaTrade is better if you want structured educational content and prefer using industry-standard platforms like MT4/MT5 that you can use with other brokers later.'
+  },
+  {
+    question: 'Which has lower fees, AvaTrade or eToro?',
+    answer: 'It depends on what you trade. For forex, AvaTrade has slightly tighter spreads (0.9 vs 1.0 pips on EUR/USD). For stocks, eToro offers commission-free trading while AvaTrade charges via spreads. For crypto, both use spreads. AvaTrade has better withdrawal fees (1 free per month vs $5 per withdrawal at eToro).'
+  },
+  {
+    question: 'Can I use MT4 or MT5 with eToro?',
+    answer: 'No, eToro only offers its proprietary platform and mobile app. If you prefer MetaTrader platforms or want to use Expert Advisors (automated trading), choose AvaTrade which supports MT4, MT5, and several other platforms.'
+  },
+  {
+    question: 'Which broker is safer?',
+    answer: 'Both are very safe and well-regulated. AvaTrade has slightly stronger regulatory coverage with 6+ regulators including FCA, ASIC, CBI, CySEC, and JFSA. eToro is regulated by FCA, ASIC, and CySEC. Both offer negative balance protection and segregated client funds.'
+  },
+  {
+    question: 'Which is better for copy trading?',
+    answer: 'eToro is significantly better for copy trading. Their CopyTrader feature is built natively into the platform with a huge community of traders to follow. AvaTrade offers copy trading through third-party integrations (DupliTrade, ZuluTrade) which work well but aren\'t as seamlessly integrated.'
+  },
+  {
+    question: 'Can I trade real stocks (not CFDs)?',
+    answer: 'eToro offers both real stocks and stock CFDs. When you buy a stock without leverage, you own the underlying asset. AvaTrade only offers stock CFDs - you never own the actual shares. If owning real stocks matters to you, choose eToro.'
+  },
+  {
+    question: 'Which has the better mobile app?',
+    answer: 'eToro\'s mobile app is generally considered more user-friendly with its clean interface and social features. AvaTrade\'s AvaTradeGO app is also solid with risk management features (AvaProtect). Both apps are well-rated on app stores.'
+  },
+  {
+    question: 'Do either offer a bonus?',
+    answer: 'AvaTrade offers a welcome bonus of up to $10,000 with partner code 128979. Bonus terms vary by region due to regulations. eToro doesn\'t offer traditional deposit bonuses but provides a $100,000 virtual portfolio for practice trading.'
+  }
+];
+
+// Schema markup
+const breadcrumbSchemaItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Compare', url: '/compare/' },
+  { name: 'AvaTrade vs eToro', url: '/compare/avatrade-vs-etoro/' }
+];
+
+const faqSchema = generateFAQSchema(faqItems);
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbSchemaItems);
+
+// Breadcrumb items
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Compare', href: '/compare/' },
+  { text: 'AvaTrade vs eToro', current: true }
+];
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  ogType="article"
+  schema={[faqSchema, breadcrumbSchema]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- HERO SECTION -->
+  <section class="comparison-hero">
+    <div class="container">
+      <div class="comparison-hero-content">
+        <h1 class="heading-1">AvaTrade vs eToro</h1>
+        <p class="comparison-hero-sub">
+          Detailed side-by-side comparison of two leading brokers. Which one is right for your trading needs?
+        </p>
+      </div>
+
+      <!-- Quick Verdict Cards -->
+      <div class="verdict-cards">
+        <div class="verdict-card">
+          <div class="broker-logo-placeholder">A</div>
+          <h3>AvaTrade</h3>
+          <div class="verdict-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="score">{avatrade.scores.overall}/5</span>
+          </div>
+          <p class="verdict-best">Best for: Education, platform variety, regulation</p>
+          <a href={avatrade.partnerCode?.pageUrl || avatrade.reviewUrl} class="btn btn-primary">
+            Get Bonus →
+          </a>
+        </div>
+
+        <div class="vs-badge">VS</div>
+
+        <div class="verdict-card">
+          <div class="broker-logo-placeholder">e</div>
+          <h3>eToro</h3>
+          <div class="verdict-rating">
+            <span class="stars">★★★★☆</span>
+            <span class="score">{etoro.scores.overall}/5</span>
+          </div>
+          <p class="verdict-best">Best for: Copy trading, real stocks, social features</p>
+          <a href={etoro.reviewUrl} class="btn btn-secondary">
+            Read Review →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK SUMMARY -->
+  <section class="section">
+    <div class="container">
+      <div class="quick-summary">
+        <h2 class="heading-3">Quick Summary: Who Should Choose Which?</h2>
+        <div class="summary-grid">
+          <div class="summary-card summary-card--avatrade">
+            <h4>Choose AvaTrade If You Want:</h4>
+            <ul>
+              <li>Industry-standard platforms (MT4/MT5)</li>
+              <li>Structured educational content</li>
+              <li>Maximum regulatory protection</li>
+              <li>AvaProtect risk management</li>
+              <li>Welcome bonus up to $10,000</li>
+            </ul>
+          </div>
+          <div class="summary-card summary-card--etoro">
+            <h4>Choose eToro If You Want:</h4>
+            <ul>
+              <li>Best-in-class copy trading</li>
+              <li>Real stock ownership</li>
+              <li>Social trading community</li>
+              <li>Lower minimum deposit ($50)</li>
+              <li>More instruments (3,000+)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Analyst Take: The Fundamental Difference"
+        icon="🎯"
+        id="fundamental-difference"
+        variant="light"
+      >
+        <h4>Two Different Philosophies</h4>
+        <p>AvaTrade and eToro represent fundamentally different approaches to retail trading. Understanding this distinction will make your choice much clearer.</p>
+
+        <h5>AvaTrade: The Traditional Broker</h5>
+        <p>AvaTrade follows the classic forex/CFD broker model. They offer standard platforms (MT4/MT5) that work across the industry, comprehensive educational resources, and multiple account types. If you learn to trade on AvaTrade, those skills and tools transfer to any other MT4/MT5 broker. They're a "teach you to fish" broker.</p>
+
+        <h5>eToro: The Social Platform</h5>
+        <p>eToro pioneered social trading - the idea that following successful traders is easier than learning to trade yourself. Their platform is designed around community, copying, and accessibility. You don't need to learn technical analysis; just find traders with good track records and copy them. They're a "let experts fish for you" platform.</p>
+
+        <h5>Which Philosophy Suits You?</h5>
+        <p>If you're committed to learning trading as a skill, building your own strategies, and potentially trading professionally someday - AvaTrade's approach serves you better. The knowledge transfers. If you're a busy professional who wants market exposure without dedicating hours to learning - eToro's copy trading lets you participate without the learning curve.</p>
+
+        <h5>The Hybrid Approach</h5>
+        <p>Many traders use both. eToro for passive copy trading (set it and forget it), AvaTrade for active trading where they apply their own analysis. There's no rule saying you can only have one broker account.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- OVERVIEW COMPARISON -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Overview Comparison</h2>
+      <ComparisonTable
+        headers={overviewHeaders}
+        rows={overviewRows}
+        caption="AvaTrade vs eToro: Key features comparison"
+      />
+    </div>
+  </section>
+
+  <!-- FEES COMPARISON -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2">Fees & Costs Comparison</h2>
+      <ComparisonTable
+        headers={feesHeaders}
+        rows={feesRows}
+        caption="AvaTrade vs eToro: Trading costs breakdown"
+      />
+
+      <AnalystNotes
+        title="The Real Cost of Trading"
+        icon="💰"
+        id="fees-analysis"
+        variant="dark"
+      >
+        <h4>Beyond the Headline Spreads</h4>
+        <p>When comparing broker costs, many traders focus only on spreads. Here's a more complete picture of what you'll actually pay.</p>
+
+        <h5>For Forex Traders</h5>
+        <p>AvaTrade wins marginally with 0.9 pip EUR/USD spreads vs eToro's 1.0 pip. On a standard lot, that's about $1 difference per trade. If you're trading 5 lots daily, that's $25/day or $500/month. For active forex traders, AvaTrade is cheaper.</p>
+
+        <h5>For Stock Investors</h5>
+        <p>eToro wins decisively. Commission-free real stock trading (you own the shares) beats AvaTrade's spread-based CFD approach. If you're building a portfolio of actual stocks for long-term holding, eToro is the clear choice. Note: eToro's commission-free trading has a spread built in, but it's still cheaper than most alternatives.</p>
+
+        <h5>For Crypto Trading</h5>
+        <p>Roughly equal. Both use spread-based pricing for crypto. Neither is ideal for serious crypto traders who'd be better served by dedicated exchanges like Binance or Kraken. For occasional crypto exposure alongside other assets, both work fine.</p>
+
+        <h5>Hidden Cost: Currency Conversion</h5>
+        <p>If you're depositing in a currency other than USD, pay attention. AvaTrade charges 0.5% conversion; eToro charges 1.5% - three times more. On a $10,000 deposit, that's $50 vs $150. For non-USD traders, this cost adds up significantly over time.</p>
+
+        <h5>The Inactivity Trap</h5>
+        <p>Both charge inactivity fees, but eToro is actually better here. eToro charges $10/month after 12 months of no activity. AvaTrade charges $50/quarter after just 3 months. If you're a sporadic trader, eToro gives you more grace period.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- PLATFORMS COMPARISON -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Trading Platforms</h2>
+
+      <div class="platforms-comparison">
+        <div class="platform-column">
+          <h3>AvaTrade Platforms</h3>
+          <div class="platform-list">
+            <div class="platform-item">
+              <h4>MetaTrader 4</h4>
+              <p>Industry standard with Expert Advisors, custom indicators, and mobile support</p>
+              <span class="platform-badge">Most Popular</span>
+            </div>
+            <div class="platform-item">
+              <h4>MetaTrader 5</h4>
+              <p>Advanced features, more timeframes, and better backtesting</p>
+            </div>
+            <div class="platform-item">
+              <h4>AvaTradeGO</h4>
+              <p>Proprietary mobile app with AvaProtect risk management</p>
+            </div>
+            <div class="platform-item">
+              <h4>WebTrader</h4>
+              <p>Browser-based trading, no downloads required</p>
+            </div>
+            <div class="platform-item">
+              <h4>DupliTrade / ZuluTrade</h4>
+              <p>Third-party copy trading integrations</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="platform-column">
+          <h3>eToro Platform</h3>
+          <div class="platform-list">
+            <div class="platform-item platform-item--primary">
+              <h4>eToro Platform</h4>
+              <p>All-in-one platform with social features, CopyTrader, and portfolio management</p>
+              <span class="platform-badge">Proprietary Only</span>
+            </div>
+            <div class="platform-item">
+              <h4>eToro Mobile App</h4>
+              <p>Full-featured mobile trading with social feed and copy trading</p>
+              <span class="platform-badge">Highly Rated</span>
+            </div>
+            <div class="platform-item platform-item--note">
+              <p><strong>Note:</strong> eToro does not support MT4, MT5, or any third-party platforms. You must use their proprietary platform.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Platform Choice Matters More Than You Think"
+        icon="💻"
+        id="platform-analysis"
+        variant="light"
+      >
+        <h4>Why This Decision Is Bigger Than It Seems</h4>
+        <p>Your choice of platform affects your long-term trading development. Here's what most comparisons don't tell you.</p>
+
+        <h5>The MetaTrader Advantage (AvaTrade)</h5>
+        <p>MT4/MT5 are industry standards used by 80%+ of retail forex traders. If you learn to trade on MetaTrader, you can switch to any of hundreds of brokers without relearning everything. Your indicators, templates, and EAs transfer. Your muscle memory stays the same. AvaTrade gives you portable skills.</p>
+
+        <h5>The Walled Garden (eToro)</h5>
+        <p>eToro's proprietary platform is user-friendly but creates lock-in. Your CopyTrader portfolios, watchlists, and social connections only exist on eToro. If you ever want to move to a different broker, you start from scratch. This isn't necessarily bad - just understand the trade-off.</p>
+
+        <h5>For Automated Traders</h5>
+        <p>If you want to use Expert Advisors, algorithmic strategies, or automated trading, AvaTrade is your only option. eToro doesn't support any form of automated trading beyond copy trading. The MT4/MT5 ecosystem has tens of thousands of available EAs and indicators.</p>
+
+        <h5>For Casual Investors</h5>
+        <p>If you just want to check your investments occasionally, follow some traders, and not think too hard about platforms - eToro's simplicity is actually a feature, not a bug. Not everyone needs MT4's complexity.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- COPY TRADING COMPARISON -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2">Copy Trading Comparison</h2>
+
+      <div class="copy-trading-grid">
+        <div class="copy-card">
+          <h3>AvaTrade Copy Trading</h3>
+          <div class="copy-feature">
+            <strong>Platforms:</strong> DupliTrade, ZuluTrade
+          </div>
+          <div class="copy-feature">
+            <strong>Integration:</strong> Third-party (external)
+          </div>
+          <div class="copy-feature">
+            <strong>Strategy Providers:</strong> Professional traders
+          </div>
+          <div class="copy-feature">
+            <strong>Minimum:</strong> Varies by platform
+          </div>
+          <div class="copy-pros">
+            <h4>Strengths:</h4>
+            <ul>
+              <li>Access to professional signal providers</li>
+              <li>Works with MT4/MT5</li>
+              <li>Multiple platform options</li>
+            </ul>
+          </div>
+          <div class="copy-cons">
+            <h4>Weaknesses:</h4>
+            <ul>
+              <li>Not natively integrated</li>
+              <li>Requires separate accounts</li>
+              <li>Less transparent than eToro</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="copy-card copy-card--featured">
+          <div class="featured-badge">Best for Copy Trading</div>
+          <h3>eToro CopyTrader</h3>
+          <div class="copy-feature">
+            <strong>Platform:</strong> Native (built-in)
+          </div>
+          <div class="copy-feature">
+            <strong>Integration:</strong> Seamless, one-click copying
+          </div>
+          <div class="copy-feature">
+            <strong>Strategy Providers:</strong> 30M+ traders to follow
+          </div>
+          <div class="copy-feature">
+            <strong>Minimum:</strong> $200 per trader
+          </div>
+          <div class="copy-pros">
+            <h4>Strengths:</h4>
+            <ul>
+              <li>Massive community of traders</li>
+              <li>Full transparency (see exact trades)</li>
+              <li>One-click copying</li>
+              <li>Detailed performance statistics</li>
+              <li>Smart Portfolios available</li>
+            </ul>
+          </div>
+          <div class="copy-cons">
+            <h4>Weaknesses:</h4>
+            <ul>
+              <li>Past performance doesn't guarantee future results</li>
+              <li>Popular traders can have crowded trades</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="The Truth About Copy Trading"
+        icon="👥"
+        id="copy-trading-analysis"
+        variant="dark"
+      >
+        <h4>Is Copy Trading Actually Worth It?</h4>
+        <p>Copy trading sounds magical - just follow successful traders and make money. Here's the reality.</p>
+
+        <h5>eToro's CopyTrader: The Good</h5>
+        <p>eToro's copy trading is genuinely well-implemented. You can see exact historical performance, maximum drawdowns, risk scores, and what assets each trader trades. The filtering tools help you find traders matching your risk tolerance. Many Popular Investors (eToro's verified traders) have genuine track records over multiple years.</p>
+
+        <h5>The Caveats Nobody Mentions</h5>
+        <p>Past performance really doesn't guarantee future results. A trader who made 50% last year might lose 30% this year. Markets change. Strategies stop working. Also, when thousands of people copy a trader simultaneously, it can affect fills - you might not get the same prices the original trader got.</p>
+
+        <h5>AvaTrade's Approach</h5>
+        <p>DupliTrade and ZuluTrade offer access to signal providers who are often more professionally vetted. The downside is less transparency and more friction in the setup process. These platforms work better for traders who want signals they can choose to execute rather than fully automated copying.</p>
+
+        <h5>Our Recommendation</h5>
+        <p>If copy trading is your primary goal, eToro is unquestionably better. Their system is more transparent, easier to use, and has a larger pool of traders to follow. Use it for passive, diversified copying. Don't put all your capital on one trader. Treat it like index investing for trading - spread your risk across multiple signal providers.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- REGULATION COMPARISON -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2">Regulation & Safety</h2>
+
+      <div class="regulation-grid">
+        <div class="regulation-column">
+          <h3>AvaTrade Regulation</h3>
+          <div class="regulation-list">
+            <div class="reg-item tier-1">
+              <span class="reg-flag">🇮🇪</span>
+              <div class="reg-info">
+                <strong>Central Bank of Ireland</strong>
+                <span>License: C53877</span>
+              </div>
+              <span class="tier-badge">Tier 1</span>
+            </div>
+            <div class="reg-item tier-1">
+              <span class="reg-flag">🇬🇧</span>
+              <div class="reg-info">
+                <strong>FCA (UK)</strong>
+                <span>License: 792505</span>
+              </div>
+              <span class="tier-badge">Tier 1</span>
+            </div>
+            <div class="reg-item tier-1">
+              <span class="reg-flag">🇦🇺</span>
+              <div class="reg-info">
+                <strong>ASIC (Australia)</strong>
+                <span>License: 406684</span>
+              </div>
+              <span class="tier-badge">Tier 1</span>
+            </div>
+            <div class="reg-item tier-1">
+              <span class="reg-flag">🇯🇵</span>
+              <div class="reg-info">
+                <strong>JFSA (Japan)</strong>
+                <span>License: 1662</span>
+              </div>
+              <span class="tier-badge">Tier 1</span>
+            </div>
+            <div class="reg-item tier-2">
+              <span class="reg-flag">🇨🇾</span>
+              <div class="reg-info">
+                <strong>CySEC (Cyprus)</strong>
+                <span>License: 109/10</span>
+              </div>
+              <span class="tier-badge tier-2">Tier 2</span>
+            </div>
+            <div class="reg-item tier-2">
+              <span class="reg-flag">🇿🇦</span>
+              <div class="reg-info">
+                <strong>FSCA (South Africa)</strong>
+                <span>License: 45984</span>
+              </div>
+              <span class="tier-badge tier-2">Tier 2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="regulation-column">
+          <h3>eToro Regulation</h3>
+          <div class="regulation-list">
+            <div class="reg-item tier-1">
+              <span class="reg-flag">🇬🇧</span>
+              <div class="reg-info">
+                <strong>FCA (UK)</strong>
+                <span>License: 583263</span>
+              </div>
+              <span class="tier-badge">Tier 1</span>
+            </div>
+            <div class="reg-item tier-1">
+              <span class="reg-flag">🇦🇺</span>
+              <div class="reg-info">
+                <strong>ASIC (Australia)</strong>
+                <span>License: 491139</span>
+              </div>
+              <span class="tier-badge">Tier 1</span>
+            </div>
+            <div class="reg-item tier-2">
+              <span class="reg-flag">🇨🇾</span>
+              <div class="reg-info">
+                <strong>CySEC (Cyprus)</strong>
+                <span>License: 109/10</span>
+              </div>
+              <span class="tier-badge tier-2">Tier 2</span>
+            </div>
+          </div>
+          <div class="regulation-note">
+            <p>Both brokers are well-regulated. AvaTrade has more regulatory coverage, but eToro's regulations (FCA, ASIC, CySEC) cover most major markets adequately.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section">
+    <div class="container container--narrow">
+      <h2 class="heading-2">Frequently Asked Questions</h2>
+      <FAQ questions={faqItems} />
+    </div>
+  </section>
+
+  <!-- VERDICT SECTION -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="final-verdict">
+        <h2 class="heading-2">Final Verdict</h2>
+
+        <div class="verdict-grid">
+          <div class="verdict-box">
+            <h3>AvaTrade Wins If:</h3>
+            <ul>
+              <li>You want MT4/MT5 platform options</li>
+              <li>Education and learning are priorities</li>
+              <li>Maximum regulatory protection matters</li>
+              <li>You want a welcome bonus (up to $10K)</li>
+              <li>You're not in the US (better availability)</li>
+            </ul>
+            <a href={avatrade.partnerCode?.pageUrl || avatrade.reviewUrl} class="btn btn-primary">
+              Get AvaTrade Bonus →
+            </a>
+          </div>
+
+          <div class="verdict-box">
+            <h3>eToro Wins If:</h3>
+            <ul>
+              <li>Copy trading is your main goal</li>
+              <li>You want to own real stocks</li>
+              <li>Social features and community matter</li>
+              <li>You have a smaller starting budget</li>
+              <li>Simplicity trumps customization</li>
+            </ul>
+            <a href={etoro.reviewUrl} class="btn btn-secondary">
+              Read eToro Review →
+            </a>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Our Bottom Line Recommendation"
+          icon="🏆"
+          id="verdict-notes"
+          variant="light"
+        >
+          <h4>Who We'd Recommend Each Broker To</h4>
+
+          <h5>Go With AvaTrade If:</h5>
+          <p>You're serious about learning to trade. You want transferable skills that work across the industry. You value regulatory security. You plan to eventually use automated strategies or EAs. You want the $10,000 welcome bonus to boost your starting capital.</p>
+
+          <h5>Go With eToro If:</h5>
+          <p>You want market exposure without becoming a full-time trader. Copy trading appeals more than learning technical analysis. You want to buy actual stocks for long-term holding. You like being part of an active trading community. You prefer mobile-first, simple interfaces.</p>
+
+          <h5>Or Use Both</h5>
+          <p>There's no rule against having both. Many traders use eToro for passive copy trading and long-term stock positions, while using AvaTrade for active forex trading where MT4 tools and lower spreads matter. The accounts are free to open - try both and see which feels right.</p>
+        </AnalystNotes>
+
+        <!-- Related Links -->
+        <div class="related-resources">
+          <h3>Full Reviews & Resources</h3>
+          <div class="resource-grid">
+            <a href="/brokers/avatrade/" class="resource-link">
+              <span class="resource-title">AvaTrade Full Review</span>
+              <span class="resource-desc">Complete 2026 analysis with fees, platforms, regulation</span>
+            </a>
+            <a href="/brokers/etoro/" class="resource-link">
+              <span class="resource-title">eToro Full Review</span>
+              <span class="resource-desc">Deep dive into social trading and copy features</span>
+            </a>
+            <a href="/bonus-codes/avatrade-partner-code/" class="resource-link resource-highlight">
+              <span class="resource-title">AvaTrade Partner Code: 128979</span>
+              <span class="resource-desc">Claim up to $10,000 welcome bonus</span>
+            </a>
+            <a href="/find-broker/" class="resource-link">
+              <span class="resource-title">AI Broker Matcher</span>
+              <span class="resource-desc">Find your perfect broker in 30 seconds</span>
+            </a>
+            <a href="/bonus-codes/" class="resource-link">
+              <span class="resource-title">All Bonus Codes</span>
+              <span class="resource-desc">Exclusive partner codes for 2026</span>
+            </a>
+            <a href="/brokers/" class="resource-link">
+              <span class="resource-title">All Broker Reviews</span>
+              <span class="resource-desc">Compare 15+ regulated brokers</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .comparison-hero {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    padding: var(--space-2xl) 0;
+    color: white;
+  }
+
+  .comparison-hero-content {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .comparison-hero h1 {
+    color: white;
+    margin-bottom: var(--space-md);
+  }
+
+  .comparison-hero-sub {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-size-xl);
+  }
+
+  .verdict-cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .verdict-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+    min-width: 280px;
+    color: var(--charcoal);
+  }
+
+  .broker-logo-placeholder {
+    width: 60px;
+    height: 60px;
+    background: var(--gray-100);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin: 0 auto var(--space-md);
+  }
+
+  .verdict-card h3 {
+    margin-bottom: var(--space-sm);
+  }
+
+  .verdict-rating {
+    margin-bottom: var(--space-sm);
+  }
+
+  .stars {
+    color: var(--brand-orange);
+  }
+
+  .score {
+    color: var(--brand-orange);
+    font-weight: 700;
+    margin-left: var(--space-xs);
+  }
+
+  .verdict-best {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
+
+  .vs-badge {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.2);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quick-summary {
+    margin-bottom: var(--space-xl);
+  }
+
+  .quick-summary h2 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .summary-card {
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+  }
+
+  .summary-card--avatrade {
+    background: rgba(255, 72, 0, 0.05);
+    border: 1px solid rgba(255, 72, 0, 0.2);
+  }
+
+  .summary-card--etoro {
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+
+  .summary-card h4 {
+    margin-bottom: var(--space-md);
+  }
+
+  .summary-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .summary-card li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+  }
+
+  .summary-card li::before {
+    content: '✓ ';
+    color: var(--success);
+    font-weight: 600;
+  }
+
+  .platforms-comparison {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .platform-column h3 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .platform-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .platform-item {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .platform-item--primary {
+    border-color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.02);
+  }
+
+  .platform-item--note {
+    background: var(--gray-50);
+    border: none;
+  }
+
+  .platform-item h4 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .platform-item p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  .platform-badge {
+    display: inline-block;
+    margin-top: var(--space-sm);
+    padding: 2px 8px;
+    background: var(--brand-orange);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+  }
+
+  .copy-trading-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .copy-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    position: relative;
+  }
+
+  .copy-card--featured {
+    border-color: var(--success);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    left: var(--space-lg);
+    background: var(--success);
+    color: white;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .copy-card h3 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .copy-feature {
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: var(--font-size-sm);
+  }
+
+  .copy-pros, .copy-cons {
+    margin-top: var(--space-md);
+  }
+
+  .copy-pros h4, .copy-cons h4 {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .copy-pros ul, .copy-cons ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .copy-pros li, .copy-cons li {
+    font-size: var(--font-size-sm);
+    padding: var(--space-xs) 0;
+    color: var(--gray-700);
+  }
+
+  .copy-pros li::before {
+    content: '✓ ';
+    color: var(--success);
+  }
+
+  .copy-cons li::before {
+    content: '✗ ';
+    color: var(--warning);
+  }
+
+  .regulation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .regulation-column h3 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .regulation-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .reg-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--white);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-200);
+  }
+
+  .reg-item.tier-1 {
+    border-left: 3px solid var(--success);
+  }
+
+  .reg-item.tier-2 {
+    border-left: 3px solid var(--brand-orange);
+  }
+
+  .reg-flag {
+    font-size: 1.5rem;
+  }
+
+  .reg-info {
+    flex: 1;
+  }
+
+  .reg-info strong {
+    display: block;
+    font-size: var(--font-size-sm);
+  }
+
+  .reg-info span {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+  }
+
+  .tier-badge {
+    background: var(--success);
+    color: white;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .tier-badge.tier-2 {
+    background: var(--brand-orange);
+  }
+
+  .regulation-note {
+    margin-top: var(--space-lg);
+    padding: var(--space-md);
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+  }
+
+  .regulation-note p {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin: 0;
+  }
+
+  .final-verdict h2 {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-box {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  .verdict-box h3 {
+    margin-bottom: var(--space-md);
+  }
+
+  .verdict-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg) 0;
+  }
+
+  .verdict-box li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+  }
+
+  .verdict-box li::before {
+    content: '✓ ';
+    color: var(--success);
+  }
+
+  @media (max-width: 768px) {
+    .verdict-cards {
+      flex-direction: column;
+    }
+
+    .vs-badge {
+      transform: rotate(90deg);
+    }
+
+    .summary-grid,
+    .platforms-comparison,
+    .copy-trading-grid,
+    .regulation-grid,
+    .verdict-grid,
+    .resource-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Related Resources */
+  .related-resources {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .related-resources h3 {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .resource-link {
+    display: block;
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .resource-link:hover {
+    border-color: var(--brand-orange);
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .resource-link.resource-highlight {
+    background: rgba(255, 72, 0, 0.05);
+    border-color: rgba(255, 72, 0, 0.3);
+  }
+
+  .resource-title {
+    display: block;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .resource-desc {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+</style>

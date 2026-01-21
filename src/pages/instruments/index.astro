@@ -1,0 +1,298 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+// Page metadata
+const pageTitle = "Trading Instruments - Forex, Stocks, Crypto, Indices & Commodities";
+const pageDescription = "Explore 1,000+ trading instruments across forex, stocks, indices, cryptocurrencies, and commodities. Find the right markets for your trading style with TradeTheDay.";
+
+// Instrument categories data
+const instrumentCategories = [
+  {
+    id: 'forex',
+    title: 'Forex',
+    subtitle: 'Foreign Exchange Markets',
+    icon: '💱',
+    gradientClass: 'gradient-forex',
+    description: 'Trade the world\'s largest financial market with over $7.5 trillion in daily volume. Access major, minor, and exotic currency pairs with tight spreads and deep liquidity.',
+    features: ['24/5 Trading', 'High Liquidity', 'Low Spreads', 'Leverage Available'],
+    stats: { instruments: '80+', avgSpread: '0.6 pips', leverage: 'Up to 30:1' },
+    href: '/trade/forex/'
+  },
+  {
+    id: 'shares',
+    title: 'Shares',
+    subtitle: 'Global Stock Markets',
+    icon: '📈',
+    gradientClass: 'gradient-shares',
+    description: 'Trade shares from the world\'s leading companies across US, UK, European, and Asian markets. Go long or short on your favourite stocks with competitive commissions.',
+    features: ['Global Markets', 'Fractional Shares', 'Dividends', 'No Stamp Duty'],
+    stats: { instruments: '2,000+', markets: '15+', commission: 'From $0' },
+    href: '/trade/stocks/'
+  },
+  {
+    id: 'indices',
+    title: 'Indices',
+    subtitle: 'Stock Market Indices',
+    icon: '📊',
+    gradientClass: 'gradient-indices',
+    description: 'Trade the performance of entire stock markets through major indices. Diversify your portfolio by tracking baskets of the world\'s top-performing companies.',
+    features: ['Diversification', 'Lower Risk', 'Extended Hours', 'Cash Settlement'],
+    stats: { instruments: '30+', avgSpread: '0.4 pts', markets: 'Global' },
+    href: '/trade/indices/'
+  },
+  {
+    id: 'crypto',
+    title: 'Cryptocurrencies',
+    subtitle: 'Digital Asset Markets',
+    icon: '₿',
+    gradientClass: 'gradient-crypto',
+    description: 'Trade Bitcoin, Ethereum, and other leading cryptocurrencies 24/7. Access the digital asset revolution with regulated brokers and secure trading environments.',
+    features: ['24/7 Trading', 'No Wallet Needed', 'Go Long or Short', 'Leverage Available'],
+    stats: { instruments: '50+', trading: '24/7', leverage: 'Up to 2:1' },
+    href: '/trade/crypto/'
+  },
+  {
+    id: 'commodities',
+    title: 'Commodities',
+    subtitle: 'Precious Metals, Energy & Agriculture',
+    icon: '🥇',
+    gradientClass: 'gradient-commodities',
+    description: 'Trade gold, silver, oil, and other commodities. Hedge against inflation, diversify your portfolio, and take advantage of global supply and demand dynamics.',
+    features: ['Safe Haven Assets', 'Inflation Hedge', 'Physical Delivery Option', 'High Volatility'],
+    stats: { instruments: '25+', popular: 'Gold, Oil', avgSpread: '0.3 pts' },
+    href: '/trade/commodities/'
+  }
+];
+
+// Hero statistics
+const heroStats = [
+  { icon: '📊', value: '1,000+', label: 'Instruments' },
+  { icon: '🌍', value: '5', label: 'Asset Classes' },
+  { icon: '⏰', value: '24/7', label: 'Crypto Trading' },
+  { icon: '💰', value: '$100', label: 'Min Deposit' }
+];
+
+// Popular examples across all categories
+const popularExamples = [
+  { name: 'EUR/USD', symbol: 'Forex', icon: '💱', category: 'forex', gradientClass: 'gradient-forex' },
+  { name: 'Gold', symbol: 'XAU/USD', icon: '🥇', category: 'commodities', gradientClass: 'gradient-commodities' },
+  { name: 'Bitcoin', symbol: 'BTC/USD', icon: '₿', category: 'crypto', gradientClass: 'gradient-crypto' },
+  { name: 'S&P 500', symbol: 'SPX500', icon: '📊', category: 'indices', gradientClass: 'gradient-indices' },
+  { name: 'Apple', symbol: 'AAPL', icon: '📈', category: 'shares', gradientClass: 'gradient-shares' },
+  { name: 'Crude Oil', symbol: 'WTI/USD', icon: '🛢️', category: 'commodities', gradientClass: 'gradient-commodities' },
+  { name: 'Tesla', symbol: 'TSLA', icon: '⚡', category: 'shares', gradientClass: 'gradient-shares' },
+  { name: 'Ethereum', symbol: 'ETH/USD', icon: '💎', category: 'crypto', gradientClass: 'gradient-crypto' }
+];
+
+// Trading advantages
+const tradingAdvantages = [
+  {
+    icon: '⚡',
+    title: 'Fast Execution',
+    description: 'Lightning-fast order execution with minimal slippage across all instrument types.'
+  },
+  {
+    icon: '📱',
+    title: 'Multi-Platform',
+    description: 'Trade on desktop, mobile, and tablet with seamless synchronisation across devices.'
+  },
+  {
+    icon: '🔒',
+    title: 'Fully Regulated',
+    description: 'All partner brokers are regulated by tier-1 authorities including FCA, ASIC, and CySEC.'
+  },
+  {
+    icon: '🎓',
+    title: 'Expert Analysis',
+    description: 'Access market analysis, trading signals, and educational resources to improve your trading.'
+  }
+];
+
+// Schema markup for SEO
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": "https://tradetheday.com/instruments/"
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={pageSchema}
+>
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Instruments', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-badge">
+        <span class="page-hero-badge-icon">📈</span>
+        TRADING INSTRUMENTS
+      </div>
+
+      <h1>Trade <span>1,000+</span> Global Instruments</h1>
+
+      <p class="page-hero-description">
+        Access forex, stocks, indices, cryptocurrencies, and commodities through our partner brokers. Find the perfect markets for your trading style and goals.
+      </p>
+
+      <div class="page-hero-stats">
+        {heroStats.map((stat) => (
+          <div class="page-hero-stat">
+            <span class="page-hero-stat-icon">{stat.icon}</span>
+            <span class="page-hero-stat-value">{stat.value}</span>
+            <span class="page-hero-stat-label">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="page-hero-cta">
+        <a href="/compare/" class="btn btn-primary btn-lg">Find Your Broker</a>
+        <a href="/trade/" class="btn btn-ghost-light btn-lg">Explore Markets</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTRUMENT CATEGORIES SECTION -->
+  <section class="page-section">
+    <div class="container">
+      <div class="page-section-header">
+        <h2 class="page-section-title">Choose Your Asset Class</h2>
+        <p class="page-section-description">
+          Each instrument type offers unique opportunities. Explore the markets that match your trading strategy and risk tolerance.
+        </p>
+      </div>
+
+      <div class="category-grid">
+        {instrumentCategories.map((category) => (
+          <a href={category.href} class="category-card">
+            <div class={`category-card-header ${category.gradientClass}`}>
+              <span class="category-card-icon">{category.icon}</span>
+              <h3 class="category-card-title">{category.title}</h3>
+              <p class="category-card-subtitle">{category.subtitle}</p>
+            </div>
+
+            <div class="category-card-body">
+              <p class="category-card-description">{category.description}</p>
+
+              <div class="category-card-features">
+                {category.features.map((feature) => (
+                  <span class="category-card-feature">
+                    <span class="category-card-feature-icon">✓</span>
+                    {feature}
+                  </span>
+                ))}
+              </div>
+
+              <div class="category-card-stats">
+                {Object.entries(category.stats).map(([key, value]) => (
+                  <div class="category-card-stat">
+                    <span class="category-card-stat-value">{value}</span>
+                    <span class="category-card-stat-label">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+                  </div>
+                ))}
+              </div>
+
+              <span class="category-card-cta">
+                Explore {category.title} →
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- POPULAR INSTRUMENTS SECTION -->
+  <section class="page-section page-section-alt">
+    <div class="container">
+      <div class="page-section-header">
+        <h2 class="page-section-title">Most Popular Instruments</h2>
+        <p class="page-section-description">
+          These are the most traded instruments across our partner brokers
+        </p>
+      </div>
+
+      <div class="example-grid">
+        {popularExamples.map((example) => (
+          <a href={`/trade/${example.category}/`} class="example-card">
+            <div class={`example-card-icon ${example.gradientClass}`}>
+              {example.icon}
+            </div>
+            <div class="example-card-info">
+              <span class="example-card-name">{example.name}</span>
+              <span class="example-card-symbol">{example.symbol}</span>
+            </div>
+            <span class="example-card-tag">{example.category}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ADVANTAGES SECTION -->
+  <section class="page-section">
+    <div class="container">
+      <div class="page-section-header">
+        <h2 class="page-section-title">Why Trade With Our Partners</h2>
+        <p class="page-section-description">
+          Access professional-grade trading conditions through our carefully vetted partner brokers
+        </p>
+      </div>
+
+      <div class="advantage-grid">
+        {tradingAdvantages.map((advantage) => (
+          <div class="advantage-card">
+            <div class="advantage-card-icon">{advantage.icon}</div>
+            <h3 class="advantage-card-title">{advantage.title}</h3>
+            <p class="advantage-card-description">{advantage.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- RISK WARNING SECTION -->
+  <section class="section section-warm">
+    <div class="container">
+      <div class="callout callout-warning" style="max-width: 900px; margin: 0 auto;">
+        <h3 style="margin-bottom: var(--space-md); color: var(--charcoal);">Important Risk Information</h3>
+        <p class="body-sm" style="margin-bottom: var(--space-md);">
+          Trading derivatives and CFDs involves significant risk. <strong>Between 72-89% of retail investor accounts lose money</strong> when trading these instruments. You should consider whether you understand how these products work and whether you can afford to take the high risk of losing your money.
+        </p>
+        <p class="body-sm">
+          The instruments listed on this page may not be available in all jurisdictions. Please check with your broker for availability in your region.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA SECTION -->
+  <section class="final-cta">
+    <div class="container">
+      <div class="final-cta-content">
+        <h2 class="final-cta-title">Ready to Start Trading?</h2>
+        <p class="final-cta-description">
+          Compare regulated brokers and find the perfect platform for your trading needs. Get started in minutes with as little as $100.
+        </p>
+        <div class="final-cta-buttons">
+          <a href="/compare/" class="btn btn-primary btn-lg">Find My Perfect Broker</a>
+          <a href="/brokers/" class="btn btn-ghost-light btn-lg">Compare All Brokers</a>
+        </div>
+        <div class="final-cta-features">
+          <span class="final-cta-feature">✓ Regulated brokers only</span>
+          <span class="final-cta-feature">✓ Free demo accounts</span>
+          <span class="final-cta-feature">✓ 24/7 support available</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

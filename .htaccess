@@ -1,0 +1,57 @@
+# Password Protection for Staging Site
+# This protects only staging.tradetheday.com
+<If "%{HTTP_HOST} == 'staging.tradetheday.com'">
+    AuthType Basic
+    AuthName "Staging Site - Restricted Access"
+    AuthUserFile /home/tradetheday/public_html/.htpasswd
+    Require valid-user
+</If>
+
+# Custom 404 Error Page
+ErrorDocument 404 /404.html
+
+# Enable Server Side Includes (SSI)
+Options +Includes
+
+# Process .html files for SSI directives
+AddType text/html .html
+AddOutputFilter INCLUDES .html
+
+# Also process .shtml files (optional)
+AddType text/html .shtml
+AddOutputFilter INCLUDES .shtml
+
+# Enable SSI for specific file extensions
+<FilesMatch "\.(html|shtml)$">
+    SetOutputFilter INCLUDES
+</FilesMatch>
+
+# Optional: Enable SSI error messages (helpful for debugging)
+# SSIErrorMsg "SSI Error"
+
+# Optional: Set SSI time format
+# SSITimeFormat "%A %B %d, %Y"
+
+# Security: Prevent direct access to include files
+<FilesMatch "^(header|footer)\.html$">
+    # Allow access to include files
+    # Comment out the next two lines if you want to block direct access
+    # Order deny,allow
+    # Deny from all
+</FilesMatch>
+
+# Allow SSI on this site
+Options +Includes
+
+# Parse .shtml for SSI (reliable)
+AddType text/html .shtml
+<FilesMatch "\.shtml$">
+  SetOutputFilter INCLUDES
+</FilesMatch>
+
+# Optional: also parse .html for SSI (only if you want it)
+# AddType text/html .html
+# AddOutputFilter INCLUDES .html
+
+# Friendly defaults
+DirectoryIndex index.shtml index.html

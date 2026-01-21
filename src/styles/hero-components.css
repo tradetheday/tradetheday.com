@@ -1,0 +1,84 @@
+/*
+ * Hero Components - Shared styles for hero sections
+ * Import this file for consistent hero styling across pages
+ */
+
+/* ==========================================================================
+   HERO CONTENT ELEMENTS
+   ========================================================================== */
+
+/* Subtitle styling */
+.hero .body-large {
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 600px;
+  margin: 0 auto var(--space-lg);
+}
+
+/* Social Proof Badge */
+.hero-social-proof {
+  margin-bottom: var(--space-md);
+}
+
+.social-proof-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 72, 0, 0.15);
+  border: 1px solid rgba(255, 72, 0, 0.3);
+  color: var(--brand-orange);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.social-proof-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--success);
+  border-radius: 50%;
+  animation: hero-pulse 2s infinite;
+}
+
+@keyframes hero-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+}
+
+/* Trust Row */
+.hero-trust-row {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  margin-top: var(--space-lg);
+}
+
+.hero-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--font-size-sm);
+}
+
+.hero-trust-item svg {
+  color: var(--success);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .hero-trust-row {
+    gap: var(--space-md);
+  }
+
+  .hero-trust-item {
+    font-size: var(--font-size-xs);
+  }
+}

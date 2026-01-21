@@ -1,0 +1,152 @@
+---
+interface Props {
+  bestFor: string[];
+  notIdealFor: string[];
+}
+
+const { bestFor, notIdealFor } = Astro.props;
+---
+
+<div class="best-for-section">
+  <div class="best-for-grid">
+    <div class="best-for-card success-card">
+      <h3 class="best-for-title success-title">✓ Best For</h3>
+      <ul class="best-for-list success-list">
+        {bestFor.map((item) => (
+          <li class="best-for-item success-item">{item}</li>
+        ))}
+      </ul>
+    </div>
+    
+    <div class="best-for-card warning-card">
+      <h3 class="best-for-title warning-title">✗ Not Ideal For</h3>
+      <ul class="best-for-list warning-list">
+        {notIdealFor.map((item) => (
+          <li class="best-for-item warning-item">{item}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  .best-for-section {
+    margin: var(--space-content) 0;
+  }
+
+  .best-for-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-content);
+  }
+
+  .best-for-card {
+    background: white;
+    border-radius: 1rem;
+    padding: var(--space-content);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--gray-200, #e5e7eb);
+    transition: all 0.2s ease;
+  }
+
+  .best-for-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  }
+
+  .success-card {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.03) 0%, rgba(16, 185, 129, 0.08) 100%);
+    border-left: 4px solid var(--success, #10b981);
+  }
+
+  .warning-card {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.03) 0%, rgba(239, 68, 68, 0.08) 100%);
+    border-left: 4px solid var(--error, #ef4444);
+  }
+
+  .best-for-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    text-align: left;
+  }
+
+  .success-title {
+    color: var(--success, #10b981);
+  }
+
+  .warning-title {
+    color: var(--error, #ef4444);
+  }
+
+  .best-for-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .best-for-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--gray-700, #374151);
+    position: relative;
+  }
+
+  .success-item::before {
+    content: '✓';
+    color: var(--success, #10b981);
+    font-weight: bold;
+    font-size: 1rem;
+    min-width: 1rem;
+    margin-top: 0.125rem;
+  }
+
+  .warning-item::before {
+    content: '✗';
+    color: var(--error, #ef4444);
+    font-weight: bold;
+    font-size: 1rem;
+    min-width: 1rem;
+    margin-top: 0.125rem;
+  }
+
+  .best-for-item:last-child {
+    padding-bottom: 0;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .best-for-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-sm);
+    }
+    
+    .best-for-card {
+      padding: var(--space-sm);
+    }
+    
+    .best-for-title {
+      font-size: 1.125rem;
+    }
+    
+    .best-for-item {
+      font-size: 0.875rem;
+      padding: 0.4rem 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .best-for-card {
+      padding: 1rem;
+    }
+    
+    .best-for-item {
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+    }
+  }
+</style>

@@ -1,0 +1,294 @@
+<!-- Homepage Hero 2: Feature Comparison Focus -->
+<!-- Copy this entire section to use the feature comparison homepage hero -->
+<section class="hero-homepage-features section">
+    <div class="container">
+        <div class="homepage-features-content">
+            <div class="features-intro">
+                <span class="chip">Detailed Analysis</span>
+                <h1 class="heading-1">Compare Broker Features</h1>
+                <p class="body-large">See how top brokers perform across the categories that matter most to traders.</p>
+            </div>
+            
+            <div class="features-comparison-grid">
+                <div class="features-table-container">
+                    <table class="features-table">
+                        <thead>
+                            <tr>
+                                <th>Broker</th>
+                                <th>Platform Quality</th>
+                                <th>Trading Costs</th>
+                                <th>Education</th>
+                                <th>Customer Service</th>
+                                <th>Overall</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>IC Markets</strong></td>
+                                <td><span class="star-rating">★★★★★</span> 5.0</td>
+                                <td><span class="star-rating">★★★★★</span> 4.9</td>
+                                <td><span class="star-rating">★★★★☆</span> 4.2</td>
+                                <td><span class="star-rating">★★★★☆</span> 4.3</td>
+                                <td><span class="overall-score excellent">4.8</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>IG</strong></td>
+                                <td><span class="star-rating">★★★★★</span> 4.8</td>
+                                <td><span class="star-rating">★★★★☆</span> 4.1</td>
+                                <td><span class="star-rating">★★★★★</span> 4.9</td>
+                                <td><span class="star-rating">★★★★☆</span> 4.4</td>
+                                <td><span class="overall-score good">4.5</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>AvaTrade</strong></td>
+                                <td><span class="star-rating">★★★★☆</span> 4.3</td>
+                                <td><span class="star-rating">★★★☆☆</span> 3.8</td>
+                                <td><span class="star-rating">★★★★★</span> 4.7</td>
+                                <td><span class="star-rating">★★★★☆</span> 4.1</td>
+                                <td><span class="overall-score good">4.2</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Plus500</strong></td>
+                                <td><span class="star-rating">★★★★☆</span> 4.0</td>
+                                <td><span class="star-rating">★★★☆☆</span> 3.5</td>
+                                <td><span class="star-rating">★★★☆☆</span> 3.2</td>
+                                <td><span class="star-rating">★★★★☆</span> 4.2</td>
+                                <td><span class="overall-score average">3.9</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="features-highlights">
+                    <div class="feature-highlight">
+                        <div class="feature-highlight-icon">🏆</div>
+                        <div class="feature-highlight-content">
+                            <h3>Best Overall</h3>
+                            <p>IC Markets leads with exceptional platform quality and ultra-low spreads</p>
+                            <a href="#ic-markets" class="feature-link">Read Review →</a>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-highlight">
+                        <div class="feature-highlight-icon">🎓</div>
+                        <div class="feature-highlight-content">
+                            <h3>Best Education</h3>
+                            <p>IG offers comprehensive learning resources and market analysis</p>
+                            <a href="#ig" class="feature-link">Read Review →</a>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-highlight">
+                        <div class="feature-highlight-icon">💰</div>
+                        <div class="feature-highlight-content">
+                            <h3>Best for Beginners</h3>
+                            <p>AvaTrade's $100 minimum and strong education make it beginner-friendly</p>
+                            <a href="#avatrade" class="feature-link">Read Review →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Homepage Hero 2: Feature Comparison Focus */
+.hero-homepage-features {
+    background: linear-gradient(135deg, var(--gray-50) 0%, var(--white) 100%);
+    padding: var(--space-4xl) 0;
+}
+
+.homepage-features-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.features-intro {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+}
+
+.features-intro .chip {
+    margin-bottom: var(--space-md);
+}
+
+.features-comparison-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+}
+
+.features-table-container {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.features-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.features-table th {
+    background: var(--gray-50);
+    padding: var(--space-md) var(--space-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--gray-700);
+    font-size: var(--font-size-xs);
+    text-align: center;
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.features-table th:first-child {
+    text-align: left;
+    width: 120px;
+}
+
+.features-table td {
+    padding: var(--space-md) var(--space-sm);
+    border-bottom: 1px solid var(--gray-100);
+    text-align: center;
+    font-size: var(--font-size-sm);
+}
+
+.features-table td:first-child {
+    text-align: left;
+}
+
+.features-table tbody tr:hover {
+    background: var(--gray-25);
+}
+
+.star-rating {
+    color: var(--brand-orange);
+    font-size: var(--font-size-sm);
+    margin-right: var(--space-xs);
+}
+
+.overall-score {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--white);
+}
+
+.overall-score.excellent {
+    background: var(--success);
+}
+
+.overall-score.good {
+    background: var(--brand-orange);
+}
+
+.overall-score.average {
+    background: var(--warning);
+}
+
+.features-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.feature-highlight {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+}
+
+.feature-highlight-icon {
+    font-size: var(--font-size-xl);
+    flex-shrink: 0;
+}
+
+.feature-highlight-content h3 {
+    margin: 0 0 var(--space-xs) 0;
+    color: var(--gray-900);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+}
+
+.feature-highlight-content p {
+    margin: 0 0 var(--space-sm) 0;
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+}
+
+.feature-link {
+    color: var(--brand-orange);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-sm);
+}
+
+.feature-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .features-comparison-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .features-table {
+        font-size: var(--font-size-xs);
+    }
+    
+    .features-table th,
+    .features-table td {
+        padding: var(--space-sm) var(--space-xs);
+    }
+    
+    .features-table th:first-child,
+    .features-table td:first-child {
+        width: 80px;
+    }
+    
+    .star-rating {
+        display: none;
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Perfect for detailed broker feature comparisons
+2. Split layout with comprehensive comparison table and key highlights
+3. Features star ratings across multiple categories
+4. Highlights best-in-class brokers for different use cases
+5. Update feature categories and ratings to match your analysis
+6. Table and highlights automatically stack on mobile
+
+Customization Options:
+- Update categories: Modify table headers for different comparison points
+- Change ratings: Update star ratings and numerical scores
+- Customize highlights: Modify award categories and descriptions
+- Add brokers: Extend table with more broker comparisons
+- Update colors: Adjust excellent/good/average score colors
+- Modify awards: Change highlight icons and award categories
+- Remove highlights: Use table-only layout if preferred
+
+Rating System:
+- Star ratings from 1-5 stars with decimal scores
+- Color-coded overall scores (green=excellent, orange=good, yellow=average)
+- Hover effects on table rows
+- Responsive design hides star icons on mobile for space
+
+Feature Categories:
+- Platform Quality: Trading platform and tools assessment
+- Trading Costs: Spreads, commissions, and fees evaluation
+- Education: Learning resources and market analysis quality
+- Customer Service: Support quality and availability
+- Overall: Combined weighted score across all categories
+
+Required CSS: design-system.css + embedded styles above
+-->

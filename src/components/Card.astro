@@ -1,0 +1,41 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  icon?: string;
+  buttonText?: string;
+  buttonHref?: string;
+  variant?: 'default' | 'compact' | 'spacious' | 'borderless' | 'elevated';
+  textAlign?: 'left' | 'center' | 'right';
+  buttonStyle?: 'primary' | 'secondary' | 'outline' | 'ghost';
+}
+
+const {
+  title,
+  description,
+  icon,
+  buttonText,
+  buttonHref = '#',
+  variant = 'default',
+  textAlign = 'left',
+  buttonStyle = 'secondary'
+} = Astro.props;
+
+const cardClasses = [
+  'card',
+  variant !== 'default' ? `card-${variant}` : '',
+  textAlign !== 'left' ? `text-${textAlign}` : ''
+].filter(Boolean).join(' ');
+
+const buttonClasses = `btn btn-${buttonStyle}`;
+---
+
+<div class={cardClasses}>
+  {icon && <span class="card-icon">{icon}</span>}
+  <h3 class="heading-3">{title}</h3>
+  {description && <p class="body">{description}</p>}
+  {buttonText && (
+    <a href={buttonHref} class={buttonClasses}>{buttonText}</a>
+  )}
+  <slot />
+</div>

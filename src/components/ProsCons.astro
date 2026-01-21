@@ -1,0 +1,68 @@
+---
+export interface Props {
+  pros: string[];
+  cons: string[];
+  title?: string;
+  subtitle?: string;
+  variant?: 'light' | 'dark';
+}
+
+const { 
+  pros, 
+  cons, 
+  title = "Pros & Cons",
+  subtitle = "Balanced evaluation of advantages and disadvantages",
+  variant = 'light'
+} = Astro.props;
+---
+
+<div class={`pros-cons-wrapper ${variant}`}>
+    {title && (
+      <div class="text-center">
+        <h2 class="heading-2">{title}</h2>
+        {subtitle && <p class="body-large">{subtitle}</p>}
+      </div>
+    )}
+    
+    <div class="pros-cons-grid">
+      <div class="pros-section">
+        <h3 class="heading-3"><span aria-hidden="true">✅</span> Pros</h3>
+        <ul class="pros-list" aria-label="Advantages">
+          {pros.map(pro => (
+            <li><span class="sr-only">Pro: </span>{pro}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="cons-section">
+        <h3 class="heading-3"><span aria-hidden="true">❌</span> Cons</h3>
+        <ul class="cons-list" aria-label="Disadvantages">
+          {cons.map(con => (
+            <li><span class="sr-only">Con: </span>{con}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+</div>
+
+<style>
+  .pros-cons-wrapper {
+    width: 100%;
+  }
+
+  /* Spacing handled by universal spacing-system.css */
+
+  .pros-cons-wrapper.dark .heading-2,
+  .pros-cons-wrapper.dark .heading-3 {
+    color: white;
+  }
+
+  .pros-cons-wrapper.dark .body-large {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .pros-cons-wrapper.dark .pros-list li,
+  .pros-cons-wrapper.dark .cons-list li {
+    color: rgba(255, 255, 255, 0.9);
+  }
+</style>

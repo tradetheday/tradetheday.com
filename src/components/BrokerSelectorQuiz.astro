@@ -1,0 +1,641 @@
+---
+/**
+ * Interactive Broker Selector Quiz Component
+ * A 5-question quiz that helps users find the best broker for their needs
+ */
+import { quizQuestions } from '../data/brokers';
+
+interface Props {
+  variant?: 'full' | 'mini';
+}
+
+const { variant = 'full' } = Astro.props;
+---
+
+<div class={`broker-quiz ${variant === 'mini' ? 'broker-quiz--mini' : ''}`} data-quiz>
+  <!-- Progress Bar -->
+  <div class="quiz-progress">
+    <div class="quiz-progress-bar">
+      <div class="quiz-progress-fill" data-progress-fill style="width: 0%"></div>
+    </div>
+    <span class="quiz-progress-text" data-progress-text>Question 1 of 5</span>
+  </div>
+
+  <!-- Quiz Questions -->
+  <div class="quiz-questions">
+    {quizQuestions.map((q, index) => (
+      <div
+        class={`quiz-question ${index === 0 ? 'quiz-question--active' : ''}`}
+        data-question={q.id}
+        data-question-index={index}
+        data-multi-select={q.multiSelect ? 'true' : 'false'}
+        data-max-selections={q.maxSelections || 'unlimited'}
+      >
+        <h3 class="quiz-question-title" id={`question-title-${q.id}`}>{q.question}</h3>
+
+        <div class="quiz-options" role={q.multiSelect ? "group" : "radiogroup"} aria-labelledby={`question-title-${q.id}`}>
+          {q.options.map((opt) => (
+            <button
+              type="button"
+              class="quiz-option"
+              data-value={opt.value}
+              role={q.multiSelect ? "checkbox" : "radio"}
+              aria-checked="false"
+            >
+              <span class="quiz-option-label">{opt.label}</span>
+              <span class="quiz-option-description">{opt.description}</span>
+              <span class="quiz-option-check" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M3 8L7 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {q.multiSelect && (
+          <button type="button" class="quiz-continue-btn btn btn-primary" data-continue disabled>
+            Continue
+          </button>
+        )}
+      </div>
+    ))}
+  </div>
+
+  <!-- Loading State -->
+  <div class="quiz-loading" data-loading style="display: none;">
+    <div class="quiz-loading-spinner"></div>
+    <p>Analyzing your preferences...</p>
+  </div>
+
+  <!-- Results Container (populated by JS) -->
+  <div class="quiz-results" data-results style="display: none;"></div>
+</div>
+
+<style>
+  .broker-quiz {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .broker-quiz--mini {
+    max-width: 100%;
+  }
+
+  .quiz-progress {
+    margin-bottom: var(--space-lg);
+  }
+
+  .quiz-progress-bar {
+    height: 8px;
+    background: var(--gray-200);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+
+  .quiz-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--brand-orange), #ff6a33);
+    border-radius: var(--radius-full);
+    transition: width 0.4s ease;
+  }
+
+  .quiz-progress-text {
+    display: block;
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-top: var(--space-sm);
+  }
+
+  .quiz-question {
+    display: none;
+    animation: fadeInUp 0.4s ease;
+  }
+
+  .quiz-question--active {
+    display: block;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .quiz-question-title {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+    text-align: center;
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .quiz-option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    width: 100%;
+    position: relative;
+  }
+
+  .quiz-option:hover {
+    border-color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.05);
+  }
+
+  .quiz-option:focus-visible {
+    outline: 2px solid var(--brand-orange);
+    outline-offset: 2px;
+    border-color: var(--brand-orange);
+  }
+
+  .quiz-option--selected {
+    border-color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.05);
+  }
+
+  .quiz-option-label {
+    font-weight: 600;
+    color: var(--charcoal);
+    flex-shrink: 0;
+    min-width: 120px;
+  }
+
+  .quiz-option-description {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    flex: 1;
+  }
+
+  .quiz-option-check {
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-full);
+    border: 2px solid var(--gray-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: transparent;
+    transition: all 0.2s ease;
+  }
+
+  .quiz-option--selected .quiz-option-check {
+    background: var(--brand-orange);
+    border-color: var(--brand-orange);
+    color: white;
+  }
+
+  .quiz-continue-btn {
+    display: block;
+    width: 100%;
+    margin-top: var(--space-md);
+  }
+
+  .quiz-continue-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .quiz-loading {
+    text-align: center;
+    padding: var(--space-2xl) 0;
+  }
+
+  .quiz-loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid var(--gray-200);
+    border-top-color: var(--brand-orange);
+    border-radius: 50%;
+    margin: 0 auto var(--space-md);
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .quiz-results {
+    animation: fadeInUp 0.4s ease;
+  }
+
+  /* Mini variant adjustments */
+  .broker-quiz--mini .quiz-question-title {
+    font-size: var(--font-size-lg);
+  }
+
+  .broker-quiz--mini .quiz-option {
+    padding: var(--space-sm);
+  }
+
+  .broker-quiz--mini .quiz-option-label {
+    min-width: 100px;
+  }
+
+  @media (max-width: 640px) {
+    .quiz-option {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-xs);
+    }
+
+    .quiz-option-check {
+      position: absolute;
+      top: var(--space-sm);
+      right: var(--space-sm);
+    }
+
+    .quiz-option-label {
+      min-width: auto;
+      padding-right: var(--space-xl);
+    }
+  }
+</style>
+
+<script>
+  import { brokers, calculateBrokerMatchScore, type UserPreferences, type ExperienceLevel, type TradingStyle, type AssetFocus, type BudgetRange, type PriorityFeature } from '../data/brokers';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const quizElements = document.querySelectorAll('[data-quiz]');
+
+    quizElements.forEach((quiz) => {
+      const questions = quiz.querySelectorAll('[data-question]');
+      const progressFill = quiz.querySelector('[data-progress-fill]') as HTMLElement;
+      const progressText = quiz.querySelector('[data-progress-text]') as HTMLElement;
+      const loadingEl = quiz.querySelector('[data-loading]') as HTMLElement;
+      const resultsEl = quiz.querySelector('[data-results]') as HTMLElement;
+
+      let currentQuestion = 0;
+      const totalQuestions = questions.length;
+      const answers: Record<string, string | string[]> = {};
+
+      // Update progress
+      function updateProgress() {
+        const progress = ((currentQuestion + 1) / totalQuestions) * 100;
+        progressFill.style.width = `${progress}%`;
+        progressText.textContent = `Question ${currentQuestion + 1} of ${totalQuestions}`;
+      }
+
+      // Move to next question
+      function nextQuestion() {
+        if (currentQuestion < totalQuestions - 1) {
+          questions[currentQuestion].classList.remove('quiz-question--active');
+          currentQuestion++;
+          questions[currentQuestion].classList.add('quiz-question--active');
+          updateProgress();
+        } else {
+          showResults();
+        }
+      }
+
+      // Show results
+      function showResults() {
+        // Hide questions, show loading
+        questions.forEach(q => q.classList.remove('quiz-question--active'));
+        quiz.querySelector('.quiz-progress')?.setAttribute('style', 'display: none');
+        loadingEl.style.display = 'block';
+
+        // Simulate analysis delay for better UX
+        setTimeout(() => {
+          loadingEl.style.display = 'none';
+
+          // Build user preferences from answers
+          const preferences: UserPreferences = {
+            experienceLevel: answers.experience as ExperienceLevel,
+            tradingStyle: answers.tradingStyle as TradingStyle,
+            assetFocus: (answers.assets as string[]) as AssetFocus[],
+            budgetRange: answers.budget as BudgetRange,
+            priorityFeatures: (answers.priorities as string[]) as PriorityFeature[]
+          };
+
+          // Calculate match scores
+          const scored = brokers.map(broker => ({
+            broker,
+            matchScore: calculateBrokerMatchScore(broker, preferences)
+          })).sort((a, b) => {
+            // Promoted brokers get a slight boost
+            const aScore = a.matchScore + (a.broker.promoted ? 5 : 0);
+            const bScore = b.matchScore + (b.broker.promoted ? 5 : 0);
+            return bScore - aScore;
+          }).slice(0, 3);
+
+          // Render results
+          resultsEl.innerHTML = `
+            <div class="results-header">
+              <h3 class="results-title">Your Top Broker Matches</h3>
+              <p class="results-subtitle">Based on your preferences, here are our top recommendations:</p>
+            </div>
+            <div class="results-grid">
+              ${scored.map((item, index) => `
+                <div class="result-card ${index === 0 ? 'result-card--featured' : ''}">
+                  ${index === 0 ? '<span class="result-badge">Best Match</span>' : ''}
+                  <div class="result-match">
+                    <span class="result-match-score">${item.matchScore}%</span>
+                    <span class="result-match-label">Match</span>
+                  </div>
+                  <div class="result-content">
+                    <h4 class="result-name">${item.broker.name}</h4>
+                    <p class="result-tagline">${item.broker.tagline}</p>
+                    <div class="result-stats">
+                      <span class="result-stat">
+                        <strong>${item.broker.minDepositDisplay}</strong> Min Deposit
+                      </span>
+                      <span class="result-stat">
+                        <strong>${item.broker.spreadsFrom}</strong> Spreads
+                      </span>
+                      <span class="result-stat">
+                        <strong>${item.broker.instrumentsDisplay}</strong> Instruments
+                      </span>
+                    </div>
+                    <div class="result-features">
+                      ${item.broker.bestFor.slice(0, 2).map(tag => `
+                        <span class="result-feature-tag">${tag}</span>
+                      `).join('')}
+                    </div>
+                    <div class="result-actions">
+                      <a href="${item.broker.affiliateUrl}" class="btn btn-primary btn-sm" target="_blank" rel="noopener">
+                        Open Account
+                      </a>
+                      <a href="${item.broker.reviewUrl}" class="btn btn-secondary btn-sm">
+                        Read Review
+                      </a>
+                    </div>
+                    ${item.broker.partnerCode ? `
+                      <div class="result-bonus">
+                        Use code <strong>${item.broker.partnerCode.code}</strong> for ${item.broker.partnerCode.bonus}
+                      </div>
+                    ` : ''}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            <div class="results-footer">
+              <button class="btn btn-secondary" onclick="location.reload()">
+                Retake Quiz
+              </button>
+              <a href="/brokers/" class="btn btn-tertiary">
+                View All Brokers
+              </a>
+            </div>
+          `;
+
+          resultsEl.style.display = 'block';
+        }, 1500);
+      }
+
+      // Handle option clicks
+      questions.forEach((questionEl) => {
+        const questionId = questionEl.getAttribute('data-question');
+        const isMultiSelect = questionEl.getAttribute('data-multi-select') === 'true';
+        const maxSelections = questionEl.getAttribute('data-max-selections');
+        const options = questionEl.querySelectorAll('.quiz-option');
+        const continueBtn = questionEl.querySelector('[data-continue]') as HTMLButtonElement;
+
+        if (isMultiSelect) {
+          answers[questionId!] = [];
+        }
+
+        options.forEach((option) => {
+          option.addEventListener('click', () => {
+            const value = option.getAttribute('data-value')!;
+
+            if (isMultiSelect) {
+              // Toggle selection
+              if (option.classList.contains('quiz-option--selected')) {
+                option.classList.remove('quiz-option--selected');
+                option.setAttribute('aria-checked', 'false');
+                const arr = answers[questionId!] as string[];
+                answers[questionId!] = arr.filter(v => v !== value);
+              } else {
+                // Check max selections
+                const currentSelections = (answers[questionId!] as string[]).length;
+                if (maxSelections !== 'unlimited' && currentSelections >= parseInt(maxSelections)) {
+                  return; // Don't allow more selections
+                }
+                option.classList.add('quiz-option--selected');
+                option.setAttribute('aria-checked', 'true');
+                (answers[questionId!] as string[]).push(value);
+              }
+
+              // Enable continue button if at least one selected
+              if (continueBtn) {
+                continueBtn.disabled = (answers[questionId!] as string[]).length === 0;
+              }
+            } else {
+              // Single select - immediately proceed
+              options.forEach(o => {
+                o.classList.remove('quiz-option--selected');
+                o.setAttribute('aria-checked', 'false');
+              });
+              option.classList.add('quiz-option--selected');
+              option.setAttribute('aria-checked', 'true');
+              answers[questionId!] = value;
+
+              // Small delay for visual feedback
+              setTimeout(nextQuestion, 300);
+            }
+          });
+        });
+
+        // Continue button for multi-select questions
+        if (continueBtn) {
+          continueBtn.addEventListener('click', () => {
+            if ((answers[questionId!] as string[]).length > 0) {
+              nextQuestion();
+            }
+          });
+        }
+      });
+
+      // Initialize
+      updateProgress();
+    });
+  });
+</script>
+
+<style is:global>
+  /* Results Styles */
+  .results-header {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .results-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .results-subtitle {
+    color: var(--gray-600);
+  }
+
+  .results-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .result-card {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    position: relative;
+  }
+
+  .result-card--featured {
+    border-color: var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.15);
+  }
+
+  .result-badge {
+    position: absolute;
+    top: -12px;
+    left: var(--space-md);
+    background: var(--brand-orange);
+    color: white;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .result-match {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+    padding: var(--space-sm);
+    background: rgba(255, 72, 0, 0.1);
+    border-radius: var(--radius-md);
+  }
+
+  .result-match-score {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--brand-orange);
+    line-height: 1;
+  }
+
+  .result-match-label {
+    font-size: var(--font-size-xs);
+    color: var(--brand-orange);
+    text-transform: uppercase;
+  }
+
+  .result-content {
+    flex: 1;
+  }
+
+  .result-name {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .result-tagline {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin-bottom: var(--space-sm);
+  }
+
+  .result-stats {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .result-stat {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .result-stat strong {
+    color: var(--charcoal);
+  }
+
+  .result-features {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .result-feature-tag {
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--gray-100);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    color: var(--gray-700);
+  }
+
+  .result-actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .result-bonus {
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    color: var(--success);
+  }
+
+  .results-footer {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  @media (max-width: 640px) {
+    .result-card {
+      flex-direction: column;
+    }
+
+    .result-match {
+      flex-direction: row;
+      gap: var(--space-sm);
+      justify-content: flex-start;
+      min-width: auto;
+    }
+
+    .result-actions {
+      flex-direction: column;
+    }
+
+    .results-footer {
+      flex-direction: column;
+    }
+  }
+</style>

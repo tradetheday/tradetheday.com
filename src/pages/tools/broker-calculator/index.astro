@@ -1,0 +1,395 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import '../../../styles/tools.css';
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Tools', href: '/tools/' },
+  { text: 'Broker Calculator', current: true }
+];
+
+// Broker data with real-ish spreads and fees
+const brokers = [
+  {
+    id: "avatrade",
+    name: "AvaTrade",
+    logo: "/images/brokers/avatrade/avatrade-logo-light.svg",
+    spreads: { eurusd: 0.9, gbpusd: 1.3, usdjpy: 1.1, gold: 0.34, btcusd: 0.5 },
+    commission: 0,
+    minDeposit: 100,
+    bonus: "Up to $10,000",
+    rating: 4.8,
+    link: "https://www.avatrade.com/?tag=tradetheday",
+    partnerCode: "128979",
+    highlight: true,
+    features: ["AvaProtect™", "Free Signals", "MT4/MT5"]
+  },
+  {
+    id: "etoro",
+    name: "eToro",
+    logo: "/images/brokers/etoro-logo.svg",
+    spreads: { eurusd: 1.0, gbpusd: 2.0, usdjpy: 1.0, gold: 0.45, btcusd: 0.75 },
+    commission: 0,
+    minDeposit: 50,
+    bonus: "None",
+    rating: 4.5,
+    link: "https://www.etoro.com/",
+    partnerCode: null,
+    highlight: false,
+    features: ["Social Trading", "Copy Trading", "Stocks"]
+  },
+  {
+    id: "axi",
+    name: "Axi",
+    logo: "/images/brokers/axi-logo.svg",
+    spreads: { eurusd: 0.4, gbpusd: 0.8, usdjpy: 0.5, gold: 0.18, btcusd: 30 },
+    commission: 7,
+    minDeposit: 0,
+    bonus: "None",
+    rating: 4.6,
+    link: "https://www.axi.com/",
+    partnerCode: null,
+    highlight: false,
+    features: ["ECN Pricing", "Low Spreads", "MT4"]
+  },
+  {
+    id: "xm",
+    name: "XM",
+    logo: "/images/brokers/xm-logo.svg",
+    spreads: { eurusd: 1.6, gbpusd: 2.1, usdjpy: 1.6, gold: 0.35, btcusd: 65 },
+    commission: 0,
+    minDeposit: 5,
+    bonus: "Up to $5,000",
+    rating: 4.4,
+    link: "https://www.xm.com/",
+    partnerCode: null,
+    highlight: false,
+    features: ["Low Min Deposit", "Bonus", "Education"]
+  },
+  {
+    id: "ic-markets",
+    name: "IC Markets",
+    logo: "/images/brokers/ic-markets-logo.svg",
+    spreads: { eurusd: 0.1, gbpusd: 0.4, usdjpy: 0.2, gold: 0.10, btcusd: 25 },
+    commission: 7,
+    minDeposit: 200,
+    bonus: "None",
+    rating: 4.7,
+    link: "https://www.icmarkets.com/",
+    partnerCode: null,
+    highlight: false,
+    features: ["Raw Spreads", "ECN/STP", "cTrader"]
+  }
+];
+
+const pageTitle = "Broker Cost Calculator - Find Your Perfect Broker | TradeTheDay";
+const pageDescription = "Calculate your real trading costs across top brokers. Input your trading style and volume to see exactly how much you'll pay - and save - with each broker.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <div class="tool-page">
+    <!-- Hero Section -->
+    <section class="tool-hero">
+      <div class="container">
+        <div class="tool-hero-badge"><span aria-hidden="true">🧮</span> FREE TOOL</div>
+        <h1 class="tool-hero-title">Broker Cost Calculator</h1>
+        <p class="tool-hero-subtitle">Stop overpaying on spreads. Find out exactly which broker saves you the most money based on YOUR trading style.</p>
+      </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="container">
+      <div class="tool-calculator-layout">
+        <!-- Input Side -->
+        <div class="tool-card">
+          <h2 class="tool-section-title">Your Trading Profile</h2>
+
+          <div class="tool-input-group">
+            <label class="tool-input-label">
+              <span class="tool-label-icon" aria-hidden="true">📊</span>
+              Monthly Trading Volume (Standard Lots)
+            </label>
+            <div class="tool-range-container">
+              <input type="range" id="volumeSlider" min="1" max="200" value="20" class="tool-range-slider" aria-label="Monthly trading volume in lots">
+              <div class="tool-range-value"><span id="volumeDisplay">20</span> lots/month</div>
+            </div>
+            <div class="tool-range-hints">
+              <span>Casual (1-10)</span>
+              <span>Active (20-50)</span>
+              <span>Pro (100+)</span>
+            </div>
+          </div>
+
+          <div class="tool-input-group">
+            <label class="tool-input-label">
+              <span class="tool-label-icon" aria-hidden="true">💱</span>
+              Primary Trading Pair
+            </label>
+            <div class="tool-btn-group" id="pairSelector" role="radiogroup" aria-label="Select trading pair">
+              <button class="tool-option-btn active" data-pair="eurusd" role="radio" aria-checked="true">EUR/USD</button>
+              <button class="tool-option-btn" data-pair="gbpusd" role="radio" aria-checked="false">GBP/USD</button>
+              <button class="tool-option-btn" data-pair="usdjpy" role="radio" aria-checked="false">USD/JPY</button>
+              <button class="tool-option-btn" data-pair="gold" role="radio" aria-checked="false">Gold</button>
+              <button class="tool-option-btn" data-pair="btcusd" role="radio" aria-checked="false">BTC/USD</button>
+            </div>
+          </div>
+
+          <div class="tool-input-group">
+            <label class="tool-input-label">
+              <span class="tool-label-icon" aria-hidden="true">⏱️</span>
+              Trading Style
+            </label>
+            <div class="tool-style-grid" id="styleSelector" role="radiogroup" aria-label="Select trading style">
+              <button class="tool-style-btn" data-style="scalper" data-multiplier="3" role="radio" aria-checked="false">
+                <span class="tool-style-icon" aria-hidden="true">⚡</span>
+                <span class="tool-style-name">Scalper</span>
+                <span class="tool-style-desc">Many trades/day</span>
+              </button>
+              <button class="tool-style-btn active" data-style="daytrader" data-multiplier="1.5" role="radio" aria-checked="true">
+                <span class="tool-style-icon" aria-hidden="true">📈</span>
+                <span class="tool-style-name">Day Trader</span>
+                <span class="tool-style-desc">Few trades/day</span>
+              </button>
+              <button class="tool-style-btn" data-style="swing" data-multiplier="1" role="radio" aria-checked="false">
+                <span class="tool-style-icon" aria-hidden="true">🌊</span>
+                <span class="tool-style-name">Swing Trader</span>
+                <span class="tool-style-desc">Trades held days</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="tool-note">
+            <span class="tool-note-icon" aria-hidden="true">💡</span>
+            <span>Scalpers pay more in spreads due to higher trade frequency. Our calculator adjusts for this.</span>
+          </div>
+        </div>
+
+        <!-- Results Side -->
+        <div class="tool-results-sticky">
+          <h2 class="tool-section-title">Your Monthly Costs</h2>
+          <div class="tool-results-container" id="resultsContainer" aria-live="polite">
+            <!-- Results will be injected here by JS -->
+          </div>
+          <div id="savingsCallout">
+            <!-- Savings callout injected by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="tool-cta-section">
+      <div class="container">
+        <div class="tool-cta-box">
+          <div class="tool-cta-content">
+            <h2>Ready to Start Saving?</h2>
+            <p>Open an account with our recommended broker and start trading with lower costs today.</p>
+          </div>
+          <a href="https://www.avatrade.com/?tag=tradetheday" class="tool-cta-button" target="_blank" rel="noopener">
+            Open AvaTrade Account
+            <span class="tool-cta-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="tool-how-section">
+      <div class="container">
+        <h2 class="tool-section-heading">How We Calculate Your Costs</h2>
+        <div class="tool-how-grid">
+          <div class="tool-how-card">
+            <div class="tool-how-number">1</div>
+            <h3>Spread Cost</h3>
+            <p>We multiply the broker's spread (in pips) by your lot size and trading volume. For EUR/USD, 1 pip = $10 per standard lot.</p>
+          </div>
+          <div class="tool-how-card">
+            <div class="tool-how-number">2</div>
+            <h3>Commission</h3>
+            <p>Some brokers charge a per-lot commission on top of spreads. We add this to give you the true total cost.</p>
+          </div>
+          <div class="tool-how-card">
+            <div class="tool-how-number">3</div>
+            <h3>Style Multiplier</h3>
+            <p>Scalpers make more trades than swing traders with the same volume. We adjust for actual trade frequency.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="tool-faq-section">
+      <div class="container">
+        <h2 class="tool-section-heading">Frequently Asked Questions</h2>
+        <div class="tool-faq-grid">
+          <div class="tool-faq-item">
+            <h3>Why does trading style matter?</h3>
+            <p>A scalper trading 20 lots might make 100+ trades, while a swing trader does 5-10. More trades = more spread costs, even with the same volume.</p>
+          </div>
+          <div class="tool-faq-item">
+            <h3>Are these spreads accurate?</h3>
+            <p>We use typical spreads during normal market hours. Spreads can widen during news events or low liquidity periods.</p>
+          </div>
+          <div class="tool-faq-item">
+            <h3>What about overnight fees?</h3>
+            <p>This calculator focuses on trading costs. Swap/overnight fees vary by position direction and are additional costs for positions held overnight.</p>
+          </div>
+          <div class="tool-faq-item">
+            <h3>Which broker do you recommend?</h3>
+            <p>It depends on your profile! Our calculator shows you the best fit. For most traders, AvaTrade offers the best balance of costs, features, and bonuses.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Broker Data for JS -->
+  <script define:vars={{ brokers }}>
+    window.brokerData = brokers;
+  </script>
+
+  <script>
+    // Calculator Logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const brokers = window.brokerData;
+      const volumeSlider = document.getElementById('volumeSlider');
+      const volumeDisplay = document.getElementById('volumeDisplay');
+      const pairButtons = document.querySelectorAll('.tool-option-btn');
+      const styleButtons = document.querySelectorAll('.tool-style-btn');
+      const resultsContainer = document.getElementById('resultsContainer');
+      const savingsCallout = document.getElementById('savingsCallout');
+
+      let state = {
+        volume: 20,
+        pair: 'eurusd',
+        style: 'daytrader',
+        multiplier: 1.5
+      };
+
+      // Pip value per standard lot (approximate)
+      const pipValues = {
+        eurusd: 10,
+        gbpusd: 10,
+        usdjpy: 7.5,
+        gold: 10,
+        btcusd: 1
+      };
+
+      function calculateCosts() {
+        const pipValue = pipValues[state.pair];
+
+        const results = brokers.map(broker => {
+          const spread = broker.spreads[state.pair];
+          // Spread cost = spread in pips * pip value * lots * style multiplier
+          const spreadCost = spread * pipValue * state.volume * state.multiplier;
+          // Commission = per lot commission * lots * 2 (round trip) * style multiplier
+          const commissionCost = broker.commission * state.volume * 2 * (state.multiplier / 1.5);
+          const totalCost = spreadCost + commissionCost;
+
+          return {
+            ...broker,
+            spreadCost: spreadCost.toFixed(2),
+            commissionCost: commissionCost.toFixed(2),
+            totalCost: totalCost.toFixed(2),
+            totalCostNum: totalCost
+          };
+        }).sort((a, b) => a.totalCostNum - b.totalCostNum);
+
+        renderResults(results);
+      }
+
+      function renderResults(results) {
+        const cheapest = results[0];
+        const mostExpensive = results[results.length - 1];
+        const savings = (mostExpensive.totalCostNum - cheapest.totalCostNum).toFixed(2);
+
+        resultsContainer.innerHTML = results.map((broker, index) => `
+          <div class="tool-result-card ${broker.highlight ? 'highlighted' : ''} ${index === 0 ? 'featured' : ''}">
+            ${index === 0 ? '<div class="tool-result-badge"><span aria-hidden="true">💰</span> LOWEST COST</div>' : ''}
+            ${broker.highlight && index !== 0 ? '<div class="tool-result-badge secondary"><span aria-hidden="true">⭐</span> PARTNER</div>' : ''}
+            <div class="tool-result-header">
+              <img src="${broker.logo}" alt="${broker.name}" class="tool-result-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+              <span class="tool-result-logo-fallback" style="display:none;">${broker.name}</span>
+              <div class="tool-result-rating" role="img" aria-label="${broker.rating} out of 5 stars">
+                <span class="stars" aria-hidden="true">★</span>
+                <span>${broker.rating}</span>
+              </div>
+            </div>
+            <div class="tool-cost-rows">
+              <div class="tool-cost-row">
+                <span class="tool-cost-label">Spread Cost:</span>
+                <span class="tool-cost-value">$${broker.spreadCost}</span>
+              </div>
+              <div class="tool-cost-row">
+                <span class="tool-cost-label">Commission:</span>
+                <span class="tool-cost-value">$${broker.commissionCost}</span>
+              </div>
+              <div class="tool-cost-row total">
+                <span class="tool-cost-label">Total Monthly:</span>
+                <span class="tool-cost-value">$${broker.totalCost}</span>
+              </div>
+            </div>
+            <div class="tool-features">
+              ${broker.features.map(f => `<span class="tool-feature-tag">${f}</span>`).join('')}
+            </div>
+            <a href="${broker.link}" class="tool-result-cta ${index === 0 ? 'primary' : ''}" target="_blank" rel="noopener">
+              ${index === 0 ? 'Open Account →' : 'Learn More'}
+            </a>
+          </div>
+        `).join('');
+
+        savingsCallout.innerHTML = `
+          <div class="tool-savings-box">
+            <div class="tool-savings-icon" aria-hidden="true">🎉</div>
+            <div class="tool-savings-text">
+              <strong>You could save $${savings}/month</strong>
+              <span>by choosing ${cheapest.name} over ${mostExpensive.name}</span>
+            </div>
+          </div>
+        `;
+      }
+
+      // Event Listeners
+      volumeSlider.addEventListener('input', (e) => {
+        state.volume = parseInt(e.target.value);
+        volumeDisplay.textContent = state.volume;
+        calculateCosts();
+      });
+
+      pairButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          pairButtons.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-checked', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-checked', 'true');
+          state.pair = btn.dataset.pair;
+          calculateCosts();
+        });
+      });
+
+      styleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          styleButtons.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-checked', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-checked', 'true');
+          state.style = btn.dataset.style;
+          state.multiplier = parseFloat(btn.dataset.multiplier);
+          calculateCosts();
+        });
+      });
+
+      // Initial calculation
+      calculateCosts();
+    });
+  </script>
+</BaseLayout>

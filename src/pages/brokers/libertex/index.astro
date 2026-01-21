@@ -1,0 +1,1760 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import CompanyInfo from '../../../components/CompanyInfo.astro';
+import CostAnalysis from '../../../components/CostAnalysis.astro';
+import PaymentDetails from '../../../components/PaymentDetails.astro';
+import FAQ from '../../../components/FAQ.astro';
+import TrustBadges from '../../../components/TrustBadges.astro';
+import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+import { brokers } from '../../../data/brokers';
+
+// Get broker data
+const broker = brokers.find(b => b.slug === 'libertex');
+
+const pageTitle = "Libertex Review 2026: Zero Spread Broker - Commission-Based Trading";
+const pageDescription = "Complete Libertex review for 2026. Unique zero spread model with commission pricing, CySEC regulated since 1997, 50+ cryptocurrencies, $100 minimum deposit. Honest analysis from TradeTheDay.";
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Brokers', href: '/brokers/' },
+  { text: 'Libertex', current: true }
+];
+
+// Navigation sections
+const navSections = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'why-choose', label: 'Why Choose' },
+  { id: 'fees', label: 'Fees & Costs' },
+  { id: 'safety', label: 'Safety' },
+  { id: 'platforms', label: 'Platforms' },
+  { id: 'accounts', label: 'Accounts' },
+  { id: 'support', label: 'Support' },
+  { id: 'faq', label: 'FAQ' },
+  { id: 'verdict', label: 'Verdict' }
+];
+
+// Pros and Cons
+const pros = [
+  'Unique zero spread pricing model - pay only commission',
+  '25+ years of operation (parent company founded 1997)',
+  'CySEC regulated with EU investor protections up to €20,000',
+  'Extensive cryptocurrency selection with 50+ coins',
+  'Low minimum deposit of just $100',
+  'MetaTrader 4 and MT5 platforms available',
+  'Transparent commission structure - no hidden markup',
+  'Multiple industry awards for trading platform'
+];
+
+const cons = [
+  'Commission-based model may cost more for frequent scalpers',
+  'Smaller instrument range (250+) than larger competitors',
+  'Limited research and market analysis tools',
+  'Only CySEC regulation (no FCA or ASIC license)',
+  '€10/month inactivity fee after 180 days of no trading',
+  'No copy trading or social trading features'
+];
+
+// FAQ Data
+const faqData = [
+  {
+    question: "Is Libertex safe and regulated?",
+    answer: "Yes, Libertex is regulated by CySEC (Cyprus Securities and Exchange Commission) with license number 164/12. The parent company Indication Investments Ltd has been operating since 1997, giving them over 25 years of industry experience. EU clients receive investor protection up to €20,000 through the Investor Compensation Fund."
+  },
+  {
+    question: "What is the minimum deposit for Libertex?",
+    answer: "Libertex requires a minimum deposit of $100 (or equivalent in EUR/GBP). This low entry point makes it accessible for beginners while still providing full access to all trading features, platforms, and instruments including 50+ cryptocurrencies."
+  },
+  {
+    question: "How does Libertex zero spread model work?",
+    answer: "Libertex operates on a commission-only model with zero spreads. Instead of paying the spread (difference between buy and sell prices), you pay a small commission on each trade. For forex, commissions start from 0.006% per trade. This model provides transparent pricing where you know exactly what you're paying."
+  },
+  {
+    question: "Does Libertex offer MetaTrader platforms?",
+    answer: "Yes, Libertex offers both MetaTrader 4 and MetaTrader 5 platforms alongside their proprietary Libertex web platform. MT4/MT5 users have full access to Expert Advisors (EAs), custom indicators, and automated trading strategies."
+  },
+  {
+    question: "What cryptocurrencies can I trade on Libertex?",
+    answer: "Libertex offers 50+ cryptocurrency CFDs including Bitcoin, Ethereum, Solana, Cardano, Polkadot, Avalanche, Chainlink, and many altcoins. This is one of the larger crypto selections among CySEC-regulated brokers, making it attractive for crypto enthusiasts."
+  },
+  {
+    question: "Does Libertex charge inactivity fees?",
+    answer: "Yes, Libertex charges a €10 monthly inactivity fee if there has been no trading activity for 180 days (6 months). This can be avoided by making at least one trade every six months to keep your account active."
+  },
+  {
+    question: "What leverage does Libertex offer?",
+    answer: "Libertex offers leverage up to 1:30 for major forex pairs, 1:20 for indices and commodities, 1:5 for stocks and ETFs, and 1:2 for cryptocurrencies. These limits comply with ESMA regulations for EU retail clients to protect against excessive risk."
+  },
+  {
+    question: "Can UK traders use Libertex?",
+    answer: "No, following Brexit, Libertex no longer accepts UK clients as they only hold a CySEC license, not FCA authorization. UK traders should consider FCA-regulated alternatives like IG, CMC Markets, Pepperstone UK, or Saxo Markets."
+  },
+  {
+    question: "How fast are withdrawals from Libertex?",
+    answer: "Withdrawal speeds at Libertex vary by method: e-wallets (Skrill, Neteller) process within 24 hours, credit/debit cards take 1-5 business days, and bank transfers take 2-5 business days. Most withdrawal methods are free or have minimal fees (€1 for bank transfers)."
+  },
+  {
+    question: "Is zero spread trading better than traditional spread pricing?",
+    answer: "It depends on your trading style. Zero spreads with commissions can be more cost-effective for larger position sizes and less frequent trading. However, for small positions or high-frequency scalping, traditional spread-based brokers may work out cheaper. Calculate your expected costs based on typical position size and frequency."
+  }
+];
+
+// Company Info sections for CompanyInfo component
+const companyInfoSections = [
+  {
+    title: "Deposits & Accounts",
+    icon: "💰",
+    items: [
+      { label: "Minimum Deposit", value: "$100", type: "currency" },
+      { label: "Base Currencies", value: "EUR, USD, GBP", type: "list" },
+      { label: "Islamic Account", value: "Not Available", type: "text" }
+    ]
+  },
+  {
+    title: "Trading Conditions",
+    icon: "📊",
+    items: [
+      { label: "Max Leverage", value: "1:30 (EU)", type: "text" },
+      { label: "Instruments", value: "250+", type: "text" },
+      { label: "Execution", value: "Commission-Based", type: "text" }
+    ]
+  },
+  {
+    title: "Company Info",
+    icon: "🏛️",
+    items: [
+      { label: "Founded", value: "1997", type: "year" },
+      { label: "Headquarters", value: "Limassol, Cyprus", type: "location" },
+      { label: "Regulations", value: "CySEC", type: "text" }
+    ]
+  }
+];
+
+// Schema data for CompanyInfo component
+const companySchemaData = {
+  name: "Libertex",
+  foundingDate: "1997",
+  headquarters: "Limassol, Cyprus",
+  regulators: ["CySEC"],
+  minimumDeposit: "$100",
+  currencies: ["EUR", "USD", "GBP"],
+  maxLeverage: "1:30",
+  instrumentCount: "250+"
+};
+
+// Cost analysis data
+const costData = {
+  spreads: {
+    eurusd: '0 pips (commission)',
+    gbpusd: '0 pips (commission)',
+    usdjpy: '0 pips (commission)',
+    gold: '0 (commission)'
+  },
+  commissions: {
+    forex: 'From 0.006% per trade',
+    indices: 'From 0.01% per trade',
+    stocks: '0.1% - 0.2% per trade',
+    crypto: '1.5% - 2.5% per trade'
+  },
+  overnight: 'Variable swap rates',
+  inactivity: '€10/month after 180 days',
+  deposit: 'Free',
+  withdrawal: 'Free (€1 for bank transfer)'
+};
+
+// Payment methods (for display table)
+const paymentMethods = [
+  { method: 'Credit/Debit Card', depositTime: 'Instant', withdrawTime: '1-5 days', fee: 'Free' },
+  { method: 'Bank Transfer', depositTime: '2-5 days', withdrawTime: '2-5 days', fee: '€1 withdrawal' },
+  { method: 'Skrill', depositTime: 'Instant', withdrawTime: '24 hours', fee: 'Free' },
+  { method: 'Neteller', depositTime: 'Instant', withdrawTime: '24 hours', fee: 'Free' },
+  { method: 'Trustly', depositTime: 'Instant', withdrawTime: '1-3 days', fee: 'Free' }
+];
+
+// Payment Details Data (for PaymentDetails component)
+const withdrawalDetails = [
+  { icon: '💵', label: 'Minimum Deposit', value: '$100' },
+  { icon: '⚡', label: 'Deposit Processing', value: 'Instant (cards/e-wallets)' },
+  { icon: '🔐', label: 'Most Fees', value: 'Free' },
+  { icon: '🛡️', label: 'Withdrawal Time', value: '24h - 5 days' }
+];
+
+const paymentAnalysis = {
+  pros: [
+    'Most deposits and withdrawals completely free',
+    'Instant deposits via cards and e-wallets',
+    'E-wallet withdrawals within 24 hours',
+    'Multiple base currencies (EUR, USD, GBP)'
+  ],
+  cons: [
+    '€1 fee for bank transfer withdrawals',
+    '$100 minimum deposit required',
+    'Card withdrawals take 1-5 business days'
+  ]
+};
+
+// Generate structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "FinancialService",
+      "name": "Libertex",
+      "description": pageDescription,
+      "url": "https://www.libertex.com",
+      "logo": "https://www.libertex.com/logo.png",
+      "foundingDate": "1997",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Limassol",
+        "addressCountry": "Cyprus"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": broker?.scores.overall || 3.8,
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "2156"
+      }
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "FinancialService",
+        "name": "Libertex"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": broker?.scores.overall || 3.8,
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "TradeTheDay"
+      },
+      "datePublished": "2026-01-20",
+      "dateModified": "2026-01-20"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": faqData.map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbItems.map((item, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": item.text,
+        "item": item.href ? `https://tradetheday.com${item.href}` : undefined
+      }))
+    }
+  ]
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </Fragment>
+
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero Section -->
+  <section class="broker-hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">Zero Spread Broker - 25+ Years</div>
+        <h1 class="heading-1">Libertex Review 2026</h1>
+        <p class="hero-tagline">Commission-Based Trading with Zero Spreads</p>
+
+        <div class="hero-rating">
+          <div class="rating-score">{broker?.scores.overall || 3.8}</div>
+          <div class="rating-stars">★★★★☆</div>
+          <div class="rating-label">Our Rating</div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">{broker?.minDepositDisplay || '$100'}</span>
+            <span class="stat-label">Min Deposit</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">0 pips</span>
+            <span class="stat-label">Spreads</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">{broker?.instrumentsDisplay || '250+'}</span>
+            <span class="stat-label">Instruments</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">1997</span>
+            <span class="stat-label">Founded</span>
+          </div>
+        </div>
+
+        <div class="hero-trust">
+          <span class="trust-item">🇨🇾 CySEC Regulated</span>
+          <span class="trust-item">0️⃣ Zero Spreads</span>
+          <span class="trust-item">₿ 50+ Cryptos</span>
+          <span class="trust-item">🏆 Award Winning</span>
+        </div>
+
+        <div class="hero-cta">
+          <a href="https://www.libertex.com/" class="btn btn-primary btn-xl" target="_blank" rel="noopener sponsored">
+            Open Libertex Account
+          </a>
+          <a href="#verdict" class="btn btn-secondary btn-lg">Read Full Verdict</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Navigation -->
+  <nav class="broker-nav">
+    <div class="container">
+      <ul class="nav-list">
+        {navSections.map(section => (
+          <li><a href={`#${section.id}`}>{section.label}</a></li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Overview Section -->
+  <section id="overview" class="section">
+    <div class="container">
+      <h2 class="heading-2">Libertex Overview</h2>
+
+      <div class="overview-intro">
+        <p class="body-large">
+          Libertex is a CySEC-regulated broker that takes a fundamentally different approach to pricing: zero spreads with transparent commissions. Operating since 1997 through parent company Indication Investments Ltd, they've built a reputation for pricing transparency and have attracted over 3 million users globally.
+        </p>
+        <p>
+          What sets Libertex apart is their fee model. Instead of marking up spreads like traditional brokers, you pay the raw interbank price plus a small commission. This approach appeals to traders who want to know exactly what they're paying without hidden markup. Their platform also stands out for its extensive cryptocurrency selection, offering 50+ coins -far more than most CySEC-regulated competitors.
+        </p>
+      </div>
+
+      <AnalystNotes
+        title="Analyst's Overview Notes"
+        icon="📊"
+        id="overview-notes"
+        variant="dark"
+      >
+        <h4>What Our Analysis Reveals</h4>
+        <p>
+          Libertex occupies a unique niche in the brokerage landscape. Their zero spread model isn't just marketing -it's a fundamentally different business model that appeals to specific trader types. Understanding whether this model benefits you requires honest cost analysis, which most traders don't do.
+        </p>
+
+        <h5>The Zero Spread Reality</h5>
+        <p>
+          "Zero spreads" sounds revolutionary, but the math matters. Libertex charges commissions starting from 0.006% for forex trades. On a standard lot of EUR/USD ($100,000 notional), that's $6 per side or $12 round turn. Compare this to a traditional 1-pip spread broker where you'd pay approximately $10 round turn. For forex, Libertex's model is actually slightly more expensive for single-lot trades but can be competitive for larger positions.
+        </p>
+
+        <h5>Market Position Assessment</h5>
+        <p>
+          With only CySEC regulation, Libertex can't compete with FCA/ASIC-regulated giants for safety-conscious traders. However, they've carved out a loyal following among EU traders who appreciate pricing transparency and crypto enthusiasts who want regulated access to 50+ coins. Their 25+ year track record provides credibility that newer fintech brokers lack.
+        </p>
+
+        <h5>The Crypto Angle</h5>
+        <p>
+          Libertex's cryptocurrency offering is genuinely impressive for a regulated broker. While most CySEC brokers offer 10-20 crypto CFDs, Libertex provides 50+. If you want regulated exposure to altcoins like Solana, Polkadot, or Avalanche through a European broker, Libertex is one of few options. The 1.5-2.5% commission on crypto is higher than pure crypto exchanges but comes with regulatory protection.
+        </p>
+
+        <h5>Who This Broker Suits</h5>
+        <p>
+          Libertex works best for EU-based traders who prefer transparent pricing, want extensive crypto access through a regulated broker, or trade larger position sizes where the commission model becomes competitive. It's not ideal for UK traders (no FCA license), frequent scalpers (commissions add up), or those needing extensive research tools.
+        </p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Pros & Cons Section -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="heading-2">Libertex Pros & Cons</h2>
+
+      <div class="pros-cons-grid">
+        <div class="pros-card">
+          <h3 class="pros-title">✓ Advantages</h3>
+          <ul class="pros-list">
+            {pros.map(pro => (
+              <li>{pro}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="cons-card">
+          <h3 class="cons-title">✗ Disadvantages</h3>
+          <ul class="cons-list">
+            {cons.map(con => (
+              <li>{con}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Section -->
+  <section id="why-choose" class="section">
+    <div class="container">
+      <h2 class="heading-2">Why Choose Libertex?</h2>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">0️⃣</div>
+          <h3>Zero Spreads</h3>
+          <p>No spread markup whatsoever. Pay only a transparent commission you can calculate before trading.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🏆</div>
+          <h3>25+ Years Experience</h3>
+          <p>Parent company Indication Investments operating since 1997. Award-winning platform recognized globally.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">₿</div>
+          <h3>50+ Cryptocurrencies</h3>
+          <p>One of the largest regulated crypto selections. Trade Bitcoin, Ethereum, Solana, and 47+ more coins.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">💵</div>
+          <h3>$100 Minimum</h3>
+          <p>Low barrier to entry makes professional-grade trading accessible to beginners.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>MetaTrader Support</h3>
+          <p>MT4 and MT5 platforms available for traders who prefer industry-standard tools and EAs.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🇪🇺</div>
+          <h3>EU Regulated</h3>
+          <p>CySEC license with €20,000 investor compensation and negative balance protection.</p>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Why Choose Libertex - Analyst's Perspective"
+        icon="🎯"
+        id="why-choose-notes"
+        variant="dark"
+      >
+        <h4>The Case for Libertex</h4>
+        <p>
+          Libertex's value proposition centers on pricing transparency and crypto access. In an industry where brokers often hide costs in widened spreads, Libertex's commission model lets you know exactly what you're paying. This transparency appeals to traders tired of guessing whether they're getting fair execution.
+        </p>
+
+        <h5>When Zero Spreads Make Sense</h5>
+        <p>
+          The zero spread model works best for position traders and those with larger position sizes. If you're trading multiple lots, the fixed commission becomes more competitive than traditional spread-based pricing. For example, trading 5 lots on EUR/USD at Libertex costs approximately $60 round turn (0.006% × $500,000 × 2). At a 1-pip spread broker, you'd pay approximately $50. The difference is minimal, but you get price transparency.
+        </p>
+
+        <h5>The Crypto Advantage</h5>
+        <p>
+          For crypto enthusiasts, Libertex offers something genuinely valuable: regulated access to 50+ cryptocurrencies. While pure crypto exchanges offer more, they lack EU regulatory protection. Libertex bridges this gap -you get altcoin exposure with CySEC oversight, €20,000 compensation protection, and the ability to use traditional payment methods without navigating crypto wallets.
+        </p>
+
+        <h5>The 25-Year Factor</h5>
+        <p>
+          In an industry plagued by fly-by-night operations, Libertex's 25+ year history through Indication Investments provides genuine credibility. They've survived multiple market cycles, regulatory changes, and industry upheavals. This longevity isn't marketing -it's evidence of sustainable business practices.
+        </p>
+
+        <h5>Who Should Consider Libertex</h5>
+        <ul>
+          <li><strong>Transparency Seekers:</strong> Traders who want to know exactly what they pay</li>
+          <li><strong>Crypto Enthusiasts:</strong> Those wanting regulated altcoin exposure</li>
+          <li><strong>Position Traders:</strong> Larger position sizes where commission model competes well</li>
+          <li><strong>EU Residents:</strong> Traders who value CySEC protection</li>
+        </ul>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Fees Section -->
+  <section id="fees" class="section section-alt">
+    <div class="container">
+      <h2 class="heading-2">Libertex Fees & Commissions</h2>
+
+      <p class="section-intro">
+        Libertex operates on a unique zero spread model where you pay commissions instead of traditional spread markups. Forex commissions start from 0.006% per trade, while cryptocurrency commissions range from 1.5% to 2.5%. This transparency lets you calculate costs precisely before trading.
+      </p>
+
+      <CostAnalysis
+        spreads={costData.spreads}
+        commissions={costData.commissions}
+        overnight={costData.overnight}
+        inactivity={costData.inactivity}
+        depositFee={costData.deposit}
+        withdrawalFee={costData.withdrawal}
+      />
+
+      <div class="fee-comparison">
+        <h3>Commission by Asset Class</h3>
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Asset Class</th>
+              <th>Commission</th>
+              <th>Example Cost (per $10,000)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Forex</td>
+              <td>From 0.006%</td>
+              <td>$0.60 per side</td>
+            </tr>
+            <tr>
+              <td>Indices</td>
+              <td>From 0.01%</td>
+              <td>$1.00 per side</td>
+            </tr>
+            <tr>
+              <td>Stocks</td>
+              <td>0.1% - 0.2%</td>
+              <td>$10-20 per side</td>
+            </tr>
+            <tr>
+              <td>Cryptocurrencies</td>
+              <td>1.5% - 2.5%</td>
+              <td>$150-250 per side</td>
+            </tr>
+            <tr>
+              <td>Commodities</td>
+              <td>From 0.01%</td>
+              <td>$1.00 per side</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <AnalystNotes
+        title="Fee Analysis - Analyst's Breakdown"
+        icon="💰"
+        id="fees-notes"
+        variant="dark"
+      >
+        <h4>Understanding Libertex's Fee Structure</h4>
+        <p>
+          Libertex's commission model requires different thinking than traditional spread-based brokers. Instead of paying through wider buy/sell prices, you pay a percentage of your position value. This is more transparent but can be more or less expensive depending on what and how you trade.
+        </p>
+
+        <h5>Forex Cost Analysis</h5>
+        <p>
+          At 0.006% commission, a standard lot trade on EUR/USD ($100,000) costs $6 per side, or $12 round turn. Compare this to a typical 1-pip spread broker where you'd pay approximately $10 round turn. Libertex is slightly more expensive for single lots, but the gap narrows for larger positions where spread-based costs scale proportionally while commission minimums stay fixed.
+        </p>
+
+        <h5>Cryptocurrency Cost Reality</h5>
+        <p>
+          The 1.5-2.5% crypto commission is significant. On a $1,000 Bitcoin position, you'd pay $15-25 per side. This is substantially higher than pure crypto exchanges (typically 0.1-0.5%) but comes with regulatory protection. If you value CySEC oversight and €20,000 investor compensation, this premium may be worth it. If cost is your primary concern, crypto exchanges are cheaper.
+        </p>
+
+        <h5>The Inactivity Fee</h5>
+        <p>
+          Libertex charges €10 monthly after 180 days of inactivity. This is mid-range for the industry (some charge after 3 months, others after 12). If you're a buy-and-hold investor, this fee can erode your capital. Active traders won't notice it. Make at least one trade every six months to avoid the charge.
+        </p>
+
+        <h5>Hidden Cost: Currency Conversion</h5>
+        <p>
+          If your base currency differs from your trading instrument's currency, conversion fees apply. Libertex isn't transparent about exact conversion rates, so factor in approximately 0.5% for currency conversion when calculating total costs.
+        </p>
+
+        <h5>Fee Verdict</h5>
+        <p>
+          Libertex's fees are competitive for forex position traders and those valuing transparency. For scalpers and small position sizes, traditional spread brokers may be cheaper. For crypto, the regulatory premium is substantial -only worthwhile if you specifically want CySEC protection. Always calculate expected costs based on your actual trading patterns.
+        </p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Safety Section -->
+  <section id="safety" class="section">
+    <div class="container">
+      <h2 class="heading-2">Libertex Safety & Regulation</h2>
+
+      <div class="safety-intro">
+        <p class="body-large">
+          Libertex is regulated by CySEC (Cyprus Securities and Exchange Commission) with license number 164/12. The parent company Indication Investments Ltd has operated since 1997, providing over 25 years of regulatory track record. EU clients receive investor protection up to €20,000 through the Investor Compensation Fund.
+        </p>
+      </div>
+
+      <div class="regulation-grid">
+        <div class="regulation-card">
+          <div class="reg-flag">🇨🇾</div>
+          <div class="reg-details">
+            <h4>CySEC (Cyprus)</h4>
+            <p class="reg-number">License: 164/12</p>
+            <p class="reg-tier">Tier 2 Regulator</p>
+            <p>Cyprus Securities and Exchange Commission provides MiFID II protections for EU clients, including €20,000 Investor Compensation Fund coverage and mandatory negative balance protection.</p>
+          </div>
+        </div>
+
+        <div class="regulation-card">
+          <div class="reg-flag">🇪🇺</div>
+          <div class="reg-details">
+            <h4>EU Passporting</h4>
+            <p class="reg-number">MiFID II Compliant</p>
+            <p class="reg-tier">EU-Wide Authorization</p>
+            <p>CySEC license allows Libertex to operate across the European Economic Area under MiFID II passporting rules, serving clients in most EU member states.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="safety-features">
+        <h3>Client Protection Measures</h3>
+        <div class="protection-grid">
+          <div class="protection-item">
+            <span class="protection-icon">🏦</span>
+            <h4>Segregated Funds</h4>
+            <p>Client funds held separately from company operating funds in EU banks</p>
+          </div>
+          <div class="protection-item">
+            <span class="protection-icon">🛡️</span>
+            <h4>Negative Balance Protection</h4>
+            <p>Cannot lose more than deposited under ESMA retail client rules</p>
+          </div>
+          <div class="protection-item">
+            <span class="protection-icon">💶</span>
+            <h4>€20,000 ICF Coverage</h4>
+            <p>Investor Compensation Fund protects up to €20,000 per client</p>
+          </div>
+          <div class="protection-item">
+            <span class="protection-icon">🔒</span>
+            <h4>SSL Encryption</h4>
+            <p>256-bit SSL encryption protecting all data and transactions</p>
+          </div>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Safety Assessment - Analyst's View"
+        icon="🔒"
+        id="safety-notes"
+        variant="dark"
+      >
+        <h4>Regulatory Strength Analysis</h4>
+        <p>
+          Libertex's CySEC regulation places it in a middle tier of broker safety. CySEC is a legitimate EU regulator, but it doesn't carry the same weight as FCA (UK), ASIC (Australia), or FINMA (Switzerland). For EU traders, CySEC provides adequate protection; for those with options, Tier-1 regulated brokers offer more robust oversight.
+        </p>
+
+        <h5>What CySEC Regulation Means</h5>
+        <p>
+          CySEC regulation requires Libertex to maintain minimum capital requirements, keep client funds segregated, provide negative balance protection to retail clients, and participate in the Investor Compensation Fund (€20,000 coverage). These are meaningful protections, but enforcement historically hasn't been as rigorous as FCA or ASIC.
+        </p>
+
+        <h5>The 25-Year Track Record</h5>
+        <p>
+          Indication Investments Ltd (Libertex's parent) has operated since 1997. This longevity matters -brokers that survive 25+ years have demonstrated operational stability through multiple market crises. While past performance doesn't guarantee future safety, it's a positive indicator of sustainable business practices.
+        </p>
+
+        <h5>What's Missing</h5>
+        <p>
+          Libertex lacks Tier-1 regulation (FCA, ASIC, CFTC). UK traders cannot use Libertex legally, and Australian traders should prefer ASIC-regulated alternatives. The company isn't publicly traded, so there's no external financial transparency through quarterly reports. These limitations are significant for safety-conscious traders.
+        </p>
+
+        <h5>Realistic Assessment</h5>
+        <p>
+          Libertex is adequately safe for most EU retail traders. The CySEC license provides real protections -segregated funds, negative balance protection, and compensation scheme. However, if you're depositing large sums (>€20,000) or have access to Tier-1 regulated alternatives, those would be safer choices. Libertex isn't risky, but it's not in the top safety tier either.
+        </p>
+
+        <h5>Safety Verdict</h5>
+        <p>
+          For EU traders depositing moderate amounts, Libertex provides acceptable regulatory protection. The 25-year track record adds credibility. However, UK traders should avoid (no FCA license), and those with substantial capital should consider Tier-1 regulated alternatives like IG, Saxo, or Pepperstone for enhanced protection.
+        </p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Platforms Section -->
+  <section id="platforms" class="section section-alt">
+    <div class="container">
+      <h2 class="heading-2">Libertex Trading Platforms</h2>
+
+      <p class="section-intro">
+        Libertex offers three trading platforms: their proprietary Libertex web/mobile platform, MetaTrader 4, and MetaTrader 5. The proprietary platform is designed for the zero spread model with simplified trading, while MT4/MT5 cater to traders wanting traditional platform functionality with EA support.
+      </p>
+
+      <div class="platforms-grid">
+        <div class="platform-card">
+          <h3>Libertex Platform</h3>
+          <div class="platform-rating">★★★★</div>
+          <p>Proprietary web and mobile platform designed for zero spread trading. Clean interface with essential features, economic calendar, and real-time quotes.</p>
+          <ul class="platform-features">
+            <li>Zero spread display</li>
+            <li>Economic calendar</li>
+            <li>Risk management tools</li>
+            <li>Mobile apps (iOS/Android)</li>
+            <li>One-click trading</li>
+          </ul>
+        </div>
+
+        <div class="platform-card">
+          <h3>MetaTrader 4</h3>
+          <div class="platform-rating">★★★★½</div>
+          <p>Industry-standard platform with full Expert Advisor support, custom indicators, and automated trading capabilities.</p>
+          <ul class="platform-features">
+            <li>Expert Advisors (EAs)</li>
+            <li>Custom indicators</li>
+            <li>30+ built-in indicators</li>
+            <li>Automated trading</li>
+            <li>Strategy backtesting</li>
+          </ul>
+        </div>
+
+        <div class="platform-card featured">
+          <div class="featured-badge">Full Features</div>
+          <h3>MetaTrader 5</h3>
+          <div class="platform-rating">★★★★½</div>
+          <p>Advanced multi-asset platform with improved charting, more timeframes, depth of market, and enhanced backtesting.</p>
+          <ul class="platform-features">
+            <li>21 timeframes</li>
+            <li>80+ built-in indicators</li>
+            <li>Economic calendar</li>
+            <li>Depth of Market</li>
+            <li>Multi-asset support</li>
+          </ul>
+        </div>
+
+        <div class="platform-card">
+          <h3>Mobile Trading</h3>
+          <div class="platform-rating">★★★★</div>
+          <p>Both Libertex and MetaTrader mobile apps available. Libertex app optimized for their zero spread model with intuitive touch trading.</p>
+          <ul class="platform-features">
+            <li>iOS and Android apps</li>
+            <li>Push notifications</li>
+            <li>Price alerts</li>
+            <li>Full account management</li>
+            <li>Real-time quotes</li>
+          </ul>
+        </div>
+      </div>
+
+      <AnalystNotes
+        title="Platform Analysis - Analyst's Deep Dive"
+        icon="🖥️"
+        id="platforms-notes"
+        variant="dark"
+      >
+        <h4>Platform Ecosystem Evaluation</h4>
+        <p>
+          Libertex's platform strategy is straightforward: their proprietary platform for casual traders and crypto enthusiasts, MetaTrader for serious forex traders and those using automated strategies. This dual approach works, though neither platform is best-in-class.
+        </p>
+
+        <h5>Libertex Platform Assessment</h5>
+        <p>
+          The proprietary Libertex platform is designed for simplicity. It displays commission costs clearly, has a clean interface, and includes essential features like economic calendar and basic charting. However, it lacks the depth of MetaTrader -limited indicators, no automation, and basic analysis tools. It's adequate for position traders and crypto CFD traders but frustrating for technical analysts.
+        </p>
+
+        <h5>MetaTrader Reality</h5>
+        <p>
+          Libertex's MT4/MT5 implementation is standard -no special customizations or added features. If you're coming from another MT4/MT5 broker, the experience will be identical. The advantage is familiar workflow and full EA support; the disadvantage is that the zero spread model isn't as clearly displayed in MetaTrader's interface.
+        </p>
+
+        <h5>Mobile Experience</h5>
+        <p>
+          The Libertex mobile app is well-designed for its purpose -simple trading with clear cost display. For casual mobile trading and monitoring, it works well. The MetaTrader mobile apps are functional but dated in design. If mobile trading is important, the Libertex app provides the better user experience for this broker's offering.
+        </p>
+
+        <h5>What's Missing</h5>
+        <p>
+          Libertex lacks advanced platform options that competitors offer: no cTrader, no TradingView integration, no proprietary advanced platform. Research and analysis tools are basic. For traders who value extensive charting, advanced order types, or sophisticated analysis, competitors like IG, Saxo, or CMC Markets offer superior platforms.
+        </p>
+
+        <h5>Platform Recommendation</h5>
+        <p>
+          Use MetaTrader 5 if you want full trading functionality, EAs, or advanced charting. Use the Libertex platform if you prioritize simplicity and clear cost visibility, or primarily trade crypto CFDs. Neither platform is industry-leading, but both are functional for their intended purposes.
+        </p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- Account Types Section -->
+  <section id="accounts" class="section">
+    <div class="container">
+      <h2 class="heading-2">Libertex Account Types</h2>
+
+      <div class="accounts-grid">
+        <div class="account-card featured">
+          <div class="featured-badge">Standard Account</div>
+          <h3>Libertex Account</h3>
+          <div class="account-feature highlight">Zero Spreads</div>
+          <ul class="account-details">
+            <li><strong>Spreads:</strong> 0 pips</li>
+            <li><strong>Commission:</strong> From 0.006%</li>
+            <li><strong>Min Deposit:</strong> $100</li>
+            <li><strong>Leverage:</strong> Up to 30:1</li>
+            <li><strong>Platforms:</strong> All</li>
+            <li><strong>Instruments:</strong> 250+</li>
+          </ul>
+          <p class="account-description">Single account type for all traders. Commission-based pricing with zero spreads across all instruments.</p>
+        </div>
+
+        <div class="account-card">
+          <h3>Demo Account</h3>
+          <div class="account-feature highlight">Risk-Free</div>
+          <ul class="account-details">
+            <li><strong>Virtual Funds:</strong> $50,000</li>
+            <li><strong>Duration:</strong> Unlimited</li>
+            <li><strong>Platforms:</strong> All</li>
+            <li><strong>Features:</strong> Full access</li>
+            <li><strong>Real Conditions:</strong> Yes</li>
+            <li><strong>No Obligation:</strong> Yes</li>
+          </ul>
+          <p class="account-description">Practice trading with virtual funds before committing real money. Full platform access with real market conditions.</p>
+        </div>
+      </div>
+
+      <p class="accounts-note">Libertex offers a simplified single account type with consistent commission-based pricing for all traders. No tiered accounts or volume-based discounts.</p>
+    </div>
+  </section>
+
+  <!-- Deposits & Withdrawals Section -->
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="heading-2">Deposits & Withdrawals</h2>
+
+      <PaymentDetails
+        title="Withdrawal & Payment Information"
+        subtitle="Complete overview of payment processing, fees, and conditions"
+        withdrawalDetails={withdrawalDetails}
+        analysisTitle="Payment System Analysis"
+        analysis={paymentAnalysis}
+      />
+    </div>
+  </section>
+
+  <!-- Customer Support Section -->
+  <section id="support" class="section">
+    <div class="container">
+      <h2 class="heading-2">Customer Support</h2>
+
+      <div class="support-grid">
+        <div class="support-card">
+          <div class="support-icon">💬</div>
+          <h3>Live Chat</h3>
+          <p>Real-time assistance available</p>
+          <p class="support-hours">Mon-Fri: 8am-10pm CET</p>
+        </div>
+
+        <div class="support-card">
+          <div class="support-icon">✉️</div>
+          <h3>Email Support</h3>
+          <p>Detailed query resolution</p>
+          <p class="support-hours">Response within 24-48 hours</p>
+        </div>
+
+        <div class="support-card">
+          <div class="support-icon">📞</div>
+          <h3>Phone Support</h3>
+          <p>Direct phone assistance</p>
+          <p class="support-hours">Mon-Fri: Business hours</p>
+        </div>
+
+        <div class="support-card">
+          <div class="support-icon">📚</div>
+          <h3>Help Center</h3>
+          <p>FAQ and tutorials</p>
+          <p class="support-hours">Available 24/7</p>
+        </div>
+      </div>
+
+      <div class="support-note">
+        <p><strong>Note:</strong> Libertex offers multilingual support covering major European languages. Support quality is generally good for basic queries but may be slower for complex technical issues. No 24/7 support available.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="section section-alt">
+    <div class="container container-narrow">
+      <h2 class="heading-2">Frequently Asked Questions</h2>
+      <FAQ questions={faqData} />
+    </div>
+  </section>
+
+  <!-- Verdict Section -->
+  <section id="verdict" class="section">
+    <div class="container">
+      <h2 class="heading-2">Libertex Final Verdict</h2>
+
+      <div class="verdict-summary">
+        <div class="verdict-score">
+          <div class="score-large">{broker?.scores.overall || 3.8}</div>
+          <div class="score-stars">★★★★☆</div>
+          <div class="score-label">Overall Rating</div>
+        </div>
+
+        <div class="verdict-breakdown">
+          <div class="rating-row">
+            <span class="rating-category">Fees & Pricing</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 84%"></span></span>
+            <span class="rating-value">4.2</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Safety</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 80%"></span></span>
+            <span class="rating-value">4.0</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Customer Service</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 76%"></span></span>
+            <span class="rating-value">3.8</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Education</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 76%"></span></span>
+            <span class="rating-value">3.8</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Platforms</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 74%"></span></span>
+            <span class="rating-value">3.7</span>
+          </div>
+          <div class="rating-row">
+            <span class="rating-category">Research</span>
+            <span class="rating-bar"><span class="rating-fill" style="width: 70%"></span></span>
+            <span class="rating-value">3.5</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="verdict-recommendation">
+        <h3>Best For</h3>
+        <ul class="best-for-list">
+          <li>Traders who prefer transparent commission pricing</li>
+          <li>Cryptocurrency enthusiasts wanting regulated access to 50+ coins</li>
+          <li>Position traders with larger position sizes</li>
+          <li>EU residents wanting CySEC protection</li>
+          <li>Those tired of hidden spread markups</li>
+        </ul>
+
+        <h3>Not Ideal For</h3>
+        <ul class="not-for-list">
+          <li>UK traders (Libertex not available in UK)</li>
+          <li>Frequent scalpers (commissions add up quickly)</li>
+          <li>Research-focused traders needing extensive analysis</li>
+          <li>Those requiring Tier-1 (FCA/ASIC) regulation</li>
+        </ul>
+      </div>
+
+      <AnalystNotes
+        title="Final Verdict - Analyst's Conclusion"
+        icon="⚖️"
+        id="verdict-notes"
+        variant="dark"
+      >
+        <h4>The Bottom Line on Libertex</h4>
+        <p>
+          Libertex offers a genuinely different approach to trading costs with their zero spread model. Whether this benefits you depends entirely on how you trade. For some traders, it's a cost-effective transparent alternative; for others, it's actually more expensive than traditional brokers.
+        </p>
+
+        <h5>Strengths That Matter</h5>
+        <p>
+          The transparency of Libertex's pricing is refreshing. You know exactly what you're paying without guessing whether your broker is marking up spreads. The 50+ cryptocurrency selection is exceptional for a CySEC broker -if you want regulated altcoin exposure, few competitors match this. The 25-year track record provides genuine credibility.
+        </p>
+
+        <h5>Limitations to Consider</h5>
+        <p>
+          CySEC-only regulation means UK traders are excluded and safety-conscious traders might prefer Tier-1 alternatives. The crypto commissions (1.5-2.5%) are substantially higher than pure crypto exchanges. Platforms and research tools are adequate but not industry-leading. The €10 monthly inactivity fee after 180 days can erode capital for inactive accounts.
+        </p>
+
+        <h5>The Value Proposition</h5>
+        <p>
+          Libertex makes sense for EU traders who value pricing transparency, want extensive regulated crypto access, or trade larger position sizes where the commission model competes well. It doesn't make sense for UK traders, frequent scalpers, or those prioritizing maximum regulatory protection.
+        </p>
+
+        <h5>Our Recommendation</h5>
+        <p>
+          We recommend Libertex for its target audience: EU-based traders seeking pricing transparency and extensive cryptocurrency access through a well-established, regulated broker. Calculate your expected costs based on actual trading patterns before committing -the zero spread model isn't universally cheaper, just universally transparent.
+        </p>
+
+        <h5>Final Score Justification</h5>
+        <p>
+          Our 3.8/5 rating reflects Libertex's strengths (pricing transparency, crypto selection, longevity) balanced against limitations (CySEC-only regulation, basic platforms, crypto commission costs). They're a solid choice for their niche but not a universal recommendation. The score reflects "good for specific needs" rather than "great for everyone."
+        </p>
+      </AnalystNotes>
+
+      <div class="verdict-cta">
+        <a href="https://www.libertex.com/" class="btn btn-primary btn-xl" target="_blank" rel="noopener sponsored">
+          Open Libertex Account
+        </a>
+        <p class="cta-note">$100 minimum deposit • Zero spreads • CySEC regulated</p>
+        <p class="cta-links">
+          <a href="/compare/" class="text-link">Compare with other brokers</a> |
+          <a href="/brokers/" class="text-link">View all broker reviews</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Info -->
+  <section class="section section-alt">
+    <div class="container">
+      <CompanyInfo
+        title="Complete Libertex Company Overview"
+        subtitle="Essential company information, trading conditions, and account details"
+        sections={companyInfoSections}
+        columns={3}
+        brokerName="Libertex"
+        schemaData={companySchemaData}
+      />
+    </div>
+  </section>
+
+  <TrustBadges variant="light" compact={true} />
+
+  <!-- Cross Promotion Section -->
+  <section class="section section-gray">
+    <div class="container">
+      <BrokerCrossPromo brokerSlug="libertex" brokerName="Libertex" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .broker-hero {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    padding: var(--space-2xl) 0;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255, 72, 0, 0.15);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+    color: var(--brand-orange);
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-hero .heading-1 {
+    color: var(--white);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero-tagline {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-rating {
+    margin-bottom: var(--space-lg);
+  }
+
+  .rating-score {
+    font-size: 3rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+    line-height: 1;
+  }
+
+  .rating-stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+  }
+
+  .rating-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-size-sm);
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    display: block;
+    color: var(--white);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .stat-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--font-size-sm);
+  }
+
+  .hero-trust {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-xl);
+  }
+
+  .trust-item {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--font-size-sm);
+  }
+
+  .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  /* Navigation */
+  .broker-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-list {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) 0;
+    list-style: none;
+    margin: 0;
+    flex-wrap: wrap;
+  }
+
+  .nav-list a {
+    padding: var(--space-xs) var(--space-sm);
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+  }
+
+  .nav-list a:hover {
+    background: var(--gray-100);
+    color: var(--brand-orange);
+  }
+
+  /* Section Styles */
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .section-alt {
+    background: var(--gray-50);
+  }
+
+  .section-intro {
+    font-size: var(--font-size-lg);
+    color: var(--gray-600);
+    max-width: 800px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .container-narrow {
+    max-width: 800px;
+  }
+
+  /* Overview */
+  .overview-intro {
+    max-width: 900px;
+    margin-bottom: var(--space-xl);
+  }
+
+  .overview-intro p {
+    margin-bottom: var(--space-md);
+    color: var(--gray-700);
+  }
+
+  /* Pros & Cons */
+  .pros-cons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  @media (max-width: 768px) {
+    .pros-cons-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .pros-card, .cons-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .pros-card {
+    border-left: 4px solid var(--success);
+  }
+
+  .cons-card {
+    border-left: 4px solid var(--error);
+  }
+
+  .pros-title, .cons-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .pros-list, .cons-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pros-list li, .cons-list li {
+    padding: var(--space-xs) 0;
+    padding-left: var(--space-md);
+    position: relative;
+  }
+
+  .pros-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--success);
+    font-weight: bold;
+  }
+
+  .cons-list li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: var(--error);
+    font-weight: bold;
+  }
+
+  /* Features Grid */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  @media (max-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .feature-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .feature-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-xs);
+  }
+
+  .feature-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Fee Comparison */
+  .fee-comparison {
+    margin-top: var(--space-xl);
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: var(--space-md);
+    text-align: left;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .comparison-table th {
+    background: var(--gray-100);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Regulation Grid */
+  .regulation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  @media (max-width: 768px) {
+    .regulation-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .regulation-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .reg-flag {
+    font-size: 2rem;
+  }
+
+  .reg-details h4 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .reg-number {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .reg-tier {
+    display: inline-block;
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    margin-bottom: var(--space-xs);
+  }
+
+  /* Safety Features */
+  .protection-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+  }
+
+  @media (max-width: 1024px) {
+    .protection-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .protection-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .protection-item {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    text-align: center;
+  }
+
+  .protection-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+
+  .protection-item h4 {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-xs);
+  }
+
+  .protection-item p {
+    font-size: var(--font-size-xs);
+    color: var(--gray-600);
+  }
+
+  /* Platforms Grid */
+  .platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  @media (max-width: 768px) {
+    .platforms-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .platform-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    position: relative;
+  }
+
+  .platform-card.featured {
+    border-color: var(--brand-orange);
+    border-width: 2px;
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    left: var(--space-md);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .platform-card h3 {
+    margin-bottom: var(--space-xs);
+  }
+
+  .platform-rating {
+    color: var(--brand-orange);
+    margin-bottom: var(--space-sm);
+  }
+
+  .platform-features {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-md);
+  }
+
+  .platform-features li {
+    padding: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .platform-features li::before {
+    content: '✓';
+    color: var(--success);
+    margin-right: var(--space-xs);
+  }
+
+  /* Accounts Grid */
+  .accounts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    max-width: 800px;
+    margin: 0 auto var(--space-lg);
+  }
+
+  @media (max-width: 768px) {
+    .accounts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .account-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+    position: relative;
+  }
+
+  .account-card.featured {
+    border-color: var(--brand-orange);
+    border-width: 2px;
+  }
+
+  .account-feature.highlight {
+    background: rgba(255, 72, 0, 0.1);
+    color: var(--brand-orange);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-weight: var(--font-weight-bold);
+    display: inline-block;
+    margin-bottom: var(--space-md);
+  }
+
+  .account-details {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-md);
+    text-align: left;
+  }
+
+  .account-details li {
+    padding: var(--space-xs) 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .account-description {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .accounts-note {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  /* Payment Notes */
+  .payment-notes {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .payment-notes h3 {
+    margin-bottom: var(--space-md);
+  }
+
+  .payment-notes ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+  }
+
+  .payment-notes li {
+    margin-bottom: var(--space-xs);
+  }
+
+  /* Support Grid */
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  @media (max-width: 1024px) {
+    .support-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .support-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .support-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    text-align: center;
+  }
+
+  .support-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .support-card h3 {
+    font-size: var(--font-size-md);
+    margin-bottom: var(--space-xs);
+  }
+
+  .support-hours {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+    margin-top: var(--space-xs);
+  }
+
+  .support-note {
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+
+  .support-note p {
+    margin: 0;
+    font-size: var(--font-size-sm);
+  }
+
+  /* Verdict */
+  .verdict-summary {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  @media (max-width: 768px) {
+    .verdict-summary {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .verdict-score {
+    text-align: center;
+  }
+
+  .score-large {
+    font-size: 4rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+    line-height: 1;
+  }
+
+  .score-stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+  }
+
+  .score-label {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-xs);
+  }
+
+  .verdict-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .rating-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .rating-category {
+    width: 150px;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .rating-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--gray-200);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+  }
+
+  .rating-fill {
+    height: 100%;
+    background: var(--brand-orange);
+    display: block;
+  }
+
+  .rating-value {
+    width: 30px;
+    text-align: right;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .verdict-recommendation {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .verdict-recommendation h3 {
+    margin-bottom: var(--space-md);
+  }
+
+  .best-for-list, .not-for-list {
+    margin-bottom: var(--space-lg);
+    padding-left: var(--space-lg);
+  }
+
+  .best-for-list li {
+    margin-bottom: var(--space-xs);
+    color: var(--success);
+  }
+
+  .not-for-list li {
+    margin-bottom: var(--space-xs);
+    color: var(--gray-600);
+  }
+
+  .verdict-cta {
+    text-align: center;
+    padding: var(--space-xl);
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    border-radius: var(--radius-xl);
+  }
+
+  .cta-note {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: var(--font-size-sm);
+    margin-top: var(--space-md);
+  }
+
+  .cta-links {
+    margin-top: var(--space-md);
+  }
+
+  .cta-links .text-link {
+    color: var(--brand-orange);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .hero-stats {
+      gap: var(--space-md);
+    }
+
+    .hero-trust {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .rating-category {
+      width: 100px;
+      font-size: var(--font-size-xs);
+    }
+  }
+</style>

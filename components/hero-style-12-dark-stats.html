@@ -1,0 +1,197 @@
+<!-- Hero Style 12: Dark Gradient with Stats -->
+<!-- Copy this entire section to use the dark stats hero style -->
+<section class="hero-dark-stats section">
+    <div class="container">
+        <div class="hero-dark-content">
+            <div class="hero-dark-text">
+                <span class="chip-dark">Industry Leader</span>
+                <h1 class="heading-1">Join 400,000+ Active Traders</h1>
+                <p class="body-large">AvaTrade's advanced platforms and comprehensive education have helped traders worldwide achieve their financial goals since 2006.</p>
+                
+                <div class="dark-features-list">
+                    <div class="dark-feature">
+                        <span class="dark-feature-icon">🏆</span>
+                        <span>Award-winning platforms</span>
+                    </div>
+                    <div class="dark-feature">
+                        <span class="dark-feature-icon">🛡️</span>
+                        <span>Multi-regulated & secure</span>
+                    </div>
+                    <div class="dark-feature">
+                        <span class="dark-feature-icon">🎓</span>
+                        <span>Comprehensive education</span>
+                    </div>
+                </div>
+                
+                <div class="hero-dark-actions">
+                    <a href="#" class="btn btn-primary btn-xl">Open Free Account</a>
+                    <a href="#" class="btn btn-ghost-light btn-lg">Try Demo</a>
+                </div>
+            </div>
+            
+            <div class="hero-dark-stats-grid">
+                <div class="dark-stat-item">
+                    <div class="dark-stat-value">400K+</div>
+                    <div class="dark-stat-label">Active Traders</div>
+                </div>
+                <div class="dark-stat-item">
+                    <div class="dark-stat-value">15+</div>
+                    <div class="dark-stat-label">Years Experience</div>
+                </div>
+                <div class="dark-stat-item">
+                    <div class="dark-stat-value">6</div>
+                    <div class="dark-stat-label">Global Licenses</div>
+                </div>
+                <div class="dark-stat-item">
+                    <div class="dark-stat-value">200+</div>
+                    <div class="dark-stat-label">Trading Instruments</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Required CSS Styles -->
+<style>
+/* Hero Style 12: Dark Gradient with Stats */
+.hero-dark-stats {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    color: var(--white);
+    padding: var(--space-4xl) 0;
+}
+
+.hero-dark-content {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: var(--space-3xl);
+    align-items: center;
+}
+
+.hero-dark-stats .heading-1,
+.hero-dark-stats .body-large {
+    color: var(--white);
+}
+
+.chip-dark {
+    background: rgba(255, 72, 0, 0.2);
+    color: var(--brand-orange-light);
+    border: 1px solid rgba(255, 72, 0, 0.4);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    display: inline-block;
+    margin-bottom: var(--space-md);
+}
+
+.dark-features-list {
+    margin: var(--space-xl) 0;
+}
+
+.dark-feature {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin: var(--space-md) 0;
+    color: var(--white);
+    font-weight: var(--font-weight-medium);
+}
+
+.dark-feature-icon {
+    font-size: var(--font-size-lg);
+}
+
+.hero-dark-actions {
+    display: flex;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    flex-wrap: wrap;
+}
+
+.btn-ghost-light {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    font-weight: var(--font-weight-semibold);
+}
+
+.btn-ghost-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.hero-dark-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+}
+
+.dark-stat-item {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-stat-value {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+    margin-bottom: var(--space-xs);
+}
+
+.dark-stat-label {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-dark-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    
+    .hero-dark-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-dark-actions {
+        justify-content: center;
+    }
+}
+</style>
+
+<!-- Usage Instructions:
+1. Perfect for showcasing company achievements with dark premium feel
+2. Split layout with compelling text content and key statistics
+3. Features company highlights with icons and call-to-actions
+4. Update statistics to match your actual company data
+5. Customize feature list to highlight key strengths
+6. Statistics automatically stack on mobile devices
+
+Customization Options:
+- Update statistics: Replace values and labels in stat items
+- Modify features: Change icons and text in dark-features-list
+- Customize gradient: Adjust background colors in CSS
+- Add more stats: Copy dark-stat-item structure
+- Update CTAs: Modify both button texts and links
+- Change chip text: Update "Industry Leader" to match content
+- Remove features: Delete dark-features-list section if not needed
+
+Feature Structure:
+Each dark-feature contains:
+- Icon (emoji or icon font)
+- Descriptive text highlighting key benefits
+- Consistent styling with white text
+
+Stat Structure:
+Each dark-stat-item contains:
+- Large value (brand orange color)
+- Descriptive label (light white color)
+- Glass-morphism background effect
+
+Required CSS: design-system.css + embedded styles above
+-->

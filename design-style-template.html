@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade the Day - Design Style Template</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/design-system.css">
+    <style>
+        /* Additional styles for the style guide */
+        .style-section {
+            margin: var(--space-2xl) 0;
+            padding: var(--space-xl);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-xl);
+            background: var(--white);
+        }
+        
+        .color-swatch {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-md);
+            margin: var(--space-xs);
+            border: 1px solid var(--gray-300);
+            position: relative;
+        }
+        
+        .color-swatch::after {
+            content: attr(data-color);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: var(--font-size-xs);
+            color: var(--gray-600);
+            white-space: nowrap;
+        }
+        
+        .spacing-demo {
+            background: var(--gray-100);
+            border: 1px dashed var(--gray-300);
+            display: inline-block;
+            margin: var(--space-xs);
+        }
+        
+        .component-preview {
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-md) 0;
+            background: var(--gray-50);
+        }
+        
+        .code-snippet {
+            background: var(--charcoal);
+            color: var(--white);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: var(--font-size-sm);
+            overflow-x: auto;
+            margin: var(--space-md) 0;
+        }
+        
+        .shadow-demo {
+            width: 100px;
+            height: 60px;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            margin: var(--space-md);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-lg) 0;
+        }
+        
+        .icon-item {
+            text-align: center;
+            padding: var(--space-md);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            background: var(--white);
+        }
+        
+        .icon-item span {
+            font-size: var(--font-size-4xl);
+            display: block;
+            margin-bottom: var(--space-xs);
+        }
+        
+        /* Subtle table highlight styles */
+        .table .highlight-best {
+            background: rgba(16, 185, 129, 0.08) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #10B981 !important;
+            font-weight: 600 !important;
+            position: relative;
+        }
+        
+        .table .highlight-best::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+            color: #10B981;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .table .highlight-good {
+            background: rgba(245, 158, 11, 0.06) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #F59E0B !important;
+            font-weight: 500 !important;
+        }
+        
+        .table .highlight-warning {
+            background: rgba(239, 68, 68, 0.06) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #EF4444 !important;
+            font-weight: 500 !important;
+        }
+        
+        .table .highlight-brand {
+            background: rgba(255, 72, 0, 0.06) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #FF4800 !important;
+            font-weight: 600 !important;
+        }
+        
+        .table .highlight-neutral {
+            background: rgba(115, 115, 115, 0.04) !important;
+            color: #1E2427 !important;
+            border-left: 3px solid #a3a3a3 !important;
+            font-weight: 500 !important;
+        }
+        
+        .table .currency {
+            color: #059669 !important;
+            font-weight: 600 !important;
+            background: rgba(16, 185, 129, 0.08) !important;
+            padding: 2px 4px !important;
+            border-radius: 3px !important;
+        }
+        
+        .table .percentage {
+            color: #D97706 !important;
+            font-weight: 600 !important;
+            background: rgba(245, 158, 11, 0.08) !important;
+            padding: 2px 4px !important;
+            border-radius: 3px !important;
+        }
+        
+        .table .rating {
+            color: #FF4800 !important;
+            font-weight: 600 !important;
+            background: rgba(255, 72, 0, 0.08) !important;
+            padding: 2px 4px !important;
+            border-radius: 3px !important;
+            font-size: 16px !important;
+        }
+        
+        .table .number-highlight {
+            background: rgba(255, 72, 0, 0.08) !important;
+            color: #FF4800 !important;
+            font-family: 'SF Mono', 'Monaco', 'Menlo', monospace !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            padding: 3px 6px !important;
+            border-radius: 4px !important;
+            display: inline-block;
+        }
+        
+        /* Reduce table row height */
+        .table th,
+        .table td {
+            padding: 8px 24px !important;
+            line-height: 1.4 !important;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="section" style="padding: var(--space-xl) 0; border-bottom: 1px solid var(--gray-200);">
+    <div class="container">
+        <h1 class="heading-1 text-center mb-0">Trade the Day Design System</h1>
+        <p class="body-large text-center">Complete style guide and component library</p>
+        
+        <!-- Quick Highlight Test -->
+        <div class="text-center mt-lg">
+            <p class="body-small">Quick Highlight Test:</p>
+            <table class="table" style="max-width: 600px; margin: 0 auto;">
+                <tr>
+                    <td class="highlight-best">★ Best</td>
+                    <td class="highlight-good">Good</td>
+                    <td class="highlight-warning">Warning</td>
+                    <td class="highlight-brand">Brand</td>
+                    <td class="highlight-neutral">Neutral</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</header>
+
+<!-- Colors Section -->
+<section class="section">
+    <div class="container">
+        <div class="style-section">
+            <h2 class="heading-2">Color Palette</h2>
+            <p class="body">Our brand colors and neutral palette for consistent visual identity</p>
+            
+            <h3 class="heading-3 mt-xl">Brand Colors</h3>
+            <div>
+                <div class="color-swatch" style="background: var(--brand-orange);" data-color="#FF4800"></div>
+                <div class="color-swatch" style="background: var(--brand-orange-dark);" data-color="#e63e00"></div>
+                <div class="color-swatch" style="background: var(--brand-orange-light);" data-color="#ff5c1a"></div>
+                <div class="color-swatch" style="background: var(--brand-cyan);" data-color="#0693e3"></div>
+                <div class="color-swatch" style="background: var(--brand-purple);" data-color="#9b51e0"></div>
+            </div>
+            
+            <h3 class="heading-3 mt-xl">Neutral Colors</h3>
+            <div>
+                <div class="color-swatch" style="background: var(--charcoal);" data-color="#1E2427"></div>
+                <div class="color-swatch" style="background: var(--gray-800);" data-color="#1E2427"></div>
+                <div class="color-swatch" style="background: var(--gray-600);" data-color="#525252"></div>
+                <div class="color-swatch" style="background: var(--gray-400);" data-color="#a3a3a3"></div>
+                <div class="color-swatch" style="background: var(--gray-200);" data-color="#e5e5e5"></div>
+                <div class="color-swatch" style="background: var(--gray-100);" data-color="#f5f5f5"></div>
+                <div class="color-swatch" style="background: var(--white); border-color: var(--gray-400);" data-color="#fafbfc"></div>
+            </div>
+            
+            <h3 class="heading-3 mt-xl">Status Colors</h3>
+            <div>
+                <div class="color-swatch" style="background: var(--success);" data-color="#10B981"></div>
+                <div class="color-swatch" style="background: var(--error);" data-color="#EF4444"></div>
+                <div class="color-swatch" style="background: var(--warning);" data-color="#ffc107"></div>
+                <div class="color-swatch" style="background: var(--info);" data-color="#0693e3"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Typography Section -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="style-section">
+            <h2 class="heading-2">Typography</h2>
+            <p class="body">Inter font family with consistent hierarchy and spacing</p>
+            
+            <div class="component-preview">
+                <h1 class="heading-1">Heading 1 - Page Titles (48px)</h1>
+                <h2 class="heading-2">Heading 2 - Section Titles (40px)</h2>
+                <h3 class="heading-3">Heading 3 - Subsection Titles (24px)</h3>
+                <h4 class="heading-4">Heading 4 - Card Titles (20px)</h4>
+                <h5 class="heading-5">Heading 5 - Small Headings (18px)</h5>
+                
+                <p class="body-large">Body Large - Important descriptions and introductions (20px)</p>
+                <p class="body">Body - Standard content and reading material (16px)</p>
+                <p class="body-small">Body Small - Less important information and captions (14px)</p>
+                <p class="body-xs">Body Extra Small - Fine print and disclaimers (12px)</p>
+            </div>
+            
+            <div class="code-snippet">
+&lt;h1 class="heading-1"&gt;Page Title&lt;/h1&gt;
+&lt;h2 class="heading-2"&gt;Section Title&lt;/h2&gt;
+&lt;p class="body-large"&gt;Important description&lt;/p&gt;
+&lt;p class="body"&gt;Standard content&lt;/p&gt;</div>
+        </div>
+    </div>
+</section>
+
+<!-- Spacing Section -->
+<section class="section">
+    <div class="container">
+        <div class="style-section">
+            <h2 class="heading-2">Spacing System</h2>
+            <p class="body">8px base unit system for consistent spacing throughout the design</p>
+            
+            <div>
+                <div class="spacing-demo" style="width: 8px; height: 20px;" data-space="xs">8px</div>
+                <div class="spacing-demo" style="width: 16px; height: 20px;" data-space="sm">16px</div>
+                <div class="spacing-demo" style="width: 24px; height: 20px;" data-space="md">24px</div>
+                <div class="spacing-demo" style="width: 32px; height: 20px;" data-space="lg">32px</div>
+                <div class="spacing-demo" style="width: 48px; height: 20px;" data-space="xl">48px</div>
+                <div class="spacing-demo" style="width: 64px; height: 20px;" data-space="2xl">64px</div>
+                <div class="spacing-demo" style="width: 80px; height: 20px;" data-space="3xl">80px</div>
+                <div class="spacing-demo" style="width: 120px; height: 20px;" data-space="4xl">120px</div>
+            </div>
+            
+            <div class="code-snippet mt-lg">
+/* CSS Variables */
+--space-xs: 8px;    /* --space-sm: 16px;   /* --space-md: 24px;
+--space-lg: 32px;   /* --space-xl: 48px;   /* --space-2xl: 64px;
+
+/* Utility Classes */
+.mt-lg { margin-top: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }</div>
+        </div>
+    </div>
+</section>
+
+<!-- Shadows Section -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="style-section">
+            <h2 class="heading-2">Shadows</h2>
+            <p class="body">Consistent shadow system for depth and hierarchy</p>
+            
+            <div>
+                <div class="shadow-demo" style="box-shadow: var(--shadow-sm);">Small</div>
+                <div class="shadow-demo" style="box-shadow: var(--shadow-md);">Medium</div>
+                <div class="shadow-demo" style="box-shadow: var(--shadow-lg);">Large</div>
+                <div class="shadow-demo" style="box-shadow: var(--shadow-xl);">Extra Large</div>
+                <div class="shadow-demo" style="box-shadow: var(--shadow-brand);">Brand</div>
+            </div>
+            
+            <div class="code-snippet">
+--shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+--shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
+--shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.1);
+--shadow-brand: 0 4px 16px rgba(255, 72, 0, 0.25);</div>
+        </div>
+    </div>
+</section>
+
+<!-- Button Components -->
+<section class="section">
+    <div class="container">
+        <div class="style-section">
+            <h2 class="heading-2">Button Components</h2>
+            <p class="body">Interactive button styles with multiple variants and sizes</p>
+            
+            <h3 class="heading-3">Button Types</h3>
+            <div class="component-preview">
+                <button class="btn btn-primary">Primary Button</button>
+                <button class="btn btn-secondary">Secondary Button</button>
+                <button class="btn btn-outline">Outline Button</button>
+                <button class="btn btn-ghost">Ghost Button</button>
+            </div>
+            
+            <h3 class="heading-3 mt-xl">Button Sizes</h3>
+            <div class="component-preview">
+                <button class="btn btn-primary btn-sm">Small</button>
+                <button class="btn btn-primary">Default</button>
+                <button class="btn btn-primary btn-lg">Large</button>
+                <button class="btn btn-primary btn-xl">Extra Large</button>
+            </div>
+            
+            <h3 class="heading-3 mt-xl">Button States & Modifiers</h3>
+            <div class="component-preview">
+                <button class="btn btn-primary">Normal</button>
+                <button class="btn btn-primary" disabled>Disabled</button>
+                <button class="btn btn-primary btn-pill">Pill Shape</button>
+                <button class="btn btn-primary btn-full" style="max-width: 200px;">Full Width</button>
+            </div>
+            
+            <div class="code-snippet">
+&lt;button class="btn btn-primary"&gt;Primary&lt;/button&gt;
+&lt;button class="btn btn-secondary btn-lg"&gt;Large Secondary&lt;/button&gt;
+&lt;button class="btn btn-outline btn-pill"&gt;Pill Outline&lt;/button&gt;</div>
+        </div>
+    </div>
+</section>
+
+<!-- Card Components -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="style-section">
+            <h2 class="heading-2">Card Components</h2>
+            <p class="body">Flexible card system for content organization</p>
+            
+            <div class="grid grid-3">
+                <div class="card">
+                    <span class="card-icon">📊</span>
+                    <h3 class="heading-3">Standard Card</h3>
+                    <p class="body">Default card styling with icon, title, and content area.</p>
+                    <button class="btn btn-secondary">Learn More</button>
+                </div>
+                
+                <div class="card card-compact">
+                    <h4 class="heading-4">Compact Card</h4>
+                    <p class="body">Reduced padding for denser layouts and content.</p>
+                </div>
+                
+                <div class="card card-elevated">
+                    <h4 class="heading-4">Elevated Card</h4>
+                    <p class="body">Enhanced shadow for prominence and emphasis.</p>
+                </div>
+            </div>
+            
+            <div class="code-snippet">
+&lt;div class="card"&gt;
+    &lt;span class="card-icon"&gt;📊&lt;/span&gt;
+    &lt;h3 class="heading-3"&gt;Card Title&lt;/h3&gt;
+    &lt;p class="body"&gt;Card content goes here.&lt;/p&gt;
+    &lt;button class="btn btn-secondary"&gt;Action&lt;/button&gt;
+&lt;/div&gt;</div>
+        </div>
+    </div>
+</section>
+
+<!-- Navigation Component -->
+<section class="section">
+    <div class="container">
+        <div class="style-section">
+            <h2 class="heading-2">Navigation Component</h2>
+            <p class="body">Sticky navigation with smooth scrolling and active states</p>
+            
+            <div class="component-preview">
+                <nav class="nav" style="position: relative; top: auto;">
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <div class="nav-links">
+                            <a href="#" class="nav-link active">Overview</a>
+                            <a href="#" class="nav-link">Features</a>
+                            <a href="#" class="nav-link">Pricing</a>
+                            <a href="#" class="nav-link">Reviews</a>
+                            <a href="#" class="nav-link">Comparison</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            
+            <div class="code-snippet">
+&lt;nav class="nav"&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="nav-links"&gt;
+            &lt;a href="#section1" class="nav-link active"&gt;Link 1&lt;/a&gt;
+            &lt;a href="#section2" class="nav-link"&gt;Link 2&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;</div>
+        </div>
+    </div>
+</section>
+
+<!-- Table Component -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="style-section">
+            <h2 class="heading-2">Table Component</h2>
+            <p class="body">Responsive tables with consistent styling</p>
+            
+            <!-- Basic Table -->
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><strong>Broker</strong></th>
+                            <th><strong>Min Deposit</strong></th>
+                            <th><strong>EUR/USD Spread</strong></th>
+                            <th><strong>Rating</strong></th>
+                            <th><strong>Regulation</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>AvaTrade</strong></td>
+                            <td class="highlight-best"><span class="currency number-highlight">$100</span></td>
+                            <td><span class="percentage">0.9 pips</span></td>
+                            <td class="highlight-good"><span class="rating">4.2/5</span></td>
+                            <td class="highlight-brand">6 Licenses</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IC Markets</strong></td>
+                            <td class="highlight-neutral"><span class="currency number-highlight">$200</span></td>
+                            <td class="highlight-best"><span class="percentage">0.1 pips</span></td>
+                            <td><span class="rating">4.5/5</span></td>
+                            <td>ASIC, CySEC</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plus500</strong></td>
+                            <td class="highlight-good"><span class="currency number-highlight">$100</span></td>
+                            <td class="highlight-warning"><span class="percentage">2.2 pips</span></td>
+                            <td><span class="rating">3.8/5</span></td>
+                            <td>FCA, ASIC</td>
+                        </tr>
+                        <tr>
+                            <td><strong>eToro</strong></td>
+                            <td class="highlight-warning"><span class="currency number-highlight">$200</span></td>
+                            <td><span class="percentage">1.0 pips</span></td>
+                            <td><span class="rating">4.1/5</span></td>
+                            <td>CySEC, FCA</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3 class="heading-3 mt-xl">Highlight Classes Demo</h3>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><strong>Highlight Type</strong></th>
+                            <th><strong>Example</strong></th>
+                            <th><strong>Use Case</strong></th>
+                            <th><strong>CSS Class</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Best Value</strong></td>
+                            <td class="highlight-best">★ Winner</td>
+                            <td>Top performer, best choice</td>
+                            <td><code>.highlight-best</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Good Value</strong></td>
+                            <td class="highlight-good">Great Option</td>
+                            <td>Above average performance</td>
+                            <td><code>.highlight-good</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Warning</strong></td>
+                            <td class="highlight-warning">Caution</td>
+                            <td>Below average or concerning</td>
+                            <td><code>.highlight-warning</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Brand Highlight</strong></td>
+                            <td class="highlight-brand">Featured</td>
+                            <td>Brand-specific emphasis</td>
+                            <td><code>.highlight-brand</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Neutral</strong></td>
+                            <td class="highlight-neutral">Standard</td>
+                            <td>Neutral emphasis</td>
+                            <td><code>.highlight-neutral</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3 class="heading-3 mt-xl">Number Formatting Examples</h3>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><strong>Type</strong></th>
+                            <th><strong>Basic</strong></th>
+                            <th><strong>With Highlight</strong></th>
+                            <th><strong>Combined Classes</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Currency</strong></td>
+                            <td><span class="currency">$100</span></td>
+                            <td class="highlight-best"><span class="currency number-highlight">$50</span></td>
+                            <td><span class="currency number-highlight">$199.99</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Percentage</strong></td>
+                            <td><span class="percentage">2.5%</span></td>
+                            <td class="highlight-warning"><span class="percentage">5.2%</span></td>
+                            <td><span class="percentage number-highlight">0.1%</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ratings</strong></td>
+                            <td><span class="rating">4.2/5</span></td>
+                            <td class="highlight-good"><span class="rating">4.8/5</span></td>
+                            <td><span class="rating number-highlight">5.0/5</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Numbers</strong></td>
+                            <td>1,250</td>
+                            <td class="highlight-brand"><span class="number-highlight">10,000+</span></td>
+                            <td><span class="number-highlight">24/7</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="code-snippet">
+&lt;!-- Table with highlights --&gt;
+&lt;table class="table"&gt;
+    &lt;tr&gt;
+        &lt;td class="highlight-best"&gt;★ Best Value&lt;/td&gt;
+        &lt;td class="highlight-good"&gt;Good Option&lt;/td&gt;
+        &lt;td class="highlight-warning"&gt;Caution&lt;/td&gt;
+        &lt;td class="highlight-brand"&gt;Featured&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;!-- Number formatting --&gt;
+&lt;span class="currency"&gt;$100&lt;/span&gt;
+&lt;span class="percentage"&gt;2.5%&lt;/span&gt;
+&lt;span class="rating"&gt;4.2/5&lt;/span&gt;
+&lt;span class="number-highlight"&gt;24/7&lt;/span&gt;</div>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Components -->
+<section class="section">
+    <div class="container">
+        <div class="style-section">
+            <h2 class="heading-2">Interactive Components</h2>
+            <p class="body">JavaScript-powered components for enhanced user experience</p>
+            
+            <h3 class="heading-3">Analyst Notes</h3>
+            <div class="analyst-notes">
+                <button class="analyst-notes-button" data-target="demo-notes">
+                    📊 Expert Analysis — Click to Expand
+                    <span id="demo-icon">▼</span>
+                </button>
+                <div id="demo-notes" class="analyst-notes-content" style="display: none;">
+                    <h4>Expert Analysis Example</h4>
+                    <p>This is how the analyst notes component works. It provides expandable content areas perfect for detailed analysis, expert insights, and additional information that doesn't clutter the main content flow.</p>
+                    
+                    <h5>Key Benefits</h5>
+                    <p>• Keeps content organized and scannable<br>
+                    • Allows for detailed analysis without overwhelming users<br>
+                    • Premium styling that matches the brand aesthetic</p>
+                </div>
+            </div>
+            
+            <h3 class="heading-3 mt-xl">FAQ Component</h3>
+            <div style="max-width: 600px;">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How does the FAQ component work?
+                    </button>
+                    <div class="faq-answer">
+                        <p>The FAQ component creates an accordion-style interface where clicking a question reveals the answer while automatically closing other open questions for a clean user experience.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What styling options are available?
+                    </button>
+                    <div class="faq-answer">
+                        <p>The FAQ component includes hover effects, smooth animations, and consistent styling that matches the overall design system. It's fully responsive and keyboard accessible.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pros & Cons Component -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="style-section">
+            <h2 class="heading-2">Pros & Cons Component</h2>
+            <p class="body">Side-by-side comparison layout with color-coded sections</p>
+            
+            <div class="pros-cons-grid">
+                <div class="pros-list">
+                    <h3 class="heading-3" style="color: var(--success); margin-bottom: 24px;">✓ Advantages</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>Comprehensive design system</li>
+                        <li>Modular and reusable components</li>
+                        <li>Consistent brand identity</li>
+                        <li>Mobile-responsive design</li>
+                        <li>Accessible and semantic HTML</li>
+                    </ul>
+                </div>
+                
+                <div class="cons-list">
+                    <h3 class="heading-3" style="color: var(--error); margin-bottom: 24px;">✗ Considerations</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li>Requires initial setup time</li>
+                        <li>Need to maintain consistency</li>
+                        <li>Learning curve for new team members</li>
+                        <li>Regular updates may be needed</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="code-snippet">
+&lt;div class="pros-cons-grid"&gt;
+    &lt;div class="pros-list"&gt;
+        &lt;h3 class="heading-3" style="color: var(--success);"&gt;✓ Advantages&lt;/h3&gt;
+        &lt;ul&gt;&lt;li&gt;Advantage 1&lt;/li&gt;&lt;li&gt;Advantage 2&lt;/li&gt;&lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class="cons-list"&gt;
+        &lt;h3 class="heading-3" style="color: var(--error);"&gt;✗ Disadvantages&lt;/h3&gt;
+        &lt;ul&gt;&lt;li&gt;Disadvantage 1&lt;/li&gt;&lt;li&gt;Disadvantage 2&lt;/li&gt;&lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</div>
+        </div>
+    </div>
+</section>
+
+<!-- Grid System -->
+<section class="section">
+    <div class="container">
+        <div class="style-section">
+            <h2 class="heading-2">Grid System</h2>
+            <p class="body">Flexible responsive grid layouts</p>
+            
+            <h3 class="heading-3">2-Column Grid</h3>
+            <div class="grid grid-2">
+                <div class="card card-compact">
+                    <h4 class="heading-4">Column 1</h4>
+                    <p class="body">Content for first column</p>
+                </div>
+                <div class="card card-compact">
+                    <h4 class="heading-4">Column 2</h4>
+                    <p class="body">Content for second column</p>
+                </div>
+            </div>
+            
+            <h3 class="heading-3 mt-xl">3-Column Grid</h3>
+            <div class="grid grid-3">
+                <div class="card card-compact">
+                    <h4 class="heading-4">Column 1</h4>
+                    <p class="body">First column content</p>
+                </div>
+                <div class="card card-compact">
+                    <h4 class="heading-4">Column 2</h4>
+                    <p class="body">Second column content</p>
+                </div>
+                <div class="card card-compact">
+                    <h4 class="heading-4">Column 3</h4>
+                    <p class="body">Third column content</p>
+                </div>
+            </div>
+            
+            <h3 class="heading-3 mt-xl">4-Column Grid</h3>
+            <div class="grid grid-4">
+                <div class="card card-compact text-center">
+                    <span class="card-icon" style="font-size: var(--font-size-3xl); margin-bottom: var(--space-sm);">📊</span>
+                    <h5 class="heading-5">Item 1</h5>
+                </div>
+                <div class="card card-compact text-center">
+                    <span class="card-icon" style="font-size: var(--font-size-3xl); margin-bottom: var(--space-sm);">⚡</span>
+                    <h5 class="heading-5">Item 2</h5>
+                </div>
+                <div class="card card-compact text-center">
+                    <span class="card-icon" style="font-size: var(--font-size-3xl); margin-bottom: var(--space-sm);">🎯</span>
+                    <h5 class="heading-5">Item 3</h5>
+                </div>
+                <div class="card card-compact text-center">
+                    <span class="card-icon" style="font-size: var(--font-size-3xl); margin-bottom: var(--space-sm);">🚀</span>
+                    <h5 class="heading-5">Item 4</h5>
+                </div>
+            </div>
+            
+            <div class="code-snippet">
+&lt;div class="grid grid-2"&gt;...&lt;/div&gt;  &lt;!-- 2 columns --&gt;
+&lt;div class="grid grid-3"&gt;...&lt;/div&gt;  &lt;!-- 3 columns --&gt;
+&lt;div class="grid grid-4"&gt;...&lt;/div&gt;  &lt;!-- 4 columns --&gt;</div>
+        </div>
+    </div>
+</section>
+
+<!-- Common Icons -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="style-section">
+            <h2 class="heading-2">Common Icons</h2>
+            <p class="body">Emoji icons commonly used throughout the design system</p>
+            
+            <div class="icon-grid">
+                <div class="icon-item">
+                    <span>📊</span>
+                    <div class="body-small">Analytics</div>
+                </div>
+                <div class="icon-item">
+                    <span>⚡</span>
+                    <div class="body-small">Fast/Power</div>
+                </div>
+                <div class="icon-item">
+                    <span>🎯</span>
+                    <div class="body-small">Target/Goal</div>
+                </div>
+                <div class="icon-item">
+                    <span>🛡️</span>
+                    <div class="body-small">Security</div>
+                </div>
+                <div class="icon-item">
+                    <span>🏛️</span>
+                    <div class="body-small">Institution</div>
+                </div>
+                <div class="icon-item">
+                    <span>📈</span>
+                    <div class="body-small">Growth</div>
+                </div>
+                <div class="icon-item">
+                    <span>🎓</span>
+                    <div class="body-small">Education</div>
+                </div>
+                <div class="icon-item">
+                    <span>💰</span>
+                    <div class="body-small">Money</div>
+                </div>
+                <div class="icon-item">
+                    <span>🚀</span>
+                    <div class="body-small">Launch</div>
+                </div>
+                <div class="icon-item">
+                    <span>⭐</span>
+                    <div class="body-small">Star/Rating</div>
+                </div>
+                <div class="icon-item">
+                    <span>🔒</span>
+                    <div class="body-small">Lock/Secure</div>
+                </div>
+                <div class="icon-item">
+                    <span>✅</span>
+                    <div class="body-small">Check/Done</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Usage Guidelines -->
+<section class="section">
+    <div class="container">
+        <div class="style-section">
+            <h2 class="heading-2">Usage Guidelines</h2>
+            <p class="body">Best practices for implementing the design system</p>
+            
+            <div class="grid grid-2 mt-xl">
+                <div>
+                    <h3 class="heading-3" style="color: var(--success);">✓ Do</h3>
+                    <ul class="body" style="margin-left: var(--space-lg);">
+                        <li>Use consistent spacing from the 8px system</li>
+                        <li>Follow the typography hierarchy</li>
+                        <li>Apply brand colors appropriately</li>
+                        <li>Test responsive behavior on mobile</li>
+                        <li>Use semantic HTML structure</li>
+                        <li>Maintain consistent component patterns</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="heading-3" style="color: var(--error);">✗ Don't</h3>
+                    <ul class="body" style="margin-left: var(--space-lg);">
+                        <li>Use arbitrary spacing values</li>
+                        <li>Mix different button styles randomly</li>
+                        <li>Override component styles unnecessarily</li>
+                        <li>Ignore mobile responsiveness</li>
+                        <li>Use colors outside the brand palette</li>
+                        <li>Skip accessibility considerations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="section section-dark">
+    <div class="container text-center">
+        <h3 class="heading-3">Ready to Build?</h3>
+        <p class="body-large">Start using the Trade the Day design system in your projects</p>
+        <button class="btn btn-primary btn-lg">Get Started →</button>
+        
+        <p class="body-small mt-xl" style="opacity: 0.8;">
+            Trade the Day Design System v1.0 • Built with consistency and scalability in mind
+        </p>
+    </div>
+</footer>
+
+<script>
+// Simple JavaScript for the design style template
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Design template loaded');
+    
+    // Analyst Notes functionality
+    function toggleAnalystNotes(id) {
+        console.log('Toggling analyst notes:', id);
+        const content = document.getElementById(id);
+        const icon = document.getElementById(id.replace('-notes', '-icon'));
+        
+        if (!content) {
+            console.log('Content not found:', id);
+            return;
+        }
+        
+        if (content.style.display === 'none' || content.style.display === '') {
+            content.style.display = 'block';
+            if (icon) icon.textContent = '▲';
+            console.log('Opened:', id);
+        } else {
+            content.style.display = 'none';
+            if (icon) icon.textContent = '▼';
+            console.log('Closed:', id);
+        }
+    }
+    
+    // FAQ functionality
+    function toggleFAQ(element) {
+        console.log('Toggling FAQ');
+        const faqItem = element.parentElement;
+        const isActive = faqItem.classList.contains('active');
+        
+        // Close all FAQ items
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Open clicked item if it wasn't active
+        if (!isActive) {
+            faqItem.classList.add('active');
+            console.log('Opened FAQ');
+        } else {
+            console.log('Closed FAQ');
+        }
+    }
+    
+    // Add click listeners to FAQ questions
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleFAQ(this);
+        });
+    });
+    
+    // Fix navigation smooth scroll offset
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Get the navigation height to offset the scroll
+                const nav = document.querySelector('.nav');
+                const navHeight = nav ? nav.offsetHeight : 0;
+                const extraOffset = 20; // Additional padding
+                
+                // Calculate the position to scroll to
+                const elementPosition = targetElement.offsetTop;
+                const offsetPosition = elementPosition - navHeight - extraOffset;
+                
+                // Smooth scroll to the calculated position
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+    // Add click listeners to analyst notes buttons
+    document.querySelectorAll('.analyst-notes-button').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get the target ID from data-target attribute
+            const targetId = this.getAttribute('data-target');
+            console.log('Button clicked, target ID:', targetId);
+            
+            if (targetId) {
+                toggleAnalystNotes(targetId);
+            } else {
+                console.log('No data-target attribute found');
+            }
+        });
+    });
+    
+    // Make functions available globally for inline onclick handlers
+    window.toggleAnalystNotes = toggleAnalystNotes;
+    window.toggleFAQ = toggleFAQ;
+    
+    console.log('All event listeners attached');
+});
+</script>
+
+</body>
+</html>

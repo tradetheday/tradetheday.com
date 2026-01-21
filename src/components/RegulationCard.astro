@@ -1,0 +1,470 @@
+---
+interface RegulationLicense {
+  flag: string;
+  jurisdiction: string;
+  authority: string;
+  licenseNumber: string;
+  compensation: string;
+  status: 'active' | 'verified';
+  description?: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  licenses: RegulationLicense[];
+  variant?: 'default' | 'compact';
+}
+
+const { 
+  title = "Safety & Regulation",
+  subtitle = "Licensed across multiple tier-1 jurisdictions with client fund protection",
+  licenses = [],
+  variant = 'default'
+} = Astro.props;
+---
+
+<div class={`regulation-card ${variant}`}>
+  {title && (
+    <div class="regulation-header">
+      <h3 class="heading-3">{title}</h3>
+      {subtitle && <p class="body-large regulation-subtitle">{subtitle}</p>}
+    </div>
+  )}
+  
+  <div class="licenses-grid">
+    {licenses.map((license, index) => (
+      <div class="license-item" onclick={`openLightbox(${index})`}>
+        <div class="license-header">
+          <span class="license-flag">{license.flag}</span>
+          <div class="license-info">
+            <h4 class="license-jurisdiction">{license.jurisdiction}</h4>
+            <p class="license-authority">{license.authority}</p>
+          </div>
+          <span class={`license-status ${license.status}`}>
+            {license.status === 'verified' ? '✓' : '●'}
+          </span>
+        </div>
+        <div class="license-details">
+          <div class="license-detail">
+            <span class="detail-label">License:</span>
+            <span class="detail-value">{license.licenseNumber}</span>
+          </div>
+          <div class="license-detail">
+            <span class="detail-label">Compensation:</span>
+            <span class="detail-value">{license.compensation}</span>
+          </div>
+        </div>
+        <div class="click-hint">Click for details</div>
+      </div>
+    ))}
+  </div>
+  
+  <!-- Lightbox -->
+  <div id="regulation-lightbox" class="lightbox-overlay">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+      <div id="lightbox-body">
+        <!-- Dynamic content will be inserted here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .regulation-card {
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .regulation-card.compact {
+    padding: 1.5rem;
+  }
+
+  .regulation-header {
+    margin-bottom: 2rem;
+  }
+
+  .regulation-subtitle {
+    color: var(--gray-600, #4b5563);
+    margin-top: 0.5rem;
+  }
+
+  .licenses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .license-item {
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .license-item:hover {
+    border-color: var(--brand-orange, #ff4800);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .click-hint {
+    font-size: 0.75rem;
+    color: var(--brand-orange, #ff4800);
+    text-align: center;
+    margin-top: 0.75rem;
+    font-weight: 500;
+    opacity: 0.8;
+  }
+
+  .license-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .license-flag {
+    font-size: 1.5rem;
+    min-width: 2rem;
+    text-align: center;
+  }
+
+  .license-info {
+    flex: 1;
+  }
+
+  .license-jurisdiction {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    margin: 0;
+  }
+
+  .license-authority {
+    font-size: 0.875rem;
+    color: var(--gray-600, #4b5563);
+    margin: 0.25rem 0 0 0;
+  }
+
+  .license-status {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+  }
+
+  .license-status.active {
+    background: var(--success, #10b981);
+  }
+
+  .license-status.verified {
+    background: var(--brand-orange, #ff4800);
+  }
+
+  .license-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .license-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .detail-label {
+    font-size: 0.875rem;
+    color: var(--gray-500, #6b7280);
+    font-weight: 500;
+  }
+
+  .detail-value {
+    font-size: 0.875rem;
+    color: var(--charcoal, #1e2427);
+    font-weight: 600;
+  }
+
+  /* Lightbox Styles */
+  .lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .lightbox-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .lightbox-content {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 900px;
+    max-height: 90vh;
+    width: 95%;
+    margin: 1rem;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+  }
+
+  .lightbox-overlay.active .lightbox-content {
+    transform: scale(1) translateY(0);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--gray-500);
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+  }
+
+  .lightbox-close:hover {
+    background: var(--gray-100);
+    color: var(--charcoal);
+  }
+
+  .lightbox-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-right: 2rem;
+  }
+
+  .lightbox-flag {
+    font-size: 2rem;
+  }
+
+  .lightbox-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  .lightbox-authority {
+    font-size: 1rem;
+    color: var(--gray-600);
+    margin: 0.25rem 0 0 0;
+  }
+
+  .lightbox-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--gray-50);
+    border-radius: 0.5rem;
+  }
+
+  .lightbox-detail {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lightbox-detail-label {
+    font-size: 0.875rem;
+    color: var(--gray-500);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .lightbox-detail-value {
+    font-size: 1rem;
+    color: var(--charcoal);
+    font-weight: 600;
+  }
+
+  .lightbox-description {
+    color: var(--gray-700);
+    line-height: 1.6;
+    font-size: 0.9375rem;
+  }
+
+  .lightbox-screenshot {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+
+  .license-screenshot {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 0.5rem;
+    border: 1px solid var(--gray-200);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.75rem;
+  }
+
+  .screenshot-caption {
+    font-size: 0.875rem !important;
+    color: var(--gray-600, #4b5563) !important;
+    font-style: italic !important;
+    margin: 1.5rem auto 0 auto !important;
+    text-align: center !important;
+    font-weight: 400 !important;
+    padding-top: 1rem !important;
+    border-top: 1px solid var(--gray-200, #e5e7eb) !important;
+    max-width: 600px !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .licenses-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    
+    .license-item {
+      padding: 1rem;
+    }
+    
+    .regulation-card {
+      padding: 1.5rem;
+    }
+    
+    .regulation-header {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .license-header {
+      gap: 0.75rem;
+    }
+    
+    .license-flag {
+      font-size: 1.25rem;
+      min-width: 1.5rem;
+    }
+    
+    .license-jurisdiction {
+      font-size: 0.875rem;
+    }
+    
+    .license-authority {
+      font-size: 0.8125rem;
+    }
+  }
+</style>
+
+<script define:vars={{ licenses }}>
+  function openLightbox(index) {
+    const license = licenses[index];
+    const lightbox = document.getElementById('regulation-lightbox');
+    const body = document.getElementById('lightbox-body');
+    
+    // Create lightbox content
+    body.innerHTML = `
+      <div class="lightbox-header">
+        <span class="lightbox-flag">${license.flag}</span>
+        <div>
+          <h3 class="lightbox-title">${license.jurisdiction}</h3>
+          <p class="lightbox-authority">${license.authority}</p>
+        </div>
+      </div>
+      
+      <div class="lightbox-details">
+        <div class="lightbox-detail">
+          <span class="lightbox-detail-label">License Number</span>
+          <span class="lightbox-detail-value">${license.licenseNumber}</span>
+        </div>
+        <div class="lightbox-detail">
+          <span class="lightbox-detail-label">Compensation</span>
+          <span class="lightbox-detail-value">${license.compensation}</span>
+        </div>
+        <div class="lightbox-detail">
+          <span class="lightbox-detail-label">Status</span>
+          <span class="lightbox-detail-value">${license.status === 'verified' ? '✓ Verified' : '● Active'}</span>
+        </div>
+      </div>
+      
+      <div class="lightbox-description">
+        ${license.description || 'This regulatory license provides client protection and ensures compliance with local financial regulations.'}
+      </div>
+      
+      ${license.jurisdiction === 'Ireland' ? `
+        <div class="lightbox-screenshot">
+          <img src="/images/brokers/avatrade/avatrade-central-bank-ireland.webp" 
+               alt="AvaTrade Central Bank of Ireland License" 
+               class="license-screenshot"
+               loading="lazy">
+          <p class="screenshot-caption">
+            Official Central Bank of Ireland license verification for AvaTrade
+          </p>
+        </div>
+      ` : ''}
+    `;
+    
+    // Show lightbox with animation
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  function closeLightbox() {
+    const lightbox = document.getElementById('regulation-lightbox');
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  
+  // Close lightbox when clicking outside content
+  document.addEventListener('click', function(event) {
+    const lightbox = document.getElementById('regulation-lightbox');
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+  });
+  
+  // Close lightbox on escape key
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      closeLightbox();
+    }
+  });
+  
+  // Make functions globally accessible
+  window.openLightbox = openLightbox;
+  window.closeLightbox = closeLightbox;
+</script>

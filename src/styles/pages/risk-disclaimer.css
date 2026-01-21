@@ -1,0 +1,107 @@
+.center-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.mb-xl {
+  margin-bottom: 3rem;
+}
+
+.mb-lg {
+  margin-bottom: 2rem;
+}
+
+.mb-md {
+  margin-bottom: 1.5rem;
+}
+
+.mt-md {
+  margin-top: 1.5rem;
+}
+
+.mt-lg {
+  margin-top: 2rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--gray-200, #e5e7eb);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-compact {
+  padding: 1.5rem;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.list {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+}
+
+.list li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.callout {
+  border-radius: 0.75rem;
+  padding: 1.5rem 2rem;
+  margin: 1rem 0;
+}
+
+.callout-warning {
+  background: rgba(239, 68, 68, 0.1);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  border-left: 6px solid #ef4444;
+}
+
+.callout-warning h2 {
+  color: #dc2626;
+  margin-bottom: 1rem;
+}
+
+.callout-info {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-left: 4px solid #3b82f6;
+}
+
+/* Typography - Use global typography classes from design system */
+
+/* Risk factor subheadings should be left aligned */
+.card .heading-3 {
+  text-align: left;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .card,
+  .card-compact {
+    padding: 1.5rem;
+  }
+  
+  .center-container {
+    padding: 0 1rem;
+  }
+
+  .callout {
+    padding: 1rem 1.5rem;
+  }
+}

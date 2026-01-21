@@ -1,0 +1,234 @@
+---
+export interface Props {
+  title: string;
+  subtitle?: string;
+  badge?: string;
+  buttonText?: string;
+  buttonHref?: string;
+  secondaryButtonText?: string;
+  secondaryButtonHref?: string;
+  style?: 'default' | 'minimal' | 'review' | 'dark';
+  logo?: string;
+  logoAlt?: string;
+  date?: string;
+  author?: string;
+  highlights?: Array<{
+    text: string;
+    type: 'success' | 'warning' | 'neutral' | 'error';
+  }>;
+  scorecard?: Array<{
+    value: string;
+    label: string;
+  }>;
+}
+
+const {
+  title,
+  subtitle,
+  badge,
+  buttonText,
+  buttonHref = '#',
+  secondaryButtonText,
+  secondaryButtonHref = '#',
+  style = 'default',
+  logo,
+  logoAlt = '',
+  date,
+  author,
+  highlights,
+  scorecard
+} = Astro.props;
+
+const sectionClasses = style === 'minimal' ? 'hero-minimal section' : 
+                      style === 'review' ? 'hero-review section' :
+                      style === 'dark' ? 'hero section section-dark' : 'hero section';
+
+const contentClasses = style === 'minimal' ? 'hero-minimal-content' : '';
+---
+
+<section class={sectionClasses}>
+  <div class="container">
+    <div class={contentClasses}>
+      {/* Minimal style header with logo and meta */}
+      {style === 'minimal' && (logo || date || author) && (
+        <div class="hero-minimal-header">
+          {logo && <img src={logo} alt={logoAlt} class="hero-logo" />}
+          {(date || author) && (
+            <div class="hero-minimal-meta">
+              {date && <span class="hero-minimal-date">{date}</span>}
+              {author && <span class="hero-minimal-author">{author}</span>}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Badge/Chip */}
+      {badge && style !== 'minimal' && <span class="chip">{badge}</span>}
+      
+      {/* Main content */}
+      <h1 class="heading-1">{title}</h1>
+      {subtitle && <p class="body-large">{subtitle}</p>}
+      
+      {/* Highlights for minimal style */}
+      {style === 'minimal' && highlights && highlights.length > 0 && (
+        <div class="hero-minimal-highlights">
+          {highlights.map(({ text, type }) => (
+            <span class={`highlight-pill ${type}`}>{text}</span>
+          ))}
+        </div>
+      )}
+      
+      {/* Action buttons */}
+      <div class={style === 'minimal' ? 'hero-minimal-actions' : 'hero-actions'}>
+        {buttonText && (
+          <a href={buttonHref} class="btn btn-primary btn-lg">
+            {buttonText}
+          </a>
+        )}
+        {secondaryButtonText && (
+          <a href={secondaryButtonHref} class={`btn ${style === 'minimal' ? 'btn-ghost' : 'btn-secondary'}`}>
+            {secondaryButtonText}
+          </a>
+        )}
+      </div>
+      
+      {/* Scorecard for default style */}
+      {style === 'default' && scorecard && scorecard.length > 0 && (
+        <div class="scorecard">
+          {scorecard.map(({ value, label }) => (
+            <div class="scorecard-item">
+              <div class="scorecard-value">{value}</div>
+              <div class="scorecard-label">{label}</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+/* Hero Minimal Styles */
+.hero-minimal {
+  background: var(--white, #fafbfc);
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--gray-200, #e5e7eb);
+}
+
+.hero-minimal-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-minimal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--gray-200, #e5e7eb);
+}
+
+.hero-logo {
+  height: 40px;
+}
+
+.hero-minimal-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.875rem;
+  color: var(--gray-500, #6b7280);
+}
+
+.hero-minimal-highlights {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 3rem 0;
+  flex-wrap: wrap;
+}
+
+.highlight-pill {
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.highlight-pill.success {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success, #10b981);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.highlight-pill.warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--warning, #f59e0b);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.highlight-pill.neutral {
+  background: var(--gray-100, #f3f4f6);
+  color: var(--gray-600, #4b5563);
+  border: 1px solid var(--gray-300, #d1d5db);
+}
+
+.highlight-pill.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error, #ef4444);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.hero-minimal-actions,
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--gray-600, #4b5563);
+  border: 2px solid transparent;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+  background: var(--gray-100, #f3f4f6);
+  color: var(--charcoal, #1e2427);
+}
+
+/* Review Hero Styles */
+.hero-review {
+  background: linear-gradient(135deg, #1e2427 0%, #2a3038 100%);
+  color: white;
+  padding: 6rem 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-minimal-header {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .hero-minimal-meta {
+    align-items: center;
+  }
+  
+  .hero-minimal-actions,
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+</style>

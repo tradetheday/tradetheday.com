@@ -1,0 +1,881 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+// Trading opportunities data
+const tradingOpportunities = [
+  {
+    id: "forex-volatility",
+    title: "High Volatility Forex Pairs",
+    description: "Major currency pairs showing increased volatility and trading opportunities",
+    category: "Forex",
+    timeframe: "This Week",
+    riskLevel: "Medium",
+    potentialReturn: "3-8%",
+    status: "Active",
+    pairs: ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD"],
+    icon: "💱",
+    color: "blue",
+    lastUpdated: "2 hours ago"
+  },
+  {
+    id: "crypto-breakouts",
+    title: "Cryptocurrency Breakout Patterns",
+    description: "Key crypto assets approaching significant resistance levels",
+    category: "Cryptocurrency",
+    timeframe: "Next 7 Days",
+    riskLevel: "High",
+    potentialReturn: "5-15%",
+    status: "Developing",
+    pairs: ["BTC/USD", "ETH/USD", "SOL/USD"],
+    icon: "₿",
+    color: "orange",
+    lastUpdated: "1 hour ago"
+  },
+  {
+    id: "stock-earnings",
+    title: "Earnings Season Plays",
+    description: "High-impact earnings announcements creating trading opportunities",
+    category: "Stocks",
+    timeframe: "Next 2 Weeks",
+    riskLevel: "Medium",
+    potentialReturn: "4-12%",
+    status: "Upcoming",
+    pairs: ["AAPL", "GOOGL", "MSFT", "TSLA"],
+    icon: "📊",
+    color: "green",
+    lastUpdated: "30 minutes ago"
+  },
+  {
+    id: "commodities-trend",
+    title: "Commodities Trend Reversal",
+    description: "Gold and oil showing potential trend reversal patterns",
+    category: "Commodities",
+    timeframe: "This Month",
+    riskLevel: "Medium",
+    potentialReturn: "2-6%",
+    status: "Active",
+    pairs: ["XAUUSD", "WTIUSD", "XAGUSD"],
+    icon: "🥇",
+    color: "purple",
+    lastUpdated: "4 hours ago"
+  },
+  {
+    id: "indices-momentum",
+    title: "Index Momentum Plays",
+    description: "Major indices showing strong momentum and continuation patterns",
+    category: "Indices",
+    timeframe: "Next 10 Days",
+    riskLevel: "Low",
+    potentialReturn: "2-5%",
+    status: "Active",
+    pairs: ["SPX500", "NAS100", "UK100"],
+    icon: "📈",
+    color: "teal",
+    lastUpdated: "6 hours ago"
+  },
+  {
+    id: "bonds-interest-rates",
+    title: "Interest Rate Sensitive Bonds",
+    description: "Government bonds positioned for central bank policy changes",
+    category: "Bonds",
+    timeframe: "Next 3 Weeks",
+    riskLevel: "Low",
+    potentialReturn: "1-3%",
+    status: "Monitoring",
+    pairs: ["US10Y", "DE10Y", "UK10Y"],
+    icon: "📋",
+    color: "gray",
+    lastUpdated: "8 hours ago"
+  }
+];
+
+// Market alerts
+const marketAlerts = [
+  {
+    type: "breaking",
+    title: "Fed Rate Decision Tomorrow",
+    description: "FOMC meeting expected to impact USD pairs significantly",
+    time: "2 hours ago"
+  },
+  {
+    type: "technical",
+    title: "Bitcoin Tests Key Resistance",
+    description: "BTC approaching $45,000 resistance level with high volume",
+    time: "4 hours ago"
+  },
+  {
+    type: "economic",
+    title: "NFP Data This Friday",
+    description: "Non-Farm Payrolls could drive major USD volatility",
+    time: "1 day ago"
+  }
+];
+---
+
+<BaseLayout 
+  title="Trading Opportunities | TradeTheDay"
+  description="Discover current trading opportunities across forex, crypto, stocks, and commodities. Real-time market analysis and potential trades."
+>
+  <!-- SEO Meta Tags -->
+  <meta slot="head" property="og:title" content="Trading Opportunities | TradeTheDay">
+  <meta slot="head" property="og:description" content="Discover current trading opportunities across forex, crypto, stocks, and commodities. Real-time market analysis and potential trades.">
+  <meta slot="head" property="og:type" content="website">
+  <meta slot="head" property="og:url" content="https://tradetheday.com/opportunities/">
+  <meta slot="head" property="og:site_name" content="TradeTheDay">
+  <meta slot="head" name="twitter:card" content="summary_large_image">
+  <meta slot="head" name="twitter:title" content="Trading Opportunities | TradeTheDay">
+  <meta slot="head" name="twitter:description" content="Discover current trading opportunities across forex, crypto, stocks, and commodities. Real-time market analysis and potential trades.">
+  <link slot="head" rel="canonical" href="https://tradetheday.com/opportunities/">
+
+  <!-- JSON-LD Structured Data -->
+  <script slot="head" type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://tradetheday.com/opportunities/",
+        "url": "https://tradetheday.com/opportunities/",
+        "name": "Trading Opportunities | TradeTheDay",
+        "description": "Discover current trading opportunities across forex, crypto, stocks, and commodities. Real-time market analysis and potential trades.",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://tradetheday.com/#website"
+        },
+        "inLanguage": "en-US",
+        "mainEntity": {
+          "@type": "CollectionPage",
+          "name": "Trading Opportunities",
+          "description": "Current market opportunities and trading alerts across multiple asset classes."
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://tradetheday.com/#website",
+        "url": "https://tradetheday.com/",
+        "name": "TradeTheDay",
+        "description": "Making Trading More Accessible - Real-time data and professional tools for everyone",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://tradetheday.com/#organization"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://tradetheday.com/#organization",
+        "name": "TradeTheDay",
+        "url": "https://tradetheday.com/",
+        "description": "Making Trading More Accessible - Real-time data and professional tools for everyone",
+        "sameAs": [
+          "https://twitter.com/tradetheday",
+          "https://linkedin.com/company/tradetheday"
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Trading Opportunities', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-icon">🎯</span>
+          Market Analysis
+        </div>
+        <h1 class="hero-title">Trading Opportunities</h1>
+        <p class="hero-description">
+          Stay ahead of the markets with our curated trading opportunities. Expert analysis across forex, crypto, stocks, and commodities.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">{tradingOpportunities.length}</span>
+            <span class="stat-label">Active Opportunities</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">6</span>
+            <span class="stat-label">Asset Classes</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">Live</span>
+            <span class="stat-label">Updates</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKET ALERTS -->
+  <section class="alerts-section">
+    <div class="container">
+      <div class="alerts-header">
+        <h2 class="section-title">Market Alerts</h2>
+        <div class="live-indicator">
+          <span class="live-dot"></span>
+          Live Updates
+        </div>
+      </div>
+      
+      <div class="alerts-grid">
+        {marketAlerts.map((alert) => (
+          <div class={`alert-card alert-${alert.type}`}>
+            <div class="alert-header">
+              <span class="alert-type">{alert.type}</span>
+              <span class="alert-time">{alert.time}</span>
+            </div>
+            <h3 class="alert-title">{alert.title}</h3>
+            <p class="alert-description">{alert.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- OPPORTUNITIES GRID -->
+  <section class="opportunities-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Current Trading Opportunities</h2>
+        <p class="section-description">
+          Carefully analyzed opportunities across multiple markets and timeframes
+        </p>
+      </div>
+
+      <div class="opportunities-grid">
+        {tradingOpportunities.map((opportunity) => (
+          <article class={`opportunity-card opportunity-${opportunity.color}`}>
+            <div class="opportunity-header">
+              <div class="opportunity-icon">{opportunity.icon}</div>
+              <div class="opportunity-status">
+                <span class={`status-badge status-${opportunity.status.toLowerCase()}`}>
+                  {opportunity.status}
+                </span>
+              </div>
+            </div>
+            
+            <div class="opportunity-content">
+              <div class="opportunity-category">{opportunity.category}</div>
+              <h3 class="opportunity-title">{opportunity.title}</h3>
+              <p class="opportunity-description">{opportunity.description}</p>
+              
+              <div class="opportunity-metrics">
+                <div class="metric">
+                  <span class="metric-label">Timeframe</span>
+                  <span class="metric-value">{opportunity.timeframe}</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Risk Level</span>
+                  <span class={`metric-value risk-${opportunity.riskLevel.toLowerCase()}`}>
+                    {opportunity.riskLevel}
+                  </span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Potential Return</span>
+                  <span class="metric-value return-positive">{opportunity.potentialReturn}</span>
+                </div>
+              </div>
+              
+              <div class="opportunity-pairs">
+                <span class="pairs-label">Assets:</span>
+                <div class="pairs-list">
+                  {opportunity.pairs.map((pair) => (
+                    <span class="pair-tag">{pair}</span>
+                  ))}
+                </div>
+              </div>
+              
+              <div class="opportunity-footer">
+                <span class="last-updated">Updated {opportunity.lastUpdated}</span>
+                <button class="view-details-btn">
+                  View Details →
+                </button>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER SECTION -->
+  <section class="disclaimer-section">
+    <div class="container">
+      <div class="disclaimer-content">
+        <h3 class="disclaimer-title">⚠️ Important Disclaimer</h3>
+        <p class="disclaimer-text">
+          Trading opportunities are for educational and informational purposes only. Past performance does not guarantee future results. 
+          All trading involves substantial risk of loss and may not be suitable for all investors. Please consider your experience level, 
+          investment objectives, and seek independent financial advice before trading.
+        </p>
+        <div class="disclaimer-links">
+          <a href="/full-risk-disclosure/" class="disclaimer-link">Full Risk Disclosure</a>
+          <span class="separator">•</span>
+          <a href="/advertiser-disclosure/" class="disclaimer-link">Advertiser Disclosure</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+// Simple interaction for view details buttons
+document.addEventListener('DOMContentLoaded', function() {
+  const detailButtons = document.querySelectorAll('.view-details-btn');
+
+  detailButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Redirect to coming soon page for detailed analysis
+      window.location.href = '/coming-soon/';
+    });
+  });
+});
+</script>
+
+<style>
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+
+.hero-section {
+  padding: var(--space-2xl) 0;
+  background: linear-gradient(135deg, var(--charcoal) 0%, var(--charcoal-light) 100%);
+  color: var(--white);
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: rgba(255, 72, 0, 0.1);
+  border: 1px solid rgba(255, 72, 0, 0.2);
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--brand-orange);
+  margin-bottom: var(--space-lg);
+  line-height: 1.2;
+}
+
+.badge-icon {
+  font-size: 1.2rem;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: var(--space-lg);
+  color: var(--white);
+}
+
+.hero-description {
+  font-size: var(--font-size-xl);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: var(--space-2xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2xl);
+  flex-wrap: wrap;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: var(--font-size-3xl);
+  font-weight: 900;
+  color: var(--brand-orange);
+  line-height: 1;
+}
+
+.stat-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: var(--space-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ==========================================================================
+   MARKET ALERTS SECTION
+   ========================================================================== */
+
+.alerts-section {
+  padding: var(--space-3xl) 0;
+  background: var(--gray-50);
+}
+
+.alerts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.section-title {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+.live-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--success);
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--success);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.alerts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.alert-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--brand-orange);
+  transition: all var(--transition-base);
+}
+
+.alert-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.alert-breaking {
+  border-left-color: var(--error);
+}
+
+.alert-technical {
+  border-left-color: var(--brand-cyan);
+}
+
+.alert-economic {
+  border-left-color: var(--brand-purple);
+}
+
+.alert-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.alert-type {
+  background: rgba(255, 72, 0, 0.1);
+  color: var(--brand-orange);
+  padding: 4px var(--space-xs);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+}
+
+.alert-breaking .alert-type {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error);
+}
+
+.alert-technical .alert-type {
+  background: rgba(6, 147, 227, 0.1);
+  color: var(--brand-cyan);
+}
+
+.alert-economic .alert-type {
+  background: rgba(155, 81, 224, 0.1);
+  color: var(--brand-purple);
+}
+
+.alert-time {
+  font-size: var(--font-size-xs);
+  color: var(--gray-500);
+}
+
+.alert-title {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: var(--space-xs);
+}
+
+.alert-description {
+  color: var(--gray-600);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   OPPORTUNITIES SECTION
+   ========================================================================== */
+
+.opportunities-section {
+  padding: var(--space-4xl) 0;
+}
+
+.section-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto var(--space-3xl);
+}
+
+.section-description {
+  font-size: var(--font-size-lg);
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin-top: var(--space-md);
+}
+
+.opportunities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: var(--space-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   OPPORTUNITY CARDS
+   ========================================================================== */
+
+.opportunity-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  transition: all var(--transition-base);
+}
+
+.opportunity-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.opportunity-header {
+  padding: var(--space-lg);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.01) 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.opportunity-icon {
+  font-size: 2rem;
+}
+
+.status-badge {
+  padding: 4px var(--space-xs);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-active {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+}
+
+.status-developing {
+  background: rgba(255, 193, 7, 0.1);
+  color: #f59e0b;
+}
+
+.status-upcoming {
+  background: rgba(6, 147, 227, 0.1);
+  color: var(--brand-cyan);
+}
+
+.status-monitoring {
+  background: rgba(107, 114, 128, 0.1);
+  color: var(--gray-600);
+}
+
+.opportunity-content {
+  padding: var(--space-lg);
+}
+
+.opportunity-category {
+  color: var(--brand-orange);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-xs);
+}
+
+.opportunity-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: var(--space-sm);
+  line-height: 1.3;
+}
+
+.opportunity-description {
+  color: var(--gray-600);
+  line-height: 1.5;
+  margin-bottom: var(--space-lg);
+}
+
+.opportunity-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-md);
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
+}
+
+.metric {
+  text-align: center;
+}
+
+.metric-label {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--gray-500);
+  margin-bottom: 4px;
+  font-weight: var(--font-weight-medium);
+}
+
+.metric-value {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--charcoal);
+}
+
+.risk-high {
+  color: var(--error);
+}
+
+.risk-medium {
+  color: #f59e0b;
+}
+
+.risk-low {
+  color: var(--success);
+}
+
+.return-positive {
+  color: var(--success);
+}
+
+.opportunity-pairs {
+  margin-bottom: var(--space-lg);
+}
+
+.pairs-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--gray-700);
+  margin-bottom: var(--space-xs);
+  display: block;
+}
+
+.pairs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.pair-tag {
+  background: var(--gray-100);
+  color: var(--gray-700);
+  padding: 4px var(--space-xs);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  font-family: 'Courier New', monospace;
+}
+
+.opportunity-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--gray-200);
+  padding-top: var(--space-md);
+}
+
+.last-updated {
+  font-size: var(--font-size-xs);
+  color: var(--gray-500);
+}
+
+.view-details-btn {
+  background: var(--gradient-primary);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.view-details-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================================================
+   DISCLAIMER SECTION
+   ========================================================================== */
+
+.disclaimer-section {
+  padding: var(--space-3xl) 0;
+  background: var(--gray-50);
+  border-top: 1px solid var(--gray-200);
+}
+
+.disclaimer-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.disclaimer-title {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: var(--space-lg);
+}
+
+.disclaimer-text {
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+.disclaimer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.disclaimer-link {
+  color: var(--brand-orange);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  transition: color var(--transition-fast);
+}
+
+.disclaimer-link:hover {
+  color: var(--brand-orange-dark);
+}
+
+.separator {
+  color: var(--gray-400);
+}
+
+/* ==========================================================================
+   ANIMATIONS
+   ========================================================================== */
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: var(--space-xl) 0;
+  }
+  
+  .hero-stats {
+    gap: var(--space-lg);
+  }
+  
+  .alerts-header {
+    text-align: center;
+  }
+  
+  .opportunities-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  
+  .opportunity-metrics {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+  
+  .opportunity-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+  
+  .disclaimer-links {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .opportunities-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .opportunity-card {
+    margin: 0 var(--space-md);
+  }
+  
+  .opportunity-header,
+  .opportunity-content {
+    padding: var(--space-md);
+  }
+}
+</style>

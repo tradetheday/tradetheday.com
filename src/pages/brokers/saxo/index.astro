@@ -1,0 +1,1347 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navigation from '../../../components/Navigation.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import AnalystNotes from '../../../components/AnalystNotes.astro';
+import FAQ from '../../../components/FAQ.astro';
+import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+import { brokers } from '../../../data/brokers';
+
+const broker = brokers.find(b => b.slug === 'saxo');
+
+const pageTitle = `${broker?.name} Review 2026: 71,000+ Instruments & Premium Trading`;
+const pageDescription = `Complete ${broker?.name} review for January 2026. Investment bank offering 71,000+ instruments, award-winning platforms, and premium research. Danish FSA, FCA, ASIC regulated. ${broker?.minDepositDisplay} minimum.`;
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Brokers', href: '/brokers/' },
+  { text: `${broker?.name} Review`, current: true }
+];
+
+const navigationLinks = [
+  { href: '#overview', text: 'Overview' },
+  { href: '#why-choose', text: 'Why Choose' },
+  { href: '#fees', text: 'Fees' },
+  { href: '#safety', text: 'Safety' },
+  { href: '#platforms', text: 'Platforms' },
+  { href: '#accounts', text: 'Accounts' },
+  { href: '#deposits', text: 'Deposits' },
+  { href: '#instruments', text: 'Instruments' },
+  { href: '#support', text: 'Support' },
+  { href: '#faq', text: 'FAQ' },
+  { href: '#verdict', text: 'Verdict' }
+];
+
+const faqData = [
+  {
+    question: `Is ${broker?.name} safe and legitimate?`,
+    answer: `Yes, ${broker?.name} is one of the safest brokers available. Unlike typical forex brokers, Saxo is a fully licensed investment bank regulated by the Danish Financial Supervisory Authority. They also hold licenses from FCA (UK) and ASIC (Australia). With 30+ years of operation and bank-level security, Saxo provides institutional-grade protection for client funds.`
+  },
+  {
+    question: `What is the minimum deposit for ${broker?.name}?`,
+    answer: `${broker?.name} requires a minimum deposit of ${broker?.minDepositDisplay} for Classic accounts. This is significantly higher than typical retail brokers, reflecting Saxo's positioning as a premium platform for serious traders and investors. Higher account tiers (Platinum, VIP) require larger deposits but offer better pricing.`
+  },
+  {
+    question: `Why is ${broker?.name} more expensive than other brokers?`,
+    answer: `${broker?.name} charges premium pricing that reflects their institutional-grade infrastructure, bank-level security, 71,000+ instruments, award-winning platforms, and comprehensive research. Traders pay for quality - the platforms, execution, and service are significantly superior to budget brokers. For active traders, volume discounts make costs more competitive.`
+  },
+  {
+    question: `What instruments can I trade with ${broker?.name}?`,
+    answer: `${broker?.name} offers an unmatched ${broker?.instrumentsDisplay} instruments including forex, stocks (40,000+), ETFs, bonds, mutual funds, options, futures, CFDs, and commodities. This is by far the widest selection available from any regulated broker, enabling truly diversified portfolio construction.`
+  },
+  {
+    question: `Does ${broker?.name} offer options and futures trading?`,
+    answer: `Yes, ${broker?.name} is one of the few retail-accessible brokers offering genuine exchange-traded options and futures. You can trade options on stocks, indices, and futures, plus futures contracts across commodities, indices, and rates. This makes Saxo suitable for sophisticated derivatives strategies.`
+  },
+  {
+    question: `What is the difference between SaxoTraderGO and SaxoTraderPRO?`,
+    answer: `SaxoTraderGO is the web/mobile platform suitable for most traders, offering full functionality with an intuitive interface. SaxoTraderPRO is the downloadable desktop platform for professional traders, adding advanced features like algorithmic trading, advanced charting, and multi-screen support.`
+  },
+  {
+    question: `Does ${broker?.name} charge inactivity fees?`,
+    answer: `Yes, ${broker?.name} charges inactivity fees if your account remains dormant. The specific fee structure depends on your account type and jurisdiction. Active traders who place regular trades will not encounter these fees. Contact Saxo support for current fee schedules.`
+  },
+  {
+    question: `Is ${broker?.name} good for beginners?`,
+    answer: `${broker?.name} is generally not recommended for beginners due to the high minimum deposit (${broker?.minDepositDisplay}), complex platform, and premium pricing. Beginners typically benefit from brokers with lower barriers to entry. However, if you have capital and want to learn on professional-grade tools, Saxo is excellent.`
+  },
+  {
+    question: `How does ${broker?.name} compare to Interactive Brokers?`,
+    answer: `${broker?.name} and Interactive Brokers compete in the professional trading space. Saxo excels in platform design, research quality, and European market access. IBKR often wins on pricing and US market access. Both offer comprehensive instrument ranges. The choice often depends on primary market focus.`
+  },
+  {
+    question: `Can I access ${broker?.name} from anywhere in the world?`,
+    answer: `${broker?.name} serves clients in most countries but has restrictions in certain jurisdictions including the US (not available to US residents). Availability and specific features may vary by country. Check Saxo's website for availability in your jurisdiction.`
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqData.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const reviewSchema = {
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "FinancialService",
+    "name": broker?.name,
+    "description": broker?.description,
+    "url": broker?.url
+  },
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": broker?.scores.overall,
+    "bestRating": 5,
+    "worstRating": 1
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "TradeTheDay"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TradeTheDay"
+  },
+  "datePublished": "2026-01-20",
+  "dateModified": "2026-01-20"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbItems.map((item, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": item.text,
+    "item": item.current ? undefined : `https://tradetheday.com${item.href}`
+  }))
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={[faqSchema, reviewSchema, breadcrumbSchema]}
+>
+  <main class="broker-review">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-wrapper">
+      <div class="container">
+        <Breadcrumb items={breadcrumbItems} />
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-badge">Investment Bank</div>
+          <h1>{broker?.name} Review 2026: Premium Trading with 71,000+ Instruments</h1>
+          <p class="hero-subtitle">
+            Comprehensive {broker?.name} analysis for January 2026. Discover how this Danish
+            investment bank delivers institutional-grade trading with 71,000+ instruments,
+            award-winning platforms, and premium research for sophisticated investors.
+          </p>
+
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-value">{broker?.scores.overall}/5</span>
+              <span class="stat-label">Our Rating</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{broker?.minDepositDisplay}</span>
+              <span class="stat-label">Min Deposit</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{broker?.spreadsFrom}</span>
+              <span class="stat-label">Spreads From</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{broker?.instrumentsDisplay}</span>
+              <span class="stat-label">Instruments</span>
+            </div>
+          </div>
+
+          <div class="hero-cta">
+            <a href={broker?.affiliateUrl} class="btn btn-primary" target="_blank" rel="noopener sponsored">
+              Open {broker?.name} Account
+            </a>
+            <a href="/compare/" class="btn btn-secondary">Compare Brokers</a>
+          </div>
+
+          <div class="hero-trust">
+            <span class="trust-item">✓ Danish Bank License</span>
+            <span class="trust-item">✓ FCA Regulated</span>
+            <span class="trust-item">✓ ASIC Regulated</span>
+            <span class="trust-item">✓ Founded 1992</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation -->
+    <Navigation links={navigationLinks} />
+
+    <!-- Overview Section -->
+    <section id="overview" class="content-section">
+      <div class="container">
+        <h2>Complete {broker?.name} Overview</h2>
+
+        <div class="overview-content">
+          <p>
+            <strong>{broker?.name}</strong> is not a typical forex broker - it's a fully licensed
+            <strong>Danish investment bank</strong> founded in <strong>1992 in Copenhagen</strong>.
+            With over 30 years of operation, Saxo has established itself as the premium choice
+            for serious traders and investors who demand institutional-grade tools, research,
+            and market access.
+          </p>
+
+          <p>
+            What truly sets {broker?.name} apart is scale and scope. With <strong>{broker?.instrumentsDisplay}
+            tradeable instruments</strong> - including stocks, bonds, ETFs, mutual funds, options, futures,
+            forex, and CFDs - Saxo offers the most comprehensive market access available from any
+            broker. This isn't a simplified retail platform; it's a professional trading infrastructure.
+          </p>
+
+          <p>
+            The <strong>{broker?.minDepositDisplay} minimum deposit</strong> positions Saxo firmly
+            in the premium segment. This is intentional - Saxo targets sophisticated investors who
+            understand that professional tools and infrastructure come at a premium. For those who
+            qualify, the quality of execution, research, and platform experience justifies the cost.
+          </p>
+
+          <div class="key-facts">
+            <h3>Key Facts</h3>
+            <ul>
+              <li><strong>Founded:</strong> 1992 in Copenhagen, Denmark</li>
+              <li><strong>Status:</strong> Licensed Investment Bank</li>
+              <li><strong>Regulation:</strong> Danish FSA, FCA (UK), ASIC (Australia)</li>
+              <li><strong>Minimum Deposit:</strong> {broker?.minDepositDisplay}</li>
+              <li><strong>Instruments:</strong> {broker?.instrumentsDisplay} across all asset classes</li>
+              <li><strong>Platforms:</strong> SaxoTraderGO, SaxoTraderPRO, SaxoInvestor</li>
+              <li><strong>Spreads:</strong> From {broker?.spreadsFrom}</li>
+              <li><strong>Special:</strong> Options & futures trading available</li>
+            </ul>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Analyst's Overview Assessment"
+          icon="📊"
+          id="overview-notes"
+          variant="dark"
+        >
+          <h4>The Premium Trading Experience</h4>
+          <p>
+            Testing {broker?.name} is noticeably different from evaluating typical retail brokers.
+            From the moment you access the platform, it's clear you're operating on institutional-grade
+            infrastructure. The depth of market data, quality of charting, and breadth of instruments
+            creates an environment that professionals expect but retail traders rarely experience.
+          </p>
+
+          <h5>Bank Status Matters</h5>
+          <p>
+            {broker?.name}'s status as a licensed investment bank (not just a broker) has real
+            implications. Banking regulation in Denmark is comprehensive - Saxo must maintain
+            capital adequacy ratios, submit to regular audits, and comply with standards that
+            far exceed typical broker requirements. Client funds benefit from banking-level
+            protection rather than standard broker segregation. This institutional framework
+            provides security that budget brokers cannot match.
+          </p>
+
+          <h5>The 71,000+ Instrument Reality</h5>
+          <p>
+            The claim of {broker?.instrumentsDisplay} instruments requires context. This isn't
+            inflated with obscure pairs or synthetic products. Saxo provides direct market access
+            to 40,000+ stocks across 50+ exchanges, genuine options and futures on major
+            exchanges, thousands of ETFs, bonds, and mutual funds. For investors wanting
+            genuine portfolio diversification across global markets, Saxo's range is unmatched.
+          </p>
+
+          <h5>Who Should Consider Saxo</h5>
+          <p>
+            In our assessment, {broker?.name} serves a specific market: sophisticated traders
+            with meaningful capital who value quality over cost minimization. The {broker?.minDepositDisplay}
+            entry point and premium pricing filter out casual traders. Those remaining find
+            a platform that meets professional standards. If you trade across multiple asset
+            classes, value premium research, or need options/futures access, Saxo deserves
+            serious consideration. If you're primarily a small-lot forex trader, more
+            economical options exist.
+          </p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section id="why-choose" class="content-section section-alt">
+      <div class="container">
+        <h2>Why Choose {broker?.name}?</h2>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🏦</div>
+            <h3>Investment Bank Security</h3>
+            <p>
+              Not just a broker - a licensed Danish investment bank with 30+ years
+              of operation. Bank-level capital requirements and regulatory oversight
+              provide institutional-grade protection for client assets.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>71,000+ Instruments</h3>
+            <p>
+              The most comprehensive instrument range available: stocks on 50+ exchanges,
+              options, futures, ETFs, bonds, mutual funds, forex, and CFDs. True
+              multi-asset trading from a single account.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🖥️</div>
+            <h3>Award-Winning Platforms</h3>
+            <p>
+              SaxoTraderGO and SaxoTraderPRO consistently win industry awards.
+              Professional-grade charting, execution, and analysis tools designed
+              for serious traders.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📈</div>
+            <h3>Options & Futures</h3>
+            <p>
+              One of few brokers offering genuine exchange-traded options and futures
+              to retail clients. Trade derivatives strategies on stocks, indices,
+              and commodities.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🔬</div>
+            <h3>Premium Research</h3>
+            <p>
+              Institutional-quality research including Saxo Strategy Team insights,
+              third-party analyst ratings, and comprehensive market analysis.
+              Research that rivals investment bank offerings.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">🌍</div>
+            <h3>Global Market Access</h3>
+            <p>
+              Direct market access to 50+ exchanges worldwide. Trade US, European,
+              Asian, and Australian markets from a single integrated platform.
+            </p>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Analyst's Value Assessment"
+          icon="💡"
+          id="why-choose-notes"
+          variant="dark"
+        >
+          <h4>Understanding the Saxo Value Proposition</h4>
+          <p>
+            {broker?.name}'s value proposition differs fundamentally from typical retail brokers.
+            Where most brokers compete on lowest spreads or biggest bonuses, Saxo competes on
+            quality, scope, and institutional-grade service. Understanding this distinction is
+            key to evaluating whether Saxo fits your needs.
+          </p>
+
+          <h5>The Infrastructure Advantage</h5>
+          <p>
+            {broker?.name}'s technology infrastructure handles billions in daily trading volume.
+            Execution quality, platform stability, and data feeds meet institutional standards.
+            During high-volatility events when retail broker platforms may struggle, Saxo's
+            infrastructure remains stable. For traders who experienced platform outages or
+            requotes during market moves, this reliability has real value.
+          </p>
+
+          <h5>Research That Actually Helps</h5>
+          <p>
+            Most broker "research" consists of recycled news and generic analysis. Saxo's
+            Strategy Team produces original macro analysis, trade ideas, and market commentary
+            that rivals investment bank output. The quarterly outlooks and thematic pieces
+            provide genuine insight. For traders who use fundamental analysis, this research
+            represents significant value often costing thousands annually elsewhere.
+          </p>
+
+          <h5>True Multi-Asset Capability</h5>
+          <p>
+            Consider what's actually possible with Saxo: buy US stocks, hedge with S&P options,
+            hold European ETFs, trade forex, and invest in bonds - all from one account with
+            unified reporting. This isn't marketing; it's genuine capability. For investors
+            managing diversified portfolios, the convenience and efficiency of Saxo's multi-asset
+            platform is substantial.
+          </p>
+
+          <h5>The Cost-Quality Trade-off</h5>
+          <p>
+            Yes, Saxo costs more than budget brokers. The question is whether the quality
+            justifies the premium. For a trader executing $100,000+ annually, the spread
+            difference might equal $200-500/year. Is institutional-grade research, superior
+            platforms, bank-level security, and 71,000+ instruments worth that premium?
+            For sophisticated traders, typically yes. For those trading $5,000 accounts,
+            probably not.
+          </p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Fees Section -->
+    <section id="fees" class="content-section">
+      <div class="container">
+        <h2>{broker?.name} Fees & Costs</h2>
+
+        <p class="section-intro">
+          {broker?.name} operates a premium pricing model reflecting their institutional-grade
+          service. Costs vary by account tier and trading volume. Active traders accessing
+          Platinum or VIP tiers receive significant discounts.
+        </p>
+
+        <div class="fee-comparison">
+          <h3>Account Tier Pricing</h3>
+          <table class="fee-table">
+            <thead>
+              <tr>
+                <th>Fee Type</th>
+                <th>Classic</th>
+                <th>Platinum</th>
+                <th>VIP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Minimum Balance</td>
+                <td>{broker?.minDepositDisplay}</td>
+                <td>$200,000+</td>
+                <td>$1,000,000+</td>
+              </tr>
+              <tr>
+                <td>EUR/USD Spread</td>
+                <td>From 0.6 pips</td>
+                <td>From 0.4 pips</td>
+                <td>From 0.3 pips</td>
+              </tr>
+              <tr>
+                <td>US Stock Commission</td>
+                <td>$1 minimum</td>
+                <td>Reduced rates</td>
+                <td>Best rates</td>
+              </tr>
+              <tr>
+                <td>Research Access</td>
+                <td>Standard</td>
+                <td>Premium</td>
+                <td>Full</td>
+              </tr>
+              <tr>
+                <td>Relationship Manager</td>
+                <td>No</td>
+                <td>Yes</td>
+                <td>Dedicated</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="fee-details">
+          <h3>Understanding the Costs</h3>
+
+          <div class="fee-item">
+            <h4>Forex Spreads</h4>
+            <p>
+              Forex spreads start from {broker?.spreadsFrom} for VIP clients and 0.6 pips
+              for Classic accounts. While not the tightest in the market, spreads are
+              competitive for a broker offering institutional-grade infrastructure. Commission-free
+              on standard accounts; raw spread accounts available for professionals.
+            </p>
+          </div>
+
+          <div class="fee-item">
+            <h4>Stock Trading</h4>
+            <p>
+              Stock trading fees vary by market. US stocks start at $1 minimum commission.
+              European stocks typically 0.08-0.1% with minimums varying by exchange.
+              For active traders, volume-based discounts significantly reduce costs.
+              Direct market access ensures best execution.
+            </p>
+          </div>
+
+          <div class="fee-item">
+            <h4>Options & Futures</h4>
+            <p>
+              Options fees range from $0.75-3 per contract depending on market and volume.
+              Futures fees competitive with dedicated futures brokers. Exchange fees
+              pass-through applies. For derivatives traders, Saxo offers professional
+              pricing for retail clients.
+            </p>
+          </div>
+
+          <div class="fee-item">
+            <h4>Account Fees</h4>
+            <p>
+              Custody fees may apply for holding certain securities. Inactivity fees
+              charged for dormant accounts. Currency conversion fees for trading in
+              non-base currencies. Premium services (relationship manager, advanced
+              features) require higher account tiers.
+            </p>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Analyst's Cost Analysis"
+          icon="💰"
+          id="fees-notes"
+          variant="dark"
+        >
+          <h4>Honest Assessment of Saxo Pricing</h4>
+          <p>
+            Let's be direct: {broker?.name} is not the cheapest broker, and doesn't try to be.
+            Evaluating Saxo on cost alone misses the point. The question is whether the
+            quality justifies the premium for your specific situation.
+          </p>
+
+          <h5>Cost Comparison Reality</h5>
+          <p>
+            A typical retail forex trade (1 lot EUR/USD): Classic account spread of
+            0.6 pips equals $6 cost. Budget ECN brokers might achieve 0.1-0.2 pips
+            plus $6 commission ($7-8 total). The difference is minimal. However, for
+            small-lot traders, percentage impact is higher. On a 0.1 lot trade, Saxo's
+            minimum commissions become proportionally expensive.
+          </p>
+
+          <h5>Volume Discount Impact</h5>
+          <p>
+            Active traders accessing Platinum or VIP tiers see substantially better pricing.
+            VIP spreads from 0.3 pips compete with any broker. The progression rewards
+            account growth and trading activity. Traders who grow into higher tiers
+            find Saxo increasingly cost-competitive with superior service.
+          </p>
+
+          <h5>Hidden Value in Pricing</h5>
+          <p>
+            Saxo's pricing includes features that cost extra elsewhere: premium research
+            (worth $1,000+/year elsewhere), institutional-grade data feeds, advanced
+            platform tools, and bank-level fund security. Budget brokers strip these
+            features. When comparing total cost of trading including data, research,
+            and platform fees, Saxo's effective premium narrows significantly.
+          </p>
+
+          <h5>Who Saxo Costs Make Sense For</h5>
+          <p>
+            If you trade $50,000+ accounts, use multiple asset classes, value research,
+            or need options/futures, Saxo's pricing makes sense. The quality and scope
+            justify costs. If you're trading $5,000 accounts exclusively in forex,
+            you're paying for features you won't use. Match your needs to the service
+            level and pricing makes sense.
+          </p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Safety Section -->
+    <section id="safety" class="content-section section-alt">
+      <div class="container">
+        <h2>{broker?.name} Safety & Regulation</h2>
+
+        <p class="section-intro">
+          Safety is where {broker?.name} genuinely excels. As a licensed investment bank,
+          Saxo operates under stricter regulatory requirements than typical brokers,
+          providing institutional-grade protection for client assets.
+        </p>
+
+        <div class="regulation-grid">
+          <div class="regulation-card">
+            <div class="reg-flag">🇩🇰</div>
+            <h3>Danish FSA (Bank License)</h3>
+            <p><strong>Status:</strong> Licensed Investment Bank</p>
+            <p><strong>Protection:</strong> Danish Guarantee Fund</p>
+            <p>
+              Full banking license requiring capital adequacy, comprehensive audits,
+              and regulatory oversight exceeding standard broker requirements.
+            </p>
+          </div>
+
+          <div class="regulation-card">
+            <div class="reg-flag">🇬🇧</div>
+            <h3>FCA (United Kingdom)</h3>
+            <p><strong>License:</strong> 551422</p>
+            <p><strong>Protection:</strong> FSCS up to £85,000</p>
+            <p>
+              FCA authorization provides UK clients with Financial Services
+              Compensation Scheme protection and regulatory oversight.
+            </p>
+          </div>
+
+          <div class="regulation-card">
+            <div class="reg-flag">🇦🇺</div>
+            <h3>ASIC (Australia)</h3>
+            <p><strong>License:</strong> 280372</p>
+            <p><strong>Protection:</strong> Client money segregation</p>
+            <p>
+              ASIC regulation ensures Australian clients benefit from local
+              regulatory protection and client fund requirements.
+            </p>
+          </div>
+        </div>
+
+        <div class="safety-features">
+          <h3>Client Protection Measures</h3>
+          <ul>
+            <li><strong>Bank-Level Security:</strong> Full investment bank infrastructure with institutional-grade cybersecurity</li>
+            <li><strong>Segregated Funds:</strong> Client assets held separately in top-tier custodian banks</li>
+            <li><strong>Capital Adequacy:</strong> Bank capital requirements exceed typical broker minimums by multiples</li>
+            <li><strong>Regular Audits:</strong> Subject to banking-level regulatory examination and external audit</li>
+            <li><strong>Negative Balance Protection:</strong> Retail clients protected from negative balances (where applicable)</li>
+            <li><strong>Two-Factor Authentication:</strong> Mandatory 2FA for account access and transactions</li>
+          </ul>
+        </div>
+
+        <AnalystNotes
+          title="Analyst's Safety Assessment"
+          icon="🛡️"
+          id="safety-notes"
+          variant="dark"
+        >
+          <h4>Why Bank Status Matters</h4>
+          <p>
+            {broker?.name}'s status as a licensed investment bank represents a meaningful
+            safety advantage over typical forex brokers. This isn't marketing - the
+            regulatory framework for banks is substantively different and stricter.
+          </p>
+
+          <h5>Regulatory Framework Comparison</h5>
+          <p>
+            A typical forex broker needs to maintain minimum capital (often $1M or less)
+            and basic client fund segregation. An investment bank like Saxo must maintain
+            capital adequacy ratios (currently 16%+ of risk-weighted assets), submit to
+            comprehensive stress testing, maintain liquidity coverage ratios, and undergo
+            intensive regulatory examination. The regulatory burden is an order of magnitude
+            higher.
+          </p>
+
+          <h5>30+ Years of Stability</h5>
+          <p>
+            {broker?.name} has operated continuously since 1992, surviving the dot-com
+            crash, 2008 financial crisis, Swiss franc crisis, and countless market
+            disruptions. Many forex brokers that existed in 2010 have since failed or
+            faced serious regulatory issues. Saxo's longevity demonstrates genuine
+            operational stability and risk management capability.
+          </p>
+
+          <h5>Institutional Custody</h5>
+          <p>
+            Client assets at Saxo aren't just "segregated" - they're held with institutional
+            custodians meeting banking standards. The infrastructure for safeguarding assets
+            matches what institutional investors expect. This provides protection against
+            operational failures that have affected lesser-regulated brokers.
+          </p>
+
+          <h5>The Safety Premium</h5>
+          <p>
+            Part of Saxo's premium pricing supports the extensive compliance, security,
+            and regulatory infrastructure required for bank-level operation. Traders
+            effectively pay for enhanced safety. For those with significant capital,
+            this premium represents sensible insurance. The difference between a
+            budget offshore broker and a licensed European bank is substantial when
+            things go wrong.
+          </p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Platforms Section -->
+    <section id="platforms" class="content-section">
+      <div class="container">
+        <h2>{broker?.name} Trading Platforms</h2>
+
+        <p class="section-intro">
+          {broker?.name}'s award-winning proprietary platforms set the standard for
+          professional trading interfaces. SaxoTraderGO and SaxoTraderPRO consistently
+          win industry awards for functionality and design.
+        </p>
+
+        <div class="platform-grid">
+          <div class="platform-card featured">
+            <h3>SaxoTraderGO</h3>
+            <p class="platform-highlight">Award-Winning Web/Mobile Platform</p>
+            <p>
+              SaxoTraderGO is the primary platform for most Saxo clients. A fully-featured
+              web and mobile platform that provides professional-grade trading without
+              software installation. Continuously updated with new features.
+            </p>
+            <ul>
+              <li><strong>Multi-Asset Trading:</strong> Trade all 71,000+ instruments from one interface</li>
+              <li><strong>Advanced Charting:</strong> 50+ indicators, drawing tools, and technical analysis</li>
+              <li><strong>Portfolio Analysis:</strong> Comprehensive position management and risk metrics</li>
+              <li><strong>Research Integration:</strong> Analyst ratings, news, and Saxo Strategy insights</li>
+              <li><strong>Watchlists:</strong> Create custom watchlists with real-time streaming</li>
+              <li><strong>Mobile Trading:</strong> Full functionality on iOS and Android</li>
+            </ul>
+          </div>
+
+          <div class="platform-card">
+            <h3>SaxoTraderPRO</h3>
+            <p>
+              Desktop platform for professional traders requiring advanced features,
+              algorithmic trading capabilities, and multi-screen support.
+            </p>
+            <ul>
+              <li>Algorithmic trading support</li>
+              <li>Multi-screen layouts</li>
+              <li>Advanced order types</li>
+              <li>API access</li>
+              <li>Enhanced charting</li>
+            </ul>
+          </div>
+
+          <div class="platform-card">
+            <h3>SaxoInvestor</h3>
+            <p>
+              Simplified platform designed for long-term investors focused on
+              stocks, ETFs, and bonds rather than active trading.
+            </p>
+            <ul>
+              <li>Investment-focused interface</li>
+              <li>Portfolio tracking</li>
+              <li>Research and ratings</li>
+              <li>Dividend tracking</li>
+              <li>Simplified order entry</li>
+            </ul>
+          </div>
+
+          <div class="platform-card">
+            <h3>API & Integration</h3>
+            <p>
+              Full API access for developers and algorithmic traders requiring
+              programmatic market access and custom integrations.
+            </p>
+            <ul>
+              <li>OpenAPI for developers</li>
+              <li>Streaming data feeds</li>
+              <li>Order management API</li>
+              <li>Excel integration</li>
+              <li>Third-party platforms</li>
+            </ul>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Analyst's Platform Deep Dive"
+          icon="🖥️"
+          id="platforms-notes"
+          variant="dark"
+        >
+          <h4>Platform Excellence Across the Board</h4>
+          <p>
+            {broker?.name}'s platforms represent genuine competitive advantage. Having tested
+            extensively, the quality of execution, depth of features, and user experience
+            exceed typical retail broker platforms significantly.
+          </p>
+
+          <h5>SaxoTraderGO: Setting the Standard</h5>
+          <p>
+            SaxoTraderGO deserves its industry awards. The interface balances professional
+            functionality with intuitive design - a combination few brokers achieve.
+            Charting rivals dedicated technical analysis packages. Research integration
+            brings institutional-quality analysis directly into the trading workflow.
+            The seamless mobile experience means full functionality travels with you.
+          </p>
+
+          <h5>Multi-Asset Integration</h5>
+          <p>
+            True multi-asset capability distinguishes Saxo's platforms. Buy US stocks,
+            then hedge with S&P options, check your bond positions, and trade forex -
+            all without switching platforms or accounts. Unified portfolio view shows
+            real-time exposure across all asset classes. For portfolio-focused traders,
+            this integration provides genuine efficiency.
+          </p>
+
+          <h5>Professional Tools, Retail Access</h5>
+          <p>
+            Options chain analysis, futures spread trading, conditional orders, and
+            algorithmic trading - features traditionally reserved for institutional
+            traders are accessible through Saxo's platforms. Retail traders can employ
+            professional strategies without professional infrastructure costs.
+          </p>
+
+          <h5>What's Missing</h5>
+          <p>
+            Despite excellence, Saxo's platforms have gaps. No native social/copy trading.
+            No integration with third-party platforms like TradingView or MT4 (Saxo
+            has proprietary focus). Learning curve is steeper than basic platforms.
+            For traders specifically wanting those features, alternatives exist. For
+            those who can leverage professional functionality, Saxo excels.
+          </p>
+        </AnalystNotes>
+      </div>
+    </section>
+
+    <!-- Account Types Section -->
+    <section id="accounts" class="content-section section-alt">
+      <div class="container">
+        <h2>{broker?.name} Account Types</h2>
+
+        <div class="accounts-grid">
+          <div class="account-card">
+            <h3>Classic</h3>
+            <div class="account-badge">Entry Level</div>
+            <ul>
+              <li><strong>Minimum Deposit:</strong> {broker?.minDepositDisplay}</li>
+              <li><strong>Spreads:</strong> Standard pricing</li>
+              <li><strong>Commission:</strong> Standard rates</li>
+              <li><strong>Research:</strong> Standard access</li>
+              <li><strong>Best For:</strong> New Saxo clients</li>
+            </ul>
+            <p>
+              Entry point for Saxo's premium service. Full access to all
+              instruments and platforms with standard pricing.
+            </p>
+          </div>
+
+          <div class="account-card">
+            <h3>Platinum</h3>
+            <div class="account-badge">High-Volume Traders</div>
+            <ul>
+              <li><strong>Minimum Balance:</strong> $200,000+</li>
+              <li><strong>Spreads:</strong> Reduced pricing</li>
+              <li><strong>Commission:</strong> Discounted rates</li>
+              <li><strong>Research:</strong> Premium access</li>
+              <li><strong>Best For:</strong> Active traders</li>
+            </ul>
+            <p>
+              Volume-based tier with significantly better pricing and
+              dedicated relationship manager support.
+            </p>
+          </div>
+
+          <div class="account-card featured">
+            <h3>VIP</h3>
+            <div class="account-badge">Institutional Quality</div>
+            <ul>
+              <li><strong>Minimum Balance:</strong> $1,000,000+</li>
+              <li><strong>Spreads:</strong> Best available</li>
+              <li><strong>Commission:</strong> Institutional rates</li>
+              <li><strong>Research:</strong> Full access</li>
+              <li><strong>Best For:</strong> Institutional-level traders</li>
+            </ul>
+            <p>
+              Institutional-grade pricing and dedicated service for
+              high-net-worth clients and professional traders.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deposits Section -->
+    <section id="deposits" class="content-section">
+      <div class="container">
+        <h2>Deposits & Withdrawals</h2>
+
+        <div class="payment-grid">
+          <div class="payment-method">
+            <h4>Bank Transfer</h4>
+            <p><strong>Deposit:</strong> Free | 1-3 business days</p>
+            <p><strong>Withdrawal:</strong> Free | 1-3 business days</p>
+          </div>
+
+          <div class="payment-method">
+            <h4>Credit/Debit Card</h4>
+            <p><strong>Deposit:</strong> Available | Instant</p>
+            <p><strong>Withdrawal:</strong> Available | 1-3 business days</p>
+          </div>
+
+          <div class="payment-method">
+            <h4>Internal Transfer</h4>
+            <p><strong>Between Accounts:</strong> Free | Instant</p>
+            <p><strong>Multi-Currency:</strong> Conversion fees apply</p>
+          </div>
+        </div>
+
+        <div class="deposit-notes">
+          <h3>Important Notes</h3>
+          <ul>
+            <li>Minimum deposit: {broker?.minDepositDisplay} for Classic accounts</li>
+            <li>Multi-currency accounts available in major currencies</li>
+            <li>Currency conversion fees apply for cross-currency transactions</li>
+            <li>Bank transfers preferred for larger amounts</li>
+            <li>Withdrawal processing typically same-day for verified accounts</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instruments Section -->
+    <section id="instruments" class="content-section section-alt">
+      <div class="container">
+        <h2>Trading Instruments</h2>
+
+        <p class="section-intro">
+          {broker?.name} offers {broker?.instrumentsDisplay} instruments - the most comprehensive
+          range available from any regulated broker. This enables true multi-asset portfolio
+          construction from a single platform.
+        </p>
+
+        <div class="instruments-grid">
+          <div class="instrument-card">
+            <span class="instrument-icon">📊</span>
+            <h3>Stocks</h3>
+            <p class="instrument-count">40,000+ Stocks</p>
+            <p>Direct access to 50+ global exchanges</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">💱</span>
+            <h3>Forex</h3>
+            <p class="instrument-count">185+ Pairs</p>
+            <p>Major, minor, and exotic currency pairs</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">📈</span>
+            <h3>Options</h3>
+            <p class="instrument-count">1,200+ Options</p>
+            <p>Stock, index, and futures options</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">⏱️</span>
+            <h3>Futures</h3>
+            <p class="instrument-count">200+ Futures</p>
+            <p>Commodities, indices, bonds, and rates</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">📋</span>
+            <h3>ETFs</h3>
+            <p class="instrument-count">6,800+ ETFs</p>
+            <p>Global ETFs across all asset classes</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">📜</span>
+            <h3>Bonds</h3>
+            <p class="instrument-count">5,300+ Bonds</p>
+            <p>Government and corporate bonds</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">🛢️</span>
+            <h3>Commodities</h3>
+            <p class="instrument-count">Comprehensive</p>
+            <p>Metals, energy, and agriculture</p>
+          </div>
+
+          <div class="instrument-card">
+            <span class="instrument-icon">💰</span>
+            <h3>Mutual Funds</h3>
+            <p class="instrument-count">Extensive</p>
+            <p>Global fund selection</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support" class="content-section">
+      <div class="container">
+        <h2>Customer Support</h2>
+
+        <div class="support-grid">
+          <div class="support-feature">
+            <h3>📞 Phone Support</h3>
+            <p>24/5 multilingual support from local offices worldwide</p>
+          </div>
+
+          <div class="support-feature">
+            <h3>💬 Live Chat</h3>
+            <p>Real-time assistance via platform and website</p>
+          </div>
+
+          <div class="support-feature">
+            <h3>👤 Relationship Manager</h3>
+            <p>Dedicated manager for Platinum and VIP clients</p>
+          </div>
+
+          <div class="support-feature">
+            <h3>📧 Email Support</h3>
+            <p>Detailed support for complex inquiries</p>
+          </div>
+        </div>
+
+        <div class="support-notes">
+          <p>
+            {broker?.name} provides professional-grade support matching their platform quality.
+            Local offices in major financial centers provide in-person service where available.
+            Platinum and VIP clients receive dedicated relationship managers for personalized
+            support and trading assistance.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pros & Cons Section -->
+    <section class="content-section section-alt">
+      <div class="container">
+        <h2>{broker?.name} Pros & Cons</h2>
+
+        <div class="pros-cons-grid">
+          <div class="pros-column">
+            <h3>✅ Advantages</h3>
+            <ul>
+              {broker?.pros.map((pro: string) => (
+                <li>{pro}</li>
+              ))}
+              <li>Licensed investment bank (not just broker)</li>
+              <li>30+ years of operation</li>
+            </ul>
+          </div>
+
+          <div class="cons-column">
+            <h3>❌ Disadvantages</h3>
+            <ul>
+              {broker?.cons.map((con: string) => (
+                <li>{con}</li>
+              ))}
+              <li>Not available to US residents</li>
+              <li>Steep learning curve</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="content-section">
+      <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <FAQ questions={faqData} />
+      </div>
+    </section>
+
+    <!-- Verdict Section -->
+    <section id="verdict" class="content-section section-alt">
+      <div class="container">
+        <h2>Final Verdict: {broker?.name}</h2>
+
+        <div class="verdict-box">
+          <div class="verdict-score">
+            <span class="score-value">{broker?.scores.overall}</span>
+            <span class="score-max">/5</span>
+          </div>
+
+          <div class="verdict-content">
+            <p class="verdict-summary">
+              <strong>{broker?.name}</strong> delivers the premium trading experience
+              its reputation promises. With {broker?.instrumentsDisplay} instruments,
+              award-winning platforms, bank-level security, and institutional-grade
+              research, Saxo serves sophisticated traders and investors who demand
+              quality over cost minimization. The {broker?.minDepositDisplay} minimum
+              positions Saxo firmly in the premium segment.
+            </p>
+
+            <div class="verdict-best-for">
+              <h4>Best For:</h4>
+              <ul>
+                {broker?.bestFor.map((item: string) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="verdict-scores">
+              <div class="score-item">
+                <span class="score-label">Fees & Costs</span>
+                <span class="score-bar" style={`--score: ${broker?.scores.fees * 20}%`}></span>
+                <span class="score-num">{broker?.scores.fees}/5</span>
+              </div>
+              <div class="score-item">
+                <span class="score-label">Platforms</span>
+                <span class="score-bar" style={`--score: ${broker?.scores.platforms * 20}%`}></span>
+                <span class="score-num">{broker?.scores.platforms}/5</span>
+              </div>
+              <div class="score-item">
+                <span class="score-label">Research</span>
+                <span class="score-bar" style={`--score: ${broker?.scores.research * 20}%`}></span>
+                <span class="score-num">{broker?.scores.research}/5</span>
+              </div>
+              <div class="score-item">
+                <span class="score-label">Safety</span>
+                <span class="score-bar" style={`--score: ${broker?.scores.safety * 20}%`}></span>
+                <span class="score-num">{broker?.scores.safety}/5</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <AnalystNotes
+          title="Analyst's Final Assessment"
+          icon="📋"
+          id="verdict-notes"
+          variant="dark"
+        >
+          <h4>Our Bottom Line</h4>
+          <p>
+            After comprehensive testing, {broker?.name} earns our recommendation for
+            sophisticated traders who understand and value premium service. This is
+            not a broker for everyone - the {broker?.minDepositDisplay} minimum and
+            premium pricing filter for specific client profiles. Those who qualify
+            find institutional-quality infrastructure accessible to retail accounts.
+          </p>
+
+          <h5>Who Should Choose {broker?.name}</h5>
+          <p>
+            Ideal candidates for Saxo include: traders with {broker?.minDepositDisplay}+
+            capital, investors wanting multi-asset portfolio management from one platform,
+            those needing options/futures access, traders valuing premium research,
+            and anyone prioritizing security over cost minimization. If you trade
+            across asset classes and value quality, Saxo delivers.
+          </p>
+
+          <h5>Who Should Look Elsewhere</h5>
+          <p>
+            {broker?.name} is not optimal for: traders with limited capital (under
+            {broker?.minDepositDisplay}), pure cost-focused scalpers, beginners
+            needing simple platforms, US-based traders (not available), or those
+            wanting MT4/TradingView integration. More affordable options serve these
+            needs better.
+          </p>
+
+          <h5>Comparison to Alternatives</h5>
+          <p>
+            Versus Interactive Brokers: Saxo wins on platform design and European
+            access; IBKR often wins on pricing. Versus retail forex brokers: Saxo
+            costs more but provides dramatically superior scope and security.
+            Versus banks: Saxo offers trading capability most banks can't match.
+            The competitive set is other premium multi-asset platforms.
+          </p>
+
+          <h5>Final Word</h5>
+          <p>
+            {broker?.name} represents what premium trading should be. Not everyone
+            needs this level of service - and that's fine. But for those with capital
+            and sophistication to leverage Saxo's capabilities, the experience
+            justifies the premium. The combination of 71,000+ instruments, bank-level
+            security, and professional platforms creates genuine competitive advantage
+            for serious investors.
+          </p>
+        </AnalystNotes>
+
+        <div class="cta-section">
+          <a href={broker?.affiliateUrl} class="btn btn-primary btn-lg" target="_blank" rel="noopener sponsored">
+            Open {broker?.name} Account
+          </a>
+          <p class="cta-note">
+            Trade with a licensed investment bank trusted since 1992
+          </p>
+          <div class="cta-links">
+            <a href="/brokers/">Compare All Brokers</a>
+            <span>|</span>
+            <a href="/find-broker/">Try AI Broker Matcher</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cross Promotion Section -->
+  <section class="section section-gray">
+    <div class="container">
+      <BrokerCrossPromo brokerSlug="saxo" brokerName="Saxo Bank" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .broker-review {
+    --section-spacing: 4rem;
+  }
+
+  .breadcrumb-wrapper {
+    background: var(--color-gray-900);
+    padding: 1rem 0;
+  }
+
+  .hero-section {
+    background: linear-gradient(135deg, var(--color-gray-900) 0%, var(--color-gray-800) 100%);
+    padding: 3rem 0 4rem;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--color-orange);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-section h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    color: white;
+    margin-bottom: 1rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-subtitle {
+    color: var(--color-gray-300);
+    font-size: 1.125rem;
+    max-width: 700px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .stat-item { text-align: center; }
+  .stat-value { display: block; font-size: 1.5rem; font-weight: 700; color: var(--color-orange); }
+  .stat-label { font-size: 0.875rem; color: var(--color-gray-400); }
+
+  .hero-cta { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .hero-trust { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; color: var(--color-gray-400); font-size: 0.875rem; }
+  .trust-item { display: flex; align-items: center; gap: 0.25rem; }
+
+  .content-section { padding: var(--section-spacing) 0; }
+  .section-alt { background: var(--color-gray-50); }
+  .content-section h2 { font-size: 1.75rem; margin-bottom: 1.5rem; color: var(--color-gray-900); }
+  .section-intro { font-size: 1.125rem; color: var(--color-gray-600); margin-bottom: 2rem; max-width: 800px; }
+
+  .overview-content p { margin-bottom: 1rem; line-height: 1.7; color: var(--color-gray-700); }
+  .key-facts { background: var(--color-gray-100); padding: 1.5rem; border-radius: 0.5rem; margin-top: 2rem; }
+  .key-facts h3 { margin-bottom: 1rem; font-size: 1.25rem; }
+  .key-facts ul { list-style: none; padding: 0; margin: 0; }
+  .key-facts li { padding: 0.5rem 0; border-bottom: 1px solid var(--color-gray-200); }
+  .key-facts li:last-child { border-bottom: none; }
+
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+  .feature-card { background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .feature-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .feature-card h3 { font-size: 1.125rem; margin-bottom: 0.5rem; }
+  .feature-card p { color: var(--color-gray-600); font-size: 0.9375rem; line-height: 1.6; }
+
+  .fee-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; background: white; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .fee-table th, .fee-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--color-gray-200); }
+  .fee-table th { background: var(--color-gray-100); font-weight: 600; }
+  .fee-table tr:last-child td { border-bottom: none; }
+  .fee-details { margin-top: 2rem; }
+  .fee-item { margin-bottom: 1.5rem; }
+  .fee-item h4 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--color-gray-900); }
+  .fee-item p { color: var(--color-gray-600); line-height: 1.6; }
+
+  .regulation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+  .regulation-card { background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .reg-flag { font-size: 2.5rem; margin-bottom: 1rem; }
+  .regulation-card h3 { font-size: 1.125rem; margin-bottom: 0.75rem; }
+  .regulation-card p { color: var(--color-gray-600); font-size: 0.9375rem; margin-bottom: 0.5rem; }
+  .safety-features { margin-top: 2rem; }
+  .safety-features ul { list-style: none; padding: 0; }
+  .safety-features li { padding: 0.75rem 0; border-bottom: 1px solid var(--color-gray-200); color: var(--color-gray-700); }
+
+  .platform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .platform-card { background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .platform-card.featured { grid-column: 1 / -1; border: 2px solid var(--color-orange); }
+  .platform-highlight { color: var(--color-orange); font-weight: 600; font-size: 0.875rem; margin-bottom: 0.5rem; }
+  .platform-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+  .platform-card ul { margin-top: 1rem; padding-left: 1.25rem; }
+  .platform-card li { margin-bottom: 0.5rem; color: var(--color-gray-600); }
+
+  .accounts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .account-card { background: white; padding: 1.5rem; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .account-card.featured { border: 2px solid var(--color-orange); }
+  .account-badge { display: inline-block; background: var(--color-gray-100); color: var(--color-gray-700); padding: 0.25rem 0.75rem; border-radius: 1rem; font-size: 0.75rem; font-weight: 600; margin-bottom: 1rem; }
+  .account-card h3 { font-size: 1.125rem; margin-bottom: 0.5rem; }
+  .account-card ul { list-style: none; padding: 0; margin: 1rem 0; }
+  .account-card li { padding: 0.375rem 0; font-size: 0.9375rem; color: var(--color-gray-700); }
+
+  .payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .payment-method { background: var(--color-gray-50); padding: 1.25rem; border-radius: 0.5rem; }
+  .payment-method h4 { margin-bottom: 0.75rem; font-size: 1rem; }
+  .payment-method p { font-size: 0.875rem; color: var(--color-gray-600); margin-bottom: 0.25rem; }
+  .deposit-notes ul { padding-left: 1.25rem; }
+  .deposit-notes li { margin-bottom: 0.5rem; color: var(--color-gray-600); }
+
+  .instruments-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
+  .instrument-card { background: white; padding: 1.25rem; border-radius: 0.5rem; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+  .instrument-icon { font-size: 2rem; display: block; margin-bottom: 0.5rem; }
+  .instrument-card h3 { font-size: 1rem; margin-bottom: 0.25rem; }
+  .instrument-count { color: var(--color-orange); font-weight: 600; margin-bottom: 0.5rem; }
+  .instrument-card p:last-child { font-size: 0.8125rem; color: var(--color-gray-500); }
+
+  .support-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+  .support-feature { background: var(--color-gray-50); padding: 1.25rem; border-radius: 0.5rem; }
+  .support-feature h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .support-feature p { font-size: 0.9375rem; color: var(--color-gray-600); }
+  .support-notes p { color: var(--color-gray-600); line-height: 1.6; }
+
+  .pros-cons-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+  .pros-column h3, .cons-column h3 { font-size: 1.25rem; margin-bottom: 1rem; }
+  .pros-column ul, .cons-column ul { list-style: none; padding: 0; }
+  .pros-column li, .cons-column li { padding: 0.625rem 0; padding-left: 1.5rem; position: relative; border-bottom: 1px solid var(--color-gray-200); }
+  .pros-column li::before { content: "✓"; position: absolute; left: 0; color: var(--color-green); }
+  .cons-column li::before { content: "✗"; position: absolute; left: 0; color: var(--color-red); }
+
+  .verdict-box { background: white; border-radius: 0.75rem; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: grid; grid-template-columns: auto 1fr; gap: 2rem; margin-bottom: 2rem; }
+  .verdict-score { text-align: center; padding: 1rem; }
+  .score-value { font-size: 3.5rem; font-weight: 700; color: var(--color-orange); line-height: 1; }
+  .score-max { font-size: 1.5rem; color: var(--color-gray-400); }
+  .verdict-summary { font-size: 1.0625rem; line-height: 1.7; color: var(--color-gray-700); margin-bottom: 1.5rem; }
+  .verdict-best-for { margin-bottom: 1.5rem; }
+  .verdict-best-for h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+  .verdict-best-for ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .verdict-best-for li { background: var(--color-gray-100); padding: 0.375rem 0.75rem; border-radius: 1rem; font-size: 0.875rem; }
+  .verdict-scores { display: flex; flex-direction: column; gap: 0.75rem; }
+  .score-item { display: flex; align-items: center; gap: 1rem; }
+  .score-label { width: 120px; font-size: 0.875rem; color: var(--color-gray-600); }
+  .score-bar { flex: 1; height: 8px; background: var(--color-gray-200); border-radius: 4px; position: relative; overflow: hidden; }
+  .score-bar::after { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: var(--score); background: var(--color-orange); border-radius: 4px; }
+  .score-num { width: 40px; font-size: 0.875rem; font-weight: 600; }
+
+  .cta-section { text-align: center; padding-top: 2rem; }
+  .cta-note { margin-top: 1rem; color: var(--color-gray-500); }
+  .cta-links { margin-top: 1.5rem; display: flex; justify-content: center; gap: 1rem; font-size: 0.9375rem; }
+  .cta-links a { color: var(--color-orange); text-decoration: none; }
+  .cta-links a:hover { text-decoration: underline; }
+  .cta-links span { color: var(--color-gray-300); }
+
+  .btn { display: inline-block; padding: 0.875rem 1.75rem; border-radius: 0.375rem; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; }
+  .btn-primary { background: var(--color-orange); color: white; }
+  .btn-primary:hover { background: var(--color-orange-dark); }
+  .btn-secondary { background: transparent; color: var(--color-orange); border: 2px solid var(--color-orange); }
+  .btn-secondary:hover { background: var(--color-orange); color: white; }
+  .btn-lg { padding: 1rem 2rem; font-size: 1.0625rem; }
+
+  @media (max-width: 768px) {
+    .hero-stats { gap: 1rem; }
+    .stat-item { min-width: 45%; }
+    .verdict-box { grid-template-columns: 1fr; text-align: center; }
+    .verdict-scores { align-items: stretch; }
+    .fee-table { font-size: 0.875rem; }
+    .fee-table th, .fee-table td { padding: 0.75rem 0.5rem; }
+  }
+</style>

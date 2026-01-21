@@ -1,0 +1,524 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NewsletterSignup from '../../components/NewsletterSignup.astro';
+
+const pageTitle = "Free Pre-Trade Checklist - Never Miss a Step | TradeTheDay";
+const pageDescription = "Download our professional pre-trade checklist used by profitable traders. 15 essential checks before every trade. Free instant download.";
+
+const checklistItems = [
+  { number: "01", title: "Market Conditions", desc: "Is the market trending or ranging? Match your strategy to conditions." },
+  { number: "02", title: "Higher Timeframe Bias", desc: "What's the weekly/daily telling you? Trade with the trend." },
+  { number: "03", title: "Key Levels Marked", desc: "Support, resistance, and supply/demand zones identified?" },
+  { number: "04", title: "News Calendar Check", desc: "Any high-impact news that could invalidate your analysis?" },
+  { number: "05", title: "Entry Trigger Valid", desc: "Does your setup meet ALL criteria for your strategy?" },
+  { number: "06", title: "Stop Loss Placed", desc: "Is your stop at a logical level, not a random pip amount?" },
+  { number: "07", title: "Position Size Calculated", desc: "Are you risking 1-2% max? Use our calculator." },
+  { number: "08", title: "R:R Ratio Acceptable", desc: "Is potential reward at least 2x your risk?" },
+  { number: "09", title: "Take Profit Logical", desc: "TP at a level price is likely to reach?" },
+  { number: "10", title: "Emotional State Check", desc: "Are you calm and focused, or revenge trading?" },
+  { number: "11", title: "Trading Journal Open", desc: "Ready to document this trade for review?" },
+  { number: "12", title: "Exit Plan Ready", desc: "Know exactly when you'll exit - win or lose." }
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <div class="checklist-page">
+    <!-- Hero Section -->
+    <section class="checklist-hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="hero-badge">FREE DOWNLOAD</div>
+            <h1 class="hero-title">The Pre-Trade Checklist</h1>
+            <p class="hero-subtitle">
+              Stop making impulsive trades. Use the same 12-point checklist that professional traders use before every single trade.
+            </p>
+
+            <div class="hero-benefits">
+              <div class="benefit">
+                <span class="benefit-icon">✓</span>
+                <span>Eliminate emotional trading</span>
+              </div>
+              <div class="benefit">
+                <span class="benefit-icon">✓</span>
+                <span>Never miss a key step</span>
+              </div>
+              <div class="benefit">
+                <span class="benefit-icon">✓</span>
+                <span>Improve win rate immediately</span>
+              </div>
+            </div>
+
+            <div class="hero-form">
+              <NewsletterSignup
+                variant="minimal"
+                headline="Get Your Free Checklist"
+                buttonText="Send Me The Checklist"
+                leadMagnet="Printable PDF Checklist"
+              />
+            </div>
+
+            <div class="hero-social-proof">
+              <div class="sp-avatars">
+                <div class="sp-avatar">JM</div>
+                <div class="sp-avatar">SK</div>
+                <div class="sp-avatar">TR</div>
+                <div class="sp-avatar">+</div>
+              </div>
+              <span class="sp-text">Joined by 2,847 traders this month</span>
+            </div>
+          </div>
+
+          <div class="hero-preview">
+            <div class="preview-card">
+              <div class="preview-header">
+                <span class="preview-logo">TradeTheDay</span>
+                <span class="preview-badge">PDF</span>
+              </div>
+              <div class="preview-title">Pre-Trade Checklist</div>
+              <div class="preview-items">
+                {checklistItems.slice(0, 5).map(item => (
+                  <div class="preview-item">
+                    <span class="pi-check">☐</span>
+                    <span class="pi-text">{item.title}</span>
+                  </div>
+                ))}
+                <div class="preview-more">+ 7 more essential checks...</div>
+              </div>
+              <div class="preview-footer">
+                <span class="preview-format">High-resolution PDF</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What's Inside Section -->
+    <section class="whats-inside">
+      <div class="container">
+        <h2 class="section-title">What's In The Checklist</h2>
+        <p class="section-subtitle">12 critical checks that separate profitable traders from the rest</p>
+
+        <div class="checklist-grid">
+          {checklistItems.map(item => (
+            <div class="checklist-item">
+              <div class="item-number">{item.number}</div>
+              <div class="item-content">
+                <h3 class="item-title">{item.title}</h3>
+                <p class="item-desc">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Why This Works Section -->
+    <section class="why-works">
+      <div class="container">
+        <div class="why-grid">
+          <div class="why-content">
+            <h2>Why Checklists Work</h2>
+            <p>
+              Surgeons use them. Pilots use them. And now the most profitable traders use them too.
+            </p>
+            <p>
+              Studies show that checklists reduce errors by up to 35%. In trading, that means fewer impulsive trades, better risk management, and more consistent profits.
+            </p>
+            <blockquote>
+              "The checklist changed my trading. I went from random entries to disciplined execution. My win rate improved 23% in the first month."
+              <cite> - Marcus T., London</cite>
+            </blockquote>
+          </div>
+          <div class="why-stats">
+            <div class="stat-card">
+              <div class="stat-number">35%</div>
+              <div class="stat-label">Fewer Trading Errors</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">2.3x</div>
+              <div class="stat-label">Better Risk Management</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">89%</div>
+              <div class="stat-label">Traders See Improvement</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+      <div class="container">
+        <div class="cta-box">
+          <h2>Get Your Free Checklist Now</h2>
+          <p>Join thousands of traders using this system to make better decisions.</p>
+          <NewsletterSignup
+            variant="full"
+            headline="Download Your Free Checklist"
+            subheadline="Enter your email and we'll send the printable PDF straight to your inbox."
+            buttonText="Get The Checklist"
+            leadMagnet="Bonus: Weekly Trading Tips"
+          />
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <style>
+    .checklist-page {
+      background: var(--black);
+    }
+
+    /* Hero */
+    .checklist-hero {
+      padding: var(--space-3xl) 0;
+      background: linear-gradient(180deg, rgba(255, 72, 0, 0.1) 0%, transparent 50%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3xl);
+      align-items: center;
+    }
+
+    @media (max-width: 968px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-benefits {
+        justify-content: center;
+      }
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--orange);
+      color: var(--white);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: 100px;
+      font-size: var(--text-sm);
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: var(--space-md);
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: var(--text-lg);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-xl);
+      max-width: 500px;
+    }
+
+    .hero-benefits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .benefit {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: var(--text-sm);
+    }
+
+    .benefit-icon {
+      color: #10b981;
+      font-weight: bold;
+    }
+
+    .hero-form {
+      margin-bottom: var(--space-xl);
+    }
+
+    .hero-social-proof {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+
+    @media (max-width: 968px) {
+      .hero-social-proof {
+        justify-content: center;
+      }
+    }
+
+    .sp-avatars {
+      display: flex;
+    }
+
+    .sp-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--gray-700);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      margin-left: -8px;
+      border: 2px solid var(--black);
+    }
+
+    .sp-avatar:first-child {
+      margin-left: 0;
+    }
+
+    .sp-text {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+
+    /* Preview Card */
+    .hero-preview {
+      display: flex;
+      justify-content: center;
+    }
+
+    .preview-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      width: 100%;
+      max-width: 320px;
+      color: var(--black);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      transform: rotate(2deg);
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: 2px solid var(--gray-200);
+    }
+
+    .preview-logo {
+      font-weight: 800;
+      color: var(--orange);
+    }
+
+    .preview-badge {
+      background: #ef4444;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: var(--text-xs);
+      font-weight: 700;
+    }
+
+    .preview-title {
+      font-size: var(--text-lg);
+      font-weight: 700;
+      margin-bottom: var(--space-md);
+    }
+
+    .preview-items {
+      margin-bottom: var(--space-md);
+    }
+
+    .preview-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      padding: var(--space-xs) 0;
+      font-size: var(--text-sm);
+    }
+
+    .pi-check {
+      color: var(--gray-400);
+    }
+
+    .preview-more {
+      font-size: var(--text-xs);
+      color: var(--gray-500);
+      font-style: italic;
+      margin-top: var(--space-sm);
+    }
+
+    .preview-footer {
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .preview-format {
+      font-size: var(--text-xs);
+      color: var(--gray-500);
+    }
+
+    /* What's Inside */
+    .whats-inside {
+      padding: var(--space-3xl) 0;
+      background: var(--gray-950);
+    }
+
+    .section-title {
+      font-size: var(--text-3xl);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+    }
+
+    @media (max-width: 968px) {
+      .checklist-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .checklist-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .checklist-item {
+      display: flex;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+      background: var(--gray-900);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-800);
+    }
+
+    .item-number {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .item-title {
+      font-size: var(--text-md);
+      font-weight: 700;
+      margin-bottom: var(--space-xs);
+    }
+
+    .item-desc {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Why Works */
+    .why-works {
+      padding: var(--space-3xl) 0;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: var(--space-3xl);
+      align-items: center;
+    }
+
+    @media (max-width: 968px) {
+      .why-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .why-content h2 {
+      font-size: var(--text-2xl);
+      margin-bottom: var(--space-md);
+    }
+
+    .why-content p {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+      line-height: 1.7;
+    }
+
+    .why-content blockquote {
+      padding: var(--space-lg);
+      background: var(--gray-900);
+      border-left: 3px solid var(--orange);
+      border-radius: var(--radius-md);
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    .why-content cite {
+      display: block;
+      margin-top: var(--space-sm);
+      font-style: normal;
+      font-weight: 600;
+      color: var(--white);
+      font-size: var(--text-sm);
+    }
+
+    .why-stats {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .stat-card {
+      padding: var(--space-xl);
+      background: var(--gray-900);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-800);
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: var(--text-3xl);
+      font-weight: 800;
+      color: var(--orange);
+      margin-bottom: var(--space-xs);
+    }
+
+    .stat-label {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+    }
+
+    /* Final CTA */
+    .final-cta {
+      padding: var(--space-3xl) 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(255, 72, 0, 0.1) 100%);
+    }
+
+    .cta-box {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cta-box h2 {
+      font-size: var(--text-2xl);
+      margin-bottom: var(--space-sm);
+    }
+
+    .cta-box > p {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-xl);
+    }
+  </style>
+</BaseLayout>

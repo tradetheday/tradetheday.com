@@ -1,0 +1,540 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Chip from '../../components/Chip.astro';
+import AnalystNotes from '../../components/AnalystNotes.astro';
+import '../../styles/pages/bonus-codes-index.css';
+import '../../styles/hero-components.css';
+
+// Hero statistics
+const heroStats = [
+  { number: "$50,000+", label: "Total Bonus Value" },
+  { number: "15+", label: "Partner Brokers" },
+  { number: "100%", label: "Verified Codes" }
+];
+
+// Featured bonus codes
+const featuredBonuses = [
+  {
+    featured: true,
+    logo: "/images/brokers/avatrade-logo.svg",
+    title: "AvaTrade Welcome Bonus",
+    amount: "Up to $10,000",
+    description: "Get up to $10,000 welcome bonus with our exclusive AvaTrade partner code. Perfect for both beginners and experienced traders.",
+    features: [
+      "20% deposit bonus up to $10,000",
+      "AvaProtect risk management",
+      "1,250+ instruments available",
+      "Multiple trading platforms"
+    ],
+    codeLabel: "Partner Code",
+    codeValue: "128979",
+    ctaText: "Claim Bonus →",
+    ctaLink: "/brokers/avatrade/partner-code/",
+    isPrimary: true
+  },
+  {
+    featured: false,
+    logo: "/images/brokers/etoro-logo.svg",
+    title: "eToro Social Trading",
+    amount: "$100,000",
+    description: "Start with $100,000 virtual portfolio to practice social trading and copy successful traders risk-free.",
+    features: [
+      "$100,000 virtual trading account",
+      "Copy successful traders",
+      "94+ cryptocurrencies",
+      "Commission-free stocks"
+    ],
+    codeLabel: "No Code Needed",
+    codeValue: "AUTO-APPLIED",
+    ctaText: "Learn More →",
+    ctaLink: "/brokers/etoro/",
+    isPrimary: false
+  },
+  {
+    featured: false,
+    logo: "/images/brokers/ic-markets-logo.svg",
+    title: "IC Markets Rebate",
+    amount: "$7 per lot",
+    description: "Earn cashback on every trade with our exclusive IC Markets partnership. Raw spreads from 0.0 pips.",
+    features: [
+      "Up to $7 rebate per standard lot",
+      "Raw spreads from 0.0 pips",
+      "cTrader & MetaTrader platforms",
+      "ASIC regulated broker"
+    ],
+    codeLabel: "Referral Link",
+    codeValue: "EXCLUSIVE",
+    ctaText: "Get Rebate →",
+    ctaLink: "/brokers/ic-markets-review/",
+    isPrimary: false
+  }
+];
+
+// How it works steps
+const howItWorksSteps = [
+  {
+    number: "1",
+    title: "Choose Your Broker",
+    description: "Select from our curated list of top-rated brokers with exclusive bonus offers and verified partner codes."
+  },
+  {
+    number: "2",
+    title: "Click Claim Bonus",
+    description: "Click the \"Claim Bonus\" button to be redirected to the broker's official signup page with our partner code pre-applied."
+  },
+  {
+    number: "3",
+    title: "Register Account", 
+    description: "Complete the registration process with your details. The bonus code will be automatically applied during signup."
+  },
+  {
+    number: "4",
+    title: "Make Deposit",
+    description: "Make your first deposit to activate the bonus. Most bonuses require a minimum deposit to qualify for the offer."
+  }
+];
+
+// All available bonuses
+const allBonuses = [
+  {
+    logo: "/images/brokers/pepperstone-logo.svg",
+    title: "Pepperstone Rebates",
+    amount: "$3.5/lot",
+    description: "Earn up to $3.5 cashback per lot with raw spreads and lightning-fast execution on all major markets.",
+    codeLabel: "Rebate Program",
+    codeValue: "AUTO-REBATE",
+    ctaText: "Learn More →",
+    ctaLink: "/brokers/pepperstone-review/"
+  },
+  {
+    logo: "/images/brokers/vantage-logo.svg",
+    title: "Vantage FX Welcome",
+    amount: "50% Bonus",
+    description: "Get 50% deposit bonus up to $5,000 with our exclusive Vantage FX partnership. Trade with extra capital.",
+    codeLabel: "Partner Code",
+    codeValue: "VFX-2026",
+    ctaText: "Claim Bonus →",
+    ctaLink: "/brokers/vantage-fx-review/"
+  },
+  {
+    logo: "/images/brokers/eightcap-logo.svg",
+    title: "EightCap Trading Credit",
+    amount: "$8,888",
+    description: "Receive up to $8,888 in trading credit with our exclusive EightCap bonus code for new accounts.",
+    codeLabel: "Bonus Code",
+    codeValue: "8CAP-TTD",
+    ctaText: "Get Credit →",
+    ctaLink: "/brokers/eightcap-review/"
+  }
+];
+
+// FAQ data
+const faqs = [
+  {
+    question: "How do trading bonus codes work?",
+    answer: "Trading bonus codes are special promotional codes that brokers offer through partnerships. When you sign up using our exclusive codes, you get access to enhanced bonuses, better terms, or exclusive features that aren't available to regular signups."
+  },
+  {
+    question: "Are these bonus codes legitimate?",
+    answer: "Yes, all our bonus codes are 100% legitimate and verified partnerships with regulated brokers. We only work with reputable brokers that are licensed by major financial authorities like FCA, ASIC, CySEC, and others."
+  },
+  {
+    question: "Do I need to deposit immediately to get the bonus?",
+    answer: "Most bonuses require a minimum deposit to activate, but the specific requirements vary by broker. Some offer demo account bonuses, while others require real money deposits. Always check the specific terms for each offer."
+  },
+  {
+    question: "Can I withdraw the bonus immediately?",
+    answer: "Bonus funds typically come with trading requirements (wagering requirements) that must be met before withdrawal. This means you need to trade a certain volume before you can withdraw the bonus. Profits from trading with bonus funds are usually withdrawable once requirements are met."
+  },
+  {
+    question: "What happens if the code doesn't work?",
+    answer: "If a code doesn't work, contact the broker's support team immediately during the signup process. Alternatively, reach out to us and we'll help resolve the issue. Most brokers can apply codes retroactively if contacted quickly."
+  }
+];
+---
+
+<BaseLayout
+  title="Exclusive Trading Bonus Codes 2026 | Get Welcome Bonuses | TradeTheDay"
+  description="Unlock exclusive trading bonuses with verified partner codes. Get welcome bonuses, deposit bonuses, and exclusive offers from top-rated brokers."
+>
+  <!-- Schema.org ItemList markup for offers -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Exclusive Trading Bonus Codes 2026",
+    "description": "Unlock exclusive trading bonuses with verified partner codes from top-rated brokers.",
+    "numberOfItems": featuredBonuses.length + allBonuses.length,
+    "itemListElement": [...featuredBonuses, ...allBonuses].map((bonus, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Offer",
+        "name": bonus.title,
+        "description": bonus.description,
+        "url": `https://tradetheday.com${bonus.ctaLink}`,
+        "availability": "https://schema.org/InStock",
+        "priceCurrency": "USD",
+        "price": "0"
+      }
+    }))
+  })} />
+
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Bonus Codes', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="hero hero-standard">
+    <div class="container">
+      <div class="hero-social-proof">
+        <span class="social-proof-badge">
+          <span class="social-proof-dot"></span>
+          3,421 bonus codes claimed this month
+        </span>
+      </div>
+      <h1 class="heading-1">Unlock Trading Bonuses</h1>
+      <p class="body-large">
+        Get exclusive welcome bonuses, deposit matches, and special offers with our verified partner codes from top-rated brokers.
+      </p>
+      <a href="/brokers/avatrade/partner-code/" class="btn btn-primary btn-lg">Get Top Bonus Code</a>
+      <div class="hero-trust-row">
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Verified Codes
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Exclusive Offers
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Up to $10,000
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED BONUSES SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">🏆 Featured Bonus Codes</h2>
+        <p class="section-subtitle">
+          Hand-picked exclusive offers from our top-rated broker partners with the highest bonus values and best terms.
+        </p>
+      </div>
+      
+      <div class="bonus-grid">
+        {featuredBonuses.map((bonus) => (
+          <div class={`bonus-card ${bonus.featured ? 'featured' : ''}`}>
+            {bonus.featured && <div class="bonus-badge">Featured</div>}
+            <img src={bonus.logo} alt={bonus.title} class="broker-logo">
+            <h3 class="bonus-title">{bonus.title}</h3>
+            <div class="bonus-amount">{bonus.amount}</div>
+            <p class="bonus-description">{bonus.description}</p>
+            
+            <ul class="bonus-features">
+              {bonus.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            
+            <div class="bonus-code">
+              <div class="code-label">{bonus.codeLabel}</div>
+              <div class="code-value">{bonus.codeValue}</div>
+            </div>
+            
+            <a href={bonus.ctaLink} class={`cta-button ${bonus.isPrimary ? 'primary' : 'secondary'}`}>
+              {bonus.ctaText}
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <AnalystNotes
+        title="Understanding Trading Bonus Codes"
+        icon="🎓"
+        id="bonus-codes-analysis"
+        variant="light"
+      >
+        <h4>What Are Broker Partner Codes?</h4>
+        <p>Trading bonus codes are promotional codes negotiated between affiliate partners (like TradeTheDay) and regulated brokers. These aren't random discounts - they're structured partnerships where brokers offer enhanced terms to incentivize new account openings through trusted referral channels.</p>
+
+        <h5>Types of Trading Bonuses</h5>
+        <p><strong>Welcome Deposit Bonuses:</strong> The most common type. You deposit money, the broker matches a percentage. Example: 20% bonus on $5,000 deposit = $1,000 extra trading capital. These typically have trading volume requirements before withdrawal.</p>
+
+        <p><strong>No-Deposit Bonuses:</strong> Rare but valuable - free trading capital just for signing up. Usually smaller amounts ($20-$100) with strict withdrawal conditions. Great for testing a broker risk-free.</p>
+
+        <p><strong>Cashback/Rebate Programs:</strong> Ongoing rewards rather than one-time bonuses. Earn money back on every trade - typically $2-$7 per lot traded. Over time, active traders can earn substantial amounts.</p>
+
+        <p><strong>Demo Account Credits:</strong> Virtual money for practice trading. No real value but invaluable for learning without risk. eToro's $100,000 virtual portfolio is a prime example.</p>
+
+        <h5>Why Brokers Offer Bonuses</h5>
+        <p>Customer acquisition in the brokerage industry is expensive. Bonuses are essentially marketing costs - brokers know that once you're trading on their platform, you're likely to stay. The bonus costs them less than traditional advertising while providing measurable ROI. It's a win-win: you get extra capital, they get a new customer.</p>
+
+        <h5>The Partner Code Advantage</h5>
+        <p>Why use a partner code instead of signing up directly? Partner codes often unlock exclusive tiers unavailable to direct signups. Brokers reserve their best offers for affiliate partnerships because these channels deliver higher-quality, more engaged customers. Our AvaTrade partner code 128979, for example, provides bonus tiers up to $10,000 - higher than the standard direct signup offers.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS SECTION -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">🚀 How to Claim Your Bonus</h2>
+        <p class="section-subtitle">
+          Follow these simple steps to unlock your exclusive trading bonus and start with extra capital.
+        </p>
+      </div>
+      
+      <div class="steps-grid">
+        {howItWorksSteps.map((step) => (
+          <div class="step-card">
+            <div class="step-number">{step.number}</div>
+            <h3 class="step-title">{step.title}</h3>
+            <p class="step-description">{step.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <AnalystNotes
+        title="Maximizing Your Trading Bonus"
+        icon="💡"
+        id="maximize-bonus-notes"
+        variant="dark"
+      >
+        <h4>Strategic Approaches to Bonus Optimization</h4>
+        <p>Getting a bonus is easy. Getting maximum value from it requires strategy. Here's how experienced traders approach bonus optimization.</p>
+
+        <h5>Match Your Deposit to Bonus Tiers</h5>
+        <p>Most brokers have tiered bonus structures. Depositing $450 when the next tier starts at $500 wastes potential. Always check the bonus tiers and deposit at tier thresholds if possible. For AvaTrade's partner code 128979: $100-$499 gets 20% bonus, $500-$999 gets 30%, and so on. That extra $50 could mean an additional 10% bonus rate.</p>
+
+        <h5>Understand the Trading Volume Requirements</h5>
+        <p>Here's where many traders get caught out. A $1,000 bonus with 20x trading volume requirement means you need to trade $20,000 in volume before withdrawing the bonus. At 1 standard lot per trade, that's approximately 2 lots of EUR/USD. Realistic for an active trader over a few weeks, but know the math before committing.</p>
+
+        <h5>Time-Limit Awareness</h5>
+        <p>Most bonuses have expiry dates - typically 30-90 days to meet requirements. Don't deposit if you're not planning to trade actively within that window. Bonus funds that expire are worse than no bonus at all because you may have deposited more than you otherwise would have.</p>
+
+        <h5>Don't Over-Leverage for Volume</h5>
+        <p>The biggest mistake: taking excessive risks to meet volume requirements quickly. The bonus isn't worth blowing your account. Trade your normal strategy with appropriate risk management. Meeting requirements over 60 days at 1% risk per trade is infinitely better than meeting them in 3 days with 10% risk per trade and losing everything.</p>
+
+        <h5>Stack Multiple Benefits</h5>
+        <p>Some brokers allow stacking. You might get the welcome bonus PLUS qualify for ongoing rebates. Or the bonus might include premium education access or free VPS hosting. Look for brokers where the total value package exceeds just the headline bonus number.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- ALL BONUS CODES SECTION -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">💰 All Available Bonus Codes</h2>
+        <p class="section-subtitle">
+          Complete list of all our verified partner codes and exclusive offers from regulated brokers worldwide.
+        </p>
+      </div>
+      
+      <div class="bonus-grid">
+        {allBonuses.map((bonus) => (
+          <div class="bonus-card">
+            <img src={bonus.logo} alt={bonus.title} class="broker-logo">
+            <h3 class="bonus-title">{bonus.title}</h3>
+            <div class="bonus-amount">{bonus.amount}</div>
+            <p class="bonus-description">{bonus.description}</p>
+            
+            <div class="bonus-code">
+              <div class="code-label">{bonus.codeLabel}</div>
+              <div class="code-value">{bonus.codeValue}</div>
+            </div>
+            
+            <a href={bonus.ctaLink} class="cta-button secondary">
+              {bonus.ctaText}
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <AnalystNotes
+        title="Reading the Fine Print: Bonus Terms Decoded"
+        icon="📋"
+        id="terms-analysis"
+        variant="light"
+      >
+        <h4>Critical Terms You Must Understand</h4>
+        <p>Bonus terms and conditions aren't designed to trick you - they're designed to prevent bonus abuse. But understanding them is essential for realistic expectations.</p>
+
+        <h5>Trading Volume Requirements Explained</h5>
+        <p>"20x trading volume" means if you receive a $500 bonus, you must execute $10,000 in trade volume (not profit - just volume). For a forex trader using standard lots, one EUR/USD trade opens $100,000 position, so 0.1 lots equals $10,000 volume. Volume requirements are usually achievable within the time limit for normal trading activity.</p>
+
+        <h5>Eligible Instruments</h5>
+        <p>Not all trades may count toward volume requirements. Some brokers exclude crypto or CFDs from bonus requirements, or weight them differently. A crypto trade might count at 50% while forex counts at 100%. Check which instruments contribute to meeting your bonus terms.</p>
+
+        <h5>Withdrawal Restrictions</h5>
+        <p>Most bonuses can't be withdrawn as cash until requirements are met - but profits can often be withdrawn. If you deposit $1,000, get $200 bonus, and your account grows to $1,500, you can typically withdraw up to $500 (your profit plus excess over original deposit). The bonus funds remain locked until requirements are met.</p>
+
+        <h5>Bonus Forfeiture Conditions</h5>
+        <p>Withdrawing before meeting requirements usually forfeits the bonus (not your deposited funds - just the bonus portion). Some brokers forfeit proportionally; others remove it entirely. Know these rules before making withdrawal requests.</p>
+
+        <h5>Regional Restrictions</h5>
+        <p>Due to regulations, some bonuses aren't available in certain countries. EU regulations via ESMA have restricted many bonus offers in European markets. UK, Australian, and offshore jurisdictions often have different bonus availability. Always verify the offer is available in your country before signing up.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <AnalystNotes
+        title="Our Verdict: Best Bonus Codes for 2026"
+        icon="🏅"
+        id="verdict-notes"
+        variant="dark"
+      >
+        <h4>Our Top Recommendations</h4>
+        <p>After analyzing dozens of broker bonus programs, here's our definitive ranking for 2026 based on total value, achievability, and broker quality.</p>
+
+        <h5>Best Overall: AvaTrade Partner Code 128979</h5>
+        <p>The AvaTrade welcome bonus remains our top pick for 2026. Up to $10,000 in bonus funds, reasonable 6-month timeframe to meet requirements, and backing from one of the most respected regulated brokers globally. The AvaProtect risk management feature adds genuine value beyond just the bonus. Best for: All trader levels, especially those valuing platform reliability and regulation.</p>
+
+        <h5>Best for Copy Trading: eToro Virtual Portfolio</h5>
+        <p>While not a traditional deposit bonus, eToro's $100,000 virtual portfolio is unmatched for learning. You can practice copy trading strategies, test the platform, and learn from successful traders - all risk-free. When ready, the transition to live trading is seamless. Best for: Beginners interested in social/copy trading.</p>
+
+        <h5>Best for Active Traders: IC Markets Rebate Program</h5>
+        <p>If you're trading consistently, per-lot rebates compound into serious value. $7 per standard lot adds up: trade 100 lots per month and you're earning $700/month in rebates. Combined with IC Markets' raw spreads from 0.0 pips, active scalpers and day traders get exceptional value. Best for: High-volume traders, scalpers.</p>
+
+        <h5>The Bottom Line</h5>
+        <p>Bonuses are a welcome benefit, not a reason to choose a broker. Pick your broker based on regulation, platform quality, fees, and customer service first. Then check what bonus is available. The best bonus at a terrible broker is still a terrible deal. All the brokers on this page meet our quality standards - the bonus is just the cherry on top.</p>
+      </AnalystNotes>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">❓ Frequently Asked Questions</h2>
+        <p class="section-subtitle">
+          Get answers to common questions about trading bonuses, partner codes, and how to maximize your offers.
+        </p>
+      </div>
+      
+      <div class="faq-container">
+        {faqs.map((faq, index) => (
+          <div class="faq-item" id={`faq-${index}`}>
+            <button class="faq-question" onclick={`toggleFaq(${index})`}>
+              {faq.question}
+            </button>
+            <div class="faq-answer">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Resources -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Related Resources</h2>
+        <p class="section-subtitle">Explore more ways to find and compare brokers</p>
+      </div>
+
+      <div class="related-resources-grid">
+        <a href="/find-broker/" class="resource-card resource-highlight">
+          <span class="resource-icon">🎯</span>
+          <h3>AI Broker Matcher</h3>
+          <p>Find your perfect broker in 30 seconds with our AI-powered quiz</p>
+        </a>
+        <a href="/brokers/avatrade/" class="resource-card">
+          <span class="resource-icon">⭐</span>
+          <h3>AvaTrade Review</h3>
+          <p>Full 2026 review of our top recommended broker</p>
+        </a>
+        <a href="/compare/avatrade-vs-etoro/" class="resource-card">
+          <span class="resource-icon">⚔️</span>
+          <h3>AvaTrade vs eToro</h3>
+          <p>Copy trading comparison - see how they stack up</p>
+        </a>
+        <a href="/brokers/" class="resource-card">
+          <span class="resource-icon">📋</span>
+          <h3>All Broker Reviews</h3>
+          <p>Compare 15+ regulated brokers in detail</p>
+        </a>
+        <a href="/propfirms/" class="resource-card">
+          <span class="resource-icon">💼</span>
+          <h3>Prop Firm Reviews</h3>
+          <p>Get funded to trade - compare top prop firms</p>
+        </a>
+        <a href="/compare/pepperstone-vs-ic-markets/" class="resource-card">
+          <span class="resource-icon">📊</span>
+          <h3>ECN Broker Showdown</h3>
+          <p>Pepperstone vs IC Markets for serious traders</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero styles from hero-components.css */
+
+  .related-resources-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .resource-card {
+    display: block;
+    padding: 1.5rem;
+    background: white;
+    border: 1px solid var(--gray-200, #e5e7eb);
+    border-radius: 0.75rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .resource-card:hover {
+    border-color: var(--brand-orange, #ff4800);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .resource-card.resource-highlight {
+    background: linear-gradient(135deg, rgba(255, 72, 0, 0.05), rgba(255, 72, 0, 0.1));
+    border-color: rgba(255, 72, 0, 0.3);
+  }
+
+  .resource-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .resource-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--charcoal, #1e2427);
+    margin-bottom: 0.5rem;
+  }
+
+  .resource-card p {
+    font-size: 0.875rem;
+    color: var(--gray-600, #4b5563);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .related-resources-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script src="../../scripts/pages/bonus-codes-index.js"></script>
