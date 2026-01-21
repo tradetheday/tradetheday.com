@@ -115,17 +115,11 @@
   Cache-Control: public, max-age=31536000, immutable
 
 # ===========================================
-# PRELOAD HINTS FOR CRITICAL RESOURCES
+# PRECONNECT TO GOOGLE FONTS
 # ===========================================
-/
-  Link: </_astro/styles.css>; rel=preload; as=style
-  Link: </fonts/inter-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
-
-/brokers/*
-  Link: </_astro/styles.css>; rel=preload; as=style
-
-/guides/*
-  Link: </_astro/styles.css>; rel=preload; as=style
+/*
+  Link: <https://fonts.googleapis.com>; rel=preconnect
+  Link: <https://fonts.gstatic.com>; rel=preconnect; crossorigin
 
 # ===========================================
 # MONEY PAGES - Balanced caching (fresh but fast)

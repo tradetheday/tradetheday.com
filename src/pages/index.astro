@@ -8,8 +8,8 @@ import TradingResults from '../components/TradingResults.astro';
 import NewsletterSignup from '../components/NewsletterSignup.astro';
 import { brokers } from '../data/brokers';
 
-const pageTitle = "Best Trading Brokers 2026 - AI-Powered Broker Matching | TradeTheDay";
-const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regulated brokers, claim exclusive bonuses up to $10,000, and start trading with confidence. 100% free.";
+const pageTitle = "Best Forex Brokers 2026 - Compare Fees, Spreads & Bonuses";
+const pageDescription = "Compare regulated forex brokers with honest reviews. Find the lowest spreads, claim exclusive bonuses up to $10,000, and start trading with confidence.";
 ---
 
 <BaseLayout
@@ -101,11 +101,11 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
           97% of traders pick the wrong broker. The result? $4,847/year in unnecessary fees. Our AI matches you with the perfect broker in 30 seconds. Free. No signup.
         </p>
         <div class="hero-cta-group">
-          <a href="/find-broker/" class="btn btn-primary btn-xl">
+          <a href="/find-broker/" class="btn btn-primary btn-lg">
             Find My Perfect Broker
             <span class="btn-arrow">→</span>
           </a>
-          <a href="/brokers/" class="btn btn-ghost btn-xl">
+          <a href="/brokers/" class="btn btn-ghost btn-lg">
             Compare All Brokers
           </a>
         </div>
@@ -133,7 +133,7 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
   <style>
     .hero-clean {
       background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
-      padding: var(--hero-padding-standard) 0;
+      padding: 56px 0 48px;  /* Homepage-specific: slightly larger than inner pages */
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -142,7 +142,7 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
     /* Mobile: Collapse to compact */
     @media (max-width: 768px) {
       .hero-clean {
-        padding: var(--space-lg) 0;
+        padding: 36px 0 32px;
       }
     }
 
@@ -229,7 +229,7 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
 
     /* Social Proof Badge */
     .hero-social-proof {
-      margin-bottom: var(--space-lg);
+      margin-bottom: var(--space-md);
     }
 
     .social-proof-badge {
@@ -260,8 +260,8 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
 
     .hero-title {
       color: var(--white);
-      font-size: var(--font-size-5xl);
-      font-weight: var(--font-weight-extrabold);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);  /* Design system: 28px-40px max */
+      font-weight: var(--font-weight-bold);
       line-height: 1.1;
       margin-bottom: var(--space-md);
     }
@@ -272,10 +272,10 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
 
     .hero-subtitle {
       color: rgba(255, 255, 255, 0.85);
-      font-size: var(--font-size-xl);
+      font-size: 16px;  /* Design system: 16px */
       line-height: 1.6;
-      margin-bottom: var(--space-xl);
-      max-width: 700px;
+      margin-bottom: var(--space-lg);
+      max-width: 540px;  /* Design system: max-width 540px */
       margin-left: auto;
       margin-right: auto;
     }
@@ -311,7 +311,7 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
     .hero-trust-row {
       display: flex;
       justify-content: center;
-      gap: var(--space-lg);
+      gap: 20px;  /* Design system: 20px desktop */
       flex-wrap: wrap;
     }
 
@@ -335,7 +335,7 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
       }
 
       .hero-trust-row {
-        gap: var(--space-md);
+        gap: 12px;  /* Design system: 12px mobile */
       }
     }
 
@@ -922,7 +922,7 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
     .feature-number {
       font-size: 11px;
       font-weight: 700;
-      color: var(--gray-400);
+      color: var(--gray-600);
       letter-spacing: 1px;
       margin-bottom: var(--space-xs);
     }
@@ -1153,22 +1153,22 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
       <div class="features-row">
         <div class="feature-item">
           <div class="feature-icon-circle">📋</div>
-          <h4>Transparent Fees</h4>
+          <h3>Transparent Fees</h3>
           <p>See exactly what you'll pay before you sign up.</p>
         </div>
         <div class="feature-item">
           <div class="feature-icon-circle">⚡</div>
-          <h4>30-Second Matching</h4>
+          <h3>30-Second Matching</h3>
           <p>Get broker recommendations instantly.</p>
         </div>
         <div class="feature-item">
           <div class="feature-icon-circle">🛡️</div>
-          <h4>Tier-1 Regulated</h4>
+          <h3>Tier-1 Regulated</h3>
           <p>FCA, ASIC, CySEC regulated brokers only.</p>
         </div>
         <div class="feature-item">
           <div class="feature-icon-circle">💳</div>
-          <h4>Exclusive Bonuses</h4>
+          <h3>Exclusive Bonuses</h3>
           <p>Better deals than going direct to the broker.</p>
         </div>
       </div>
@@ -1249,9 +1249,10 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
       margin: 0 auto var(--space-md);
     }
 
-    .feature-item h4 {
+    .feature-item h3 {
       color: var(--white);
       font-size: var(--font-size-base);
+      font-weight: var(--font-weight-semibold);
       margin-bottom: var(--space-xs);
     }
 
@@ -1350,7 +1351,7 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
         </div>
 
         <div class="value-stack-cta">
-          <a href="/signals/" class="btn btn-primary btn-xl">Learn More About This Offer</a>
+          <a href="/signals/" class="btn btn-primary btn-lg">Learn More About This Offer</a>
           <p class="value-stack-warning">Skip us? Pay $58/month for signals alone.</p>
         </div>
       </div>
@@ -1518,7 +1519,7 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
           <div class="broker-compare-badge">Most Popular</div>
           <div class="broker-compare-social">324 traders matched this week</div>
           <div class="broker-compare-header">
-            <img src="/images/brokers/avatrade/avatrade-logo-light.svg" alt="AvaTrade" class="broker-compare-logo">
+            <img src="/images/brokers/avatrade/avatrade-logo-light.svg" alt="AvaTrade" class="broker-compare-logo" width="120" height="40">
             <div class="broker-compare-rating">
               <span class="rating-score">4.8</span>
               <span class="rating-stars">★★★★★</span>
@@ -2147,7 +2148,7 @@ const pageDescription = "Find your perfect broker in 30 seconds. Compare 5 regul
         <p class="body-large">
           Join 12,847+ traders who found their ideal broker through TradeTheDay
         </p>
-        <a href="/find-broker/" class="btn btn-primary btn-xl">
+        <a href="/find-broker/" class="btn btn-primary btn-lg">
           Find My Perfect Broker → Free
         </a>
         <p class="final-cta-meta">
