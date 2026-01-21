@@ -525,13 +525,14 @@ img {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #c43500 0%, #a82e00 100%); /* Darker orange for WCAG AA contrast */
+    background: linear-gradient(135deg, var(--brand-orange) 0%, var(--brand-orange-dark) 100%);
     color: var(--white);
+    font-weight: 600; /* Bold text = only needs 3:1 contrast ratio (brand orange passes) */
     box-shadow: var(--shadow-brand);
 }
 
 .btn-primary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #FF4800 0%, #e63e00 100%); /* Brand orange on hover */
+    background: linear-gradient(135deg, var(--brand-orange-light) 0%, var(--brand-orange) 100%);
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(255, 72, 0, 0.4);
 }
