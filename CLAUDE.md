@@ -152,26 +152,35 @@ npm run build
 - **Tools CSS:** `src/styles/tools.css` - Dark theme for calculator/tool pages
 - **Partner Code:** `bonus-codes/avatrade-partner-code.html` - Money page
 
-## Design System
+## Design System (MANDATORY)
 
-**Source of Truth:** `/DESIGN-SYSTEM.md`
-**Live Style Guide:** `/style-guide/`
+**READ FIRST:** `/DESIGN-SYSTEM.md` - Single source of truth
 
-### Quick Reference
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--brand-orange` | `#FF4800` | Primary brand color, CTAs |
-| `--charcoal` | `#1E2427` | Dark backgrounds, text |
-| `--white` | `#fafbfc` | Light backgrounds |
+### Critical Rules
+1. **NEVER use arbitrary pixel values** - Use defined tokens only
+2. **NEVER override styles in components** - If you need different styling, add a variant to the design system first
+3. **ALWAYS check DESIGN-SYSTEM.md** before making ANY style changes
+4. **Update DESIGN-SYSTEM.md FIRST**, then update CSS
+
+### Size Limits (Enforced)
+| Element | Max Size |
+|---------|----------|
+| H1 | 2.5rem (40px) |
+| Hero padding | 56px |
+| Button padding | 12px 24px |
+| Card padding | 32px |
+
+### Button Tiers (Use These)
+| Size | Padding | Font | Use For |
+|------|---------|------|---------|
+| btn-sm | 6px 12px | 13px | Tags, inline |
+| btn-md | 8px 16px | 14px | Standard |
+| btn-lg | 10px 20px | 15px | Primary CTAs |
+| btn-xl | 12px 24px | 16px | Hero only |
 
 ### Themes
 - **Light theme** (default): Homepage, broker reviews, guides
 - **Dark theme** (`tools.css`): Calculators, interactive tools
-
-### Before Making Style Changes
-1. Check `DESIGN-SYSTEM.md` for existing tokens
-2. Update `DESIGN-SYSTEM.md` if adding new patterns
-3. Then update the CSS files
 
 ## Notes
 
