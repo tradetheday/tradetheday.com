@@ -319,7 +319,104 @@ padding: 12px 24px; /* btn-xl spec */
 
 ---
 
-## 14. CHANGELOG
+## 14. SEO & ACCESSIBILITY (Mandatory)
+
+### Heading Hierarchy
+
+**RULE:** Headings must be sequential. Never skip levels.
+
+```html
+<!-- CORRECT -->
+<h1>Page Title</h1>
+  <h2>Section</h2>
+    <h3>Subsection</h3>
+      <h4>Detail</h4>
+
+<!-- WRONG - skips h2 and h3 -->
+<h1>Page Title</h1>
+  <h4>Feature Card Title</h4>  ❌
+```
+
+**Common mistake:** Using `<h4>` in feature cards within a section that has an `<h2>`. Use `<h3>` instead.
+
+### Link Text
+
+**RULE:** Links must have descriptive text. Never use generic phrases alone.
+
+| Bad | Good |
+|-----|------|
+| "Learn more" | "Read our advertiser disclosure" |
+| "Click here" | "View broker comparison" |
+| "Read more" | "Read the full AvaTrade review" |
+
+### Image Dimensions
+
+**RULE:** All `<img>` elements MUST have explicit `width` and `height` attributes to prevent Cumulative Layout Shift (CLS).
+
+```html
+<!-- CORRECT -->
+<img src="/logo.svg" alt="TradeTheDay" width="180" height="40">
+
+<!-- WRONG - causes layout shift -->
+<img src="/logo.svg" alt="TradeTheDay">
+```
+
+### Color Contrast (WCAG AA)
+
+**RULE:** Text must have 4.5:1 contrast ratio against background. Use these safe combinations:
+
+| Background | Minimum Text Color |
+|------------|-------------------|
+| White/Gray-50 | `var(--gray-600)` or darker |
+| Gray-100 | `var(--gray-700)` or darker |
+| Dark (charcoal) | `rgba(255,255,255,0.7)` or brighter |
+| Green badge bg | `#047857` (not `#10B981`) |
+| Orange badge bg | `#c2410c` (not `#FF4800`) |
+
+**Common violations:**
+- `var(--gray-400)` on white backgrounds ❌
+- `var(--success)` (#10B981) on light green backgrounds ❌
+- Low opacity white text on dark backgrounds ❌
+
+### Font Preloading
+
+**RULE:** Only preload fonts that actually exist. Never add preload hints without verifying the file path.
+
+```html
+<!-- Only if file exists at /fonts/inter-var.woff2 -->
+<link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
+```
+
+If using Google Fonts, use preconnect instead:
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+```
+
+### Accessibility Checklist
+
+Before shipping any page:
+
+- [ ] Heading hierarchy is sequential (no skipped levels)
+- [ ] All links have descriptive text
+- [ ] All images have `width` and `height` attributes
+- [ ] All images have meaningful `alt` text
+- [ ] Color contrast meets WCAG AA (4.5:1 for text)
+- [ ] Focus states are visible on all interactive elements
+- [ ] Touch targets are at least 44x44px on mobile
+
+---
+
+## 15. CHANGELOG
+
+### 2026-01-22 (PM)
+- **NEW:** Added Section 14: SEO & Accessibility rules
+- Heading hierarchy requirements
+- Descriptive link text rules
+- Image dimension requirements
+- Color contrast guidelines (WCAG AA)
+- Font preloading rules
+- Accessibility checklist
 
 ### 2026-01-22
 - **MAJOR:** Reduced all sizing to modern SaaS standards
