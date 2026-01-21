@@ -1,0 +1,1329 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+
+// Key statistics
+const keyStats = [
+  { icon: "💱", value: "$7.5T", label: "Daily Volume" },
+  { icon: "🌍", value: "180+", label: "Currency Pairs" },
+  { icon: "⏰", value: "24/5", label: "Market Hours" },
+  { icon: "💰", value: "$50", label: "Min. to Start" }
+];
+
+// What is forex section
+const forexBasics = [
+  {
+    term: "Currency Pair",
+    definition: "Two currencies quoted against each other. EUR/USD means the Euro vs US Dollar. The first currency (EUR) is the base, the second (USD) is the quote."
+  },
+  {
+    term: "Pip",
+    definition: "The smallest price movement in forex, usually the fourth decimal place (0.0001). If EUR/USD moves from 1.1000 to 1.1001, that's 1 pip."
+  },
+  {
+    term: "Spread",
+    definition: "The difference between buy (ask) and sell (bid) prices. This is how brokers make money. Tighter spreads mean lower trading costs."
+  },
+  {
+    term: "Leverage",
+    definition: "Borrowed capital that amplifies your position. 1:100 leverage means $100 controls $10,000. Increases both profits AND losses."
+  },
+  {
+    term: "Lot Size",
+    definition: "Standard lot = 100,000 units. Mini lot = 10,000 units. Micro lot = 1,000 units. Most beginners start with micro lots."
+  },
+  {
+    term: "Margin",
+    definition: "The deposit required to open a leveraged position. With 1:100 leverage, you need $100 margin to control $10,000."
+  }
+];
+
+// Major currency pairs
+const majorPairs = [
+  { pair: "EUR/USD", name: "Euro/US Dollar", nickname: "Fiber", spread: "0.1-1.0 pips", volume: "Highest" },
+  { pair: "GBP/USD", name: "British Pound/US Dollar", nickname: "Cable", spread: "0.5-2.0 pips", volume: "Very High" },
+  { pair: "USD/JPY", name: "US Dollar/Japanese Yen", nickname: "Gopher", spread: "0.2-1.0 pips", volume: "Very High" },
+  { pair: "USD/CHF", name: "US Dollar/Swiss Franc", nickname: "Swissie", spread: "0.5-2.0 pips", volume: "High" },
+  { pair: "AUD/USD", name: "Australian Dollar/US Dollar", nickname: "Aussie", spread: "0.4-1.5 pips", volume: "High" },
+  { pair: "USD/CAD", name: "US Dollar/Canadian Dollar", nickname: "Loonie", spread: "0.5-2.0 pips", volume: "High" }
+];
+
+// Trading sessions
+const tradingSessions = [
+  {
+    name: "Sydney",
+    hours: "5 PM - 2 AM ET",
+    description: "Opens the trading week. Lower volatility, good for AUD pairs.",
+    bestPairs: ["AUD/USD", "AUD/JPY", "NZD/USD"]
+  },
+  {
+    name: "Tokyo",
+    hours: "7 PM - 4 AM ET",
+    description: "Asian session. JPY pairs most active. Generally lower volatility.",
+    bestPairs: ["USD/JPY", "EUR/JPY", "GBP/JPY"]
+  },
+  {
+    name: "London",
+    hours: "3 AM - 12 PM ET",
+    description: "Highest volume session. Major moves happen here. EUR and GBP most active.",
+    bestPairs: ["EUR/USD", "GBP/USD", "EUR/GBP"]
+  },
+  {
+    name: "New York",
+    hours: "8 AM - 5 PM ET",
+    description: "Overlaps with London for peak volatility. USD pairs dominate.",
+    bestPairs: ["EUR/USD", "USD/CAD", "GBP/USD"]
+  }
+];
+
+// What moves forex
+const marketMovers = [
+  {
+    icon: "🏛️",
+    title: "Central Banks",
+    description: "Interest rate decisions from the Fed, ECB, BoE, and other central banks are the biggest market movers. Higher rates typically strengthen a currency."
+  },
+  {
+    icon: "📊",
+    title: "Economic Data",
+    description: "GDP, employment (NFP), inflation (CPI), and PMI reports move markets. Better than expected = currency strength."
+  },
+  {
+    icon: "🌐",
+    title: "Geopolitical Events",
+    description: "Elections, trade wars, conflicts, and political instability create volatility. Safe-haven currencies (USD, JPY, CHF) benefit during uncertainty."
+  },
+  {
+    icon: "📈",
+    title: "Market Sentiment",
+    description: "Risk-on vs risk-off moods affect currency flows. Risk-on favors AUD, NZD. Risk-off favors USD, JPY, CHF."
+  }
+];
+
+// Getting started steps
+const gettingStartedSteps = [
+  {
+    number: "1",
+    title: "Learn the Basics",
+    description: "Understand how currency pairs work, what pips and lots mean, and how leverage affects your trades. Spend at least a week studying before trading."
+  },
+  {
+    number: "2",
+    title: "Choose a Regulated Broker",
+    description: "Pick a broker regulated by FCA, ASIC, or CySEC. Look for tight spreads, fast execution, and a good trading platform."
+  },
+  {
+    number: "3",
+    title: "Practice on Demo",
+    description: "Open a demo account and trade with virtual money for at least 2-4 weeks. Treat it like real money to build good habits."
+  },
+  {
+    number: "4",
+    title: "Start Small",
+    description: "When you go live, start with micro lots and risk only 1% per trade. You can always increase size as you gain experience."
+  }
+];
+
+// Analysis types
+const analysisTypes = [
+  {
+    icon: "📈",
+    title: "Technical Analysis",
+    description: "Study price charts, patterns, and indicators to predict future movements. Tools include trend lines, support/resistance, moving averages, and RSI.",
+    bestFor: "Short-term trading, day trading, scalping"
+  },
+  {
+    icon: "📰",
+    title: "Fundamental Analysis",
+    description: "Analyze economic data, central bank policies, and geopolitical events. Focus on interest rate differentials and economic strength.",
+    bestFor: "Swing trading, position trading, long-term holds"
+  },
+  {
+    icon: "🎯",
+    title: "Sentiment Analysis",
+    description: "Gauge market mood through positioning data (COT reports), news sentiment, and social media. Useful for contrarian signals.",
+    bestFor: "Timing entries, identifying extremes"
+  }
+];
+
+// Featured brokers
+const featuredBrokers = [
+  {
+    name: "AvaTrade",
+    logo: "/images/brokers/avatrade-logo.svg",
+    rating: "4.5",
+    stars: "5",
+    features: [
+      "55+ forex pairs",
+      "Spreads from 0.9 pips",
+      "MT4, MT5, AvaTradeGO",
+      "Free education & webinars",
+      "Partner code: 128979"
+    ],
+    ctaText: "Start with AvaTrade",
+    ctaLink: "/brokers/avatrade/",
+    featured: true
+  },
+  {
+    name: "eToro",
+    logo: "/images/brokers/etoro-logo.svg",
+    rating: "4.3",
+    stars: "4",
+    features: [
+      "49 forex pairs",
+      "Copy top traders",
+      "User-friendly platform",
+      "$50 minimum deposit",
+      "Social trading features"
+    ],
+    ctaText: "Join eToro",
+    ctaLink: "/brokers/etoro/",
+    featured: false
+  },
+  {
+    name: "Axi",
+    logo: "/images/brokers/axi-logo.svg",
+    rating: "4.4",
+    stars: "4",
+    features: [
+      "70+ forex pairs",
+      "Raw spreads from 0.0 pips",
+      "ECN execution",
+      "Free Autochartist",
+      "Great for beginners"
+    ],
+    ctaText: "Trade with Axi",
+    ctaLink: "/brokers/axi/",
+    featured: false
+  }
+];
+
+// Common beginner mistakes
+const beginnerMistakes = [
+  {
+    mistake: "Using Too Much Leverage",
+    description: "High leverage magnifies losses. A 1% move against you with 1:100 leverage wipes your account.",
+    solution: "Start with 1:10 or lower. Increase only as you gain experience."
+  },
+  {
+    mistake: "Trading Without a Plan",
+    description: "Entering trades based on gut feeling or tips leads to random, unprofitable results.",
+    solution: "Write down your entry rules, exit rules, and position size before every trade."
+  },
+  {
+    mistake: "Ignoring Risk Management",
+    description: "Not using stop losses or risking too much per trade. One bad trade shouldn't hurt you significantly.",
+    solution: "Never risk more than 1-2% of your account on a single trade. Always use stop losses."
+  },
+  {
+    mistake: "Overtrading",
+    description: "Taking too many trades hoping to find winners. Quality matters more than quantity.",
+    solution: "Wait for your setup. 2-3 quality trades per week beats 20 mediocre ones."
+  }
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "Is forex trading profitable?",
+    answer: "Forex trading can be profitable, but most retail traders lose money. Studies show 70-80% of retail forex traders are unprofitable. Success requires education, discipline, proper risk management, and realistic expectations. Treat it as a skill that takes years to master, not a get-rich-quick scheme."
+  },
+  {
+    question: "How much money do I need to start forex trading?",
+    answer: "You can start with as little as $50-100 at most brokers using micro lots. However, $500-1,000 gives you more flexibility for proper position sizing. The key is starting small and only risking money you can afford to lose while you learn."
+  },
+  {
+    question: "What's the best currency pair for beginners?",
+    answer: "EUR/USD is the most popular choice for beginners. It has the tightest spreads, highest liquidity, and most predictable behavior. After mastering EUR/USD, many traders move to GBP/USD or USD/JPY."
+  },
+  {
+    question: "Is forex trading legal?",
+    answer: "Forex trading is legal in most countries, but regulations vary. In the US, brokers must be registered with the CFTC/NFA. In the UK, the FCA regulates forex brokers. Always trade with a broker regulated in your jurisdiction."
+  },
+  {
+    question: "When is the best time to trade forex?",
+    answer: "The London-New York overlap (8 AM - 12 PM ET) offers the highest liquidity and volatility for major pairs. For Asian pairs like USD/JPY, the Tokyo session (7 PM - 4 AM ET) is best. Avoid trading during low-liquidity periods like weekends and major holidays."
+  },
+  {
+    question: "What's the difference between forex and stocks?",
+    answer: "Forex trades currencies in pairs (EUR/USD), operates 24/5, uses higher leverage, and has no central exchange. Stocks trade company shares, operate during market hours, typically use lower leverage, and trade on exchanges like NYSE. Forex generally has lower transaction costs and higher liquidity."
+  }
+];
+
+// Anchor menu items
+const anchorMenuItems = [
+  { text: "What is Forex", href: "#what-is-forex" },
+  { text: "Currency Pairs", href: "#pairs" },
+  { text: "Sessions", href: "#sessions" },
+  { text: "Get Started", href: "#get-started" },
+  { text: "Analysis", href: "#analysis" },
+  { text: "Brokers", href: "#brokers" },
+  { text: "FAQs", href: "#faqs" }
+];
+---
+
+<BaseLayout
+  title="Forex Trading Basics: Complete Beginner's Guide 2026"
+  description="Learn forex trading from scratch. Understand currency pairs, pips, leverage, and how to start trading forex in 2026. Free comprehensive guide for beginners."
+>
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Guides', href: '/guides/' },
+    { text: 'Forex Trading Basics', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-icon">💱</span>
+          BEGINNER'S GUIDE
+        </div>
+        <h1 class="hero-title">Forex Trading Basics</h1>
+        <p class="hero-description">
+          Everything you need to know to start trading currencies. From understanding pips to choosing your first broker.
+        </p>
+
+        <!-- Key Stats -->
+        <div class="stats-grid">
+          {keyStats.map((stat) => (
+            <div class="stat-card">
+              <div class="stat-icon">{stat.icon}</div>
+              <span class="stat-value">{stat.value}</span>
+              <span class="stat-label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANCHOR NAVIGATION -->
+  <nav class="anchor-nav" id="anchorNav">
+    <div class="container">
+      <div class="anchor-links">
+        {anchorMenuItems.map((item) => (
+          <a href={item.href} class="anchor-link">{item.text}</a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- WHAT IS FOREX -->
+  <section class="section" id="what-is-forex">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What is Forex Trading?</h2>
+        <p class="section-subtitle">
+          Forex (FX) is the global marketplace for exchanging national currencies. It's the largest financial market in the world, with $7.5 trillion traded daily.
+        </p>
+      </div>
+
+      <div class="intro-content">
+        <p>When you travel abroad and exchange dollars for euros, you're participating in forex. When you trade forex online, you're speculating on whether one currency will strengthen or weaken against another.</p>
+        <p>If you think the Euro will rise against the US Dollar, you buy EUR/USD. If you're right and the Euro strengthens, you sell for a profit. If you're wrong, you take a loss.</p>
+      </div>
+
+      <h3 class="subsection-title">Key Terms You Need to Know</h3>
+      <div class="terms-grid">
+        {forexBasics.map((item) => (
+          <div class="term-card">
+            <h4 class="term-name">{item.term}</h4>
+            <p class="term-definition">{item.definition}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENCY PAIRS -->
+  <section class="section section-alt" id="pairs">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Major Currency Pairs</h2>
+        <p class="section-subtitle">
+          Major pairs include the US Dollar and are the most traded. They have the tightest spreads and highest liquidity.
+        </p>
+      </div>
+
+      <div class="pairs-table-wrapper">
+        <table class="pairs-table">
+          <thead>
+            <tr>
+              <th>Pair</th>
+              <th>Name</th>
+              <th>Nickname</th>
+              <th>Typical Spread</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody>
+            {majorPairs.map((pair) => (
+              <tr>
+                <td class="pair-code">{pair.pair}</td>
+                <td>{pair.name}</td>
+                <td class="pair-nickname">{pair.nickname}</td>
+                <td>{pair.spread}</td>
+                <td>{pair.volume}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pair-types">
+        <div class="pair-type-card">
+          <h4>Minor Pairs</h4>
+          <p>Currency pairs without USD but with major currencies. Examples: EUR/GBP, EUR/JPY, GBP/JPY. Wider spreads than majors.</p>
+        </div>
+        <div class="pair-type-card">
+          <h4>Exotic Pairs</h4>
+          <p>Major currency paired with an emerging market currency. Examples: USD/TRY, EUR/ZAR. Widest spreads, higher volatility.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADING SESSIONS -->
+  <section class="section" id="sessions">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Forex Trading Sessions</h2>
+        <p class="section-subtitle">
+          Forex markets are open 24 hours, 5 days a week. Different sessions have different characteristics.
+        </p>
+      </div>
+
+      <div class="sessions-grid">
+        {tradingSessions.map((session) => (
+          <div class="session-card">
+            <h3 class="session-name">{session.name}</h3>
+            <p class="session-hours">{session.hours}</p>
+            <p class="session-description">{session.description}</p>
+            <div class="session-pairs">
+              <strong>Best pairs:</strong> {session.bestPairs.join(', ')}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="session-tip">
+        <p><strong>Pro tip:</strong> The London-New York overlap (8 AM - 12 PM ET) is the most active period with the highest volatility and tightest spreads.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT MOVES FOREX -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What Moves Currency Prices?</h2>
+        <p class="section-subtitle">
+          Understanding these factors helps you anticipate market movements.
+        </p>
+      </div>
+
+      <div class="movers-grid">
+        {marketMovers.map((mover) => (
+          <div class="mover-card">
+            <span class="mover-icon">{mover.icon}</span>
+            <h3 class="mover-title">{mover.title}</h3>
+            <p class="mover-description">{mover.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GETTING STARTED -->
+  <section class="section" id="get-started">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">How to Start Forex Trading</h2>
+        <p class="section-subtitle">
+          Follow these steps to begin your forex trading journey the right way.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        {gettingStartedSteps.map((step) => (
+          <div class="step-card">
+            <div class="step-number">{step.number}</div>
+            <h3 class="step-title">{step.title}</h3>
+            <p class="step-description">{step.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="section-cta">
+        <a href="/brokers/" class="cta-button primary">
+          Compare Forex Brokers
+        </a>
+        <p class="cta-subtitle">
+          Find a regulated broker with tight spreads
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANALYSIS TYPES -->
+  <section class="section section-alt" id="analysis">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Types of Forex Analysis</h2>
+        <p class="section-subtitle">
+          Successful traders use one or more of these approaches to make trading decisions.
+        </p>
+      </div>
+
+      <div class="analysis-grid">
+        {analysisTypes.map((type) => (
+          <div class="analysis-card">
+            <span class="analysis-icon">{type.icon}</span>
+            <h3 class="analysis-title">{type.title}</h3>
+            <p class="analysis-description">{type.description}</p>
+            <p class="analysis-best-for"><strong>Best for:</strong> {type.bestFor}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMON MISTAKES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Common Beginner Mistakes</h2>
+        <p class="section-subtitle">
+          Avoid these pitfalls that trap most new forex traders.
+        </p>
+      </div>
+
+      <div class="mistakes-grid">
+        {beginnerMistakes.map((item) => (
+          <div class="mistake-card">
+            <h3 class="mistake-title">{item.mistake}</h3>
+            <p class="mistake-description">{item.description}</p>
+            <p class="mistake-solution"><strong>Solution:</strong> {item.solution}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BROKERS SECTION -->
+  <section class="section section-alt" id="brokers">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Best Forex Brokers for Beginners</h2>
+        <p class="section-subtitle">
+          Regulated brokers with beginner-friendly platforms and educational resources.
+        </p>
+      </div>
+
+      <div class="brokers-grid">
+        {featuredBrokers.map((broker) => (
+          <div class={`broker-card ${broker.featured ? 'featured' : ''}`}>
+            {broker.featured && <span class="featured-badge">Top Pick</span>}
+            <div class="broker-header">
+              <img src={broker.logo} alt={`${broker.name} logo`} class="broker-logo" loading="lazy" />
+              <div class="broker-rating">
+                <span class="rating-stars">{'★'.repeat(parseInt(broker.stars))}</span>
+                <span class="rating-value">{broker.rating}/5</span>
+              </div>
+            </div>
+            <h3 class="broker-name">{broker.name}</h3>
+            <ul class="broker-features">
+              {broker.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            <a href={broker.ctaLink} class="broker-cta">{broker.ctaText}</a>
+          </div>
+        ))}
+      </div>
+
+      <div class="section-cta">
+        <a href="/brokers/" class="cta-button secondary">
+          View All Forex Brokers
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section" id="faqs">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Forex Trading FAQs</h2>
+        <p class="section-subtitle">
+          Answers to the most common questions from forex beginners.
+        </p>
+      </div>
+
+      <div class="faq-list">
+        {faqs.map((faq) => (
+          <details class="faq-item">
+            <summary class="faq-question">{faq.question}</summary>
+            <p class="faq-answer">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="final-cta">
+        <h2>Ready to Start Trading Forex?</h2>
+        <p>Open a demo account to practice risk-free. When you're confident, start live trading with a regulated broker.</p>
+        <div class="cta-buttons">
+          <a href="/brokers/" class="cta-button primary">Find a Broker</a>
+          <a href="/guides/day-trading/" class="cta-button secondary">Learn Day Trading</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #2d3436 100%);
+    color: var(--white);
+    padding: var(--space-3xl) 0;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background: rgba(255, 72, 0, 0.2);
+    color: var(--brand-orange);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin-bottom: var(--space-lg);
+  }
+
+  .badge-icon {
+    font-size: var(--text-lg);
+  }
+
+  .hero-title {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    margin-bottom: var(--space-md);
+    line-height: 1.1;
+  }
+
+  .hero-description {
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-xl);
+    line-height: 1.6;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .stat-icon {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-xs);
+  }
+
+  .stat-value {
+    display: block;
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--brand-orange);
+  }
+
+  .stat-label {
+    display: block;
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: var(--space-xs);
+  }
+
+  /* Anchor Navigation */
+  .anchor-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: var(--space-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .anchor-links {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .anchor-link {
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+  }
+
+  .anchor-link:hover {
+    color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.1);
+  }
+
+  /* Section Styles */
+  .section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .section-alt {
+    background: var(--gray-50);
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--space-2xl);
+  }
+
+  .section-title {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .section-subtitle {
+    font-size: var(--text-lg);
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+
+  .subsection-title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin: var(--space-2xl) 0 var(--space-lg);
+    text-align: center;
+  }
+
+  /* Intro Content */
+  .intro-content {
+    max-width: 800px;
+    margin: 0 auto var(--space-2xl);
+    text-align: center;
+  }
+
+  .intro-content p {
+    color: var(--gray-600);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+  }
+
+  /* Terms Grid */
+  .terms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .term-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .term-name {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--brand-orange);
+    margin-bottom: var(--space-sm);
+  }
+
+  .term-definition {
+    color: var(--gray-600);
+    line-height: 1.6;
+    font-size: var(--text-sm);
+  }
+
+  /* Pairs Table */
+  .pairs-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: var(--space-xl);
+  }
+
+  .pairs-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .pairs-table th,
+  .pairs-table td {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .pairs-table th {
+    background: var(--charcoal);
+    color: var(--white);
+    font-weight: 600;
+    font-size: var(--text-sm);
+  }
+
+  .pairs-table td {
+    color: var(--gray-600);
+  }
+
+  .pair-code {
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .pair-nickname {
+    font-style: italic;
+    color: var(--gray-500);
+  }
+
+  /* Pair Types */
+  .pair-types {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .pair-type-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .pair-type-card h4 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .pair-type-card p {
+    color: var(--gray-600);
+    line-height: 1.6;
+    font-size: var(--text-sm);
+  }
+
+  /* Sessions Grid */
+  .sessions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .session-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .session-name {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .session-hours {
+    color: var(--brand-orange);
+    font-weight: 500;
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .session-description {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    margin-bottom: var(--space-md);
+  }
+
+  .session-pairs {
+    font-size: var(--text-xs);
+    color: var(--gray-500);
+    background: var(--gray-50);
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+  }
+
+  .session-tip {
+    background: rgba(255, 72, 0, 0.1);
+    border-left: 4px solid var(--brand-orange);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+  }
+
+  .session-tip p {
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  /* Movers Grid */
+  .movers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .mover-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .mover-icon {
+    font-size: var(--text-3xl);
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .mover-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .mover-description {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  /* Steps Grid */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .step-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .step-number {
+    width: 48px;
+    height: 48px;
+    background: var(--brand-orange);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-xl);
+    font-weight: 700;
+    margin: 0 auto var(--space-md);
+  }
+
+  .step-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .step-description {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  /* Analysis Grid */
+  .analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .analysis-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .analysis-icon {
+    font-size: var(--text-3xl);
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .analysis-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .analysis-description {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    margin-bottom: var(--space-md);
+  }
+
+  .analysis-best-for {
+    font-size: var(--text-xs);
+    color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.1);
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+  }
+
+  /* Mistakes Grid */
+  .mistakes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .mistake-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .mistake-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: #ef4444;
+    margin-bottom: var(--space-sm);
+  }
+
+  .mistake-description {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-sm);
+    line-height: 1.5;
+  }
+
+  .mistake-solution {
+    font-size: var(--text-sm);
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+    line-height: 1.5;
+  }
+
+  /* Brokers Grid */
+  .brokers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .broker-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .broker-card.featured {
+    border: 2px solid var(--brand-orange);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+  }
+
+  .broker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-logo {
+    height: 32px;
+    width: auto;
+  }
+
+  .broker-rating {
+    text-align: right;
+  }
+
+  .rating-stars {
+    color: #f59e0b;
+    font-size: var(--text-sm);
+  }
+
+  .rating-value {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--gray-500);
+  }
+
+  .broker-name {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg);
+    flex-grow: 1;
+  }
+
+  .broker-features li {
+    padding: var(--space-xs) 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: var(--text-sm);
+    color: var(--gray-600);
+  }
+
+  .broker-features li:last-child {
+    border-bottom: none;
+  }
+
+  .broker-cta {
+    display: block;
+    background: var(--brand-orange);
+    color: var(--white);
+    text-align: center;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .broker-cta:hover {
+    background: #e64100;
+  }
+
+  /* FAQ Section */
+  .faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    padding: var(--space-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question::after {
+    content: '+';
+    font-size: var(--text-xl);
+    color: var(--brand-orange);
+    transition: transform 0.2s;
+  }
+
+  .faq-item[open] .faq-question::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--gray-600);
+    line-height: 1.7;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #2d3436 100%);
+    color: var(--white);
+    padding: var(--space-3xl);
+    border-radius: var(--radius-xl);
+    text-align: center;
+  }
+
+  .final-cta h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .final-cta p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-xl);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+  }
+
+  /* CTA Buttons */
+  .section-cta {
+    text-align: center;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .cta-button.primary {
+    background: var(--brand-orange);
+    color: var(--white);
+  }
+
+  .cta-button.primary:hover {
+    background: #e64100;
+  }
+
+  .cta-button.secondary {
+    background: transparent;
+    color: var(--brand-orange);
+    border: 2px solid var(--brand-orange);
+  }
+
+  .cta-button.secondary:hover {
+    background: var(--brand-orange);
+    color: var(--white);
+  }
+
+  .final-cta .cta-button.secondary {
+    color: var(--white);
+    border-color: var(--white);
+  }
+
+  .final-cta .cta-button.secondary:hover {
+    background: var(--white);
+    color: var(--charcoal);
+  }
+
+  .cta-subtitle {
+    color: var(--gray-500);
+    font-size: var(--text-sm);
+    margin-top: var(--space-sm);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .stats-grid,
+    .sessions-grid,
+    .movers-grid,
+    .steps-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .terms-grid,
+    .analysis-grid,
+    .brokers-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: var(--text-3xl);
+    }
+
+    .stats-grid,
+    .sessions-grid,
+    .movers-grid,
+    .steps-grid,
+    .pair-types,
+    .mistakes-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .anchor-links {
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding-bottom: var(--space-sm);
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+  }
+</style>

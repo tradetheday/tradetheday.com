@@ -1,110 +1,110 @@
 /*
  * Trade the Day - Tools Pages Stylesheet
- * Dark theme styling for calculator and tool pages
- * Centralized to prevent style conflicts
+ * Light theme styling for calculator and tool pages
+ * Matches the main site style guide (DESIGN-SYSTEM.md)
  */
 
 /* ==========================================================================
-   TOOLS PAGE BASE - Dark Theme
+   TOOLS PAGE BASE - Light Theme
    ========================================================================== */
 
 .tool-page {
-    background: var(--black, #0a0a0a);
+    background: var(--white, #fafbfc);
     min-height: 100vh;
-    color: var(--white, #fafbfc);
+    color: var(--charcoal, #1E2427);
 }
 
 /* ==========================================================================
    TOOL HERO SECTION
-   Uses Standard tier (64px) from 3-tier hero system
+   Uses Standard tier from design system
    ========================================================================== */
 
 .tool-hero {
-    padding: var(--hero-padding-standard, 64px) 0;
+    padding: 48px 0 40px;  /* Design system: Standard tier */
     text-align: center;
-    background: linear-gradient(180deg, rgba(255, 72, 0, 0.1) 0%, transparent 100%);
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a1f2e 100%);
+    color: var(--white);
 }
 
-/* Mobile: Collapse to compact 48px */
 @media (max-width: 768px) {
     .tool-hero {
-        padding: var(--space-xl, 48px) 0;
+        padding: 32px 0 24px;
     }
 }
 
 .tool-hero-badge {
     display: inline-block;
-    background: var(--brand-orange, #FF4800);
+    background: rgba(255, 255, 255, 0.15);
     color: var(--white, #fafbfc);
-    padding: var(--space-xs, 8px) var(--space-md, 24px);
+    padding: 6px 12px;  /* Design system: badge padding */
     border-radius: 100px;
-    font-size: var(--font-size-sm, 14px);
-    font-weight: 700;
+    font-size: 12px;  /* Design system: badge font */
+    font-weight: 600;
     margin-bottom: var(--space-md, 24px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .tool-hero-title {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 800;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);  /* Design system: H1 max 40px */
+    font-weight: 700;
     margin-bottom: var(--space-md, 24px);
-    background: linear-gradient(135deg, var(--white, #fff) 0%, var(--brand-orange, #FF4800) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--white);
 }
 
 .tool-hero-subtitle {
-    font-size: var(--font-size-lg, 18px);
-    color: var(--gray-400, #a3a3a3);
-    max-width: 600px;
+    font-size: 16px;  /* Design system: subtitle */
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 540px;  /* Design system: subtitle max-width */
     margin: 0 auto;
+    line-height: 1.6;
 }
 
 /* ==========================================================================
-   TOOL CARDS & CONTAINERS
+   TOOL CARDS & CONTAINERS - Light Theme
    ========================================================================== */
 
 .tool-card {
-    background: var(--gray-900, #171b1e);
-    border-radius: var(--radius-xl, 24px);
-    padding: var(--space-xl, 48px);
-    border: 1px solid var(--gray-800, #1E2427);
+    background: var(--white, #fff);
+    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-lg, 32px);  /* Design system: large card padding */
+    border: 1px solid var(--gray-200, #e5e5e5);
+    box-shadow: var(--shadow-sm);
 }
 
-.tool-card-dark {
-    background: var(--gray-950, #0f0f0f);
+.tool-card:hover {
+    box-shadow: var(--shadow-md);
 }
 
 .tool-section-title {
-    font-size: var(--font-size-xl, 20px);
+    font-size: var(--font-size-xl, 19px);
     font-weight: 700;
     margin-bottom: var(--space-lg, 32px);
-    color: var(--white, #fafbfc);
+    color: var(--charcoal, #1E2427);
 }
 
 /* ==========================================================================
-   FORM CONTROLS - Dark Theme
+   FORM CONTROLS - Light Theme
    ========================================================================== */
 
-/* Input Group */
 .tool-input-group {
-    margin-bottom: var(--space-xl, 48px);
+    margin-bottom: var(--space-lg, 32px);
 }
 
 .tool-input-label {
     display: flex;
     align-items: center;
-    gap: var(--space-sm, 16px);
+    gap: var(--space-xs, 8px);
     font-weight: 600;
-    margin-bottom: var(--space-md, 24px);
-    color: var(--white, #fafbfc);
+    margin-bottom: var(--space-sm, 16px);
+    color: var(--charcoal, #1E2427);
+    font-size: 15px;
 }
 
 .tool-label-icon {
-    font-size: var(--font-size-lg, 18px);
+    font-size: 16px;
 }
 
-/* Range Slider */
+/* Range Slider - Light Theme */
 .tool-range-container {
     display: flex;
     align-items: center;
@@ -113,21 +113,21 @@
 
 .tool-range-slider {
     flex: 1;
-    height: 8px;
+    height: 6px;
     -webkit-appearance: none;
-    background: var(--gray-800, #1E2427);
-    border-radius: 4px;
+    background: var(--gray-200, #e5e5e5);
+    border-radius: 3px;
     outline: none;
 }
 
 .tool-range-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     background: var(--brand-orange, #FF4800);
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(255, 72, 0, 0.4);
+    box-shadow: 0 2px 6px rgba(255, 72, 0, 0.3);
     transition: transform 0.2s;
 }
 
@@ -136,51 +136,53 @@
 }
 
 .tool-range-slider::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     background: var(--brand-orange, #FF4800);
     border-radius: 50%;
     cursor: pointer;
     border: none;
-    box-shadow: 0 2px 8px rgba(255, 72, 0, 0.4);
+    box-shadow: 0 2px 6px rgba(255, 72, 0, 0.3);
 }
 
 .tool-range-value {
-    min-width: 120px;
+    min-width: 100px;
     text-align: right;
     font-weight: 700;
     color: var(--brand-orange, #FF4800);
-    font-size: var(--font-size-lg, 18px);
+    font-size: 17px;
 }
 
 .tool-range-hints {
     display: flex;
     justify-content: space-between;
-    margin-top: var(--space-sm, 16px);
-    font-size: var(--font-size-sm, 14px);
-    color: var(--gray-400, #a3a3a3);
+    margin-top: var(--space-xs, 8px);
+    font-size: 13px;
+    color: var(--gray-500, #737373);
 }
 
-/* Button Groups */
+/* Button Groups - Light Theme */
 .tool-btn-group {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-sm, 16px);
+    gap: var(--space-xs, 8px);
 }
 
 .tool-option-btn {
-    padding: var(--space-sm, 16px) var(--space-md, 24px);
-    background: var(--gray-800, #1E2427);
-    border: 2px solid var(--gray-700, #404040);
-    border-radius: var(--radius-md, 12px);
-    color: var(--white, #fafbfc);
-    font-weight: 600;
+    padding: 8px 16px;
+    background: var(--white, #fff);
+    border: 1px solid var(--gray-300, #d4d4d4);
+    border-radius: 6px;
+    color: var(--charcoal, #1E2427);
+    font-weight: 500;
+    font-size: 14px;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .tool-option-btn:hover {
     border-color: var(--brand-orange, #FF4800);
+    background: rgba(255, 72, 0, 0.05);
 }
 
 .tool-option-btn:focus-visible {
@@ -191,9 +193,10 @@
 .tool-option-btn.active {
     background: var(--brand-orange, #FF4800);
     border-color: var(--brand-orange, #FF4800);
+    color: var(--white);
 }
 
-/* Style Cards (for trading style selection etc) */
+/* Style Cards - Light Theme */
 .tool-style-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -211,8 +214,8 @@
     flex-direction: column;
     align-items: center;
     padding: var(--space-md, 24px);
-    background: var(--gray-800, #1E2427);
-    border: 2px solid var(--gray-700, #404040);
+    background: var(--white, #fff);
+    border: 1px solid var(--gray-200, #e5e5e5);
     border-radius: var(--radius-md, 12px);
     cursor: pointer;
     transition: all 0.2s;
@@ -220,6 +223,7 @@
 
 .tool-style-btn:hover {
     border-color: var(--brand-orange, #FF4800);
+    box-shadow: var(--shadow-sm);
 }
 
 .tool-style-btn:focus-visible {
@@ -228,7 +232,7 @@
 }
 
 .tool-style-btn.active {
-    background: rgba(255, 72, 0, 0.1);
+    background: rgba(255, 72, 0, 0.05);
     border-color: var(--brand-orange, #FF4800);
 }
 
@@ -238,25 +242,28 @@
 }
 
 .tool-style-name {
-    font-weight: 700;
-    color: var(--white, #fafbfc);
+    font-weight: 600;
+    color: var(--charcoal, #1E2427);
+    font-size: 15px;
 }
 
 .tool-style-desc {
-    font-size: var(--font-size-sm, 14px);
-    color: var(--gray-400, #a3a3a3);
+    font-size: 13px;
+    color: var(--gray-500, #737373);
+    margin-top: 4px;
 }
 
-/* Info Note */
+/* Info Note - Light Theme */
 .tool-note {
     display: flex;
     align-items: flex-start;
     gap: var(--space-sm, 16px);
     padding: var(--space-md, 24px);
-    background: rgba(255, 72, 0, 0.1);
+    background: var(--gray-50, #fafafa);
+    border: 1px solid var(--gray-200, #e5e5e5);
     border-radius: var(--radius-md, 12px);
-    font-size: var(--font-size-sm, 14px);
-    color: var(--gray-400, #a3a3a3);
+    font-size: 14px;
+    color: var(--gray-600, #525252);
 }
 
 .tool-note-icon {
@@ -264,7 +271,7 @@
 }
 
 /* ==========================================================================
-   RESULT CARDS
+   RESULT CARDS - Light Theme
    ========================================================================== */
 
 .tool-results-container {
@@ -274,8 +281,8 @@
 }
 
 .tool-result-card {
-    background: var(--gray-900, #171b1e);
-    border: 1px solid var(--gray-800, #1E2427);
+    background: var(--white, #fff);
+    border: 1px solid var(--gray-200, #e5e5e5);
     border-radius: var(--radius-lg, 16px);
     padding: var(--space-lg, 32px);
     position: relative;
@@ -283,12 +290,14 @@
 }
 
 .tool-result-card:hover {
-    border-color: var(--gray-700, #404040);
+    border-color: var(--gray-300, #d4d4d4);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .tool-result-card.featured {
     border-color: var(--brand-orange, #FF4800);
-    background: linear-gradient(135deg, rgba(255, 72, 0, 0.1) 0%, var(--gray-900, #171b1e) 100%);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.15);
 }
 
 .tool-result-card.highlighted {
@@ -301,14 +310,16 @@
     right: var(--space-md, 24px);
     background: var(--brand-orange, #FF4800);
     color: var(--white, #fafbfc);
-    padding: var(--space-xs, 8px) var(--space-sm, 16px);
-    border-radius: var(--radius-sm, 8px);
-    font-size: var(--font-size-xs, 12px);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 11px;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .tool-result-badge.secondary {
-    background: var(--gray-700, #404040);
+    background: var(--gray-500, #737373);
 }
 
 .tool-result-header {
@@ -319,29 +330,29 @@
 }
 
 .tool-result-logo {
-    height: 32px;
+    height: 28px;
     width: auto;
-    filter: brightness(0) invert(1);
 }
 
 .tool-result-logo-fallback {
     font-weight: 700;
-    font-size: var(--font-size-lg, 18px);
-    color: var(--white, #fafbfc);
+    font-size: 17px;
+    color: var(--charcoal, #1E2427);
 }
 
 .tool-result-rating {
     display: flex;
     align-items: center;
     gap: var(--space-xs, 8px);
-    color: var(--gray-400, #a3a3a3);
+    color: var(--gray-500, #737373);
+    font-size: 14px;
 }
 
 .tool-result-rating .stars {
     color: var(--brand-orange);
 }
 
-/* Cost Rows */
+/* Cost Rows - Light Theme */
 .tool-cost-rows {
     margin-bottom: var(--space-md, 24px);
 }
@@ -349,63 +360,65 @@
 .tool-cost-row {
     display: flex;
     justify-content: space-between;
-    padding: var(--space-xs, 8px) 0;
-    font-size: var(--font-size-sm, 14px);
+    padding: 6px 0;
+    font-size: 14px;
 }
 
 .tool-cost-label {
-    color: var(--gray-400, #a3a3a3);
+    color: var(--gray-500, #737373);
 }
 
 .tool-cost-value {
     font-weight: 600;
-    color: var(--white, #fafbfc);
+    color: var(--charcoal, #1E2427);
 }
 
 .tool-cost-row.total {
-    border-top: 1px solid var(--gray-800, #1E2427);
+    border-top: 1px solid var(--gray-200, #e5e5e5);
     margin-top: var(--space-sm, 16px);
     padding-top: var(--space-sm, 16px);
 }
 
 .tool-cost-row.total .tool-cost-value {
     color: var(--brand-orange, #FF4800);
-    font-size: var(--font-size-base, 16px);
+    font-size: 16px;
 }
 
-/* Feature Tags */
+/* Feature Tags - Light Theme */
 .tool-features {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-xs, 8px);
+    gap: 6px;
     margin-bottom: var(--space-md, 24px);
 }
 
 .tool-feature-tag {
-    background: var(--gray-800, #1E2427);
-    color: var(--gray-400, #a3a3a3);
+    background: var(--gray-100, #f5f5f5);
+    color: var(--gray-600, #525252);
     padding: 2px 8px;
-    border-radius: var(--radius-sm, 8px);
-    font-size: var(--font-size-xs, 12px);
+    border-radius: 4px;
+    font-size: 12px;
 }
 
-/* Result CTA */
+/* Result CTA - Light Theme */
 .tool-result-cta {
     display: block;
     width: 100%;
-    padding: var(--space-sm, 16px) var(--space-md, 24px);
-    background: var(--gray-800, #1E2427);
-    border: 1px solid var(--gray-700, #404040);
-    border-radius: var(--radius-md, 12px);
-    color: var(--white, #fafbfc);
+    padding: 10px 20px;
+    background: var(--white, #fff);
+    border: 1px solid var(--gray-300, #d4d4d4);
+    border-radius: 8px;
+    color: var(--charcoal, #1E2427);
     text-align: center;
     font-weight: 600;
+    font-size: 15px;
     text-decoration: none;
     transition: all 0.2s;
 }
 
 .tool-result-cta:hover {
-    background: var(--gray-700, #404040);
+    border-color: var(--brand-orange, #FF4800);
+    color: var(--brand-orange, #FF4800);
 }
 
 .tool-result-cta:focus-visible {
@@ -416,26 +429,27 @@
 .tool-result-cta.primary {
     background: var(--brand-orange, #FF4800);
     border-color: var(--brand-orange, #FF4800);
+    color: var(--white);
 }
 
 .tool-result-cta.primary:hover {
-    background: var(--brand-orange-dark, #e63e00);
+    background: #e63e00;
 }
 
-/* Savings Callout */
+/* Savings Callout - Light Theme */
 .tool-savings-box {
     display: flex;
     align-items: center;
     gap: var(--space-md, 24px);
-    padding: var(--space-lg, 32px);
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.05) 100%);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    border-radius: var(--radius-lg, 16px);
+    padding: var(--space-md, 24px);
+    background: rgba(16, 185, 129, 0.08);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: var(--radius-md, 12px);
     margin-top: var(--space-lg, 32px);
 }
 
 .tool-savings-icon {
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .tool-savings-text {
@@ -445,21 +459,21 @@
 
 .tool-savings-text strong {
     color: var(--success, #10B981);
-    font-size: var(--font-size-lg, 18px);
+    font-size: 17px;
 }
 
 .tool-savings-text span {
-    color: var(--gray-400, #a3a3a3);
-    font-size: var(--font-size-sm, 14px);
+    color: var(--gray-600, #525252);
+    font-size: 13px;
 }
 
 /* ==========================================================================
-   TOOL CTA SECTION
+   TOOL CTA SECTION - Light Theme
    ========================================================================== */
 
 .tool-cta-section {
-    padding: var(--space-2xl, 64px) 0;
-    background: linear-gradient(180deg, transparent 0%, rgba(255, 72, 0, 0.1) 100%);
+    padding: var(--space-xl, 48px) 0;
+    background: var(--gray-50, #fafafa);
 }
 
 .tool-cta-box {
@@ -467,47 +481,48 @@
     justify-content: space-between;
     align-items: center;
     gap: var(--space-xl, 48px);
-    padding: var(--space-2xl, 64px);
-    background: var(--gray-900, #171b1e);
-    border: 1px solid var(--gray-800, #1E2427);
-    border-radius: var(--radius-xl, 24px);
+    padding: var(--space-lg, 32px);
+    background: var(--charcoal, #1E2427);
+    border-radius: var(--radius-lg, 16px);
+    color: var(--white);
 }
 
 @media (max-width: 768px) {
     .tool-cta-box {
         flex-direction: column;
         text-align: center;
-        padding: var(--space-xl, 48px);
+        padding: var(--space-md, 24px);
     }
 }
 
 .tool-cta-content h2 {
-    font-size: var(--font-size-2xl, 24px);
-    margin-bottom: var(--space-sm, 16px);
+    font-size: 22px;
+    margin-bottom: var(--space-xs, 8px);
     color: var(--white, #fafbfc);
 }
 
 .tool-cta-content p {
-    color: var(--gray-400, #a3a3a3);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
 }
 
 .tool-cta-button {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-sm, 16px);
-    padding: var(--space-md, 24px) var(--space-xl, 48px);
+    gap: var(--space-xs, 8px);
+    padding: 10px 20px;
     background: var(--brand-orange, #FF4800);
     color: var(--white, #fafbfc);
-    border-radius: var(--radius-md, 12px);
-    font-weight: 700;
-    font-size: var(--font-size-lg, 18px);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
     text-decoration: none;
     transition: all 0.3s;
     white-space: nowrap;
 }
 
 .tool-cta-button:hover {
-    background: var(--brand-orange-dark, #e63e00);
+    background: #e63e00;
     transform: translateY(-2px);
 }
 
@@ -525,26 +540,26 @@
 }
 
 /* ==========================================================================
-   HOW IT WORKS SECTION
+   HOW IT WORKS SECTION - Light Theme
    ========================================================================== */
 
 .tool-how-section {
-    padding: var(--space-3xl, 80px) 0;
-    background: var(--gray-950, #0f0f0f);
+    padding: var(--space-xl, 48px) 0;
+    background: var(--white, #fafbfc);
 }
 
 .tool-section-heading {
-    font-size: var(--font-size-2xl, 24px);
+    font-size: 26px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: var(--space-2xl, 64px);
-    color: var(--white, #fafbfc);
+    margin-bottom: var(--space-xl, 48px);
+    color: var(--charcoal, #1E2427);
 }
 
 .tool-how-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-xl, 48px);
+    gap: var(--space-lg, 32px);
 }
 
 @media (max-width: 768px) {
@@ -561,40 +576,41 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
     background: var(--brand-orange, #FF4800);
     color: var(--white, #fafbfc);
     border-radius: 50%;
     font-weight: 700;
-    font-size: var(--font-size-lg, 18px);
-    margin-bottom: var(--space-md, 24px);
+    font-size: 16px;
+    margin-bottom: var(--space-sm, 16px);
 }
 
 .tool-how-card h3 {
-    font-size: var(--font-size-lg, 18px);
-    margin-bottom: var(--space-sm, 16px);
-    color: var(--white, #fafbfc);
+    font-size: 17px;
+    margin-bottom: var(--space-xs, 8px);
+    color: var(--charcoal, #1E2427);
 }
 
 .tool-how-card p {
-    color: var(--gray-400, #a3a3a3);
-    font-size: var(--font-size-sm, 14px);
+    color: var(--gray-600, #525252);
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 /* ==========================================================================
-   TOOL FAQ SECTION
+   TOOL FAQ SECTION - Light Theme
    ========================================================================== */
 
 .tool-faq-section {
-    padding: var(--space-3xl, 80px) 0;
-    background: var(--black, #0a0a0a);
+    padding: var(--space-xl, 48px) 0;
+    background: var(--gray-50, #fafafa);
 }
 
 .tool-faq-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-xl, 48px);
+    gap: var(--space-lg, 32px);
 }
 
 @media (max-width: 768px) {
@@ -604,14 +620,14 @@
 }
 
 .tool-faq-item h3 {
-    font-size: var(--font-size-base, 16px);
-    margin-bottom: var(--space-sm, 16px);
-    color: var(--white, #fafbfc);
+    font-size: 15px;
+    margin-bottom: var(--space-xs, 8px);
+    color: var(--charcoal, #1E2427);
 }
 
 .tool-faq-item p {
-    color: var(--gray-400, #a3a3a3);
-    font-size: var(--font-size-sm, 14px);
+    color: var(--gray-600, #525252);
+    font-size: 14px;
     line-height: 1.6;
 }
 
@@ -622,9 +638,9 @@
 .tool-calculator-layout {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
-    gap: var(--space-2xl, 64px);
+    gap: var(--space-xl, 48px);
     align-items: start;
-    padding: var(--space-xl, 48px) 0 var(--space-3xl, 80px);
+    padding: var(--space-xl, 48px) 0;
 }
 
 @media (max-width: 968px) {
@@ -636,4 +652,91 @@
 .tool-results-sticky {
     position: sticky;
     top: 100px;
+}
+
+/* ==========================================================================
+   TEXT INPUT FIELDS - Light Theme
+   ========================================================================== */
+
+.tool-text-input {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 15px;
+    border: 1px solid var(--gray-300, #d4d4d4);
+    border-radius: 8px;
+    background: var(--white, #fff);
+    color: var(--charcoal, #1E2427);
+    transition: border-color 0.2s;
+}
+
+.tool-text-input:focus {
+    outline: none;
+    border-color: var(--brand-orange, #FF4800);
+    box-shadow: 0 0 0 3px rgba(255, 72, 0, 0.1);
+}
+
+.tool-text-input::placeholder {
+    color: var(--gray-400, #a3a3a3);
+}
+
+/* ==========================================================================
+   RESULT DISPLAY BOX - Light Theme
+   ========================================================================== */
+
+.tool-result-box {
+    background: var(--gray-50, #fafafa);
+    border: 1px solid var(--gray-200, #e5e5e5);
+    border-radius: var(--radius-md, 12px);
+    padding: var(--space-lg, 32px);
+    text-align: center;
+}
+
+.tool-result-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--brand-orange, #FF4800);
+    margin-bottom: var(--space-xs, 8px);
+}
+
+.tool-result-label {
+    font-size: 14px;
+    color: var(--gray-500, #737373);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   TOOL GRID RESULTS - Light Theme
+   ========================================================================== */
+
+.tool-results-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm, 16px);
+}
+
+@media (max-width: 480px) {
+    .tool-results-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.tool-result-item {
+    background: var(--white, #fff);
+    border: 1px solid var(--gray-200, #e5e5e5);
+    border-radius: 8px;
+    padding: var(--space-md, 24px);
+    text-align: center;
+}
+
+.tool-result-item-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--charcoal, #1E2427);
+    margin-bottom: 4px;
+}
+
+.tool-result-item-label {
+    font-size: 13px;
+    color: var(--gray-500, #737373);
 }

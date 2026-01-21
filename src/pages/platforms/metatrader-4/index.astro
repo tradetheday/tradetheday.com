@@ -1,0 +1,1609 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import TrustBadges from '../../../components/TrustBadges.astro';
+import { getBrokersByPlatform } from '../../../data/brokers';
+
+const pageTitle = "MetaTrader 4 Review 2026: The Ultimate MT4 Guide + Best Brokers";
+const pageDescription = "Complete MetaTrader 4 review and guide. Download MT4 free, learn all features, Expert Advisors, and find the best MT4 brokers with tight spreads.";
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Platforms', href: '/platforms/' },
+  { text: 'MetaTrader 4', current: true }
+];
+
+// Sub-pages for internal linking
+const mt4SubPages = [
+  { title: 'Best MT4 Brokers 2026', url: '/platforms/metatrader-4/best-mt4-brokers/', description: 'Full comparison of top MT4 brokers' }
+];
+
+// Get brokers that support MT4
+const mt4Brokers = getBrokersByPlatform('MetaTrader 4');
+
+const currentYear = new Date().getFullYear();
+
+// Key features table data
+const keyFeatures = [
+  { feature: 'Responsiveness', performance: 'With a fast connection (VPS) MT4 rivals institutional trading systems', icon: '⏱' },
+  { feature: 'Devices', performance: 'Desktop, Mobile, Tablet (PC, Apple, Android)', icon: '📱' },
+  { feature: 'Charting', performance: 'Simplicity and flexibility are key to MT4s charting popularity', icon: '📈' },
+  { feature: 'Ease of Use', performance: 'Beginner to Advanced – MT4 can get as complex as needed', icon: '🏪' },
+  { feature: 'News', performance: 'News and event updates in the MT4 Terminal', icon: '📰' },
+  { feature: 'Automation', performance: 'Entire library of Expert Advisors and signals to plug-in', icon: '🤖' },
+  { feature: 'Coverage', performance: "The world's most popular trading platform", icon: '🗺' },
+  { feature: 'API', performance: 'MT4 API connects any platform to an MT4 server of a broker', icon: '🖥' },
+  { feature: 'Cost', performance: 'MetaTrader 4 is Free to download', icon: '💰' }
+];
+
+// MT4 system features
+const systemFeatures = [
+  'Instant execution',
+  'Two market orders',
+  'Three execution modes',
+  'Two stop orders'
+];
+
+// MT4 analytics features
+const analyticsFeatures = [
+  '30 technical indicators',
+  '23 analytical objects',
+  'Nine timeframes',
+  'Interactive charts'
+];
+
+// Reasons to use MT4
+const reasonsToUse = [
+  'MetaTrader 4 is the most popular trading terminal in the world',
+  'Traders are very familiar with the combination of a user-friendly interface and an advanced charting package that comes "out of the box"',
+  'The ability to create and use automated trading programs (Expert Advisors) make MT4 a firm favourite among retail traders',
+  'Traders managing multiple accounts simultaneously benefit from MT4\'s multi-account support',
+  'Mobile trading is seamless with MT4, allowing real-time account control from any device',
+  'Over 15+ years in retail trading means a huge online community with tools, plugins, tips and guides',
+  'Free to download and use with any MT4 broker'
+];
+
+// Reason not to use
+const reasonsNotToUse = [
+  'MetaTrader 4 has a newer version, MetaTrader 5. MT5 is still not as popular (despite being released in 2010). MetaQuotes does not allow new brokers to license MT4, and will eventually stop offering support for MT4 to current brokers, who will be forced to make the switch.'
+];
+
+// Getting started steps
+const gettingStartedSteps = [
+  {
+    title: 'Download & Install MT4',
+    content: 'Click the download link for your device (PC, Mac, iOS, Android). Run the installer, accept the terms, and wait for installation to complete. The process takes under 2 minutes.'
+  },
+  {
+    title: 'Set Up Your Demo Account',
+    content: 'After installation, MT4 will launch automatically. Go to File → Open an Account, select a broker, and register for a demo account. You\'ll need your name, email, and preferred account settings.'
+  },
+  {
+    title: 'Customize Your Workspace',
+    content: 'Set your preferred chart type (candlesticks, bars, or lines), choose your timeframe, and select a color scheme. Use the View tab to toggle toolbars, the market watch window, and navigator panel.'
+  },
+  {
+    title: 'Add Indicators',
+    content: 'Go to Insert → Indicators to access 30+ built-in indicators. Popular choices include Moving Averages, RSI, MACD, and Bollinger Bands. You can also download custom indicators from the MT4 marketplace.'
+  },
+  {
+    title: 'Place Your First Trade',
+    content: 'Open the order window by pressing F9 or right-clicking a chart. Select your lot size, set stop loss and take profit levels, then click Buy or Sell. Start with small positions while learning.'
+  }
+];
+
+// Keyboard shortcuts
+const keyboardShortcuts = [
+  { keys: 'F9', action: 'Open New Order window' },
+  { keys: 'F10', action: 'Open Popup Prices window' },
+  { keys: 'F11', action: 'Toggle Full Screen mode' },
+  { keys: 'Ctrl+T', action: 'Toggle Terminal window' },
+  { keys: 'Ctrl+N', action: 'Toggle Navigator window' },
+  { keys: 'Ctrl+M', action: 'Toggle Market Watch window' },
+  { keys: 'Ctrl+D', action: 'Toggle Data window' },
+  { keys: 'Ctrl+G', action: 'Toggle Grid on chart' },
+  { keys: 'Ctrl+I', action: 'Open Indicators list' },
+  { keys: '+/-', action: 'Zoom In/Out on chart' }
+];
+
+const faqData = [
+  {
+    question: 'What is MetaTrader 4?',
+    answer: 'MetaTrader 4 (MT4) is the world\'s most popular forex trading platform, developed by MetaQuotes Software in 2005. It offers advanced charting, technical analysis tools, automated trading via Expert Advisors (EAs), and is available on desktop, web, and mobile devices. MT4 is not a broker – it\'s a third-party platform that brokers license to provide trading access to their clients.'
+  },
+  {
+    question: 'Who owns MetaTrader 4?',
+    answer: 'MetaTrader 4 is owned by MetaQuotes Software Corp, the company that developed it. Brokers pay a licensing fee (around $100,000 upfront plus $15,000+ monthly) to offer MT4 to their clients. MetaQuotes provides the server infrastructure while brokers control the trading conditions.'
+  },
+  {
+    question: 'Is MetaTrader 4 a broker?',
+    answer: 'No, MT4 is not a broker. It\'s a trading platform that brokers use to connect traders to the markets. Brokers that primarily use MetaTrader are often called "MetaTrader Brokers". You need to open an account with a broker to use MT4 for live trading.'
+  },
+  {
+    question: 'Which broker has the best MT4?',
+    answer: `For ${currentYear}, AvaTrade offers one of the best MT4 experiences with multi-regulation (FCA, ASIC, CySEC), competitive spreads from 0.9 pips, and excellent EA support. Axi is ideal for ECN trading with raw spreads from 0.0 pips on MT4.`
+  },
+  {
+    question: 'Is MT4 free to use?',
+    answer: 'Yes, MT4 is completely free to download and use. You get the platform for free when you open an account with any MT4 broker. There are no platform fees – brokers make money from spreads and commissions on your trades, not from the platform itself.'
+  },
+  {
+    question: 'Can I use MT4 on Mac?',
+    answer: 'Yes, MT4 works on Mac. Most brokers offer either a native Mac version or recommend using Wine/PlayOnMac. You can also use MT4 WebTrader which runs in any browser without installation, or the MT4 mobile app on iPhone.'
+  },
+  {
+    question: 'What is an Expert Advisor (EA)?',
+    answer: 'An Expert Advisor (EA) is an automated trading program that runs on MT4. EAs can analyze markets, generate signals, and execute trades automatically based on pre-programmed rules. You can create your own EAs using MQL4 programming language, download free ones from the community, or purchase premium EAs from the MT4 marketplace.'
+  },
+  {
+    question: 'MT4 vs MT5 – which is better?',
+    answer: 'MT4 is better for forex-focused trading and has wider EA compatibility with a larger community. MT5 offers more timeframes (21 vs 9), a built-in economic calendar, depth of market, and supports more asset classes including stocks. Most forex traders still prefer MT4 for its simplicity and established EA ecosystem, but MT5 is gaining ground.'
+  },
+  {
+    question: 'My MT4 is displaying an "Invalid Account" error',
+    answer: 'This usually means incorrect login details. Double-check your account number, password, and server selection. Make sure you\'re using the correct server (demo vs live). If you\'ve forgotten your password, check your registration email or contact your broker\'s support team.'
+  },
+  {
+    question: 'What time does MetaTrader 4 display?',
+    answer: 'MT4 displays the broker\'s server time, which varies by broker. Most brokers use GMT+2 or GMT+3 (depending on daylight saving). This server time determines when daily candles open and close. You can check your broker\'s server time in the Market Watch window.'
+  },
+  {
+    question: 'How do I change my MT4 password?',
+    answer: 'Go to Tools → Options → Server tab. Click "Change" next to the password field. You\'ll need your current password to set a new one. For security, use a strong password and don\'t share it with anyone.'
+  },
+  {
+    question: 'Can I run multiple MT4 instances?',
+    answer: 'Yes, you can run multiple MT4 instances on the same computer. Install MT4 to different folders (e.g., MT4_Broker1, MT4_Broker2) and you can run them simultaneously. This is useful for trading with multiple brokers or managing different strategies.'
+  }
+];
+
+// Anchor nav items
+const anchorItems = [
+  { text: 'Best Brokers', href: '#brokers' },
+  { text: 'What is MT4', href: '#what-is-mt4' },
+  { text: 'Features', href: '#features' },
+  { text: 'Download', href: '#download' },
+  { text: 'Getting Started', href: '#getting-started' },
+  { text: 'FAQs', href: '#faq' }
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Schema.org markup -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "MetaTrader 4",
+    "alternateName": "MT4",
+    "applicationCategory": "FinanceApplication",
+    "operatingSystem": "Windows, macOS, iOS, Android, Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.5",
+      "ratingCount": "50000"
+    }
+  })} />
+
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqData.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  })} />
+
+  <!-- Hero -->
+  <section class="mt4-hero">
+    <div class="container">
+      <div class="mt4-hero-badge">
+        <span class="badge-icon">📊</span>
+        <span>World's Most Popular Trading Platform</span>
+      </div>
+      <h1 class="heading-1">MetaTrader 4: The Ultimate MT4 Review {currentYear}</h1>
+      <p class="body-large mt4-hero-sub">
+        MetaTrader 4, also known as "MT4", is a free trading platform designed for forex and futures traders. Find the best MT4 brokers, learn all features, and start trading today.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-value">{mt4Brokers.length}+</span>
+          <span class="hero-stat-label">MT4 Brokers</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">16M+</span>
+          <span class="hero-stat-label">Traders Worldwide</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">Free</span>
+          <span class="hero-stat-label">To Download</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">2005</span>
+          <span class="hero-stat-label">Since</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <TrustBadges variant="light" compact={true} />
+
+  <!-- Anchor Navigation -->
+  <nav class="anchor-nav">
+    <div class="container">
+      <div class="anchor-links">
+        {anchorItems.map((item) => (
+          <a href={item.href} class="anchor-link">{item.text}</a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Best MT4 Brokers List -->
+  <section class="section" id="brokers">
+    <div class="container">
+      <h2 class="heading-2">Best MetaTrader 4 Brokers {currentYear}</h2>
+      <p class="section-intro">Our top-rated brokers offering MetaTrader 4, ranked by spreads, regulation, and overall value. All brokers are regulated and expert-reviewed.</p>
+
+      <div class="broker-list">
+        {mt4Brokers.map((broker, index) => (
+          <div class={`broker-card ${index === 0 ? 'broker-card--top' : ''}`}>
+            {index === 0 && <span class="top-badge">Editor's Choice</span>}
+            <div class="broker-card-rank">#{index + 1}</div>
+
+            <div class="broker-card-main">
+              <div class="broker-card-header">
+                <h3 class="broker-name">{broker.name}</h3>
+                <div class="broker-rating">
+                  <span class="rating-score">{broker.scores.overall}</span>
+                  <span class="rating-stars">{'★'.repeat(Math.floor(broker.scores.overall))}</span>
+                </div>
+              </div>
+
+              <p class="broker-tagline">{broker.tagline}</p>
+
+              <div class="broker-stats">
+                <div class="broker-stat">
+                  <span class="stat-label">Spreads</span>
+                  <span class="stat-value">{broker.spreadsFrom}</span>
+                </div>
+                <div class="broker-stat">
+                  <span class="stat-label">Min Deposit</span>
+                  <span class="stat-value">{broker.minDepositDisplay}</span>
+                </div>
+                <div class="broker-stat">
+                  <span class="stat-label">Regulation</span>
+                  <span class="stat-value">{broker.regulations[0]?.authority}</span>
+                </div>
+              </div>
+
+              <div class="broker-pros">
+                {broker.pros.slice(0, 3).map((pro) => (
+                  <span class="pro-item">✓ {pro}</span>
+                ))}
+              </div>
+            </div>
+
+            <div class="broker-card-actions">
+              <a href={broker.reviewUrl} class="btn btn-secondary">Read Review</a>
+              {broker.partnerCode ? (
+                <a href={broker.partnerCode.pageUrl} class="btn btn-primary">Get Partner Code →</a>
+              ) : (
+                <a href={broker.affiliateUrl} class="btn btn-primary" target="_blank" rel="noopener sponsored">Visit Broker →</a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Broker Callout -->
+  <aside class="broker-callout">
+    <div class="container">
+      <div class="callout-content">
+        <div class="callout-text">
+          <h3>Our #1 MT4 Broker: AvaTrade</h3>
+          <p>Multi-regulated (FCA, ASIC, CySEC), spreads from 0.9 pips, full EA support, and exclusive partner code available.</p>
+        </div>
+        <a href="/brokers/avatrade/partner-code/" class="btn btn-primary">Get AvaTrade Partner Code →</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- What is MT4 Section -->
+  <section class="section section--alt" id="what-is-mt4">
+    <div class="container">
+      <div class="content-grid">
+        <div class="content-main">
+          <h2 class="heading-2">What is MetaTrader 4?</h2>
+          <p>
+            MetaTrader 4 (MT4) is the world's most widely used retail forex trading platform. Developed by MetaQuotes Software and released in 2005, it has become the industry standard for forex and CFD trading with over 16 million traders worldwide.
+          </p>
+          <p>
+            Simply put, MetaTrader 4 is a trading platform that provides retail traders leverage and access to a wide array of tools for trading. With these tools, you can build and develop a sophisticated trading algorithm, or simply use the platform for day-trading financial instruments offered by your broker.
+          </p>
+          <p>
+            MT4 is popular because it combines powerful charting tools, technical analysis capabilities, and automated trading through Expert Advisors (EAs) in one user-friendly package. It's available for free through any MT4-supporting broker.
+          </p>
+          <p>
+            <strong>Important:</strong> MetaTrader 4 is not owned by a brokerage, nor is MT4 a broker. It's a third-party platform that brokers license to allow trading. Brokers pay MetaQuotes to use the software, which allows their systems to trade via the platform.
+          </p>
+
+          <h3>MetaTrader 4 Summary</h3>
+          <p>
+            Traders love MT4. It's been around since the very beginning of retail trading, and for that reason, it has a huge following. There are a large number of addons, customisations and Trading Robots, known on MT4 as "Expert Advisors" (EAs).
+          </p>
+          <p>
+            There's the ability to add trading signals and more, all specifically built for MT4. These addons are cross-compatible with MT5, but MT5 doesn't offer a great deal different, so many traders have decided to stick with what they know, which has kept MT4 as the popular choice.
+          </p>
+          <p>
+            Development and support will eventually end on MT4 and MetaQuotes will force brokers and users to make the switch to MT5, in most cases reluctantly. However, for now, MT4 remains the dominant platform.
+          </p>
+        </div>
+
+        <div class="content-sidebar">
+          <div class="quick-facts">
+            <h3>MT4 Quick Facts</h3>
+            <dl>
+              <dt>Released</dt>
+              <dd>2005</dd>
+              <dt>Developer</dt>
+              <dd>MetaQuotes Software</dd>
+              <dt>Cost</dt>
+              <dd>Free</dd>
+              <dt>Best For</dt>
+              <dd>Forex, EAs, CFDs</dd>
+              <dt>Platforms</dt>
+              <dd>Win, Mac, Web, Mobile</dd>
+              <dt>Users</dt>
+              <dd>16+ Million</dd>
+            </dl>
+          </div>
+
+          <div class="cta-box">
+            <h4>Start Trading on MT4</h4>
+            <p><strong>AvaTrade</strong> offers MT4 with:</p>
+            <ul>
+              <li>Multi-regulation (FCA, ASIC)</li>
+              <li>0.9 pip spreads</li>
+              <li>Full EA support</li>
+              <li>Welcome bonus available</li>
+            </ul>
+            <a href="/brokers/avatrade/partner-code/" class="btn btn-primary btn-full">Get AvaTrade Partner Code</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pros and Cons -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2 text-center">Should You Use MetaTrader 4?</h2>
+      <p class="section-intro text-center">Based on 28+ hours of research, expert reviews, and hands-on testing, here's what traders think:</p>
+
+      <div class="pros-cons-grid">
+        <div class="pros-card">
+          <h3>✅ 7 Reasons To Use MetaTrader 4</h3>
+          <ul>
+            {reasonsToUse.map((reason) => (
+              <li>{reason}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="cons-card">
+          <h3>⛔ 1 Reason Not To Use MetaTrader 4</h3>
+          <ul>
+            {reasonsNotToUse.map((reason) => (
+              <li>{reason}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Table -->
+  <section class="section section--alt" id="features">
+    <div class="container">
+      <h2 class="heading-2 text-center">MetaTrader 4 Key Features</h2>
+      <p class="section-intro text-center">MT4 is a feature-packed trading platform. Here's how it performs across key areas:</p>
+
+      <div class="features-table-wrapper">
+        <table class="features-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>MetaTrader 4 Performance</th>
+            </tr>
+          </thead>
+          <tbody>
+            {keyFeatures.map((item) => (
+              <tr>
+                <td><span class="feature-icon">{item.icon}</span> {item.feature}</td>
+                <td>{item.performance}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- System & Analytics Features -->
+      <div class="feature-cards">
+        <div class="feature-card">
+          <h3>MT4 Trading System</h3>
+          <p>MT4 is built with a robust trading function that allows you to implement complex trading algorithms:</p>
+          <ul>
+            {systemFeatures.map((feature) => (
+              <li>{feature}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="feature-card">
+          <h3>MT4 Analytics</h3>
+          <p>MT4 has over 20 analytical objects and 30 built-in technical indicators (excluding add-ons):</p>
+          <ul>
+            {analyticsFeatures.map((feature) => (
+              <li>{feature}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detailed Features (Collapsible) -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2 text-center">MetaTrader 4 Features In-Depth</h2>
+      <p class="section-intro text-center">Click each feature to learn more about what MT4 offers:</p>
+
+      <div class="accordion-list">
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">📋</span>
+            <span class="accordion-title">Copy Trading</span>
+          </summary>
+          <div class="accordion-content">
+            <p>Don't have enough time for trading across the full day? No problem – MetaTrader 4 has trading features that allow you to copy the trades of other traders automatically.</p>
+            <p>All you have to do is select a provider, then subscribe to the provider's trading signal or strategy on the platform. Thousands of traders make high-profit trades from this practice, and you can do it too.</p>
+            <p>It's a service that's very popular for traders looking to expand their trading volume or take a more "hands-off" approach to trading.</p>
+            <div class="broker-note">
+              <strong>Broker Tip:</strong> <a href="/brokers/etoro/">eToro</a> specializes in copy trading with their CopyTrader feature. For MT4 signals, <a href="/brokers/avatrade/">AvaTrade</a> offers excellent integration.
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">🏪</span>
+            <span class="accordion-title">The MT4 Built-In Market</span>
+          </summary>
+          <div class="accordion-content">
+            <p>If you're looking for more technical indicators on your chart, you don't have to exit MT4 to find them.</p>
+            <p>MT4 has a built-in market where you can purchase more than 1,700 trading robots and Expert Advisors. You can also add to your indicators arsenal with the over 2,100 technical indicators that MetaTrader 4 provides.</p>
+            <p><strong>The best part? Many are absolutely free!</strong></p>
+            <p>Access the marketplace directly from MT4 by clicking the "Market" tab at the bottom of the terminal window.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">🤖</span>
+            <span class="accordion-title">Algorithmic Trading & Expert Advisors</span>
+          </summary>
+          <div class="accordion-content">
+            <p>MT4 became popular mainly due to the ability for end-users to write their own trading scripts and robots (Expert Advisors) that could automate trading. This is a key feature of the platform.</p>
+            <p>Once you're familiar with your MT4, almost anything you want can be implemented on it. You can leverage the opportunities provided by the Expert Advisors for automated trading. The Expert Advisor features robots that assist with both market forecasting, market analysis, and trading.</p>
+            <p>MetaTrader 4 also provides you with the perfect environment for testing, developing, and optimizing new trading algorithms for all your trades on the market. You can post applications in the free code library or even sell them in the big-scale MetaTrader 4 market.</p>
+            <div class="broker-note">
+              <strong>Broker Tip:</strong> For running EAs 24/7, you'll need a VPS. <a href="/brokers/avatrade/">AvaTrade</a> and <a href="/brokers/axi/">Axi</a> offer free VPS hosting for qualified traders.
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">📰</span>
+            <span class="accordion-title">Financial News Reports</span>
+          </summary>
+          <div class="accordion-content">
+            <p>MetaTrader 4 also sends out the latest financial news that presents MT4 users with the opportunity to modify their trades based on high-impact news events that might alter the accuracy of their technical analysis.</p>
+            <p>This feature allows traders to always be on alert for whatever might arise in the market. Access news directly from the Terminal window in the "News" tab.</p>
+            <p>For more comprehensive news and economic calendar data, consider upgrading to MT5 which has a built-in economic calendar.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">📱</span>
+            <span class="accordion-title">Mobile Trading</span>
+          </summary>
+          <div class="accordion-content">
+            <p>MT4 is not only available for your personal computers. The trading platform is also available on mobile. This allows you to analyze market trends, follow up on technicals, open positions, and close them in real-time.</p>
+            <p>No matter where you are, no matter where you're going, you're always a few clicks away from the world's largest market.</p>
+            <p>The mobile apps are available for both iOS (iPhone/iPad) and Android devices, offering nearly all the functionality of the desktop version.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">📊</span>
+            <span class="accordion-title">Advanced Charting</span>
+          </summary>
+          <div class="accordion-content">
+            <p>The MT4 provides you with an opportunity to analyze markets simultaneously. With MT4's advanced charting options, you can keep your eye on another currency pair or commodity without losing focus on any.</p>
+            <p>Chart types include candlesticks, bar charts, and line charts. You can customize colors, add multiple indicators, draw trend lines, Fibonacci retracements, and much more.</p>
+            <p>MT4 supports 9 timeframes: M1, M5, M15, M30, H1, H4, D1, W1, and MN (monthly). Each chart is fully interactive and customizable.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">🌍</span>
+            <span class="accordion-title">Language Options</span>
+          </summary>
+          <div class="accordion-content">
+            <p>Besides the fact that anybody can use the MT4 regardless of their skill set, anybody can also use the MT4 regardless of their language.</p>
+            <p>MetaQuotes Software designed the platform with language options to allow users from the most remote regions of the world to enjoy access to the Forex market. MT4 supports over 30 languages.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">📜</span>
+            <span class="accordion-title">Account History</span>
+          </summary>
+          <div class="accordion-content">
+            <p>You can keep track of all your transactions on MT4 with the account history tab. Know what transactions you carried out on your MT4 and when.</p>
+            <p>The history includes all closed trades, deposits, withdrawals, and can be exported to detailed reports for tax purposes or performance analysis.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Section -->
+  <section class="section section--alt" id="download">
+    <div class="container">
+      <h2 class="heading-2 text-center">Download MetaTrader 4</h2>
+      <p class="section-intro text-center">MT4 is free to download. Choose your platform:</p>
+
+      <div class="download-grid">
+        <a href="https://www.metatrader4.com/en/download" target="_blank" rel="noopener" class="download-card">
+          <span class="download-icon">🖥️</span>
+          <h3>MT4 for Windows</h3>
+          <p>Full-featured desktop application for PC</p>
+          <span class="download-btn">Download for PC →</span>
+        </a>
+        <a href="https://apps.apple.com/app/metatrader-4/id496212596" target="_blank" rel="noopener" class="download-card">
+          <span class="download-icon">🍎</span>
+          <h3>MT4 for iOS</h3>
+          <p>iPhone and iPad app from App Store</p>
+          <span class="download-btn">Download for iOS →</span>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=net.metaquotes.metatrader4" target="_blank" rel="noopener" class="download-card">
+          <span class="download-icon">🤖</span>
+          <h3>MT4 for Android</h3>
+          <p>Android app from Google Play Store</p>
+          <span class="download-btn">Download for Android →</span>
+        </a>
+      </div>
+
+      <div class="system-requirements">
+        <h3>System Requirements</h3>
+        <ul>
+          <li><strong>Windows:</strong> Windows 7 or later, 50MB disk space</li>
+          <li><strong>Mac:</strong> macOS 10.12 or later (via Wine or broker's Mac version)</li>
+          <li><strong>iOS:</strong> iOS 12.0 or later</li>
+          <li><strong>Android:</strong> Android 5.0 or later</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Getting Started Guide -->
+  <section class="section" id="getting-started">
+    <div class="container">
+      <h2 class="heading-2 text-center">Getting Started with MetaTrader 4</h2>
+      <p class="section-intro text-center">Follow these 5 steps to start trading on MT4:</p>
+
+      <div class="steps-timeline">
+        {gettingStartedSteps.map((step, index) => (
+          <div class="timeline-step">
+            <div class="step-number">{index + 1}</div>
+            <div class="step-content">
+              <h3 class="step-title">{step.title}</h3>
+              <p class="step-description">{step.content}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="broker-note broker-note--center">
+        <strong>Ready to start?</strong> Open an account with <a href="/brokers/avatrade/">AvaTrade</a> to get MT4 plus a welcome bonus, or compare all <a href="/brokers/">MT4 brokers</a>.
+      </div>
+    </div>
+  </section>
+
+  <!-- Keyboard Shortcuts -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2 text-center">MT4 Keyboard Shortcuts</h2>
+      <p class="section-intro text-center">Speed up your trading with these essential shortcuts:</p>
+
+      <div class="shortcuts-grid">
+        {keyboardShortcuts.map((shortcut) => (
+          <div class="shortcut-item">
+            <kbd class="shortcut-keys">{shortcut.keys}</kbd>
+            <span class="shortcut-action">{shortcut.action}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Choose -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2 text-center">How to Choose an MT4 Broker</h2>
+      <p class="section-intro text-center">Not all MT4 brokers are equal. Here's what to look for:</p>
+
+      <div class="criteria-grid">
+        <div class="criteria-card">
+          <span class="criteria-number">1</span>
+          <h3>Regulation</h3>
+          <p>Choose brokers regulated by tier-1 authorities like FCA (UK), ASIC (Australia), or CySEC (EU). This ensures fund protection and fair practices.</p>
+        </div>
+        <div class="criteria-card">
+          <span class="criteria-number">2</span>
+          <h3>Spreads & Fees</h3>
+          <p>Compare spreads on major pairs like EUR/USD. ECN brokers offer raw spreads from 0.0 pips but charge commission. Standard accounts have wider spreads but no commission.</p>
+        </div>
+        <div class="criteria-card">
+          <span class="criteria-number">3</span>
+          <h3>Execution Speed</h3>
+          <p>For scalping and EA trading, execution speed matters. Look for brokers with servers close to your location and low latency.</p>
+        </div>
+        <div class="criteria-card">
+          <span class="criteria-number">4</span>
+          <h3>EA Policy</h3>
+          <p>Not all brokers allow all EAs. Check if your broker permits scalping EAs, news trading, and high-frequency strategies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section section--alt" id="faq">
+    <div class="container">
+      <h2 class="heading-2 text-center">MetaTrader 4 FAQ</h2>
+
+      <div class="faq-container">
+        {faqData.map((faq, index) => (
+          <details class="faq-item">
+            <summary class="faq-question">
+              {faq.question}
+            </summary>
+            <div class="faq-answer">
+              {faq.answer}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section final-cta">
+    <div class="container text-center">
+      <h2 class="heading-2">Ready to Start Trading on MT4?</h2>
+      <p class="body-large">Get exclusive bonuses when you sign up through TradeTheDay. MetaTrader 4 is free to download and use with any of our recommended brokers.</p>
+      <div class="cta-buttons">
+        <a href="/brokers/avatrade/partner-code/" class="btn btn-primary btn-lg">AvaTrade Partner Code</a>
+        <a href="/brokers/" class="btn btn-secondary btn-lg">Compare All Brokers</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .mt4-hero {
+    padding: var(--space-3xl) 0 var(--space-xl);
+    background: linear-gradient(135deg, #0f1419 0%, #1a2028 100%);
+    color: white;
+    text-align: center;
+  }
+
+  .mt4-hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .mt4-hero .heading-1 {
+    color: white;
+    max-width: 900px;
+    margin: 0 auto var(--space-md);
+  }
+
+  .mt4-hero-sub {
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 700px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-2xl);
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat-value {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--brand-orange);
+  }
+
+  .hero-stat-label {
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* Anchor Navigation */
+  .anchor-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: var(--space-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .anchor-links {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .anchor-link {
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+  }
+
+  .anchor-link:hover {
+    color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.1);
+  }
+
+  /* Broker Callout */
+  .broker-callout {
+    background: linear-gradient(135deg, #1a2028 0%, #0f1419 100%);
+    padding: var(--space-lg) 0;
+  }
+
+  .callout-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .callout-text h3 {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-xs);
+  }
+
+  .callout-text p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+  }
+
+  /* Broker List */
+  .section-intro {
+    color: var(--gray-600);
+    margin-bottom: var(--space-xl);
+    max-width: 700px;
+  }
+
+  .text-center .section-intro,
+  .section-intro.text-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .broker-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .broker-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-lg);
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    position: relative;
+    align-items: center;
+  }
+
+  .broker-card--top {
+    border-color: var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.1);
+  }
+
+  .top-badge {
+    position: absolute;
+    top: -1px;
+    left: var(--space-xl);
+    background: var(--brand-orange);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    text-transform: uppercase;
+  }
+
+  .broker-card-rank {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--gray-300);
+    width: 60px;
+    text-align: center;
+  }
+
+  .broker-card-main {
+    flex: 1;
+  }
+
+  .broker-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xs);
+  }
+
+  .broker-name {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  .broker-rating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .rating-score {
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .rating-stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-sm);
+  }
+
+  .broker-tagline {
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-stats {
+    display: flex;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--gray-500);
+    text-transform: uppercase;
+  }
+
+  .stat-value {
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .broker-pros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .pro-item {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    background: var(--gray-50);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+  }
+
+  .broker-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  /* Content Grid */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: var(--space-2xl);
+  }
+
+  .content-main h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .content-main h3 {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+    font-size: var(--font-size-lg);
+  }
+
+  .content-main p {
+    color: var(--gray-700);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+  }
+
+  .quick-facts {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .quick-facts h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .quick-facts dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-xs) var(--space-md);
+  }
+
+  .quick-facts dt {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+  }
+
+  .quick-facts dd {
+    font-weight: 600;
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  .cta-box {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a2028 100%);
+    color: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  .cta-box h4 {
+    color: var(--brand-orange);
+    margin-bottom: var(--space-sm);
+  }
+
+  .cta-box p {
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-box ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-lg);
+    font-size: var(--font-size-sm);
+  }
+
+  .cta-box li {
+    padding: var(--space-xs) 0;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .cta-box li::before {
+    content: '✓ ';
+    color: var(--success);
+  }
+
+  /* Pros and Cons */
+  .pros-cons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+  }
+
+  .pros-card,
+  .cons-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    border: 1px solid var(--gray-200);
+  }
+
+  .pros-card {
+    border-top: 4px solid var(--success);
+  }
+
+  .cons-card {
+    border-top: 4px solid var(--error);
+  }
+
+  .pros-card h3,
+  .cons-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .pros-card ul,
+  .cons-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pros-card li,
+  .cons-card li {
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+    line-height: 1.5;
+  }
+
+  .pros-card li:last-child,
+  .cons-card li:last-child {
+    border-bottom: none;
+  }
+
+  /* Features Table */
+  .features-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: var(--space-xl);
+  }
+
+  .features-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .features-table th,
+  .features-table td {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .features-table th {
+    background: var(--charcoal);
+    color: white;
+    font-weight: 600;
+  }
+
+  .features-table td {
+    color: var(--gray-700);
+  }
+
+  .features-table tr:hover td {
+    background: var(--gray-50);
+  }
+
+  .feature-icon {
+    margin-right: var(--space-sm);
+  }
+
+  .feature-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .feature-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  .feature-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+    color: var(--charcoal);
+  }
+
+  .feature-card p {
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
+
+  .feature-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .feature-card li {
+    padding: var(--space-xs) 0;
+    color: var(--gray-700);
+  }
+
+  .feature-card li::before {
+    content: '✓ ';
+    color: var(--success);
+  }
+
+  /* Accordion */
+  .accordion-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .accordion-item {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+    overflow: hidden;
+  }
+
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--charcoal);
+    list-style: none;
+  }
+
+  .accordion-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .accordion-header::after {
+    content: '+';
+    margin-left: auto;
+    font-size: var(--font-size-xl);
+    color: var(--brand-orange);
+    transition: transform 0.2s;
+  }
+
+  .accordion-item[open] .accordion-header::after {
+    transform: rotate(45deg);
+  }
+
+  .accordion-icon {
+    font-size: var(--font-size-xl);
+  }
+
+  .accordion-content {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--gray-700);
+    line-height: 1.7;
+  }
+
+  .accordion-content p {
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-note {
+    background: rgba(255, 72, 0, 0.1);
+    border-left: 4px solid var(--brand-orange);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-md);
+    font-size: var(--font-size-sm);
+  }
+
+  .broker-note a {
+    color: var(--brand-orange);
+    font-weight: 600;
+  }
+
+  .broker-note--center {
+    max-width: 700px;
+    margin: var(--space-xl) auto 0;
+    text-align: center;
+    border-left: none;
+    border-top: 4px solid var(--brand-orange);
+  }
+
+  /* Download Grid */
+  .download-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .download-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .download-card:hover {
+    border-color: var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.1);
+  }
+
+  .download-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .download-card h3 {
+    font-size: var(--font-size-lg);
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .download-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .download-btn {
+    color: var(--brand-orange);
+    font-weight: 600;
+  }
+
+  .system-requirements {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .system-requirements h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+    text-align: center;
+  }
+
+  .system-requirements ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .system-requirements li {
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+  }
+
+  .system-requirements li:last-child {
+    border-bottom: none;
+  }
+
+  /* Steps Timeline */
+  .steps-timeline {
+    max-width: 700px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .timeline-step {
+    display: flex;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    position: relative;
+  }
+
+  .timeline-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 48px;
+    bottom: -16px;
+    width: 2px;
+    background: var(--gray-200);
+  }
+
+  .timeline-step .step-number {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    background: var(--brand-orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+  }
+
+  .step-content {
+    flex: 1;
+    padding-top: var(--space-xs);
+  }
+
+  .step-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .step-description {
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+
+  /* Shortcuts Grid */
+  .shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--space-md);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .shortcut-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    background: white;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-200);
+  }
+
+  .shortcut-keys {
+    background: var(--charcoal);
+    color: white;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-family: monospace;
+    font-size: var(--font-size-sm);
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .shortcut-action {
+    color: var(--gray-700);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Criteria Grid */
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .criteria-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    position: relative;
+  }
+
+  .criteria-number {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    font-size: var(--font-size-3xl);
+    font-weight: 800;
+    color: var(--gray-100);
+  }
+
+  .criteria-card h3 {
+    font-size: var(--font-size-lg);
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .criteria-card p {
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+
+  /* FAQ */
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--charcoal);
+    list-style: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question::after {
+    content: '+';
+    font-size: var(--font-size-xl);
+    color: var(--brand-orange);
+    transition: transform 0.2s;
+  }
+
+  .faq-item[open] .faq-question::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--gray-700);
+    line-height: 1.7;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a2028 100%);
+    color: white;
+  }
+
+  .final-cta .heading-2 {
+    color: white;
+  }
+
+  .final-cta .body-large {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .content-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .content-sidebar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .pros-cons-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .download-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .broker-card {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .broker-card-rank {
+      display: none;
+    }
+
+    .broker-card-header {
+      justify-content: center;
+    }
+
+    .broker-stats {
+      justify-content: center;
+    }
+
+    .broker-pros {
+      justify-content: center;
+    }
+
+    .broker-card-actions {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .callout-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .anchor-links {
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding-bottom: var(--space-sm);
+    }
+
+    .timeline-step {
+      flex-direction: column;
+    }
+
+    .timeline-step:not(:last-child)::before {
+      display: none;
+    }
+  }
+</style>

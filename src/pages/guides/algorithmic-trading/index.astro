@@ -1,0 +1,1301 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+
+// Key statistics
+const keyStats = [
+  { icon: "🤖", value: "70%+", label: "Market Volume" },
+  { icon: "⚡", value: "1ms", label: "Execution Speed" },
+  { icon: "🔄", value: "24/7", label: "Operation" },
+  { icon: "📊", value: "100+", label: "Strategies" }
+];
+
+// What is algo trading
+const algoTypes = [
+  {
+    icon: "📈",
+    title: "Trend Following",
+    description: "Algorithms that identify and follow market trends using moving averages, breakouts, and momentum indicators.",
+    complexity: "Beginner",
+    example: "Buy when 50 MA crosses above 200 MA"
+  },
+  {
+    icon: "↔️",
+    title: "Mean Reversion",
+    description: "Strategies that bet on prices returning to their average. Buy oversold, sell overbought.",
+    complexity: "Intermediate",
+    example: "Buy when RSI < 30, sell when RSI > 70"
+  },
+  {
+    icon: "⚖️",
+    title: "Arbitrage",
+    description: "Exploit price differences between markets or instruments. Requires speed and low latency.",
+    complexity: "Advanced",
+    example: "Buy EUR/USD on broker A, sell on broker B"
+  },
+  {
+    icon: "🎯",
+    title: "Market Making",
+    description: "Provide liquidity by placing both buy and sell orders, profiting from the spread.",
+    complexity: "Advanced",
+    example: "Continuous bid/ask quotes with inventory management"
+  }
+];
+
+// Getting started steps
+const gettingStartedSteps = [
+  {
+    number: "1",
+    title: "Learn to Code",
+    description: "Python is the most popular language for algo trading. Learn basics, data handling with pandas, and backtesting libraries."
+  },
+  {
+    number: "2",
+    title: "Understand Markets",
+    description: "Know how markets work, order types, execution, and slippage before automating. Manual trading experience helps."
+  },
+  {
+    number: "3",
+    title: "Build & Backtest",
+    description: "Develop your strategy, backtest on historical data, and optimize parameters. Be wary of overfitting."
+  },
+  {
+    number: "4",
+    title: "Paper Trade",
+    description: "Run your algorithm with live data but no real money. Test execution, error handling, and edge cases."
+  },
+  {
+    number: "5",
+    title: "Go Live Small",
+    description: "Start with minimal capital. Monitor closely. Gradually increase size as you gain confidence in the system."
+  }
+];
+
+// Programming languages
+const programmingLanguages = [
+  {
+    name: "Python",
+    pros: ["Easy to learn", "Rich ecosystem", "Great for prototyping", "Pandas, NumPy libraries"],
+    cons: ["Slower execution", "Not ideal for HFT"],
+    bestFor: "Beginners, backtesting, data analysis",
+    recommended: true
+  },
+  {
+    name: "C++",
+    pros: ["Ultra-fast execution", "Low latency", "Memory control"],
+    cons: ["Steep learning curve", "Complex debugging"],
+    bestFor: "High-frequency trading, institutional",
+    recommended: false
+  },
+  {
+    name: "MQL4/MQL5",
+    pros: ["Native to MT4/MT5", "Built-in backtester", "Large community"],
+    cons: ["Platform-specific", "Limited flexibility"],
+    bestFor: "MetaTrader users, forex EAs",
+    recommended: false
+  },
+  {
+    name: "Pine Script",
+    pros: ["TradingView native", "Easy to learn", "Great visualization"],
+    cons: ["Limited execution options", "TradingView only"],
+    bestFor: "Strategy development, alerts",
+    recommended: false
+  }
+];
+
+// Tools and platforms
+const toolsPlatforms = [
+  {
+    icon: "📊",
+    title: "Backtesting Platforms",
+    tools: [
+      { name: "Backtrader", description: "Free Python library, flexible" },
+      { name: "Zipline", description: "Open source, Quantopian's engine" },
+      { name: "QuantConnect", description: "Cloud-based, multiple assets" }
+    ]
+  },
+  {
+    icon: "🖥️",
+    title: "Trading Platforms",
+    tools: [
+      { name: "MetaTrader 4/5", description: "Industry standard for forex" },
+      { name: "Interactive Brokers API", description: "Direct market access" },
+      { name: "cTrader Automate", description: "Modern, cAlgo support" }
+    ]
+  },
+  {
+    icon: "📈",
+    title: "Data Sources",
+    tools: [
+      { name: "Yahoo Finance", description: "Free historical data" },
+      { name: "Alpha Vantage", description: "Free API, stocks & forex" },
+      { name: "Polygon.io", description: "Real-time, professional grade" }
+    ]
+  }
+];
+
+// Common pitfalls
+const commonPitfalls = [
+  {
+    pitfall: "Overfitting",
+    description: "Your strategy works perfectly on historical data but fails live. You've curve-fitted to past data.",
+    solution: "Use out-of-sample testing. Keep strategies simple. Test across multiple time periods and markets."
+  },
+  {
+    pitfall: "Ignoring Costs",
+    description: "Backtests look great until you account for spreads, commissions, and slippage.",
+    solution: "Include realistic transaction costs. Factor in 0.5-2 pips slippage depending on market conditions."
+  },
+  {
+    pitfall: "No Risk Management",
+    description: "Algorithms that don't manage risk can blow up accounts faster than manual trading.",
+    solution: "Build in position sizing, stop losses, and max drawdown limits. Kill switch for emergencies."
+  },
+  {
+    pitfall: "Live-Backtest Gap",
+    description: "Real execution differs from backtests: latency, partial fills, and requotes.",
+    solution: "Paper trade extensively. Start live with minimal size. Compare live results to expected performance."
+  }
+];
+
+// Featured brokers
+const featuredBrokers = [
+  {
+    name: "AvaTrade",
+    logo: "/images/brokers/avatrade-logo.svg",
+    rating: "4.5",
+    stars: "5",
+    features: [
+      "MT4 & MT5 for EAs",
+      "API available",
+      "DupliTrade integration",
+      "Free VPS hosting",
+      "Partner code: 128979"
+    ],
+    ctaText: "Start with AvaTrade",
+    ctaLink: "/brokers/avatrade/",
+    featured: true
+  },
+  {
+    name: "Axi",
+    logo: "/images/brokers/axi-logo.svg",
+    rating: "4.4",
+    stars: "4",
+    features: [
+      "Raw spreads for algos",
+      "MT4 EA support",
+      "Free VPS for high volume",
+      "ECN execution",
+      "Copy trading via Myfxbook"
+    ],
+    ctaText: "Trade with Axi",
+    ctaLink: "/brokers/axi/",
+    featured: false
+  },
+  {
+    name: "Pepperstone",
+    logo: "/images/brokers/pepperstone-logo.svg",
+    rating: "4.6",
+    stars: "5",
+    features: [
+      "cTrader cAlgo support",
+      "Ultra-fast execution",
+      "API access",
+      "Autochartist included",
+      "Social trading"
+    ],
+    ctaText: "Join Pepperstone",
+    ctaLink: "/brokers/pepperstone/",
+    featured: false
+  }
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "Do I need to know how to code for algorithmic trading?",
+    answer: "Basic coding knowledge helps significantly, but it's not absolutely required. Platforms like MetaTrader have visual strategy builders and pre-built EAs. However, understanding code lets you customize strategies, debug issues, and avoid black-box solutions. Python is the easiest language to start with."
+  },
+  {
+    question: "How much money do I need to start algo trading?",
+    answer: "You can start developing and backtesting for free. For live trading, most forex brokers allow $100-500 minimum accounts. However, very small accounts limit proper position sizing. $2,000-5,000 is a more realistic starting point for meaningful algo trading."
+  },
+  {
+    question: "Can algorithmic trading make you rich?",
+    answer: "Algo trading is not a get-rich-quick scheme. Most retail algo traders don't outperform simple buy-and-hold strategies after costs. Success requires significant skill in both trading and programming, plus ongoing maintenance. It's a serious professional endeavor, not passive income."
+  },
+  {
+    question: "What's the difference between algo trading and high-frequency trading?",
+    answer: "Algorithmic trading is any automated trading using computer programs. High-frequency trading (HFT) is a subset focused on extremely fast execution (microseconds), high volume, and small profits per trade. HFT requires expensive infrastructure and is dominated by institutional players. Retail traders focus on slower algo strategies."
+  },
+  {
+    question: "Is algorithmic trading legal?",
+    answer: "Yes, algorithmic trading is legal in most jurisdictions. However, certain practices like market manipulation, spoofing, and layering are illegal. Ensure your algorithms comply with your broker's terms of service and relevant regulations. Some brokers restrict certain types of high-frequency strategies."
+  }
+];
+
+// Anchor menu items
+const anchorMenuItems = [
+  { text: "Overview", href: "#overview" },
+  { text: "Strategy Types", href: "#strategies" },
+  { text: "Get Started", href: "#get-started" },
+  { text: "Languages", href: "#languages" },
+  { text: "Tools", href: "#tools" },
+  { text: "Pitfalls", href: "#pitfalls" },
+  { text: "Brokers", href: "#brokers" },
+  { text: "FAQs", href: "#faqs" }
+];
+---
+
+<BaseLayout
+  title="Algorithmic Trading Guide 2026: Build Your First Trading Bot"
+  description="Learn algorithmic trading from scratch. Build trading bots with Python, backtest strategies, and automate your forex and stock trading. Complete beginner's guide."
+>
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Guides', href: '/guides/' },
+    { text: 'Algorithmic Trading', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-icon">🤖</span>
+          ADVANCED GUIDE
+        </div>
+        <h1 class="hero-title">Algorithmic Trading Guide</h1>
+        <p class="hero-description">
+          Automate your trading with algorithms. Learn to build, backtest, and deploy trading bots that execute your strategies 24/7.
+        </p>
+
+        <!-- Key Stats -->
+        <div class="stats-grid">
+          {keyStats.map((stat) => (
+            <div class="stat-card">
+              <div class="stat-icon">{stat.icon}</div>
+              <span class="stat-value">{stat.value}</span>
+              <span class="stat-label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANCHOR NAVIGATION -->
+  <nav class="anchor-nav" id="anchorNav">
+    <div class="container">
+      <div class="anchor-links">
+        {anchorMenuItems.map((item) => (
+          <a href={item.href} class="anchor-link">{item.text}</a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section class="section" id="overview">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What is Algorithmic Trading?</h2>
+        <p class="section-subtitle">
+          Algorithmic trading uses computer programs to automatically execute trades based on predefined rules. No emotions, no sleep, no missed opportunities.
+        </p>
+      </div>
+
+      <div class="intro-content">
+        <p>Instead of manually watching charts and clicking buy/sell, you write code that does it for you. Your algorithm monitors the market, identifies opportunities, and executes trades in milliseconds.</p>
+        <p>Over 70% of stock market volume is now algorithmic. While you can't compete with Wall Street's supercomputers, retail algo trading is accessible and can remove emotional decision-making from your trading.</p>
+      </div>
+
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <h4>Remove Emotions</h4>
+          <p>No fear, greed, or hesitation. Your algorithm follows rules without psychological interference.</p>
+        </div>
+        <div class="benefit-card">
+          <h4>Trade 24/7</h4>
+          <p>Forex markets never sleep. Your bot can trade while you work, eat, or sleep.</p>
+        </div>
+        <div class="benefit-card">
+          <h4>Backtest Ideas</h4>
+          <p>Test strategies on years of historical data before risking real money.</p>
+        </div>
+        <div class="benefit-card">
+          <h4>Precise Execution</h4>
+          <p>Enter and exit at exact prices with consistent position sizing every time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRATEGY TYPES -->
+  <section class="section section-alt" id="strategies">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Types of Algorithmic Strategies</h2>
+        <p class="section-subtitle">
+          Different approaches for different market conditions. Start with simpler strategies before tackling complex ones.
+        </p>
+      </div>
+
+      <div class="algo-types-grid">
+        {algoTypes.map((type) => (
+          <div class="algo-type-card">
+            <div class="algo-type-header">
+              <span class="algo-type-icon">{type.icon}</span>
+              <div>
+                <h3 class="algo-type-title">{type.title}</h3>
+                <span class={`complexity-badge ${type.complexity.toLowerCase()}`}>{type.complexity}</span>
+              </div>
+            </div>
+            <p class="algo-type-description">{type.description}</p>
+            <div class="algo-type-example">
+              <strong>Example:</strong> {type.example}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- GETTING STARTED -->
+  <section class="section" id="get-started">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">How to Get Started</h2>
+        <p class="section-subtitle">
+          The path from idea to live algo trading. Take your time with each step.
+        </p>
+      </div>
+
+      <div class="steps-timeline">
+        {gettingStartedSteps.map((step, index) => (
+          <div class="timeline-step">
+            <div class="step-number">{step.number}</div>
+            <div class="step-content">
+              <h3 class="step-title">{step.title}</h3>
+              <p class="step-description">{step.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="section-cta">
+        <a href="/platforms/metatrader-4/" class="cta-button primary">
+          Explore MetaTrader 4
+        </a>
+        <p class="cta-subtitle">
+          The most popular platform for forex algo trading
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMMING LANGUAGES -->
+  <section class="section section-alt" id="languages">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Programming Languages for Algo Trading</h2>
+        <p class="section-subtitle">
+          Choose based on your goals. Python is the best starting point for most traders.
+        </p>
+      </div>
+
+      <div class="languages-grid">
+        {programmingLanguages.map((lang) => (
+          <div class={`language-card ${lang.recommended ? 'recommended' : ''}`}>
+            {lang.recommended && <span class="recommended-badge">Recommended</span>}
+            <h3 class="language-name">{lang.name}</h3>
+            <p class="language-best-for"><strong>Best for:</strong> {lang.bestFor}</p>
+            <div class="pros-cons">
+              <div class="pros">
+                <strong>Pros:</strong>
+                <ul>
+                  {lang.pros.map((pro) => (
+                    <li>{pro}</li>
+                  ))}
+                </ul>
+              </div>
+              <div class="cons">
+                <strong>Cons:</strong>
+                <ul>
+                  {lang.cons.map((con) => (
+                    <li>{con}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS AND PLATFORMS -->
+  <section class="section" id="tools">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Tools & Platforms</h2>
+        <p class="section-subtitle">
+          Essential software for developing, testing, and running your algorithms.
+        </p>
+      </div>
+
+      <div class="tools-categories">
+        {toolsPlatforms.map((category) => (
+          <div class="tools-category">
+            <div class="category-header">
+              <span class="category-icon">{category.icon}</span>
+              <h3 class="category-title">{category.title}</h3>
+            </div>
+            <div class="tools-list">
+              {category.tools.map((tool) => (
+                <div class="tool-item">
+                  <h4 class="tool-name">{tool.name}</h4>
+                  <p class="tool-description">{tool.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMON PITFALLS -->
+  <section class="section section-alt" id="pitfalls">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Common Pitfalls to Avoid</h2>
+        <p class="section-subtitle">
+          These mistakes destroy algo traders. Learn from others' failures.
+        </p>
+      </div>
+
+      <div class="pitfalls-grid">
+        {commonPitfalls.map((item) => (
+          <div class="pitfall-card">
+            <h3 class="pitfall-title">{item.pitfall}</h3>
+            <p class="pitfall-description">{item.description}</p>
+            <div class="pitfall-solution">
+              <strong>Solution:</strong> {item.solution}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BROKERS SECTION -->
+  <section class="section" id="brokers">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Best Brokers for Algo Trading</h2>
+        <p class="section-subtitle">
+          Brokers that support automated trading with APIs, EAs, and fast execution.
+        </p>
+      </div>
+
+      <div class="brokers-grid">
+        {featuredBrokers.map((broker) => (
+          <div class={`broker-card ${broker.featured ? 'featured' : ''}`}>
+            {broker.featured && <span class="featured-badge">Top Pick</span>}
+            <div class="broker-header">
+              <img src={broker.logo} alt={`${broker.name} logo`} class="broker-logo" loading="lazy" />
+              <div class="broker-rating">
+                <span class="rating-stars">{'★'.repeat(parseInt(broker.stars))}</span>
+                <span class="rating-value">{broker.rating}/5</span>
+              </div>
+            </div>
+            <h3 class="broker-name">{broker.name}</h3>
+            <ul class="broker-features">
+              {broker.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            <a href={broker.ctaLink} class="broker-cta">{broker.ctaText}</a>
+          </div>
+        ))}
+      </div>
+
+      <div class="section-cta">
+        <a href="/brokers/" class="cta-button secondary">
+          Compare All Brokers
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section section-alt" id="faqs">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Algorithmic Trading FAQs</h2>
+        <p class="section-subtitle">
+          Answers to common questions about automated trading.
+        </p>
+      </div>
+
+      <div class="faq-list">
+        {faqs.map((faq) => (
+          <details class="faq-item">
+            <summary class="faq-question">{faq.question}</summary>
+            <p class="faq-answer">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="final-cta">
+        <h2>Ready to Automate Your Trading?</h2>
+        <p>Start with a broker that supports algorithmic trading. Practice on demo before risking real capital.</p>
+        <div class="cta-buttons">
+          <a href="/brokers/" class="cta-button primary">Find a Broker</a>
+          <a href="/platforms/metatrader-4/" class="cta-button secondary">Learn MetaTrader</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #2d3436 100%);
+    color: var(--white);
+    padding: var(--space-3xl) 0;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background: rgba(255, 72, 0, 0.2);
+    color: var(--brand-orange);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin-bottom: var(--space-lg);
+  }
+
+  .badge-icon {
+    font-size: var(--text-lg);
+  }
+
+  .hero-title {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    margin-bottom: var(--space-md);
+    line-height: 1.1;
+  }
+
+  .hero-description {
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-xl);
+    line-height: 1.6;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .stat-icon {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-xs);
+  }
+
+  .stat-value {
+    display: block;
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--brand-orange);
+  }
+
+  .stat-label {
+    display: block;
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: var(--space-xs);
+  }
+
+  /* Anchor Navigation */
+  .anchor-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: var(--space-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .anchor-links {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .anchor-link {
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+  }
+
+  .anchor-link:hover {
+    color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.1);
+  }
+
+  /* Section Styles */
+  .section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .section-alt {
+    background: var(--gray-50);
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--space-2xl);
+  }
+
+  .section-title {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .section-subtitle {
+    font-size: var(--text-lg);
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+
+  /* Intro Content */
+  .intro-content {
+    max-width: 800px;
+    margin: 0 auto var(--space-2xl);
+    text-align: center;
+  }
+
+  .intro-content p {
+    color: var(--gray-600);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+  }
+
+  /* Benefits Grid */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .benefit-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .benefit-card h4 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .benefit-card p {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  /* Algo Types Grid */
+  .algo-types-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .algo-type-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .algo-type-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .algo-type-icon {
+    font-size: var(--text-3xl);
+  }
+
+  .algo-type-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  .complexity-badge {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    margin-top: var(--space-xs);
+  }
+
+  .complexity-badge.beginner {
+    background: #d1fae5;
+    color: #065f46;
+  }
+
+  .complexity-badge.intermediate {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  .complexity-badge.advanced {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+
+  .algo-type-description {
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+  }
+
+  .algo-type-example {
+    font-size: var(--text-sm);
+    color: var(--gray-500);
+    background: var(--gray-50);
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+    font-family: monospace;
+  }
+
+  /* Steps Timeline */
+  .steps-timeline {
+    max-width: 700px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .timeline-step {
+    display: flex;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    position: relative;
+  }
+
+  .timeline-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 48px;
+    bottom: -16px;
+    width: 2px;
+    background: var(--gray-200);
+  }
+
+  .timeline-step .step-number {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    background: var(--brand-orange);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-lg);
+    font-weight: 700;
+  }
+
+  .step-content {
+    flex: 1;
+    padding-top: var(--space-xs);
+  }
+
+  .step-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .step-description {
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+
+  /* Languages Grid */
+  .languages-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .language-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    position: relative;
+  }
+
+  .language-card.recommended {
+    border: 2px solid var(--brand-orange);
+  }
+
+  .recommended-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+  }
+
+  .language-name {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .language-best-for {
+    color: var(--brand-orange);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    font-size: var(--text-sm);
+  }
+
+  .pros-cons ul {
+    margin: var(--space-xs) 0 0 0;
+    padding-left: var(--space-md);
+    color: var(--gray-600);
+  }
+
+  .pros-cons li {
+    margin-bottom: var(--space-xs);
+  }
+
+  .pros strong {
+    color: #10b981;
+  }
+
+  .cons strong {
+    color: #ef4444;
+  }
+
+  /* Tools Categories */
+  .tools-categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .tools-category {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .category-icon {
+    font-size: var(--text-2xl);
+  }
+
+  .category-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  .tool-item {
+    margin-bottom: var(--space-md);
+  }
+
+  .tool-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .tool-name {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .tool-description {
+    color: var(--gray-500);
+    font-size: var(--text-sm);
+  }
+
+  /* Pitfalls Grid */
+  .pitfalls-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .pitfall-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border-left: 4px solid #ef4444;
+  }
+
+  .pitfall-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: #ef4444;
+    margin-bottom: var(--space-sm);
+  }
+
+  .pitfall-description {
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+  }
+
+  .pitfall-solution {
+    font-size: var(--text-sm);
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.1);
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+    line-height: 1.5;
+  }
+
+  /* Brokers Grid */
+  .brokers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .broker-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .broker-card.featured {
+    border: 2px solid var(--brand-orange);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+  }
+
+  .broker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-logo {
+    height: 32px;
+    width: auto;
+  }
+
+  .broker-rating {
+    text-align: right;
+  }
+
+  .rating-stars {
+    color: #f59e0b;
+    font-size: var(--text-sm);
+  }
+
+  .rating-value {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--gray-500);
+  }
+
+  .broker-name {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg);
+    flex-grow: 1;
+  }
+
+  .broker-features li {
+    padding: var(--space-xs) 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: var(--text-sm);
+    color: var(--gray-600);
+  }
+
+  .broker-features li:last-child {
+    border-bottom: none;
+  }
+
+  .broker-cta {
+    display: block;
+    background: var(--brand-orange);
+    color: var(--white);
+    text-align: center;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .broker-cta:hover {
+    background: #e64100;
+  }
+
+  /* FAQ Section */
+  .faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    padding: var(--space-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question::after {
+    content: '+';
+    font-size: var(--text-xl);
+    color: var(--brand-orange);
+    transition: transform 0.2s;
+  }
+
+  .faq-item[open] .faq-question::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--gray-600);
+    line-height: 1.7;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #2d3436 100%);
+    color: var(--white);
+    padding: var(--space-3xl);
+    border-radius: var(--radius-xl);
+    text-align: center;
+  }
+
+  .final-cta h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .final-cta p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-xl);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+  }
+
+  /* CTA Buttons */
+  .section-cta {
+    text-align: center;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .cta-button.primary {
+    background: var(--brand-orange);
+    color: var(--white);
+  }
+
+  .cta-button.primary:hover {
+    background: #e64100;
+  }
+
+  .cta-button.secondary {
+    background: transparent;
+    color: var(--brand-orange);
+    border: 2px solid var(--brand-orange);
+  }
+
+  .cta-button.secondary:hover {
+    background: var(--brand-orange);
+    color: var(--white);
+  }
+
+  .final-cta .cta-button.secondary {
+    color: var(--white);
+    border-color: var(--white);
+  }
+
+  .final-cta .cta-button.secondary:hover {
+    background: var(--white);
+    color: var(--charcoal);
+  }
+
+  .cta-subtitle {
+    color: var(--gray-500);
+    font-size: var(--text-sm);
+    margin-top: var(--space-sm);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .stats-grid,
+    .benefits-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tools-categories,
+    .brokers-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: var(--text-3xl);
+    }
+
+    .stats-grid,
+    .benefits-grid,
+    .algo-types-grid,
+    .languages-grid,
+    .pitfalls-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .anchor-links {
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding-bottom: var(--space-sm);
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+
+    .pros-cons {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

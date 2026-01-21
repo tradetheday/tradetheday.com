@@ -1,0 +1,1253 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+
+// Key statistics
+const keyStats = [
+  { icon: "🌊", value: "5-3", label: "Wave Pattern" },
+  { icon: "📊", value: "9", label: "Total Waves" },
+  { icon: "🔍", value: "Multi-TF", label: "Fractal" },
+  { icon: "📈", value: "1930s", label: "Discovered" }
+];
+
+// Wave descriptions
+const impulseWaves = [
+  {
+    wave: "Wave 1",
+    description: "The initial move in the direction of the new trend. Often goes unnoticed by most traders. Small group of investors start buying.",
+    characteristics: ["Usually the shortest impulse wave", "Often occurs during pessimism", "Low volume, hesitant start"]
+  },
+  {
+    wave: "Wave 2",
+    description: "A corrective move against Wave 1, never retracing more than 100% of Wave 1. Tests the conviction of early bulls.",
+    characteristics: ["Retraces 50-78.6% of Wave 1", "Cannot go below Wave 1's starting point", "Often a sharp, sudden decline"]
+  },
+  {
+    wave: "Wave 3",
+    description: "The most powerful wave, never the shortest. Strong momentum as the trend becomes obvious to the broader market.",
+    characteristics: ["Usually the longest wave", "High volume confirmation", "Breakouts through resistance", "1.618x Wave 1 is common target"]
+  },
+  {
+    wave: "Wave 4",
+    description: "A corrective wave that prepares for the final push. Cannot overlap with Wave 1's territory.",
+    characteristics: ["Often sideways consolidation", "Less sharp than Wave 2", "May form triangles or flats", "Cannot enter Wave 1 price territory"]
+  },
+  {
+    wave: "Wave 5",
+    description: "The final move of the impulse. Often driven by retail traders joining late. May show divergence with momentum indicators.",
+    characteristics: ["Equal to or 61.8% of Wave 1", "Momentum divergence common", "Volume often lower than Wave 3", "Euphoria in uptrends, despair in downtrends"]
+  }
+];
+
+const correctiveWaves = [
+  {
+    wave: "Wave A",
+    description: "The first leg of the correction against the main trend. Many traders see this as a pullback to buy.",
+    characteristics: ["Often mistaken for a dip", "Sharp decline from Wave 5", "Volume starts to increase"]
+  },
+  {
+    wave: "Wave B",
+    description: "A counter-trend rally within the correction. Traps traders who think the trend is resuming.",
+    characteristics: ["Bull trap in downtrends", "Usually weaker than Wave A", "Lower volume", "Can nearly reach Wave 5 highs"]
+  },
+  {
+    wave: "Wave C",
+    description: "The final corrective wave. Often extends to 1.618x Wave A. Capitulation of the previous trend.",
+    characteristics: ["Usually equals Wave A in length", "Can extend to 1.618x Wave A", "High volume, panic selling/buying", "Completes the correction"]
+  }
+];
+
+// Fibonacci relationships
+const fiboRelationships = [
+  { relationship: "Wave 2", typical: "50% - 78.6% of Wave 1", note: "Must not exceed 100%" },
+  { relationship: "Wave 3", typical: "1.618x - 2.618x Wave 1", note: "Never the shortest" },
+  { relationship: "Wave 4", typical: "38.2% - 50% of Wave 3", note: "Cannot enter Wave 1 territory" },
+  { relationship: "Wave 5", typical: "Equal to Wave 1 or 0.618x Wave 1", note: "May extend to 1.618x Wave 1" },
+  { relationship: "Wave C", typical: "Equal to Wave A or 1.618x Wave A", note: "Often extends in strong corrections" }
+];
+
+// Rules and guidelines
+const rules = [
+  {
+    type: "Rule",
+    title: "Wave 2 Cannot Retrace Beyond Wave 1's Start",
+    description: "If Wave 2 breaks below Wave 1's starting point, your wave count is wrong."
+  },
+  {
+    type: "Rule",
+    title: "Wave 3 Is Never the Shortest",
+    description: "Wave 3 must be longer than at least one of the other impulse waves (1 or 5)."
+  },
+  {
+    type: "Rule",
+    title: "Wave 4 Cannot Enter Wave 1 Territory",
+    description: "In an uptrend, Wave 4's low cannot overlap with Wave 1's high. No overlap allowed."
+  }
+];
+
+const guidelines = [
+  {
+    title: "Alternation",
+    description: "If Wave 2 is sharp, Wave 4 tends to be sideways (and vice versa)."
+  },
+  {
+    title: "Wave 3 Volume",
+    description: "Volume should be highest during Wave 3, confirming the trend strength."
+  },
+  {
+    title: "Fifth Wave Divergence",
+    description: "RSI often shows bearish divergence at Wave 5 tops (higher price, lower RSI)."
+  },
+  {
+    title: "Channel Lines",
+    description: "Waves 2 and 4 bottoms can be connected to form a channel. Wave 3 often exceeds it."
+  }
+];
+
+// Trading applications
+const tradingApplications = [
+  {
+    icon: "🎯",
+    title: "Entry Points",
+    description: "Enter at the start of Wave 3 (after Wave 2 correction) or Wave 5 (after Wave 4 correction). Wave 3 entries have the best risk/reward.",
+    example: "Look for Wave 2 to retrace to 50-61.8% of Wave 1, then enter on reversal confirmation."
+  },
+  {
+    icon: "🚪",
+    title: "Profit Targets",
+    description: "Use Fibonacci extensions to project wave targets. Wave 3 often reaches 1.618x Wave 1. Wave 5 often equals Wave 1.",
+    example: "If Wave 1 moved 100 pips, target 161.8 pips for Wave 3 (from Wave 2 low)."
+  },
+  {
+    icon: "⚠️",
+    title: "Stop Loss Placement",
+    description: "Place stops just below Wave 2 low when entering Wave 3, or below Wave 4 low when entering Wave 5.",
+    example: "If Wave 2 bottom is at 1.1000, place stop at 1.0995 (with buffer for spread)."
+  },
+  {
+    icon: "🔄",
+    title: "Trend Reversal Signals",
+    description: "After a 5-wave impulse, expect a 3-wave correction. Use ABC patterns to identify the end of corrections.",
+    example: "After completing Wave 5, wait for ABC correction to finish before entering new trend."
+  }
+];
+
+// Featured brokers
+const featuredBrokers = [
+  {
+    name: "AvaTrade",
+    logo: "/images/brokers/avatrade-logo.svg",
+    rating: "4.5",
+    stars: "5",
+    features: [
+      "Advanced charting tools",
+      "MT4 & MT5 platforms",
+      "Drawing tools for waves",
+      "Free trading education",
+      "Partner code: 128979"
+    ],
+    ctaText: "Start with AvaTrade",
+    ctaLink: "/brokers/avatrade/",
+    featured: true
+  },
+  {
+    name: "Axi",
+    logo: "/images/brokers/axi-logo.svg",
+    rating: "4.4",
+    stars: "4",
+    features: [
+      "Autochartist patterns",
+      "TradingView integration",
+      "MT4 charting",
+      "Low spreads",
+      "Technical analysis tools"
+    ],
+    ctaText: "Trade with Axi",
+    ctaLink: "/brokers/axi/",
+    featured: false
+  }
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "Is Elliott Wave Theory reliable?",
+    answer: "Elliott Wave provides a framework for market structure, but it's subjective and open to interpretation. Two analysts can see different wave counts on the same chart. It works best combined with other analysis methods (Fibonacci, support/resistance). Don't rely on it exclusively."
+  },
+  {
+    question: "How do I know which wave I'm in?",
+    answer: "This is the hardest part of Elliott Wave. Use the three rules to eliminate invalid counts. Look at volume, momentum divergence, and Fibonacci retracements for clues. Wave 3 has highest volume, Wave 5 often shows divergence. Practice identifying completed patterns before trading live."
+  },
+  {
+    question: "What timeframe works best for Elliott Wave?",
+    answer: "Elliott Wave is fractal, meaning patterns exist on all timeframes. Higher timeframes (Daily, Weekly) give clearer patterns but fewer trades. Lower timeframes (1H, 4H) have more noise. Start with 4H or Daily charts to learn, then zoom in for entries."
+  },
+  {
+    question: "Can I use Elliott Wave for day trading?",
+    answer: "Yes, but it's more challenging on lower timeframes due to increased noise. Day traders typically use Elliott Wave on 1H charts for structure, then drop to 15min or 5min for entries. Always align with higher timeframe wave counts."
+  },
+  {
+    question: "Do I need special software for Elliott Wave analysis?",
+    answer: "No. Any charting platform with trend lines and Fibonacci tools works. TradingView has Elliott Wave drawing tools built-in. MetaTrader platforms have similar capabilities. The analysis is manual - there's no reliable automated wave counting software."
+  }
+];
+
+// Anchor menu items
+const anchorMenuItems = [
+  { text: "Overview", href: "#overview" },
+  { text: "Impulse Waves", href: "#impulse" },
+  { text: "Corrective Waves", href: "#corrective" },
+  { text: "Rules", href: "#rules" },
+  { text: "Trading", href: "#trading" },
+  { text: "Brokers", href: "#brokers" },
+  { text: "FAQs", href: "#faqs" }
+];
+---
+
+<BaseLayout
+  title="Elliott Wave Theory Guide 2026: Master Wave Analysis"
+  description="Learn Elliott Wave Theory for forex trading. Understand impulse and corrective waves, trading rules, and how to apply wave analysis to real markets."
+>
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Guides', href: '/guides/' },
+    { text: 'Elliott Wave', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-icon">🌊</span>
+          TECHNICAL ANALYSIS
+        </div>
+        <h1 class="hero-title">Elliott Wave Theory</h1>
+        <p class="hero-description">
+          Understand market structure through wave patterns. Learn the 5-3 wave pattern that governs all financial markets.
+        </p>
+
+        <!-- Key Stats -->
+        <div class="stats-grid">
+          {keyStats.map((stat) => (
+            <div class="stat-card">
+              <div class="stat-icon">{stat.icon}</div>
+              <span class="stat-value">{stat.value}</span>
+              <span class="stat-label">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANCHOR NAVIGATION -->
+  <nav class="anchor-nav" id="anchorNav">
+    <div class="container">
+      <div class="anchor-links">
+        {anchorMenuItems.map((item) => (
+          <a href={item.href} class="anchor-link">{item.text}</a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section class="section" id="overview">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What is Elliott Wave Theory?</h2>
+        <p class="section-subtitle">
+          A method of technical analysis that identifies repeating wave patterns in price charts, discovered by Ralph Nelson Elliott in the 1930s.
+        </p>
+      </div>
+
+      <div class="intro-content">
+        <p>Elliott observed that market prices move in predictable patterns he called "waves." These waves reflect the collective psychology of market participants - optimism and pessimism, fear and greed.</p>
+        <p>The basic structure consists of 5 waves in the direction of the main trend (impulse waves), followed by 3 waves against it (corrective waves). This 5-3 pattern repeats at every scale, from minute charts to multi-decade cycles.</p>
+      </div>
+
+      <div class="wave-structure">
+        <div class="wave-diagram">
+          <h3>The Basic Pattern</h3>
+          <div class="diagram-content">
+            <pre>
+        5
+       /\
+      /  \   B
+     /    \ /\
+    3      X  \
+   /\     A    C
+  /  \
+ /    4
+1
+ \   /
+  \ /
+   2
+            </pre>
+          </div>
+          <p class="diagram-caption">5 impulse waves (1-2-3-4-5) followed by 3 corrective waves (A-B-C)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPULSE WAVES -->
+  <section class="section section-alt" id="impulse">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">The 5 Impulse Waves</h2>
+        <p class="section-subtitle">
+          Impulse waves move in the direction of the main trend. Waves 1, 3, and 5 are motive (trending), while 2 and 4 are corrective (counter-trend).
+        </p>
+      </div>
+
+      <div class="waves-list">
+        {impulseWaves.map((wave, index) => (
+          <div class="wave-card impulse">
+            <div class="wave-number">{index + 1}</div>
+            <div class="wave-content">
+              <h3 class="wave-title">{wave.wave}</h3>
+              <p class="wave-description">{wave.description}</p>
+              <div class="wave-characteristics">
+                <strong>Key characteristics:</strong>
+                <ul>
+                  {wave.characteristics.map((char) => (
+                    <li>{char}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CORRECTIVE WAVES -->
+  <section class="section" id="corrective">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">The 3 Corrective Waves</h2>
+        <p class="section-subtitle">
+          After the 5-wave impulse, a 3-wave correction follows. These waves move against the main trend and are labeled A, B, C.
+        </p>
+      </div>
+
+      <div class="waves-list">
+        {correctiveWaves.map((wave) => (
+          <div class="wave-card corrective">
+            <div class="wave-letter">{wave.wave.split(' ')[1]}</div>
+            <div class="wave-content">
+              <h3 class="wave-title">{wave.wave}</h3>
+              <p class="wave-description">{wave.description}</p>
+              <div class="wave-characteristics">
+                <strong>Key characteristics:</strong>
+                <ul>
+                  {wave.characteristics.map((char) => (
+                    <li>{char}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Fibonacci Table -->
+      <div class="fibo-section">
+        <h3>Fibonacci Relationships</h3>
+        <p>Elliott waves are closely tied to Fibonacci ratios. Use these relationships to project wave targets and validate counts.</p>
+        <div class="fibo-table-wrapper">
+          <table class="fibo-table">
+            <thead>
+              <tr>
+                <th>Wave</th>
+                <th>Typical Relationship</th>
+                <th>Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              {fiboRelationships.map((fibo) => (
+                <tr>
+                  <td class="fibo-wave">{fibo.relationship}</td>
+                  <td>{fibo.typical}</td>
+                  <td class="fibo-note">{fibo.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RULES AND GUIDELINES -->
+  <section class="section section-alt" id="rules">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Rules & Guidelines</h2>
+        <p class="section-subtitle">
+          Elliott Wave has three unbreakable rules and several guidelines. Breaking a rule means your wave count is wrong.
+        </p>
+      </div>
+
+      <div class="rules-section">
+        <h3>The 3 Unbreakable Rules</h3>
+        <div class="rules-grid">
+          {rules.map((rule, index) => (
+            <div class="rule-card">
+              <span class="rule-badge">Rule {index + 1}</span>
+              <h4 class="rule-title">{rule.title}</h4>
+              <p class="rule-description">{rule.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="guidelines-section">
+        <h3>Guidelines (Not Rules)</h3>
+        <div class="guidelines-grid">
+          {guidelines.map((guideline) => (
+            <div class="guideline-card">
+              <h4 class="guideline-title">{guideline.title}</h4>
+              <p class="guideline-description">{guideline.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRADING APPLICATIONS -->
+  <section class="section" id="trading">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Trading with Elliott Wave</h2>
+        <p class="section-subtitle">
+          Practical applications of wave theory for real trading decisions.
+        </p>
+      </div>
+
+      <div class="applications-grid">
+        {tradingApplications.map((app) => (
+          <div class="application-card">
+            <span class="app-icon">{app.icon}</span>
+            <h3 class="app-title">{app.title}</h3>
+            <p class="app-description">{app.description}</p>
+            <div class="app-example">
+              <strong>Example:</strong> {app.example}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="trading-tip">
+        <p><strong>Pro tip:</strong> Don't trade Wave 1 or Wave A - too uncertain. Focus on Wave 3 entries (highest probability) and Wave 5 (end of trend). Always confirm with price action and other indicators.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BROKERS SECTION -->
+  <section class="section section-alt" id="brokers">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Best Brokers for Technical Analysis</h2>
+        <p class="section-subtitle">
+          Brokers with advanced charting tools for wave analysis.
+        </p>
+      </div>
+
+      <div class="brokers-grid">
+        {featuredBrokers.map((broker) => (
+          <div class={`broker-card ${broker.featured ? 'featured' : ''}`}>
+            {broker.featured && <span class="featured-badge">Top Pick</span>}
+            <div class="broker-header">
+              <img src={broker.logo} alt={`${broker.name} logo`} class="broker-logo" loading="lazy" />
+              <div class="broker-rating">
+                <span class="rating-stars">{'★'.repeat(parseInt(broker.stars))}</span>
+                <span class="rating-value">{broker.rating}/5</span>
+              </div>
+            </div>
+            <h3 class="broker-name">{broker.name}</h3>
+            <ul class="broker-features">
+              {broker.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            <a href={broker.ctaLink} class="broker-cta">{broker.ctaText}</a>
+          </div>
+        ))}
+      </div>
+
+      <div class="section-cta">
+        <a href="/brokers/" class="cta-button secondary">
+          Compare All Brokers
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section" id="faqs">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Elliott Wave FAQs</h2>
+        <p class="section-subtitle">
+          Common questions about wave analysis.
+        </p>
+      </div>
+
+      <div class="faq-list">
+        {faqs.map((faq) => (
+          <details class="faq-item">
+            <summary class="faq-question">{faq.question}</summary>
+            <p class="faq-answer">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="final-cta">
+        <h2>Ready to Apply Elliott Wave?</h2>
+        <p>Practice identifying waves on historical charts first. Then test your analysis with a demo account before risking real money.</p>
+        <div class="cta-buttons">
+          <a href="/brokers/" class="cta-button primary">Find a Broker</a>
+          <a href="/guides/forex-strategy/" class="cta-button secondary">More Strategies</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #2d3436 100%);
+    color: var(--white);
+    padding: var(--space-3xl) 0;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background: rgba(255, 72, 0, 0.2);
+    color: var(--brand-orange);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin-bottom: var(--space-lg);
+  }
+
+  .badge-icon {
+    font-size: var(--text-lg);
+  }
+
+  .hero-title {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    margin-bottom: var(--space-md);
+    line-height: 1.1;
+  }
+
+  .hero-description {
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-xl);
+    line-height: 1.6;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .stat-icon {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-xs);
+  }
+
+  .stat-value {
+    display: block;
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--brand-orange);
+  }
+
+  .stat-label {
+    display: block;
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: var(--space-xs);
+  }
+
+  /* Anchor Navigation */
+  .anchor-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: var(--space-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .anchor-links {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .anchor-link {
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+  }
+
+  .anchor-link:hover {
+    color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.1);
+  }
+
+  /* Section Styles */
+  .section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .section-alt {
+    background: var(--gray-50);
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--space-2xl);
+  }
+
+  .section-title {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .section-subtitle {
+    font-size: var(--text-lg);
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+
+  /* Intro Content */
+  .intro-content {
+    max-width: 800px;
+    margin: 0 auto var(--space-2xl);
+    text-align: center;
+  }
+
+  .intro-content p {
+    color: var(--gray-600);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+  }
+
+  /* Wave Diagram */
+  .wave-structure {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .wave-diagram {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .wave-diagram h3 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .diagram-content {
+    background: var(--gray-50);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .diagram-content pre {
+    font-family: monospace;
+    font-size: var(--text-sm);
+    color: var(--brand-orange);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .diagram-caption {
+    color: var(--gray-500);
+    font-size: var(--text-sm);
+    margin: 0;
+  }
+
+  /* Waves List */
+  .waves-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .wave-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .wave-number,
+  .wave-letter {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  .wave-card.impulse .wave-number {
+    background: var(--brand-orange);
+  }
+
+  .wave-card.corrective .wave-letter {
+    background: #6366f1;
+  }
+
+  .wave-content {
+    flex: 1;
+  }
+
+  .wave-title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .wave-description {
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .wave-characteristics strong {
+    display: block;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+    font-size: var(--text-sm);
+  }
+
+  .wave-characteristics ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+  }
+
+  .wave-characteristics li {
+    margin-bottom: var(--space-xs);
+  }
+
+  /* Fibonacci Section */
+  .fibo-section {
+    margin-top: var(--space-2xl);
+  }
+
+  .fibo-section h3 {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+    text-align: center;
+  }
+
+  .fibo-section > p {
+    text-align: center;
+    color: var(--gray-600);
+    margin-bottom: var(--space-lg);
+  }
+
+  .fibo-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .fibo-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .fibo-table th,
+  .fibo-table td {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .fibo-table th {
+    background: var(--charcoal);
+    color: var(--white);
+    font-weight: 600;
+    font-size: var(--text-sm);
+  }
+
+  .fibo-table td {
+    color: var(--gray-600);
+  }
+
+  .fibo-wave {
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .fibo-note {
+    font-size: var(--text-sm);
+    color: var(--gray-500);
+    font-style: italic;
+  }
+
+  /* Rules Section */
+  .rules-section,
+  .guidelines-section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .rules-section h3,
+  .guidelines-section h3 {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+  }
+
+  .rules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .rule-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border-top: 4px solid #ef4444;
+  }
+
+  .rule-badge {
+    display: inline-block;
+    background: #fee2e2;
+    color: #991b1b;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+
+  .rule-title {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .rule-description {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  .guidelines-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .guideline-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .guideline-title {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .guideline-description {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  /* Applications Grid */
+  .applications-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .application-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .app-icon {
+    font-size: var(--text-2xl);
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+
+  .app-title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .app-description {
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .app-example {
+    background: var(--gray-50);
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    color: var(--gray-600);
+  }
+
+  .trading-tip {
+    background: rgba(255, 72, 0, 0.1);
+    border-left: 4px solid var(--brand-orange);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+  }
+
+  .trading-tip p {
+    color: var(--charcoal);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Brokers Grid */
+  .brokers-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .broker-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .broker-card.featured {
+    border: 2px solid var(--brand-orange);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+  }
+
+  .broker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-logo {
+    height: 32px;
+    width: auto;
+  }
+
+  .broker-rating {
+    text-align: right;
+  }
+
+  .rating-stars {
+    color: #f59e0b;
+    font-size: var(--text-sm);
+  }
+
+  .rating-value {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--gray-500);
+  }
+
+  .broker-name {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg);
+    flex-grow: 1;
+  }
+
+  .broker-features li {
+    padding: var(--space-xs) 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: var(--text-sm);
+    color: var(--gray-600);
+  }
+
+  .broker-features li:last-child {
+    border-bottom: none;
+  }
+
+  .broker-cta {
+    display: block;
+    background: var(--brand-orange);
+    color: var(--white);
+    text-align: center;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .broker-cta:hover {
+    background: #e64100;
+  }
+
+  /* FAQ Section */
+  .faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    padding: var(--space-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question::after {
+    content: '+';
+    font-size: var(--text-xl);
+    color: var(--brand-orange);
+    transition: transform 0.2s;
+  }
+
+  .faq-item[open] .faq-question::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--gray-600);
+    line-height: 1.7;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #2d3436 100%);
+    color: var(--white);
+    padding: var(--space-3xl);
+    border-radius: var(--radius-xl);
+    text-align: center;
+  }
+
+  .final-cta h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .final-cta p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-xl);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+  }
+
+  /* CTA Buttons */
+  .section-cta {
+    text-align: center;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .cta-button.primary {
+    background: var(--brand-orange);
+    color: var(--white);
+  }
+
+  .cta-button.primary:hover {
+    background: #e64100;
+  }
+
+  .cta-button.secondary {
+    background: transparent;
+    color: var(--brand-orange);
+    border: 2px solid var(--brand-orange);
+  }
+
+  .cta-button.secondary:hover {
+    background: var(--brand-orange);
+    color: var(--white);
+  }
+
+  .final-cta .cta-button.secondary {
+    color: var(--white);
+    border-color: var(--white);
+  }
+
+  .final-cta .cta-button.secondary:hover {
+    background: var(--white);
+    color: var(--charcoal);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .rules-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .brokers-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: var(--text-3xl);
+    }
+
+    .stats-grid,
+    .guidelines-grid,
+    .applications-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .wave-card {
+      flex-direction: column;
+    }
+
+    .anchor-links {
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding-bottom: var(--space-sm);
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+  }
+</style>

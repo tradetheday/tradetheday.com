@@ -4,49 +4,44 @@ import Breadcrumb from '../../../components/Breadcrumb.astro';
 import TrustBadges from '../../../components/TrustBadges.astro';
 import { getBrokersByPlatform } from '../../../data/brokers';
 
-const pageTitle = "Best MT4 Brokers 2026 - Top MetaTrader 4 Forex Brokers";
-const pageDescription = "Compare the best MT4 brokers for 2026. Find regulated MetaTrader 4 forex brokers with tight spreads, fast execution, and EA support. Expert-reviewed.";
+const pageTitle = "Best cTrader Brokers 2026: ECN Trading with Level II Pricing";
+const pageDescription = "Compare the best cTrader brokers with raw spreads from 0.0 pips. cTrader offers Level II pricing, cAlgo automation, and cTrader Copy for social trading.";
 
 const breadcrumbItems = [
   { text: 'Home', href: '/' },
-  { text: 'Trading Platforms', href: '/trading-platforms/' },
-  { text: 'MetaTrader 4', href: '/trading-platforms/metatrader-4/', current: true }
+  { text: 'Trading Platforms', href: '/platforms/' },
+  { text: 'cTrader', href: '/platforms/ctrader/', current: true }
 ];
 
-// Sub-pages for internal linking
-const mt4SubPages = [
-  { title: 'Best MT4 Brokers 2026', url: '/trading-platforms/metatrader-4/best-mt4-brokers/', description: 'Full comparison of top MT4 brokers' }
-];
-
-// Get brokers that support MT4
-const mt4Brokers = getBrokersByPlatform('MetaTrader 4');
+// Get brokers that support cTrader
+const ctraderBrokers = getBrokersByPlatform('cTrader');
 
 const currentYear = new Date().getFullYear();
 
 const faqData = [
   {
-    question: 'What is MetaTrader 4?',
-    answer: 'MetaTrader 4 (MT4) is the world\'s most popular forex trading platform, developed by MetaQuotes Software. It offers advanced charting, technical analysis tools, automated trading via Expert Advisors (EAs), and is available on desktop, web, and mobile devices.'
+    question: 'What is cTrader?',
+    answer: 'cTrader is a professional forex and CFD trading platform developed by Spotware. It\'s known for its clean interface, Level II pricing (depth of market), fast execution, and advanced charting. cTrader is popular among ECN traders and those who want transparent pricing.'
   },
   {
-    question: 'Which broker has the best MT4?',
-    answer: `For ${currentYear}, AvaTrade offers one of the best MT4 experiences with multi-regulation, competitive spreads, and excellent EA support. Axi is ideal for ECN trading with raw spreads on MT4.`
+    question: 'Is cTrader better than MT4?',
+    answer: 'cTrader has some advantages over MT4: better depth of market visibility, more intuitive interface, faster order execution, and built-in copy trading. However, MT4 has a larger community, more third-party indicators, and broader broker support. Choose based on your priorities.'
   },
   {
-    question: 'Is MT4 free to use?',
-    answer: 'Yes, MT4 is free to download and use. You get the platform for free when you open an account with any MT4 broker. There are no platform fees - brokers make money from spreads and commissions on your trades.'
+    question: 'Is cTrader free?',
+    answer: 'Yes, cTrader is free to use. When you open an account with a cTrader broker, you get access to the platform at no cost. Brokers make money from spreads and commissions, not platform fees.'
   },
   {
-    question: 'Can I use MT4 on Mac?',
-    answer: 'Yes, MT4 works on Mac. Most brokers offer either a native Mac version or recommend using Wine/PlayOnMac. You can also use MT4 WebTrader which runs in any browser, or the MT4 mobile app on iPhone.'
+    question: 'What is cTrader Copy?',
+    answer: 'cTrader Copy is the built-in social trading feature that lets you automatically copy trades from successful strategy providers. You can browse provider statistics, set risk parameters, and diversify across multiple providers.'
   },
   {
-    question: 'What is an Expert Advisor (EA)?',
-    answer: 'An Expert Advisor (EA) is an automated trading program that runs on MT4. EAs can analyze markets, generate signals, and execute trades automatically based on pre-programmed rules. MT4 is the most popular platform for running EAs.'
+    question: 'What is cAlgo?',
+    answer: 'cAlgo (now called cTrader Automate) is cTrader\'s algorithmic trading environment. It uses C# programming language to create custom indicators and automated trading robots (cBots). It\'s more powerful than MT4\'s MQL4 but has a steeper learning curve.'
   },
   {
-    question: 'MT4 vs MT5 - which is better?',
-    answer: 'MT4 is better for forex-focused trading and has wider EA compatibility. MT5 offers more timeframes, built-in economic calendar, and supports more asset classes. Most forex traders still prefer MT4 for its simplicity and EA ecosystem.'
+    question: 'Which broker has the best cTrader?',
+    answer: `For ${currentYear}, Pepperstone and IC Markets offer excellent cTrader experiences with raw ECN spreads, fast execution, and full platform support including cTrader Copy and Automate.`
   }
 ];
 ---
@@ -60,8 +55,7 @@ const faqData = [
   <script slot="head" type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "MetaTrader 4",
-    "alternateName": "MT4",
+    "name": "cTrader",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Windows, macOS, iOS, Android, Web",
     "offers": {
@@ -71,8 +65,8 @@ const faqData = [
     },
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "4.5",
-      "ratingCount": "50000"
+      "ratingValue": "4.6",
+      "ratingCount": "15000"
     }
   })} />
 
@@ -90,24 +84,24 @@ const faqData = [
   })} />
 
   <!-- Hero -->
-  <section class="mt4-hero">
+  <section class="ctrader-hero">
     <div class="container">
-      <div class="mt4-hero-badge">
-        <span class="badge-icon">📊</span>
-        <span>World's Most Popular Trading Platform</span>
+      <div class="ctrader-hero-badge">
+        <span class="badge-icon">📈</span>
+        <span>ECN Trading Platform</span>
       </div>
-      <h1 class="heading-1">Best MT4 Brokers {currentYear}</h1>
-      <p class="body-large mt4-hero-sub">
-        Find the best MetaTrader 4 forex brokers with tight spreads, fast execution, and full EA support. All brokers are regulated and expert-reviewed.
+      <h1 class="heading-1">Best cTrader Brokers {currentYear}</h1>
+      <p class="body-large ctrader-hero-sub">
+        Find the best cTrader forex brokers with raw ECN spreads, Level II pricing, and professional execution. All brokers are regulated and reviewed.
       </p>
       <div class="hero-stats">
         <div class="hero-stat">
-          <span class="hero-stat-value">{mt4Brokers.length}</span>
-          <span class="hero-stat-label">MT4 Brokers</span>
+          <span class="hero-stat-value">{ctraderBrokers.length}</span>
+          <span class="hero-stat-label">cTrader Brokers</span>
         </div>
         <div class="hero-stat">
-          <span class="hero-stat-value">Tier-1</span>
-          <span class="hero-stat-label">Regulated</span>
+          <span class="hero-stat-value">ECN</span>
+          <span class="hero-stat-label">Execution</span>
         </div>
         <div class="hero-stat">
           <span class="hero-stat-value">0.0</span>
@@ -119,14 +113,14 @@ const faqData = [
 
   <TrustBadges variant="light" compact={true} />
 
-  <!-- Best MT4 Brokers List -->
+  <!-- Best cTrader Brokers List -->
   <section class="section">
     <div class="container">
-      <h2 class="heading-2">Best MetaTrader 4 Brokers for {currentYear}</h2>
-      <p class="section-intro">Our top-rated brokers offering MetaTrader 4, ranked by spreads, regulation, and overall value.</p>
+      <h2 class="heading-2">Best cTrader Brokers for {currentYear}</h2>
+      <p class="section-intro">Our top-rated brokers offering cTrader, ranked by spreads, execution, and overall value.</p>
 
       <div class="broker-list">
-        {mt4Brokers.map((broker, index) => (
+        {ctraderBrokers.map((broker, index) => (
           <div class={`broker-card ${index === 0 ? 'broker-card--top' : ''}`}>
             {index === 0 && <span class="top-badge">Editor's Choice</span>}
             <div class="broker-card-rank">#{index + 1}</div>
@@ -166,11 +160,7 @@ const faqData = [
 
             <div class="broker-card-actions">
               <a href={broker.reviewUrl} class="btn btn-secondary">Read Review</a>
-              {broker.partnerCode ? (
-                <a href={broker.partnerCode.pageUrl} class="btn btn-primary">Get Partner Code →</a>
-              ) : (
-                <a href={broker.affiliateUrl} class="btn btn-primary" target="_blank" rel="noopener sponsored">Visit Broker →</a>
-              )}
+              <a href={broker.affiliateUrl} class="btn btn-primary" target="_blank" rel="noopener sponsored">Visit Broker →</a>
             </div>
           </div>
         ))}
@@ -178,100 +168,166 @@ const faqData = [
     </div>
   </section>
 
-  <!-- What is MT4 -->
+  <!-- What is cTrader -->
   <section class="section section--alt">
     <div class="container">
       <div class="content-grid">
         <div class="content-main">
-          <h2 class="heading-2">What is MetaTrader 4?</h2>
+          <h2 class="heading-2">What is cTrader?</h2>
           <p>
-            MetaTrader 4 (MT4) is the world's most widely used retail forex trading platform. Developed by MetaQuotes Software and released in 2005, it has become the industry standard for forex and CFD trading.
+            cTrader is a professional-grade forex and CFD trading platform developed by Spotware Systems. Launched in 2011, it has gained popularity among serious traders who want transparent pricing, fast execution, and advanced features.
           </p>
           <p>
-            MT4 is popular because it combines powerful charting tools, technical analysis capabilities, and automated trading through Expert Advisors (EAs) in one user-friendly package. It's available for free through any MT4-supporting broker.
+            Unlike MT4 which was designed for market makers, cTrader was built from the ground up for ECN/STP trading. This means you see real market depth, get true interbank spreads, and experience no dealing desk intervention.
           </p>
 
-          <h3>Key MT4 Features</h3>
+          <h3>Key cTrader Features</h3>
           <ul class="feature-list">
-            <li><strong>Expert Advisors (EAs)</strong> - Run automated trading strategies 24/7</li>
-            <li><strong>Custom Indicators</strong> - Access thousands of free custom indicators</li>
-            <li><strong>30+ Technical Indicators</strong> - Built-in analysis tools</li>
-            <li><strong>9 Timeframes</strong> - From 1-minute to monthly charts</li>
-            <li><strong>One-Click Trading</strong> - Execute trades instantly</li>
-            <li><strong>Mobile Trading</strong> - Full-featured iOS and Android apps</li>
-            <li><strong>Alerts</strong> - Price and indicator-based notifications</li>
-            <li><strong>Backtesting</strong> - Test EAs on historical data</li>
+            <li><strong>Level II Pricing</strong> - See full depth of market with multiple liquidity levels</li>
+            <li><strong>cTrader Copy</strong> - Built-in social trading to copy successful traders</li>
+            <li><strong>cTrader Automate</strong> - Create custom indicators and cBots using C#</li>
+            <li><strong>Advanced Charting</strong> - 70+ indicators, 26 timeframes, detachable charts</li>
+            <li><strong>Quick Trade</strong> - One-click trading with smart stop loss/take profit</li>
+            <li><strong>No Requotes</strong> - Direct market execution with no dealer intervention</li>
+            <li><strong>Mobile Apps</strong> - Full-featured iOS and Android applications</li>
+            <li><strong>Web Platform</strong> - Trade from any browser without downloads</li>
           </ul>
         </div>
 
         <div class="content-sidebar">
           <div class="quick-facts">
-            <h3>MT4 Quick Facts</h3>
+            <h3>cTrader Quick Facts</h3>
             <dl>
               <dt>Released</dt>
-              <dd>2005</dd>
+              <dd>2011</dd>
               <dt>Developer</dt>
-              <dd>MetaQuotes</dd>
+              <dd>Spotware</dd>
               <dt>Cost</dt>
               <dd>Free</dd>
               <dt>Best For</dt>
-              <dd>Forex, EAs</dd>
+              <dd>ECN, Scalping</dd>
               <dt>Platforms</dt>
               <dd>Win, Mac, Web, Mobile</dd>
             </dl>
           </div>
 
           <div class="cta-box">
-            <h4>Our Top MT4 Broker</h4>
-            <p><strong>AvaTrade</strong> offers MT4 with:</p>
+            <h4>Top cTrader Broker</h4>
+            <p><strong>Pepperstone</strong> offers cTrader with:</p>
             <ul>
-              <li>Multi-regulation (FCA, ASIC)</li>
-              <li>0.9 pip spreads</li>
-              <li>Full EA support</li>
-              <li>Welcome bonus available</li>
+              <li>Raw spreads from 0.0 pips</li>
+              <li>FCA & ASIC regulated</li>
+              <li>cTrader Copy included</li>
+              <li>Fast ECN execution</li>
             </ul>
-            <a href="/brokers/avatrade/partner-code/" class="btn btn-primary btn-full">Get AvaTrade Partner Code</a>
+            <a href="/brokers/pepperstone/" class="btn btn-primary btn-full">Visit Pepperstone</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- How to Choose -->
+  <!-- cTrader vs MT4 -->
   <section class="section">
     <div class="container">
-      <h2 class="heading-2 text-center">How to Choose an MT4 Broker</h2>
-      <p class="section-intro text-center">Not all MT4 brokers are equal. Here's what to look for:</p>
+      <h2 class="heading-2 text-center">cTrader vs MetaTrader 4</h2>
+      <p class="section-intro text-center">Wondering which platform to choose? Here's how they compare:</p>
+
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>cTrader</th>
+              <th>MetaTrader 4</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Depth of Market</td>
+              <td class="highlight">Full Level II pricing</td>
+              <td>Limited</td>
+            </tr>
+            <tr>
+              <td>Execution Model</td>
+              <td class="highlight">ECN/STP native</td>
+              <td>Varies by broker</td>
+            </tr>
+            <tr>
+              <td>Timeframes</td>
+              <td class="highlight">26 timeframes</td>
+              <td>9 timeframes</td>
+            </tr>
+            <tr>
+              <td>Built-in Indicators</td>
+              <td class="highlight">70+</td>
+              <td>30+</td>
+            </tr>
+            <tr>
+              <td>Copy Trading</td>
+              <td class="highlight">Built-in (cTrader Copy)</td>
+              <td>Third-party only</td>
+            </tr>
+            <tr>
+              <td>Automation Language</td>
+              <td>C# (cAlgo)</td>
+              <td class="highlight">MQL4 (larger community)</td>
+            </tr>
+            <tr>
+              <td>Broker Support</td>
+              <td>Limited selection</td>
+              <td class="highlight">Very wide</td>
+            </tr>
+            <tr>
+              <td>Third-party Tools</td>
+              <td>Growing</td>
+              <td class="highlight">Massive ecosystem</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="comparison-note">
+        <strong>Bottom line:</strong> Choose cTrader if you want transparent ECN pricing, advanced charting, and built-in copy trading. Choose MT4 if you need maximum broker choice and access to thousands of third-party EAs and indicators.
+      </p>
+    </div>
+  </section>
+
+  <!-- How to Choose -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2 text-center">How to Choose a cTrader Broker</h2>
+      <p class="section-intro text-center">What to look for when selecting a cTrader broker:</p>
 
       <div class="criteria-grid">
         <div class="criteria-card">
           <span class="criteria-number">1</span>
-          <h3>Regulation</h3>
-          <p>Choose brokers regulated by tier-1 authorities like FCA (UK), ASIC (Australia), or CySEC (EU). This ensures fund protection and fair practices.</p>
+          <h3>True ECN Execution</h3>
+          <p>The main benefit of cTrader is ECN execution. Ensure your broker offers genuine ECN access with no dealing desk intervention and transparent pricing.</p>
         </div>
         <div class="criteria-card">
           <span class="criteria-number">2</span>
-          <h3>Spreads & Fees</h3>
-          <p>Compare spreads on major pairs like EUR/USD. ECN brokers offer raw spreads from 0.0 pips but charge commission. Standard accounts have wider spreads but no commission.</p>
+          <h3>Raw Spreads</h3>
+          <p>cTrader brokers typically offer raw spread accounts with spreads from 0.0 pips plus commission. Compare the total trading cost (spread + commission).</p>
         </div>
         <div class="criteria-card">
           <span class="criteria-number">3</span>
-          <h3>Execution Speed</h3>
-          <p>For scalping and EA trading, execution speed matters. Look for brokers with servers close to your location and low latency.</p>
+          <h3>cTrader Copy Access</h3>
+          <p>If you're interested in social trading, check if the broker fully supports cTrader Copy with a good selection of strategy providers.</p>
         </div>
         <div class="criteria-card">
           <span class="criteria-number">4</span>
-          <h3>EA Policy</h3>
-          <p>Not all brokers allow all EAs. Check if your broker permits scalping EAs, news trading, and high-frequency strategies.</p>
+          <h3>Regulation</h3>
+          <p>Choose brokers regulated by tier-1 authorities like FCA, ASIC, or CySEC. This ensures your funds are protected and the broker operates fairly.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FAQ Section -->
-  <section class="section section--alt" id="faq">
+  <section class="section" id="faq">
     <div class="container">
-      <h2 class="heading-2 text-center">MT4 Broker FAQ</h2>
+      <h2 class="heading-2 text-center">cTrader FAQ</h2>
 
       <div class="faq-container">
         {faqData.map((faq, index) => (
@@ -291,10 +347,10 @@ const faqData = [
   <!-- Final CTA -->
   <section class="section final-cta">
     <div class="container text-center">
-      <h2 class="heading-2">Ready to Start Trading on MT4?</h2>
-      <p class="body-large">Get exclusive bonuses when you sign up through TradeTheDay.</p>
+      <h2 class="heading-2">Ready to Trade on cTrader?</h2>
+      <p class="body-large">Experience ECN trading with raw spreads and Level II pricing.</p>
       <div class="cta-buttons">
-        <a href="/brokers/avatrade/partner-code/" class="btn btn-primary btn-lg">AvaTrade Partner Code</a>
+        <a href="/brokers/pepperstone/" class="btn btn-primary btn-lg">Visit Pepperstone</a>
         <a href="/brokers/" class="btn btn-secondary btn-lg">Compare All Brokers</a>
       </div>
     </div>
@@ -315,14 +371,14 @@ document.querySelectorAll('.faq-question').forEach(button => {
 </script>
 
 <style>
-  .mt4-hero {
+  .ctrader-hero {
     padding: var(--space-3xl) 0 var(--space-xl);
     background: linear-gradient(135deg, #0f1419 0%, #1a2028 100%);
     color: white;
     text-align: center;
   }
 
-  .mt4-hero-badge {
+  .ctrader-hero-badge {
     display: inline-flex;
     align-items: center;
     gap: var(--space-xs);
@@ -333,11 +389,11 @@ document.querySelectorAll('.faq-question').forEach(button => {
     margin-bottom: var(--space-md);
   }
 
-  .mt4-hero .heading-1 {
+  .ctrader-hero .heading-1 {
     color: white;
   }
 
-  .mt4-hero-sub {
+  .ctrader-hero-sub {
     color: rgba(255, 255, 255, 0.8);
     max-width: 600px;
     margin: 0 auto var(--space-xl);
@@ -593,6 +649,53 @@ document.querySelectorAll('.faq-question').forEach(button => {
   .cta-box li::before {
     content: '✓ ';
     color: var(--success);
+  }
+
+  /* Comparison Table */
+  .comparison-table-wrapper {
+    overflow-x: auto;
+    margin: var(--space-xl) 0;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .comparison-table th {
+    background: var(--gray-50);
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .comparison-table td {
+    color: var(--gray-700);
+  }
+
+  .comparison-table td.highlight {
+    color: var(--success);
+    font-weight: 600;
+  }
+
+  .comparison-note {
+    text-align: center;
+    color: var(--gray-600);
+    max-width: 700px;
+    margin: var(--space-lg) auto 0;
+    padding: var(--space-md);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
   }
 
   /* Criteria Grid */

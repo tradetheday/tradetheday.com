@@ -3,12 +3,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import TrustBadges from '../../components/TrustBadges.astro';
 
-const pageTitle = "Trading Platforms 2026 - MT4, MT5, cTrader & More";
-const pageDescription = "Compare the best trading platforms including MetaTrader 4, MetaTrader 5, cTrader, and TradingView. Find which brokers offer each platform with our comprehensive guide.";
+const pageTitle = "Best Trading Platforms 2026: MT4 vs MT5 vs cTrader vs TradingView";
+const pageDescription = "Compare MT4, MT5, cTrader, and TradingView side-by-side. See which platform is best for your trading style and which brokers offer them.";
 
 const breadcrumbItems = [
   { text: 'Home', href: '/' },
-  { text: 'Trading Platforms', current: true }
+  { text: 'Platforms', current: true }
 ];
 
 const platforms = [
@@ -71,7 +71,7 @@ const platforms = [
       "@type": "ListItem",
       "position": index + 1,
       "name": platform.name,
-      "url": `https://tradetheday.com/trading-platforms/${platform.slug}/`
+      "url": `https://tradetheday.com/platforms/${platform.slug}/`
     }))
   })} />
 
@@ -92,7 +92,7 @@ const platforms = [
     <div class="container">
       <div class="platforms-grid">
         {platforms.map((platform) => (
-          <a href={`/trading-platforms/${platform.slug}/`} class="platform-card">
+          <a href={`/platforms/${platform.slug}/`} class="platform-card">
             <div class="platform-card-header">
               <span class="platform-icon">{platform.icon}</span>
               <div>
