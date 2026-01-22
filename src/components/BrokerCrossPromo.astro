@@ -25,19 +25,19 @@ const tools = [
     icon: "🧮",
     title: "Broker Cost Calculator",
     desc: "Compare trading costs",
-    link: "/tools/broker-calculator/"
+    link: "/tools/broker-calculator"
   },
   {
     icon: "📐",
     title: "Position Size Calculator",
     desc: "Manage your risk",
-    link: "/tools/position-calculator/"
+    link: "/tools/position-calculator"
   },
   {
     icon: "💰",
     title: "Profit/Loss Calculator",
     desc: "Know before you trade",
-    link: "/tools/profit-calculator/"
+    link: "/tools/profit-calculator"
   }
 ];
 ---
@@ -51,14 +51,14 @@ const tools = [
         {relevantComparisons.map(comp => {
           const otherBroker = comp.broker1.slug === brokerSlug ? comp.broker2 : comp.broker1;
           return (
-            <a href={`/compare/${comp.slug}/`} class="comparison-link">
+            <a href={`/compare/${comp.slug}`} class="comparison-link">
               <span class="comp-text">{brokerName} vs {otherBroker.name}</span>
               <span class="comp-arrow">→</span>
             </a>
           );
         })}
       </div>
-      <a href="/compare/" class="view-all-link">View All Comparisons →</a>
+      <a href="/compare" class="view-all-link">View All Comparisons →</a>
     </div>
   )}
 
@@ -77,7 +77,7 @@ const tools = [
           </a>
         ))}
       </div>
-      <a href="/videos/" class="view-all-link">Browse All Videos →</a>
+      <a href="/videos" class="view-all-link">Browse All Videos →</a>
     </div>
   )}
 
@@ -106,7 +106,7 @@ const tools = [
         <p>Get free market analysis and broker deals</p>
       </div>
     </div>
-    <a href="/free/trading-checklist/" class="newsletter-mini-btn">Subscribe Free →</a>
+    <a href="/free/trading-checklist" class="newsletter-mini-btn">Subscribe Free →</a>
   </div>
 </div>
 

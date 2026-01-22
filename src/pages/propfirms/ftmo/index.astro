@@ -14,7 +14,7 @@ import { generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } fro
 const firm = getPropFirmBySlug('ftmo');
 
 if (!firm) {
-  return Astro.redirect('/propfirms/');
+  return Astro.redirect('/propfirms');
 }
 
 // Page Configuration
@@ -711,15 +711,15 @@ const breadcrumbItems = [
       <div class="related-section">
         <h3>Compare FTMO with Other Prop Firms</h3>
         <div class="related-grid">
-          <a href="/compare/ftmo-vs-funded-trader/" class="related-card">
+          <a href="/compare/ftmo-vs-funded-trader" class="related-card">
             <span class="related-title">FTMO vs The Funded Trader</span>
             <span class="related-desc">Detailed comparison of pricing, rules, and payouts</span>
           </a>
-          <a href="/propfirms/the-funded-trader/" class="related-card">
+          <a href="/propfirms/the-funded-trader" class="related-card">
             <span class="related-title">The Funded Trader Review</span>
             <span class="related-desc">Budget-friendly alternative with flexible rules</span>
           </a>
-          <a href="/propfirms/" class="related-card">
+          <a href="/propfirms" class="related-card">
             <span class="related-title">All Prop Firms</span>
             <span class="related-desc">Compare all prop trading firms side by side</span>
           </a>

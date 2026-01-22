@@ -42,7 +42,7 @@ const schema = {
   "inDefinedTermSet": {
     "@type": "DefinedTermSet",
     "name": "Trading Glossary",
-    "url": "https://tradetheday.com/glossary/"
+    "url": "https://tradetheday.com/glossary"
   }
 };
 ---
@@ -58,7 +58,7 @@ const schema = {
       <span class="breadcrumb">
         <a href="/">Home</a>
         <span class="breadcrumb-sep">&rsaquo;</span>
-        <a href="/glossary/">Glossary</a>
+        <a href="/glossary">Glossary</a>
         <span class="breadcrumb-sep">&rsaquo;</span>
         <span class="breadcrumb-current">{term.name}</span>
       </span>
@@ -136,7 +136,7 @@ const schema = {
               <h2 class="heading-3">Related Terms</h2>
               <div class="related-terms">
                 {relatedTermsData.map(relatedTerm => (
-                  <a href={`/glossary/${relatedTerm.slug}/`} class="btn btn-secondary btn-sm">
+                  <a href={`/glossary/${relatedTerm.slug}`} class="btn btn-secondary btn-sm">
                     {relatedTerm.name}
                   </a>
                 ))}
@@ -146,7 +146,7 @@ const schema = {
 
           <!-- Back Link -->
           <div class="back-link">
-            <a href="/glossary/" class="btn btn-secondary">&larr; Back to Glossary</a>
+            <a href="/glossary" class="btn btn-secondary">&larr; Back to Glossary</a>
           </div>
         </div>
 
@@ -155,13 +155,13 @@ const schema = {
           <div class="sidebar-card">
             <h3>Ready to Trade?</h3>
             <p>Put your knowledge into practice with a regulated broker.</p>
-            <a href="/find-broker/" class="btn btn-primary btn-full">Find Your Broker</a>
+            <a href="/find-broker" class="btn btn-primary btn-full">Find Your Broker</a>
           </div>
 
           <div class="sidebar-card sidebar-card-dark">
             <h3>Get Trading Signals</h3>
             <p>Free AI-powered trading signals delivered daily.</p>
-            <a href="/signals/" class="btn btn-secondary btn-full">Learn More</a>
+            <a href="/signals" class="btn btn-secondary btn-full">Learn More</a>
           </div>
         </aside>
       </div>
@@ -174,7 +174,7 @@ const schema = {
       <div class="cta-content">
         <h2 class="heading-2">Start Trading with Confidence</h2>
         <p class="body-large">Compare regulated brokers and find the best one for your trading style.</p>
-        <a href="/brokers/" class="btn btn-primary btn-xl">Compare Brokers</a>
+        <a href="/brokers" class="btn btn-primary btn-xl">Compare Brokers</a>
       </div>
     </div>
   </section>

@@ -323,17 +323,17 @@ const pageDescription = `Compare ${broker1.name} and ${broker2.name} side-by-sid
           <h2>Calculate Your Trading Costs</h2>
           <p>Use our free tools to compare broker costs and calculate position sizes before you trade.</p>
           <div class="tools-cta-grid">
-            <a href="/tools/broker-calculator/" class="tool-cta-card">
+            <a href="/tools/broker-calculator" class="tool-cta-card">
               <span class="tool-cta-icon">🧮</span>
               <span class="tool-cta-title">Broker Cost Calculator</span>
               <span class="tool-cta-desc">Compare total trading costs</span>
             </a>
-            <a href="/tools/position-calculator/" class="tool-cta-card">
+            <a href="/tools/position-calculator" class="tool-cta-card">
               <span class="tool-cta-icon">📐</span>
               <span class="tool-cta-title">Position Size Calculator</span>
               <span class="tool-cta-desc">Calculate proper lot sizes</span>
             </a>
-            <a href="/tools/profit-calculator/" class="tool-cta-card">
+            <a href="/tools/profit-calculator" class="tool-cta-card">
               <span class="tool-cta-icon">💰</span>
               <span class="tool-cta-title">Profit/Loss Calculator</span>
               <span class="tool-cta-desc">Know your P&L in advance</span>
@@ -352,7 +352,7 @@ const pageDescription = `Compare ${broker1.name} and ${broker2.name} side-by-sid
             .filter(c => c.broker1.id !== broker1.id && c.broker2.id !== broker2.id)
             .slice(0, 6)
             .map(comp => (
-              <a href={`/compare/${comp.slug}/`} class="other-card">
+              <a href={`/compare/${comp.slug}`} class="other-card">
                 <span>{comp.broker1.name}</span>
                 <span class="other-vs">vs</span>
                 <span>{comp.broker2.name}</span>

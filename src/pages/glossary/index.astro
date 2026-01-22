@@ -40,12 +40,12 @@ const schema = {
   "@type": "DefinedTermSet",
   "name": "Trading Glossary",
   "description": "Essential trading terms and definitions for forex, CFD, and financial markets",
-  "url": "https://tradetheday.com/glossary/",
+  "url": "https://tradetheday.com/glossary",
   "hasDefinedTerm": allTerms.slice(0, 10).map(term => ({
     "@type": "DefinedTerm",
     "name": term.name,
     "description": term.shortDescription,
-    "url": `https://tradetheday.com/glossary/${term.slug}/`
+    "url": `https://tradetheday.com/glossary/${term.slug}`
   }))
 };
 ---
@@ -85,7 +85,7 @@ const schema = {
           <h2 id={letter} class="glossary-letter">{letter}</h2>
           <div class="glossary-grid">
             {glossaryTerms[letter].map(term => (
-              <a href={`/glossary/${term.slug}/`} class="glossary-term-card">
+              <a href={`/glossary/${term.slug}`} class="glossary-term-card">
                 {term.popular && <span class="popular-badge">Popular</span>}
                 <h3>{term.name}</h3>
                 <p>{term.description}</p>
@@ -103,7 +103,7 @@ const schema = {
       <div class="cta-content">
         <h2 class="heading-2">Ready to Put Your Knowledge Into Practice?</h2>
         <p class="body-large">Start trading with a regulated broker that offers educational resources and demo accounts.</p>
-        <a href="/brokers/" class="btn btn-primary btn-xl">Compare Brokers</a>
+        <a href="/brokers" class="btn btn-primary btn-xl">Compare Brokers</a>
         <p class="disclaimer-text">
           <strong>Risk Disclaimer:</strong> Trading forex, CFDs, and crypto is high risk. 72-89% of retail investors lose money. Consider whether you can afford this risk.
         </p>

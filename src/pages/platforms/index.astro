@@ -71,7 +71,7 @@ const platforms = [
       "@type": "ListItem",
       "position": index + 1,
       "name": platform.name,
-      "url": `https://tradetheday.com/platforms/${platform.slug}/`
+      "url": `https://tradetheday.com/platforms/${platform.slug}`
     }))
   })} />
 
@@ -92,7 +92,7 @@ const platforms = [
     <div class="container">
       <div class="platforms-grid">
         {platforms.map((platform) => (
-          <a href={`/platforms/${platform.slug}/`} class="platform-card">
+          <a href={`/platforms/${platform.slug}`} class="platform-card">
             <div class="platform-card-header">
               <span class="platform-icon">{platform.icon}</span>
               <div>
@@ -165,7 +165,7 @@ const platforms = [
       <p class="body-large" style="margin-bottom: var(--space-lg);">
         Our AI broker matcher considers your platform preferences to find your perfect broker.
       </p>
-      <a href="/compare/" class="btn btn-primary btn-lg">Find My Perfect Broker</a>
+      <a href="/compare" class="btn btn-primary btn-lg">Find My Perfect Broker</a>
     </div>
   </section>
 </BaseLayout>

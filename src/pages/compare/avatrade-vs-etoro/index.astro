@@ -12,7 +12,7 @@ const avatrade = getBrokerBySlug('avatrade');
 const etoro = getBrokerBySlug('etoro');
 
 if (!avatrade || !etoro) {
-  return Astro.redirect('/compare/');
+  return Astro.redirect('/compare');
 }
 
 // Page metadata
@@ -677,27 +677,27 @@ const breadcrumbItems = [
         <div class="related-resources">
           <h3>Full Reviews & Resources</h3>
           <div class="resource-grid">
-            <a href="/brokers/avatrade/" class="resource-link">
+            <a href="/brokers/avatrade" class="resource-link">
               <span class="resource-title">AvaTrade Full Review</span>
               <span class="resource-desc">Complete 2026 analysis with fees, platforms, regulation</span>
             </a>
-            <a href="/brokers/etoro/" class="resource-link">
+            <a href="/brokers/etoro" class="resource-link">
               <span class="resource-title">eToro Full Review</span>
               <span class="resource-desc">Deep dive into social trading and copy features</span>
             </a>
-            <a href="/bonus-codes/avatrade-partner-code/" class="resource-link resource-highlight">
+            <a href="/bonus-codes/avatrade-partner-code" class="resource-link resource-highlight">
               <span class="resource-title">AvaTrade Partner Code: 128979</span>
               <span class="resource-desc">Claim up to $10,000 welcome bonus</span>
             </a>
-            <a href="/find-broker/" class="resource-link">
+            <a href="/find-broker" class="resource-link">
               <span class="resource-title">AI Broker Matcher</span>
               <span class="resource-desc">Find your perfect broker in 30 seconds</span>
             </a>
-            <a href="/bonus-codes/" class="resource-link">
+            <a href="/bonus-codes" class="resource-link">
               <span class="resource-title">All Bonus Codes</span>
               <span class="resource-desc">Exclusive partner codes for 2026</span>
             </a>
-            <a href="/brokers/" class="resource-link">
+            <a href="/brokers" class="resource-link">
               <span class="resource-title">All Broker Reviews</span>
               <span class="resource-desc">Compare 15+ regulated brokers</span>
             </a>

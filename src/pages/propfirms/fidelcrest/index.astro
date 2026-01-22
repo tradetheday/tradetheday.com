@@ -14,7 +14,7 @@ import { generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } fro
 const firm = getPropFirmBySlug('fidelcrest');
 
 if (!firm) {
-  return Astro.redirect('/propfirms/');
+  return Astro.redirect('/propfirms');
 }
 
 // Page Configuration
@@ -637,7 +637,7 @@ const breadcrumbItems = [
         <p>Choose Fidelcrest if you want long-term scaling potential and can handle higher targets. If you're building a prop trading career over years rather than months, Fidelcrest's $2M ceiling matters.</p>
 
         <h5>When to Choose Alternatives</h5>
-        <p>Choose <a href="/propfirms/ftmo/">FTMO</a> if you want the safest, most reliable option. Choose True Forex Funds if you want unlimited time. Choose Funded Next if you want to earn during evaluation.</p>
+        <p>Choose <a href="/propfirms/ftmo">FTMO</a> if you want the safest, most reliable option. Choose True Forex Funds if you want unlimited time. Choose Funded Next if you want to earn during evaluation.</p>
       </AnalystNotes>
     </div>
   </section>
@@ -732,7 +732,7 @@ const breadcrumbItems = [
         <p>You'll thrive at Fidelcrest if you have a strategy that produces consistent 5-7% monthly returns. The scaling rewards consistency over time. If you're planning to prop trade for years, not months, Fidelcrest's ceiling matters.</p>
 
         <h5>Who Should Look Elsewhere</h5>
-        <p>If you want unlimited time, choose <a href="/propfirms/true-forex-funds/">True Forex Funds</a>. If you want maximum trust and reliability, choose <a href="/propfirms/ftmo/">FTMO</a>. If budget is tight, cheaper options exist.</p>
+        <p>If you want unlimited time, choose <a href="/propfirms/true-forex-funds">True Forex Funds</a>. If you want maximum trust and reliability, choose <a href="/propfirms/ftmo">FTMO</a>. If budget is tight, cheaper options exist.</p>
 
         <h5>The Aggressive Account Recommendation</h5>
         <p>We recommend aggressive accounts only for traders who have already passed at least one prop firm challenge elsewhere. The 20% target is demanding. If you haven't proven yourself yet, start with Normal accounts - you can always switch to aggressive later.</p>
@@ -744,15 +744,15 @@ const breadcrumbItems = [
       <div class="related-section">
         <h3>Compare Fidelcrest with Other Prop Firms</h3>
         <div class="related-grid">
-          <a href="/propfirms/ftmo/" class="related-card">
+          <a href="/propfirms/ftmo" class="related-card">
             <span class="related-title">FTMO Review</span>
             <span class="related-desc">Industry leader with 9+ years track record</span>
           </a>
-          <a href="/propfirms/funded-next/" class="related-card">
+          <a href="/propfirms/funded-next" class="related-card">
             <span class="related-title">Funded Next Review</span>
             <span class="related-desc">Earn during evaluation with 95% profit split</span>
           </a>
-          <a href="/propfirms/" class="related-card">
+          <a href="/propfirms" class="related-card">
             <span class="related-title">All Prop Firms</span>
             <span class="related-desc">Compare all prop trading firms side by side</span>
           </a>

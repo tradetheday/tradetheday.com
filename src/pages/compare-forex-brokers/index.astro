@@ -9,7 +9,7 @@ const description = 'Compare the best forex and CFD brokers side-by-side. Detail
 
 const breadcrumbItems = [
   { text: 'Home', href: '/' },
-  { text: 'Compare', href: '/compare/' },
+  { text: 'Compare', href: '/compare' },
   { text: 'Forex Brokers', current: true }
 ];
 
@@ -100,7 +100,7 @@ const featured = shuffled.slice(0, 3);
       <p class="body-large">
         Can't decide between two forex brokers? Our detailed head-to-head comparisons analyze spreads, platforms, regulation, and more.
       </p>
-      <a href="/find-broker/" class="btn btn-primary btn-lg">Find My Perfect Broker</a>
+      <a href="/find-broker" class="btn btn-primary btn-lg">Find My Perfect Broker</a>
       <div class="hero-trust-row">
         <span class="hero-trust-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
@@ -130,7 +130,7 @@ const featured = shuffled.slice(0, 3);
 
       <div class="comparisons-grid">
         {featured.map((comp) => (
-          <a href={`/compare/${comp.slug}/`} class="comparison-card featured">
+          <a href={`/compare/${comp.slug}`} class="comparison-card featured">
             <div class="comparison-header">
               <div class="vs-display">
                 <span class="broker-badge">{comp.broker1.name}</span>
@@ -160,7 +160,7 @@ const featured = shuffled.slice(0, 3);
 
       <div class="comparison-list">
         {comparisons.map((comp) => (
-          <a href={`/compare/${comp.slug}/`} class="comparison-row">
+          <a href={`/compare/${comp.slug}`} class="comparison-row">
             <div class="comparison-row-left">
               <div class="vs-compact">
                 <span>{comp.broker1.name}</span>
@@ -185,7 +185,7 @@ const featured = shuffled.slice(0, 3);
       <div class="cta-card">
         <h2 class="heading-3">Not Sure Which Brokers to Compare?</h2>
         <p>Let our AI match you with the best brokers for your trading style.</p>
-        <a href="/find-broker/" class="btn btn-primary btn-lg">Find My Perfect Broker →</a>
+        <a href="/find-broker" class="btn btn-primary btn-lg">Find My Perfect Broker →</a>
       </div>
     </div>
   </section>

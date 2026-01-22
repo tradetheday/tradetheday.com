@@ -34,9 +34,9 @@ const impactStyles = {
   <meta slot="head" property="og:title" content="Global Trading Events | TradeTheDay">
   <meta slot="head" property="og:description" content="Discover major trading events that move markets. Expert analysis and trading strategies for crypto, political, and economic events.">
   <meta slot="head" property="og:type" content="website">
-  <meta slot="head" property="og:url" content="https://tradetheday.com/events/">
+  <meta slot="head" property="og:url" content="https://tradetheday.com/events">
   <meta slot="head" name="twitter:card" content="summary_large_image">
-  <link slot="head" rel="canonical" href="https://tradetheday.com/events/">
+  <link slot="head" rel="canonical" href="https://tradetheday.com/events">
 
   <!-- JSON-LD Structured Data -->
   <script slot="head" type="application/ld+json">
@@ -45,8 +45,8 @@ const impactStyles = {
     "@graph": [
       {
         "@type": "CollectionPage",
-        "@id": "https://tradetheday.com/events/",
-        "url": "https://tradetheday.com/events/",
+        "@id": "https://tradetheday.com/events",
+        "url": "https://tradetheday.com/events",
         "name": "Global Trading Events | TradeTheDay",
         "description": "Discover major trading events that move markets. Bitcoin halving, US elections, Fed decisions, and more.",
         "isPartOf": {
@@ -111,7 +111,7 @@ const impactStyles = {
 
       <div class="featured-grid">
         {featuredEvents.map((event) => (
-          <a href={`/events/${event.slug}/`} class="featured-card">
+          <a href={`/events/${event.slug}`} class="featured-card">
             <div class="featured-card-header">
               <span class="event-icon">{event.icon}</span>
               <div class="event-badges">
@@ -166,7 +166,7 @@ const impactStyles = {
 
         <div class="events-grid">
           {economicEvents.map((event) => (
-            <a href={`/events/${event.slug}/`} class="event-card">
+            <a href={`/events/${event.slug}`} class="event-card">
               <div class="event-card-header">
                 <span class="event-icon-small">{event.icon}</span>
                 <span class="status-badge" data-status={event.status}>{event.status}</span>
@@ -194,7 +194,7 @@ const impactStyles = {
 
         <div class="events-grid">
           {cryptoEvents.map((event) => (
-            <a href={`/events/${event.slug}/`} class="event-card">
+            <a href={`/events/${event.slug}`} class="event-card">
               <div class="event-card-header">
                 <span class="event-icon-small">{event.icon}</span>
                 <span class="status-badge" data-status={event.status}>{event.status}</span>
@@ -222,7 +222,7 @@ const impactStyles = {
 
         <div class="events-grid">
           {politicsEvents.map((event) => (
-            <a href={`/events/${event.slug}/`} class="event-card">
+            <a href={`/events/${event.slug}`} class="event-card">
               <div class="event-card-header">
                 <span class="event-icon-small">{event.icon}</span>
                 <span class="status-badge" data-status={event.status}>{event.status}</span>
@@ -249,7 +249,7 @@ const impactStyles = {
           Find the perfect broker for your trading style. Our AI-powered quiz matches you with regulated brokers
           based on your experience and goals.
         </p>
-        <a href="/compare/" class="btn btn-primary btn-lg">
+        <a href="/compare" class="btn btn-primary btn-lg">
           Find My Broker
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -269,9 +269,9 @@ const impactStyles = {
           considered investment advice. Please trade responsibly and only with capital you can afford to lose.
         </p>
         <div class="disclaimer-links">
-          <a href="/risk-disclaimer/">Full Risk Disclosure</a>
+          <a href="/risk-disclaimer">Full Risk Disclosure</a>
           <span class="separator">•</span>
-          <a href="/advertiser-disclosure/">Advertiser Disclosure</a>
+          <a href="/advertiser-disclosure">Advertiser Disclosure</a>
         </div>
       </div>
     </div>

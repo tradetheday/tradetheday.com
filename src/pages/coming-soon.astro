@@ -6,7 +6,7 @@ import '../styles/pages/coming-soon.css';
 // Get the referring page from query params or use default
 const pageTitle = Astro.url.searchParams.get('page') || 'This Page';
 const category = Astro.url.searchParams.get('category') || '';
-const returnUrl = Astro.url.searchParams.get('return') || '/guides/';
+const returnUrl = Astro.url.searchParams.get('return') || '/guides';
 ---
 
 <BaseLayout 
@@ -18,12 +18,12 @@ const returnUrl = Astro.url.searchParams.get('return') || '/guides/';
   <meta slot="head" property="og:title" content="Coming Soon | TradeTheDay">
   <meta slot="head" property="og:description" content="This page is coming soon. We're working hard to bring you quality trading guides and educational content.">
   <meta slot="head" property="og:type" content="website">
-  <meta slot="head" property="og:url" content="https://tradetheday.com/coming-soon/">
+  <meta slot="head" property="og:url" content="https://tradetheday.com/coming-soon">
   <meta slot="head" property="og:site_name" content="TradeTheDay">
   <meta slot="head" name="twitter:card" content="summary">
   <meta slot="head" name="twitter:title" content="Coming Soon | TradeTheDay">
   <meta slot="head" name="twitter:description" content="This page is coming soon. We're working hard to bring you quality trading guides and educational content.">
-  <link slot="head" rel="canonical" href="https://tradetheday.com/coming-soon/">
+  <link slot="head" rel="canonical" href="https://tradetheday.com/coming-soon">
   
   <!-- JSON-LD Structured Data -->
   <script slot="head" type="application/ld+json">
@@ -32,8 +32,8 @@ const returnUrl = Astro.url.searchParams.get('return') || '/guides/';
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": "https://tradetheday.com/coming-soon/",
-        "url": "https://tradetheday.com/coming-soon/",
+        "@id": "https://tradetheday.com/coming-soon",
+        "url": "https://tradetheday.com/coming-soon",
         "name": "Coming Soon | TradeTheDay",
         "description": "This page is coming soon. We're working hard to bring you quality trading guides and educational content.",
         "isPartOf": {
@@ -76,7 +76,7 @@ const returnUrl = Astro.url.searchParams.get('return') || '/guides/';
   <!-- BREADCRUMB -->
   <Breadcrumb slot="breadcrumb" items={[
     { text: 'Home', href: '/' },
-    { text: 'Guides', href: '/guides/' },
+    { text: 'Guides', href: '/guides' },
     { text: 'Coming Soon', current: true }
   ]} />
 

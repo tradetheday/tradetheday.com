@@ -67,10 +67,10 @@ function parseContent(content: string): string {
   <meta slot="head" property="og:title" content={event.metaTitle}>
   <meta slot="head" property="og:description" content={event.metaDescription}>
   <meta slot="head" property="og:type" content="article">
-  <meta slot="head" property="og:url" content={`https://tradetheday.com/events/${event.slug}/`}>
+  <meta slot="head" property="og:url" content={`https://tradetheday.com/events/${event.slug}`}>
   <meta slot="head" name="twitter:card" content="summary_large_image">
   <meta slot="head" name="keywords" content={event.keywords.join(', ')}>
-  <link slot="head" rel="canonical" href={`https://tradetheday.com/events/${event.slug}/`}>
+  <link slot="head" rel="canonical" href={`https://tradetheday.com/events/${event.slug}`}>
 
   <!-- JSON-LD Structured Data -->
   <script slot="head" type="application/ld+json" set:html={JSON.stringify({
@@ -93,7 +93,7 @@ function parseContent(content: string): string {
         },
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": `https://tradetheday.com/events/${event.slug}/`
+          "@id": `https://tradetheday.com/events/${event.slug}`
         }
       },
       {
@@ -346,19 +346,19 @@ function parseContent(content: string): string {
           <div class="sidebar-section">
             <h3 class="sidebar-title">Quick Links</h3>
             <nav class="quick-links">
-              <a href="/find-broker/" class="quick-link">
+              <a href="/find-broker" class="quick-link">
                 <span class="link-icon">🔍</span>
                 Find Your Broker
               </a>
-              <a href="/events/" class="quick-link">
+              <a href="/events" class="quick-link">
                 <span class="link-icon">📅</span>
                 All Trading Events
               </a>
-              <a href="/guides/" class="quick-link">
+              <a href="/guides" class="quick-link">
                 <span class="link-icon">📚</span>
                 Trading Guides
               </a>
-              <a href="/brokers/" class="quick-link">
+              <a href="/brokers" class="quick-link">
                 <span class="link-icon">🏦</span>
                 Broker Reviews
               </a>
@@ -407,7 +407,7 @@ function parseContent(content: string): string {
           Find the perfect broker matched to your trading style. Our AI-powered quiz considers your experience,
           risk tolerance, and preferred instruments.
         </p>
-        <a href="/compare/" class="btn btn-primary btn-lg">
+        <a href="/compare" class="btn btn-primary btn-lg">
           Find My Perfect Broker
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
@@ -427,9 +427,9 @@ function parseContent(content: string): string {
           and should not be considered investment advice. Please trade responsibly.
         </p>
         <div class="disclaimer-links">
-          <a href="/risk-disclaimer/">Full Risk Disclosure</a>
+          <a href="/risk-disclaimer">Full Risk Disclosure</a>
           <span class="separator">•</span>
-          <a href="/advertiser-disclosure/">Advertiser Disclosure</a>
+          <a href="/advertiser-disclosure">Advertiser Disclosure</a>
         </div>
       </div>
     </div>

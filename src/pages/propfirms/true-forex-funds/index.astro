@@ -14,7 +14,7 @@ import { generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } fro
 const firm = getPropFirmBySlug('true-forex-funds');
 
 if (!firm) {
-  return Astro.redirect('/propfirms/');
+  return Astro.redirect('/propfirms');
 }
 
 // Page Configuration
@@ -696,22 +696,22 @@ const breadcrumbItems = [
         <h5>Our Recommendation</h5>
         <p>Start with a $25K or $50K account at TFF if you fit their ideal trader profile. The pricing is forgiving enough that you can retry if needed. Once funded, trade conservatively in the first few months while TFF processes your payouts. Build trust incrementally before scaling aggressively.</p>
 
-        <p>For traders who need the security of an established firm and don't mind time limits, we still recommend <a href="/propfirms/ftmo/">FTMO</a> as our #1 choice. But TFF is a legitimate alternative that serves a real need in the market.</p>
+        <p>For traders who need the security of an established firm and don't mind time limits, we still recommend <a href="/propfirms/ftmo">FTMO</a> as our #1 choice. But TFF is a legitimate alternative that serves a real need in the market.</p>
       </AnalystNotes>
 
       <!-- Related Links -->
       <div class="related-section">
         <h3>Compare TFF with Other Prop Firms</h3>
         <div class="related-grid">
-          <a href="/propfirms/ftmo/" class="related-card">
+          <a href="/propfirms/ftmo" class="related-card">
             <span class="related-title">FTMO Review</span>
             <span class="related-desc">Industry leader with 9+ years track record</span>
           </a>
-          <a href="/propfirms/the-funded-trader/" class="related-card">
+          <a href="/propfirms/the-funded-trader" class="related-card">
             <span class="related-title">The Funded Trader Review</span>
             <span class="related-desc">Budget-friendly with flexible rules</span>
           </a>
-          <a href="/propfirms/" class="related-card">
+          <a href="/propfirms" class="related-card">
             <span class="related-title">All Prop Firms</span>
             <span class="related-desc">Compare all prop trading firms side by side</span>
           </a>

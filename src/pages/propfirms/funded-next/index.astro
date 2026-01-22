@@ -14,7 +14,7 @@ import { generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } fro
 const firm = getPropFirmBySlug('funded-next');
 
 if (!firm) {
-  return Astro.redirect('/propfirms/');
+  return Astro.redirect('/propfirms');
 }
 
 // Page Configuration
@@ -648,7 +648,7 @@ const breadcrumbItems = [
         <p>Funded Next offers the best financial terms in the industry. The trade-off is trusting a newer company with your trading future. FTMO has proven they survive market crashes and regulatory scrutiny. Funded Next hasn't faced these tests yet.</p>
 
         <h5>Our Recommendation</h5>
-        <p>For experienced prop traders comfortable with newer firms: Funded Next maximizes your profit potential. For first-time prop traders or those prioritizing security: consider <a href="/propfirms/ftmo/">FTMO</a> for reliability, or split between Funded Next and an established firm to balance risk and reward.</p>
+        <p>For experienced prop traders comfortable with newer firms: Funded Next maximizes your profit potential. For first-time prop traders or those prioritizing security: consider <a href="/propfirms/ftmo">FTMO</a> for reliability, or split between Funded Next and an established firm to balance risk and reward.</p>
       </AnalystNotes>
     </div>
   </section>
@@ -748,7 +748,7 @@ const breadcrumbItems = [
 
         <h5>Our Recommendation</h5>
         <p>For experienced traders: Funded Next is hard to beat on pure financial terms. Consider making them your primary prop firm while maintaining funded accounts elsewhere as backup.</p>
-        <p>For newer traders: Start with <a href="/propfirms/ftmo/">FTMO</a> for the security of their track record. Once comfortable with prop trading, consider adding Funded Next accounts for the superior profit split.</p>
+        <p>For newer traders: Start with <a href="/propfirms/ftmo">FTMO</a> for the security of their track record. Once comfortable with prop trading, consider adding Funded Next accounts for the superior profit split.</p>
         <p>For all traders: Never have more capital at risk with any single prop firm than you can afford to lose. Diversification applies to prop firms just like investments.</p>
       </AnalystNotes>
 
@@ -756,15 +756,15 @@ const breadcrumbItems = [
       <div class="related-section">
         <h3>Compare Funded Next with Other Prop Firms</h3>
         <div class="related-grid">
-          <a href="/propfirms/ftmo/" class="related-card">
+          <a href="/propfirms/ftmo" class="related-card">
             <span class="related-title">FTMO Review</span>
             <span class="related-desc">Industry leader with 9+ years track record</span>
           </a>
-          <a href="/propfirms/fidelcrest/" class="related-card">
+          <a href="/propfirms/fidelcrest" class="related-card">
             <span class="related-title">Fidelcrest Review</span>
             <span class="related-desc">$2M scaling with 6-year track record</span>
           </a>
-          <a href="/propfirms/" class="related-card">
+          <a href="/propfirms" class="related-card">
             <span class="related-title">All Prop Firms</span>
             <span class="related-desc">Compare all prop trading firms side by side</span>
           </a>

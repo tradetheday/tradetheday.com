@@ -25,6 +25,11 @@ npm run preview  # Preview production build
 - `src/styles/` - CSS design system
 - `public/` - Static assets served at root (images, JS, `_headers`, `_redirects`)
 
+### Routing
+- **No trailing slashes** - URLs do NOT end with `/` (configured in `astro.config.mjs`)
+- Links must NOT include trailing slash: `/brokers/avatrade` not `/brokers/avatrade/`
+- Redirect shortlinks: `/go/avatrade` → AvaTrade affiliate URL
+
 ### CSS Architecture
 - `src/styles/styles.css` - Main design system (light theme)
 - `src/styles/tools.css` - Dark theme for calculator/tool pages
@@ -33,10 +38,13 @@ npm run preview  # Preview production build
 
 ### Key Pages
 - `/` - Homepage with bento grid, broker comparison, testimonials
-- `/brokers/` - Broker reviews (avatrade, etoro, axi, pepperstone, etc.)
-- `/brokers/avatrade/partner-code/` - Money page (AvaTrade Partner Code 128979)
-- `/tools/` - Trading calculators (dark theme)
-- `/guides/` - Trading education content
+- `/brokers` - Broker reviews (avatrade, etoro, axi, pepperstone, etc.)
+- `/brokers/avatrade/partner-code` - Money page (AvaTrade Partner Code 128979)
+- `/tools` - Trading calculators (dark theme)
+- `/guides` - Trading education content
+
+### Sitemap
+Auto-generated via `@astrojs/sitemap`. Excludes `/style-guide` and `/components-showcase` (noindex pages).
 
 ## Design System (CRITICAL)
 
@@ -58,8 +66,9 @@ npm run preview  # Preview production build
 | Text on white | `var(--gray-600)` minimum |
 
 ### Brand Colors
-- Primary orange: `#FF4800` (use `#b83200` for text on white to meet contrast)
-- Default button hover returns to brand orange for visual feedback
+- Primary orange: `#FF4800`
+- Buttons use brand orange with `font-weight: 600` (bold text only needs 3:1 contrast ratio, which #FF4800 passes)
+- For orange text on white backgrounds, use `--brand-orange-dark` (#e63e00) or darker
 
 ## SEO & Accessibility (MANDATORY)
 
@@ -76,10 +85,10 @@ npm run preview  # Preview production build
 
 ## Affiliate Links
 
-| Broker | Partner Code |
-|--------|--------------|
-| AvaTrade | 128979 |
-| Others | Direct links |
+| Broker | Partner Code | Shortlink |
+|--------|--------------|-----------|
+| AvaTrade | 128979 | `/go/avatrade` |
+| Others | Direct links | — |
 
 ## Key Files
 

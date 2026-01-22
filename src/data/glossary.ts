@@ -1066,7 +1066,7 @@ export const glossaryTerms: GlossaryTerm[] = [
     name: 'CNMV',
     category: 'essential',
     shortDescription: 'Comisión Nacional del Mercado de Valores - Spain\'s securities market regulator.',
-    definition: 'CNMV (Comisión Nacional del Mercado de Valores) is <a href="/spain/">Spain</a>\'s securities markets supervisor. Operating under EU MiFID II, it regulates investment services firms and enforces ESMA restrictions on retail forex and CFD trading.',
+    definition: 'CNMV (Comisión Nacional del Mercado de Valores) is <a href="/spain">Spain</a>\'s securities markets supervisor. Operating under EU MiFID II, it regulates investment services firms and enforces ESMA restrictions on retail forex and CFD trading.',
     howItWorks: [
       'Regulates securities markets and investment firms in Spain',
       'Operates under EU MiFID II framework',

@@ -21,21 +21,21 @@ const categoryLinks = [
   {
     title: 'Forex Broker Comparisons',
     description: 'Compare the best forex and CFD brokers head-to-head',
-    href: '/compare-forex-brokers/',
+    href: '/compare-forex-brokers',
     icon: '💱',
     count: '10+'
   },
   {
     title: 'Prop Firm Comparisons',
     description: 'Compare proprietary trading firms and funded accounts',
-    href: '/compare-prop-firms/',
+    href: '/compare-prop-firms',
     icon: '🏆',
     count: '8+'
   },
   {
     title: 'Exchange Comparisons',
     description: 'Compare cryptocurrency exchanges for trading',
-    href: '/compare-exchanges/',
+    href: '/compare-exchanges',
     icon: '🪙',
     count: '6+'
   }
@@ -112,7 +112,7 @@ const faqItems = [
 const allComparisons = [...brokerComparisons, ...propFirmComparisons];
 const itemListSchema = generateItemListSchema(allComparisons.map((c, i) => ({
   name: c.title,
-  url: `/compare/${c.slug}/`,
+  url: `/compare/${c.slug}`,
   position: i + 1
 })));
 const faqSchema = generateFAQSchema(faqItems);
@@ -142,7 +142,7 @@ const faqSchema = generateFAQSchema(faqItems);
         Can't decide between two platforms? Our detailed head-to-head comparisons analyze fees, features,
         regulation, and more to help you make the right choice.
       </p>
-      <a href="/find-broker/" class="btn btn-primary btn-lg">Find My Perfect Broker</a>
+      <a href="/find-broker" class="btn btn-primary btn-lg">Find My Perfect Broker</a>
       <div class="hero-trust-row">
         <span class="hero-trust-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
@@ -190,7 +190,7 @@ const faqSchema = generateFAQSchema(faqItems);
 
       <div class="comparisons-grid">
         {brokerComparisons.map((comp) => (
-          <a href={`/compare/${comp.slug}/`} class="comparison-card">
+          <a href={`/compare/${comp.slug}`} class="comparison-card">
             <div class="comparison-card-header">
               <div class="comparison-vs">
                 <div class="comparison-broker">
@@ -247,7 +247,7 @@ const faqSchema = generateFAQSchema(faqItems);
 
       <div class="comparisons-grid">
         {propFirmComparisons.map((comp) => (
-          <a href={`/compare/${comp.slug}/`} class="comparison-card">
+          <a href={`/compare/${comp.slug}`} class="comparison-card">
             <div class="comparison-card-header">
               <div class="comparison-vs">
                 <div class="comparison-broker">
@@ -294,7 +294,7 @@ const faqSchema = generateFAQSchema(faqItems);
 
       <div class="more-propfirms">
         <p>Looking for more prop firms? Check out our complete prop firm reviews.</p>
-        <a href="/propfirms/" class="btn btn-secondary">View All Prop Firms →</a>
+        <a href="/propfirms" class="btn btn-secondary">View All Prop Firms →</a>
       </div>
     </div>
   </section>
@@ -309,7 +309,7 @@ const faqSchema = generateFAQSchema(faqItems);
             Take our 30-second quiz and let our AI match you with the best brokers for your trading style.
             Then compare your top matches.
           </p>
-          <a href="/find-broker/" class="btn btn-primary btn-lg">Find My Perfect Broker →</a>
+          <a href="/find-broker" class="btn btn-primary btn-lg">Find My Perfect Broker →</a>
         </div>
         <div class="not-sure-stats">
           <div class="stat-item">

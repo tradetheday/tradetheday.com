@@ -14,7 +14,7 @@ import { generateFAQSchema, generateReviewSchema, generateBreadcrumbSchema } fro
 const firm = getPropFirmBySlug('the-funded-trader');
 
 if (!firm) {
-  return Astro.redirect('/propfirms/');
+  return Astro.redirect('/propfirms');
 }
 
 // Page Configuration
@@ -574,7 +574,7 @@ const breadcrumbItems = [
             Start TFT Challenge →
           </a>
           <p class="verdict-alternative">
-            Prefer more track record? <a href="/propfirms/ftmo/">Check out FTMO</a> instead.
+            Prefer more track record? <a href="/propfirms/ftmo">Check out FTMO</a> instead.
           </p>
         </div>
       </div>
@@ -599,15 +599,15 @@ const breadcrumbItems = [
       <div class="related-section">
         <h3>Compare The Funded Trader</h3>
         <div class="related-grid">
-          <a href="/compare/ftmo-vs-funded-trader/" class="related-card">
+          <a href="/compare/ftmo-vs-funded-trader" class="related-card">
             <span class="related-title">FTMO vs The Funded Trader</span>
             <span class="related-desc">See how TFT compares to the industry leader</span>
           </a>
-          <a href="/propfirms/ftmo/" class="related-card">
+          <a href="/propfirms/ftmo" class="related-card">
             <span class="related-title">FTMO Review</span>
             <span class="related-desc">The most trusted prop firm in the industry</span>
           </a>
-          <a href="/propfirms/" class="related-card">
+          <a href="/propfirms" class="related-card">
             <span class="related-title">All Prop Firms</span>
             <span class="related-desc">Compare all prop trading firms side by side</span>
           </a>

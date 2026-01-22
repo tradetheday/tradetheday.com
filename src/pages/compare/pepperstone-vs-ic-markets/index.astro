@@ -12,7 +12,7 @@ const pepperstone = getBrokerBySlug('pepperstone');
 const icmarkets = getBrokerBySlug('ic-markets');
 
 if (!pepperstone || !icmarkets) {
-  return Astro.redirect('/compare/');
+  return Astro.redirect('/compare');
 }
 
 // Page metadata
@@ -639,27 +639,27 @@ const breadcrumbItems = [
         <div class="related-resources">
           <h3>Full Reviews & Resources</h3>
           <div class="resource-grid">
-            <a href="/brokers/pepperstone/" class="resource-link">
+            <a href="/brokers/pepperstone" class="resource-link">
               <span class="resource-title">Pepperstone Full Review</span>
               <span class="resource-desc">Complete 2026 analysis for ECN traders</span>
             </a>
-            <a href="/brokers/ic-markets/" class="resource-link">
+            <a href="/brokers/ic-markets" class="resource-link">
               <span class="resource-title">IC Markets Full Review</span>
               <span class="resource-desc">Deep dive into True ECN trading</span>
             </a>
-            <a href="/brokers/avatrade/" class="resource-link">
+            <a href="/brokers/avatrade" class="resource-link">
               <span class="resource-title">AvaTrade Review</span>
               <span class="resource-desc">Alternative with $10K bonus available</span>
             </a>
-            <a href="/bonus-codes/avatrade-partner-code/" class="resource-link resource-highlight">
+            <a href="/bonus-codes/avatrade-partner-code" class="resource-link resource-highlight">
               <span class="resource-title">AvaTrade Partner Code: 128979</span>
               <span class="resource-desc">Claim up to $10,000 welcome bonus</span>
             </a>
-            <a href="/find-broker/" class="resource-link">
+            <a href="/find-broker" class="resource-link">
               <span class="resource-title">AI Broker Matcher</span>
               <span class="resource-desc">Find your perfect broker in 30 seconds</span>
             </a>
-            <a href="/brokers/" class="resource-link">
+            <a href="/brokers" class="resource-link">
               <span class="resource-title">All Broker Reviews</span>
               <span class="resource-desc">Compare 15+ regulated brokers</span>
             </a>

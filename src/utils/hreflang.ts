@@ -25,7 +25,7 @@ export interface RegionalConfig {
 
 export interface HreflangVariant {
   locale: string;      // e.g., 'en', 'en-GB', 'zh-AU', 'es-ES'
-  path: string;        // Full path from root, e.g., '/uk/brokers/avatrade/partner-code/'
+  path: string;        // Full path from root, e.g., '/uk/brokers/avatrade/partner-code'
   isDefault?: boolean; // True for x-default
 }
 
@@ -37,47 +37,47 @@ const BASE_URL = 'https://tradetheday.com';
  */
 export const hreflangConfigs: Record<string, HreflangVariant[]> = {
   // AvaTrade Partner Code - Money Page (highest priority for regional expansion)
-  '/brokers/avatrade/partner-code/': [
-    { locale: 'en', path: '/brokers/avatrade/partner-code/', isDefault: true },
+  '/brokers/avatrade/partner-code': [
+    { locale: 'en', path: '/brokers/avatrade/partner-code', isDefault: true },
     // Uncomment as regional pages are created:
-    // { locale: 'en-GB', path: '/uk/brokers/avatrade/partner-code/' },
-    // { locale: 'en-AU', path: '/au/brokers/avatrade/partner-code/' },
-    // { locale: 'zh-AU', path: '/au-zh/brokers/avatrade/partner-code/' },
-    // { locale: 'zh', path: '/zh/brokers/avatrade/partner-code/' },
+    // { locale: 'en-GB', path: '/uk/brokers/avatrade/partner-code' },
+    // { locale: 'en-AU', path: '/au/brokers/avatrade/partner-code' },
+    // { locale: 'zh-AU', path: '/au-zh/brokers/avatrade/partner-code' },
+    // { locale: 'zh', path: '/zh/brokers/avatrade/partner-code' },
     // { locale: 'es-ES', path: '/es/brokers/avatrade/ava-futures/' }, // Different product!
   ],
 
   // UK Partner Code Page
-  '/uk/brokers/avatrade/partner-code/': [
-    { locale: 'en', path: '/brokers/avatrade/partner-code/', isDefault: true },
-    { locale: 'en-GB', path: '/uk/brokers/avatrade/partner-code/' },
+  '/uk/brokers/avatrade/partner-code': [
+    { locale: 'en', path: '/brokers/avatrade/partner-code', isDefault: true },
+    { locale: 'en-GB', path: '/uk/brokers/avatrade/partner-code' },
     // Add other variants as created
   ],
 
   // Australia Partner Code Page
-  '/au/brokers/avatrade/partner-code/': [
-    { locale: 'en', path: '/brokers/avatrade/partner-code/', isDefault: true },
-    { locale: 'en-AU', path: '/au/brokers/avatrade/partner-code/' },
+  '/au/brokers/avatrade/partner-code': [
+    { locale: 'en', path: '/brokers/avatrade/partner-code', isDefault: true },
+    { locale: 'en-AU', path: '/au/brokers/avatrade/partner-code' },
     // Add other variants as created
   ],
 
   // Australia Chinese Partner Code Page
-  '/au-zh/brokers/avatrade/partner-code/': [
-    { locale: 'en', path: '/brokers/avatrade/partner-code/', isDefault: true },
-    { locale: 'zh-AU', path: '/au-zh/brokers/avatrade/partner-code/' },
+  '/au-zh/brokers/avatrade/partner-code': [
+    { locale: 'en', path: '/brokers/avatrade/partner-code', isDefault: true },
+    { locale: 'zh-AU', path: '/au-zh/brokers/avatrade/partner-code' },
     // Add other variants as created
   ],
 
   // Global Chinese Partner Code Page
-  '/zh/brokers/avatrade/partner-code/': [
-    { locale: 'en', path: '/brokers/avatrade/partner-code/', isDefault: true },
-    { locale: 'zh', path: '/zh/brokers/avatrade/partner-code/' },
+  '/zh/brokers/avatrade/partner-code': [
+    { locale: 'en', path: '/brokers/avatrade/partner-code', isDefault: true },
+    { locale: 'zh', path: '/zh/brokers/avatrade/partner-code' },
     // Add other variants as created
   ],
 
   // Spain Ava Futures Page (different product, compliance requirement)
   '/es/brokers/avatrade/ava-futures/': [
-    { locale: 'en', path: '/brokers/avatrade/partner-code/', isDefault: true },
+    { locale: 'en', path: '/brokers/avatrade/partner-code', isDefault: true },
     { locale: 'es-ES', path: '/es/brokers/avatrade/ava-futures/' },
     // Add other variants as created
   ],

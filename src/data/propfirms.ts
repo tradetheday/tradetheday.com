@@ -78,7 +78,7 @@ export const propFirms: PropFirmData[] = [
     logo: '/images/propfirms/ftmo-logo.svg',
     url: 'https://ftmo.com',
     affiliateUrl: 'https://ftmo.com/?ref=tradetheday',
-    reviewUrl: '/propfirms/ftmo/',
+    reviewUrl: '/propfirms/ftmo',
     foundingYear: 2015,
     headquarters: {
       country: 'Czech Republic',
@@ -196,7 +196,7 @@ export const propFirms: PropFirmData[] = [
     logo: '/images/propfirms/tft-logo.svg',
     url: 'https://thefundedtraderprogram.com',
     affiliateUrl: 'https://thefundedtraderprogram.com/?ref=tradetheday',
-    reviewUrl: '/propfirms/the-funded-trader/',
+    reviewUrl: '/propfirms/the-funded-trader',
     foundingYear: 2021,
     headquarters: {
       country: 'United States',
@@ -287,7 +287,7 @@ export const propFirms: PropFirmData[] = [
     logo: '/images/propfirms/e8-logo.svg',
     url: 'https://e8funding.com',
     affiliateUrl: 'https://e8funding.com/?ref=tradetheday',
-    reviewUrl: '/propfirms/e8-funding/',
+    reviewUrl: '/propfirms/e8-funding',
     foundingYear: 2021,
     headquarters: {
       country: 'United States',
@@ -376,7 +376,7 @@ export const propFirms: PropFirmData[] = [
     logo: '/images/propfirms/tff-logo.svg',
     url: 'https://trueforexfunds.com',
     affiliateUrl: 'https://trueforexfunds.com/?ref=tradetheday',
-    reviewUrl: '/propfirms/true-forex-funds/',
+    reviewUrl: '/propfirms/true-forex-funds',
     foundingYear: 2021,
     headquarters: {
       country: 'Hungary',
@@ -488,7 +488,7 @@ export const propFirms: PropFirmData[] = [
     logo: '/images/propfirms/fidelcrest-logo.svg',
     url: 'https://fidelcrest.com',
     affiliateUrl: 'https://fidelcrest.com/?ref=tradetheday',
-    reviewUrl: '/propfirms/fidelcrest/',
+    reviewUrl: '/propfirms/fidelcrest',
     foundingYear: 2018,
     headquarters: {
       country: 'Cyprus',
@@ -600,7 +600,7 @@ export const propFirms: PropFirmData[] = [
     logo: '/images/propfirms/fundednext-logo.svg',
     url: 'https://fundednext.com',
     affiliateUrl: 'https://fundednext.com/?ref=tradetheday',
-    reviewUrl: '/propfirms/funded-next/',
+    reviewUrl: '/propfirms/funded-next',
     foundingYear: 2022,
     headquarters: {
       country: 'United Arab Emirates',
