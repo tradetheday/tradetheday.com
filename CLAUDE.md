@@ -1,213 +1,89 @@
-# TradeTheDay.com
+# CLAUDE.md
 
-Trading affiliate website focused on broker reviews, partner codes, and trading guides.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**Last Updated:** 2026-01-22
+## Project Overview
 
-## Overview
+Trading affiliate website (tradetheday.com) focused on broker reviews, partner codes, and trading guides. Revenue comes from broker affiliate links, especially AvaTrade Partner Code 128979.
 
-This is a forex/crypto broker affiliate site that generates revenue through:
-- **Broker partner codes** (especially AvaTrade Partner Code 128979)
-- **Broker reviews** with affiliate links
-- **Trading guides** with embedded CTAs
-
-**Tech Stack:** Static HTML with SSI includes, Astro for build (optional)
-
-## Key Money Page
-
-**AvaTrade Partner Code** (`/bonus-codes/avatrade-partner-code.html`)
-- Previously ranked #1 for "AvaTrade Partner Code" keyword
-- Made $100k/month at peak
-- Rankings have slipped - needs recovery
-- Focus: Google AI/SGE optimization
-
-## Site Structure
-
-```
-tradetheday.com/
-├── index.html                    # Homepage
-├── gold.html                     # Gold trading guide
-├── oil.html                      # Oil trading guide
-├── spread-betting.html           # Spread betting guide
-├── stock-trading-for-beginners.html
-├── what-is-trading-guide.html
-├── advertiser-disclosure.html
-├── full-risk-disclosure.html
-│
-├── brokers/
-│   ├── index.html               # Broker comparison page
-│   ├── avatrade-review/         # ⭐ Main broker (has partner code)
-│   ├── etoro-review/            # Social trading focus
-│   ├── axi-review/              # ECN/low spread focus
-│   ├── binance-review/          # Crypto exchange
-│   └── kraken-review/           # Security-focused crypto
-│
-├── bonus-codes/
-│   ├── index.html               # Bonus codes hub
-│   └── avatrade-partner-code.html  # 💰 MONEY PAGE
-│
-├── includes/
-│   ├── header.html              # Global header with search
-│   └── footer.html              # Global footer
-│
-├── assets/
-│   ├── css/styles.css           # Legacy styles
-│   └── js/scripts.js            # Global JS
-│
-├── src/
-│   ├── styles/
-│   │   ├── styles.css           # Main design system (light theme)
-│   │   ├── tools.css            # Dark theme (calculators/tools)
-│   │   ├── global.css           # Base resets
-│   │   └── utilities.css        # Helper classes
-│   └── pages/
-│       ├── style-guide.astro    # Live style guide
-│       └── tools/               # Calculator pages
-│
-├── DESIGN-SYSTEM.md             # Design tokens source of truth
-│
-└── components/                   # HTML component examples
-```
-
-## Recent Work Completed (Jan 2026)
-
-### SEO Fixes
-- [x] Updated all 2025 dates → 2026
-- [x] Fixed meta descriptions and titles
-- [x] Enhanced schema markup on all pages
-
-### New Pages Created
-- [x] `/brokers/index.html` - Broker comparison table
-- [x] `/brokers/etoro-review/` - Full review
-- [x] `/brokers/axi-review/` - Full review
-- [x] `/brokers/binance-review/` - Full review
-- [x] `/brokers/kraken-review/` - Full review
-- [x] `/bonus-codes/index.html` - Bonus codes hub
-
-### Partner Code Optimization
-- [x] Added internal links from AvaTrade review → partner code page (3 links)
-- [x] Updated FAQ to include direct link and code mention
-- [x] Enhanced meta keywords for variations
-- [x] Schema markup improvements
-
-### UI Improvements
-- [x] Redesigned search bar - now drops down as full-width bar below header
-- [x] Quick links in search: "AvaTrade Partner Code", "Best Brokers", "Bonus Codes"
-- [x] Search overlay styled to match dark header theme
-
-### Design System (Jan 21, 2026)
-- [x] Created centralized `tools.css` for dark theme tool pages
-- [x] Created `DESIGN-SYSTEM.md` - source of truth for all tokens
-- [x] Created `/style-guide/` - live interactive style guide page (noindex, nofollow)
-- [x] Refactored broker calculator to use centralized styles
-- [x] Added accessibility improvements (focus states, reduced motion, color contrast)
-
-### Performance & Cloudflare (Jan 22, 2026)
-- [x] Optimized Cloudflare settings (Speed, Caching, SSL/TLS)
-- [x] Created `public/_headers` with aggressive caching rules
-- [x] Enabled Smart Tiered Cache, Early Hints, HTTP/3
-- [x] Switched to **system fonts** (removed Google Fonts)
-- [x] Fixed PageSpeed accessibility issues (heading order, link text, image dimensions, color contrast)
-
-## Outstanding Work
-
-### Priority 1: Recover "AvaTrade Partner Code" Rankings
-- [ ] Add more content around partner codes (variations, how-to guides)
-- [ ] Build backlinks to partner code page
-- [ ] Monitor Google Search Console for ranking changes
-- [ ] Optimize for Google AI/SGE (featured snippets, quick answers)
-
-### Priority 2: Content Expansion
-- [ ] Create partner code pages for other brokers (eToro, Axi)
-- [ ] Add more trading guides
-- [ ] Create comparison pages (e.g., "AvaTrade vs eToro")
-
-### Priority 3: Technical
-- [ ] Set up proper hosting/deployment
-- [ ] Configure analytics (GA4)
-- [ ] Submit sitemap to Google Search Console
-- [ ] Fix any broken images (check /assets/images/)
+**Tech Stack:** Astro 5.x static site, deployed via Cloudflare Pages (auto-deploys from GitHub)
 
 ## Commands
 
 ```bash
-# Start dev server
-cd "/Users/olliesblog/01 Projects/websites/tradetheday.com"
-npm run dev
-
-# Site runs at http://localhost:4321/
-
-# Build for production
-npm run build
+npm run dev      # Start dev server at http://localhost:4321/
+npm run build    # Build for production
+npm run preview  # Preview production build
 ```
+
+## Architecture
+
+### Astro Structure
+- `src/pages/` - File-based routing (`.astro` files become pages)
+- `src/layouts/BaseLayout.astro` - Global layout with header, footer, SEO meta
+- `src/components/` - Reusable Astro components (Testimonials, FAQ, NewsletterSignup, TradingResults, AnalystNotes)
+- `src/styles/` - CSS design system
+- `public/` - Static assets served at root (images, JS, `_headers`, `_redirects`)
+
+### CSS Architecture
+- `src/styles/styles.css` - Main design system (light theme)
+- `src/styles/tools.css` - Dark theme for calculator/tool pages
+- `src/styles/global.css` - Base resets
+- Component-specific styles are scoped within `.astro` files using `<style>` tags
+
+### Key Pages
+- `/` - Homepage with bento grid, broker comparison, testimonials
+- `/brokers/` - Broker reviews (avatrade, etoro, axi, pepperstone, etc.)
+- `/brokers/avatrade/partner-code/` - Money page (AvaTrade Partner Code 128979)
+- `/tools/` - Trading calculators (dark theme)
+- `/guides/` - Trading education content
+
+## Design System (CRITICAL)
+
+**Read `DESIGN-SYSTEM.md` before making ANY style changes.**
+
+### Mandatory Rules
+1. Use design tokens only - no arbitrary pixel values
+2. Update `DESIGN-SYSTEM.md` first, then CSS
+3. System fonts only - NEVER add Google Fonts or external fonts
+4. Color contrast must meet WCAG AA (4.5:1 ratio)
+
+### Quick Reference
+| Constraint | Value |
+|------------|-------|
+| Max H1 | 2.5rem (40px) |
+| Max hero padding | 56px |
+| Max button padding | 12px 24px |
+| Min touch target | 44px |
+| Text on white | `var(--gray-600)` minimum |
+
+### Brand Colors
+- Primary orange: `#FF4800` (use `#b83200` for text on white to meet contrast)
+- Default button hover returns to brand orange for visual feedback
+
+## SEO & Accessibility (MANDATORY)
+
+1. **Heading hierarchy** - Sequential only (h1 → h2 → h3), never skip levels
+2. **Link text** - Descriptive (never "Learn more" or "Click here")
+3. **Images** - Always include `width` and `height` attributes
+4. **Dates** - Use 2026 for all date references
+
+## Cloudflare Configuration
+
+- `public/_headers` - Cache rules (immutable for static assets, stale-while-revalidate for HTML)
+- `public/_redirects` - URL redirects
+- Settings: Smart Tiered Cache, Early Hints, HTTP/3, HSTS enabled
 
 ## Affiliate Links
 
-| Broker | Affiliate Parameter | Partner Code |
-|--------|---------------------|--------------|
-| AvaTrade | `?aid=tradetheday` | 128979 |
-| eToro | Direct link | N/A |
-| Axi | Direct link | N/A |
-| Binance | Direct link | N/A |
-| Kraken | Direct link | N/A |
+| Broker | Partner Code |
+|--------|--------------|
+| AvaTrade | 128979 |
+| Others | Direct links |
 
 ## Key Files
 
-- **Header:** `includes/header.html` - Contains search bar, nav
-- **Footer:** `includes/footer.html` - Copyright, links
-- **Styles:** `src/styles/styles.css` - Main design system (light theme)
-- **Tools CSS:** `src/styles/tools.css` - Dark theme for calculator/tool pages
-- **Partner Code:** `bonus-codes/avatrade-partner-code.html` - Money page
-
-## Design System (MANDATORY)
-
-**READ FIRST:** `/DESIGN-SYSTEM.md` - Single source of truth
-
-### Critical Rules
-1. **NEVER use arbitrary pixel values** - Use defined tokens only
-2. **NEVER override styles in components** - If you need different styling, add a variant to the design system first
-3. **ALWAYS check DESIGN-SYSTEM.md** before making ANY style changes
-4. **Update DESIGN-SYSTEM.md FIRST**, then update CSS
-
-### Size Limits (Enforced)
-| Element | Max Size |
-|---------|----------|
-| H1 | 2.5rem (40px) |
-| Hero padding | 56px |
-| Button padding | 12px 24px |
-| Card padding | 32px |
-
-### Button Tiers (Use These)
-| Size | Padding | Font | Use For |
-|------|---------|------|---------|
-| btn-sm | 6px 12px | 13px | Tags, inline |
-| btn-md | 8px 16px | 14px | Standard |
-| btn-lg | 10px 20px | 15px | Primary CTAs |
-| btn-xl | 12px 24px | 16px | Hero only |
-
-### Themes
-- **Light theme** (default): Homepage, broker reviews, guides
-- **Dark theme** (`tools.css`): Calculators, interactive tools
-
-### Typography (CRITICAL)
-**System fonts only - NO external fonts allowed**
-```css
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-```
-- NEVER add Google Fonts or any external font requests
-- This is critical for PageSpeed performance
-
-### SEO & Accessibility (MANDATORY)
-- Headings must be sequential (h1 → h2 → h3, no skipping)
-- Links must have descriptive text (never "Learn more" or "Click here")
-- All images must have `width` and `height` attributes
-- Text must have 4.5:1 contrast ratio (use `var(--gray-600)` minimum on white)
-
-See `DESIGN-SYSTEM.md` Section 14 for full rules.
-
-## Notes
-
-- All dates should reference 2026
-- Use Underdog Digital branding style (orange accent)
-- SSI includes used for header/footer (`<!--#include virtual="/includes/header.html" -->`)
-- Schema markup on all major pages for Google AI visibility
+- `src/layouts/BaseLayout.astro` - All pages use this layout
+- `public/js/base-layout.js` - Global JS (search overlay, back-to-top)
+- `DESIGN-SYSTEM.md` - Single source of truth for design tokens
+- `/style-guide/` - Live style guide (noindex)
