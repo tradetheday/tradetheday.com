@@ -24,7 +24,8 @@
     "/glossary/aggregate-risk": "/glossary",
     "/glossary/crb": "/glossary",
     "/glossary/cyprus-securities-and-exchange-commission": "/glossary/cysec",
-    "/education/download-historical-data-metatrader4": "https://support.tradetheday.com/faqs/download-historical-data-on-metatrader-4"
+    "/education/download-historical-data-metatrader4": "https://support.tradetheday.com/faqs/download-historical-data-on-metatrader-4",
+    "/brokers/easymarkets": "/brokers/easy-markets"
   },
 
   "patterns": [

@@ -64,7 +64,7 @@ const CFD_PATHS = [
   '/brokers/city-index',
   '/brokers/go-markets',
   '/brokers/libertex',
-  '/brokers/easymarkets',
+  '/brokers/easy-markets',
   '/brokers/vantage',
   '/brokers/titanfx',
   '/brokers/eightcap',
