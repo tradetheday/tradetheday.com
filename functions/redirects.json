@@ -1,0 +1,75 @@
+{
+  "description": "301 Redirects managed via GitHub. Edit this file and push to deploy.",
+  "updated": "2026-01-28",
+
+  "static": {
+    "/old-example-page": "/new-page",
+    "/legacy-article": "https://support.tradetheday.com/help/topic"
+  },
+
+  "patterns": [
+    {
+      "comment": "Old broker singular to plural",
+      "match": "^/broker/([^/]+)/?$",
+      "redirect": "/brokers/$1"
+    },
+    {
+      "comment": "Education to guides",
+      "match": "^/education/([^/]+)/?$",
+      "redirect": "/guides/$1"
+    },
+    {
+      "comment": "Old platform URLs",
+      "match": "^/platform/([^/]+)/?$",
+      "redirect": "/platforms/$1"
+    },
+    {
+      "comment": "Trade commodity pages",
+      "match": "^/trade/([^/]+)/?$",
+      "redirect": "/guides/how-to-trade-$1"
+    },
+    {
+      "comment": "Old trading-platforms to platforms",
+      "match": "^/trading-platforms/?(.*)$",
+      "redirect": "/platforms/$1"
+    },
+    {
+      "comment": "Forex catchall to brokers",
+      "match": "^/forex/.*$",
+      "redirect": "/brokers"
+    },
+    {
+      "comment": "Cryptocurrency to exchanges",
+      "match": "^/crypt(o|ocurrenc(y|ies))/.*$",
+      "redirect": "/exchanges"
+    },
+    {
+      "comment": "Old news/analysis catchalls to home",
+      "match": "^/(news|analysis|stock-market|forex-analysis|technical-analysis|commodity-analysis|crypto-analysis|trade-ideas|indices-analysis|broker-news|tag|author)/.*$",
+      "redirect": "/"
+    },
+    {
+      "comment": "WordPress API catchall",
+      "match": "^/wp-json/.*$",
+      "redirect": "/"
+    }
+  ],
+
+  "geo": {
+    "/best-forex-brokers-south-africa": "/south-africa",
+    "/best-forex-brokers-uk": "/uk",
+    "/best-forex-brokers-united-kingdom": "/uk",
+    "/best-forex-brokers-australia": "/australia",
+    "/best-forex-brokers-canada": "/canada",
+    "/za": "/south-africa",
+    "/au": "/australia",
+    "/ca": "/canada"
+  },
+
+  "support": {
+    "comment": "Redirects to support.tradetheday.com - add URLs here",
+    "/help": "https://support.tradetheday.com",
+    "/contact": "https://support.tradetheday.com/contact",
+    "/faq": "https://support.tradetheday.com/faq"
+  }
+}
