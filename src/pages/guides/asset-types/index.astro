@@ -1,0 +1,1596 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+
+// Key statistics
+const keyStats = [
+  { icon: "7", value: "Asset Classes", label: "To Trade" },
+  { icon: "180+", value: "Currency", label: "Pairs Available" },
+  { icon: "24/5", value: "Markets", label: "Open Hours" },
+  { icon: "CFDs", value: "Traded As", label: "Contracts" }
+];
+
+// Asset types overview
+const assetTypes = [
+  {
+    name: "Currency Pairs",
+    icon: "💱",
+    description: "Trade one currency against another. The foundation of forex trading.",
+    examples: "EUR/USD, GBP/USD, USD/JPY"
+  },
+  {
+    name: "Commodities",
+    icon: "🥇",
+    description: "Natural resources including precious metals, energy, and agriculture.",
+    examples: "Gold, Silver, Crude Oil, Coffee"
+  },
+  {
+    name: "Stocks",
+    icon: "📈",
+    description: "Shares of publicly traded companies from global stock exchanges.",
+    examples: "Apple, Amazon, BMW, Sony"
+  },
+  {
+    name: "Indices",
+    icon: "📊",
+    description: "Baskets measuring the performance of specific markets or sectors.",
+    examples: "Dow Jones 30, S&P 500, DAX 30"
+  },
+  {
+    name: "Cryptocurrencies",
+    icon: "₿",
+    description: "Digital currencies using blockchain technology for decentralised finance.",
+    examples: "Bitcoin, Ethereum, Litecoin"
+  },
+  {
+    name: "ETFs",
+    icon: "📦",
+    description: "Exchange-traded funds tracking specific industries or asset baskets.",
+    examples: "SPY, GLD, EEM"
+  },
+  {
+    name: "Bonds",
+    icon: "🏛️",
+    description: "Government and corporate debt securities with interest payments.",
+    examples: "U.S. Treasury Notes, Euro-Bund"
+  }
+];
+
+// Major currencies
+const majorCurrencies = [
+  { currency: "United States Dollar", symbol: "USD", flag: "🇺🇸" },
+  { currency: "Euro", symbol: "EUR", flag: "🇪🇺" },
+  { currency: "British Pound Sterling", symbol: "GBP", flag: "🇬🇧" },
+  { currency: "Japanese Yen", symbol: "JPY", flag: "🇯🇵" },
+  { currency: "Australian Dollar", symbol: "AUD", flag: "🇦🇺" },
+  { currency: "Swiss Franc", symbol: "CHF", flag: "🇨🇭" },
+  { currency: "Canadian Dollar", symbol: "CAD", flag: "🇨🇦" },
+  { currency: "New Zealand Dollar", symbol: "NZD", flag: "🇳🇿" }
+];
+
+// Currency pair categories
+const majorPairs = [
+  { pair: "EUR/USD", name: "Euro vs. U.S. Dollar", nickname: "Fiber" },
+  { pair: "GBP/USD", name: "British Pound vs. U.S. Dollar", nickname: "Cable" },
+  { pair: "AUD/USD", name: "Australian Dollar vs. U.S. Dollar", nickname: "Aussie" },
+  { pair: "NZD/USD", name: "New Zealand Dollar vs. U.S. Dollar", nickname: "Kiwi" },
+  { pair: "USD/JPY", name: "U.S. Dollar vs. Japanese Yen", nickname: "Gopher" },
+  { pair: "USD/CHF", name: "U.S. Dollar vs. Swiss Franc", nickname: "Swissy" },
+  { pair: "USD/CAD", name: "U.S. Dollar vs. Canadian Dollar", nickname: "Loonie" }
+];
+
+const minorPairs = [
+  { pair: "EUR/GBP", name: "Euro vs. British Pound" },
+  { pair: "EUR/AUD", name: "Euro vs. Australian Dollar" },
+  { pair: "EUR/CHF", name: "Euro vs. Swiss Franc" },
+  { pair: "GBP/JPY", name: "British Pound vs. Japanese Yen" },
+  { pair: "GBP/CAD", name: "British Pound vs. Canadian Dollar" },
+  { pair: "AUD/JPY", name: "Australian Dollar vs. Japanese Yen" },
+  { pair: "AUD/NZD", name: "Australian Dollar vs. New Zealand Dollar" }
+];
+
+const exoticPairs = [
+  { pair: "USD/MXN", name: "U.S. Dollar vs. Mexican Peso" },
+  { pair: "USD/ZAR", name: "U.S. Dollar vs. South African Rand" },
+  { pair: "EUR/TRY", name: "Euro vs. Turkish Lira" },
+  { pair: "EUR/RUB", name: "Euro vs. Russian Rouble" },
+  { pair: "GBP/INR", name: "British Pound vs. Indian Rupee" }
+];
+
+// Commodities
+const preciousMetals = [
+  {
+    name: "Gold",
+    description: "The most traded precious metal. A symbol of wealth since ancient times. Considered the #1 safe haven during market uncertainty."
+  },
+  {
+    name: "Silver",
+    description: "Shares similar features to gold with strong price correlation. Important raw material in electronics and healthcare industries."
+  },
+  {
+    name: "Platinum & Palladium",
+    description: "Rare metals used in automotive, aviation, and space industries. High industrial demand drives prices."
+  }
+];
+
+const energyCommodities = [
+  {
+    name: "Crude Oil",
+    description: "The #1 energy source and most popular energy commodity. Brent Oil (European benchmark) and WTI (American benchmark) offer excellent volatility for traders."
+  },
+  {
+    name: "Natural Gas",
+    description: "The rising star of energy. More cost-effective and environmentally friendly than crude oil. Easier to extract, store, and transport."
+  }
+];
+
+// Stock regions
+const stockRegions = [
+  {
+    region: "U.S. Stocks",
+    description: "The largest economy with the world's most valuable companies. NYSE and NASDAQ dominate global trading volume.",
+    examples: "Apple, Amazon, Google, Facebook, Microsoft",
+    exchanges: "NYSE ($22.9T), NASDAQ ($10.9T)"
+  },
+  {
+    region: "European Stocks",
+    description: "Royal economies united through the EU. Home to major conglomerates across finance, energy, and automotive sectors.",
+    examples: "Royal Dutch Shell, BP, Volkswagen, BNP Paribas",
+    exchanges: "LSE, FWB (Frankfurt), Euronext"
+  },
+  {
+    region: "Asian Stocks",
+    description: "China and Japan are the 2nd and 3rd largest economies. Fertile lands and large populations fuel growth.",
+    examples: "Toyota, Sony, Samsung, BHP, Sinopec",
+    exchanges: "Tokyo, Shanghai, Hong Kong"
+  }
+];
+
+// Popular indices
+const popularIndices = [
+  { name: "Dow Jones 30", country: "USA", description: "30 largest U.S. blue-chip companies" },
+  { name: "S&P 500", country: "USA", description: "500 largest U.S. publicly traded companies" },
+  { name: "NASDAQ 100", country: "USA", description: "100 largest non-financial NASDAQ companies" },
+  { name: "DAX 30", country: "Germany", description: "30 largest German companies on Frankfurt Exchange" },
+  { name: "FTSE 100", country: "UK", description: "100 largest companies on London Stock Exchange" },
+  { name: "Nikkei 225", country: "Japan", description: "225 top-rated companies on Tokyo Stock Exchange" }
+];
+
+// Popular cryptocurrencies
+const cryptocurrencies = [
+  {
+    name: "Bitcoin (BTC)",
+    description: "The original cryptocurrency, published in 2008 by Satoshi Nakamoto. The benchmark for all digital currencies."
+  },
+  {
+    name: "Ethereum (ETH)",
+    description: "Second-largest crypto with smart contract functionality. Powers decentralized applications and DeFi."
+  },
+  {
+    name: "Other Altcoins",
+    description: "Alternative coins including Litecoin, Ripple (XRP), and Bitcoin Cash. Most are forks of Bitcoin or built on its technology."
+  }
+];
+
+// Popular ETFs
+const popularETFs = [
+  { symbol: "SPY", name: "SPDR S&P 500 ETF", tracks: "S&P 500 Index" },
+  { symbol: "GLD", name: "SPDR Gold Shares ETF", tracks: "Gold prices" },
+  { symbol: "EEM", name: "iShares MSCI Emerging Markets ETF", tracks: "Emerging market stocks" }
+];
+
+// Popular bonds
+const popularBonds = [
+  { name: "U.S. Treasury Notes", description: "Backed by U.S. government. Maturities from 2-10 years." },
+  { name: "Euro-Bund", description: "German government bonds. Benchmark for European fixed income." },
+  { name: "UK Gilts", description: "British government bonds with high liquidity." },
+  { name: "Japanese Government Bonds", description: "Issued by Japan with various maturities." }
+];
+
+// FAQs
+const faqs = [
+  {
+    question: "What is CFD trading?",
+    answer: "CFD (Contract for Difference) trading lets you speculate on price movements without owning the underlying asset. You profit from the difference between opening and closing prices. CFDs offer leverage, allowing you to control larger positions with less capital, but this also increases risk."
+  },
+  {
+    question: "Which asset type is best for beginners?",
+    answer: "Major currency pairs like EUR/USD are often recommended for beginners due to their high liquidity, tight spreads, and predictable behavior. Avoid exotic pairs and highly volatile assets like cryptocurrencies until you gain experience."
+  },
+  {
+    question: "Can I trade all these assets with one broker?",
+    answer: "Many modern forex brokers offer multi-asset trading including currencies, commodities, stocks, indices, and cryptocurrencies. AvaTrade, eToro, and similar brokers provide access to thousands of instruments from a single account."
+  },
+  {
+    question: "What's the difference between trading forex and stocks?",
+    answer: "Forex markets are open 24/5 with higher leverage and no central exchange. Stock trading happens during exchange hours with lower leverage but potential dividend income. Forex has higher liquidity and lower transaction costs."
+  },
+  {
+    question: "Are commodities like gold good for hedging?",
+    answer: "Yes, gold is considered the premier safe-haven asset. During market uncertainty, investors often move money into gold, driving prices up. Silver and other precious metals also serve as hedges against inflation and currency devaluation."
+  },
+  {
+    question: "How do indices work as trading instruments?",
+    answer: "When you trade an index, you're speculating on the collective performance of its component stocks. Index movements reflect market sentiment for that region or sector. Higher-weighted components have more influence on the index price."
+  }
+];
+
+// Anchor menu items
+const anchorMenuItems = [
+  { text: "Overview", href: "#overview" },
+  { text: "Currency Pairs", href: "#currencies" },
+  { text: "Commodities", href: "#commodities" },
+  { text: "Stocks", href: "#stocks" },
+  { text: "Indices", href: "#indices" },
+  { text: "Crypto", href: "#crypto" },
+  { text: "ETFs & Bonds", href: "#etfs-bonds" },
+  { text: "FAQs", href: "#faqs" }
+];
+
+// Featured brokers
+const featuredBrokers = [
+  {
+    name: "AvaTrade",
+    logo: "/images/brokers/avatrade-logo.svg",
+    rating: "4.5",
+    stars: "5",
+    features: [
+      "1,250+ instruments",
+      "Forex, stocks, crypto, commodities",
+      "MT4, MT5, AvaTradeGO",
+      "Partner code: 128979"
+    ],
+    ctaText: "Trade with AvaTrade",
+    ctaLink: "/brokers/avatrade",
+    featured: true
+  },
+  {
+    name: "eToro",
+    logo: "/images/brokers/etoro-logo.svg",
+    rating: "4.3",
+    stars: "4",
+    features: [
+      "3,000+ instruments",
+      "Copy trading feature",
+      "Real stocks & crypto",
+      "Social trading platform"
+    ],
+    ctaText: "Join eToro",
+    ctaLink: "/brokers/etoro",
+    featured: false
+  },
+  {
+    name: "Pepperstone",
+    logo: "/images/brokers/pepperstone-logo.svg",
+    rating: "4.4",
+    stars: "4",
+    features: [
+      "1,200+ instruments",
+      "Raw spreads from 0.0",
+      "Fast execution",
+      "Great for scalping"
+    ],
+    ctaText: "Trade with Pepperstone",
+    ctaLink: "/brokers/pepperstone",
+    featured: false
+  }
+];
+---
+
+<BaseLayout
+  title="Asset Types in Forex Trading: Complete Guide to CFD Instruments 2026"
+  description="Learn about the 7 asset types you can trade: currency pairs, commodities, stocks, indices, cryptocurrencies, ETFs, and bonds. Comprehensive CFD trading guide."
+>
+  <!-- BREADCRUMB -->
+  <Breadcrumb slot="breadcrumb" items={[
+    { text: 'Home', href: '/' },
+    { text: 'Guides', href: '/guides/' },
+    { text: 'Asset Types in Forex Trading', current: true }
+  ]} />
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-icon">📚</span>
+          LESSON 3
+        </div>
+        <h1 class="hero-title">Asset Types in Forex Trading</h1>
+        <p class="hero-description">
+          The scope of tradeable assets extends far beyond currencies. Learn about the seven common asset types available through CFD trading.
+        </p>
+
+        <!-- Key Stats -->
+        <div class="stats-grid">
+          {keyStats.map((stat) => (
+            <div class="stat-card">
+              <span class="stat-value">{stat.icon}</span>
+              <span class="stat-label">{stat.value}</span>
+              <span class="stat-sublabel">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANCHOR NAVIGATION -->
+  <nav class="anchor-nav" id="anchorNav">
+    <div class="container">
+      <div class="anchor-links">
+        {anchorMenuItems.map((item) => (
+          <a href={item.href} class="anchor-link">{item.text}</a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- OVERVIEW -->
+  <section class="section" id="overview">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">What Can You Trade?</h2>
+        <p class="section-subtitle">
+          In online forex markets, assets are traded as Contracts for Differences (CFDs). CFDs let you speculate on price movements without owning the underlying asset.
+        </p>
+      </div>
+
+      <div class="asset-types-grid">
+        {assetTypes.map((asset) => (
+          <div class="asset-type-card">
+            <span class="asset-icon">{asset.icon}</span>
+            <h3 class="asset-name">{asset.name}</h3>
+            <p class="asset-description">{asset.description}</p>
+            <p class="asset-examples"><strong>Examples:</strong> {asset.examples}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENCY PAIRS -->
+  <section class="section section-alt" id="currencies">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Currency Pairs</h2>
+        <p class="section-subtitle">
+          A currency is a standardised measurement of a country's economic value. Currency pairs are formed between national currencies of two different countries.
+        </p>
+      </div>
+
+      <!-- Major Currencies -->
+      <h3 class="subsection-title">The 8 Major Currencies</h3>
+      <p class="subsection-description">These are the most traded and most liquid currencies in financial markets.</p>
+
+      <div class="currencies-grid">
+        {majorCurrencies.map((curr) => (
+          <div class="currency-card">
+            <span class="currency-flag">{curr.flag}</span>
+            <span class="currency-symbol">{curr.symbol}</span>
+            <span class="currency-name">{curr.currency}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- Major Pairs -->
+      <h3 class="subsection-title">Major Currency Pairs</h3>
+      <p class="subsection-description">Formed between USD and other major currencies. Represent 85% of total forex trading volume.</p>
+
+      <div class="pairs-table-wrapper">
+        <table class="pairs-table">
+          <thead>
+            <tr>
+              <th>Pair</th>
+              <th>Name</th>
+              <th>Nickname</th>
+            </tr>
+          </thead>
+          <tbody>
+            {majorPairs.map((pair) => (
+              <tr>
+                <td class="pair-code">{pair.pair}</td>
+                <td>{pair.name}</td>
+                <td class="pair-nickname">{pair.nickname}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Minor & Exotic Pairs -->
+      <div class="pair-categories">
+        <div class="pair-category-card">
+          <h4>Minor Currency Pairs</h4>
+          <p>Formed between major currencies, except USD. Second most traded group.</p>
+          <div class="pair-list">
+            {minorPairs.map((pair) => (
+              <span class="pair-tag">{pair.pair}</span>
+            ))}
+          </div>
+        </div>
+        <div class="pair-category-card exotic">
+          <h4>Exotic Currency Pairs</h4>
+          <p>One major currency paired with an emerging market currency. Higher volatility and wider spreads.</p>
+          <div class="pair-list">
+            {exoticPairs.map((pair) => (
+              <span class="pair-tag">{pair.pair}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMODITIES -->
+  <section class="section" id="commodities">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Commodities</h2>
+        <p class="section-subtitle">
+          Natural resources used as raw materials. Three main categories: precious metals, energy, and agriculture.
+        </p>
+      </div>
+
+      <blockquote class="quote-block">
+        <p>"Commodities such as gold and silver have a world market that transcends national borders, politics, religions, and race. A person may not like someone else's religion, but he'll accept his gold."</p>
+        <cite>— Robert Kiyosaki</cite>
+      </blockquote>
+
+      <!-- Precious Metals -->
+      <h3 class="subsection-title">Precious Metals</h3>
+      <div class="commodity-grid">
+        {preciousMetals.map((metal) => (
+          <div class="commodity-card">
+            <h4>{metal.name}</h4>
+            <p>{metal.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Energy -->
+      <h3 class="subsection-title">Energy</h3>
+      <div class="commodity-grid">
+        {energyCommodities.map((energy) => (
+          <div class="commodity-card energy">
+            <h4>{energy.name}</h4>
+            <p>{energy.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Agriculture -->
+      <div class="agriculture-note">
+        <h4>Agriculture</h4>
+        <p>Agricultural commodities include crops and livestock. Common examples: <strong>Corn, Soybean, Coffee, Wheat, Cocoa, Sugar, Cotton</strong>. Uses range from food and nutrients to fuel and industrial raw materials.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STOCKS -->
+  <section class="section section-alt" id="stocks">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Stocks</h2>
+        <p class="section-subtitle">
+          Financial contracts representing ownership in a business. When companies go public via IPO, their stocks become available for trading.
+        </p>
+      </div>
+
+      <blockquote class="quote-block">
+        <p>"In investing, what is comfortable is rarely profitable."</p>
+        <cite>— Robert Arnott</cite>
+      </blockquote>
+
+      <div class="stock-regions-grid">
+        {stockRegions.map((region) => (
+          <div class="stock-region-card">
+            <h3>{region.region}</h3>
+            <p class="region-description">{region.description}</p>
+            <p class="region-examples"><strong>Popular:</strong> {region.examples}</p>
+            <p class="region-exchanges"><strong>Exchanges:</strong> {region.exchanges}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="stock-note">
+        <p><strong>Trading tip:</strong> Stock trading is especially active during quarterly earnings seasons and economic crises. Asian stocks generally follow U.S. trends due to strong trading partnerships.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDICES -->
+  <section class="section" id="indices">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Indices</h2>
+        <p class="section-subtitle">
+          Financial baskets measuring the performance of specific assets in a market or industry. Serve as benchmarks to monitor market valuations over time.
+        </p>
+      </div>
+
+      <div class="indices-grid">
+        {popularIndices.map((index) => (
+          <div class="index-card">
+            <h4 class="index-name">{index.name}</h4>
+            <span class="index-country">{index.country}</span>
+            <p class="index-description">{index.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="index-info-cards">
+        <div class="info-card">
+          <h4>How Components Are Chosen</h4>
+          <p>Management boards decide methodology. Components are usually the highest-valued assets in their markets. Companies must meet reporting and performance criteria to remain listed.</p>
+        </div>
+        <div class="info-card">
+          <h4>What Affects Index Prices</h4>
+          <p>All factors affecting stock prices also affect indices. Earnings seasons, tax changes, new technologies, and economic events all impact. High-weight components have larger influence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRYPTOCURRENCIES -->
+  <section class="section section-alt" id="crypto">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Cryptocurrencies</h2>
+        <p class="section-subtitle">
+          Digital finance products using blockchain technology. Offer peer-to-peer transactions that are superfast, encrypted, anonymous, and low-cost.
+        </p>
+      </div>
+
+      <div class="crypto-grid">
+        {cryptocurrencies.map((crypto) => (
+          <div class="crypto-card">
+            <h4>{crypto.name}</h4>
+            <p>{crypto.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="crypto-warning">
+        <p><strong>High Risk Warning:</strong> Cryptocurrencies have large-scale price fluctuations due to low liquidity compared to traditional markets. They are high-risk / high-return assets. Bitcoin reached $19,000 in December 2017 before significant corrections.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ETFs & BONDS -->
+  <section class="section" id="etfs-bonds">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">ETFs & Bonds</h2>
+        <p class="section-subtitle">
+          Investment funds and debt securities offering different risk/return profiles for portfolio diversification.
+        </p>
+      </div>
+
+      <div class="two-column-grid">
+        <!-- ETFs -->
+        <div class="column-section">
+          <h3>Exchange-Traded Funds (ETFs)</h3>
+          <p>Investment funds traded on stock exchanges. Each ETF owns a portfolio of assets focused on a specific industry or market. Trading ETFs avoids high-risk exposure to buying each asset individually.</p>
+
+          <div class="etf-list">
+            {popularETFs.map((etf) => (
+              <div class="etf-item">
+                <span class="etf-symbol">{etf.symbol}</span>
+                <div class="etf-info">
+                  <strong>{etf.name}</strong>
+                  <span>Tracks: {etf.tracks}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Bonds -->
+        <div class="column-section">
+          <h3>Treasury Bonds</h3>
+          <p>Debt securities issued by governments or corporations. Purchasing a bond means giving a loan in exchange for interest payments. Often regarded as the safest investment option.</p>
+
+          <div class="bonds-list">
+            {popularBonds.map((bond) => (
+              <div class="bond-item">
+                <strong>{bond.name}</strong>
+                <p>{bond.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BROKERS SECTION -->
+  <section class="section section-alt" id="brokers">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Multi-Asset Brokers</h2>
+        <p class="section-subtitle">
+          Trade all these asset types from a single account with these regulated brokers.
+        </p>
+      </div>
+
+      <div class="brokers-grid">
+        {featuredBrokers.map((broker) => (
+          <div class={`broker-card ${broker.featured ? 'featured' : ''}`}>
+            {broker.featured && <span class="featured-badge">Top Pick</span>}
+            <div class="broker-header">
+              <img src={broker.logo} alt={`${broker.name} logo`} class="broker-logo" loading="lazy" />
+              <div class="broker-rating">
+                <span class="rating-stars">{'★'.repeat(parseInt(broker.stars))}</span>
+                <span class="rating-value">{broker.rating}/5</span>
+              </div>
+            </div>
+            <h3 class="broker-name">{broker.name}</h3>
+            <ul class="broker-features">
+              {broker.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            <a href={broker.ctaLink} class="broker-cta">{broker.ctaText}</a>
+          </div>
+        ))}
+      </div>
+
+      <div class="section-cta">
+        <a href="/brokers" class="cta-button secondary">
+          View All Brokers
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section" id="faqs">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">
+          Common questions about trading different asset types.
+        </p>
+      </div>
+
+      <div class="faq-list">
+        {faqs.map((faq) => (
+          <details class="faq-item">
+            <summary class="faq-question">{faq.question}</summary>
+            <p class="faq-answer">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="final-cta">
+        <h2>Ready to Start Trading?</h2>
+        <p>Open a demo account to practice trading different asset types risk-free. When confident, start live trading with a regulated broker.</p>
+        <div class="cta-buttons">
+          <a href="/brokers" class="cta-button primary">Find a Broker</a>
+          <a href="/guides/forex-trading-basics" class="cta-button secondary">Forex Basics</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #2d3436 100%);
+    color: var(--white);
+    padding: var(--space-3xl) 0;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    background: rgba(255, 72, 0, 0.2);
+    color: var(--brand-orange);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin-bottom: var(--space-lg);
+  }
+
+  .badge-icon {
+    font-size: var(--text-lg);
+  }
+
+  .hero-title {
+    font-size: var(--text-4xl);
+    font-weight: 800;
+    margin-bottom: var(--space-md);
+    line-height: 1.1;
+  }
+
+  .hero-description {
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-xl);
+    line-height: 1.6;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    text-align: center;
+  }
+
+  .stat-value {
+    display: block;
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--brand-orange);
+  }
+
+  .stat-label {
+    display: block;
+    font-size: var(--text-md);
+    color: var(--white);
+    margin-top: var(--space-xs);
+  }
+
+  .stat-sublabel {
+    display: block;
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* Anchor Navigation */
+  .anchor-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: var(--space-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .anchor-links {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .anchor-link {
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+  }
+
+  .anchor-link:hover {
+    color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.1);
+  }
+
+  /* Section Styles */
+  .section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .section-alt {
+    background: var(--gray-50);
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--space-2xl);
+  }
+
+  .section-title {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .section-subtitle {
+    font-size: var(--text-lg);
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+
+  .subsection-title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin: var(--space-2xl) 0 var(--space-sm);
+    text-align: center;
+  }
+
+  .subsection-description {
+    text-align: center;
+    color: var(--gray-600);
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Asset Types Grid */
+  .asset-types-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .asset-type-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    transition: transform 0.2s;
+  }
+
+  .asset-type-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .asset-icon {
+    font-size: var(--text-3xl);
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .asset-name {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .asset-description {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    margin-bottom: var(--space-sm);
+  }
+
+  .asset-examples {
+    font-size: var(--text-xs);
+    color: var(--gray-500);
+    background: var(--gray-50);
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+  }
+
+  /* Currencies Grid */
+  .currencies-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .currency-card {
+    background: var(--white);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .currency-flag {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-xs);
+  }
+
+  .currency-symbol {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--brand-orange);
+  }
+
+  .currency-name {
+    font-size: var(--text-xs);
+    color: var(--gray-600);
+  }
+
+  /* Pairs Table */
+  .pairs-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: var(--space-xl);
+  }
+
+  .pairs-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .pairs-table th,
+  .pairs-table td {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .pairs-table th {
+    background: var(--charcoal);
+    color: var(--white);
+    font-weight: 600;
+    font-size: var(--text-sm);
+  }
+
+  .pairs-table td {
+    color: var(--gray-600);
+  }
+
+  .pair-code {
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .pair-nickname {
+    font-style: italic;
+    color: var(--gray-500);
+  }
+
+  /* Pair Categories */
+  .pair-categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .pair-category-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .pair-category-card.exotic {
+    border-left: 4px solid #ef4444;
+  }
+
+  .pair-category-card h4 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .pair-category-card p {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .pair-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .pair-tag {
+    background: var(--gray-100);
+    color: var(--gray-700);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    font-size: var(--text-xs);
+    font-weight: 500;
+  }
+
+  /* Quote Block */
+  .quote-block {
+    background: rgba(255, 72, 0, 0.05);
+    border-left: 4px solid var(--brand-orange);
+    padding: var(--space-xl);
+    margin: var(--space-xl) auto;
+    max-width: 700px;
+    border-radius: var(--radius-md);
+  }
+
+  .quote-block p {
+    font-size: var(--text-lg);
+    font-style: italic;
+    color: var(--charcoal);
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+  }
+
+  .quote-block cite {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+  }
+
+  /* Commodity Grid */
+  .commodity-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .commodity-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .commodity-card.energy {
+    border-top: 4px solid var(--brand-orange);
+  }
+
+  .commodity-card h4 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .commodity-card p {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  .agriculture-note {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .agriculture-note h4 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .agriculture-note p {
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+
+  /* Stock Regions */
+  .stock-regions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .stock-region-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .stock-region-card h3 {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .region-description {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .region-examples,
+  .region-exchanges {
+    font-size: var(--text-xs);
+    color: var(--gray-500);
+    margin-bottom: var(--space-xs);
+  }
+
+  .stock-note {
+    background: rgba(255, 72, 0, 0.1);
+    border-left: 4px solid var(--brand-orange);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+  }
+
+  .stock-note p {
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  /* Indices Grid */
+  .indices-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .index-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .index-name {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .index-country {
+    display: inline-block;
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: 2px var(--space-sm);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+
+  .index-description {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  .index-info-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .info-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .info-card h4 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .info-card p {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  /* Crypto Grid */
+  .crypto-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .crypto-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .crypto-card h4 {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .crypto-card p {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  .crypto-warning {
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 4px solid #ef4444;
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+  }
+
+  .crypto-warning p {
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  /* Two Column Grid */
+  .two-column-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+  }
+
+  .column-section {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .column-section h3 {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .column-section > p {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+  }
+
+  /* ETF List */
+  .etf-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .etf-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+  }
+
+  .etf-symbol {
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-size: var(--text-sm);
+  }
+
+  .etf-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .etf-info strong {
+    color: var(--charcoal);
+    font-size: var(--text-sm);
+  }
+
+  .etf-info span {
+    color: var(--gray-500);
+    font-size: var(--text-xs);
+  }
+
+  /* Bonds List */
+  .bonds-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .bond-item {
+    padding: var(--space-md);
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+  }
+
+  .bond-item strong {
+    color: var(--charcoal);
+    font-size: var(--text-sm);
+    display: block;
+    margin-bottom: var(--space-xs);
+  }
+
+  .bond-item p {
+    color: var(--gray-500);
+    font-size: var(--text-xs);
+    margin: 0;
+  }
+
+  /* Brokers Grid */
+  .brokers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .broker-card {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .broker-card.featured {
+    border: 2px solid var(--brand-orange);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+  }
+
+  .broker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-logo {
+    height: 32px;
+    width: auto;
+  }
+
+  .broker-rating {
+    text-align: right;
+  }
+
+  .rating-stars {
+    color: #f59e0b;
+    font-size: var(--text-sm);
+  }
+
+  .rating-value {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--gray-500);
+  }
+
+  .broker-name {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg);
+    flex-grow: 1;
+  }
+
+  .broker-features li {
+    padding: var(--space-xs) 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: var(--text-sm);
+    color: var(--gray-600);
+  }
+
+  .broker-features li:last-child {
+    border-bottom: none;
+  }
+
+  .broker-cta {
+    display: block;
+    background: var(--brand-orange);
+    color: var(--white);
+    text-align: center;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .broker-cta:hover {
+    background: #e64100;
+  }
+
+  /* FAQ Section */
+  .faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    padding: var(--space-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question::after {
+    content: '+';
+    font-size: var(--text-xl);
+    color: var(--brand-orange);
+    transition: transform 0.2s;
+  }
+
+  .faq-item[open] .faq-question::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--gray-600);
+    line-height: 1.7;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #2d3436 100%);
+    color: var(--white);
+    padding: var(--space-3xl);
+    border-radius: var(--radius-xl);
+    text-align: center;
+  }
+
+  .final-cta h2 {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .final-cta p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-xl);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+  }
+
+  /* CTA Buttons */
+  .section-cta {
+    text-align: center;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .cta-button.primary {
+    background: var(--brand-orange);
+    color: var(--white);
+  }
+
+  .cta-button.primary:hover {
+    background: #e64100;
+  }
+
+  .cta-button.secondary {
+    background: transparent;
+    color: var(--brand-orange);
+    border: 2px solid var(--brand-orange);
+  }
+
+  .cta-button.secondary:hover {
+    background: var(--brand-orange);
+    color: var(--white);
+  }
+
+  .final-cta .cta-button.secondary {
+    color: var(--white);
+    border-color: var(--white);
+  }
+
+  .final-cta .cta-button.secondary:hover {
+    background: var(--white);
+    color: var(--charcoal);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .stats-grid,
+    .currencies-grid,
+    .asset-types-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .commodity-grid,
+    .stock-regions-grid,
+    .indices-grid,
+    .crypto-grid,
+    .brokers-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .two-column-grid,
+    .pair-categories,
+    .index-info-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: var(--text-3xl);
+    }
+
+    .stats-grid,
+    .currencies-grid,
+    .asset-types-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .anchor-links {
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding-bottom: var(--space-sm);
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+  }
+</style>
