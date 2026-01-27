@@ -4,61 +4,87 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import Chip from '../../components/Chip.astro';
 import '../../styles/pages/guides-index.css';
 
-// Guide categories data
-const guideCategories = [
+// Actual guides data
+const guides = [
   {
-    title: "Beginner Trading Guides",
-    description: "Essential guides for new traders starting their journey",
-    count: "12+ Guides",
-    color: "green",
-    href: "/coming-soon?category=Beginner Trading&return=/guides",
-    icon: "🎯",
-    topics: ["Account Setup", "First Trades", "Risk Management", "Basic Analysis"]
+    title: "What is Trading?",
+    description: "Complete introduction to financial markets and trading fundamentals",
+    href: "/guides/what-is-trading",
+    icon: "📚",
+    category: "Beginner",
+    color: "green"
   },
   {
-    title: "Forex Trading Mastery", 
-    description: "Complete forex trading strategies and techniques",
-    count: "15+ Guides",
-    color: "blue",
-    href: "/coming-soon?category=Forex Trading&return=/guides",
+    title: "Forex Trading Basics",
+    description: "Everything you need to know to start trading currencies",
+    href: "/guides/forex-trading-basics",
     icon: "💱",
-    topics: ["Currency Pairs", "Technical Analysis", "Fundamental Analysis", "Trading Sessions"]
+    category: "Beginner",
+    color: "blue"
   },
   {
-    title: "Cryptocurrency Trading",
-    description: "Navigate the crypto markets with confidence", 
-    count: "10+ Guides",
-    color: "purple",
-    href: "/coming-soon?category=Cryptocurrency Trading&return=/guides",
-    icon: "₿",
-    topics: ["Bitcoin Trading", "Altcoin Analysis", "DeFi Strategies", "Security"]
-  },
-  {
-    title: "Stock Market Investing",
-    description: "Build wealth through strategic stock investments",
-    count: "18+ Guides", 
-    color: "orange",
-    href: "/coming-soon?category=Stock Market&return=/guides",
+    title: "Stock Trading for Beginners",
+    description: "Complete guide to getting started with stock market investing",
+    href: "/guides/stock-trading-for-beginners",
     icon: "📈",
-    topics: ["Stock Analysis", "Portfolio Building", "Dividend Investing", "Growth Stocks"]
+    category: "Beginner",
+    color: "orange"
   },
   {
-    title: "Options Trading",
-    description: "Advanced options strategies for experienced traders",
-    count: "8+ Guides",
-    color: "red", 
-    href: "/coming-soon?category=Options Trading&return=/guides",
+    title: "Day Trading Guide",
+    description: "Strategies, tools and tips for successful day trading",
+    href: "/guides/day-trading",
     icon: "⚡",
-    topics: ["Options Basics", "Spreads", "Income Strategies", "Risk Management"]
+    category: "Strategy",
+    color: "red"
   },
   {
-    title: "Technical Analysis",
-    description: "Master chart patterns and trading indicators",
-    count: "20+ Guides",
-    color: "teal",
-    href: "/coming-soon?category=Technical Analysis&return=/guides", 
+    title: "Forex Trading Strategies",
+    description: "Proven trading methods and strategies for forex markets",
+    href: "/guides/forex-strategy",
+    icon: "🎯",
+    category: "Strategy",
+    color: "teal"
+  },
+  {
+    title: "How to Trade Gold (XAUUSD)",
+    description: "Complete guide to trading gold with best brokers and strategies",
+    href: "/guides/how-to-trade-gold",
+    icon: "🥇",
+    category: "Commodities",
+    color: "yellow"
+  },
+  {
+    title: "How to Trade Oil",
+    description: "Master oil trading with our comprehensive guide",
+    href: "/guides/how-to-trade-oil",
+    icon: "🛢️",
+    category: "Commodities",
+    color: "purple"
+  },
+  {
+    title: "Asset Types in Forex",
+    description: "Complete guide to CFD instruments and tradable assets",
+    href: "/guides/asset-types",
     icon: "📊",
-    topics: ["Chart Patterns", "Indicators", "Support & Resistance", "Trend Analysis"]
+    category: "Education",
+    color: "blue"
+  },
+  {
+    title: "Elliott Wave Theory",
+    description: "Master wave analysis for technical trading",
+    href: "/guides/elliott-wave",
+    icon: "🌊",
+    category: "Technical",
+    color: "teal"
+  },
+  {
+    title: "Algorithmic Trading",
+    description: "Build your first trading bot and automate strategies",
+    href: "/guides/algorithmic-trading",
+    icon: "🤖",
+    category: "Advanced",
+    color: "purple"
   }
 ];
 ---
@@ -85,11 +111,11 @@ const guideCategories = [
         </p>
         <div class="hero-stats">
           <div class="stat">
-            <span class="stat-number">80+</span>
+            <span class="stat-number">10</span>
             <span class="stat-label">Expert Guides</span>
           </div>
           <div class="stat">
-            <span class="stat-number">6</span>
+            <span class="stat-number">5</span>
             <span class="stat-label">Categories</span>
           </div>
           <div class="stat">
@@ -105,36 +131,26 @@ const guideCategories = [
   <section class="guides-section">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">Choose Your Learning Path</h2>
+        <h2 class="section-title">Trading Guides</h2>
         <p class="section-description">
-          Select a category below to explore our in-depth trading guides and educational resources
+          In-depth educational content to help you become a better trader
         </p>
       </div>
 
       <div class="guides-grid">
-        {guideCategories.map((category) => (
-          <a href={category.href} class={`guide-card guide-card-${category.color}`}>
-            <div class="guide-card-background">
-              <div class="guide-card-pattern"></div>
-            </div>
-            
+        {guides.map((guide) => (
+          <a href={guide.href} class={`guide-card guide-card-${guide.color}`}>
             <div class="guide-card-content">
               <div class="guide-card-header">
-                <span class="guide-card-icon">{category.icon}</span>
-                <span class="guide-card-count">{category.count}</span>
+                <span class="guide-card-icon">{guide.icon}</span>
+                <span class="guide-card-category">{guide.category}</span>
               </div>
-              
-              <h3 class="guide-card-title">{category.title}</h3>
-              <p class="guide-card-description">{category.description}</p>
-              
-              <div class="guide-card-topics">
-                {category.topics.map((topic) => (
-                  <span class="topic-tag">{topic}</span>
-                ))}
-              </div>
-              
+
+              <h3 class="guide-card-title">{guide.title}</h3>
+              <p class="guide-card-description">{guide.description}</p>
+
               <div class="guide-card-cta">
-                <span class="cta-text">Start Learning</span>
+                <span class="cta-text">Read Guide</span>
                 <span class="cta-arrow">→</span>
               </div>
             </div>

@@ -172,9 +172,10 @@
   line-height: 1;
 }
 
-.guide-card-count {
-  background: rgba(255, 255, 255, 0.1);
-  color: currentColor;
+.guide-card-count,
+.guide-card-category {
+  background: var(--gray-100);
+  color: var(--gray-600);
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-md);
   font-size: var(--font-size-xs);
