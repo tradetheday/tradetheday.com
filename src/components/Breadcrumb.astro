@@ -18,21 +18,31 @@ const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": items.map((item, index) => {
-    const listItem = {
+    // Determine the URL for this breadcrumb item
+    let itemUrl: string;
+    if (item.href) {
+      itemUrl = item.href.startsWith('/') ? `${baseUrl}${item.href}` : item.href;
+    } else if (item.current) {
+      itemUrl = currentUrl.startsWith('/') ? `${baseUrl}${currentUrl}` : currentUrl;
+    } else {
+      itemUrl = baseUrl;
+    }
+
+    // Remove trailing slash for consistency (except for root)
+    if (itemUrl !== `${baseUrl}/` && itemUrl.endsWith('/')) {
+      itemUrl = itemUrl.slice(0, -1);
+    }
+
+    return {
       "@type": "ListItem",
       "position": index + 1,
-      "name": item.text
+      "name": item.text,
+      "item": {
+        "@type": "WebPage",
+        "@id": itemUrl,
+        "name": item.text
+      }
     };
-    
-    // Add URL for all items
-    if (item.href) {
-      listItem.item = item.href.startsWith('/') ? `${baseUrl}${item.href}` : item.href;
-    } else if (item.current) {
-      // For current page, use the current URL
-      listItem.item = currentUrl.startsWith('/') ? `${baseUrl}${currentUrl}` : currentUrl;
-    }
-    
-    return listItem;
   })
 };
 ---
@@ -40,23 +50,20 @@ const breadcrumbJsonLd = {
 <!-- JSON-LD Structured Data for Breadcrumbs -->
 <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 
-<nav class={`breadcrumb ${className}`} aria-label="Breadcrumb navigation" itemscope itemtype="https://schema.org/BreadcrumbList">
+<nav class={`breadcrumb ${className}`} aria-label="Breadcrumb navigation">
   <div class="container">
     <ol class="breadcrumb-list">
       {items.map((item, index) => (
-        <li class={`breadcrumb-item ${item.current ? 'breadcrumb-current' : ''}`} itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <li class={`breadcrumb-item ${item.current ? 'breadcrumb-current' : ''}`}>
           {item.href && !item.current ? (
-            <a href={item.href} class="breadcrumb-link" itemprop="item" itemscope itemtype="https://schema.org/WebPage">
-              <span itemprop="name">{item.text}</span>
-              <meta itemprop="url" content={item.href.startsWith('/') ? `${baseUrl}${item.href}` : item.href} />
+            <a href={item.href} class="breadcrumb-link">
+              {item.text}
             </a>
           ) : (
-            <span class="breadcrumb-text" itemprop="item" itemscope itemtype="https://schema.org/WebPage">
-              <span itemprop="name">{item.text}</span>
-              <meta itemprop="url" content={currentUrl.startsWith('/') ? `${baseUrl}${currentUrl}` : currentUrl} />
+            <span class="breadcrumb-text">
+              {item.text}
             </span>
           )}
-          <meta itemprop="position" content={index + 1} />
           {index < items.length - 1 && (
             <span class="breadcrumb-separator" aria-hidden="true">/</span>
           )}
