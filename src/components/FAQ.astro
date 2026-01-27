@@ -44,7 +44,7 @@ const { questions, title = "Frequently Asked Questions", inline = false } = Astr
 )}
 
 <style>
-  /* Inline FAQ styles (when inside existing container) */
+  /* Inline FAQ section wrapper */
   .faq-section {
     margin-bottom: var(--space-3xl);
   }
@@ -54,61 +54,20 @@ const { questions, title = "Frequently Asked Questions", inline = false } = Astr
     margin-bottom: var(--space-lg);
   }
 
-  /* Common FAQ list styles */
   .faq-list {
     margin-top: 0;
   }
 
-  .faq-item {
-    border: 1px solid var(--gray-200);
-    border-radius: var(--radius-lg);
-    margin-bottom: var(--space-md);
-    background: var(--white);
-    overflow: hidden;
-  }
-
-  .faq-question {
-    font-weight: 600;
-    cursor: pointer;
-    list-style: none;
-    padding: var(--space-lg);
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-  }
-
+  /* Hide native details marker */
   .faq-question::-webkit-details-marker {
     display: none;
   }
 
-  .faq-question::before {
-    content: "▶";
-    display: inline-block;
-    font-size: 0.75rem;
-    transition: transform 0.2s;
-    color: var(--brand-orange);
-    flex-shrink: 0;
+  .faq-question {
+    list-style: none;
   }
 
-  details[open] .faq-question::before {
-    transform: rotate(90deg);
-  }
-
-  .faq-item[open] {
-    border-color: var(--brand-orange);
-  }
-
-  .faq-answer {
-    padding: 0 var(--space-lg) var(--space-lg) var(--space-lg);
-    color: var(--gray-700);
-    line-height: 1.7;
-  }
-
-  .faq-answer p {
-    margin: 0;
-  }
-
+  /* Answers - links should be orange */
   .faq-answer a {
     color: var(--brand-orange);
   }

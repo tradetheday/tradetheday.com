@@ -2132,7 +2132,8 @@ img {
     transition: var(--transition-base);
 }
 
-.faq-item.active .faq-question::after {
+.faq-item.active .faq-question::after,
+details.faq-item[open] .faq-question::after {
     transform: rotate(45deg);
 }
 
@@ -2148,9 +2149,10 @@ img {
     margin: 0;
 }
 
-.faq-item.active .faq-answer {
+.faq-item.active .faq-answer,
+details.faq-item[open] .faq-answer {
     padding: var(--space-md) var(--space-lg) var(--space-md) var(--space-lg);
-    max-height: 300px;
+    max-height: 500px;
     opacity: 1;
 }
 
