@@ -162,6 +162,26 @@ export const glossaryTerms: GlossaryTerm[] = [
     relatedTerms: ['forex', 'broken-dates', 'currency-pair'],
     popular: true
   },
+  {
+    slug: 'forward-settlement-date',
+    name: 'Forward Settlement Date',
+    category: 'forex-slang',
+    shortDescription: 'The future date when a forward forex contract will settle and currencies will be exchanged.',
+    definition: 'A forward settlement date is the agreed-upon future date when a forward foreign exchange contract will be settled. Unlike spot transactions (T+2), forward contracts can settle on any agreed date in the future, from a few days to several years ahead.',
+    howItWorks: [
+      'Agreed at contract inception',
+      'Can be any business day after spot date',
+      'Standard tenors: 1W, 1M, 2M, 3M, 6M, 1Y',
+      'Non-standard dates are called "broken dates"'
+    ],
+    tradingTips: [
+      'Forward rates include interest rate differentials',
+      'Longer dates typically have wider spreads',
+      'Match settlement date to your actual currency need'
+    ],
+    relatedTerms: ['outright-deal', 'broken-dates', 'forex'],
+    popular: false
+  },
 
   // === ESSENTIAL TRADING TERMS ===
   {

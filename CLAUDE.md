@@ -21,30 +21,49 @@ npm run preview  # Preview production build
 ### Astro Structure
 - `src/pages/` - File-based routing (`.astro` files become pages)
 - `src/layouts/BaseLayout.astro` - Global layout with header, footer, SEO meta
-- `src/components/` - Reusable Astro components (Testimonials, FAQ, NewsletterSignup, TradingResults, AnalystNotes)
+- `src/components/` - Reusable Astro components
+- `src/data/` - TypeScript data stores
 - `src/styles/` - CSS design system
-- `public/` - Static assets served at root (images, JS, `_headers`, `_redirects`)
+- `public/` - Static assets served at root
+
+### Key Components
+- **Quiz:** `BrokerSelectorQuiz.astro`, `BrokerResultCard.astro` - AI broker matching
+- **Reviews:** `BrokerVerdict.astro`, `ComparisonTable.astro`, `ProsCons.astro`
+- **Content:** `FAQ.astro`, `Testimonials.astro`, `Hero.astro`, `Navigation.astro`
+- **Layout:** `Card.astro`, `CardGrid.astro`, `Chip.astro`, `Breadcrumb.astro`
+
+### Data Layer
+Centralized data in `src/data/` enables broker selector, comparison tables, and consistent data:
+- `brokers.ts` - Full broker profiles with scoring attributes for AI selector
+- `propfirms.ts` - Prop trading firm data
+- `glossary.ts` - Trading terminology definitions
+- `deals.ts` - Current promotions and offers
+- `events.ts` - Trading calendar events
+- `videos.ts` - Embedded video content
+
+### Page Categories
+- `/brokers` - Broker reviews with partner code subpages
+- `/crypto` - Cryptocurrency hub with filterable tags (chain/type filters are noindexed)
+- `/news` - Trending news articles (hub-and-spoke linking to evergreen pages)
+- `/platforms` - Trading platform guides (MT4, MT5, cTrader)
+- `/tools` - Trading calculators (dark theme)
+- `/guides` - Educational content
+- `/exchanges` - Crypto exchange reviews
+- `/propfirms` - Prop firm comparisons
 
 ### Routing
 - **No trailing slashes** - URLs do NOT end with `/` (configured in `astro.config.mjs`)
 - Links must NOT include trailing slash: `/brokers/avatrade` not `/brokers/avatrade/`
-- Redirect shortlinks: `/go/avatrade` → AvaTrade affiliate URL
+- Shortlinks defined in `astro.config.mjs` redirects: `/go/avatrade` → affiliate URL
+- Build format: `file` (generates `/brokers/avatrade.html` not `/brokers/avatrade/index.html`)
 
 ### CSS Architecture
 - `src/styles/styles.css` - Main design system (light theme)
 - `src/styles/tools.css` - Dark theme for calculator/tool pages
-- `src/styles/global.css` - Base resets
 - Component-specific styles are scoped within `.astro` files using `<style>` tags
 
-### Key Pages
-- `/` - Homepage with bento grid, broker comparison, testimonials
-- `/brokers` - Broker reviews (avatrade, etoro, axi, pepperstone, etc.)
-- `/brokers/avatrade/partner-code` - Money page (AvaTrade Partner Code 128979)
-- `/tools` - Trading calculators (dark theme)
-- `/guides` - Trading education content
-
 ### Sitemap
-Auto-generated via `@astrojs/sitemap`. Excludes `/style-guide` and `/components-showcase` (noindex pages).
+Auto-generated via `@astrojs/sitemap`. Excludes `/style-guide` and `/components-showcase`.
 
 ## Design System (CRITICAL)
 
@@ -67,19 +86,33 @@ Auto-generated via `@astrojs/sitemap`. Excludes `/style-guide` and `/components-
 
 ### Brand Colors
 - Primary orange: `#FF4800`
-- Buttons use brand orange with `font-weight: 600` (bold text only needs 3:1 contrast ratio, which #FF4800 passes)
-- For orange text on white backgrounds, use `--brand-orange-dark` (#e63e00) or darker
+- Buttons use brand orange with `font-weight: 600`
+- For orange text on white, use `--brand-orange-dark` (#e63e00)
 
-## SEO & Accessibility (MANDATORY)
+## SEO & Accessibility
 
 1. **Heading hierarchy** - Sequential only (h1 → h2 → h3), never skip levels
 2. **Link text** - Descriptive (never "Learn more" or "Click here")
 3. **Images** - Always include `width` and `height` attributes
 4. **Dates** - Use 2026 for all date references
+5. **Crypto contracts** - Always include verified contract addresses
+
+## Content Patterns
+
+### Hub-and-Spoke (for trending topics)
+- Create evergreen hub page (e.g., `/crypto/pepe`) that ranks for searches
+- Write news articles linking back to hub
+- Keep hub updated with latest news section
+- Prevents site from becoming pure "news site" while capturing trending traffic
+
+### Filtered Index Pages
+- Main index pages are indexed (`/crypto`)
+- Filter URLs use query params and are noindexed (`/crypto?chain=ethereum`)
+- Good for UX without SEO pollution from thin content
 
 ## Cloudflare Configuration
 
-- `public/_headers` - Cache rules (immutable for static assets, stale-while-revalidate for HTML)
+- `public/_headers` - Cache rules
 - `public/_redirects` - URL redirects
 - Settings: Smart Tiered Cache, Early Hints, HTTP/3, HSTS enabled
 
@@ -93,6 +126,6 @@ Auto-generated via `@astrojs/sitemap`. Excludes `/style-guide` and `/components-
 ## Key Files
 
 - `src/layouts/BaseLayout.astro` - All pages use this layout
+- `src/data/brokers.ts` - Central broker data (used by selector and comparisons)
 - `public/js/base-layout.js` - Global JS (search overlay, back-to-top)
 - `DESIGN-SYSTEM.md` - Single source of truth for design tokens
-- `/style-guide/` - Live style guide (noindex)

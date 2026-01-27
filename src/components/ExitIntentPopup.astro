@@ -1,0 +1,321 @@
+---
+/**
+ * Exit Intent Popup - Shows when user moves cursor toward browser chrome (desktop only)
+ *
+ * Usage: Add to specific high-value pages only (partner codes, key broker pages)
+ * Shows once per session to avoid annoyance
+ */
+
+interface Props {
+  headline?: string;
+  subheadline?: string;
+  code?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  bonusAmount?: string;
+}
+
+const {
+  headline = "Wait! Don't Leave Empty-Handed",
+  subheadline = "Claim your exclusive trading bonus before you go",
+  code = "128979",
+  ctaText = "Claim My Bonus Now",
+  ctaUrl = "/go/avatrade",
+  bonusAmount = "20%"
+} = Astro.props;
+---
+
+<div class="exit-popup-overlay" id="exitPopup" role="dialog" aria-modal="true" aria-labelledby="exitPopupTitle">
+  <div class="exit-popup">
+    <button class="exit-popup-close" aria-label="Close popup" id="exitPopupClose">&times;</button>
+
+    <div class="exit-popup-badge">Limited Time Offer</div>
+
+    <h2 class="exit-popup-title" id="exitPopupTitle">{headline}</h2>
+    <p class="exit-popup-subtitle">{subheadline}</p>
+
+    <div class="exit-popup-bonus">
+      <span class="bonus-label">Get a</span>
+      <span class="bonus-amount">{bonusAmount}</span>
+      <span class="bonus-label">Welcome Bonus</span>
+    </div>
+
+    <div class="exit-popup-code">
+      <span class="code-label">Use Partner Code</span>
+      <span class="code-value">{code}</span>
+    </div>
+
+    <a href={ctaUrl} class="exit-popup-cta" target="_blank" rel="noopener">
+      {ctaText}
+    </a>
+
+    <p class="exit-popup-trust">
+      <span class="trust-item">FCA Regulated</span>
+      <span class="trust-sep">•</span>
+      <span class="trust-item">3-Minute Signup</span>
+      <span class="trust-sep">•</span>
+      <span class="trust-item">No Obligation</span>
+    </p>
+
+    <button class="exit-popup-dismiss" id="exitPopupDismiss">No thanks, I'll pass on the bonus</button>
+  </div>
+</div>
+
+<style>
+  .exit-popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .exit-popup-overlay.visible {
+    display: flex;
+    opacity: 1;
+  }
+
+  .exit-popup {
+    position: relative;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: popupSlide 0.3s ease;
+  }
+
+  @keyframes popupSlide {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .exit-popup-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: var(--gray-100);
+    border-radius: 50%;
+    font-size: 20px;
+    color: var(--gray-500);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .exit-popup-close:hover {
+    background: var(--gray-200);
+    color: var(--charcoal);
+  }
+
+  .exit-popup-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: var(--space-md);
+  }
+
+  .exit-popup-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 800;
+    color: var(--charcoal);
+    margin: 0 0 var(--space-xs);
+    line-height: 1.2;
+  }
+
+  .exit-popup-subtitle {
+    font-size: var(--font-size-base);
+    color: var(--gray-600);
+    margin: 0 0 var(--space-lg);
+  }
+
+  .exit-popup-bonus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    margin-bottom: var(--space-md);
+  }
+
+  .bonus-label {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .bonus-amount {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--brand-orange);
+    line-height: 1;
+  }
+
+  .exit-popup-code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    background: var(--gray-100);
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .code-label {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+  }
+
+  .code-value {
+    font-size: var(--font-size-xl);
+    font-weight: 800;
+    color: var(--charcoal);
+    font-family: ui-monospace, monospace;
+    letter-spacing: 2px;
+  }
+
+  .exit-popup-cta {
+    display: block;
+    background: linear-gradient(135deg, var(--brand-orange) 0%, #e63e00 100%);
+    color: white;
+    font-size: var(--font-size-base);
+    font-weight: 700;
+    text-decoration: none;
+    padding: 14px var(--space-lg);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+    margin-bottom: var(--space-md);
+  }
+
+  .exit-popup-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 72, 0, 0.4);
+  }
+
+  .exit-popup-trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    margin: 0 0 var(--space-md);
+  }
+
+  .trust-sep {
+    color: var(--gray-300);
+  }
+
+  .exit-popup-dismiss {
+    background: none;
+    border: none;
+    font-size: var(--font-size-sm);
+    color: var(--gray-400);
+    cursor: pointer;
+    padding: var(--space-xs);
+    transition: color 0.2s;
+  }
+
+  .exit-popup-dismiss:hover {
+    color: var(--gray-600);
+  }
+
+  @media (max-width: 480px) {
+    .exit-popup {
+      padding: var(--space-lg);
+    }
+
+    .exit-popup-title {
+      font-size: var(--font-size-xl);
+    }
+
+    .bonus-amount {
+      font-size: 2rem;
+    }
+
+    .exit-popup-trust {
+      flex-wrap: wrap;
+    }
+  }
+</style>
+
+<script>
+  // Exit intent detection - desktop only, once per session
+  (function() {
+    const popup = document.getElementById('exitPopup');
+    const closeBtn = document.getElementById('exitPopupClose');
+    const dismissBtn = document.getElementById('exitPopupDismiss');
+
+    if (!popup) return;
+
+    const STORAGE_KEY = 'ttd_exit_shown';
+
+    // Check if already shown this session
+    if (sessionStorage.getItem(STORAGE_KEY)) return;
+
+    // Only on desktop (touch devices don't have reliable exit intent)
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
+    let triggered = false;
+
+    function showPopup() {
+      if (triggered) return;
+      triggered = true;
+      sessionStorage.setItem(STORAGE_KEY, '1');
+      popup.classList.add('visible');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hidePopup() {
+      popup.classList.remove('visible');
+      document.body.style.overflow = '';
+    }
+
+    // Exit intent: mouse leaves viewport at top
+    document.addEventListener('mouseout', function(e) {
+      if (e.clientY <= 0 && !triggered) {
+        showPopup();
+      }
+    });
+
+    // Close handlers
+    closeBtn?.addEventListener('click', hidePopup);
+    dismissBtn?.addEventListener('click', hidePopup);
+
+    // Click outside to close
+    popup.addEventListener('click', function(e) {
+      if (e.target === popup) hidePopup();
+    });
+
+    // Escape key to close
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && popup.classList.contains('visible')) {
+        hidePopup();
+      }
+    });
+  })();
+</script>

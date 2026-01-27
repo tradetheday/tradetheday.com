@@ -23,6 +23,7 @@ import BrokerVerdict from '../../../components/BrokerVerdict.astro';
 import CostAnalysis from '../../../components/CostAnalysis.astro';
 import BestFor from '../../../components/BestFor.astro';
 import BrokerCrossPromo from '../../../components/BrokerCrossPromo.astro';
+import ExitIntentPopup from '../../../components/ExitIntentPopup.astro';
 
 // Broker Configuration
 const BROKER_NAME = 'AvaTrade';
@@ -1283,6 +1284,16 @@ const paymentAnalysis = {
       <BrokerCrossPromo brokerSlug="avatrade" brokerName="AvaTrade" />
     </div>
   </section>
+
+  <!-- Exit Intent Popup - Desktop only, once per session -->
+  <ExitIntentPopup
+    headline="Get Your AvaTrade Welcome Bonus"
+    subheadline="Don't leave without claiming your exclusive partner code bonus"
+    code="128979"
+    ctaText="Get My Partner Code"
+    ctaUrl="/brokers/avatrade/partner-code"
+    bonusAmount="20%"
+  />
 </BaseLayout>
 
 <style>

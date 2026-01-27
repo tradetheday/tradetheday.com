@@ -56,6 +56,18 @@
 /brokers/brokers.html /brokers 301
 /brokers/brokers/* /brokers 301
 
+# Old broker slug variations (no hyphen to hyphenated)
+/brokers/vantagefx /brokers/vantage 301
+/brokers/vantagefx/* /brokers/vantage 301
+/brokers/admiralmarkets /brokers/admiral-markets 301
+/brokers/admiralmarkets/* /brokers/admiral-markets 301
+/brokers/icmarkets /brokers/ic-markets 301
+/brokers/icmarkets/* /brokers/ic-markets 301
+/brokers/gomarkets /brokers/go-markets 301
+/brokers/gomarkets/* /brokers/go-markets 301
+/brokers/cityindex /brokers/city-index 301
+/brokers/cityindex/* /brokers/city-index 301
+
 # Old broker paths with .html
 /brokers/avatrade. /brokers/avatrade 301
 /brokers/Pepperstone /brokers/pepperstone 301

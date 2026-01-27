@@ -16,6 +16,7 @@ import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import TrustBadges from '../../../../components/TrustBadges.astro';
 import ScarcityCountdown from '../../../../components/ScarcityCountdown.astro';
 import AnalystNotes from '../../../../components/AnalystNotes.astro';
+import ExitIntentPopup from '../../../../components/ExitIntentPopup.astro';
 import '../../../../styles/pages/brokers-avatrade-partner-code.css';
 
 // Dynamic date for auto-updating content
@@ -384,7 +385,7 @@ const faqData = [
     ctaHref="https://www.avatrade.com/trading-account?tag=128979"
   />
 
-  <!-- QUICK ANSWER (For Google/AI) -->
+  <!-- QUICK ANSWER (For Google/AI) - Structured for AI Overview extraction -->
   <section class="quick-answer-section">
     <div class="container">
       <div class="quick-answer">
@@ -393,8 +394,18 @@ const faqData = [
           <span class="qa-label">Quick Answer</span>
         </div>
         <div class="quick-answer-content">
-          <p><strong>The AvaTrade partner code is 128979.</strong> Enter this code during account registration in the "Have a Partner Code?" field to receive your exclusive welcome bonus based on your deposit amount.</p>
-          <p class="qa-meta">Verified {dateString} · Official AvaTrade Partner · Available Worldwide</p>
+          <p>The active AvaTrade partner code for {currentYear} is <strong>128979</strong>. This code can be entered during registration to access exclusive welcome bonuses up to 20% on your first deposit. The code is inserted in a designated field below the phone number during sign-up.</p>
+
+          <div class="key-details">
+            <h3>Key Details About AvaTrade Partner Code 128979:</h3>
+            <ul>
+              <li><strong>Active Code:</strong> 128979 is the verified partner code for {currentYear}, issued to official AvaTrade partners.</li>
+              <li><strong>Where to Enter:</strong> In the registration form, look for "Have a Partner Code?" located just below the phone number section.</li>
+              <li><strong>Bonus Amount:</strong> 20% welcome bonus on deposits from $1,000 to $50,000+, based on deposit tier.</li>
+              <li><strong>Forgot to Add:</strong> If you missed entering the code during registration, contact AvaTrade support to link it to your account before depositing.</li>
+            </ul>
+          </div>
+          <p class="qa-meta">Verified {dateString} · Official AvaTrade Partner · FCA/ASIC Regulated Broker</p>
         </div>
       </div>
 
@@ -871,6 +882,16 @@ const faqData = [
       </div>
     </div>
   </section>
+
+  <!-- Exit Intent Popup - Desktop only, once per session -->
+  <ExitIntentPopup
+    headline="Wait! Don't Miss Your Bonus"
+    subheadline="Use code 128979 to get 20% bonus on your first deposit"
+    code="128979"
+    ctaText="Claim My Welcome Bonus"
+    ctaUrl="/go/avatrade"
+    bonusAmount="20%"
+  />
 </BaseLayout>
 
 <script is:inline>
