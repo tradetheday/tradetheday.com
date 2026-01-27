@@ -87,8 +87,10 @@ export interface HowToSchemaProps {
 }
 
 export interface BreadcrumbItem {
-  text: string;
+  text?: string;
+  name?: string;  // Alias for text
   href?: string;
+  url?: string;   // Alias for href
   current?: boolean;
 }
 
@@ -322,19 +324,21 @@ export function generateHowToSchema(props: HowToSchemaProps): object {
 
 /**
  * Generate BreadcrumbList schema
+ * Accepts both text/href and name/url property formats for flexibility
  */
 export function generateBreadcrumbSchema(items: BreadcrumbItem[], currentUrl?: string): object {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": items.map((item, index) => {
-      // Use href if available, otherwise use currentUrl for the last item
-      const url = item.href || currentUrl || '';
+      // Support both property name formats (text/href and name/url)
+      const itemName = item.text || item.name || '';
+      const itemUrl = item.href || item.url || currentUrl || '';
       return {
         "@type": "ListItem",
         "position": index + 1,
-        "name": item.text,
-        "item": url.startsWith('http') ? url : `${SITE_URL}${url}`
+        "name": itemName,
+        "item": itemUrl.startsWith('http') ? itemUrl : `${SITE_URL}${itemUrl}`
       };
     })
   };

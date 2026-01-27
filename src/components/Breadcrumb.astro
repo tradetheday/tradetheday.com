@@ -38,14 +38,12 @@ const breadcrumbJsonLd = {
       itemUrl = itemUrl.slice(0, -1);
     }
 
-    // Google's recommended BreadcrumbList format
+    // Google's exact recommended format: name at ListItem level, item as URL string
     return {
       "@type": "ListItem",
       "position": index + 1,
-      "item": {
-        "@id": itemUrl,
-        "name": item.text
-      }
+      "name": item.text,
+      "item": itemUrl
     };
   })
 };
