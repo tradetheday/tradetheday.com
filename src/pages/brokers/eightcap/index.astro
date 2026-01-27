@@ -112,23 +112,13 @@ const faqSchema = {
   }))
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": breadcrumbItems.map((item, index) => ({
-    "@type": "ListItem",
-    "position": index + 1,
-    "name": item.text,
-    "item": item.current ? undefined : `https://tradetheday.com${item.href}`
-  }))
-};
 ---
 
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
   canonicalUrl="https://tradetheday.com/brokers/eightcap"
-  schema={[reviewSchema, faqSchema, breadcrumbSchema]}
+  schema={[reviewSchema, faqSchema]}
 >
   <main class="broker-review">
     <!-- Breadcrumb -->

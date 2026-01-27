@@ -251,15 +251,6 @@ const structuredData = {
           "text": item.answer
         }
       }))
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": breadcrumbItems.map((item, index) => ({
-        "@type": "ListItem",
-        "position": index + 1,
-        "name": item.text,
-        "item": item.href ? `https://tradetheday.com${item.href}` : undefined
-      }))
     }
   ]
 };

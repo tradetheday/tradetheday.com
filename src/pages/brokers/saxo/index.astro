@@ -115,22 +115,12 @@ const reviewSchema = {
   "dateModified": "2026-01-20"
 };
 
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": breadcrumbItems.map((item, index) => ({
-    "@type": "ListItem",
-    "position": index + 1,
-    "name": item.text,
-    "item": item.current ? undefined : `https://tradetheday.com${item.href}`
-  }))
-};
 ---
 
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
-  schema={[faqSchema, reviewSchema, breadcrumbSchema]}
+  schema={[faqSchema, reviewSchema]}
 >
   <main class="broker-review">
     <!-- Breadcrumb -->
