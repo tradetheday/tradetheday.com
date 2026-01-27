@@ -1,0 +1,1106 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import FAQ from '../../components/FAQ.astro';
+import { brokers } from '../../data/brokers';
+
+const pageTitle = "Best Forex Brokers in South Africa 2026 | FSCA Regulated";
+const pageDescription = "Compare FSCA-regulated forex brokers for South African traders. Find the best spreads, lowest fees, and secure platforms with ZAR accounts.";
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'South Africa', current: true }
+];
+
+// Get brokers with FSCA regulation
+const fscaBrokers = brokers.filter(b =>
+  b.regulations.some(r => r.authority === 'FSCA') && b.brokerType !== 'crypto'
+);
+
+// Get other regulated brokers available in South Africa
+const otherBrokers = brokers.filter(b =>
+  !b.regulations.some(r => r.authority === 'FSCA') &&
+  b.brokerType !== 'crypto' &&
+  b.regulations.some(r => r.tier === 1 || r.tier === 2)
+).slice(0, 4);
+
+const avatrade = brokers.find(b => b.id === 'avatrade');
+const avataradeFSCA = avatrade?.regulations.find(r => r.authority === 'FSCA');
+
+const faqQuestions = [
+  {
+    question: "Is forex trading legal in South Africa?",
+    answer: "Yes, forex trading is fully legal in South Africa. The <a href='/glossary/fsca'>Financial Sector Conduct Authority (FSCA)</a> regulates forex brokers operating in the country, providing consumer protection and ensuring fair trading practices."
+  },
+  {
+    question: "What is the FSCA and why does it matter?",
+    answer: "The FSCA (Financial Sector Conduct Authority) is South Africa's financial regulator. Choosing an FSCA-regulated broker ensures your funds are protected, the broker follows strict operational standards, and you have recourse through local regulatory channels if issues arise."
+  },
+  {
+    question: "Can I trade forex with ZAR (South African Rand)?",
+    answer: "Yes, many brokers offer ZAR-denominated accounts for South African traders. This eliminates currency conversion fees and makes it easier to manage your trading capital. AvaTrade and other FSCA-regulated brokers support ZAR deposits."
+  },
+  {
+    question: "What is the minimum deposit for forex trading in South Africa?",
+    answer: "Minimum deposits vary by broker, typically ranging from R1,500 to R3,500 (approximately $100-$200 USD). AvaTrade requires a minimum deposit of $100 (around R1,800), making it accessible for beginner traders."
+  },
+  {
+    question: "Are forex profits taxable in South Africa?",
+    answer: "Yes, forex trading profits are subject to tax in South Africa. They're typically treated as income tax if you're an active trader, or capital gains tax for longer-term positions. Consult a tax professional for advice specific to your situation."
+  },
+  {
+    question: "What leverage is available for South African traders?",
+    answer: "FSCA-regulated brokers can offer leverage up to 400:1 on forex pairs for South African traders. However, higher leverage increases risk, so it's important to use appropriate risk management strategies."
+  }
+];
+
+// Schema.org markup
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": pageTitle,
+  "description": pageDescription,
+  "author": {
+    "@type": "Organization",
+    "name": "TradeTheDay"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TradeTheDay",
+    "url": "https://tradetheday.com"
+  },
+  "datePublished": "2026-01-15",
+  "dateModified": "2026-01-27"
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero Section with Animated Flag Background -->
+  <section class="geo-hero">
+    <div class="flag-background">
+      <div class="flag-container">
+        <div class="flag-fabric">
+          <div class="flag-stripe stripe-red"></div>
+          <div class="flag-stripe stripe-white"></div>
+          <div class="flag-stripe stripe-green-gold">
+            <div class="flag-y-shape"></div>
+          </div>
+          <div class="flag-stripe stripe-white-bottom"></div>
+          <div class="flag-stripe stripe-blue"></div>
+        </div>
+        <div class="flag-sheen"></div>
+      </div>
+    </div>
+    <div class="flag-overlay"></div>
+
+    <div class="container hero-content">
+      <div class="hero-social-proof">
+        <span class="social-proof-badge">
+          <span class="badge-flag">🇿🇦</span>
+          South Africa Traders
+        </span>
+      </div>
+      <h1 class="hero-title">Best Forex Brokers in South Africa 2026</h1>
+      <p class="hero-subtitle">
+        Trade with FSCA-regulated brokers offering ZAR accounts, competitive spreads on USD/ZAR, and local support.
+      </p>
+      <div class="hero-cta">
+        <a href="/go/avatrade" class="btn btn-primary btn-xl" target="_blank" rel="noopener">
+          Open AvaTrade Account →
+        </a>
+        <a href="#fsca-brokers" class="btn btn-outline btn-xl">
+          Compare All Brokers
+        </a>
+      </div>
+      <div class="hero-trust-row">
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          FSCA Regulated
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          ZAR Accounts
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Local Support
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <main class="geo-page">
+    <div class="container">
+
+      <!-- Why Trade Forex in South Africa -->
+      <section class="content-section">
+        <h2>Why Trade Forex in South Africa?</h2>
+        <p>
+          South Africa has emerged as Africa's largest forex trading market, with a sophisticated financial infrastructure
+          and strong regulatory framework. The <a href="/glossary/fsca">FSCA (Financial Sector Conduct Authority)</a> provides
+          oversight that protects traders while allowing access to global markets.
+        </p>
+
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">📈</div>
+            <h3>USD/ZAR Opportunities</h3>
+            <p>Trade the volatile USD/ZAR pair and other ZAR crosses with local market knowledge.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🏦</div>
+            <h3>Strong Regulation</h3>
+            <p>FSCA regulation ensures brokers meet strict capital and conduct requirements.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">💳</div>
+            <h3>Local Payment Methods</h3>
+            <p>Deposit and withdraw using EFT, credit cards, and local payment services.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">⏰</div>
+            <h3>Favorable Trading Hours</h3>
+            <p>SAST timezone allows trading during European and partial US market hours.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Broker: AvaTrade -->
+      <section class="featured-broker" id="fsca-brokers">
+        <div class="featured-badge">Editor's Choice for South Africa</div>
+        <div class="featured-content">
+          <div class="featured-header">
+            <div class="featured-info">
+              <h2>AvaTrade South Africa</h2>
+              <p class="featured-tagline">FSCA License #{avataradeFSCA?.licenseNumber || '45984'} | Multi-Regulated Global Broker</p>
+            </div>
+            <div class="featured-rating">
+              <span class="rating-score">{avatrade?.scores.overall}</span>
+              <span class="rating-stars">★★★★☆</span>
+            </div>
+          </div>
+
+          <div class="featured-stats">
+            <div class="stat">
+              <span class="stat-label">Min Deposit</span>
+              <span class="stat-value">R1,800 (~$100)</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Spreads From</span>
+              <span class="stat-value">{avatrade?.spreadsFrom}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Instruments</span>
+              <span class="stat-value">{avatrade?.instrumentsDisplay}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Leverage</span>
+              <span class="stat-value">Up to 400:1</span>
+            </div>
+          </div>
+
+          <div class="featured-highlights">
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>FSCA regulated (License #45984) + 5 other tier-1 regulators</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>ZAR account deposits via EFT, credit card, or e-wallets</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>MetaTrader 4, MetaTrader 5, and AvaTradeGO mobile app</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>Dedicated South African customer support</span>
+            </div>
+          </div>
+
+          <div class="featured-bonus">
+            🎁 Use partner code <strong>128979</strong> for up to $10,000 welcome bonus
+          </div>
+
+          <div class="featured-actions">
+            <a href="/go/avatrade" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+              Open AvaTrade Account →
+            </a>
+            <a href="/brokers/avatrade" class="btn btn-secondary btn-lg">
+              Read Full Review
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparison Table -->
+      <section class="comparison-section">
+        <h2>Compare FSCA-Regulated Brokers</h2>
+        <p class="section-subtitle">All brokers below are regulated by the Financial Sector Conduct Authority</p>
+
+        <div class="table-container">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Broker</th>
+                <th>Min Deposit</th>
+                <th>Spreads</th>
+                <th>Platforms</th>
+                <th>FSCA License</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {fscaBrokers.map((broker) => {
+                const fscaLicense = broker.regulations.find(r => r.authority === 'FSCA');
+                return (
+                  <tr class={broker.promoted ? 'promoted-row' : ''}>
+                    <td>
+                      <div class="broker-cell">
+                        <span class="broker-name">{broker.name}</span>
+                        {broker.promoted && <span class="table-badge">Recommended</span>}
+                      </div>
+                    </td>
+                    <td>{broker.minDepositDisplay}</td>
+                    <td>{broker.spreadsFrom}</td>
+                    <td class="platforms-cell">{broker.platforms.slice(0, 2).join(', ')}</td>
+                    <td>#{fscaLicense?.licenseNumber}</td>
+                    <td>
+                      <a href={broker.affiliateUrl} class="table-cta" target="_blank" rel="noopener">
+                        Visit →
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Other International Brokers -->
+      {otherBrokers.length > 0 && (
+        <section class="other-brokers-section">
+          <h2>Other Regulated Brokers Accepting South African Traders</h2>
+          <p class="section-subtitle">These tier-1 regulated brokers also accept South African clients</p>
+
+          <div class="brokers-grid">
+            {otherBrokers.map((broker) => (
+              <div class="broker-card">
+                <div class="broker-card-header">
+                  <h3>{broker.name}</h3>
+                  <span class="broker-card-rating">{broker.scores.overall}</span>
+                </div>
+                <p class="broker-card-tagline">{broker.tagline}</p>
+                <div class="broker-card-stats">
+                  <span>Min: {broker.minDepositDisplay}</span>
+                  <span>Spreads: {broker.spreadsFrom}</span>
+                </div>
+                <div class="broker-card-reg">
+                  Regulated: {broker.regulations.slice(0, 2).map(r => r.authority).join(', ')}
+                </div>
+                <a href={broker.reviewUrl} class="broker-card-link">View Review →</a>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- FSCA Regulation Section -->
+      <section class="regulation-section">
+        <h2>Understanding FSCA Regulation</h2>
+        <div class="regulation-content">
+          <div class="regulation-text">
+            <p>
+              The <strong>Financial Sector Conduct Authority (FSCA)</strong> is South Africa's primary financial
+              regulator, responsible for supervising forex brokers and protecting retail traders. When you choose
+              an FSCA-regulated broker, you benefit from:
+            </p>
+            <ul>
+              <li><strong>Segregated Client Funds:</strong> Your trading capital is kept separate from the broker's operating funds</li>
+              <li><strong>Mandatory Capital Requirements:</strong> Brokers must maintain minimum capital reserves</li>
+              <li><strong>Regular Audits:</strong> FSCA conducts compliance audits to ensure fair practices</li>
+              <li><strong>Local Dispute Resolution:</strong> Access to the FAIS Ombud for complaints</li>
+            </ul>
+          </div>
+          <div class="regulation-box">
+            <div class="reg-icon">🏛️</div>
+            <div class="reg-info">
+              <h4>FSCA Verification</h4>
+              <p>Always verify a broker's FSCA license on the official registry before opening an account.</p>
+              <a href="https://www.fsca.co.za/Fais/Search_FSP.htm" target="_blank" rel="noopener" class="reg-link">
+                Check FSCA Registry →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <FAQ questions={faqQuestions} title="Forex Trading in South Africa: FAQs" />
+
+      <!-- CTA Section -->
+      <section class="cta-section">
+        <h2>Ready to Start Trading?</h2>
+        <p>Join thousands of South African traders using AvaTrade's FSCA-regulated platform</p>
+        <a href="/go/avatrade" class="btn btn-primary btn-xl" target="_blank" rel="noopener">
+          Open AvaTrade Account →
+        </a>
+        <p class="cta-note">Partner Code: 128979 | Up to $10,000 Welcome Bonus</p>
+      </section>
+
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .geo-hero {
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: var(--space-3xl) 0;
+  }
+
+  /* South African Flag Animation */
+  .flag-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+
+  .flag-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 130%;
+    transform: translate(-50%, -50%);
+  }
+
+  .flag-fabric {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    animation: flagWave 6s ease-in-out infinite;
+  }
+
+  .flag-stripe {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stripe-red {
+    flex: 1;
+    background: linear-gradient(90deg, #de3831 0%, #e84038 25%, #de3831 50%, #c42e28 75%, #de3831 100%);
+    background-size: 200% 100%;
+    animation: stripeShift 5s ease-in-out infinite;
+  }
+
+  .stripe-white {
+    flex: 0.3;
+    background: linear-gradient(90deg, #ffffff 0%, #f8f8f8 50%, #ffffff 100%);
+  }
+
+  .stripe-green-gold {
+    flex: 2;
+    background: linear-gradient(90deg, #007a4d 0%, #009955 25%, #007a4d 50%, #006640 75%, #007a4d 100%);
+    background-size: 200% 100%;
+    animation: stripeShift 5s ease-in-out infinite;
+    animation-delay: 0.15s;
+    position: relative;
+  }
+
+  .flag-y-shape {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(90deg, #002395 0%, #FFB612 30%);
+    clip-path: polygon(0 0, 60% 50%, 0 100%);
+  }
+
+  .stripe-white-bottom {
+    flex: 0.3;
+    background: linear-gradient(90deg, #ffffff 0%, #f8f8f8 50%, #ffffff 100%);
+  }
+
+  .stripe-blue {
+    flex: 1;
+    background: linear-gradient(90deg, #002395 0%, #003399 25%, #002395 50%, #001d7a 75%, #002395 100%);
+    background-size: 200% 100%;
+    animation: stripeShift 5s ease-in-out infinite;
+    animation-delay: 0.3s;
+  }
+
+  @keyframes stripeShift {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 0%; }
+  }
+
+  @keyframes flagWave {
+    0%, 100% { transform: skewX(0deg) scaleX(1) translateX(0); }
+    25% { transform: skewX(1.5deg) scaleX(1.01) translateX(2px); }
+    50% { transform: skewX(-1deg) scaleX(1.02) translateX(-1px); }
+    75% { transform: skewX(0.8deg) scaleX(1.008) translateX(1px); }
+  }
+
+  .flag-sheen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent 0%, transparent 40%, rgba(255,255,255,0.12) 48%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.12) 52%, transparent 60%, transparent 100%);
+    animation: sheenMove 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes sheenMove {
+    0% { transform: translateX(-100%); opacity: 0.8; }
+    100% { transform: translateX(100%); opacity: 0.8; }
+  }
+
+  .flag-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.6) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--white);
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .hero-social-proof {
+    margin-bottom: var(--space-lg);
+  }
+
+  .social-proof-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 72, 0, 0.15);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .badge-flag {
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: var(--space-md);
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-lg);
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+    opacity: 0.9;
+    line-height: 1.7;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-cta .btn-outline {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: var(--white);
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-cta .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--white);
+  }
+
+  .hero-trust-row {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+    font-size: var(--font-size-sm);
+    opacity: 0.9;
+  }
+
+  .hero-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Main Content */
+  .geo-page {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+  }
+
+  .content-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .content-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .content-section p {
+    color: var(--gray-700);
+    line-height: 1.8;
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Benefits Grid */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .benefit-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    transition: all 0.3s ease;
+  }
+
+  .benefit-card:hover {
+    border-color: var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.1);
+  }
+
+  .benefit-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .benefit-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .benefit-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Featured Broker */
+  .featured-broker {
+    background: var(--white);
+    border: 2px solid var(--brand-orange);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    margin-bottom: var(--space-3xl);
+    position: relative;
+    box-shadow: 0 4px 24px rgba(255, 72, 0, 0.1);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -14px;
+    left: var(--space-xl);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-lg);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .featured-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .featured-info h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-xs);
+  }
+
+  .featured-tagline {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  .featured-rating {
+    text-align: right;
+  }
+
+  .rating-score {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+    line-height: 1;
+  }
+
+  .rating-stars {
+    font-size: var(--font-size-sm);
+    color: var(--brand-orange);
+  }
+
+  .featured-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .stat-value {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--charcoal);
+  }
+
+  .featured-highlights {
+    margin-bottom: var(--space-xl);
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    color: var(--gray-700);
+  }
+
+  .highlight-icon {
+    color: var(--success);
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .featured-bonus {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    color: var(--success);
+  }
+
+  .featured-actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .featured-actions .btn {
+    flex: 1;
+    min-width: 200px;
+    justify-content: center;
+  }
+
+  /* Comparison Table */
+  .comparison-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .comparison-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-subtitle {
+    color: var(--gray-600);
+    margin-bottom: var(--space-xl);
+  }
+
+  .table-container {
+    overflow-x: auto;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+  }
+
+  .comparison-table thead {
+    background: var(--gray-50);
+  }
+
+  .comparison-table th {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    font-weight: var(--font-weight-semibold);
+    color: var(--charcoal);
+    border-bottom: 2px solid var(--gray-200);
+    white-space: nowrap;
+  }
+
+  .comparison-table td {
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--gray-100);
+    vertical-align: middle;
+  }
+
+  .comparison-table tbody tr:hover {
+    background: var(--gray-50);
+  }
+
+  .promoted-row {
+    background: rgba(255, 72, 0, 0.03);
+  }
+
+  .promoted-row:hover {
+    background: rgba(255, 72, 0, 0.06);
+  }
+
+  .broker-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .broker-name {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .table-badge {
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+  }
+
+  .platforms-cell {
+    max-width: 180px;
+  }
+
+  .table-cta {
+    display: inline-block;
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .table-cta:hover {
+    background: #e04400;
+    transform: translateY(-1px);
+  }
+
+  /* Other Brokers Grid */
+  .other-brokers-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .other-brokers-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .brokers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .broker-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    transition: all 0.3s ease;
+  }
+
+  .broker-card:hover {
+    border-color: var(--gray-300);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .broker-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+  }
+
+  .broker-card-header h3 {
+    font-size: var(--font-size-lg);
+    margin: 0;
+  }
+
+  .broker-card-rating {
+    background: var(--gray-100);
+    padding: 4px 10px;
+    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-bold);
+    color: var(--charcoal);
+  }
+
+  .broker-card-tagline {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-card-stats {
+    display: flex;
+    gap: var(--space-md);
+    font-size: var(--font-size-xs);
+    color: var(--gray-600);
+    margin-bottom: var(--space-sm);
+  }
+
+  .broker-card-reg {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-card-link {
+    color: var(--brand-orange);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .broker-card-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Regulation Section */
+  .regulation-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .regulation-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .regulation-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .regulation-text p {
+    color: var(--gray-700);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+
+  .regulation-text ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+  }
+
+  .regulation-text li {
+    color: var(--gray-700);
+    margin-bottom: var(--space-sm);
+    line-height: 1.6;
+  }
+
+  .regulation-box {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .reg-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .reg-info h4 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .reg-info p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .reg-link {
+    color: var(--brand-orange);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .reg-link:hover {
+    text-decoration: underline;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, var(--charcoal) 0%, #2d3436 100%);
+    padding: var(--space-3xl);
+    border-radius: var(--radius-xl);
+    color: var(--white);
+  }
+
+  .cta-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .cta-section p {
+    opacity: 0.9;
+    margin-bottom: var(--space-xl);
+  }
+
+  .cta-note {
+    font-size: var(--font-size-sm);
+    opacity: 0.7;
+    margin-top: var(--space-md);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .regulation-content {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .geo-hero {
+      min-height: 450px;
+      padding: var(--space-2xl) 0;
+    }
+
+    .hero-content {
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .hero-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-base);
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-cta .btn {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .hero-trust-row {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .featured-broker {
+      padding: var(--space-xl);
+    }
+
+    .featured-actions {
+      flex-direction: column;
+    }
+
+    .featured-actions .btn {
+      min-width: unset;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: var(--space-sm);
+    }
+
+    .platforms-cell {
+      display: none;
+    }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .flag-fabric,
+    .flag-stripe,
+    .flag-sheen {
+      animation: none !important;
+    }
+  }
+</style>

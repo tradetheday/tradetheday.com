@@ -465,31 +465,29 @@
 /privacy-policy/*  301
 
 # ============================================
-# BEST FOREX BROKERS SOUTH AFRICA
+# GEO-TARGETED BROKER PAGES
 # ============================================
-/best-forex-brokers-south-africa/best-forex-brokers-south-africa.html /brokers 301
-/best-forex-brokers-south-africa/brokers/avatrade.html /brokers/avatrade 301
-/best-forex-brokers-south-africa/broker/avatrade.html /brokers/avatrade 301
-/best-forex-brokers-south-africa/broker/etoro.html /brokers/etoro 301
-/best-forex-brokers-south-africa/go/avatrade.html /brokers/avatrade 301
-/best-forex-brokers-south-africa/brokers.html /brokers 301
-/best-forex-brokers-south-africa/platforms/* /platforms 301
-/best-forex-brokers-south-africa/education/* /guides 301
-/best-forex-brokers-south-africa/events/* /events 301
-/best-forex-brokers-south-africa/glossary.html /glossary 301
-/best-forex-brokers-south-africa/tools.html /tools 301
-/best-forex-brokers-south-africa/forex-analysis.html  301
-/best-forex-brokers-south-africa/crypto-analysis.html /exchanges 301
-/best-forex-brokers-south-africa/commodity-analysis.html /guides 301
-/best-forex-brokers-south-africa/technical-analysis.html  301
-/best-forex-brokers-south-africa/indices-analysis.html  301
-/best-forex-brokers-south-africa/stock-market.html  301
-/best-forex-brokers-south-africa/trading.html  301
-/best-forex-brokers-south-africa/learn-to-trade.html /guides 301
-/best-forex-brokers-south-africa/analysis.html  301
-/best-forex-brokers-south-africa/instruments.html /instruments 301
-/best-forex-brokers-south-africa/privacy-policy.html  301
-/best-forex-brokers-south-africa/* /brokers 301
+
+# South Africa
+/best-forex-brokers-south-africa /south-africa 301
+/best-forex-brokers-south-africa/* /south-africa 301
+/za /south-africa 301
+
+# United Kingdom
+/best-forex-brokers-uk /uk 301
+/best-forex-brokers-united-kingdom /uk 301
+/best-forex-brokers-uk/* /uk 301
+/best-forex-brokers-united-kingdom/* /uk 301
+
+# Australia
+/best-forex-brokers-australia /australia 301
+/best-forex-brokers-australia/* /australia 301
+/au /australia 301
+
+# Canada
+/best-forex-brokers-canada /canada 301
+/best-forex-brokers-canada/* /canada 301
+/ca /canada 301
 
 # ============================================
 # PRIVACY POLICY
@@ -511,7 +509,7 @@
 /best-ctrader-brokers /brokers 301
 /best-forex-brokers-dubai* /brokers 301
 /best-forex-brokers-dubai /brokers 301
-/best-forex-brokers-uk.html /brokers 301
+/best-forex-brokers-uk.html /uk 301
 /trading-options /brokers 301
 /trading-resources* /guides 301
 
@@ -522,8 +520,6 @@
 /trading/* /guides 301
 /instruments /glossary 301
 /instruments/* /glossary 301
-/best-forex-brokers-south-africa /brokers 301
-/best-forex-brokers-south-africa/* /brokers 301
 
 # Old go links
 /go/trade-now-msg /brokers 301

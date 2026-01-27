@@ -1,0 +1,1159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import FAQ from '../../components/FAQ.astro';
+import { brokers } from '../../data/brokers';
+
+const pageTitle = "Best Forex Brokers UK 2026 | FCA Regulated";
+const pageDescription = "Compare FCA-regulated forex brokers for United Kingdom traders. Find the best spreads, GBP accounts, and spread betting options with top-tier UK protection.";
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'UK', current: true }
+];
+
+// Get brokers with FCA regulation
+const fcaBrokers = brokers.filter(b =>
+  b.regulations.some(r => r.authority === 'FCA') && b.brokerType !== 'crypto'
+).sort((a, b) => b.scores.overall - a.scores.overall);
+
+const avatrade = brokers.find(b => b.id === 'avatrade');
+const avatradeFCA = avatrade?.regulations.find(r => r.authority === 'FCA');
+
+const faqQuestions = [
+  {
+    question: "Is forex trading legal in the UK?",
+    answer: "Yes, forex trading is fully legal and heavily regulated in the UK. The <a href='/glossary/fca'>Financial Conduct Authority (FCA)</a> oversees all forex brokers operating in the country, providing world-class consumer protection."
+  },
+  {
+    question: "What is the FCA and why is it important?",
+    answer: "The FCA (Financial Conduct Authority) is one of the world's most respected financial regulators. FCA-regulated brokers must hold client funds in segregated accounts, maintain minimum capital requirements, and participate in the Financial Services Compensation Scheme (FSCS) which protects up to £85,000 per person."
+  },
+  {
+    question: "What leverage is available to UK forex traders?",
+    answer: "Under FCA regulations, retail traders can access leverage of up to 30:1 on major currency pairs, 20:1 on minor pairs, indices and gold, and 2:1 on cryptocurrencies. Professional traders who meet certain criteria can access higher leverage."
+  },
+  {
+    question: "Is spread betting tax-free in the UK?",
+    answer: "Yes, profits from spread betting are currently exempt from Capital Gains Tax and Stamp Duty in the UK. This makes spread betting a tax-efficient way to trade forex, indices, and other markets for UK residents."
+  },
+  {
+    question: "What is the FSCS protection for UK traders?",
+    answer: "The Financial Services Compensation Scheme (FSCS) protects UK traders up to £85,000 if an FCA-regulated broker fails. This is one of the highest protection levels globally and a major benefit of trading with UK-regulated brokers."
+  },
+  {
+    question: "Can I trade forex with GBP?",
+    answer: "Yes, most FCA-regulated brokers offer GBP-denominated accounts. This eliminates currency conversion fees when depositing or withdrawing, and allows you to trade GBP pairs like GBP/USD, GBP/EUR, and GBP/JPY directly."
+  }
+];
+
+// Schema.org markup
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": pageTitle,
+  "description": pageDescription,
+  "author": {
+    "@type": "Organization",
+    "name": "TradeTheDay"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TradeTheDay",
+    "url": "https://tradetheday.com"
+  },
+  "datePublished": "2026-01-15",
+  "dateModified": "2026-01-27"
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero Section with Animated Flag Background -->
+  <section class="geo-hero">
+    <div class="flag-background">
+      <div class="flag-container">
+        <div class="flag-fabric uk-flag">
+          <div class="uk-blue-bg"></div>
+          <div class="uk-diagonal-white-1"></div>
+          <div class="uk-diagonal-white-2"></div>
+          <div class="uk-diagonal-red-1"></div>
+          <div class="uk-diagonal-red-2"></div>
+          <div class="uk-cross-white-h"></div>
+          <div class="uk-cross-white-v"></div>
+          <div class="uk-cross-red-h"></div>
+          <div class="uk-cross-red-v"></div>
+        </div>
+        <div class="flag-sheen"></div>
+      </div>
+    </div>
+    <div class="flag-overlay"></div>
+
+    <div class="container hero-content">
+      <div class="hero-social-proof">
+        <span class="social-proof-badge">
+          <span class="badge-flag">🇬🇧</span>
+          UK Traders
+        </span>
+      </div>
+      <h1 class="hero-title">Best Forex Brokers UK 2026</h1>
+      <p class="hero-subtitle">
+        Trade with FCA-regulated brokers offering FSCS protection, GBP accounts, and tax-free spread betting.
+      </p>
+      <div class="hero-cta">
+        <a href="/go/avatrade" class="btn btn-primary btn-xl" target="_blank" rel="noopener">
+          Open AvaTrade Account →
+        </a>
+        <a href="#fca-brokers" class="btn btn-outline btn-xl">
+          Compare All Brokers
+        </a>
+      </div>
+      <div class="hero-trust-row">
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          FCA Regulated
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          £85,000 FSCS Protection
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Tax-Free Spread Betting
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <main class="geo-page">
+    <div class="container">
+
+      <!-- Why Trade Forex in the UK -->
+      <section class="content-section">
+        <h2>Why Trade Forex in the UK?</h2>
+        <p>
+          The United Kingdom is one of the world's largest forex trading hubs, with London processing over 40% of global
+          forex volume. UK traders benefit from world-class <a href="/glossary/fca">FCA regulation</a>, tax-efficient spread
+          betting, and access to the most liquid markets during optimal trading hours.
+        </p>
+
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">🛡️</div>
+            <h3>FCA Protection</h3>
+            <p>World-leading regulation with £85,000 FSCS compensation if a broker fails.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">📊</div>
+            <h3>Tax-Free Spread Betting</h3>
+            <p>Profits from spread betting are exempt from Capital Gains Tax in the UK.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">💷</div>
+            <h3>GBP Accounts</h3>
+            <p>Trade in your local currency and trade GBP pairs with no conversion fees.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">⏰</div>
+            <h3>Prime Trading Hours</h3>
+            <p>London session overlaps with both Asian and US markets for maximum liquidity.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Broker: AvaTrade -->
+      <section class="featured-broker" id="fca-brokers">
+        <div class="featured-badge">Editor's Choice for UK Traders</div>
+        <div class="featured-content">
+          <div class="featured-header">
+            <div class="featured-info">
+              <h2>AvaTrade UK</h2>
+              <p class="featured-tagline">FCA License #{avatradeFCA?.licenseNumber || '792505'} | Multi-Regulated Global Broker</p>
+            </div>
+            <div class="featured-rating">
+              <span class="rating-score">{avatrade?.scores.overall}</span>
+              <span class="rating-stars">★★★★☆</span>
+            </div>
+          </div>
+
+          <div class="featured-stats">
+            <div class="stat">
+              <span class="stat-label">Min Deposit</span>
+              <span class="stat-value">£100</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Spreads From</span>
+              <span class="stat-value">{avatrade?.spreadsFrom}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Instruments</span>
+              <span class="stat-value">{avatrade?.instrumentsDisplay}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Leverage</span>
+              <span class="stat-value">Up to 30:1</span>
+            </div>
+          </div>
+
+          <div class="featured-highlights">
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>FCA regulated (License #792505) with £85,000 FSCS protection</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>GBP account deposits via UK bank transfer, debit cards, or e-wallets</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>Spread betting available (tax-free profits for UK residents)</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>MetaTrader 4, MetaTrader 5, and AvaTradeGO mobile app</span>
+            </div>
+          </div>
+
+          <div class="featured-bonus">
+            🎁 Use partner code <strong>128979</strong> for up to £8,000 welcome bonus
+          </div>
+
+          <div class="featured-actions">
+            <a href="/go/avatrade" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+              Open AvaTrade Account →
+            </a>
+            <a href="/brokers/avatrade" class="btn btn-secondary btn-lg">
+              Read Full Review
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparison Table -->
+      <section class="comparison-section">
+        <h2>Compare FCA-Regulated Brokers</h2>
+        <p class="section-subtitle">All brokers below are regulated by the Financial Conduct Authority with FSCS protection</p>
+
+        <div class="table-container">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Broker</th>
+                <th>Min Deposit</th>
+                <th>Spreads</th>
+                <th>Spread Betting</th>
+                <th>FCA License</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {fcaBrokers.slice(0, 8).map((broker) => {
+                const fcaLicense = broker.regulations.find(r => r.authority === 'FCA');
+                const hasSpreadBetting = ['ig', 'city-index', 'avatrade', 'pepperstone'].includes(broker.id);
+                return (
+                  <tr class={broker.promoted ? 'promoted-row' : ''}>
+                    <td>
+                      <div class="broker-cell">
+                        <span class="broker-name">{broker.name}</span>
+                        {broker.promoted && <span class="table-badge">Recommended</span>}
+                      </div>
+                    </td>
+                    <td>{broker.minDepositDisplay}</td>
+                    <td>{broker.spreadsFrom}</td>
+                    <td>
+                      <span class={hasSpreadBetting ? 'yes-badge' : 'no-badge'}>
+                        {hasSpreadBetting ? 'Yes' : 'No'}
+                      </span>
+                    </td>
+                    <td>#{fcaLicense?.licenseNumber}</td>
+                    <td>
+                      <a href={broker.affiliateUrl} class="table-cta" target="_blank" rel="noopener">
+                        Visit →
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Spread Betting Section -->
+      <section class="spread-betting-section">
+        <h2>Tax-Free Spread Betting for UK Traders</h2>
+        <div class="spread-betting-content">
+          <div class="spread-betting-text">
+            <p>
+              <strong>Spread betting</strong> is a unique trading method available to United Kingdom and Ireland residents that offers
+              significant tax advantages. Unlike traditional CFD trading, spread betting profits are currently exempt from
+              both Capital Gains Tax and Stamp Duty in the UK.
+            </p>
+            <h3>Benefits of Spread Betting</h3>
+            <ul>
+              <li><strong>Tax-Free Profits:</strong> No Capital Gains Tax on spread betting profits</li>
+              <li><strong>No Stamp Duty:</strong> Unlike share dealing, no stamp duty applies</li>
+              <li><strong>Trade Both Directions:</strong> Go long or short on markets</li>
+              <li><strong>Leverage Available:</strong> Trade with up to 30:1 on forex</li>
+            </ul>
+            <p class="tax-note">
+              Tax treatment depends on individual circumstances and may change. Consult a tax advisor for personal advice.
+            </p>
+          </div>
+          <div class="spread-betting-cta">
+            <div class="cta-card">
+              <h4>Start Spread Betting</h4>
+              <p>AvaTrade offers spread betting with competitive spreads and FCA regulation.</p>
+              <a href="/go/avatrade" class="btn btn-primary" target="_blank" rel="noopener">
+                Open Spread Betting Account →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FCA Regulation Section -->
+      <section class="regulation-section">
+        <h2>Understanding FCA Regulation</h2>
+        <div class="regulation-content">
+          <div class="regulation-text">
+            <p>
+              The <strong>Financial Conduct Authority (FCA)</strong> is widely considered one of the world's most stringent
+              financial regulators. When you choose an FCA-regulated broker, you benefit from comprehensive protection:
+            </p>
+            <ul>
+              <li><strong>Segregated Client Funds:</strong> Your money is kept separate from the broker's operating capital</li>
+              <li><strong>FSCS Protection:</strong> Up to £85,000 compensation if the broker fails</li>
+              <li><strong>Negative Balance Protection:</strong> You cannot lose more than your deposit</li>
+              <li><strong>Leverage Limits:</strong> Maximum 30:1 on major forex pairs for retail traders</li>
+              <li><strong>Risk Warnings:</strong> Clear disclosure of CFD loss statistics</li>
+            </ul>
+          </div>
+          <div class="regulation-box">
+            <div class="reg-icon">🏛️</div>
+            <div class="reg-info">
+              <h4>FCA Verification</h4>
+              <p>Always verify a broker's FCA registration on the official FCA Register before opening an account.</p>
+              <a href="https://register.fca.org.uk/" target="_blank" rel="noopener" class="reg-link">
+                Check FCA Register →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <FAQ questions={faqQuestions} title="Forex Trading in the UK: FAQs" />
+
+      <!-- CTA Section -->
+      <section class="cta-section">
+        <h2>Ready to Start Trading in the United Kingdom?</h2>
+        <p>Join thousands of UK traders using AvaTrade's FCA-regulated platform</p>
+        <a href="/go/avatrade" class="btn btn-primary btn-xl" target="_blank" rel="noopener">
+          Open AvaTrade Account →
+        </a>
+        <p class="cta-note">Partner Code: 128979 | Up to £8,000 Welcome Bonus | £85,000 FSCS Protection</p>
+      </section>
+
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .geo-hero {
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: var(--space-3xl) 0;
+  }
+
+  /* UK Flag Animation */
+  .flag-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+
+  .flag-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 130%;
+    transform: translate(-50%, -50%);
+  }
+
+  .flag-fabric {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: flagWave 6s ease-in-out infinite;
+  }
+
+  .uk-flag {
+    position: relative;
+  }
+
+  .uk-blue-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #012169 0%, #0a2d7a 25%, #012169 50%, #001147 75%, #012169 100%);
+    background-size: 200% 100%;
+    animation: stripeShift 5s ease-in-out infinite;
+  }
+
+  /* White diagonal stripes */
+  .uk-diagonal-white-1, .uk-diagonal-white-2 {
+    position: absolute;
+    background: #ffffff;
+    width: 20%;
+    height: 150%;
+    top: -25%;
+  }
+
+  .uk-diagonal-white-1 {
+    left: -5%;
+    transform: rotate(35deg);
+    transform-origin: center;
+  }
+
+  .uk-diagonal-white-2 {
+    right: -5%;
+    transform: rotate(-35deg);
+    transform-origin: center;
+  }
+
+  /* Red diagonal stripes */
+  .uk-diagonal-red-1, .uk-diagonal-red-2 {
+    position: absolute;
+    background: #c8102e;
+    width: 8%;
+    height: 150%;
+    top: -25%;
+  }
+
+  .uk-diagonal-red-1 {
+    left: 0%;
+    transform: rotate(35deg);
+    transform-origin: center;
+  }
+
+  .uk-diagonal-red-2 {
+    right: 0%;
+    transform: rotate(-35deg);
+    transform-origin: center;
+  }
+
+  /* White cross */
+  .uk-cross-white-h {
+    position: absolute;
+    background: #ffffff;
+    width: 100%;
+    height: 25%;
+    top: 37.5%;
+  }
+
+  .uk-cross-white-v {
+    position: absolute;
+    background: #ffffff;
+    width: 25%;
+    height: 100%;
+    left: 37.5%;
+  }
+
+  /* Red cross */
+  .uk-cross-red-h {
+    position: absolute;
+    background: linear-gradient(90deg, #c8102e 0%, #d9243c 25%, #c8102e 50%, #a50d26 75%, #c8102e 100%);
+    background-size: 200% 100%;
+    animation: stripeShift 5s ease-in-out infinite;
+    width: 100%;
+    height: 15%;
+    top: 42.5%;
+  }
+
+  .uk-cross-red-v {
+    position: absolute;
+    background: linear-gradient(180deg, #c8102e 0%, #d9243c 25%, #c8102e 50%, #a50d26 75%, #c8102e 100%);
+    background-size: 100% 200%;
+    animation: verticalShift 5s ease-in-out infinite;
+    width: 15%;
+    height: 100%;
+    left: 42.5%;
+  }
+
+  @keyframes stripeShift {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 0%; }
+  }
+
+  @keyframes verticalShift {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 0% 100%; }
+  }
+
+  @keyframes flagWave {
+    0%, 100% { transform: skewX(0deg) scaleX(1) translateX(0); }
+    25% { transform: skewX(1.5deg) scaleX(1.01) translateX(2px); }
+    50% { transform: skewX(-1deg) scaleX(1.02) translateX(-1px); }
+    75% { transform: skewX(0.8deg) scaleX(1.008) translateX(1px); }
+  }
+
+  .flag-sheen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent 0%, transparent 40%, rgba(255,255,255,0.12) 48%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.12) 52%, transparent 60%, transparent 100%);
+    animation: sheenMove 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes sheenMove {
+    0% { transform: translateX(-100%); opacity: 0.8; }
+    100% { transform: translateX(100%); opacity: 0.8; }
+  }
+
+  .flag-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.6) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--white);
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .hero-social-proof {
+    margin-bottom: var(--space-lg);
+  }
+
+  .social-proof-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 72, 0, 0.15);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .badge-flag {
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: var(--space-md);
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-lg);
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+    opacity: 0.9;
+    line-height: 1.7;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-cta .btn-outline {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: var(--white);
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-cta .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--white);
+  }
+
+  .hero-trust-row {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+    font-size: var(--font-size-sm);
+    opacity: 0.9;
+  }
+
+  .hero-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Main Content */
+  .geo-page {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+  }
+
+  .content-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .content-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .content-section p {
+    color: var(--gray-700);
+    line-height: 1.8;
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Benefits Grid */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .benefit-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    transition: all 0.3s ease;
+  }
+
+  .benefit-card:hover {
+    border-color: var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.1);
+  }
+
+  .benefit-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .benefit-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .benefit-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Featured Broker */
+  .featured-broker {
+    background: var(--white);
+    border: 2px solid var(--brand-orange);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    margin-bottom: var(--space-3xl);
+    position: relative;
+    box-shadow: 0 4px 24px rgba(255, 72, 0, 0.1);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -14px;
+    left: var(--space-xl);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-lg);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .featured-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .featured-info h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-xs);
+  }
+
+  .featured-tagline {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  .featured-rating {
+    text-align: right;
+  }
+
+  .rating-score {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+    line-height: 1;
+  }
+
+  .rating-stars {
+    font-size: var(--font-size-sm);
+    color: var(--brand-orange);
+  }
+
+  .featured-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .stat-value {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--charcoal);
+  }
+
+  .featured-highlights {
+    margin-bottom: var(--space-xl);
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    color: var(--gray-700);
+  }
+
+  .highlight-icon {
+    color: var(--success);
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .featured-bonus {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    color: var(--success);
+  }
+
+  .featured-actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .featured-actions .btn {
+    flex: 1;
+    min-width: 200px;
+    justify-content: center;
+  }
+
+  /* Comparison Table */
+  .comparison-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .comparison-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-subtitle {
+    color: var(--gray-600);
+    margin-bottom: var(--space-xl);
+  }
+
+  .table-container {
+    overflow-x: auto;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+  }
+
+  .comparison-table thead {
+    background: var(--gray-50);
+  }
+
+  .comparison-table th {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    font-weight: var(--font-weight-semibold);
+    color: var(--charcoal);
+    border-bottom: 2px solid var(--gray-200);
+    white-space: nowrap;
+  }
+
+  .comparison-table td {
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--gray-100);
+    vertical-align: middle;
+  }
+
+  .comparison-table tbody tr:hover {
+    background: var(--gray-50);
+  }
+
+  .promoted-row {
+    background: rgba(255, 72, 0, 0.03);
+  }
+
+  .promoted-row:hover {
+    background: rgba(255, 72, 0, 0.06);
+  }
+
+  .broker-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .broker-name {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .table-badge {
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+  }
+
+  .yes-badge {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .no-badge {
+    background: var(--gray-100);
+    color: var(--gray-500);
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .table-cta {
+    display: inline-block;
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .table-cta:hover {
+    background: #e04400;
+    transform: translateY(-1px);
+  }
+
+  /* Spread Betting Section */
+  .spread-betting-section {
+    margin-bottom: var(--space-3xl);
+    background: var(--gray-50);
+    padding: var(--space-2xl);
+    border-radius: var(--radius-xl);
+  }
+
+  .spread-betting-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .spread-betting-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .spread-betting-text p {
+    color: var(--gray-700);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+
+  .spread-betting-text h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  .spread-betting-text ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+  }
+
+  .spread-betting-text li {
+    color: var(--gray-700);
+    margin-bottom: var(--space-sm);
+    line-height: 1.6;
+  }
+
+  .tax-note {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+    font-style: italic;
+    margin-top: var(--space-lg);
+  }
+
+  .cta-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+  }
+
+  .cta-card h4 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .cta-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  /* Regulation Section */
+  .regulation-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .regulation-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .regulation-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .regulation-text p {
+    color: var(--gray-700);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+
+  .regulation-text ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+  }
+
+  .regulation-text li {
+    color: var(--gray-700);
+    margin-bottom: var(--space-sm);
+    line-height: 1.6;
+  }
+
+  .regulation-box {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .reg-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .reg-info h4 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .reg-info p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .reg-link {
+    color: var(--brand-orange);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .reg-link:hover {
+    text-decoration: underline;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, var(--charcoal) 0%, #2d3436 100%);
+    padding: var(--space-3xl);
+    border-radius: var(--radius-xl);
+    color: var(--white);
+  }
+
+  .cta-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .cta-section p {
+    opacity: 0.9;
+    margin-bottom: var(--space-xl);
+  }
+
+  .cta-note {
+    font-size: var(--font-size-sm);
+    opacity: 0.7;
+    margin-top: var(--space-md);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .regulation-content,
+    .spread-betting-content {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .geo-hero {
+      min-height: 450px;
+      padding: var(--space-2xl) 0;
+    }
+
+    .hero-content {
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .hero-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-base);
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-cta .btn {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .hero-trust-row {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .featured-broker {
+      padding: var(--space-xl);
+    }
+
+    .featured-actions {
+      flex-direction: column;
+    }
+
+    .featured-actions .btn {
+      min-width: unset;
+    }
+
+    .spread-betting-section {
+      padding: var(--space-xl);
+    }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .flag-fabric,
+    .uk-blue-bg,
+    .uk-cross-red-h,
+    .uk-cross-red-v,
+    .flag-sheen {
+      animation: none !important;
+    }
+  }
+</style>

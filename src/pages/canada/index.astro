@@ -1,0 +1,1182 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import FAQ from '../../components/FAQ.astro';
+import { brokers } from '../../data/brokers';
+
+const pageTitle = "Best Forex Brokers Canada 2026 | IIROC & Offshore Regulated";
+const pageDescription = "Compare regulated forex brokers accepting Canadian traders. Find the best spreads, CAD accounts, and secure platforms with strong protection.";
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Canada', current: true }
+];
+
+// Get brokers that accept Canadian clients (tier 1 & 2 regulated)
+const canadianBrokers = brokers.filter(b =>
+  b.brokerType !== 'crypto' &&
+  b.regulations.some(r => r.tier === 1 || r.tier === 2)
+).sort((a, b) => b.scores.overall - a.scores.overall);
+
+const avatrade = brokers.find(b => b.id === 'avatrade');
+
+const faqQuestions = [
+  {
+    question: "Is forex trading legal in Canada?",
+    answer: "Yes, forex trading is fully legal in Canada. However, the regulatory landscape is complex, with different provinces having their own securities commissions. IIROC (Investment Industry Regulatory Organization of Canada) oversees investment dealers, while some traders use internationally regulated brokers."
+  },
+  {
+    question: "What is IIROC and do I need an IIROC broker?",
+    answer: "IIROC (Investment Industry Regulatory Organization of Canada) regulates investment dealers and trading activity on debt and equity markets. While IIROC-regulated brokers offer local protection, many Canadian traders use internationally regulated brokers (FCA, ASIC, CySEC) which often offer better trading conditions and more instrument choices."
+  },
+  {
+    question: "Can Canadians trade with offshore brokers?",
+    answer: "Yes, Canadians can legally trade with offshore brokers regulated by reputable authorities like the FCA (UK), ASIC (Australia), or CySEC (Cyprus). These brokers often offer better leverage, lower fees, and more trading instruments than locally regulated options."
+  },
+  {
+    question: "What leverage is available to Canadian forex traders?",
+    answer: "Leverage varies by broker. IIROC-regulated brokers typically offer lower leverage (around 50:1), while offshore brokers regulated by FCA or CySEC offer up to 30:1 on major pairs. Some offshore brokers provide higher leverage through entities in other jurisdictions."
+  },
+  {
+    question: "Can I trade forex with CAD (Canadian Dollar)?",
+    answer: "Yes, many brokers offer CAD-denominated accounts. This allows you to deposit and withdraw in Canadian dollars and trade CAD pairs like USD/CAD, CAD/JPY, and EUR/CAD directly without conversion fees."
+  },
+  {
+    question: "Are forex profits taxable in Canada?",
+    answer: "Yes, forex trading profits are taxable in Canada. They may be treated as either business income (fully taxable) or capital gains (50% taxable) depending on factors like trading frequency and intent. The CRA provides guidelines, but consult a tax professional for personal advice."
+  }
+];
+
+// Schema.org markup
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": pageTitle,
+  "description": pageDescription,
+  "author": {
+    "@type": "Organization",
+    "name": "TradeTheDay"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TradeTheDay",
+    "url": "https://tradetheday.com"
+  },
+  "datePublished": "2026-01-15",
+  "dateModified": "2026-01-27"
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero Section with Animated Flag Background -->
+  <section class="geo-hero">
+    <div class="flag-background">
+      <div class="flag-container">
+        <div class="flag-fabric canada-flag">
+          <div class="canada-red-left"></div>
+          <div class="canada-white-center">
+            <div class="maple-leaf">🍁</div>
+          </div>
+          <div class="canada-red-right"></div>
+        </div>
+        <div class="flag-sheen"></div>
+      </div>
+    </div>
+    <div class="flag-overlay"></div>
+
+    <div class="container hero-content">
+      <div class="hero-social-proof">
+        <span class="social-proof-badge">
+          <span class="badge-flag">🇨🇦</span>
+          Canadian Traders
+        </span>
+      </div>
+      <h1 class="hero-title">Best Forex Brokers Canada 2026</h1>
+      <p class="hero-subtitle">
+        Trade with regulated brokers accepting Canadians. CAD accounts, competitive USD/CAD spreads, and strong protection.
+      </p>
+      <div class="hero-cta">
+        <a href="/go/avatrade" class="btn btn-primary btn-xl" target="_blank" rel="noopener">
+          Open AvaTrade Account →
+        </a>
+        <a href="#canadian-brokers" class="btn btn-outline btn-xl">
+          Compare All Brokers
+        </a>
+      </div>
+      <div class="hero-trust-row">
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Multi-Regulated Brokers
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          CAD Accounts
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Segregated Funds
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <main class="geo-page">
+    <div class="container">
+
+      <!-- Why Trade Forex in Canada -->
+      <section class="content-section">
+        <h2>Why Trade Forex in Canada?</h2>
+        <p>
+          Canada offers a unique forex trading environment with access to both locally regulated brokers and reputable
+          international platforms. Canadian traders benefit from a stable economy, the popular USD/CAD currency pair,
+          and strong consumer protection standards.
+        </p>
+
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">🛡️</div>
+            <h3>Multiple Regulatory Options</h3>
+            <p>Choose IIROC-regulated local brokers or trusted international platforms (FCA, ASIC, CySEC).</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">💰</div>
+            <h3>USD/CAD Trading</h3>
+            <p>Trade one of the most liquid pairs with local market expertise and correlation to oil prices.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🏦</div>
+            <h3>CAD Accounts</h3>
+            <p>Fund your account in Canadian dollars with Interac, wire transfers, or credit cards.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">⏰</div>
+            <h3>Favorable Timezone</h3>
+            <p>Eastern time zone covers both European close and US market sessions perfectly.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Broker: AvaTrade -->
+      <section class="featured-broker" id="canadian-brokers">
+        <div class="featured-badge">Editor's Choice for Canada</div>
+        <div class="featured-content">
+          <div class="featured-header">
+            <div class="featured-info">
+              <h2>AvaTrade Canada</h2>
+              <p class="featured-tagline">Multi-Regulated | Central Bank of Ireland #C53877 | Accepts Canadian Clients</p>
+            </div>
+            <div class="featured-rating">
+              <span class="rating-score">{avatrade?.scores.overall}</span>
+              <span class="rating-stars">★★★★☆</span>
+            </div>
+          </div>
+
+          <div class="featured-stats">
+            <div class="stat">
+              <span class="stat-label">Min Deposit</span>
+              <span class="stat-value">C$100</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Spreads From</span>
+              <span class="stat-value">{avatrade?.spreadsFrom}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Instruments</span>
+              <span class="stat-value">{avatrade?.instrumentsDisplay}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Leverage</span>
+              <span class="stat-value">Up to 400:1</span>
+            </div>
+          </div>
+
+          <div class="featured-highlights">
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>Multi-regulated by 6+ authorities including Central Bank of Ireland, FCA, and ASIC</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>CAD account deposits via Interac, wire transfer, credit card, or e-wallets</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>Competitive USD/CAD spreads and 1,250+ trading instruments</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>MetaTrader 4, MetaTrader 5, and AvaTradeGO mobile app</span>
+            </div>
+          </div>
+
+          <div class="featured-bonus">
+            🎁 Use partner code <strong>128979</strong> for up to C$15,000 welcome bonus
+          </div>
+
+          <div class="featured-actions">
+            <a href="/go/avatrade" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+              Open AvaTrade Account →
+            </a>
+            <a href="/brokers/avatrade" class="btn btn-secondary btn-lg">
+              Read Full Review
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparison Table -->
+      <section class="comparison-section">
+        <h2>Compare Brokers Accepting Canadian Traders</h2>
+        <p class="section-subtitle">These regulated brokers accept Canadian clients and offer CAD funding options</p>
+
+        <div class="table-container">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Broker</th>
+                <th>Min Deposit</th>
+                <th>Spreads</th>
+                <th>Platforms</th>
+                <th>Regulation</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {canadianBrokers.slice(0, 10).map((broker) => {
+                const mainReg = broker.regulations.find(r => r.tier === 1) || broker.regulations[0];
+                return (
+                  <tr class={broker.promoted ? 'promoted-row' : ''}>
+                    <td>
+                      <div class="broker-cell">
+                        <span class="broker-name">{broker.name}</span>
+                        {broker.promoted && <span class="table-badge">Recommended</span>}
+                      </div>
+                    </td>
+                    <td>{broker.minDepositDisplay}</td>
+                    <td>{broker.spreadsFrom}</td>
+                    <td class="platforms-cell">{broker.platforms.slice(0, 2).join(', ')}</td>
+                    <td>{mainReg?.authority}</td>
+                    <td>
+                      <a href={broker.affiliateUrl} class="table-cta" target="_blank" rel="noopener">
+                        Visit →
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Regulatory Landscape Section -->
+      <section class="regulation-landscape">
+        <h2>Understanding Canadian Forex Regulation</h2>
+        <div class="regulation-cards">
+          <div class="reg-card">
+            <div class="reg-card-icon">🇨🇦</div>
+            <h3>IIROC (Local)</h3>
+            <p>
+              Investment Industry Regulatory Organization of Canada oversees local investment dealers.
+              Offers CIPF protection up to C$1 million but often with higher fees and limited leverage.
+            </p>
+            <div class="reg-features">
+              <span>✓ CIPF Protection</span>
+              <span>✓ Local Compliance</span>
+              <span>✗ Limited Leverage</span>
+            </div>
+          </div>
+
+          <div class="reg-card featured-reg">
+            <div class="reg-card-icon">🌍</div>
+            <h3>International Brokers</h3>
+            <p>
+              Brokers regulated by FCA (UK), ASIC (Australia), or CySEC (Cyprus) are popular with Canadians.
+              They typically offer better conditions, more instruments, and competitive pricing.
+            </p>
+            <div class="reg-features">
+              <span>✓ Competitive Spreads</span>
+              <span>✓ More Instruments</span>
+              <span>✓ Better Leverage</span>
+            </div>
+          </div>
+
+          <div class="reg-card">
+            <div class="reg-card-icon">⚠️</div>
+            <h3>Provincial Regulators</h3>
+            <p>
+              Each Canadian province has its own securities commission (OSC, AMF, BCSC, etc.).
+              Some international brokers may be registered with specific provinces.
+            </p>
+            <div class="reg-features">
+              <span>✓ Local Oversight</span>
+              <span>✓ Varies by Province</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Canadian Trading Info -->
+      <section class="trading-info-section">
+        <h2>Trading USD/CAD: Key Considerations</h2>
+        <div class="trading-info-content">
+          <div class="info-text">
+            <p>
+              The USD/CAD (often called the "Loonie") is one of the most traded currency pairs globally.
+              Canadian traders have a natural advantage trading this pair due to local market knowledge.
+            </p>
+            <h3>Factors Affecting USD/CAD</h3>
+            <ul>
+              <li><strong>Oil Prices:</strong> Canada is a major oil exporter - crude prices heavily influence CAD</li>
+              <li><strong>US Economic Data:</strong> NFP, Fed rates, and US GDP directly impact the pair</li>
+              <li><strong>Bank of Canada:</strong> BoC interest rate decisions and monetary policy</li>
+              <li><strong>Trade Balance:</strong> Canada-US trade relationship and USMCA developments</li>
+            </ul>
+            <h3>Best Times to Trade</h3>
+            <p>
+              USD/CAD sees highest liquidity during US market hours (9:30 AM - 4:00 PM EST). Key data releases
+              like Canadian employment (first Friday of month) and Bank of Canada announcements create volatility.
+            </p>
+          </div>
+          <div class="info-cta">
+            <div class="cta-card">
+              <h4>Ready to Trade USD/CAD?</h4>
+              <p>AvaTrade offers competitive spreads on USD/CAD with CAD account funding.</p>
+              <a href="/go/avatrade" class="btn btn-primary" target="_blank" rel="noopener">
+                Start Trading →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- IIROC vs International Section -->
+      <section class="comparison-highlight">
+        <h2>IIROC vs International Brokers</h2>
+        <div class="comparison-grid">
+          <div class="comp-column">
+            <h3>IIROC-Regulated Brokers</h3>
+            <ul class="comp-list">
+              <li class="pro">CIPF protection up to C$1 million</li>
+              <li class="pro">Local dispute resolution</li>
+              <li class="con">Higher minimum deposits</li>
+              <li class="con">Limited leverage (typically 50:1)</li>
+              <li class="con">Fewer trading instruments</li>
+              <li class="con">Higher trading costs</li>
+            </ul>
+          </div>
+          <div class="comp-column featured-col">
+            <h3>International Brokers (FCA/ASIC/CySEC)</h3>
+            <ul class="comp-list">
+              <li class="pro">Competitive spreads and fees</li>
+              <li class="pro">1,000+ trading instruments</li>
+              <li class="pro">Better platform options (MT4/MT5)</li>
+              <li class="pro">Higher leverage available</li>
+              <li class="pro">Negative balance protection</li>
+              <li class="neutral">Protection under foreign schemes</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <FAQ questions={faqQuestions} title="Forex Trading in Canada: FAQs" />
+
+      <!-- CTA Section -->
+      <section class="cta-section">
+        <h2>Ready to Start Trading?</h2>
+        <p>Join thousands of Canadian traders using AvaTrade's multi-regulated platform</p>
+        <a href="/go/avatrade" class="btn btn-primary btn-xl" target="_blank" rel="noopener">
+          Open AvaTrade Account →
+        </a>
+        <p class="cta-note">Partner Code: 128979 | Up to C$15,000 Welcome Bonus | CAD Accounts Available</p>
+      </section>
+
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .geo-hero {
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: var(--space-3xl) 0;
+  }
+
+  /* Canadian Flag Animation */
+  .flag-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+
+  .flag-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 130%;
+    transform: translate(-50%, -50%);
+  }
+
+  .flag-fabric {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    animation: flagWave 6s ease-in-out infinite;
+  }
+
+  .canada-flag {
+    flex-direction: row;
+  }
+
+  .canada-red-left {
+    flex: 1;
+    background: linear-gradient(90deg, #ff0000 0%, #ff1a1a 25%, #ff0000 50%, #cc0000 75%, #ff0000 100%);
+    background-size: 200% 100%;
+    animation: stripeShift 5s ease-in-out infinite;
+  }
+
+  .canada-white-center {
+    flex: 2;
+    background: linear-gradient(90deg, #ffffff 0%, #f5f5f5 50%, #ffffff 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .maple-leaf {
+    font-size: 8rem;
+    color: #ff0000;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    animation: leafPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes leafPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.9; }
+  }
+
+  .canada-red-right {
+    flex: 1;
+    background: linear-gradient(90deg, #ff0000 0%, #ff1a1a 25%, #ff0000 50%, #cc0000 75%, #ff0000 100%);
+    background-size: 200% 100%;
+    animation: stripeShift 5s ease-in-out infinite;
+    animation-delay: 0.3s;
+  }
+
+  @keyframes stripeShift {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 0%; }
+  }
+
+  @keyframes flagWave {
+    0%, 100% { transform: skewX(0deg) scaleX(1) translateX(0); }
+    25% { transform: skewX(1.5deg) scaleX(1.01) translateX(2px); }
+    50% { transform: skewX(-1deg) scaleX(1.02) translateX(-1px); }
+    75% { transform: skewX(0.8deg) scaleX(1.008) translateX(1px); }
+  }
+
+  .flag-sheen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent 0%, transparent 40%, rgba(255,255,255,0.12) 48%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.12) 52%, transparent 60%, transparent 100%);
+    animation: sheenMove 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes sheenMove {
+    0% { transform: translateX(-100%); opacity: 0.8; }
+    100% { transform: translateX(100%); opacity: 0.8; }
+  }
+
+  .flag-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.6) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--white);
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .hero-social-proof {
+    margin-bottom: var(--space-lg);
+  }
+
+  .social-proof-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 72, 0, 0.15);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .badge-flag {
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: var(--space-md);
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-lg);
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+    opacity: 0.9;
+    line-height: 1.7;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-cta .btn-outline {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: var(--white);
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-cta .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--white);
+  }
+
+  .hero-trust-row {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+    font-size: var(--font-size-sm);
+    opacity: 0.9;
+  }
+
+  .hero-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Main Content */
+  .geo-page {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+  }
+
+  .content-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .content-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .content-section p {
+    color: var(--gray-700);
+    line-height: 1.8;
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Benefits Grid */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .benefit-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    transition: all 0.3s ease;
+  }
+
+  .benefit-card:hover {
+    border-color: var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.1);
+  }
+
+  .benefit-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .benefit-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .benefit-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Featured Broker */
+  .featured-broker {
+    background: var(--white);
+    border: 2px solid var(--brand-orange);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    margin-bottom: var(--space-3xl);
+    position: relative;
+    box-shadow: 0 4px 24px rgba(255, 72, 0, 0.1);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -14px;
+    left: var(--space-xl);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-lg);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .featured-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .featured-info h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-xs);
+  }
+
+  .featured-tagline {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  .featured-rating {
+    text-align: right;
+  }
+
+  .rating-score {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+    line-height: 1;
+  }
+
+  .rating-stars {
+    font-size: var(--font-size-sm);
+    color: var(--brand-orange);
+  }
+
+  .featured-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .stat-value {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--charcoal);
+  }
+
+  .featured-highlights {
+    margin-bottom: var(--space-xl);
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    color: var(--gray-700);
+  }
+
+  .highlight-icon {
+    color: var(--success);
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .featured-bonus {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    color: var(--success);
+  }
+
+  .featured-actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .featured-actions .btn {
+    flex: 1;
+    min-width: 200px;
+    justify-content: center;
+  }
+
+  /* Comparison Table */
+  .comparison-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .comparison-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-subtitle {
+    color: var(--gray-600);
+    margin-bottom: var(--space-xl);
+  }
+
+  .table-container {
+    overflow-x: auto;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+  }
+
+  .comparison-table thead {
+    background: var(--gray-50);
+  }
+
+  .comparison-table th {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    font-weight: var(--font-weight-semibold);
+    color: var(--charcoal);
+    border-bottom: 2px solid var(--gray-200);
+    white-space: nowrap;
+  }
+
+  .comparison-table td {
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--gray-100);
+    vertical-align: middle;
+  }
+
+  .comparison-table tbody tr:hover {
+    background: var(--gray-50);
+  }
+
+  .promoted-row {
+    background: rgba(255, 72, 0, 0.03);
+  }
+
+  .promoted-row:hover {
+    background: rgba(255, 72, 0, 0.06);
+  }
+
+  .broker-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .broker-name {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .table-badge {
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+  }
+
+  .platforms-cell {
+    max-width: 180px;
+  }
+
+  .table-cta {
+    display: inline-block;
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .table-cta:hover {
+    background: #e04400;
+    transform: translateY(-1px);
+  }
+
+  /* Regulation Landscape */
+  .regulation-landscape {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .regulation-landscape h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .regulation-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .reg-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    transition: all 0.3s ease;
+  }
+
+  .reg-card.featured-reg {
+    border: 2px solid var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.1);
+  }
+
+  .reg-card-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .reg-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .reg-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+  }
+
+  .reg-features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    font-size: var(--font-size-sm);
+  }
+
+  .reg-features span {
+    color: var(--gray-600);
+  }
+
+  /* Trading Info Section */
+  .trading-info-section {
+    margin-bottom: var(--space-3xl);
+    background: var(--gray-50);
+    padding: var(--space-2xl);
+    border-radius: var(--radius-xl);
+  }
+
+  .trading-info-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .trading-info-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .info-text p {
+    color: var(--gray-700);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+
+  .info-text h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+    margin-top: var(--space-lg);
+  }
+
+  .info-text ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+  }
+
+  .info-text li {
+    color: var(--gray-700);
+    margin-bottom: var(--space-sm);
+    line-height: 1.6;
+  }
+
+  .cta-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+  }
+
+  .cta-card h4 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .cta-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  /* Comparison Highlight */
+  .comparison-highlight {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .comparison-highlight h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-xl);
+    text-align: center;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .comp-column {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  .comp-column.featured-col {
+    border: 2px solid var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.1);
+  }
+
+  .comp-column h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .comp-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .comp-list li {
+    padding: var(--space-sm) 0;
+    padding-left: var(--space-lg);
+    position: relative;
+    font-size: var(--font-size-sm);
+    color: var(--gray-700);
+  }
+
+  .comp-list li::before {
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+  }
+
+  .comp-list li.pro::before {
+    content: "✓";
+    color: var(--success);
+  }
+
+  .comp-list li.con::before {
+    content: "✗";
+    color: var(--error);
+  }
+
+  .comp-list li.neutral::before {
+    content: "○";
+    color: var(--gray-500);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, var(--charcoal) 0%, #2d3436 100%);
+    padding: var(--space-3xl);
+    border-radius: var(--radius-xl);
+    color: var(--white);
+  }
+
+  .cta-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .cta-section p {
+    opacity: 0.9;
+    margin-bottom: var(--space-xl);
+  }
+
+  .cta-note {
+    font-size: var(--font-size-sm);
+    opacity: 0.7;
+    margin-top: var(--space-md);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .trading-info-content {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .geo-hero {
+      min-height: 450px;
+      padding: var(--space-2xl) 0;
+    }
+
+    .hero-content {
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .hero-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-base);
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-cta .btn {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .hero-trust-row {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .featured-broker {
+      padding: var(--space-xl);
+    }
+
+    .featured-actions {
+      flex-direction: column;
+    }
+
+    .featured-actions .btn {
+      min-width: unset;
+    }
+
+    .maple-leaf {
+      font-size: 5rem;
+    }
+
+    .platforms-cell {
+      display: none;
+    }
+
+    .trading-info-section {
+      padding: var(--space-xl);
+    }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .flag-fabric,
+    .canada-red-left,
+    .canada-red-right,
+    .maple-leaf,
+    .flag-sheen {
+      animation: none !important;
+    }
+  }
+</style>

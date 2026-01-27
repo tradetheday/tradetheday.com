@@ -1,0 +1,1147 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import FAQ from '../../components/FAQ.astro';
+import { brokers } from '../../data/brokers';
+
+const pageTitle = "Best Forex Brokers Australia 2026 | ASIC Regulated";
+const pageDescription = "Compare ASIC-regulated forex brokers for Australian traders. Find the best spreads, AUD accounts, and secure platforms with top-tier protection.";
+
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Australia', current: true }
+];
+
+// Get brokers with ASIC regulation
+const asicBrokers = brokers.filter(b =>
+  b.regulations.some(r => r.authority === 'ASIC') && b.brokerType !== 'crypto'
+).sort((a, b) => b.scores.overall - a.scores.overall);
+
+const avatrade = brokers.find(b => b.id === 'avatrade');
+const avatradeASIC = avatrade?.regulations.find(r => r.authority === 'ASIC');
+
+const faqQuestions = [
+  {
+    question: "Is forex trading legal in Australia?",
+    answer: "Yes, forex trading is fully legal and regulated in Australia. The <a href='/glossary/asic'>Australian Securities and Investments Commission (ASIC)</a> oversees all forex brokers operating in the country, providing world-class consumer protection."
+  },
+  {
+    question: "What is ASIC and why is it important?",
+    answer: "ASIC (Australian Securities and Investments Commission) is Australia's corporate regulator and financial services authority. ASIC-regulated brokers must maintain segregated client funds, meet strict capital requirements, and comply with comprehensive conduct standards. ASIC is recognized globally as a tier-1 regulator."
+  },
+  {
+    question: "What leverage is available to Australian forex traders?",
+    answer: "Under ASIC regulations effective April 2021, retail traders can access leverage of up to 30:1 on major currency pairs, 20:1 on minor pairs, 10:1 on commodities, and 2:1 on cryptocurrencies. Professional traders may access higher leverage through offshore entities."
+  },
+  {
+    question: "Can I trade forex with AUD (Australian Dollar)?",
+    answer: "Yes, most ASIC-regulated brokers offer AUD-denominated accounts. This eliminates currency conversion fees when depositing or withdrawing, and allows you to trade AUD pairs like AUD/USD, AUD/JPY, and AUD/NZD directly."
+  },
+  {
+    question: "Are forex profits taxable in Australia?",
+    answer: "Yes, forex trading profits are generally subject to tax in Australia. They may be treated as either income or capital gains depending on your trading activity and intent. The ATO provides guidance on the tax treatment of financial transactions. Consult a tax professional for advice specific to your situation."
+  },
+  {
+    question: "What protection do Australian traders have?",
+    answer: "ASIC regulations require brokers to hold client funds in segregated trust accounts with Australian ADIs (Authorised Deposit-taking Institutions). Brokers must also provide negative balance protection for retail clients, ensuring you cannot lose more than your deposit."
+  }
+];
+
+// Schema.org markup
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": pageTitle,
+  "description": pageDescription,
+  "author": {
+    "@type": "Organization",
+    "name": "TradeTheDay"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TradeTheDay",
+    "url": "https://tradetheday.com"
+  },
+  "datePublished": "2026-01-15",
+  "dateModified": "2026-01-27"
+};
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- Hero Section with Animated Flag Background -->
+  <section class="geo-hero">
+    <div class="flag-background">
+      <div class="flag-container">
+        <div class="flag-fabric australia-flag">
+          <div class="aus-blue-bg"></div>
+          <!-- Union Jack area (simplified) -->
+          <div class="aus-union-jack">
+            <div class="aus-uj-cross-white-h"></div>
+            <div class="aus-uj-cross-white-v"></div>
+            <div class="aus-uj-cross-red-h"></div>
+            <div class="aus-uj-cross-red-v"></div>
+          </div>
+          <!-- Commonwealth Star -->
+          <div class="aus-commonwealth-star">★</div>
+          <!-- Southern Cross -->
+          <div class="aus-southern-cross">
+            <span class="star star-1">★</span>
+            <span class="star star-2">★</span>
+            <span class="star star-3">★</span>
+            <span class="star star-4">★</span>
+            <span class="star star-5">✦</span>
+          </div>
+        </div>
+        <div class="flag-sheen"></div>
+      </div>
+    </div>
+    <div class="flag-overlay"></div>
+
+    <div class="container hero-content">
+      <div class="hero-social-proof">
+        <span class="social-proof-badge">
+          <span class="badge-flag">🇦🇺</span>
+          Australian Traders
+        </span>
+      </div>
+      <h1 class="hero-title">Best Forex Brokers Australia 2026</h1>
+      <p class="hero-subtitle">
+        Trade with ASIC-regulated brokers offering AUD accounts, competitive AUD/USD spreads, and tier-1 protection.
+      </p>
+      <div class="hero-cta">
+        <a href="/go/avatrade" class="btn btn-primary btn-xl" target="_blank" rel="noopener">
+          Open AvaTrade Account →
+        </a>
+        <a href="#asic-brokers" class="btn btn-outline btn-xl">
+          Compare All Brokers
+        </a>
+      </div>
+      <div class="hero-trust-row">
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          ASIC Regulated
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          AUD Accounts
+        </span>
+        <span class="hero-trust-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Segregated Funds
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <main class="geo-page">
+    <div class="container">
+
+      <!-- Why Trade Forex in Australia -->
+      <section class="content-section">
+        <h2>Why Trade Forex in Australia?</h2>
+        <p>
+          Australia is a major forex trading hub in the Asia-Pacific region, with Sydney serving as a key financial center.
+          Australian traders benefit from world-class <a href="/glossary/asic">ASIC regulation</a>, favorable timezone
+          coverage, and access to the popular AUD currency pairs.
+        </p>
+
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <div class="benefit-icon">🛡️</div>
+            <h3>ASIC Protection</h3>
+            <p>Tier-1 regulation with segregated client funds and strict capital requirements.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">💰</div>
+            <h3>AUD/USD Trading</h3>
+            <p>Trade the 4th most traded currency pair with local market expertise.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">🏦</div>
+            <h3>Local Banking</h3>
+            <p>Instant deposits via POLi, BPAY, and Australian bank transfers.</p>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-icon">⏰</div>
+            <h3>Asian Session Access</h3>
+            <p>Prime positioning for Asian market trading hours and AUD news events.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Broker: AvaTrade -->
+      <section class="featured-broker" id="asic-brokers">
+        <div class="featured-badge">Editor's Choice for Australia</div>
+        <div class="featured-content">
+          <div class="featured-header">
+            <div class="featured-info">
+              <h2>AvaTrade Australia</h2>
+              <p class="featured-tagline">ASIC License #{avatradeASIC?.licenseNumber || '406684'} | Multi-Regulated Global Broker</p>
+            </div>
+            <div class="featured-rating">
+              <span class="rating-score">{avatrade?.scores.overall}</span>
+              <span class="rating-stars">★★★★☆</span>
+            </div>
+          </div>
+
+          <div class="featured-stats">
+            <div class="stat">
+              <span class="stat-label">Min Deposit</span>
+              <span class="stat-value">A$100</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Spreads From</span>
+              <span class="stat-value">{avatrade?.spreadsFrom}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Instruments</span>
+              <span class="stat-value">{avatrade?.instrumentsDisplay}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Leverage</span>
+              <span class="stat-value">Up to 30:1</span>
+            </div>
+          </div>
+
+          <div class="featured-highlights">
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>ASIC regulated (License #406684) with segregated client funds</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>AUD account deposits via POLi, BPAY, bank transfer, or card</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>Competitive AUD/USD spreads and 1,250+ instruments</span>
+            </div>
+            <div class="highlight-item">
+              <span class="highlight-icon">✓</span>
+              <span>MetaTrader 4, MetaTrader 5, and AvaTradeGO mobile app</span>
+            </div>
+          </div>
+
+          <div class="featured-bonus">
+            🎁 Use partner code <strong>128979</strong> for up to A$15,000 welcome bonus
+          </div>
+
+          <div class="featured-actions">
+            <a href="/go/avatrade" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+              Open AvaTrade Account →
+            </a>
+            <a href="/brokers/avatrade" class="btn btn-secondary btn-lg">
+              Read Full Review
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparison Table -->
+      <section class="comparison-section">
+        <h2>Compare ASIC-Regulated Brokers</h2>
+        <p class="section-subtitle">All brokers below are regulated by the Australian Securities and Investments Commission</p>
+
+        <div class="table-container">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Broker</th>
+                <th>Min Deposit</th>
+                <th>Spreads</th>
+                <th>Platforms</th>
+                <th>ASIC License</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {asicBrokers.slice(0, 10).map((broker) => {
+                const asicLicense = broker.regulations.find(r => r.authority === 'ASIC');
+                return (
+                  <tr class={broker.promoted ? 'promoted-row' : ''}>
+                    <td>
+                      <div class="broker-cell">
+                        <span class="broker-name">{broker.name}</span>
+                        {broker.promoted && <span class="table-badge">Recommended</span>}
+                      </div>
+                    </td>
+                    <td>{broker.minDepositDisplay}</td>
+                    <td>{broker.spreadsFrom}</td>
+                    <td class="platforms-cell">{broker.platforms.slice(0, 2).join(', ')}</td>
+                    <td>#{asicLicense?.licenseNumber}</td>
+                    <td>
+                      <a href={broker.affiliateUrl} class="table-cta" target="_blank" rel="noopener">
+                        Visit →
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Australian-Headquartered Brokers -->
+      <section class="local-brokers-section">
+        <h2>Australian-Headquartered Brokers</h2>
+        <p class="section-subtitle">These brokers are headquartered in Australia with deep local market expertise</p>
+
+        <div class="brokers-grid">
+          {asicBrokers.filter(b => b.headquarters.country === 'Australia').slice(0, 4).map((broker) => (
+            <div class="broker-card">
+              <div class="broker-card-header">
+                <h3>{broker.name}</h3>
+                <span class="broker-card-rating">{broker.scores.overall}</span>
+              </div>
+              <p class="broker-card-tagline">{broker.tagline}</p>
+              <div class="broker-card-stats">
+                <span>Min: {broker.minDepositDisplay}</span>
+                <span>Spreads: {broker.spreadsFrom}</span>
+              </div>
+              <div class="broker-card-reg">
+                HQ: {broker.headquarters.city}, Australia
+              </div>
+              <a href={broker.reviewUrl} class="broker-card-link">View Review →</a>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- ASIC Regulation Section -->
+      <section class="regulation-section">
+        <h2>Understanding ASIC Regulation</h2>
+        <div class="regulation-content">
+          <div class="regulation-text">
+            <p>
+              The <strong>Australian Securities and Investments Commission (ASIC)</strong> is recognized globally as a
+              tier-1 financial regulator. When you choose an ASIC-regulated broker, you benefit from comprehensive protection:
+            </p>
+            <ul>
+              <li><strong>Segregated Client Funds:</strong> Your money must be held in trust accounts with Australian ADIs</li>
+              <li><strong>Negative Balance Protection:</strong> Retail clients cannot lose more than their deposit</li>
+              <li><strong>Leverage Caps:</strong> Maximum 30:1 on major forex pairs for retail traders</li>
+              <li><strong>Product Intervention Powers:</strong> ASIC can ban harmful financial products</li>
+              <li><strong>Compensation Scheme:</strong> Access to AFCA (Australian Financial Complaints Authority)</li>
+            </ul>
+          </div>
+          <div class="regulation-box">
+            <div class="reg-icon">🏛️</div>
+            <div class="reg-info">
+              <h4>ASIC Verification</h4>
+              <p>Always verify a broker's ASIC license on the official ASIC Connect register before opening an account.</p>
+              <a href="https://connectonline.asic.gov.au/RegistrySearch" target="_blank" rel="noopener" class="reg-link">
+                Check ASIC Register →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <FAQ questions={faqQuestions} title="Forex Trading in Australia: FAQs" />
+
+      <!-- CTA Section -->
+      <section class="cta-section">
+        <h2>Ready to Start Trading?</h2>
+        <p>Join thousands of Australian traders using AvaTrade's ASIC-regulated platform</p>
+        <a href="/go/avatrade" class="btn btn-primary btn-xl" target="_blank" rel="noopener">
+          Open AvaTrade Account →
+        </a>
+        <p class="cta-note">Partner Code: 128979 | Up to A$15,000 Welcome Bonus | ASIC License #406684</p>
+      </section>
+
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Hero Section */
+  .geo-hero {
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: var(--space-3xl) 0;
+  }
+
+  /* Australian Flag Animation */
+  .flag-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+
+  .flag-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 130%;
+    transform: translate(-50%, -50%);
+  }
+
+  .flag-fabric {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: flagWave 6s ease-in-out infinite;
+  }
+
+  .australia-flag {
+    position: relative;
+  }
+
+  .aus-blue-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #00008B 0%, #0000a8 25%, #00008B 50%, #000066 75%, #00008B 100%);
+    background-size: 200% 100%;
+    animation: stripeShift 5s ease-in-out infinite;
+  }
+
+  /* Union Jack in top-left (simplified) */
+  .aus-union-jack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 35%;
+    height: 50%;
+  }
+
+  .aus-uj-cross-white-h {
+    position: absolute;
+    background: #ffffff;
+    width: 100%;
+    height: 25%;
+    top: 37.5%;
+  }
+
+  .aus-uj-cross-white-v {
+    position: absolute;
+    background: #ffffff;
+    width: 25%;
+    height: 100%;
+    left: 37.5%;
+  }
+
+  .aus-uj-cross-red-h {
+    position: absolute;
+    background: #c8102e;
+    width: 100%;
+    height: 12%;
+    top: 44%;
+  }
+
+  .aus-uj-cross-red-v {
+    position: absolute;
+    background: #c8102e;
+    width: 12%;
+    height: 100%;
+    left: 44%;
+  }
+
+  /* Commonwealth Star */
+  .aus-commonwealth-star {
+    position: absolute;
+    bottom: 25%;
+    left: 15%;
+    font-size: 3rem;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    animation: starPulse 3s ease-in-out infinite;
+  }
+
+  /* Southern Cross */
+  .aus-southern-cross {
+    position: absolute;
+    right: 15%;
+    top: 20%;
+    width: 40%;
+    height: 60%;
+  }
+
+  .aus-southern-cross .star {
+    position: absolute;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    animation: starPulse 3s ease-in-out infinite;
+  }
+
+  .star-1 { top: 15%; right: 35%; font-size: 2rem; animation-delay: 0s; }
+  .star-2 { top: 40%; right: 15%; font-size: 2rem; animation-delay: 0.3s; }
+  .star-3 { top: 70%; right: 25%; font-size: 2rem; animation-delay: 0.6s; }
+  .star-4 { top: 45%; right: 50%; font-size: 2rem; animation-delay: 0.9s; }
+  .star-5 { top: 50%; right: 35%; font-size: 1.2rem; animation-delay: 1.2s; }
+
+  @keyframes starPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.1); }
+  }
+
+  @keyframes stripeShift {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 0%; }
+  }
+
+  @keyframes flagWave {
+    0%, 100% { transform: skewX(0deg) scaleX(1) translateX(0); }
+    25% { transform: skewX(1.5deg) scaleX(1.01) translateX(2px); }
+    50% { transform: skewX(-1deg) scaleX(1.02) translateX(-1px); }
+    75% { transform: skewX(0.8deg) scaleX(1.008) translateX(1px); }
+  }
+
+  .flag-sheen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent 0%, transparent 40%, rgba(255,255,255,0.12) 48%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.12) 52%, transparent 60%, transparent 100%);
+    animation: sheenMove 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes sheenMove {
+    0% { transform: translateX(-100%); opacity: 0.8; }
+    100% { transform: translateX(100%); opacity: 0.8; }
+  }
+
+  .flag-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.6) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--white);
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .hero-social-proof {
+    margin-bottom: var(--space-lg);
+  }
+
+  .social-proof-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 72, 0, 0.15);
+    border: 1px solid rgba(255, 72, 0, 0.3);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .badge-flag {
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: var(--space-md);
+    text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    letter-spacing: -0.02em;
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-lg);
+    max-width: 600px;
+    margin: 0 auto var(--space-xl);
+    opacity: 0.9;
+    line-height: 1.7;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-cta .btn-outline {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: var(--white);
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-cta .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--white);
+  }
+
+  .hero-trust-row {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+    font-size: var(--font-size-sm);
+    opacity: 0.9;
+  }
+
+  .hero-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Main Content */
+  .geo-page {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+  }
+
+  .content-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .content-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .content-section p {
+    color: var(--gray-700);
+    line-height: 1.8;
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Benefits Grid */
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .benefit-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    transition: all 0.3s ease;
+  }
+
+  .benefit-card:hover {
+    border-color: var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.1);
+  }
+
+  .benefit-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .benefit-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .benefit-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
+  /* Featured Broker */
+  .featured-broker {
+    background: var(--white);
+    border: 2px solid var(--brand-orange);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    margin-bottom: var(--space-3xl);
+    position: relative;
+    box-shadow: 0 4px 24px rgba(255, 72, 0, 0.1);
+  }
+
+  .featured-badge {
+    position: absolute;
+    top: -14px;
+    left: var(--space-xl);
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: var(--space-xs) var(--space-lg);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .featured-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .featured-info h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-xs);
+  }
+
+  .featured-tagline {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  .featured-rating {
+    text-align: right;
+  }
+
+  .rating-score {
+    display: block;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--brand-orange);
+    line-height: 1;
+  }
+
+  .rating-stars {
+    font-size: var(--font-size-sm);
+    color: var(--brand-orange);
+  }
+
+  .featured-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .stat-value {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--charcoal);
+  }
+
+  .featured-highlights {
+    margin-bottom: var(--space-xl);
+  }
+
+  .highlight-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    color: var(--gray-700);
+  }
+
+  .highlight-icon {
+    color: var(--success);
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .featured-bonus {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    color: var(--success);
+  }
+
+  .featured-actions {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .featured-actions .btn {
+    flex: 1;
+    min-width: 200px;
+    justify-content: center;
+  }
+
+  /* Comparison Table */
+  .comparison-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .comparison-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-subtitle {
+    color: var(--gray-600);
+    margin-bottom: var(--space-xl);
+  }
+
+  .table-container {
+    overflow-x: auto;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--gray-200);
+    background: var(--white);
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+  }
+
+  .comparison-table thead {
+    background: var(--gray-50);
+  }
+
+  .comparison-table th {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    font-weight: var(--font-weight-semibold);
+    color: var(--charcoal);
+    border-bottom: 2px solid var(--gray-200);
+    white-space: nowrap;
+  }
+
+  .comparison-table td {
+    padding: var(--space-md) var(--space-lg);
+    border-bottom: 1px solid var(--gray-100);
+    vertical-align: middle;
+  }
+
+  .comparison-table tbody tr:hover {
+    background: var(--gray-50);
+  }
+
+  .promoted-row {
+    background: rgba(255, 72, 0, 0.03);
+  }
+
+  .promoted-row:hover {
+    background: rgba(255, 72, 0, 0.06);
+  }
+
+  .broker-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .broker-name {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .table-badge {
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: 10px;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+  }
+
+  .platforms-cell {
+    max-width: 180px;
+  }
+
+  .table-cta {
+    display: inline-block;
+    background: var(--brand-orange);
+    color: var(--white);
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .table-cta:hover {
+    background: #e04400;
+    transform: translateY(-1px);
+  }
+
+  /* Local Brokers Section */
+  .local-brokers-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .local-brokers-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .brokers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .broker-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    transition: all 0.3s ease;
+  }
+
+  .broker-card:hover {
+    border-color: var(--gray-300);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .broker-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+  }
+
+  .broker-card-header h3 {
+    font-size: var(--font-size-lg);
+    margin: 0;
+  }
+
+  .broker-card-rating {
+    background: var(--gray-100);
+    padding: 4px 10px;
+    border-radius: var(--radius-md);
+    font-weight: var(--font-weight-bold);
+    color: var(--charcoal);
+  }
+
+  .broker-card-tagline {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-card-stats {
+    display: flex;
+    gap: var(--space-md);
+    font-size: var(--font-size-xs);
+    color: var(--gray-600);
+    margin-bottom: var(--space-sm);
+  }
+
+  .broker-card-reg {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-card-link {
+    color: var(--brand-orange);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .broker-card-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Regulation Section */
+  .regulation-section {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .regulation-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .regulation-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .regulation-text p {
+    color: var(--gray-700);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+
+  .regulation-text ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+  }
+
+  .regulation-text li {
+    color: var(--gray-700);
+    margin-bottom: var(--space-sm);
+    line-height: 1.6;
+  }
+
+  .regulation-box {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  .reg-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+
+  .reg-info h4 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .reg-info p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .reg-link {
+    color: var(--brand-orange);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .reg-link:hover {
+    text-decoration: underline;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    text-align: center;
+    background: linear-gradient(135deg, var(--charcoal) 0%, #2d3436 100%);
+    padding: var(--space-3xl);
+    border-radius: var(--radius-xl);
+    color: var(--white);
+  }
+
+  .cta-section h2 {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-sm);
+  }
+
+  .cta-section p {
+    opacity: 0.9;
+    margin-bottom: var(--space-xl);
+  }
+
+  .cta-note {
+    font-size: var(--font-size-sm);
+    opacity: 0.7;
+    margin-top: var(--space-md);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .regulation-content {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .geo-hero {
+      min-height: 450px;
+      padding: var(--space-2xl) 0;
+    }
+
+    .hero-content {
+      padding: var(--space-xl) var(--space-md);
+    }
+
+    .hero-title {
+      font-size: var(--font-size-2xl);
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-base);
+    }
+
+    .hero-cta {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-cta .btn {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .hero-trust-row {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .featured-broker {
+      padding: var(--space-xl);
+    }
+
+    .featured-actions {
+      flex-direction: column;
+    }
+
+    .featured-actions .btn {
+      min-width: unset;
+    }
+
+    .platforms-cell {
+      display: none;
+    }
+  }
+
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .flag-fabric,
+    .aus-blue-bg,
+    .aus-commonwealth-star,
+    .aus-southern-cross .star,
+    .flag-sheen {
+      animation: none !important;
+    }
+  }
+</style>
