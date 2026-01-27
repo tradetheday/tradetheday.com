@@ -1,536 +1,130 @@
 # TradeTheDay 301 Redirects
 # Format: /old-path /new-path 301
 # NOTE: Cloudflare Pages free tier only processes first 100 rules!
+# Low-priority redirects moved to Cloudflare Bulk Redirects
 
 # ============================================
-# PRIORITY REDIRECTS (must be in first 100 rules)
+# PRIORITY REDIRECTS (1-15)
 # ============================================
 
 # Platform redirects (old non-hyphen to hyphenated)
 /platforms/metatrader4 /platforms/metatrader-4 301
 /platforms/metatrader5 /platforms/metatrader-5 301
-/platform/metatrader4 /platforms/metatrader-4 301
-/metatrader4 /platforms/metatrader-4 301
-/metatrader5 /platforms/metatrader-5 301
+/platform/metatrader4* /platforms/metatrader-4 301
+/metatrader4* /platforms/metatrader-4 301
+/metatrader5* /platforms/metatrader-5 301
 
 # Geo-targeted pages
-/best-forex-brokers-south-africa /south-africa 301
-/best-forex-brokers-uk /uk 301
-/best-forex-brokers-united-kingdom /uk 301
-/best-forex-brokers-australia /australia 301
-/best-forex-brokers-canada /canada 301
-
-# ============================================
-# BROKER REDIRECTS (old /broker/ to /brokers/)
-# ============================================
-/broker/avatrade/* /brokers/avatrade 301
-/broker/avatrade /brokers/avatrade 301
-/broker/pepperstone/* /brokers/pepperstone 301
-/broker/pepperstone /brokers/pepperstone 301
-/broker/libertex/* /brokers/libertex 301
-/broker/libertex /brokers/libertex 301
-/broker/axitrader/* /brokers/axi 301
-/broker/axitrader /brokers/axi 301
-/broker/vantagefx/* /brokers/vantage 301
-/broker/vantagefx /brokers/vantage 301
-/broker/cityindex/* /brokers/city-index 301
-/broker/cityindex /brokers/city-index 301
-/broker/city-index/* /brokers/city-index 301
-/broker/city-index /brokers/city-index 301
-/broker/gomarkets/* /brokers/go-markets 301
-/broker/gomarkets /brokers/go-markets 301
-/broker/admiral-markets/* /brokers/admiral-markets 301
-/broker/admiral-markets /brokers/admiral-markets 301
-/broker/admiralmarkets/* /brokers/admiral-markets 301
-/broker/admiralmarkets /brokers/admiral-markets 301
-/broker/saxobank/* /brokers/saxo 301
-/broker/saxobank /brokers/saxo 301
-/broker/saxo-bank/* /brokers/saxo 301
-/broker/saxo-bank /brokers/saxo 301
-/broker/eightcap/* /brokers/eightcap 301
-/broker/eightcap /brokers/eightcap 301
-/broker/s /brokers 301
-/broker/* /brokers 301
-/broker /brokers 301
-
-# Duplicate broker paths
-/brokers/brokers/axi.html /brokers/axi 301
-/brokers/brokers/easymarkets.html /brokers/easymarkets 301
-/brokers/brokers/easymarkets /brokers/easymarkets 301
-/brokers/brokers/eightcap.html /brokers/eightcap 301
-/brokers/brokers/avatrade.html /brokers/avatrade 301
-/brokers/brokers/vantagefx.html /brokers/vantage 301
-/brokers/brokers/gomarkets.html /brokers/go-markets 301
-/brokers/brokers/admiralmarkets.html /brokers/admiral-markets 301
-/brokers/brokers/libertex.html /brokers/libertex 301
-/brokers/brokers/saxo.html /brokers/saxo 301
-/brokers/brokers/cityindex.html /brokers/city-index 301
-/brokers/brokers.html /brokers 301
-/brokers/brokers/* /brokers 301
-
-# Old broker slug variations (no hyphen to hyphenated)
-/brokers/vantagefx /brokers/vantage 301
-/brokers/vantagefx/* /brokers/vantage 301
-/brokers/admiralmarkets /brokers/admiral-markets 301
-/brokers/admiralmarkets/* /brokers/admiral-markets 301
-/brokers/icmarkets /brokers/ic-markets 301
-/brokers/icmarkets/* /brokers/ic-markets 301
-/brokers/gomarkets /brokers/go-markets 301
-/brokers/gomarkets/* /brokers/go-markets 301
-/brokers/cityindex /brokers/city-index 301
-/brokers/cityindex/* /brokers/city-index 301
-
-# Old broker paths with .html
-/brokers/avatrade. /brokers/avatrade 301
-/brokers/Pepperstone /brokers/pepperstone 301
-/brokers/Eightcap /brokers/eightcap 301
-/brokers/robinhood /brokers 301
-/brokers/cmcmarkets.html /brokers 301
-/brokers/best-forex-brokers-australia.html /brokers 301
-/brokers/best-forex-brokers-united-kingdom.html /brokers 301
-/brokers/etoro-vs-avatrade.html /compare/avatrade-vs-etoro 301
-/brokers/etoro/1000 /brokers/etoro 301
-/brokers/libertex/1000 /brokers/libertex 301
-/brokers/cityindex/1000 /brokers/city-index 301
-/brokers/stormgain/promo-code /exchanges/stormgain 301
-/brokers/s /brokers 301
-
-# Broker go links
-/brokers/go/easymarkets.html /brokers/easymarkets 301
-/brokers/go/cityindex.html /brokers/city-index 301
-/brokers/go/axi.html /brokers/axi 301
-/brokers/go/admiralmarkets-live.html /brokers/admiral-markets 301
-
-# Broker paths with nested content
-/brokers/commodities/* /guides 301
-/brokers/cryptocurrencies/* /exchanges 301
-/brokers/platform/* /platforms 301
-/brokers/platforms/* /platforms 301
-/brokers/glossary/* /glossary 301
-/brokers/education/* /guides 301
-/brokers/events.html /events 301
-/brokers/indices-analysis.html  301
-/brokers/news.html  301
-/brokers/technical-analysis.html  301
-/brokers/trading.html  301
-/brokers/analysis.html  301
-/brokers/analysis/*  301
-/brokers/tools.html /tools 301
-/brokers/learn-to-trade.html /guides 301
-/brokers/trade-ideas.html  301
-/brokers/stock-trading.html /guides/stock-trading-for-beginners 301
-/brokers/news/*  301
-/brokers/crypto-analysis/* /exchanges 301
-
-# ============================================
-# EDUCATION REDIRECTS
-# ============================================
-/education/how-to-trade-gold* /guides/how-to-trade-gold 301
-/education/how-to-trade-oil* /guides/how-to-trade-oil 301
-/education/forex-trading* /guides/forex-trading-basics 301
-/education/what-is-forex-trading* /guides/forex-trading-basics 301
-/education/asset-types-forex-trading* /guides/asset-types 301
-/education/asset-types* /guides/asset-types 301
-/trading/day-trading* /guides/day-trading 301
-/education/day-trading* /guides/day-trading 301
-/education/algorithmic-trading* /guides/algorithmic-trading 301
-/education/forex-trading-strategy* /guides/forex-strategy 301
-/education/forex-strategy* /guides/forex-strategy 301
-/education/elliott-wave* /guides/elliott-wave 301
-/education/forex-trading-calculations* /guides/forex-trading-basics 301
-/education/traders-guide-macro-data* /guides 301
-/education/mastering-ctrader* /platforms/ctrader 301
-/education/ctrader-simplified* /platforms/ctrader 301
-/education/fibonacci-price-theory* /guides 301
-/education/achieve-longevity-forex-trading* /guides 301
-/education/what-is-spread-betting* /brokers/spread-betting 301
-/education/investment-rule* /guides 301
-/education/forex-trading-course* /guides/forex-trading-basics 301
-/education/how-to-use-retail-sentiment* /guides 301
-/education/maintaining-discipline-trader* /guides 301
-/education/stock-trading* /guides/stock-trading-for-beginners 301
-/education/technical-analysis-basics* /glossary/technical-analysis 301
-/education/commodity-trading* /guides 301
-/education/commodities-trading* /guides 301
-/education/cryptocurrency* /exchanges 301
-/education/cryptocurrency.html /exchanges 301
-/education/metatrader4* /platforms/metatrader-4 301
-/education/download-historical-data-metatrader4* https://support.tradetheday.com/faqs/download-historical-data-on-metatrader-4 301
-/education/how-to-analyse-financial-markets* /guides 301
-/education/How-to-Analyse-Financial-Markets* /guides 301
-/education/learn-to-trade* /guides 301
-/education/risk-management* /guides 301
-/education/trading-strategies* /guides/forex-strategy 301
-/education/scalping-strategies* /guides 301
-/education/seven-immutable-laws-of-investing* /guides 301
-/education/education/* /guides 301
-/education/education.html /guides 301
-/education/glossary/* /glossary 301
-/education/platforms/* /platforms 301
-/education/tag/*  301
-/education/forex-analysis.html  301
-/education/crypto-analysis.html /exchanges 301
-/education/commodity-analysis.html /guides 301
-/education/analysis.html  301
-/education/tools.html /tools 301
-/education/indices-analysis.html  301
-/education/stock-market.html  301
-/education/events.html /events 301
-/education/news.html  301
-/education/trading.html /guides 301
-/education/privacy-policy.html  301
-/education/* /guides 301
-
-# ============================================
-# PLATFORM REDIRECTS
-# ============================================
-# Old trading-platforms path to new platforms path
-/trading-platforms/* /platforms/:splat 301
-/trading-platforms /platforms 301
-
-# Additional platform redirects (duplicates removed - see priority section)
-/platforms/spectre /platforms 301
-/platforms/spectre/* /platforms 301
-/platforms/vps /platforms 301
-/platforms/vps/* /platforms 301
-/platforms/ctrader* /platforms/ctrader 301
-/platforms/glossary/* /glossary 301
-/platforms/events/* /events 301
-/platforms/best-ctrader-brokers.html /brokers 301
-
-# Platform paths with nested content
-/platform/vps* /platforms 301
-/platform/ctrader/* /platforms 301
-/platform/best-ctrader-brokers.html /brokers 301
-/platform/stock-market/*  301
-/platform/forex-analysis.html  301
-/platform/crypto-analysis.html /exchanges 301
-/platform/crypto-analysis/* /exchanges 301
-/platform/commodity-analysis.html /guides 301
-/platform/glossary.html /glossary 301
-/platform/instruments.html /instruments 301
-/platform/news.html  301
-/platform/news/*  301
-/platform/events/* /events 301
-/platform/platforms/* /platforms 301
-/platform/learn-to-trade.html /guides 301
-/platform/index.html /platforms 301
-/platform/tools.html /tools 301
-/platform/brokers.html /brokers 301
-/platform/analysis/*  301
-/platform/technical-analysis.html  301
-/platform/indices-analysis.html  301
-/platform/privacy-policy.html  301
-/platform/start.html  301
-/platform.html /platforms 301
-/platform/* /platforms 301
-
-# ============================================
-# TRADE SECTION REDIRECTS (moved to /guides/)
-# ============================================
-/trade/gold/* /guides/how-to-trade-gold 301
-/trade/gold /guides/how-to-trade-gold 301
-/trade/oil/* /guides/how-to-trade-oil 301
-/trade/oil /guides/how-to-trade-oil 301
-/trade/* /guides 301
-/trade /guides 301
-
-# ============================================
-# COMMODITY & TRADE REDIRECTS
-# ============================================
-/commodities/gold* /guides/how-to-trade-gold 301
-/commodities/us-oil* /guides/how-to-trade-oil 301
-/commodities/uk-oil* /guides/how-to-trade-oil 301
-/commodities/brent-crude-oil* /guides/how-to-trade-oil 301
-/commodities/natural-gas* /guides 301
-/commodities/commodities/us-oil.html /guides/how-to-trade-oil 301
-/commodities/commodities/uk-oil.html /guides/how-to-trade-oil 301
-/commodities/commodities/brent-crude-oil.html /guides/how-to-trade-oil 301
-/commodities/commodities.html /guides 301
-/commodities/commodities/* /guides 301
-/commodities/platforms/* /platforms 301
-/commodities/analysis/*  301
-/commodities/crypto-analysis.html /exchanges 301
-/commodities/forex-analysis.html  301
-/commodities/stock-market.html  301
-/commodities/indices-analysis.html  301
-/commodities/commodity-analysis.html /guides 301
-/commodities/technical-analysis.html  301
-/commodities/education.html /guides 301
-/commodities/glossary.html /glossary 301
-/commodities/events.html /events 301
-/commodities/news.html  301
-/commodities/instruments.html /instruments 301
-/commodities/learn-to-trade.html /guides 301
-/commodities/index.html /guides 301
-/commodities/tools.html /tools 301
-/commodities/trading.html /guides 301
-/commodities/trade-ideas.html  301
-/commodities/start.html /guides 301
-/commodities/privacy-policy.html  301
-/commodities/* /guides 301
-/commodities-trading.html /guides 301
-/stock-trading.html /guides/stock-trading-for-beginners 301
-
-# ============================================
-# FOREX REDIRECTS
-# ============================================
-/forex/gbpusd* /glossary 301
-/forex/eurusd* /glossary 301
-/forex/usdjpy* /glossary 301
-/forex/audusd* /glossary 301
-/forex/nzdusd* /glossary 301
-/forex/eurchf* /glossary 301
-/forex/gbpeur* /glossary 301
-/forex/eurjpy* /glossary 301
-/forex/audjpy* /glossary 301
-/forex/forex/* /glossary 301
-/forex/brokers/* /brokers 301
-/forex/go/* /brokers 301
-/forex/platforms/* /platforms 301
-/forex/instruments.html /instruments 301
-/forex/commodity-analysis.html /guides 301
-/forex/indices-analysis.html  301
-/forex/forex-analysis/*  301
-/forex/technical-analysis.html  301
-/forex/glossary.html /glossary 301
-/forex/events.html /events 301
-/forex/news.html  301
-/forex/tools.html /tools 301
-/forex/start.html  301
-/forex/trading.html /brokers 301
-/forex/* /brokers 301
-
-# ============================================
-# CRYPTOCURRENCY REDIRECTS
-# ============================================
-/cryptocurrencies/bitcoin* /exchanges 301
-/cryptocurrencies/ethereum* /exchanges 301
-/cryptocurrencies/tether* /exchanges 301
-/cryptocurrencies/litecoin* /exchanges 301
-/cryptocurrencies/bitcoin-cash* /exchanges 301
-/cryptocurrencies/dogecoin* /exchanges 301
-/cryptocurrencies/btcusd* /exchanges 301
-/cryptocurrencies/ethusd* /exchanges 301
-/cryptocurrencies/btc-usd* /exchanges 301
-/cryptocurrencies/* /exchanges 301
-/cryptocurrency/bitcoin* /exchanges 301
-/cryptocurrency/* /exchanges 301
-/cryptocurrency /exchanges 301
-
-# ============================================
-# OLD CONTENT - NEWS/ANALYSIS/ARTICLES
-# ============================================
-/news/*  301
-/analysis/*  301
-/stock-market/*  301
-/forex-analysis/*  301
-/technical-analysis/*  301
-/commodity-analysis/*  301
-/crypto-analysis/*  301
-/trade-ideas/*  301
-/indices-analysis/*  301
-/broker-news/*  301
-
-# ============================================
-# TAG & AUTHOR PAGES
-# ============================================
-/tag/*  301
-/author/*  301
-
-# ============================================
-# SHARES PAGES
-# ============================================
-/shares/paypal*  301
-/shares/gamestop*  301
-/shares/apple*  301
-/shares/amazon*  301
-/shares/google*  301
-/shares/facebook*  301
-/shares/netflix*  301
-/shares/nvidia*  301
-/shares/disney*  301
-/shares/slack*  301
-/shares/palantir*  301
-/shares/ford*  301
-/shares/plugpower*  301
-/shares/novavax*  301
-/shares/blackberry*  301
-/shares/ryanair*  301
-/shares/berkshirehathaway*  301
-/shares/exxon-mobil*  301
-/shares/*  301
-
-# ============================================
-# INDICES PAGES
-# ============================================
-/indices/dji*  301
-/indices/dxy*  301
-/indices/ndaq*  301
-/indices/*  301
-
-# ============================================
-# GLOSSARY TERM REDIRECTS (Low-value terms -> relevant pages)
-# ============================================
-/glossary/up-trick /glossary 301
-/glossary/two-way-quotation /glossary/bid 301
-/glossary/elliot-wave-principle /guides/elliott-wave 301
-/glossary/carded-rate /glossary 301
-/glossary/mjsd /glossary 301
-/glossary/closing-a-trade-contract /glossary 301
-/glossary/cci-divergence /glossary/technical-analysis 301
-/glossary/high-low-method /glossary/technical-analysis 301
-/glossary/quote /glossary/bid 301
-/glossary/inconvertible-currency /glossary/forex 301
-/glossary/value-date /glossary/forex 301
-
-# ============================================
-# GLOSSARY NESTED PATHS
-# ============================================
-/glossary/glossary/* /glossary 301
-/glossary/platforms/* /platforms 301
-/glossary/education.html /guides 301
-/glossary/forex-analysis.html  301
-/glossary/commodity-analysis.html /guides 301
-/glossary/indices-analysis.html  301
-/glossary/cyprus-securities-and-exchange-commission.html /glossary/cysec 301
-/glossary/events.html /events 301
-/glossary/news.html  301
-/glossary/instruments.html /instruments 301
-/glossary/learn-to-trade.html /guides 301
-/glossary/start.html /glossary 301
-/glossary/trade-ideas.html  301
-/glossary/trading.html /glossary 301
-/glossary/privacy-policy.html  301
-/glossary/analysis.html  301
-
-# ============================================
-# TOOLS NESTED PATHS
-# ============================================
-/tools/smart-trader-tools* /tools 301
-/tools/brokers.html /brokers 301
-/tools/platforms/* /platforms 301
-/tools/forex-analysis.html  301
-/tools/crypto-analysis.html /exchanges 301
-/tools/stock-market.html  301
-/tools/commodity-analysis.html /guides 301
-/tools/technical-analysis.html  301
-/tools/glossary.html /glossary 301
-/tools/education.html /guides 301
-/tools/events.html /events 301
-/tools/news.html  301
-/tools/learn-to-trade.html /guides 301
-/tools/index.html /tools 301
-/tools/start.html /tools 301
-/tools/trade-ideas.html  301
-/tools/trading.html /tools 301
-/tools/tools.html /tools 301
-/tools/privacy-policy.html  301
-/tools/analysis.html  301
-
-# ============================================
-# START PREFIX (old site structure)
-# ============================================
-/start/brokers/libertex.html /brokers/libertex 301
-/start/brokers/etoro.html /brokers/etoro 301
-/start/brokers/* /brokers 301
-/start/crypto-analysis.html /exchanges 301
-/start/tools.html /tools 301
-/start/privacy-policy.html  301
-/start/go/avatrade.html /go/avatrade 301
-/start/news/*  301
-/start/technical-analysis.html  301
-/start/platforms/* /platforms 301
-/start/analysis/*  301
-/start/stock-market.html  301
-/start/*  301
-
-# ============================================
-# PRIVACY POLICY NESTED PATHS
-# ============================================
-/privacy-policy/platforms/* /platforms 301
-/privacy-policy/glossary.html /glossary 301
-/privacy-policy/indices-analysis.html  301
-/privacy-policy/forex-analysis.html  301
-/privacy-policy/crypto-analysis.html /exchanges 301
-/privacy-policy/events.html /events 301
-/privacy-policy/tools.html /tools 301
-/privacy-policy/education.html /guides 301
-/privacy-policy/brokers.html /brokers 301
-/privacy-policy/platforms.html /platforms 301
-/privacy-policy/trading.html  301
-/privacy-policy/instruments.html /instruments 301
-/privacy-policy/learn-to-trade.html /guides 301
-/privacy-policy/index.html  301
-/privacy-policy/start.html  301
-/privacy-policy/trade-ideas.html  301
-/privacy-policy/technical-analysis.html  301
-/privacy-policy/analysis.html  301
-/privacy-policy/*  301
-
-# ============================================
-# GEO-TARGETED BROKER PAGES (additional rules)
-# Main redirects are in priority section at top
-# ============================================
+/best-forex-brokers-south-africa* /south-africa 301
+/best-forex-brokers-uk* /uk 301
+/best-forex-brokers-united-kingdom* /uk 301
+/best-forex-brokers-australia* /australia 301
+/best-forex-brokers-canada* /canada 301
 /za /south-africa 301
 /au /australia 301
 /ca /canada 301
 
 # ============================================
-# PRIVACY POLICY
+# BROKER REDIRECTS (16-40) - Consolidated
 # ============================================
-/privacy /privacy-policy 301
-/privacy/ /privacy-policy 301
+/broker/avatrade* /brokers/avatrade 301
+/broker/pepperstone* /brokers/pepperstone 301
+/broker/libertex* /brokers/libertex 301
+/broker/axitrader* /brokers/axi 301
+/broker/vantagefx* /brokers/vantage 301
+/broker/cityindex* /brokers/city-index 301
+/broker/city-index* /brokers/city-index 301
+/broker/gomarkets* /brokers/go-markets 301
+/broker/admiral-markets* /brokers/admiral-markets 301
+/broker/admiralmarkets* /brokers/admiral-markets 301
+/broker/saxobank* /brokers/saxo 301
+/broker/saxo-bank* /brokers/saxo 301
+/broker/eightcap* /brokers/eightcap 301
+/broker/* /brokers 301
+
+# Old broker slug variations
+/brokers/vantagefx* /brokers/vantage 301
+/brokers/admiralmarkets* /brokers/admiral-markets 301
+/brokers/icmarkets* /brokers/ic-markets 301
+/brokers/gomarkets* /brokers/go-markets 301
+/brokers/cityindex* /brokers/city-index 301
+/brokers/brokers/* /brokers 301
 
 # ============================================
-# SPECIFIC PAGE REDIRECTS
+# EDUCATION REDIRECTS (41-55) - Consolidated
+# ============================================
+/education/how-to-trade-gold* /guides/how-to-trade-gold 301
+/education/how-to-trade-oil* /guides/how-to-trade-oil 301
+/education/forex-trading* /guides/forex-trading-basics 301
+/education/what-is-forex-trading* /guides/forex-trading-basics 301
+/education/asset-types* /guides/asset-types 301
+/education/day-trading* /guides/day-trading 301
+/education/algorithmic-trading* /guides/algorithmic-trading 301
+/education/forex-strategy* /guides/forex-strategy 301
+/education/elliott-wave* /guides/elliott-wave 301
+/education/stock-trading* /guides/stock-trading-for-beginners 301
+/education/metatrader4* /platforms/metatrader-4 301
+/education/ctrader* /platforms/ctrader 301
+/education/cryptocurrency* /exchanges 301
+/education/* /guides 301
+
+# ============================================
+# PLATFORM REDIRECTS (56-62)
+# ============================================
+/trading-platforms/* /platforms/:splat 301
+/trading-platforms /platforms 301
+/platforms/spectre* /platforms 301
+/platforms/vps* /platforms 301
+/platform/* /platforms 301
+/platform.html /platforms 301
+
+# ============================================
+# TRADE/COMMODITY REDIRECTS (63-72)
+# ============================================
+/trade/gold* /guides/how-to-trade-gold 301
+/trade/oil* /guides/how-to-trade-oil 301
+/trade/* /guides 301
+/commodities/gold* /guides/how-to-trade-gold 301
+/commodities/us-oil* /guides/how-to-trade-oil 301
+/commodities/uk-oil* /guides/how-to-trade-oil 301
+/commodities/brent-crude-oil* /guides/how-to-trade-oil 301
+/commodities/* /guides 301
+/trading/day-trading* /guides/day-trading 301
+/trading/* /guides 301
+
+# ============================================
+# FOREX/CRYPTO REDIRECTS (73-78)
+# ============================================
+/forex/* /brokers 301
+/cryptocurrencies/* /exchanges 301
+/cryptocurrency/* /exchanges 301
+
+# ============================================
+# OLD CONTENT CATCHALLS (79-90)
+# ============================================
+/news/* / 301
+/analysis/* / 301
+/stock-market/* / 301
+/forex-analysis/* / 301
+/technical-analysis/* / 301
+/commodity-analysis/* / 301
+/crypto-analysis/* / 301
+/trade-ideas/* / 301
+/indices-analysis/* / 301
+/broker-news/* / 301
+/tag/* / 301
+/author/* / 301
+
+# ============================================
+# KEY SINGLE REDIRECTS (91-100)
 # ============================================
 /choose-broker* /find-broker 301
-/choose-broker /find-broker 301
 /economic-calendar* /events 301
-/economic-calendar /events 301
 /avatrade /brokers/avatrade 301
 /etoro-vs-avatrade* /compare/avatrade-vs-etoro 301
-/etoro-vs-avatrade /compare/avatrade-vs-etoro 301
-/best-ctrader-brokers* /brokers 301
-/best-ctrader-brokers /brokers 301
-/best-forex-brokers-dubai* /brokers 301
-/best-forex-brokers-dubai /brokers 301
-/best-forex-brokers-uk.html /uk 301
-/trading-options /brokers 301
-/trading-resources* /guides 301
-
-# Misc old pages
-/start /guides 301
-/start/* /guides 301
-/trading /guides 301
-/trading/* /guides 301
-/instruments /glossary 301
-/instruments/* /glossary 301
-
-# Old go links
-/go/trade-now-msg /brokers 301
-/go/coinspot.html /exchanges 301
-/go/xm-deposit /brokers 301
-
-# ============================================
-# WORDPRESS & TECHNICAL ARTIFACTS
-# ============================================
-/wp-json/*  301
-/common/*  301
-/cdn-cgi/*  301
-/login.aspx  301
-
-# ============================================
-# MISC OLD ARTICLE SLUGS (specific high-traffic)
-# ============================================
-/vaccine-hopes-drive-equities-higher-but-for-how-long-us-trading-session-update/*  301
-/european-stocks-struggles-on-industrial-data-wall-street-rebounds-2/*  301
-/zoom-stock-bounced-back-analysts-say-more-gains-are-ahead/*  301
-/key-events-to-watch-out-for-this-week-2/*  301
-/paypal-stock-fumbles-despite-record-results/*  301
-/elections-2020-us-stock-markets-are-shining/*  301
-/boeing-stock-price-surge-58-so-far-this-month-heres-why/*  301
-/general-electric-stock-soar-24-in-a-month-heres-why/*  301
-/nasdaq-index-is-skyrocketing-amid-split-congress/*  301
-/boeing-stock-is-steady-despite-big-losses-from-airline-customers/*  301
+/privacy /privacy-policy 301
+/instruments* /glossary 301
+/shares/* / 301
+/indices/* / 301
+/start/* / 301
+/wp-json/* / 301
