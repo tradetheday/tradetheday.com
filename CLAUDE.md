@@ -113,8 +113,57 @@ Auto-generated via `@astrojs/sitemap`. Excludes `/style-guide` and `/components-
 ## Cloudflare Configuration
 
 - `public/_headers` - Cache rules
-- `public/_redirects` - URL redirects
+- `public/_redirects` - Basic URL redirects (100 dynamic limit)
 - Settings: Smart Tiered Cache, Early Hints, HTTP/3, HSTS enabled
+
+### Redirect System (GitHub-managed)
+
+Redirects are managed via `functions/redirects.json` - edit and push to deploy.
+
+**Files:**
+```
+functions/
+├── _middleware.ts    # Handles redirects + Spain CNMV compliance
+├── redirects.json    # Redirect rules (edit this!)
+└── tsconfig.json     # TypeScript config
+```
+
+**Redirect types in `redirects.json`:**
+
+| Section | Use for | Example |
+|---------|---------|---------|
+| `static` | Simple 1:1 redirects | `"/old": "/new"` |
+| `patterns` | Regex with capture groups | `"^/broker/(.+)$"` → `"/brokers/$1"` |
+| `geo` | Old geo URLs | `"/best-forex-brokers-uk": "/uk"` |
+| `support` | Cross-domain to support subdomain | `"/help": "https://support.tradetheday.com"` |
+
+**How it works:**
+1. `.html` extension removal (automatic)
+2. Static redirects checked
+3. Geo redirects checked
+4. Support (cross-domain) redirects checked
+5. Pattern-based redirects (regex) checked
+6. Spain CNMV geo-redirect for Spanish visitors on CFD pages
+
+**Adding redirects:**
+```json
+{
+  "static": {
+    "/old-page": "/new-page",
+    "/legacy": "https://support.tradetheday.com/help"
+  },
+  "patterns": [
+    {
+      "comment": "Description",
+      "match": "^/old-pattern/(.+)$",
+      "redirect": "/new-pattern/$1"
+    }
+  ]
+}
+```
+
+**Spain CNMV Compliance:**
+Spanish visitors (country code ES) accessing CFD broker content are automatically redirected to `/spain/` which offers compliant alternatives. This is handled in `_middleware.ts`.
 
 ## Affiliate Links
 
