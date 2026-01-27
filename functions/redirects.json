@@ -3,35 +3,139 @@
   "updated": "2026-01-28",
 
   "static": {
-    "/old-example-page": "/new-page",
-    "/legacy-article": "https://support.tradetheday.com/help/topic"
+    "/trading-options": "/guides",
+    "/trading-resources": "/guides",
+    "/learn-to-trade": "/guides",
+    "/smart-trader-tools": "/tools",
+    "/etoro-vs-avatrade": "/compare/avatrade-vs-etoro",
+    "/choose-broker": "/find-broker",
+    "/economic-calendar": "/events",
+    "/avatrade": "/brokers/avatrade",
+    "/instruments": "/glossary",
+    "/privacy": "/privacy-policy",
+    "/brokers/robinhood": "/brokers",
+    "/brokers/cmcmarkets": "/brokers",
+    "/brokers/stormgain/promo-code": "/exchanges/stormgain",
+    "/brokers/cityindex": "/brokers/city-index",
+    "/brokers/gomarkets": "/brokers/go-markets",
+    "/brokers/Pepperstone": "/brokers/pepperstone",
+    "/brokers/Eightcap": "/brokers/eightcap",
+    "/glossary/expert-advisor": "/glossary",
+    "/glossary/aggregate-risk": "/glossary",
+    "/glossary/crb": "/glossary",
+    "/glossary/cyprus-securities-and-exchange-commission": "/glossary/cysec"
   },
 
   "patterns": [
     {
-      "comment": "Old broker singular to plural",
-      "match": "^/broker/([^/]+)/?$",
+      "comment": "Old broker singular to plural with any suffix",
+      "match": "^/broker/([^/]+).*$",
       "redirect": "/brokers/$1"
     },
     {
-      "comment": "Education to guides",
-      "match": "^/education/([^/]+)/?$",
-      "redirect": "/guides/$1"
+      "comment": "Double brokers path",
+      "match": "^/brokers/brokers/(.+)$",
+      "redirect": "/brokers/$1"
     },
     {
-      "comment": "Old platform URLs",
-      "match": "^/platform/([^/]+)/?$",
-      "redirect": "/platforms/$1"
+      "comment": "Brokers with /go/ affiliate links (old format)",
+      "match": "^/brokers/go/.*$",
+      "redirect": "/brokers"
+    },
+    {
+      "comment": "Brokers with /1000 suffix",
+      "match": "^/brokers/([^/]+)/1000$",
+      "redirect": "/brokers/$1"
+    },
+    {
+      "comment": "Nested content under brokers (analysis, glossary, etc)",
+      "match": "^/brokers/(analysis|glossary|education|news|platforms|commodities|crypto-analysis|cryptocurrencies|events|indices-analysis|technical-analysis|tools|trade-ideas|trading|stock-trading|learn-to-trade)/.*$",
+      "redirect": "/brokers"
+    },
+    {
+      "comment": "Old broker slug variations",
+      "match": "^/brokers/vantagefx.*$",
+      "redirect": "/brokers/vantage"
+    },
+    {
+      "comment": "Old broker slug - admiralmarkets",
+      "match": "^/brokers/admiralmarkets.*$",
+      "redirect": "/brokers/admiral-markets"
+    },
+    {
+      "comment": "Old broker slug - icmarkets",
+      "match": "^/brokers/icmarkets.*$",
+      "redirect": "/brokers/ic-markets"
+    },
+    {
+      "comment": "Old broker slug - cityindex no hyphen",
+      "match": "^/brokers/cityindex.*$",
+      "redirect": "/brokers/city-index"
+    },
+    {
+      "comment": "Old broker slug - gomarkets no hyphen",
+      "match": "^/brokers/gomarkets.*$",
+      "redirect": "/brokers/go-markets"
+    },
+    {
+      "comment": "Education to guides with any path",
+      "match": "^/education/(.*)$",
+      "redirect": "/guides"
+    },
+    {
+      "comment": "Old platform URLs (singular)",
+      "match": "^/platform/(.*)$",
+      "redirect": "/platforms"
+    },
+    {
+      "comment": "Metatrader without hyphen",
+      "match": "^/platforms/metatrader4.*$",
+      "redirect": "/platforms/metatrader-4"
+    },
+    {
+      "comment": "Metatrader 5 without hyphen",
+      "match": "^/platforms/metatrader5.*$",
+      "redirect": "/platforms/metatrader-5"
+    },
+    {
+      "comment": "Old VPS page",
+      "match": "^/platforms/vps.*$",
+      "redirect": "/platforms"
     },
     {
       "comment": "Trade commodity pages",
-      "match": "^/trade/([^/]+)/?$",
-      "redirect": "/guides/how-to-trade-$1"
+      "match": "^/trade/gold.*$",
+      "redirect": "/guides/how-to-trade-gold"
+    },
+    {
+      "comment": "Trade oil pages",
+      "match": "^/trade/oil.*$",
+      "redirect": "/guides/how-to-trade-oil"
+    },
+    {
+      "comment": "Trade catchall",
+      "match": "^/trade/.*$",
+      "redirect": "/guides"
+    },
+    {
+      "comment": "Commodities gold",
+      "match": "^/commodities/gold.*$",
+      "redirect": "/guides/how-to-trade-gold"
+    },
+    {
+      "comment": "Commodities oil",
+      "match": "^/commodities/(us-oil|uk-oil|brent|crude).*$",
+      "redirect": "/guides/how-to-trade-oil"
+    },
+    {
+      "comment": "Commodities catchall",
+      "match": "^/commodities/.*$",
+      "redirect": "/guides"
     },
     {
       "comment": "Old trading-platforms to platforms",
       "match": "^/trading-platforms/?(.*)$",
-      "redirect": "/platforms/$1"
+      "redirect": "/platforms"
     },
     {
       "comment": "Forex catchall to brokers",
@@ -39,19 +143,79 @@
       "redirect": "/brokers"
     },
     {
-      "comment": "Cryptocurrency to exchanges",
-      "match": "^/crypt(o|ocurrenc(y|ies))/.*$",
+      "comment": "Cryptocurrency/cryptocurrencies to exchanges",
+      "match": "^/cryptocurrenc(y|ies)/.*$",
       "redirect": "/exchanges"
     },
     {
-      "comment": "Old news/analysis catchalls to home",
-      "match": "^/(news|analysis|stock-market|forex-analysis|technical-analysis|commodity-analysis|crypto-analysis|trade-ideas|indices-analysis|broker-news|tag|author)/.*$",
+      "comment": "Old news/analysis/trade-ideas to home",
+      "match": "^/(news|analysis|stock-market|forex-analysis|technical-analysis|commodity-analysis|crypto-analysis|trade-ideas|indices-analysis|broker-news)/.*$",
+      "redirect": "/"
+    },
+    {
+      "comment": "Tag pages to home",
+      "match": "^/tag/.*$",
+      "redirect": "/"
+    },
+    {
+      "comment": "Author pages to home",
+      "match": "^/author/.*$",
+      "redirect": "/"
+    },
+    {
+      "comment": "Shares to home",
+      "match": "^/shares/.*$",
+      "redirect": "/"
+    },
+    {
+      "comment": "Indices to home",
+      "match": "^/indices/.*$",
+      "redirect": "/"
+    },
+    {
+      "comment": "Start pages to home",
+      "match": "^/start/.*$",
+      "redirect": "/"
+    },
+    {
+      "comment": "Common directory to home",
+      "match": "^/common/.*$",
       "redirect": "/"
     },
     {
       "comment": "WordPress API catchall",
       "match": "^/wp-json/.*$",
       "redirect": "/"
+    },
+    {
+      "comment": "Double glossary path",
+      "match": "^/glossary/glossary/(.+)$",
+      "redirect": "/glossary/$1"
+    },
+    {
+      "comment": "Nested content under glossary",
+      "match": "^/glossary/(analysis|platforms|education|news|events|indices-analysis|forex-analysis|commodity-analysis|instruments|privacy-policy|start|trade-ideas|trading|learn-to-trade)/.*$",
+      "redirect": "/glossary"
+    },
+    {
+      "comment": "Nested content under tools",
+      "match": "^/tools/(analysis|brokers|commodity-analysis|crypto-analysis|education|events|forex-analysis|glossary|news|platforms|privacy-policy|start|stock-market|technical-analysis|trade-ideas|trading|learn-to-trade)/.*$",
+      "redirect": "/tools"
+    },
+    {
+      "comment": "Smart trader tools",
+      "match": "^/tools/smart-trader-tools.*$",
+      "redirect": "/tools"
+    },
+    {
+      "comment": "Privacy policy with anything after",
+      "match": "^/privacy-policy/.*$",
+      "redirect": "/privacy-policy"
+    },
+    {
+      "comment": "Old go shortlinks",
+      "match": "^/go/admiralmarkets.*$",
+      "redirect": "/brokers/admiral-markets"
     }
   ],
 
@@ -67,7 +231,6 @@
   },
 
   "support": {
-    "comment": "Redirects to support.tradetheday.com - add URLs here",
     "/help": "https://support.tradetheday.com",
     "/contact": "https://support.tradetheday.com/contact",
     "/faq": "https://support.tradetheday.com/faq"

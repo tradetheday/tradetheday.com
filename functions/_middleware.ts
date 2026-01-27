@@ -150,7 +150,15 @@ export async function onRequest(context: {
   }
 
   // Normalize pathname (remove trailing slash except for root)
-  const normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/$/, '');
+  let normalizedPath = pathname === '/' ? '/' : pathname.replace(/\/$/, '');
+
+  // ----------------------------------------
+  // STEP 0: Handle .html extension removal
+  // ----------------------------------------
+  if (normalizedPath.endsWith('.html')) {
+    const cleanPath = normalizedPath.slice(0, -5);
+    return Response.redirect(resolveUrl(cleanPath, url.origin), 301);
+  }
 
   // ----------------------------------------
   // STEP 1: Check 301 Redirects
