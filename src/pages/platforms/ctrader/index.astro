@@ -4,13 +4,13 @@ import Breadcrumb from '../../../components/Breadcrumb.astro';
 import TrustBadges from '../../../components/TrustBadges.astro';
 import { getBrokersByPlatform } from '../../../data/brokers';
 
-const pageTitle = "Best cTrader Brokers 2026: ECN Trading with Level II Pricing";
-const pageDescription = "Compare the best cTrader brokers with raw spreads from 0.0 pips. cTrader offers Level II pricing, cAlgo automation, and cTrader Copy for social trading.";
+const pageTitle = "cTrader Review 2026: The Ultimate Guide + Best cTrader Brokers";
+const pageDescription = "Complete cTrader platform review and guide. Learn all features including Level II pricing, cTrader Copy, and cTrader Automate. Find the best cTrader brokers with raw ECN spreads.";
 
 const breadcrumbItems = [
   { text: 'Home', href: '/' },
-  { text: 'Trading Platforms', href: '/platforms/' },
-  { text: 'cTrader', href: '/platforms/ctrader', current: true }
+  { text: 'Platforms', href: '/platforms' },
+  { text: 'cTrader', current: true }
 ];
 
 // Get brokers that support cTrader
@@ -18,31 +18,135 @@ const ctraderBrokers = getBrokersByPlatform('cTrader');
 
 const currentYear = new Date().getFullYear();
 
+// Key features table data
+const keyFeatures = [
+  { feature: 'Execution', performance: 'True ECN/STP execution with no dealing desk intervention', icon: '⚡' },
+  { feature: 'Depth of Market', performance: 'Full Level II pricing showing real market depth', icon: '📊' },
+  { feature: 'Charting', performance: '70+ indicators, 26 timeframes, detachable charts', icon: '📈' },
+  { feature: 'Devices', performance: 'Desktop, Web, iOS, Android - all fully featured', icon: '📱' },
+  { feature: 'Automation', performance: 'cTrader Automate with C# for cBots and indicators', icon: '🤖' },
+  { feature: 'Copy Trading', performance: 'Built-in cTrader Copy for social trading', icon: '👥' },
+  { feature: 'Order Types', performance: 'Market, limit, stop, stop-limit, and trailing stops', icon: '📋' },
+  { feature: 'Ease of Use', performance: 'Clean, modern interface designed for professionals', icon: '✨' },
+  { feature: 'Cost', performance: 'cTrader is completely free to download and use', icon: '💰' }
+];
+
+// Reasons to use cTrader
+const reasonsToUse = [
+  'Level II Pricing shows full market depth with multiple liquidity levels - see exactly where the real orders are',
+  'True ECN execution means no dealing desk intervention, no requotes, and transparent pricing direct from liquidity providers',
+  'Built-in cTrader Copy lets you follow and copy successful traders without third-party plugins',
+  'cTrader Automate uses C# programming - more powerful than MQL4 with access to the full .NET framework',
+  '26 timeframes vs MT4\'s 9 - giving scalpers and intraday traders much more flexibility',
+  'Detachable charts allow multi-monitor setups - drag any chart to a separate screen',
+  'One-click trading with smart stop loss and take profit placement speeds up order execution',
+  'Modern, clean interface was designed from scratch for professional traders'
+];
+
+// Reasons not to use
+const reasonsNotToUse = [
+  'Fewer brokers support cTrader compared to MT4 - your broker choice is more limited',
+  'Smaller community means fewer third-party indicators and cBots available compared to MT4\'s massive ecosystem',
+  'C# learning curve is steeper than MQL4 for traders wanting to create custom bots'
+];
+
+// Getting started steps
+const gettingStartedSteps = [
+  {
+    title: 'Choose a cTrader Broker',
+    content: 'Select a broker that offers cTrader. Pepperstone and IC Markets are top choices with raw ECN spreads. Open an account and complete verification.'
+  },
+  {
+    title: 'Download & Install cTrader',
+    content: 'Download cTrader from your broker\'s website. The installer is small (under 50MB) and installation takes under 2 minutes. cTrader is also available as a web platform if you prefer no download.'
+  },
+  {
+    title: 'Log In to Your Account',
+    content: 'Enter your cTrader ID (cTID) credentials provided by your broker. Your cTID gives you access across all cTrader brokers with a single login.'
+  },
+  {
+    title: 'Customize Your Workspace',
+    content: 'Set up your charts with your preferred timeframe and indicators. cTrader lets you detach charts for multi-monitor setups. Choose between light and dark themes.'
+  },
+  {
+    title: 'Place Your First Trade',
+    content: 'Click on a symbol to open the order panel. Select your volume, set stop loss and take profit using the quick-trade buttons, then click Buy or Sell. Start with a demo account to practice.'
+  }
+];
+
+// Keyboard shortcuts
+const keyboardShortcuts = [
+  { keys: 'F2', action: 'Open New Order window' },
+  { keys: 'F9', action: 'Open Trade tab' },
+  { keys: 'Ctrl+T', action: 'Open Tradewatch' },
+  { keys: 'Ctrl+L', action: 'Open Symbol panel' },
+  { keys: 'Ctrl+M', action: 'Open Active Symbol panel' },
+  { keys: 'Ctrl+D', action: 'Detach active chart' },
+  { keys: 'Ctrl+G', action: 'Toggle Grid' },
+  { keys: '+/-', action: 'Zoom In/Out on chart' },
+  { keys: 'Ctrl+I', action: 'Open Indicators list' },
+  { keys: 'Esc', action: 'Cancel drawing mode' }
+];
+
+// cTrader awards and recognition
+const awards = [
+  { year: '2023', award: 'Best Multi-Asset Trading Platform', org: 'Finance Magnates' },
+  { year: '2022', award: 'Best Forex Trading Platform', org: 'Global Forex Awards' },
+  { year: '2022', award: 'Most User-Friendly Trading Platform', org: 'FX Empire' },
+  { year: '2021', award: 'Best Trading Platform Technology', org: 'Forex Expo' }
+];
+
 const faqData = [
   {
     question: 'What is cTrader?',
-    answer: 'cTrader is a professional forex and CFD trading platform developed by Spotware. It\'s known for its clean interface, Level II pricing (depth of market), fast execution, and advanced charting. cTrader is popular among ECN traders and those who want transparent pricing.'
+    answer: 'cTrader is a professional forex and CFD trading platform developed by Spotware Systems. Launched in 2011, it\'s designed specifically for ECN/STP trading with features like Level II pricing (full depth of market), built-in copy trading, and algorithmic trading via cTrader Automate. It\'s available on desktop, web, and mobile.'
   },
   {
     question: 'Is cTrader better than MT4?',
-    answer: 'cTrader has some advantages over MT4: better depth of market visibility, more intuitive interface, faster order execution, and built-in copy trading. However, MT4 has a larger community, more third-party indicators, and broader broker support. Choose based on your priorities.'
+    answer: 'cTrader has advantages for certain traders: better depth of market visibility, more intuitive modern interface, 26 timeframes vs MT4\'s 9, built-in copy trading, and native ECN execution. However, MT4 has a larger community, more third-party EAs and indicators, and wider broker support. Choose cTrader if you prioritize transparent ECN pricing and modern features.'
   },
   {
     question: 'Is cTrader free?',
-    answer: 'Yes, cTrader is free to use. When you open an account with a cTrader broker, you get access to the platform at no cost. Brokers make money from spreads and commissions, not platform fees.'
+    answer: 'Yes, cTrader is completely free. When you open an account with a cTrader broker, you get full access to the platform at no cost. Brokers make money from spreads and commissions on your trades, not from platform fees.'
   },
   {
     question: 'What is cTrader Copy?',
-    answer: 'cTrader Copy is the built-in social trading feature that lets you automatically copy trades from successful strategy providers. You can browse provider statistics, set risk parameters, and diversify across multiple providers.'
+    answer: 'cTrader Copy is the built-in social trading feature that lets you automatically copy trades from successful strategy providers. You can browse providers by performance statistics, set your risk parameters, and diversify across multiple providers. Unlike third-party copy trading, it\'s fully integrated into the platform.'
   },
   {
-    question: 'What is cAlgo?',
-    answer: 'cAlgo (now called cTrader Automate) is cTrader\'s algorithmic trading environment. It uses C# programming language to create custom indicators and automated trading robots (cBots). It\'s more powerful than MT4\'s MQL4 but has a steeper learning curve.'
+    question: 'What is cTrader Automate (cAlgo)?',
+    answer: 'cTrader Automate (formerly cAlgo) is cTrader\'s algorithmic trading environment. It uses C# programming language to create custom indicators and automated trading robots called cBots. C# gives access to the full .NET framework, making it more powerful than MT4\'s MQL4, though with a steeper learning curve.'
   },
   {
     question: 'Which broker has the best cTrader?',
-    answer: `For ${currentYear}, Pepperstone and IC Markets offer excellent cTrader experiences with raw ECN spreads, fast execution, and full platform support including cTrader Copy and Automate.`
+    answer: `For ${currentYear}, Pepperstone and IC Markets offer the best cTrader experience. Both provide raw ECN spreads from 0.0 pips, fast execution, tier-1 regulation (FCA/ASIC), and full support for cTrader Copy and Automate features.`
+  },
+  {
+    question: 'Can I use Expert Advisors (EAs) on cTrader?',
+    answer: 'cTrader uses cBots instead of EAs. While MT4 EAs won\'t work directly on cTrader, cBots serve the same purpose - automated trading. cBots are written in C# rather than MQL4. There are conversion services available, but it\'s generally better to find or create native cBots.'
+  },
+  {
+    question: 'What is Level II pricing?',
+    answer: 'Level II pricing (Depth of Market or DOM) shows you the full order book - all the buy and sell orders at different price levels, not just the best bid/ask. This lets you see real liquidity, identify support/resistance levels, and understand market depth. cTrader displays this clearly in its DOM panel.'
+  },
+  {
+    question: 'Can I use cTrader on Mac?',
+    answer: 'Yes, cTrader works on Mac through cTrader Web, which runs in any browser without installation. There\'s also a native Mac version available from some brokers. The web platform has nearly identical functionality to desktop.'
+  },
+  {
+    question: 'Is cTrader good for scalping?',
+    answer: 'Yes, cTrader is excellent for scalping. The combination of Level II pricing, quick trade execution with one-click trading, 26 timeframes (including tick charts), and no dealing desk intervention makes it ideal for scalpers. The platform was specifically designed for fast-paced ECN trading.'
   }
+];
+
+// Anchor nav items
+const anchorItems = [
+  { text: 'Best Brokers', href: '#brokers' },
+  { text: 'What is cTrader', href: '#what-is-ctrader' },
+  { text: 'Features', href: '#features' },
+  { text: 'Download', href: '#download' },
+  { text: 'Getting Started', href: '#getting-started' },
+  { text: 'FAQs', href: '#faq' }
 ];
 ---
 
@@ -88,15 +192,15 @@ const faqData = [
     <div class="container">
       <div class="ctrader-hero-badge">
         <span class="badge-icon">📈</span>
-        <span>ECN Trading Platform</span>
+        <span>Professional ECN Trading Platform</span>
       </div>
-      <h1 class="heading-1">Best cTrader Brokers {currentYear}</h1>
+      <h1 class="heading-1">cTrader: The Ultimate Platform Review {currentYear}</h1>
       <p class="body-large ctrader-hero-sub">
-        Find the best cTrader forex brokers with raw ECN spreads, Level II pricing, and professional execution. All brokers are regulated and reviewed.
+        cTrader is a professional forex and CFD trading platform built for ECN execution. Full Level II pricing, built-in copy trading, and powerful automation with cTrader Automate.
       </p>
       <div class="hero-stats">
         <div class="hero-stat">
-          <span class="hero-stat-value">{ctraderBrokers.length}</span>
+          <span class="hero-stat-value">{ctraderBrokers.length}+</span>
           <span class="hero-stat-label">cTrader Brokers</span>
         </div>
         <div class="hero-stat">
@@ -107,17 +211,32 @@ const faqData = [
           <span class="hero-stat-value">0.0</span>
           <span class="hero-stat-label">Pips From</span>
         </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">2011</span>
+          <span class="hero-stat-label">Since</span>
+        </div>
       </div>
     </div>
   </section>
 
   <TrustBadges variant="light" compact={true} />
 
+  <!-- Anchor Navigation -->
+  <nav class="anchor-nav">
+    <div class="container">
+      <div class="anchor-links">
+        {anchorItems.map((item) => (
+          <a href={item.href} class="anchor-link">{item.text}</a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
   <!-- Best cTrader Brokers List -->
-  <section class="section">
+  <section class="section" id="brokers">
     <div class="container">
       <h2 class="heading-2">Best cTrader Brokers for {currentYear}</h2>
-      <p class="section-intro">Our top-rated brokers offering cTrader, ranked by spreads, execution, and overall value.</p>
+      <p class="section-intro">Our top-rated brokers offering cTrader, ranked by spreads, execution, and overall value. All brokers are regulated and expert-reviewed.</p>
 
       <div class="broker-list">
         {ctraderBrokers.map((broker, index) => (
@@ -168,30 +287,45 @@ const faqData = [
     </div>
   </section>
 
-  <!-- What is cTrader -->
-  <section class="section section--alt">
+  <!-- Broker Callout -->
+  <aside class="broker-callout">
+    <div class="container">
+      <div class="callout-content">
+        <div class="callout-text">
+          <h3>Our #1 cTrader Broker: Pepperstone</h3>
+          <p>FCA & ASIC regulated, raw spreads from 0.0 pips, full cTrader Copy support, and lightning-fast ECN execution.</p>
+        </div>
+        <a href="/brokers/pepperstone" class="btn btn-primary">Visit Pepperstone →</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- What is cTrader Section -->
+  <section class="section section--alt" id="what-is-ctrader">
     <div class="container">
       <div class="content-grid">
         <div class="content-main">
           <h2 class="heading-2">What is cTrader?</h2>
           <p>
-            cTrader is a professional-grade forex and CFD trading platform developed by Spotware Systems. Launched in 2011, it has gained popularity among serious traders who want transparent pricing, fast execution, and advanced features.
+            cTrader is a professional-grade forex and CFD trading platform developed by Spotware Systems. Launched in 2011, it was built from the ground up for ECN/STP trading - meaning direct market access with no dealing desk intervention.
           </p>
           <p>
-            Unlike MT4 which was designed for market makers, cTrader was built from the ground up for ECN/STP trading. This means you see real market depth, get true interbank spreads, and experience no dealing desk intervention.
+            Unlike MetaTrader 4 which was originally designed for market makers, cTrader was created specifically for traders who want transparent pricing. You see real market depth with Level II pricing, get true interbank spreads, and experience fast execution without requotes.
+          </p>
+          <p>
+            cTrader includes features that MT4 requires third-party plugins for: built-in copy trading (cTrader Copy), algorithmic trading environment (cTrader Automate), and a fully-featured web platform that runs in any browser.
+          </p>
+          <p>
+            The platform is available for desktop (Windows and Mac), web browser, and mobile devices (iOS and Android). All versions share the same modern interface and feature set, so you can trade seamlessly across devices.
           </p>
 
-          <h3>Key cTrader Features</h3>
-          <ul class="feature-list">
-            <li><strong>Level II Pricing</strong> - See full depth of market with multiple liquidity levels</li>
-            <li><strong>cTrader Copy</strong> - Built-in social trading to copy successful traders</li>
-            <li><strong>cTrader Automate</strong> - Create custom indicators and cBots using C#</li>
-            <li><strong>Advanced Charting</strong> - 70+ indicators, 26 timeframes, detachable charts</li>
-            <li><strong>Quick Trade</strong> - One-click trading with smart stop loss/take profit</li>
-            <li><strong>No Requotes</strong> - Direct market execution with no dealer intervention</li>
-            <li><strong>Mobile Apps</strong> - Full-featured iOS and Android applications</li>
-            <li><strong>Web Platform</strong> - Trade from any browser without downloads</li>
-          </ul>
+          <h3>cTrader Summary</h3>
+          <p>
+            cTrader is the platform of choice for serious traders who prioritize execution quality and market transparency. The Level II pricing shows you exactly where the liquidity is, the modern interface feels intuitive from day one, and features like one-click trading speed up your workflow.
+          </p>
+          <p>
+            The main trade-off compared to MT4 is ecosystem size. While cTrader has a growing community of cBot developers and signal providers, it can't match MT4's massive library of Expert Advisors and indicators built over 18+ years. However, for traders who want ECN execution and modern features, cTrader is hard to beat.
+          </p>
         </div>
 
         <div class="content-sidebar">
@@ -201,23 +335,25 @@ const faqData = [
               <dt>Released</dt>
               <dd>2011</dd>
               <dt>Developer</dt>
-              <dd>Spotware</dd>
+              <dd>Spotware Systems</dd>
               <dt>Cost</dt>
               <dd>Free</dd>
               <dt>Best For</dt>
               <dd>ECN, Scalping</dd>
               <dt>Platforms</dt>
               <dd>Win, Mac, Web, Mobile</dd>
+              <dt>Language</dt>
+              <dd>C# (cBots)</dd>
             </dl>
           </div>
 
           <div class="cta-box">
-            <h4>Top cTrader Broker</h4>
+            <h4>Start Trading on cTrader</h4>
             <p><strong>Pepperstone</strong> offers cTrader with:</p>
             <ul>
               <li>Raw spreads from 0.0 pips</li>
               <li>FCA & ASIC regulated</li>
-              <li>cTrader Copy included</li>
+              <li>Full cTrader Copy support</li>
               <li>Fast ECN execution</li>
             </ul>
             <a href="/brokers/pepperstone" class="btn btn-primary btn-full">Visit Pepperstone</a>
@@ -227,11 +363,89 @@ const faqData = [
     </div>
   </section>
 
+  <!-- Pros and Cons -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2 text-center">Should You Use cTrader?</h2>
+      <p class="section-intro text-center">Based on expert testing and hands-on use, here's what traders think of cTrader:</p>
+
+      <div class="pros-cons-grid">
+        <div class="pros-card">
+          <h3>✅ 8 Reasons To Use cTrader</h3>
+          <ul>
+            {reasonsToUse.map((reason) => (
+              <li>{reason}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="cons-card">
+          <h3>⛔ 3 Reasons To Consider Alternatives</h3>
+          <ul>
+            {reasonsNotToUse.map((reason) => (
+              <li>{reason}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Features Table -->
+  <section class="section section--alt" id="features">
+    <div class="container">
+      <h2 class="heading-2 text-center">cTrader Key Features</h2>
+      <p class="section-intro text-center">cTrader is a feature-rich platform built for professional traders. Here's how it performs:</p>
+
+      <div class="features-table-wrapper">
+        <table class="features-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>cTrader Performance</th>
+            </tr>
+          </thead>
+          <tbody>
+            {keyFeatures.map((item) => (
+              <tr>
+                <td><span class="feature-icon">{item.icon}</span> {item.feature}</td>
+                <td>{item.performance}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Feature Cards -->
+      <div class="feature-cards">
+        <div class="feature-card">
+          <h3>cTrader Trading System</h3>
+          <p>Built for fast ECN execution with sophisticated order management:</p>
+          <ul>
+            <li>Market, limit, stop, and stop-limit orders</li>
+            <li>Trailing stops with server-side execution</li>
+            <li>One-click trading with quick SL/TP</li>
+            <li>Partial close and position management</li>
+          </ul>
+        </div>
+        <div class="feature-card">
+          <h3>cTrader Analytics</h3>
+          <p>Advanced charting and analysis tools for technical traders:</p>
+          <ul>
+            <li>70+ built-in technical indicators</li>
+            <li>26 timeframes (including tick charts)</li>
+            <li>Detachable multi-monitor charts</li>
+            <li>Drawing tools and pattern recognition</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- cTrader vs MT4 -->
   <section class="section">
     <div class="container">
       <h2 class="heading-2 text-center">cTrader vs MetaTrader 4</h2>
-      <p class="section-intro text-center">Wondering which platform to choose? Here's how they compare:</p>
+      <p class="section-intro text-center">The two most popular retail trading platforms compared side by side:</p>
 
       <div class="comparison-table-wrapper">
         <table class="comparison-table">
@@ -283,21 +497,273 @@ const faqData = [
               <td>Growing</td>
               <td class="highlight">Massive ecosystem</td>
             </tr>
+            <tr>
+              <td>Interface</td>
+              <td class="highlight">Modern, clean design</td>
+              <td>Dated but functional</td>
+            </tr>
+            <tr>
+              <td>Web Platform</td>
+              <td class="highlight">Full-featured</td>
+              <td>Basic</td>
+            </tr>
           </tbody>
         </table>
       </div>
 
       <p class="comparison-note">
-        <strong>Bottom line:</strong> Choose cTrader if you want transparent ECN pricing, advanced charting, and built-in copy trading. Choose MT4 if you need maximum broker choice and access to thousands of third-party EAs and indicators.
+        <strong>Bottom line:</strong> Choose cTrader for transparent ECN pricing, Level II market depth, modern interface, and built-in copy trading. Choose MT4 for maximum broker choice and access to thousands of third-party EAs and indicators.
       </p>
     </div>
   </section>
 
-  <!-- How to Choose -->
+  <!-- Detailed Features (Collapsible) -->
   <section class="section section--alt">
     <div class="container">
+      <h2 class="heading-2 text-center">cTrader Features In-Depth</h2>
+      <p class="section-intro text-center">Explore cTrader's key features in detail:</p>
+
+      <div class="accordion-list">
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">📊</span>
+            <span class="accordion-title">Level II Pricing (Depth of Market)</span>
+          </summary>
+          <div class="accordion-content">
+            <p>Level II pricing is one of cTrader's standout features. Unlike basic bid/ask quotes, Level II shows you the full order book - all pending buy and sell orders at different price levels.</p>
+            <p>This transparency helps you understand real market liquidity, see where large orders are sitting, and identify potential support and resistance levels based on actual order flow.</p>
+            <p>The DOM (Depth of Market) panel in cTrader displays this visually, showing order sizes at each price level. You can trade directly from the DOM by clicking price levels to place orders.</p>
+            <div class="broker-note">
+              <strong>Why it matters:</strong> With Level II, you're seeing the same information that institutional traders see. No more guessing about liquidity or market depth.
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">👥</span>
+            <span class="accordion-title">cTrader Copy (Social Trading)</span>
+          </summary>
+          <div class="accordion-content">
+            <p>cTrader Copy is the built-in social trading system that lets you automatically replicate trades from successful strategy providers. It's fully integrated into the platform - no third-party plugins required.</p>
+            <p>As a copier, you can browse strategy providers, view their detailed performance statistics (win rate, drawdown, profit factor), and allocate funds to copy their trades automatically. You control your risk with equity-based position sizing.</p>
+            <p>As a strategy provider, you can share your trading strategies and earn commissions when others copy you. cTrader handles all the tracking and attribution automatically.</p>
+            <div class="broker-note">
+              <strong>Broker Tip:</strong> <a href="/brokers/pepperstone">Pepperstone</a> and <a href="/brokers/ic-markets">IC Markets</a> offer full cTrader Copy support with a good selection of strategy providers.
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">🤖</span>
+            <span class="accordion-title">cTrader Automate (cBots & Custom Indicators)</span>
+          </summary>
+          <div class="accordion-content">
+            <p>cTrader Automate (formerly known as cAlgo) is the algorithmic trading environment that lets you create custom indicators and automated trading robots (cBots).</p>
+            <p>Unlike MT4's MQL4, cTrader Automate uses C# - a powerful, modern programming language. This gives you access to the full .NET framework, meaning you can integrate with databases, web APIs, and other systems that would be difficult in MQL4.</p>
+            <p>cTrader includes a built-in code editor with IntelliSense, debugging tools, and backtesting capabilities. You can also download pre-built cBots from the cTrader community.</p>
+            <p><strong>Key capabilities:</strong></p>
+            <ul>
+              <li>Create custom indicators and cBots using C#</li>
+              <li>Full .NET framework access for advanced integrations</li>
+              <li>Built-in backtester with optimization</li>
+              <li>Access to market data, account info, and order management APIs</li>
+            </ul>
+            <div class="broker-note">
+              <strong>Learning curve:</strong> If you know any C-style language (C#, Java, JavaScript), you'll pick up cBot development quickly. The <a href="https://ctrader.com/ctrader-automate/guides" target="_blank" rel="noopener">official cTrader Automate documentation</a> is excellent.
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">🌐</span>
+            <span class="accordion-title">cTrader Web (Browser Trading)</span>
+          </summary>
+          <div class="accordion-content">
+            <p>cTrader Web is a full-featured trading platform that runs entirely in your web browser. No downloads, no installations - just log in and trade from any computer.</p>
+            <p>Unlike some web platforms that sacrifice features, cTrader Web includes nearly everything from the desktop version: full charting, technical indicators, one-click trading, and even basic automation.</p>
+            <p>This makes cTrader Web perfect for Mac users (who don't need Wine or workarounds), traders on shared computers, or anyone who wants to check positions from a friend's laptop.</p>
+            <p><strong>What cTrader Web includes:</strong></p>
+            <ul>
+              <li>Full charting with 70+ indicators</li>
+              <li>All order types and position management</li>
+              <li>Level II pricing and depth of market</li>
+              <li>cTrader Copy access</li>
+              <li>Works on Chrome, Firefox, Safari, Edge</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">📱</span>
+            <span class="accordion-title">cTrader Mobile (iOS & Android)</span>
+          </summary>
+          <div class="accordion-content">
+            <p>cTrader Mobile apps for iOS and Android bring the full trading experience to your phone or tablet. These aren't watered-down versions - they include full charting, indicators, and order management.</p>
+            <p>The mobile apps share your cTrader ID login, so your watchlists, chart templates, and preferences sync across all devices. Place a trade on your phone and it shows up instantly on your desktop.</p>
+            <p><strong>Mobile app features:</strong></p>
+            <ul>
+              <li>Full charting with multiple timeframes</li>
+              <li>All indicator types</li>
+              <li>One-tap trading</li>
+              <li>Push notifications for price alerts and orders</li>
+              <li>Touch ID / Face ID authentication</li>
+            </ul>
+            <p>Download cTrader Mobile from the <a href="https://apps.apple.com/app/ctrader/id767428811" target="_blank" rel="noopener">App Store</a> or <a href="https://play.google.com/store/apps/details?id=com.spotware.ct" target="_blank" rel="noopener">Google Play</a>.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">⚡</span>
+            <span class="accordion-title">Quick Trade & One-Click Trading</span>
+          </summary>
+          <div class="accordion-content">
+            <p>cTrader's Quick Trade feature lets you place orders with a single click, no confirmation dialogs. This is essential for scalpers and active traders where every millisecond counts.</p>
+            <p>The Quick Trade panel shows buttons for instant market orders with pre-set lot sizes. You can also set default stop loss and take profit levels that apply automatically to every order.</p>
+            <p>Even faster: enable chart trading to place orders by clicking directly on the chart at your desired price level. cTrader draws your pending orders as lines you can drag to adjust.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">📈</span>
+            <span class="accordion-title">Advanced Charting</span>
+          </summary>
+          <div class="accordion-content">
+            <p>cTrader offers professional-grade charting with 70+ built-in indicators, 26 timeframes (from tick charts to monthly), and fully detachable chart windows for multi-monitor setups.</p>
+            <p>Chart types include candlesticks, bars, lines, Heikin-Ashi, and Renko. You can overlay multiple symbols on one chart for correlation analysis.</p>
+            <p><strong>Charting highlights:</strong></p>
+            <ul>
+              <li>26 timeframes (including tick charts)</li>
+              <li>Detachable charts for multi-monitor</li>
+              <li>Chart templates and workspaces</li>
+              <li>50+ drawing tools</li>
+              <li>Price alerts on any level</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Section -->
+  <section class="section" id="download">
+    <div class="container">
+      <h2 class="heading-2 text-center">Download cTrader</h2>
+      <p class="section-intro text-center">cTrader is free to download and use. Choose your platform:</p>
+
+      <div class="download-grid">
+        <a href="https://getctrader.com/ctrader/ctrader-setup.exe" target="_blank" rel="noopener" class="download-card">
+          <span class="download-icon">🖥️</span>
+          <h3>cTrader for Windows</h3>
+          <p>Full desktop experience with all features</p>
+          <span class="download-btn">Download for Windows →</span>
+        </a>
+        <a href="https://ctrader.com/web/" target="_blank" rel="noopener" class="download-card">
+          <span class="download-icon">🌐</span>
+          <h3>cTrader Web</h3>
+          <p>Trade in any browser - no download needed</p>
+          <span class="download-btn">Open cTrader Web →</span>
+        </a>
+        <a href="https://apps.apple.com/app/ctrader/id767428811" target="_blank" rel="noopener" class="download-card">
+          <span class="download-icon">🍎</span>
+          <h3>cTrader for iOS</h3>
+          <p>iPhone and iPad app</p>
+          <span class="download-btn">Download for iOS →</span>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=com.spotware.ct" target="_blank" rel="noopener" class="download-card">
+          <span class="download-icon">🤖</span>
+          <h3>cTrader for Android</h3>
+          <p>Android phones and tablets</p>
+          <span class="download-btn">Download for Android →</span>
+        </a>
+      </div>
+
+      <div class="broker-note broker-note--center">
+        <strong>Recommended:</strong> Download cTrader directly from your broker for a pre-configured installation. <a href="/brokers/pepperstone">Pepperstone</a> and <a href="/brokers/ic-markets">IC Markets</a> provide installers that connect automatically to their servers.
+      </div>
+
+      <div class="system-requirements">
+        <h3>System Requirements</h3>
+        <ul>
+          <li><strong>Windows:</strong> Windows 7 or later, .NET Framework 4.5, 50MB disk space</li>
+          <li><strong>Mac:</strong> Use cTrader Web (browser) or native Mac version from broker</li>
+          <li><strong>iOS:</strong> iOS 13.0 or later</li>
+          <li><strong>Android:</strong> Android 6.0 or later</li>
+          <li><strong>Web:</strong> Chrome, Firefox, Safari, Edge (latest versions)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Getting Started Guide -->
+  <section class="section section--alt" id="getting-started">
+    <div class="container">
+      <h2 class="heading-2 text-center">Getting Started with cTrader</h2>
+      <p class="section-intro text-center">Follow these 5 steps to start trading on cTrader:</p>
+
+      <div class="steps-timeline">
+        {gettingStartedSteps.map((step, index) => (
+          <div class="timeline-step">
+            <div class="step-number">{index + 1}</div>
+            <div class="step-content">
+              <h3 class="step-title">{step.title}</h3>
+              <p class="step-description">{step.content}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="broker-note broker-note--center">
+        <strong>Ready to start?</strong> Open an account with <a href="/brokers/pepperstone">Pepperstone</a> for the best cTrader experience, or compare all <a href="/platforms/ctrader">cTrader brokers</a>.
+      </div>
+    </div>
+  </section>
+
+  <!-- Keyboard Shortcuts -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2 text-center">cTrader Keyboard Shortcuts</h2>
+      <p class="section-intro text-center">Speed up your trading with these essential cTrader shortcuts:</p>
+
+      <div class="shortcuts-grid">
+        {keyboardShortcuts.map((shortcut) => (
+          <div class="shortcut-item">
+            <kbd class="shortcut-keys">{shortcut.keys}</kbd>
+            <span class="shortcut-action">{shortcut.action}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards Section -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2 text-center">cTrader Awards & Recognition</h2>
+      <p class="section-intro text-center">cTrader has won multiple industry awards for its platform innovation:</p>
+
+      <div class="awards-grid">
+        {awards.map((award) => (
+          <div class="award-card">
+            <span class="award-year">{award.year}</span>
+            <h3 class="award-title">{award.award}</h3>
+            <p class="award-org">{award.org}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Choose -->
+  <section class="section">
+    <div class="container">
       <h2 class="heading-2 text-center">How to Choose a cTrader Broker</h2>
-      <p class="section-intro text-center">What to look for when selecting a cTrader broker:</p>
+      <p class="section-intro text-center">Not all cTrader brokers are equal. Here's what to look for:</p>
 
       <div class="criteria-grid">
         <div class="criteria-card">
@@ -325,20 +791,20 @@ const faqData = [
   </section>
 
   <!-- FAQ Section -->
-  <section class="section" id="faq">
+  <section class="section section--alt" id="faq">
     <div class="container">
       <h2 class="heading-2 text-center">cTrader FAQ</h2>
 
       <div class="faq-container">
-        {faqData.map((faq, index) => (
-          <div class="faq-item">
-            <button class="faq-question" data-faq-index={index}>
+        {faqData.map((faq) => (
+          <details class="faq-item">
+            <summary class="faq-question">
               {faq.question}
-            </button>
+            </summary>
             <div class="faq-answer">
               {faq.answer}
             </div>
-          </div>
+          </details>
         ))}
       </div>
     </div>
@@ -348,7 +814,7 @@ const faqData = [
   <section class="section final-cta">
     <div class="container text-center">
       <h2 class="heading-2">Ready to Trade on cTrader?</h2>
-      <p class="body-large">Experience ECN trading with raw spreads and Level II pricing.</p>
+      <p class="body-large">Experience true ECN trading with raw spreads, Level II pricing, and built-in copy trading. cTrader is free to download and use.</p>
       <div class="cta-buttons">
         <a href="/brokers/pepperstone" class="btn btn-primary btn-lg">Visit Pepperstone</a>
         <a href="/brokers" class="btn btn-secondary btn-lg">Compare All Brokers</a>
@@ -356,19 +822,6 @@ const faqData = [
     </div>
   </section>
 </BaseLayout>
-
-<script is:inline>
-document.querySelectorAll('.faq-question').forEach(button => {
-  button.addEventListener('click', () => {
-    const item = button.parentElement;
-    const isActive = item.classList.contains('active');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-    if (!isActive) {
-      item.classList.add('active');
-    }
-  });
-});
-</script>
 
 <style>
   .ctrader-hero {
@@ -391,11 +844,13 @@ document.querySelectorAll('.faq-question').forEach(button => {
 
   .ctrader-hero .heading-1 {
     color: white;
+    max-width: 900px;
+    margin: 0 auto var(--space-md);
   }
 
   .ctrader-hero-sub {
     color: rgba(255, 255, 255, 0.8);
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto var(--space-xl);
   }
 
@@ -422,11 +877,74 @@ document.querySelectorAll('.faq-question').forEach(button => {
     color: rgba(255, 255, 255, 0.6);
   }
 
+  /* Anchor Navigation */
+  .anchor-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: var(--space-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .anchor-links {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .anchor-link {
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+  }
+
+  .anchor-link:hover {
+    color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.1);
+  }
+
+  /* Broker Callout */
+  .broker-callout {
+    background: linear-gradient(135deg, #1a2028 0%, #0f1419 100%);
+    padding: var(--space-lg) 0;
+  }
+
+  .callout-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .callout-text h3 {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-xs);
+  }
+
+  .callout-text p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+  }
+
   /* Broker List */
   .section-intro {
     color: var(--gray-600);
     margin-bottom: var(--space-xl);
-    max-width: 600px;
+    max-width: 700px;
+  }
+
+  .text-center .section-intro,
+  .section-intro.text-center {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .broker-list {
@@ -577,17 +1095,6 @@ document.querySelectorAll('.faq-question').forEach(button => {
     margin-bottom: var(--space-md);
   }
 
-  .feature-list {
-    list-style: none;
-    padding: 0;
-  }
-
-  .feature-list li {
-    padding: var(--space-sm) 0;
-    border-bottom: 1px solid var(--gray-100);
-    color: var(--gray-700);
-  }
-
   .quick-facts {
     background: white;
     border: 1px solid var(--gray-200);
@@ -651,6 +1158,136 @@ document.querySelectorAll('.faq-question').forEach(button => {
     color: var(--success);
   }
 
+  /* Pros and Cons */
+  .pros-cons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+  }
+
+  .pros-card,
+  .cons-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    border: 1px solid var(--gray-200);
+  }
+
+  .pros-card {
+    border-top: 4px solid var(--success);
+  }
+
+  .cons-card {
+    border-top: 4px solid var(--error);
+  }
+
+  .pros-card h3,
+  .cons-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .pros-card ul,
+  .cons-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pros-card li,
+  .cons-card li {
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+    line-height: 1.5;
+  }
+
+  .pros-card li:last-child,
+  .cons-card li:last-child {
+    border-bottom: none;
+  }
+
+  /* Features Table */
+  .features-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: var(--space-xl);
+  }
+
+  .features-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .features-table th,
+  .features-table td {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .features-table th {
+    background: var(--charcoal);
+    color: white;
+    font-weight: 600;
+  }
+
+  .features-table td {
+    color: var(--gray-700);
+  }
+
+  .features-table tr:hover td {
+    background: var(--gray-50);
+  }
+
+  .feature-icon {
+    margin-right: var(--space-sm);
+  }
+
+  .feature-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+  }
+
+  .feature-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  .feature-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+    color: var(--charcoal);
+  }
+
+  .feature-card p {
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
+
+  .feature-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .feature-card li {
+    padding: var(--space-xs) 0;
+    color: var(--gray-700);
+  }
+
+  .feature-card li::before {
+    content: '✓ ';
+    color: var(--success);
+  }
+
   /* Comparison Table */
   .comparison-table-wrapper {
     overflow-x: auto;
@@ -698,6 +1335,305 @@ document.querySelectorAll('.faq-question').forEach(button => {
     border-radius: var(--radius-lg);
   }
 
+  /* Accordion */
+  .accordion-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .accordion-item {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+    overflow: hidden;
+  }
+
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--charcoal);
+    list-style: none;
+  }
+
+  .accordion-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .accordion-header::after {
+    content: '+';
+    margin-left: auto;
+    font-size: var(--font-size-xl);
+    color: var(--brand-orange);
+    transition: transform 0.2s;
+  }
+
+  .accordion-item[open] .accordion-header::after {
+    transform: rotate(45deg);
+  }
+
+  .accordion-icon {
+    font-size: var(--font-size-xl);
+  }
+
+  .accordion-content {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--gray-700);
+    line-height: 1.7;
+  }
+
+  .accordion-content p {
+    margin-bottom: var(--space-md);
+  }
+
+  .accordion-content ul {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-md) 0;
+  }
+
+  .accordion-content li {
+    padding: var(--space-xs) 0;
+    color: var(--gray-700);
+  }
+
+  .accordion-content li::before {
+    content: '✓ ';
+    color: var(--success);
+  }
+
+  .broker-note {
+    background: rgba(255, 72, 0, 0.1);
+    border-left: 4px solid var(--brand-orange);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-md);
+    font-size: var(--font-size-sm);
+  }
+
+  .broker-note a {
+    color: var(--brand-orange);
+    font-weight: 600;
+  }
+
+  .broker-note--center {
+    max-width: 700px;
+    margin: var(--space-xl) auto 0;
+    text-align: center;
+    border-left: none;
+    border-top: 4px solid var(--brand-orange);
+  }
+
+  /* Download Grid */
+  .download-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .download-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .download-card:hover {
+    border-color: var(--brand-orange);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.1);
+  }
+
+  .download-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .download-card h3 {
+    font-size: var(--font-size-lg);
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .download-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .download-btn {
+    color: var(--brand-orange);
+    font-weight: 600;
+  }
+
+  .system-requirements {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .system-requirements h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+    text-align: center;
+  }
+
+  .system-requirements ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .system-requirements li {
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+  }
+
+  .system-requirements li:last-child {
+    border-bottom: none;
+  }
+
+  /* Steps Timeline */
+  .steps-timeline {
+    max-width: 700px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .timeline-step {
+    display: flex;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    position: relative;
+  }
+
+  .timeline-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 48px;
+    bottom: -16px;
+    width: 2px;
+    background: var(--gray-200);
+  }
+
+  .timeline-step .step-number {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    background: var(--brand-orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+  }
+
+  .step-content {
+    flex: 1;
+    padding-top: var(--space-xs);
+  }
+
+  .step-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .step-description {
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+
+  /* Shortcuts Grid */
+  .shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--space-md);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .shortcut-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    background: white;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-200);
+  }
+
+  .shortcut-keys {
+    background: var(--charcoal);
+    color: white;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-family: monospace;
+    font-size: var(--font-size-sm);
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .shortcut-action {
+    color: var(--gray-700);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Awards Grid */
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-lg);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .award-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+  }
+
+  .award-year {
+    display: inline-block;
+    background: var(--brand-orange);
+    color: white;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .award-title {
+    font-size: var(--font-size-md);
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .award-org {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+    margin: 0;
+  }
+
   /* Criteria Grid */
   .criteria-grid {
     display: grid;
@@ -734,6 +1670,52 @@ document.querySelectorAll('.faq-question').forEach(button => {
     line-height: 1.6;
   }
 
+  /* FAQ */
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--charcoal);
+    list-style: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question::after {
+    content: '+';
+    font-size: var(--font-size-xl);
+    color: var(--brand-orange);
+    transition: transform 0.2s;
+  }
+
+  .faq-item[open] .faq-question::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--gray-700);
+    line-height: 1.7;
+  }
+
   /* Final CTA */
   .final-cta {
     background: linear-gradient(135deg, var(--charcoal) 0%, #1a2028 100%);
@@ -747,6 +1729,9 @@ document.querySelectorAll('.faq-question').forEach(button => {
   .final-cta .body-large {
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: var(--space-xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .cta-buttons {
@@ -766,6 +1751,18 @@ document.querySelectorAll('.faq-question').forEach(button => {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: var(--space-lg);
+    }
+
+    .pros-cons-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .download-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
@@ -794,6 +1791,29 @@ document.querySelectorAll('.faq-question').forEach(button => {
     .broker-card-actions {
       flex-direction: row;
       justify-content: center;
+    }
+
+    .callout-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .anchor-links {
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding-bottom: var(--space-sm);
+    }
+
+    .timeline-step {
+      flex-direction: column;
+    }
+
+    .timeline-step:not(:last-child)::before {
+      display: none;
+    }
+
+    .download-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
