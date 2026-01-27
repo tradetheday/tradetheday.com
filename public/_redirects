@@ -1,12 +1,24 @@
 # TradeTheDay 301 Redirects
 # Format: /old-path /new-path 301
+# NOTE: Cloudflare Pages free tier only processes first 100 rules!
 
 # ============================================
-# TRAILING SLASH NORMALIZATION
-# Strip trailing slashes from all URLs (Cloudflare Pages)
+# PRIORITY REDIRECTS (must be in first 100 rules)
 # ============================================
-# Note: Cloudflare Pages automatically handles this when
-# trailingSlash: 'never' is set in astro.config.mjs
+
+# Platform redirects (old non-hyphen to hyphenated)
+/platforms/metatrader4 /platforms/metatrader-4 301
+/platforms/metatrader5 /platforms/metatrader-5 301
+/platform/metatrader4 /platforms/metatrader-4 301
+/metatrader4 /platforms/metatrader-4 301
+/metatrader5 /platforms/metatrader-5 301
+
+# Geo-targeted pages
+/best-forex-brokers-south-africa /south-africa 301
+/best-forex-brokers-uk /uk 301
+/best-forex-brokers-united-kingdom /uk 301
+/best-forex-brokers-australia /australia 301
+/best-forex-brokers-canada /canada 301
 
 # ============================================
 # BROKER REDIRECTS (old /broker/ to /brokers/)
@@ -176,19 +188,7 @@
 /trading-platforms/* /platforms/:splat 301
 /trading-platforms /platforms 301
 
-# Old non-hyphen URLs to new hyphenated URLs
-/platform/metatrader4* /platforms/metatrader-4 301
-/platform/metatrader4 /platforms/metatrader-4 301
-/platforms/metatrader4 /platforms/metatrader-4 301
-/platforms/metatrader4/* /platforms/metatrader-4 301
-/platforms/metatrader4.html /platforms/metatrader-4 301
-/platforms/metatrader5 /platforms/metatrader-5 301
-/platforms/metatrader5/* /platforms/metatrader-5 301
-/platforms/metatrader5.html /platforms/metatrader-5 301
-/metatrader4* /platforms/metatrader-4 301
-/metatrader4 /platforms/metatrader-4 301
-/metatrader5* /platforms/metatrader-5 301
-/metatrader5 /platforms/metatrader-5 301
+# Additional platform redirects (duplicates removed - see priority section)
 /platforms/spectre /platforms 301
 /platforms/spectre/* /platforms 301
 /platforms/vps /platforms 301
@@ -469,28 +469,11 @@
 /privacy-policy/*  301
 
 # ============================================
-# GEO-TARGETED BROKER PAGES
+# GEO-TARGETED BROKER PAGES (additional rules)
+# Main redirects are in priority section at top
 # ============================================
-
-# South Africa
-/best-forex-brokers-south-africa /south-africa 301
-/best-forex-brokers-south-africa/* /south-africa 301
 /za /south-africa 301
-
-# United Kingdom
-/best-forex-brokers-uk /uk 301
-/best-forex-brokers-united-kingdom /uk 301
-/best-forex-brokers-uk/* /uk 301
-/best-forex-brokers-united-kingdom/* /uk 301
-
-# Australia
-/best-forex-brokers-australia /australia 301
-/best-forex-brokers-australia/* /australia 301
 /au /australia 301
-
-# Canada
-/best-forex-brokers-canada /canada 301
-/best-forex-brokers-canada/* /canada 301
 /ca /canada 301
 
 # ============================================
