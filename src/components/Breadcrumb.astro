@@ -23,7 +23,12 @@ const breadcrumbJsonLd = {
     if (item.href) {
       itemUrl = item.href.startsWith('/') ? `${baseUrl}${item.href}` : item.href;
     } else if (item.current) {
-      itemUrl = currentUrl.startsWith('/') ? `${baseUrl}${currentUrl}` : currentUrl;
+      // For current page, use clean URL without .html
+      let cleanPath = currentUrl;
+      if (cleanPath.endsWith('.html')) {
+        cleanPath = cleanPath.slice(0, -5);
+      }
+      itemUrl = cleanPath.startsWith('/') ? `${baseUrl}${cleanPath}` : cleanPath;
     } else {
       itemUrl = baseUrl;
     }
@@ -33,12 +38,11 @@ const breadcrumbJsonLd = {
       itemUrl = itemUrl.slice(0, -1);
     }
 
+    // Google's recommended BreadcrumbList format
     return {
       "@type": "ListItem",
       "position": index + 1,
-      "name": item.text,
       "item": {
-        "@type": "WebPage",
         "@id": itemUrl,
         "name": item.text
       }
