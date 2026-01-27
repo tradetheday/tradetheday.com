@@ -825,9 +825,169 @@
 }
 
 /* ==========================================================================
-   UK SECTION
+   REGIONAL/COUNTRY SECTION - Multi-Country Dropdown
    ========================================================================== */
 
+.regional-section {
+  padding: var(--space-4xl) 0;
+  background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+  color: white;
+}
+
+/* Country Selector Dropdown */
+.country-selector {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.selector-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: var(--space-sm);
+}
+
+.selector-wrapper {
+  position: relative;
+  display: inline-block;
+  min-width: 280px;
+}
+
+.country-dropdown {
+  width: 100%;
+  padding: var(--space-md) var(--space-xl);
+  padding-right: 48px;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  appearance: none;
+  transition: all 0.2s ease;
+}
+
+.country-dropdown:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.country-dropdown:focus {
+  outline: none;
+  border-color: var(--brand-orange);
+  box-shadow: 0 0 0 3px rgba(255, 72, 0, 0.2);
+}
+
+.country-dropdown option {
+  background: #1a2028;
+  color: white;
+  padding: var(--space-sm);
+}
+
+.selector-arrow {
+  position: absolute;
+  right: var(--space-lg);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--brand-orange);
+  pointer-events: none;
+  font-size: var(--font-size-sm);
+}
+
+/* Country Panels - All rendered, visibility toggled */
+.country-panel {
+  display: none;
+}
+
+.country-panel.active {
+  display: block;
+}
+
+.country-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-2xl);
+}
+
+.country-flag {
+  font-size: 2.5rem;
+}
+
+.regional-section .section-title {
+  color: white;
+}
+
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-xl);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.country-info, .country-bonus-table {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+}
+
+.country-info h3, .country-bonus-table h3 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.country-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.country-benefits li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.country-benefits li:last-child {
+  border-bottom: none;
+}
+
+.check {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.country-tiers {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.country-tier {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+}
+
+.country-deposit {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.country-bonus {
+  font-weight: 700;
+  color: var(--brand-orange);
+}
+
+/* Legacy UK classes for backwards compatibility */
 .uk-section {
   padding: var(--space-4xl) 0;
   background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
@@ -885,11 +1045,6 @@
 
 .uk-benefits li:last-child {
   border-bottom: none;
-}
-
-.check {
-  color: var(--success);
-  font-weight: 700;
 }
 
 .uk-tiers {

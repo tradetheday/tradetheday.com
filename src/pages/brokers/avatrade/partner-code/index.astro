@@ -37,13 +37,383 @@ const bonusData = [
   { deposit: '$100,000+', bonus: 'Up to $14,000', popular: false }
 ];
 
-const ukBonusData = [
-  { deposit: '£800 - £1,599', bonus: '£160' },
-  { deposit: '£1,600 - £2,399', bonus: '£320' },
-  { deposit: '£2,400 - £3,999', bonus: '£480' },
-  { deposit: '£4,000 - £7,999', bonus: '£800' },
-  { deposit: '£8,000+', bonus: 'Up to £11,200' }
-];
+// Country-specific data for regional bonus tiers
+const countryData = {
+  uk: {
+    code: 'uk',
+    name: 'United Kingdom',
+    flag: '🇬🇧',
+    currency: 'GBP',
+    currencySymbol: '£',
+    regulator: 'FCA',
+    regulatorFull: 'Financial Conduct Authority',
+    regNumber: '583263',
+    protection: '£85,000',
+    protectionScheme: 'FSCS',
+    leverage: '1:30',
+    bonusTiers: [
+      { deposit: '£800 - £1,599', bonus: '£160' },
+      { deposit: '£1,600 - £2,399', bonus: '£320' },
+      { deposit: '£2,400 - £3,999', bonus: '£480' },
+      { deposit: '£4,000 - £7,999', bonus: '£800' },
+      { deposit: '£8,000+', bonus: 'Up to £11,200' }
+    ],
+    benefits: [
+      { text: 'FCA Authorised (Reg: 583263)', check: true },
+      { text: 'FSCS Protection up to £85,000', check: true },
+      { text: 'Segregated Client Funds', check: true },
+      { text: 'Negative Balance Protection', check: true },
+      { text: 'GBP Account Available', check: true }
+    ],
+    considerations: {
+      title: 'What UK Traders Should Know About AvaTrade',
+      intro: 'Trading from the UK comes with specific regulatory protections that affect how you interact with AvaTrade and the partner code bonus. Here\'s our detailed analysis for UK-based traders considering code 128979.',
+      sections: [
+        {
+          heading: 'FCA Regulation Explained',
+          content: 'AvaTrade EU Ltd operates in the UK under FCA authorization (Reference: 583263). This means they must comply with strict Financial Conduct Authority rules including client fund segregation, negative balance protection, and leverage limits (max 1:30 for retail forex). The FCA is considered one of the world\'s most rigorous financial regulators - AvaTrade\'s FCA status provides genuine protection.'
+        },
+        {
+          heading: 'FSCS Protection for UK Clients',
+          content: 'The Financial Services Compensation Scheme (FSCS) protects eligible UK clients up to £85,000 if AvaTrade were to fail. This is real insurance - not a marketing claim. Your deposited funds are segregated from AvaTrade\'s operational capital and held in designated client money accounts. Combined with negative balance protection, UK traders have multiple layers of security.'
+        },
+        {
+          heading: 'GBP Accounts: Avoiding Currency Conversion',
+          content: 'UK traders should strongly consider opening a GBP-denominated account. If you trade in GBP pairs (GBP/USD, EUR/GBP), using a GBP base currency eliminates conversion costs on deposits, withdrawals, and profit/loss calculations. The partner code 128979 works the same regardless of your account currency.'
+        },
+        {
+          heading: 'UK Bonus Regulations',
+          content: 'Unlike some jurisdictions, the UK allows trading bonuses under FCA rules (unlike ESMA-regulated EU brokers which banned bonuses). UK traders can fully benefit from the welcome bonus tiers using partner code 128979. The GBP amounts shown above are approximate conversions - your exact bonus will be calculated at current exchange rates when you deposit.'
+        },
+        {
+          heading: 'Tax Considerations',
+          content: 'Trading profits in the UK are generally subject to Capital Gains Tax (CGT), though spread betting profits (which AvaTrade also offers) are currently tax-free. This isn\'t financial advice - consult a tax professional about your specific situation. The welcome bonus itself isn\'t taxable income until you realize profits from trading with it.'
+        }
+      ]
+    }
+  },
+  australia: {
+    code: 'australia',
+    name: 'Australia',
+    flag: '🇦🇺',
+    currency: 'AUD',
+    currencySymbol: 'A$',
+    regulator: 'ASIC',
+    regulatorFull: 'Australian Securities & Investments Commission',
+    regNumber: '406684',
+    protection: 'Client Money Rules',
+    protectionScheme: 'ASIC Client Money',
+    leverage: '1:30',
+    bonusTiers: [
+      { deposit: 'A$1,500 - A$2,999', bonus: 'A$300' },
+      { deposit: 'A$3,000 - A$4,499', bonus: 'A$600' },
+      { deposit: 'A$4,500 - A$7,499', bonus: 'A$900' },
+      { deposit: 'A$7,500 - A$14,999', bonus: 'A$1,500' },
+      { deposit: 'A$15,000+', bonus: 'Up to A$21,000' }
+    ],
+    benefits: [
+      { text: 'ASIC Regulated (AFSL: 406684)', check: true },
+      { text: 'Segregated Client Funds', check: true },
+      { text: 'Negative Balance Protection', check: true },
+      { text: 'AUD Account Available', check: true },
+      { text: 'Local AU Support Team', check: true }
+    ],
+    considerations: {
+      title: 'What Australian Traders Should Know About AvaTrade',
+      intro: 'Trading from Australia means you\'re protected by some of the world\'s strictest financial regulations. Here\'s what Aussie traders need to know about using partner code 128979.',
+      sections: [
+        {
+          heading: 'ASIC Regulation Explained',
+          content: 'AvaTrade Australia Pty Ltd holds an Australian Financial Services Licence (AFSL 406684) issued by ASIC. This requires AvaTrade to maintain client money in segregated trust accounts with major Australian banks, comply with strict capital adequacy requirements, and follow responsible lending practices.'
+        },
+        {
+          heading: 'Product Intervention Order',
+          content: 'Following ASIC\'s 2021 Product Intervention Order, retail leverage is capped at 1:30 for major forex pairs and 1:2 for crypto. This protects Australian retail traders from excessive risk. Professional traders may qualify for higher leverage with appropriate applications.'
+        },
+        {
+          heading: 'AUD Accounts: No Conversion Fees',
+          content: 'Australian traders should open an AUD-denominated account. Trading AUD pairs (AUD/USD, AUD/JPY) with an AUD base currency means no conversion costs. Your deposits, withdrawals, and P&L calculations stay in Australian dollars.'
+        },
+        {
+          heading: 'Australian Tax Implications',
+          content: 'CFD trading profits in Australia are generally assessable income and taxed at your marginal rate. Unlike the UK, there\'s no spread betting exemption. Keep detailed records of all trades for tax purposes. The welcome bonus becomes assessable when withdrawn as profit.'
+        },
+        {
+          heading: 'Bonus Availability',
+          content: 'Australian traders can access the full welcome bonus program using partner code 128979. ASIC regulations don\'t prohibit trading bonuses like EU regulators do. The AUD bonus tiers shown are approximate - exact amounts calculated at current exchange rates.'
+        }
+      ]
+    }
+  },
+  canada: {
+    code: 'canada',
+    name: 'Canada',
+    flag: '🇨🇦',
+    currency: 'CAD',
+    currencySymbol: 'C$',
+    regulator: 'IIROC',
+    regulatorFull: 'Investment Industry Regulatory Organization of Canada',
+    regNumber: 'Friedberg Direct',
+    protection: 'C$1,000,000',
+    protectionScheme: 'CIPF',
+    leverage: '1:50',
+    bonusTiers: [
+      { deposit: 'C$1,400 - C$2,799', bonus: 'C$280' },
+      { deposit: 'C$2,800 - C$4,199', bonus: 'C$560' },
+      { deposit: 'C$4,200 - C$6,999', bonus: 'C$840' },
+      { deposit: 'C$7,000 - C$13,999', bonus: 'C$1,400' },
+      { deposit: 'C$14,000+', bonus: 'Up to C$19,600' }
+    ],
+    benefits: [
+      { text: 'IIROC Regulated (via Friedberg)', check: true },
+      { text: 'CIPF Protection up to C$1M', check: true },
+      { text: 'Segregated Client Funds', check: true },
+      { text: 'CAD Account Available', check: true },
+      { text: 'Canadian Payment Methods', check: true }
+    ],
+    considerations: {
+      title: 'What Canadian Traders Should Know About AvaTrade',
+      intro: 'Canadian traders access AvaTrade through Friedberg Direct, providing IIROC regulation and CIPF protection. Here\'s what you need to know about trading with partner code 128979 from Canada.',
+      sections: [
+        {
+          heading: 'IIROC Regulation via Friedberg',
+          content: 'Canadian clients trade through Friedberg Direct (a division of Friedberg Mercantile Group Ltd.), which is regulated by IIROC and a member of CIPF. AvaTrade provides the trading platform and technology while Friedberg handles the regulatory compliance for Canadian residents.'
+        },
+        {
+          heading: 'CIPF Protection',
+          content: 'The Canadian Investor Protection Fund (CIPF) protects eligible accounts up to C$1,000,000 per account type. This is one of the highest protection levels globally - significantly higher than UK or Australian schemes. Your funds are well-protected under Canadian regulations.'
+        },
+        {
+          heading: 'CAD Accounts Recommended',
+          content: 'Canadian traders should strongly consider opening a CAD-denominated account. This eliminates conversion costs when funding your account from Canadian bank accounts and when trading CAD pairs like USD/CAD.'
+        },
+        {
+          heading: 'Provincial Regulations',
+          content: 'CFD and forex trading regulations can vary by province. Quebec residents may face additional restrictions. AvaTrade/Friedberg services are available to residents of most Canadian provinces, but check your specific provincial requirements.'
+        },
+        {
+          heading: 'Tax Considerations',
+          content: 'Trading profits in Canada are generally treated as either business income (fully taxable) or capital gains (50% taxable), depending on your trading frequency and intent. The CRA looks at factors like frequency, holding period, and trading knowledge. Consult a Canadian tax professional for your situation.'
+        }
+      ]
+    }
+  },
+  germany: {
+    code: 'germany',
+    name: 'Germany',
+    flag: '🇩🇪',
+    currency: 'EUR',
+    currencySymbol: '€',
+    regulator: 'BaFin',
+    regulatorFull: 'Federal Financial Supervisory Authority',
+    regNumber: 'CySEC 347/17',
+    protection: '€20,000',
+    protectionScheme: 'ICF',
+    leverage: '1:30',
+    bonusTiers: [
+      { deposit: '€900 - €1,799', bonus: '€180' },
+      { deposit: '€1,800 - €2,699', bonus: '€360' },
+      { deposit: '€2,700 - €4,499', bonus: '€540' },
+      { deposit: '€4,500 - €8,999', bonus: '€900' },
+      { deposit: '€9,000+', bonus: 'Up to €12,600' }
+    ],
+    benefits: [
+      { text: 'BaFin Registered / CySEC Regulated', check: true },
+      { text: 'ICF Protection up to €20,000', check: true },
+      { text: 'Segregated Client Funds', check: true },
+      { text: 'Negative Balance Protection', check: true },
+      { text: 'EUR Account Available', check: true }
+    ],
+    considerations: {
+      title: 'Was deutsche Trader über AvaTrade wissen sollten',
+      intro: 'Deutsche Trader unterliegen den strengen EU/ESMA-Vorschriften. Hier erfahren Sie, was bei der Nutzung des Partner-Codes 128979 zu beachten ist.',
+      sections: [
+        {
+          heading: 'Regulierung in Deutschland',
+          content: 'AvaTrade bedient deutsche Kunden über die AvaTrade EU Ltd, die von der CySEC (Zypern) reguliert wird und bei der BaFin registriert ist. Dies bedeutet volle MiFID II-Konformität und Zugang zum europäischen Passporting-System.'
+        },
+        {
+          heading: 'ESMA Bonus-Einschränkungen',
+          content: 'WICHTIG: Aufgrund der ESMA-Vorschriften sind Trading-Boni für EU-Privatanleger seit 2018 verboten. Deutsche Trader können den Partner-Code 128979 verwenden, aber der Willkommensbonus ist möglicherweise nicht verfügbar. Kontaktieren Sie den AvaTrade-Support für aktuelle Angebote für EU-Kunden.'
+        },
+        {
+          heading: 'Hebelbeschränkungen',
+          content: 'ESMA-Vorschriften begrenzen den Hebel auf 1:30 für Hauptwährungspaare, 1:20 für kleinere Paare, 1:10 für Rohstoffe und 1:2 für Kryptowährungen. Diese Limits schützen Privatanleger vor übermäßigem Risiko.'
+        },
+        {
+          heading: 'EUR-Konten empfohlen',
+          content: 'Deutsche Trader sollten ein EUR-Konto eröffnen. Dies eliminiert Umrechnungskosten bei Ein- und Auszahlungen und beim Trading von EUR-Paaren wie EUR/USD.'
+        },
+        {
+          heading: 'Steuerliche Behandlung',
+          content: 'Trading-Gewinne in Deutschland unterliegen der Abgeltungssteuer (25% plus Solidaritätszuschlag). Verluste können mit anderen Kapitalerträgen verrechnet werden. Führen Sie detaillierte Aufzeichnungen für Ihre Steuererklärung.'
+        }
+      ]
+    }
+  },
+  italy: {
+    code: 'italy',
+    name: 'Italy',
+    flag: '🇮🇹',
+    currency: 'EUR',
+    currencySymbol: '€',
+    regulator: 'CONSOB',
+    regulatorFull: 'Commissione Nazionale per le Società e la Borsa',
+    regNumber: 'CySEC 347/17',
+    protection: '€20,000',
+    protectionScheme: 'ICF',
+    leverage: '1:30',
+    bonusTiers: [
+      { deposit: '€900 - €1,799', bonus: '€180' },
+      { deposit: '€1,800 - €2,699', bonus: '€360' },
+      { deposit: '€2,700 - €4,499', bonus: '€540' },
+      { deposit: '€4,500 - €8,999', bonus: '€900' },
+      { deposit: '€9,000+', bonus: 'Up to €12,600' }
+    ],
+    benefits: [
+      { text: 'CONSOB Registered / CySEC Regulated', check: true },
+      { text: 'ICF Protection up to €20,000', check: true },
+      { text: 'Segregated Client Funds', check: true },
+      { text: 'Negative Balance Protection', check: true },
+      { text: 'EUR Account Available', check: true }
+    ],
+    considerations: {
+      title: 'Cosa devono sapere i trader italiani su AvaTrade',
+      intro: 'I trader italiani sono protetti dalle normative EU/ESMA. Ecco cosa sapere quando si utilizza il codice partner 128979 dall\'Italia.',
+      sections: [
+        {
+          heading: 'Regolamentazione in Italia',
+          content: 'AvaTrade serve i clienti italiani tramite AvaTrade EU Ltd, regolamentata dalla CySEC (Cipro) e registrata presso la CONSOB. Questo garantisce la piena conformità MiFID II e l\'accesso al sistema di passaporto europeo.'
+        },
+        {
+          heading: 'Restrizioni Bonus ESMA',
+          content: 'IMPORTANTE: A causa delle normative ESMA, i bonus di trading sono vietati per i trader retail UE dal 2018. I trader italiani possono utilizzare il codice partner 128979, ma il bonus di benvenuto potrebbe non essere disponibile. Contattare il supporto AvaTrade per le offerte attuali per i clienti UE.'
+        },
+        {
+          heading: 'Limiti di Leva',
+          content: 'Le normative ESMA limitano la leva a 1:30 per le coppie forex principali, 1:20 per quelle minori, 1:10 per le materie prime e 1:2 per le criptovalute. Questi limiti proteggono i trader retail da rischi eccessivi.'
+        },
+        {
+          heading: 'Conti in EUR Consigliati',
+          content: 'I trader italiani dovrebbero aprire un conto denominato in EUR. Questo elimina i costi di conversione su depositi, prelievi e quando si fa trading su coppie EUR come EUR/USD.'
+        },
+        {
+          heading: 'Considerazioni Fiscali',
+          content: 'I profitti del trading in Italia sono soggetti all\'imposta sostitutiva del 26% sulle plusvalenze. Le perdite possono essere compensate con altri redditi da capitale. È essenziale mantenere registri dettagliati per la dichiarazione dei redditi.'
+        }
+      ]
+    }
+  },
+  southafrica: {
+    code: 'southafrica',
+    name: 'South Africa',
+    flag: '🇿🇦',
+    currency: 'ZAR',
+    currencySymbol: 'R',
+    regulator: 'FSCA',
+    regulatorFull: 'Financial Sector Conduct Authority',
+    regNumber: '45984',
+    protection: 'Segregated Funds',
+    protectionScheme: 'FSCA Oversight',
+    leverage: '1:400',
+    bonusTiers: [
+      { deposit: 'R18,000 - R35,999', bonus: 'R3,600' },
+      { deposit: 'R36,000 - R53,999', bonus: 'R7,200' },
+      { deposit: 'R54,000 - R89,999', bonus: 'R10,800' },
+      { deposit: 'R90,000 - R179,999', bonus: 'R18,000' },
+      { deposit: 'R180,000+', bonus: 'Up to R252,000' }
+    ],
+    benefits: [
+      { text: 'FSCA Regulated (FSP: 45984)', check: true },
+      { text: 'Segregated Client Funds', check: true },
+      { text: 'Higher Leverage Available (1:400)', check: true },
+      { text: 'ZAR Account Available', check: true },
+      { text: 'Local ZA Support', check: true }
+    ],
+    considerations: {
+      title: 'What South African Traders Should Know About AvaTrade',
+      intro: 'South African traders benefit from FSCA regulation and access to higher leverage than many other jurisdictions. Here\'s what SA traders need to know about partner code 128979.',
+      sections: [
+        {
+          heading: 'FSCA Regulation',
+          content: 'AvaTrade is regulated by the Financial Sector Conduct Authority (FSCA) of South Africa under FSP licence 45984. This means AvaTrade must comply with the Financial Advisory and Intermediary Services Act (FAIS) and maintain proper conduct standards for SA clients.'
+        },
+        {
+          heading: 'Higher Leverage Available',
+          content: 'Unlike UK/EU/AU traders who are limited to 1:30, South African traders can access leverage up to 1:400. While this offers greater potential returns, it also increases risk significantly. Use higher leverage responsibly and always employ stop-losses.'
+        },
+        {
+          heading: 'ZAR Accounts',
+          content: 'South African traders should open a ZAR-denominated account. This avoids currency conversion costs when depositing from SA bank accounts. Your profits and losses are calculated in Rand, making tax reporting simpler.'
+        },
+        {
+          heading: 'Exchange Control Regulations',
+          content: 'South Africa has exchange control regulations limiting how much you can invest offshore. The annual discretionary allowance is R1 million without requiring a tax clearance certificate. Amounts above this require SARS approval. Trading with a local regulated entity like AvaTrade SA simplifies compliance.'
+        },
+        {
+          heading: 'Tax Treatment',
+          content: 'Trading profits in South Africa are generally taxed as income, not capital gains. The tax rate depends on your marginal income tax bracket (up to 45%). Keep detailed records of all trades. SARS requires reporting of all trading income.'
+        }
+      ]
+    }
+  },
+  uae: {
+    code: 'uae',
+    name: 'United Arab Emirates',
+    flag: '🇦🇪',
+    currency: 'USD',
+    currencySymbol: '$',
+    regulator: 'ADGM',
+    regulatorFull: 'Abu Dhabi Global Market',
+    regNumber: '190018',
+    protection: 'Segregated Funds',
+    protectionScheme: 'ADGM Framework',
+    leverage: '1:400',
+    bonusTiers: [
+      { deposit: '$1,000 - $1,999', bonus: '$200' },
+      { deposit: '$2,000 - $2,999', bonus: '$400' },
+      { deposit: '$3,000 - $4,999', bonus: '$600' },
+      { deposit: '$5,000 - $9,999', bonus: '$1,000' },
+      { deposit: '$10,000+', bonus: 'Up to $14,000' }
+    ],
+    benefits: [
+      { text: 'ADGM Regulated (Ref: 190018)', check: true },
+      { text: 'Segregated Client Funds', check: true },
+      { text: 'Higher Leverage (1:400)', check: true },
+      { text: 'USD Account (AED Pegged)', check: true },
+      { text: 'Islamic Accounts Available', check: true }
+    ],
+    considerations: {
+      title: 'What UAE Traders Should Know About AvaTrade',
+      intro: 'UAE traders enjoy a tax-free trading environment and access to AvaTrade\'s ADGM-regulated entity. Here\'s what traders in Dubai, Abu Dhabi, and across the Emirates need to know.',
+      sections: [
+        {
+          heading: 'ADGM Regulation',
+          content: 'AvaTrade Middle East Ltd is regulated by the Abu Dhabi Global Market (ADGM) Financial Services Regulatory Authority. ADGM applies international standards based on English common law, providing robust investor protection in the region.'
+        },
+        {
+          heading: 'Tax-Free Trading',
+          content: 'One of the biggest advantages for UAE traders is the absence of income tax or capital gains tax on trading profits. Your trading gains are 100% yours to keep. This makes the UAE one of the most attractive jurisdictions for active traders globally.'
+        },
+        {
+          heading: 'Islamic (Swap-Free) Accounts',
+          content: 'AvaTrade offers Sharia-compliant Islamic accounts for UAE traders. These accounts don\'t charge or pay overnight swap interest, making them suitable for Muslim traders who wish to comply with Islamic finance principles. Request an Islamic account during registration.'
+        },
+        {
+          heading: 'Higher Leverage',
+          content: 'UAE traders can access leverage up to 1:400, significantly higher than EU/UK/AU regulated jurisdictions. This provides greater trading flexibility but requires disciplined risk management. Always use appropriate position sizing.'
+        },
+        {
+          heading: 'USD/AED Stability',
+          content: 'The UAE Dirham is pegged to the US Dollar at a fixed rate. Opening a USD-denominated account is recommended as most trading instruments are priced in USD. Currency conversion costs are minimal due to the peg.'
+        }
+      ]
+    }
+  }
+};
+
+// Shortcut for UK bonus data (backwards compatibility)
+const ukBonusData = countryData.uk.bonusTiers;
 
 // Social proof testimonials
 const testimonials = [
@@ -626,79 +996,79 @@ const faqData = [
     </div>
   </section>
 
-  <!-- UK TRADERS SECTION -->
-  <section class="uk-section" id="uk-traders">
+  <!-- REGIONAL TRADERS SECTION - Multi-Country Dropdown -->
+  <section class="regional-section" id="regional-traders">
     <div class="container">
-      <div class="uk-content">
-        <div class="uk-header">
-          <span class="uk-flag">🇬🇧</span>
-          <h2 class="section-title">UK Traders: Partner Code 128979</h2>
+      <div class="regional-content">
+        <!-- Country Selector -->
+        <div class="country-selector">
+          <label for="countrySelect" class="selector-label">Select Your Country</label>
+          <div class="selector-wrapper">
+            <select id="countrySelect" class="country-dropdown">
+              <option value="uk">🇬🇧 United Kingdom</option>
+              <option value="australia">🇦🇺 Australia</option>
+              <option value="canada">🇨🇦 Canada</option>
+              <option value="southafrica">🇿🇦 South Africa</option>
+              <option value="uae">🇦🇪 United Arab Emirates</option>
+              <option value="germany">🇩🇪 Germany</option>
+              <option value="italy">🇮🇹 Italy</option>
+            </select>
+            <span class="selector-arrow">▼</span>
+          </div>
         </div>
 
-        <div class="uk-grid">
-          <div class="uk-info">
-            <h3>FCA Regulated & Protected</h3>
-            <ul class="uk-benefits">
-              <li>
-                <span class="check">✓</span>
-                <span>FCA Authorised (Reg: 583263)</span>
-              </li>
-              <li>
-                <span class="check">✓</span>
-                <span>FSCS Protection up to £85,000</span>
-              </li>
-              <li>
-                <span class="check">✓</span>
-                <span>Segregated Client Funds</span>
-              </li>
-              <li>
-                <span class="check">✓</span>
-                <span>Negative Balance Protection</span>
-              </li>
-              <li>
-                <span class="check">✓</span>
-                <span>GBP Account Available</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="uk-bonus-table">
-            <h3>GBP Bonus Tiers</h3>
-            <div class="uk-tiers">
-              {ukBonusData.map((tier) => (
-                <div class="uk-tier">
-                  <span class="uk-deposit">{tier.deposit}</span>
-                  <span class="uk-bonus">{tier.bonus}</span>
-                </div>
-              ))}
+        <!-- Country-Specific Content Panels (all rendered for SEO, shown/hidden via JS) -->
+        {Object.entries(countryData).map(([key, country]) => (
+          <div class={`country-panel ${key === 'uk' ? 'active' : ''}`} data-country={key}>
+            <div class="country-header">
+              <span class="country-flag">{country.flag}</span>
+              <h2 class="section-title">{country.name} Traders: Partner Code 128979</h2>
             </div>
+
+            <div class="country-grid">
+              <div class="country-info">
+                <h3>{country.regulator} Regulated & Protected</h3>
+                <ul class="country-benefits">
+                  {country.benefits.map((benefit) => (
+                    <li>
+                      <span class="check">✓</span>
+                      <span>{benefit.text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div class="country-bonus-table">
+                <h3>{country.currency} Bonus Tiers</h3>
+                <div class="country-tiers">
+                  {country.bonusTiers.map((tier) => (
+                    <div class="country-tier">
+                      <span class="country-deposit">{tier.deposit}</span>
+                      <span class="country-bonus">{tier.bonus}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <AnalystNotes
+              title={`${country.flag} ${country.name} Trader Considerations`}
+              icon={country.flag}
+              id={`${key}-analysis`}
+              variant="dark"
+            >
+              <h4>{country.considerations.title}</h4>
+              <p>{country.considerations.intro}</p>
+
+              {country.considerations.sections.map((section) => (
+                <>
+                  <h5>{section.heading}</h5>
+                  <p>{section.content}</p>
+                </>
+              ))}
+            </AnalystNotes>
           </div>
-        </div>
-
-        <AnalystNotes
-          title="UK Trader Considerations"
-          icon="🇬🇧"
-          id="uk-analysis"
-          variant="dark"
-        >
-          <h4>What UK Traders Should Know About AvaTrade</h4>
-          <p>Trading from the UK comes with specific regulatory protections that affect how you interact with AvaTrade and the partner code bonus. Here's our detailed analysis for UK-based traders considering code 128979.</p>
-
-          <h5>FCA Regulation Explained</h5>
-          <p>AvaTrade EU Ltd operates in the UK under FCA authorization (Reference: 583263). This means they must comply with strict Financial Conduct Authority rules including client fund segregation, negative balance protection, and leverage limits (max 1:30 for retail forex). The FCA is considered one of the world's most rigorous financial regulators - AvaTrade's FCA status provides genuine protection.</p>
-
-          <h5>FSCS Protection for UK Clients</h5>
-          <p>The Financial Services Compensation Scheme (FSCS) protects eligible UK clients up to £85,000 if AvaTrade were to fail. This is real insurance - not a marketing claim. Your deposited funds are segregated from AvaTrade's operational capital and held in designated client money accounts. Combined with negative balance protection, UK traders have multiple layers of security.</p>
-
-          <h5>GBP Accounts: Avoiding Currency Conversion</h5>
-          <p>UK traders should strongly consider opening a GBP-denominated account. If you trade in GBP pairs (GBP/USD, EUR/GBP), using a GBP base currency eliminates conversion costs on deposits, withdrawals, and profit/loss calculations. The partner code 128979 works the same regardless of your account currency.</p>
-
-          <h5>UK Bonus Regulations</h5>
-          <p>Unlike some jurisdictions, the UK allows trading bonuses under FCA rules (unlike ESMA-regulated EU brokers which banned bonuses). UK traders can fully benefit from the welcome bonus tiers using partner code 128979. The GBP amounts shown above are approximate conversions - your exact bonus will be calculated at current exchange rates when you deposit.</p>
-
-          <h5>Tax Considerations</h5>
-          <p>Trading profits in the UK are generally subject to Capital Gains Tax (CGT), though spread betting profits (which AvaTrade also offers) are currently tax-free. This isn't financial advice - consult a tax professional about your specific situation. The welcome bonus itself isn't taxable income until you realize profits from trading with it.</p>
-        </AnalystNotes>
+        ))}
       </div>
     </div>
   </section>
@@ -936,5 +1306,24 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+
+  // Country selector - switches visible panel based on dropdown
+  const countrySelect = document.getElementById('countrySelect');
+  if (countrySelect) {
+    countrySelect.addEventListener('change', function() {
+      const selectedCountry = this.value;
+
+      // Hide all country panels
+      document.querySelectorAll('.country-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+
+      // Show selected country panel
+      const activePanel = document.querySelector(`.country-panel[data-country="${selectedCountry}"]`);
+      if (activePanel) {
+        activePanel.classList.add('active');
+      }
+    });
+  }
 });
 </script>
