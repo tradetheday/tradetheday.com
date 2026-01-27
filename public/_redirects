@@ -125,6 +125,17 @@
 /education/forex-trading-strategy* /guides/forex-strategy 301
 /education/forex-strategy* /guides/forex-strategy 301
 /education/elliott-wave* /guides/elliott-wave 301
+/education/forex-trading-calculations* /guides/forex-trading-basics 301
+/education/traders-guide-macro-data* /guides 301
+/education/mastering-ctrader* /platforms/ctrader 301
+/education/ctrader-simplified* /platforms/ctrader 301
+/education/fibonacci-price-theory* /guides 301
+/education/achieve-longevity-forex-trading* /guides 301
+/education/what-is-spread-betting* /brokers/spread-betting 301
+/education/investment-rule* /guides 301
+/education/forex-trading-course* /guides/forex-trading-basics 301
+/education/how-to-use-retail-sentiment* /guides 301
+/education/maintaining-discipline-trader* /guides 301
 /education/stock-trading* /guides/stock-trading-for-beginners 301
 /education/technical-analysis-basics* /glossary/technical-analysis 301
 /education/commodity-trading* /guides 301
@@ -175,6 +186,9 @@
 /metatrader4* /platforms/metatrader-4 301
 /metatrader4 /platforms/metatrader-4 301
 /platforms/spectre /platforms 301
+/platforms/spectre/* /platforms 301
+/platforms/vps /platforms 301
+/platforms/vps/* /platforms 301
 /platforms/ctrader* /platforms/ctrader 301
 /platforms/glossary/* /glossary 301
 /platforms/events/* /events 301
@@ -352,6 +366,21 @@
 /indices/*  301
 
 # ============================================
+# GLOSSARY TERM REDIRECTS (Low-value terms -> relevant pages)
+# ============================================
+/glossary/up-trick /glossary 301
+/glossary/two-way-quotation /glossary/bid 301
+/glossary/elliot-wave-principle /guides/elliott-wave 301
+/glossary/carded-rate /glossary 301
+/glossary/mjsd /glossary 301
+/glossary/closing-a-trade-contract /glossary 301
+/glossary/cci-divergence /glossary/technical-analysis 301
+/glossary/high-low-method /glossary/technical-analysis 301
+/glossary/quote /glossary/bid 301
+/glossary/inconvertible-currency /glossary/forex 301
+/glossary/value-date /glossary/forex 301
+
+# ============================================
 # GLOSSARY NESTED PATHS
 # ============================================
 /glossary/glossary/* /glossary 301
@@ -485,6 +514,16 @@
 /best-forex-brokers-uk.html /brokers 301
 /trading-options /brokers 301
 /trading-resources* /guides 301
+
+# Misc old pages
+/start /guides 301
+/start/* /guides 301
+/trading /guides 301
+/trading/* /guides 301
+/instruments /glossary 301
+/instruments/* /glossary 301
+/best-forex-brokers-south-africa /brokers 301
+/best-forex-brokers-south-africa/* /brokers 301
 
 # Old go links
 /go/trade-now-msg /brokers 301
