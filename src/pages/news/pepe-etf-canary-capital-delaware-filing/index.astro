@@ -1,0 +1,466 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const publishDate = '2026-01-27';
+const updateDate = '2026-01-27';
+
+const pageTitle = 'Canary Capital Files for PEPE ETF in Delaware - What It Means';
+const pageDescription = 'Canary Capital has registered a PEPE ETF as a statutory trust in Delaware, signaling a potential SEC filing for the first meme coin ETF. Full details on File #10484779.';
+
+const breadcrumbs = [
+  { text: 'Home', href: '/' },
+  { text: 'News', href: '/news' },
+  { text: 'PEPE ETF Filing', current: true }
+];
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": pageTitle,
+  "description": pageDescription,
+  "image": "https://tradetheday.com/images/news/pepe-etf-delaware-filing.jpg",
+  "datePublished": publishDate,
+  "dateModified": updateDate,
+  "author": {
+    "@type": "Organization",
+    "name": "TradeTheDay",
+    "url": "https://tradetheday.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TradeTheDay",
+    "url": "https://tradetheday.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://tradetheday.com/images/brand/tradetheday-logo.svg"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://tradetheday.com/news/pepe-etf-canary-capital-delaware-filing"
+  }
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+>
+  <meta slot="head" name="robots" content="index, follow">
+  <meta slot="head" property="og:title" content={pageTitle}>
+  <meta slot="head" property="og:description" content={pageDescription}>
+  <meta slot="head" property="og:type" content="article">
+  <meta slot="head" property="og:url" content="https://tradetheday.com/news/pepe-etf-canary-capital-delaware-filing">
+  <meta slot="head" property="article:published_time" content={publishDate}>
+  <meta slot="head" property="article:modified_time" content={updateDate}>
+  <meta slot="head" name="twitter:card" content="summary_large_image">
+  <meta slot="head" name="twitter:title" content={pageTitle}>
+  <meta slot="head" name="twitter:description" content={pageDescription}>
+  <link slot="head" rel="canonical" href="https://tradetheday.com/news/pepe-etf-canary-capital-delaware-filing">
+
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+
+  <article class="news-article">
+    <div class="container">
+      <!-- Article Header -->
+      <header class="article-header">
+        <div class="article-meta">
+          <span class="article-category">Breaking News</span>
+          <time datetime={publishDate} class="article-date">January 27, 2026</time>
+        </div>
+
+        <h1 class="article-title">
+          Canary Capital Registers PEPE ETF in Delaware, SEC Filing Expected
+        </h1>
+
+        <p class="article-subtitle">
+          The asset manager known for crypto ETF filings has registered "CANARY PEPE ETF" as a statutory trust in Delaware - a move that typically precedes a formal SEC submission.
+        </p>
+
+        <div class="article-author">
+          <span class="author-label">By</span>
+          <span class="author-name">TradeTheDay Research</span>
+        </div>
+      </header>
+
+      <!-- Key Facts Box -->
+      <div class="key-facts-box">
+        <h2 class="key-facts-title">Delaware Filing Details</h2>
+        <div class="key-facts-grid">
+          <div class="fact-item">
+            <span class="fact-label">File Number</span>
+            <span class="fact-value">10484779</span>
+          </div>
+          <div class="fact-item">
+            <span class="fact-label">Entity Name</span>
+            <span class="fact-value">CANARY PEPE ETF</span>
+          </div>
+          <div class="fact-item">
+            <span class="fact-label">Formation Date</span>
+            <span class="fact-value">January 23, 2026</span>
+          </div>
+          <div class="fact-item">
+            <span class="fact-label">Entity Type</span>
+            <span class="fact-value">Statutory Trust</span>
+          </div>
+          <div class="fact-item">
+            <span class="fact-label">Registered Agent</span>
+            <span class="fact-value">CSC Delaware Trust Company</span>
+          </div>
+          <div class="fact-item">
+            <span class="fact-label">State</span>
+            <span class="fact-value">Delaware</span>
+          </div>
+        </div>
+        <p class="key-facts-source">
+          Source: <a href="https://icis.corp.delaware.gov/Ecorp/EntitySearch/NameSearch.aspx" target="_blank" rel="noopener">Delaware Division of Corporations</a> (File #10484779)
+        </p>
+      </div>
+
+      <!-- Article Content -->
+      <div class="article-content">
+        <h2>What We Know</h2>
+
+        <p>
+          Canary Capital, the asset management firm behind multiple cryptocurrency ETF filings, has registered a new entity called <strong>"CANARY PEPE ETF"</strong> with the Delaware Division of Corporations. The filing, dated January 23, 2026, establishes a statutory trust - the same legal structure used for other crypto ETFs including Bitcoin and Ethereum funds.
+        </p>
+
+        <p>
+          The registration uses CSC Delaware Trust Company as the registered agent, a well-established corporate services firm commonly used for ETF trust structures. This mirrors the process Canary Capital has followed for its previous crypto ETF filings.
+        </p>
+
+        <h2>Why Delaware First?</h2>
+
+        <p>
+          Delaware registrations typically precede formal SEC filings. Asset managers establish the legal trust structure in Delaware before submitting the S-1 registration statement and 19b-4 filing required for ETF approval. This two-step process is standard practice in the ETF industry.
+        </p>
+
+        <div class="info-callout">
+          <div class="callout-icon">ℹ️</div>
+          <div class="callout-content">
+            <strong>How to verify:</strong> Visit the <a href="https://icis.corp.delaware.gov/Ecorp/EntitySearch/NameSearch.aspx" target="_blank" rel="noopener">Delaware Entity Search</a> and enter file number <strong>10484779</strong> to see the official registration.
+          </div>
+        </div>
+
+        <h2>What This Means for PEPE</h2>
+
+        <p>
+          If approved, a PEPE ETF would be the first exchange-traded fund based on a meme coin. This comes after the successful launches of Bitcoin ETFs in 2024 and subsequent approvals for Ethereum, Solana, and other cryptocurrency funds.
+        </p>
+
+        <p>
+          Canary Capital has been aggressive in filing for crypto ETFs, including applications for Solana, XRP, Litecoin, and HBAR funds. The firm appears to be betting that the SEC's increasingly favorable stance toward crypto will extend to meme coins.
+        </p>
+
+        <h2>What Happens Next</h2>
+
+        <p>
+          Following a Delaware registration, asset managers typically file:
+        </p>
+
+        <ul class="article-list">
+          <li><strong>S-1 Registration Statement</strong> - The prospectus filed with the SEC detailing the fund's structure, risks, and investment strategy</li>
+          <li><strong>19b-4 Filing</strong> - The exchange rule change proposal allowing the ETF to be listed on a national securities exchange</li>
+        </ul>
+
+        <p>
+          The SEC then has up to 240 days to approve or reject the filing, though this timeline can be extended. Given the novelty of a meme coin ETF, regulatory scrutiny is expected to be significant.
+        </p>
+
+        <h2>Market Implications</h2>
+
+        <p>
+          The crypto market has historically reacted positively to ETF filings, viewing them as validation of mainstream adoption. However, traders should note that a Delaware registration is only the first step - SEC approval is far from guaranteed, especially for a meme coin with no underlying utility beyond speculation.
+        </p>
+
+        <div class="warning-callout">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-content">
+            <strong>Risk Warning:</strong> Meme coins are highly speculative assets with extreme volatility. An ETF filing does not guarantee approval, and PEPE remains a high-risk investment regardless of ETF status.
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Content -->
+      <div class="related-section">
+        <h3 class="related-title">Trade Crypto</h3>
+        <div class="related-grid">
+          <a href="/exchanges/binance" class="related-card">
+            <span class="related-icon">🔸</span>
+            <span class="related-text">Binance Review</span>
+          </a>
+          <a href="/exchanges/kraken" class="related-card">
+            <span class="related-icon">🐙</span>
+            <span class="related-text">Kraken Review</span>
+          </a>
+          <a href="/exchanges" class="related-card">
+            <span class="related-icon">📊</span>
+            <span class="related-text">Compare Exchanges</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Article Footer -->
+      <footer class="article-footer">
+        <p class="disclaimer">
+          <strong>Disclaimer:</strong> This article is for informational purposes only and does not constitute financial advice. Always do your own research before making investment decisions.
+        </p>
+        <p class="last-updated">
+          Last updated: <time datetime={updateDate}>January 27, 2026</time>
+        </p>
+      </footer>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .news-article {
+    padding: var(--space-xl) 0 var(--space-2xl);
+    background: var(--white);
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  /* Article Header */
+  .article-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .article-category {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .article-date {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+  }
+
+  .article-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .article-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .article-author {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .author-name {
+    color: var(--charcoal);
+    font-weight: 600;
+  }
+
+  /* Key Facts Box */
+  .key-facts-box {
+    background: linear-gradient(135deg, var(--gray-900) 0%, var(--charcoal) 100%);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .key-facts-title {
+    color: var(--white);
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+  }
+
+  .key-facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .fact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .fact-label {
+    font-size: var(--font-size-xs);
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .fact-value {
+    font-size: var(--font-size-base);
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .key-facts-source {
+    font-size: var(--font-size-xs);
+    color: var(--gray-400);
+    margin: 0;
+  }
+
+  .key-facts-source a {
+    color: var(--brand-orange);
+    text-decoration: underline;
+  }
+
+  /* Article Content */
+  .article-content {
+    margin-bottom: var(--space-xl);
+  }
+
+  .article-content h2 {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin: var(--space-xl) 0 var(--space-md);
+  }
+
+  .article-content h2:first-child {
+    margin-top: 0;
+  }
+
+  .article-content p {
+    font-size: var(--font-size-base);
+    line-height: 1.8;
+    color: var(--gray-700);
+    margin-bottom: var(--space-md);
+  }
+
+  .article-list {
+    margin: var(--space-md) 0;
+    padding-left: var(--space-lg);
+  }
+
+  .article-list li {
+    font-size: var(--font-size-base);
+    line-height: 1.8;
+    color: var(--gray-700);
+    margin-bottom: var(--space-sm);
+  }
+
+  /* Callouts */
+  .info-callout,
+  .warning-callout {
+    display: flex;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    margin: var(--space-lg) 0;
+  }
+
+  .info-callout {
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+
+  .warning-callout {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+  }
+
+  .callout-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .callout-content {
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+    color: var(--gray-700);
+  }
+
+  .callout-content a {
+    color: var(--brand-orange);
+    text-decoration: underline;
+  }
+
+  /* Related Section */
+  .related-section {
+    margin-bottom: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .related-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .related-grid {
+    display: flex;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+  }
+
+  .related-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--gray-100);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--charcoal);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .related-card:hover {
+    background: var(--gray-200);
+  }
+
+  /* Article Footer */
+  .article-footer {
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .disclaimer {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+  }
+
+  .last-updated {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .key-facts-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
