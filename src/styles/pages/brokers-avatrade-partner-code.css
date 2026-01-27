@@ -344,43 +344,45 @@
 .qa-meta {
   font-size: var(--font-size-sm) !important;
   color: var(--gray-500) !important;
+  margin-top: var(--space-md) !important;
 }
 
-.key-details {
+/* Key Points Grid - Clean inline display */
+.key-points-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-sm);
   margin: var(--space-md) 0;
-  padding: var(--space-md);
+}
+
+.key-point {
+  text-align: center;
+  padding: var(--space-sm);
   background: var(--gray-50);
   border-radius: var(--radius-md);
-  border-left: 3px solid var(--brand-orange);
 }
 
-.key-details h3 {
+.key-point-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gray-500);
+  margin-bottom: 2px;
+}
+
+.key-point-value {
+  display: block;
   font-size: var(--font-size-base);
   font-weight: 700;
   color: var(--charcoal);
-  margin: 0 0 var(--space-sm) 0;
 }
 
-.key-details ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.key-details li {
-  font-size: var(--font-size-base);
-  line-height: 1.6;
-  color: var(--gray-700);
-  margin-bottom: var(--space-xs);
-  padding-left: 0;
-}
-
-.key-details li:last-child {
-  margin-bottom: 0;
-}
-
-.key-details li strong {
-  color: var(--charcoal);
+@media (max-width: 600px) {
+  .key-points-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* ==========================================================================
