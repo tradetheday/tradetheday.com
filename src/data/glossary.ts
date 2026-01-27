@@ -1668,3 +1668,59 @@ export function getTermsByCategory(category: GlossaryTerm['category']): Glossary
 export function getPopularTerms(): GlossaryTerm[] {
   return glossaryTerms.filter(term => term.popular);
 }
+
+// Helper function to get terms sorted alphabetically
+export function getTermsSortedAlphabetically(): GlossaryTerm[] {
+  return [...glossaryTerms].sort((a, b) => a.name.localeCompare(b.name));
+}
+
+// Helper function to get previous and next terms alphabetically
+export function getPrevNextTerms(currentSlug: string): { prev: GlossaryTerm | null; next: GlossaryTerm | null } {
+  const sorted = getTermsSortedAlphabetically();
+  const currentIndex = sorted.findIndex(term => term.slug === currentSlug);
+
+  return {
+    prev: currentIndex > 0 ? sorted[currentIndex - 1] : null,
+    next: currentIndex < sorted.length - 1 ? sorted[currentIndex + 1] : null
+  };
+}
+
+// Helper function to auto-link glossary terms in text
+export function autoLinkGlossaryTerms(text: string, excludeSlug?: string): string {
+  // Build a map of term names to their slugs (case-insensitive)
+  const termMap = new Map<string, string>();
+
+  for (const term of glossaryTerms) {
+    if (term.slug === excludeSlug) continue;
+    // Add the main name
+    termMap.set(term.name.toLowerCase(), term.slug);
+    // Add common variations without special characters
+    const simplified = term.name.toLowerCase().replace(/[()]/g, '').trim();
+    if (simplified !== term.name.toLowerCase()) {
+      termMap.set(simplified, term.slug);
+    }
+  }
+
+  // Sort by length (longest first) to match longer terms before shorter ones
+  const sortedTerms = Array.from(termMap.entries()).sort((a, b) => b[0].length - a[0].length);
+
+  let result = text;
+  const linkedTerms = new Set<string>(); // Track which terms we've already linked
+
+  for (const [termName, slug] of sortedTerms) {
+    if (linkedTerms.has(slug)) continue; // Only link each term once
+
+    // Create a regex that matches the term as a whole word (case-insensitive)
+    const escapedTerm = termName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`\\b(${escapedTerm})\\b(?![^<]*>)`, 'gi');
+
+    if (regex.test(result)) {
+      result = result.replace(regex, (match) => {
+        linkedTerms.add(slug);
+        return `<a href="/glossary/${slug}">${match}</a>`;
+      });
+    }
+  }
+
+  return result;
+}

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { glossaryTerms, getTermBySlug, type GlossaryTerm } from '../../../data/glossary';
+import { glossaryTerms, getTermBySlug, getTermsByCategory, getPrevNextTerms, autoLinkGlossaryTerms, type GlossaryTerm } from '../../../data/glossary';
 
 // Generate static paths for all glossary terms
 export function getStaticPaths() {
@@ -20,6 +20,17 @@ const { term } = Astro.props;
 const relatedTermsData = term.relatedTerms
   .map(slug => getTermBySlug(slug))
   .filter((t): t is GlossaryTerm => t !== undefined);
+
+// Get other terms in same category (excluding current term)
+const categoryTerms = getTermsByCategory(term.category)
+  .filter(t => t.slug !== term.slug)
+  .slice(0, 8);
+
+// Get prev/next terms for navigation
+const { prev, next } = getPrevNextTerms(term.slug);
+
+// Auto-link the definition
+const linkedDefinition = autoLinkGlossaryTerms(term.definition, term.slug);
 
 // Category labels
 const categoryLabels: Record<GlossaryTerm['category'], string> = {
@@ -78,7 +89,7 @@ const schema = {
 
           <!-- Definition Box -->
           <div class="definition-box">
-            <p class="body-large"><strong>Definition:</strong> <span set:html={term.definition} /></p>
+            <p class="body-large"><strong>Definition:</strong> <span set:html={linkedDefinition} /></p>
           </div>
 
           <!-- How It Works -->
@@ -136,13 +147,44 @@ const schema = {
               <h2 class="heading-3">Related Terms</h2>
               <div class="related-terms">
                 {relatedTermsData.map(relatedTerm => (
-                  <a href={`/glossary/${relatedTerm.slug}`} class="btn btn-secondary btn-sm">
+                  <a href={`/glossary/${relatedTerm.slug}`} class="related-term-link">
                     {relatedTerm.name}
                   </a>
                 ))}
               </div>
             </section>
           )}
+
+          <!-- More from this Category -->
+          {categoryTerms.length > 0 && (
+            <section class="content-section">
+              <h2 class="heading-3">More {categoryLabels[term.category]} Terms</h2>
+              <div class="category-terms">
+                {categoryTerms.map(catTerm => (
+                  <a href={`/glossary/${catTerm.slug}`} class="category-term-link">
+                    <span class="term-name">{catTerm.name}</span>
+                    <span class="term-desc">{catTerm.shortDescription.slice(0, 60)}...</span>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- Prev/Next Navigation -->
+          <nav class="term-navigation">
+            {prev ? (
+              <a href={`/glossary/${prev.slug}`} class="nav-link nav-prev">
+                <span class="nav-label">&larr; Previous</span>
+                <span class="nav-term">{prev.name}</span>
+              </a>
+            ) : <div />}
+            {next ? (
+              <a href={`/glossary/${next.slug}`} class="nav-link nav-next">
+                <span class="nav-label">Next &rarr;</span>
+                <span class="nav-term">{next.name}</span>
+              </a>
+            ) : <div />}
+          </nav>
 
           <!-- Back Link -->
           <div class="back-link">
@@ -315,6 +357,130 @@ const schema = {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-sm);
+  }
+
+  .related-term-link {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-md);
+    background: var(--gray-100);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-full);
+    color: var(--charcoal);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    transition: all 0.2s;
+  }
+
+  .related-term-link:hover {
+    background: var(--brand-orange);
+    border-color: var(--brand-orange);
+    color: white;
+  }
+
+  /* Category Terms */
+  .category-terms {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .category-term-link {
+    display: block;
+    padding: var(--space-md);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .category-term-link:hover {
+    border-color: var(--brand-orange);
+    box-shadow: 0 2px 8px rgba(255, 72, 0, 0.1);
+  }
+
+  .category-term-link .term-name {
+    display: block;
+    font-weight: var(--font-weight-semibold);
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .category-term-link:hover .term-name {
+    color: var(--brand-orange);
+  }
+
+  .category-term-link .term-desc {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    line-height: 1.4;
+  }
+
+  /* Prev/Next Navigation */
+  .term-navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .nav-link {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-md);
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all 0.2s;
+    min-width: 150px;
+    max-width: 45%;
+  }
+
+  .nav-link:hover {
+    border-color: var(--brand-orange);
+    background: var(--white);
+  }
+
+  .nav-prev {
+    align-items: flex-start;
+  }
+
+  .nav-next {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .nav-label {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-xs);
+  }
+
+  .nav-term {
+    font-weight: var(--font-weight-semibold);
+    color: var(--charcoal);
+  }
+
+  .nav-link:hover .nav-term {
+    color: var(--brand-orange);
+  }
+
+  /* Auto-linked terms in definition */
+  .definition-box a {
+    color: var(--brand-orange);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--brand-orange);
+  }
+
+  .definition-box a:hover {
+    border-bottom-style: solid;
   }
 
   .back-link {
