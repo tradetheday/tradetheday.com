@@ -1,0 +1,871 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const pageTitle = 'PEPE (Ethereum) - The Original Pepe Memecoin | TradeTheDay';
+const pageDescription = 'Everything you need to know about PEPE, the original Ethereum memecoin. Contract address, where to buy, price history, and latest news. Avoid fake PEPE tokens.';
+const lastUpdated = '2026-01-27';
+
+const contractAddress = '0x6982508145454Ce325dDbE47a25d4ec3d2311933';
+
+const breadcrumbs = [
+  { text: 'Home', href: '/' },
+  { text: 'Crypto', href: '/crypto' },
+  { text: 'PEPE', current: true }
+];
+
+// Where to buy - legitimate exchanges
+const exchanges = [
+  {
+    name: 'Binance',
+    logo: '/images/exchanges/binance-logo.svg',
+    href: '/exchanges/binance',
+    pairs: ['PEPE/USDT', 'PEPE/BTC'],
+    type: 'CEX'
+  },
+  {
+    name: 'Kraken',
+    logo: '/images/exchanges/kraken-logo.svg',
+    href: '/exchanges/kraken',
+    pairs: ['PEPE/USD', 'PEPE/EUR'],
+    type: 'CEX'
+  },
+  {
+    name: 'Uniswap',
+    logo: '/images/exchanges/uniswap-logo.svg',
+    href: 'https://app.uniswap.org',
+    pairs: ['PEPE/ETH', 'PEPE/USDC'],
+    type: 'DEX',
+    external: true
+  }
+];
+
+// Key milestones
+const timeline = [
+  {
+    date: 'April 14, 2023',
+    event: 'PEPE launches on Ethereum',
+    detail: 'Token deployed with 420.69 trillion supply, paying homage to meme culture.'
+  },
+  {
+    date: 'April 2023',
+    event: 'Viral growth begins',
+    detail: 'PEPE gains massive traction on social media, market cap reaches $1B within weeks.'
+  },
+  {
+    date: 'May 5, 2023',
+    event: 'Major exchange listings',
+    detail: 'Binance, Kraken, and other tier-1 exchanges list PEPE for trading.'
+  },
+  {
+    date: 'December 2024',
+    event: 'All-time high',
+    detail: 'PEPE reaches peak valuation amid broader crypto bull market.'
+  },
+  {
+    date: 'January 2026',
+    event: 'ETF filing emerges',
+    detail: 'Canary Capital registers PEPE ETF trust in Delaware, signaling potential SEC filing.'
+  }
+];
+
+// Latest news
+const latestNews = [
+  {
+    title: 'Canary Capital Registers PEPE ETF in Delaware',
+    date: 'Jan 27, 2026',
+    href: '/news/pepe-etf-canary-capital-delaware-filing',
+    tag: 'Breaking'
+  }
+];
+
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": pageTitle,
+  "description": pageDescription,
+  "dateModified": lastUpdated,
+  "author": {
+    "@type": "Organization",
+    "name": "TradeTheDay"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TradeTheDay",
+    "url": "https://tradetheday.com"
+  }
+};
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+>
+  <meta slot="head" name="robots" content="index, follow">
+  <meta slot="head" property="og:title" content={pageTitle}>
+  <meta slot="head" property="og:description" content={pageDescription}>
+  <meta slot="head" property="og:type" content="article">
+  <meta slot="head" property="og:url" content="https://tradetheday.com/crypto/pepe">
+  <meta slot="head" name="twitter:card" content="summary_large_image">
+  <link slot="head" rel="canonical" href="https://tradetheday.com/crypto/pepe">
+
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <article class="crypto-page">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <div class="token-badge">
+            <span class="chain-tag">Ethereum</span>
+            <span class="type-tag">Memecoin</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="token-icon">🐸</span>
+            PEPE
+          </h1>
+
+          <p class="hero-subtitle">
+            The original Pepe the Frog memecoin on Ethereum. Launched April 2023.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#where-to-buy" class="btn btn-primary btn-lg">Where to Buy</a>
+            <a href="#contract" class="btn btn-secondary btn-lg">Verify Contract</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Warning Banner -->
+    <div class="warning-banner">
+      <div class="container">
+        <div class="warning-content">
+          <span class="warning-icon">⚠️</span>
+          <div class="warning-text">
+            <strong>Beware of fake PEPE tokens.</strong> The only real PEPE is on Ethereum. Always verify the contract address before buying.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container main-content">
+      <!-- Contract Verification Box -->
+      <section id="contract" class="contract-section">
+        <h2 class="section-title">Official Contract Address</h2>
+        <div class="contract-box">
+          <div class="contract-chain">
+            <span class="chain-icon">◆</span>
+            <span class="chain-name">Ethereum Mainnet</span>
+          </div>
+          <div class="contract-address-wrapper">
+            <code class="contract-address" id="contractAddress">{contractAddress}</code>
+            <button class="copy-btn" id="copyBtn" aria-label="Copy contract address">
+              <span class="copy-icon">📋</span>
+              <span class="copy-text">Copy</span>
+            </button>
+          </div>
+          <div class="contract-links">
+            <a href={`https://etherscan.io/token/${contractAddress}`} target="_blank" rel="noopener" class="verify-link">
+              View on Etherscan →
+            </a>
+            <a href={`https://www.coingecko.com/en/coins/pepe`} target="_blank" rel="noopener" class="verify-link">
+              View on CoinGecko →
+            </a>
+          </div>
+        </div>
+        <p class="contract-warning">
+          <strong>Important:</strong> If someone sends you a PEPE token on a different chain (BSC, Solana, etc.) or with a different contract address, it's a fake. Only buy PEPE from the contract above.
+        </p>
+      </section>
+
+      <!-- What is PEPE -->
+      <section class="info-section">
+        <h2 class="section-title">What is PEPE?</h2>
+        <div class="info-content">
+          <p>
+            PEPE is a memecoin on the Ethereum blockchain, inspired by the famous "Pepe the Frog" internet meme created by Matt Furie. Launched in April 2023, PEPE quickly became one of the largest memecoins by market cap, driven purely by community enthusiasm and meme culture.
+          </p>
+          <p>
+            Unlike utility tokens, PEPE has no roadmap, no intrinsic value, and no promises. It exists purely as a speculative asset and cultural phenomenon. The token launched with a supply of 420.69 trillion - a nod to cannabis and meme culture.
+          </p>
+
+          <div class="key-stats">
+            <div class="stat-item">
+              <span class="stat-label">Total Supply</span>
+              <span class="stat-value">420.69T</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Chain</span>
+              <span class="stat-value">Ethereum</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Token Type</span>
+              <span class="stat-value">ERC-20</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Launch</span>
+              <span class="stat-value">April 2023</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Where to Buy -->
+      <section id="where-to-buy" class="exchanges-section">
+        <h2 class="section-title">Where to Buy PEPE</h2>
+        <p class="section-intro">
+          Only buy PEPE from reputable exchanges. These platforms have verified the official PEPE contract:
+        </p>
+
+        <div class="exchanges-grid">
+          {exchanges.map((exchange) => (
+            <a
+              href={exchange.href}
+              class="exchange-card"
+              target={exchange.external ? "_blank" : undefined}
+              rel={exchange.external ? "noopener" : undefined}
+            >
+              <div class="exchange-header">
+                <span class="exchange-name">{exchange.name}</span>
+                <span class={`exchange-type ${exchange.type.toLowerCase()}`}>{exchange.type}</span>
+              </div>
+              <div class="exchange-pairs">
+                {exchange.pairs.map((pair) => (
+                  <span class="pair-tag">{pair}</span>
+                ))}
+              </div>
+              <span class="exchange-cta">
+                {exchange.external ? 'Open App →' : 'View Review →'}
+              </span>
+            </a>
+          ))}
+        </div>
+
+        <div class="buying-tips">
+          <h3>Tips for Buying PEPE Safely</h3>
+          <ul>
+            <li><strong>Use a CEX for simplicity</strong> - Binance and Kraken let you buy with fiat directly</li>
+            <li><strong>Verify the contract</strong> - If using a DEX like Uniswap, paste the official contract address</li>
+            <li><strong>Start small</strong> - Memecoins are extremely volatile; only invest what you can afford to lose</li>
+            <li><strong>Use a hardware wallet</strong> - For long-term holding, move tokens off the exchange</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Timeline -->
+      <section class="timeline-section">
+        <h2 class="section-title">PEPE History</h2>
+        <div class="timeline">
+          {timeline.map((item, index) => (
+            <div class="timeline-item">
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">{item.date}</span>
+                <h3 class="timeline-event">{item.event}</h3>
+                <p class="timeline-detail">{item.detail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Latest News -->
+      <section class="news-section">
+        <div class="news-header">
+          <h2 class="section-title">Latest PEPE News</h2>
+          <a href="/news" class="view-all-link">All News →</a>
+        </div>
+
+        <div class="news-list">
+          {latestNews.map((item) => (
+            <a href={item.href} class="news-item">
+              <div class="news-item-meta">
+                <span class="news-tag">{item.tag}</span>
+                <span class="news-date">{item.date}</span>
+              </div>
+              <h3 class="news-item-title">{item.title}</h3>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <!-- Risk Warning -->
+      <section class="risk-section">
+        <div class="risk-box">
+          <h3 class="risk-title">⚠️ Risk Warning</h3>
+          <p>
+            PEPE is a memecoin with no underlying utility or intrinsic value. It is an extremely high-risk, speculative asset that can lose 90%+ of its value in days. The token has no development team making promises, no roadmap, and exists purely as a cultural/speculative phenomenon.
+          </p>
+          <p>
+            <strong>Never invest more than you can afford to lose completely.</strong> Memecoins are not suitable for most investors.
+          </p>
+        </div>
+      </section>
+
+      <!-- Last Updated -->
+      <footer class="page-footer">
+        <p class="last-updated">Last updated: <time datetime={lastUpdated}>January 27, 2026</time></p>
+      </footer>
+    </div>
+  </article>
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.getElementById('copyBtn');
+    const contractAddress = document.getElementById('contractAddress');
+
+    if (copyBtn && contractAddress) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(contractAddress.textContent || '');
+          const copyText = copyBtn.querySelector('.copy-text');
+          if (copyText) {
+            copyText.textContent = 'Copied!';
+            setTimeout(() => {
+              copyText.textContent = 'Copy';
+            }, 2000);
+          }
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+  .crypto-page {
+    background: var(--white);
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--gray-900) 0%, var(--charcoal) 100%);
+    padding: var(--space-2xl) 0;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+
+  .token-badge {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .chain-tag,
+  .type-tag {
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .chain-tag {
+    background: rgba(98, 126, 234, 0.2);
+    color: #627eea;
+  }
+
+  .type-tag {
+    background: rgba(16, 185, 129, 0.2);
+    color: #10b981;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: var(--space-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+
+  .token-icon {
+    font-size: 0.8em;
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-lg);
+    color: rgba(255,255,255,0.7);
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Warning Banner */
+  .warning-banner {
+    background: #fef3c7;
+    border-bottom: 1px solid #f59e0b;
+    padding: var(--space-md) 0;
+  }
+
+  .warning-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .warning-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .warning-text {
+    font-size: var(--font-size-sm);
+    color: #92400e;
+  }
+
+  /* Main Content */
+  .main-content {
+    padding: var(--space-2xl) var(--space-lg);
+  }
+
+  .section-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: var(--space-lg);
+  }
+
+  /* Contract Section */
+  .contract-section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .contract-box {
+    background: var(--gray-900);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .contract-chain {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+    color: #627eea;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+  }
+
+  .contract-address-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    background: var(--charcoal);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .contract-address {
+    flex: 1;
+    font-family: monospace;
+    font-size: var(--font-size-sm);
+    color: #10b981;
+    word-break: break-all;
+  }
+
+  .copy-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--gray-700);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--white);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .copy-btn:hover {
+    background: var(--gray-600);
+  }
+
+  .contract-links {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .verify-link {
+    font-size: var(--font-size-sm);
+    color: var(--brand-orange);
+    text-decoration: none;
+  }
+
+  .verify-link:hover {
+    text-decoration: underline;
+  }
+
+  .contract-warning {
+    margin-top: var(--space-md);
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+
+  /* Info Section */
+  .info-section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .info-content p {
+    font-size: var(--font-size-base);
+    line-height: 1.8;
+    color: var(--gray-700);
+    margin-bottom: var(--space-md);
+  }
+
+  .key-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+    padding: var(--space-lg);
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .stat-value {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  /* Exchanges Section */
+  .exchanges-section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .section-intro {
+    font-size: var(--font-size-base);
+    color: var(--gray-600);
+    margin-bottom: var(--space-lg);
+  }
+
+  .exchanges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+
+  .exchange-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-lg);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .exchange-card:hover {
+    border-color: var(--brand-orange);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .exchange-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-md);
+  }
+
+  .exchange-name {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .exchange-type {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+  }
+
+  .exchange-type.cex {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+  }
+
+  .exchange-type.dex {
+    background: rgba(168, 85, 247, 0.1);
+    color: #a855f7;
+  }
+
+  .exchange-pairs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+  }
+
+  .pair-tag {
+    padding: 2px 8px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    font-size: var(--font-size-xs);
+    color: var(--gray-600);
+  }
+
+  .exchange-cta {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--brand-orange);
+    margin-top: auto;
+  }
+
+  .buying-tips {
+    background: var(--gray-50);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .buying-tips h3 {
+    font-size: var(--font-size-base);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .buying-tips ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+  }
+
+  .buying-tips li {
+    font-size: var(--font-size-sm);
+    color: var(--gray-700);
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+  }
+
+  /* Timeline */
+  .timeline-section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: var(--space-xl);
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--gray-200);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: var(--space-lg);
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: calc(-1 * var(--space-xl) + 4px);
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    background: var(--brand-orange);
+    border-radius: 50%;
+  }
+
+  .timeline-date {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .timeline-event {
+    font-size: var(--font-size-base);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin: 4px 0;
+  }
+
+  .timeline-detail {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* News Section */
+  .news-section {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+  }
+
+  .news-header .section-title {
+    margin-bottom: 0;
+  }
+
+  .view-all-link {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--brand-orange);
+    text-decoration: none;
+  }
+
+  .news-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .news-item {
+    display: block;
+    padding: var(--space-md);
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .news-item:hover {
+    background: var(--gray-100);
+  }
+
+  .news-item-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xs);
+  }
+
+  .news-tag {
+    padding: 2px 8px;
+    background: #10b981;
+    color: white;
+    border-radius: 4px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+  }
+
+  .news-date {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+  }
+
+  .news-item-title {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  /* Risk Section */
+  .risk-section {
+    margin-bottom: var(--space-xl);
+  }
+
+  .risk-box {
+    background: rgba(239, 68, 68, 0.05);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+  }
+
+  .risk-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: #dc2626;
+    margin-bottom: var(--space-md);
+  }
+
+  .risk-box p {
+    font-size: var(--font-size-sm);
+    color: var(--gray-700);
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+  }
+
+  .risk-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Footer */
+  .page-footer {
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .last-updated {
+    font-size: var(--font-size-xs);
+    color: var(--gray-500);
+  }
+
+  @media (max-width: 600px) {
+    .warning-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .contract-address-wrapper {
+      flex-direction: column;
+    }
+
+    .contract-links {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .hero-actions {
+      flex-direction: column;
+    }
+  }
+</style>

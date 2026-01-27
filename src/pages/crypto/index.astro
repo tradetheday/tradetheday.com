@@ -1,0 +1,484 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageTitle = 'Cryptocurrency Guide | TradeTheDay';
+const pageDescription = 'Research cryptocurrencies before you trade. Verified contract addresses, where to buy, and latest news for Bitcoin, Ethereum, PEPE and more.';
+
+// Get filter from URL (for UX, not SEO)
+const chainFilter = Astro.url.searchParams.get('chain');
+const typeFilter = Astro.url.searchParams.get('type');
+const hasFilters = chainFilter || typeFilter;
+
+// Crypto data with tags
+const cryptos = [
+  {
+    symbol: 'PEPE',
+    name: 'PEPE',
+    chain: 'ethereum',
+    type: 'memecoin',
+    icon: '🐸',
+    description: 'The original Pepe memecoin on Ethereum',
+    href: '/crypto/pepe',
+    tags: ['ETH', 'Memecoin'],
+    hot: true
+  },
+  {
+    symbol: 'BTC',
+    name: 'Bitcoin',
+    chain: 'bitcoin',
+    type: 'layer1',
+    icon: '₿',
+    description: 'The original cryptocurrency',
+    href: '/crypto/bitcoin',
+    tags: ['L1', 'Store of Value'],
+    comingSoon: true
+  },
+  {
+    symbol: 'ETH',
+    name: 'Ethereum',
+    chain: 'ethereum',
+    type: 'layer1',
+    icon: '◆',
+    description: 'Programmable blockchain for smart contracts',
+    href: '/crypto/ethereum',
+    tags: ['L1', 'Smart Contracts'],
+    comingSoon: true
+  },
+  {
+    symbol: 'SOL',
+    name: 'Solana',
+    chain: 'solana',
+    type: 'layer1',
+    icon: '◎',
+    description: 'High-speed blockchain for DeFi and NFTs',
+    href: '/crypto/solana',
+    tags: ['L1', 'Fast'],
+    comingSoon: true
+  }
+];
+
+// Filter chips
+const chainFilters = [
+  { id: 'ethereum', label: 'Ethereum', icon: '◆' },
+  { id: 'bitcoin', label: 'Bitcoin', icon: '₿' },
+  { id: 'solana', label: 'Solana', icon: '◎' }
+];
+
+const typeFilters = [
+  { id: 'layer1', label: 'Layer 1' },
+  { id: 'memecoin', label: 'Memecoin' },
+  { id: 'defi', label: 'DeFi' },
+  { id: 'stablecoin', label: 'Stablecoin' }
+];
+
+// Filter the cryptos based on URL params
+let filteredCryptos = cryptos;
+if (chainFilter) {
+  filteredCryptos = filteredCryptos.filter(c => c.chain === chainFilter);
+}
+if (typeFilter) {
+  filteredCryptos = filteredCryptos.filter(c => c.type === typeFilter);
+}
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+>
+  <!-- Noindex filtered pages, index the main page -->
+  {hasFilters ? (
+    <meta slot="head" name="robots" content="noindex, follow">
+  ) : (
+    <meta slot="head" name="robots" content="index, follow">
+  )}
+  <link slot="head" rel="canonical" href="https://tradetheday.com/crypto">
+  <meta slot="head" property="og:title" content={pageTitle}>
+  <meta slot="head" property="og:description" content={pageDescription}>
+
+  <section class="crypto-index">
+    <div class="container">
+      <!-- Header -->
+      <header class="page-header">
+        <h1 class="page-title">Cryptocurrency</h1>
+        <p class="page-subtitle">
+          Research before you trade. Verified contracts, trusted exchanges, real information.
+        </p>
+      </header>
+
+      <!-- Filters -->
+      <div class="filters-section">
+        <div class="filter-group">
+          <span class="filter-label">Chain</span>
+          <div class="filter-chips">
+            <a
+              href="/crypto"
+              class={`filter-chip ${!chainFilter ? 'active' : ''}`}
+            >
+              All
+            </a>
+            {chainFilters.map((filter) => (
+              <a
+                href={`/crypto?chain=${filter.id}${typeFilter ? `&type=${typeFilter}` : ''}`}
+                class={`filter-chip ${chainFilter === filter.id ? 'active' : ''}`}
+              >
+                <span class="chip-icon">{filter.icon}</span>
+                {filter.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">Type</span>
+          <div class="filter-chips">
+            <a
+              href={chainFilter ? `/crypto?chain=${chainFilter}` : '/crypto'}
+              class={`filter-chip ${!typeFilter ? 'active' : ''}`}
+            >
+              All
+            </a>
+            {typeFilters.map((filter) => (
+              <a
+                href={`/crypto?${chainFilter ? `chain=${chainFilter}&` : ''}type=${filter.id}`}
+                class={`filter-chip ${typeFilter === filter.id ? 'active' : ''}`}
+              >
+                {filter.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {hasFilters && (
+          <a href="/crypto" class="clear-filters">Clear all filters</a>
+        )}
+      </div>
+
+      <!-- Crypto Grid -->
+      <div class="crypto-grid">
+        {filteredCryptos.map((crypto) => (
+          <a href={crypto.comingSoon ? '#' : crypto.href} class={`crypto-card ${crypto.comingSoon ? 'coming-soon' : ''}`}>
+            {crypto.hot && <span class="hot-badge">Trending</span>}
+            {crypto.comingSoon && <span class="soon-badge">Coming Soon</span>}
+
+            <div class="crypto-header">
+              <span class="crypto-icon">{crypto.icon}</span>
+              <div class="crypto-names">
+                <span class="crypto-symbol">{crypto.symbol}</span>
+                <span class="crypto-name">{crypto.name}</span>
+              </div>
+            </div>
+
+            <p class="crypto-description">{crypto.description}</p>
+
+            <div class="crypto-tags">
+              {crypto.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+
+            {!crypto.comingSoon && (
+              <span class="crypto-cta">Learn More →</span>
+            )}
+          </a>
+        ))}
+      </div>
+
+      <!-- Empty State -->
+      {filteredCryptos.length === 0 && (
+        <div class="empty-state">
+          <p>No cryptocurrencies match your filters.</p>
+          <a href="/crypto" class="btn btn-secondary">Clear Filters</a>
+        </div>
+      )}
+
+      <!-- Info Box -->
+      <div class="info-box">
+        <h2 class="info-title">Why verify before you buy?</h2>
+        <p>
+          The crypto space is full of scams, fake tokens, and rug pulls. Before buying any cryptocurrency:
+        </p>
+        <ul>
+          <li><strong>Verify the contract address</strong> on a block explorer like Etherscan</li>
+          <li><strong>Use reputable exchanges</strong> that have verified the token</li>
+          <li><strong>Check the official sources</strong> - not random links on social media</li>
+        </ul>
+        <p>
+          Every coin page on TradeTheDay includes the official contract address and links to verify it yourself.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .crypto-index {
+    padding: var(--space-xl) 0 var(--space-2xl);
+    background: var(--gray-50);
+    min-height: 70vh;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  /* Header */
+  .page-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .page-title {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    color: var(--charcoal);
+    margin-bottom: var(--space-sm);
+  }
+
+  .page-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--gray-600);
+    max-width: 500px;
+  }
+
+  /* Filters */
+  .filters-section {
+    margin-bottom: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-200);
+  }
+
+  .filter-group {
+    margin-bottom: var(--space-md);
+  }
+
+  .filter-group:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .filter-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    background: var(--gray-100);
+    border-radius: 100px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--gray-600);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .filter-chip:hover {
+    background: var(--gray-200);
+  }
+
+  .filter-chip.active {
+    background: var(--charcoal);
+    color: var(--white);
+  }
+
+  .chip-icon {
+    font-size: 0.9em;
+  }
+
+  .clear-filters {
+    display: inline-block;
+    margin-top: var(--space-md);
+    font-size: var(--font-size-sm);
+    color: var(--brand-orange);
+    text-decoration: none;
+  }
+
+  .clear-filters:hover {
+    text-decoration: underline;
+  }
+
+  /* Crypto Grid */
+  .crypto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
+
+  .crypto-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-lg);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .crypto-card:hover:not(.coming-soon) {
+    border-color: var(--brand-orange);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .crypto-card.coming-soon {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .hot-badge,
+  .soon-badge {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+  }
+
+  .hot-badge {
+    background: #10b981;
+    color: white;
+  }
+
+  .soon-badge {
+    background: var(--gray-200);
+    color: var(--gray-600);
+  }
+
+  .crypto-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .crypto-icon {
+    font-size: 2rem;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gray-100);
+    border-radius: var(--radius-md);
+  }
+
+  .crypto-names {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .crypto-symbol {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .crypto-name {
+    font-size: var(--font-size-sm);
+    color: var(--gray-500);
+  }
+
+  .crypto-description {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    line-height: 1.5;
+    margin-bottom: var(--space-md);
+    flex-grow: 1;
+  }
+
+  .crypto-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+  }
+
+  .tag {
+    padding: 2px 8px;
+    background: var(--gray-100);
+    border-radius: 4px;
+    font-size: var(--font-size-xs);
+    color: var(--gray-600);
+  }
+
+  .crypto-cta {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--brand-orange);
+  }
+
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: var(--space-2xl);
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .empty-state p {
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
+
+  /* Info Box */
+  .info-box {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+  }
+
+  .info-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+  }
+
+  .info-box p {
+    font-size: var(--font-size-base);
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+  }
+
+  .info-box ul {
+    margin: var(--space-md) 0;
+    padding-left: var(--space-lg);
+  }
+
+  .info-box li {
+    font-size: var(--font-size-base);
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: var(--space-sm);
+  }
+
+  @media (max-width: 600px) {
+    .crypto-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
