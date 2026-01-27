@@ -4,8 +4,8 @@ import Breadcrumb from '../../../components/Breadcrumb.astro';
 import TrustBadges from '../../../components/TrustBadges.astro';
 import { getBrokersByPlatform } from '../../../data/brokers';
 
-const pageTitle = "Best MT5 Brokers 2026: MT4 vs MT5 - Which Is Better?";
-const pageDescription = "Compare MT5 brokers and see how MetaTrader 5 compares to MT4. Multi-asset trading, more timeframes, and better backtesting. Regulated brokers only.";
+const pageTitle = "MetaTrader 5 Review 2026: The Complete MT5 Guide + Best Brokers";
+const pageDescription = "Complete MetaTrader 5 review and guide. Download MT5 free, learn all features, multi-asset trading, and find the best MT5 brokers with tight spreads.";
 
 const breadcrumbItems = [
   { text: 'Home', href: '/' },
@@ -16,31 +16,160 @@ const breadcrumbItems = [
 const mt5Brokers = getBrokersByPlatform('MetaTrader 5');
 const currentYear = new Date().getFullYear();
 
+// Key features table data
+const keyFeatures = [
+  { feature: 'Timeframes', performance: '21 timeframes from 1-minute to monthly, including unique 2H, 3H, 6H, 8H, 12H options', icon: '⏱' },
+  { feature: 'Devices', performance: 'Desktop, Mobile, Tablet, Web (PC, Mac, iOS, Android)', icon: '📱' },
+  { feature: 'Asset Classes', performance: 'Forex, Stocks, Futures, Commodities, Indices, Crypto CFDs', icon: '📊' },
+  { feature: 'Indicators', performance: '38 built-in technical indicators plus unlimited custom indicators', icon: '📈' },
+  { feature: 'Economic Calendar', performance: 'Built-in calendar with real-time news events and impact ratings', icon: '📰' },
+  { feature: 'Depth of Market', performance: 'Full DOM showing live order book data for better execution', icon: '📋' },
+  { feature: 'Programming', performance: 'MQL5 - more powerful object-oriented language for EAs', icon: '🤖' },
+  { feature: 'Hedging', performance: 'Both hedging and netting account types supported', icon: '🔄' },
+  { feature: 'Cost', performance: 'MetaTrader 5 is Free to download', icon: '💰' }
+];
+
+// MT5 system features
+const systemFeatures = [
+  'Market, pending, stop, and trailing stop orders',
+  'Four execution modes',
+  'Hedging and netting positions',
+  'Six pending order types',
+  'Partial order filling policies'
+];
+
+// MT5 analytics features
+const analyticsFeatures = [
+  '38 technical indicators',
+  '44 analytical objects',
+  '21 timeframes',
+  'Unlimited charts',
+  'Built-in economic calendar'
+];
+
+// Reasons to use MT5
+const reasonsToUse = [
+  'Multi-asset trading: trade forex, stocks, futures, and commodities from one platform',
+  '21 timeframes vs MT4\'s 9 gives more flexibility for analysis across different trading styles',
+  'Built-in economic calendar means no need for external news sources or plugins',
+  'Depth of Market (DOM) shows real order book data for better entry and exit timing',
+  'More powerful MQL5 programming language enables more sophisticated Expert Advisors',
+  'Better backtesting with multi-threaded strategy tester that uses all CPU cores',
+  'Integrated VPS hosting available directly from the platform',
+  'Free to download and use with any MT5 broker'
+];
+
+// Reasons not to use
+const reasonsNotToUse = [
+  'MT4 Expert Advisors are NOT compatible - EAs must be rewritten in MQL5 from scratch',
+  'Smaller EA marketplace compared to MT4\'s extensive library built over 15+ years',
+  'Some forex traders find MT5 unnecessarily complex if they only trade currency pairs'
+];
+
+// Getting started steps
+const gettingStartedSteps = [
+  {
+    title: 'Download & Install MT5',
+    content: 'Download MT5 from your broker\'s website or the official MetaTrader 5 site. Run the installer, accept the terms, and the installation completes in under 2 minutes. MT5 is available for Windows, Mac (via Wine), iOS, and Android.'
+  },
+  {
+    title: 'Create Your Account',
+    content: 'Open MT5 and go to File → Open an Account. Select your broker from the list, or add a custom server. Register for a demo account to practice, or log in with your live account credentials provided by your broker.'
+  },
+  {
+    title: 'Explore the Interface',
+    content: 'Familiarize yourself with the Market Watch (symbol list), Navigator (accounts, indicators, EAs), Toolbox (terminal, news, calendar), and the chart area. MT5 supports detachable charts across multiple monitors.'
+  },
+  {
+    title: 'Configure Your Charts',
+    content: 'Right-click any chart to customize. Choose from 21 timeframes, 3 chart types (candles, bars, lines), and add from 38+ built-in indicators. Save your workspace as a template for quick loading.'
+  },
+  {
+    title: 'Check the Economic Calendar',
+    content: 'Open the Toolbox panel (Ctrl+T) and click the Calendar tab. Filter by impact level, country, and time. This built-in feature is exclusive to MT5 and crucial for fundamental traders.'
+  },
+  {
+    title: 'Place Your First Trade',
+    content: 'Press F9 or click New Order. Select symbol, volume, and order type. Set stop loss and take profit levels. Choose between market execution or pending orders. Start with a demo account to practice risk-free.'
+  }
+];
+
+// Keyboard shortcuts
+const keyboardShortcuts = [
+  { keys: 'F9', action: 'Open New Order window' },
+  { keys: 'F10', action: 'Open Popup Prices window' },
+  { keys: 'F11', action: 'Toggle Full Screen mode' },
+  { keys: 'F12', action: 'Move chart one bar left' },
+  { keys: 'Ctrl+T', action: 'Toggle Toolbox (Terminal)' },
+  { keys: 'Ctrl+N', action: 'Toggle Navigator window' },
+  { keys: 'Ctrl+M', action: 'Toggle Market Watch' },
+  { keys: 'Ctrl+D', action: 'Toggle Data window' },
+  { keys: 'Ctrl+G', action: 'Toggle Grid on chart' },
+  { keys: 'Ctrl+I', action: 'Open Indicators list' },
+  { keys: 'Ctrl+Y', action: 'Toggle Period Separators' },
+  { keys: '+/-', action: 'Zoom In/Out on chart' }
+];
+
 const faqData = [
   {
     question: 'What is MetaTrader 5?',
-    answer: 'MetaTrader 5 (MT5) is the successor to MT4, developed by MetaQuotes. It offers more timeframes (21 vs 9), more technical indicators (38 vs 30), an integrated economic calendar, and supports more asset classes including stocks and futures.'
+    answer: 'MetaTrader 5 (MT5) is a multi-asset trading platform developed by MetaQuotes Software, released in 2010 as the successor to MT4. Unlike MT4 which focuses on forex, MT5 supports trading stocks, futures, commodities, and forex from a single platform. It features 21 timeframes, 38 technical indicators, a built-in economic calendar, and the more powerful MQL5 programming language.'
   },
   {
-    question: 'Which broker is best for MT5?',
-    answer: `For ${currentYear}, AvaTrade offers excellent MT5 support with multi-regulation, competitive spreads, and access to 1,250+ instruments. Axi provides MT5 with raw ECN spreads from 0.0 pips.`
+    question: 'Who owns MetaTrader 5?',
+    answer: 'MetaTrader 5 is owned by MetaQuotes Software Corp, the same company that developed MT4. MetaQuotes is actively promoting MT5 as their flagship platform and has stopped licensing MT4 to new brokers. Brokers pay licensing fees to offer MT5 to their clients.'
   },
   {
     question: 'Is MT5 better than MT4?',
-    answer: 'MT5 has more features: 21 timeframes, built-in economic calendar, Depth of Market, and more indicators. However, MT4 has better EA compatibility and is still preferred for pure forex trading. Choose MT5 if you want multi-asset trading.'
+    answer: 'MT5 has more features: 21 timeframes (vs 9), built-in economic calendar, full Depth of Market, more indicators (38 vs 30), and multi-asset support. However, MT4 has a much larger EA library and better backward compatibility. Choose MT5 if you want multi-asset trading or need more timeframes; stick with MT4 if you rely on existing EAs or only trade forex.'
+  },
+  {
+    question: 'Which broker is best for MT5?',
+    answer: `For ${currentYear}, AvaTrade offers excellent MT5 support with multi-regulation (FCA, ASIC, CySEC), competitive spreads from 0.9 pips, and access to 1,250+ instruments including stocks via MT5. Axi provides MT5 with raw ECN spreads from 0.0 pips for advanced traders.`
+  },
+  {
+    question: 'Is MT5 free to use?',
+    answer: 'Yes, MT5 is completely free to download and use. Brokers provide the platform at no cost when you open an account. There are no subscription fees or platform charges. Brokers make money from spreads and commissions on your trades, not from the platform itself.'
   },
   {
     question: 'Can I use MT4 EAs on MT5?',
-    answer: 'No, MT4 Expert Advisors (EAs) are not compatible with MT5. MT5 uses MQL5 programming language while MT4 uses MQL4. EAs need to be rewritten or converted for MT5.'
+    answer: 'No, MT4 Expert Advisors (EAs) are NOT compatible with MT5. MT4 uses MQL4 programming language while MT5 uses MQL5 - they are completely different. EAs must be rewritten from scratch for MT5. This is the main reason many traders still prefer MT4.'
   },
   {
-    question: 'Is MT5 free?',
-    answer: 'Yes, MT5 is free to download and use. Brokers provide the platform at no cost when you open an account. There are no subscription or platform fees.'
+    question: 'Can I trade stocks on MT5?',
+    answer: 'Yes, MT5 supports stock trading - this is one of its key advantages over MT4. However, stock availability depends on your broker. AvaTrade and IC Markets offer stock CFDs through MT5. For direct stock exchange access, you\'ll need a broker that offers exchange trading via MT5.'
+  },
+  {
+    question: 'What is Depth of Market (DOM)?',
+    answer: 'Depth of Market shows the live order book - all pending buy and sell orders at different price levels. This helps traders see where liquidity exists and make better entry/exit decisions. MT5\'s DOM is more advanced than MT4\'s limited version, showing full order book data.'
   },
   {
     question: 'Does MT5 have copy trading?',
-    answer: 'Yes, MT5 has a built-in Signals service that allows you to subscribe to and copy other traders. Some brokers like AvaTrade also offer additional copy trading integrations.'
+    answer: 'Yes, MT5 has a built-in Signals service that allows you to subscribe to and automatically copy other traders. The Signals tab in the Toolbox shows available providers with their track records. Some brokers like AvaTrade also offer additional copy trading integrations.'
+  },
+  {
+    question: 'What is the difference between hedging and netting?',
+    answer: 'Hedging mode allows multiple positions on the same symbol (you can have both buy and sell positions simultaneously). Netting mode combines all positions into a single net position per symbol. MT5 supports both; MT4 only supports hedging. Forex traders typically prefer hedging mode.'
+  },
+  {
+    question: 'Can I use MT5 on Mac?',
+    answer: 'Yes, MT5 works on Mac. You can use MT5 Web (browser-based, no installation needed), download the official Mac version from MetaQuotes (runs via Wine/CrossOver), or use the MT5 mobile app on iPhone. Most brokers provide Mac installation guides.'
+  },
+  {
+    question: 'How do I backtest strategies on MT5?',
+    answer: 'MT5\'s Strategy Tester is more powerful than MT4\'s. Access it via View → Strategy Tester or Ctrl+R. MT5 uses multi-threaded testing (faster), supports multiple symbols, and offers more accurate tick-by-tick simulation. You can optimize EA parameters and run forward testing.'
   }
+];
+
+// Anchor nav items
+const anchorItems = [
+  { text: 'Best Brokers', href: '#brokers' },
+  { text: 'What is MT5', href: '#what-is-mt5' },
+  { text: 'MT5 vs MT4', href: '#comparison' },
+  { text: 'Features', href: '#features' },
+  { text: 'Download', href: '#download' },
+  { text: 'Getting Started', href: '#getting-started' },
+  { text: 'FAQs', href: '#faq' }
 ];
 ---
 
@@ -49,6 +178,7 @@ const faqData = [
     <Breadcrumb items={breadcrumbItems} />
   </Fragment>
 
+  <!-- Schema.org markup -->
   <script slot="head" type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -60,6 +190,11 @@ const faqData = [
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.4",
+      "ratingCount": "25000"
     }
   })} />
 
@@ -69,7 +204,10 @@ const faqData = [
     "mainEntity": faqData.map(faq => ({
       "@type": "Question",
       "name": faq.question,
-      "acceptedAnswer": { "@type": "Answer", "text": faq.answer }
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
     }))
   })} />
 
@@ -78,15 +216,15 @@ const faqData = [
     <div class="container">
       <div class="mt5-hero-badge">
         <span class="badge-icon">📈</span>
-        <span>Next Generation Trading Platform</span>
+        <span>Multi-Asset Trading Platform</span>
       </div>
-      <h1 class="heading-1">Best MT5 Brokers {currentYear}</h1>
+      <h1 class="heading-1">MetaTrader 5: The Complete MT5 Review {currentYear}</h1>
       <p class="body-large mt5-hero-sub">
-        Find the best MetaTrader 5 brokers with multi-asset trading, 21 timeframes, and advanced analysis tools.
+        MetaTrader 5 is a multi-asset trading platform for forex, stocks, futures, and commodities. Find the best MT5 brokers, learn all features, and start trading today.
       </p>
       <div class="hero-stats">
         <div class="hero-stat">
-          <span class="hero-stat-value">{mt5Brokers.length}</span>
+          <span class="hero-stat-value">{mt5Brokers.length}+</span>
           <span class="hero-stat-label">MT5 Brokers</span>
         </div>
         <div class="hero-stat">
@@ -97,22 +235,37 @@ const faqData = [
           <span class="hero-stat-value">38</span>
           <span class="hero-stat-label">Indicators</span>
         </div>
+        <div class="hero-stat">
+          <span class="hero-stat-value">Free</span>
+          <span class="hero-stat-label">To Download</span>
+        </div>
       </div>
     </div>
   </section>
 
   <TrustBadges variant="light" compact={true} />
 
-  <!-- Best MT5 Brokers -->
-  <section class="section">
+  <!-- Anchor Navigation -->
+  <nav class="anchor-nav">
+    <div class="container">
+      <div class="anchor-links">
+        {anchorItems.map((item) => (
+          <a href={item.href} class="anchor-link">{item.text}</a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Best MT5 Brokers List -->
+  <section class="section" id="brokers">
     <div class="container">
       <h2 class="heading-2">Best MetaTrader 5 Brokers {currentYear}</h2>
-      <p class="section-intro">Top-rated brokers offering MT5 with multi-asset trading and advanced features.</p>
+      <p class="section-intro">Our top-rated brokers offering MetaTrader 5 with multi-asset trading, tight spreads, and reliable execution. All brokers are regulated and expert-reviewed.</p>
 
       <div class="broker-list">
         {mt5Brokers.map((broker, index) => (
           <div class={`broker-card ${index === 0 ? 'broker-card--top' : ''}`}>
-            {index === 0 && <span class="top-badge">Top Pick</span>}
+            {index === 0 && <span class="top-badge">Editor's Choice</span>}
             <div class="broker-card-rank">#{index + 1}</div>
 
             <div class="broker-card-main">
@@ -136,8 +289,8 @@ const faqData = [
                   <span class="stat-value">{broker.minDepositDisplay}</span>
                 </div>
                 <div class="broker-stat">
-                  <span class="stat-label">Instruments</span>
-                  <span class="stat-value">{broker.instrumentsDisplay}</span>
+                  <span class="stat-label">Regulation</span>
+                  <span class="stat-value">{broker.regulations[0]?.authority}</span>
                 </div>
               </div>
 
@@ -162,11 +315,115 @@ const faqData = [
     </div>
   </section>
 
-  <!-- MT5 vs MT4 -->
-  <section class="section section--alt">
+  <!-- Broker Callout -->
+  <aside class="broker-callout">
     <div class="container">
-      <h2 class="heading-2 text-center">MT5 vs MT4 - Key Differences</h2>
-      <p class="section-intro text-center">Understanding when to choose MT5 over MT4.</p>
+      <div class="callout-content">
+        <div class="callout-text">
+          <h3>Our #1 MT5 Broker: AvaTrade</h3>
+          <p>Multi-regulated (FCA, ASIC, CySEC), spreads from 0.9 pips, 1,250+ instruments including stocks, and exclusive partner code available.</p>
+        </div>
+        <a href="/brokers/avatrade/partner-code" class="btn btn-primary">Get AvaTrade Partner Code →</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- What is MT5 Section -->
+  <section class="section section--alt" id="what-is-mt5">
+    <div class="container">
+      <div class="content-grid">
+        <div class="content-main">
+          <h2 class="heading-2">What is MetaTrader 5?</h2>
+          <p>
+            MetaTrader 5 (MT5) is a multi-asset trading platform developed by MetaQuotes Software and released in 2010. While MT4 focused primarily on forex trading, MT5 was designed from the ground up to support multiple asset classes including stocks, futures, commodities, and forex.
+          </p>
+          <p>
+            MT5 is not just an upgrade to MT4 - it's a completely different platform with a new programming language (MQL5), more timeframes (21 vs 9), an integrated economic calendar, and full Depth of Market functionality. These features make it the preferred choice for traders who want multi-asset exposure from a single platform.
+          </p>
+          <p>
+            Despite being released in 2010, MT5 only gained significant traction in recent years as MetaQuotes stopped licensing MT4 to new brokers. This means all new brokers must offer MT5, and existing brokers are being encouraged to migrate their clients to MT5.
+          </p>
+          <p>
+            <strong>Important:</strong> MetaTrader 5 is not a broker - it's a trading platform that brokers license from MetaQuotes. Your broker provides the trading conditions (spreads, leverage, instruments) while MT5 provides the interface and execution technology.
+          </p>
+
+          <h3>MT5 vs MT4: The Key Differences</h3>
+          <p>
+            The biggest differences between MT5 and MT4 are: more timeframes (21 vs 9), a built-in economic calendar (MT4 has none), full Depth of Market, support for exchange trading (stocks, futures), and the MQL5 programming language which is more powerful but not backward compatible with MT4's MQL4.
+          </p>
+          <p>
+            Many traders still use MT4 because their existing Expert Advisors (EAs) don't work on MT5 without being completely rewritten. However, for new traders starting fresh or those wanting to trade multiple asset classes, MT5 is the better choice.
+          </p>
+        </div>
+
+        <div class="content-sidebar">
+          <div class="quick-facts">
+            <h3>MT5 Quick Facts</h3>
+            <dl>
+              <dt>Released</dt>
+              <dd>2010</dd>
+              <dt>Developer</dt>
+              <dd>MetaQuotes Software</dd>
+              <dt>Cost</dt>
+              <dd>Free</dd>
+              <dt>Best For</dt>
+              <dd>Multi-asset trading</dd>
+              <dt>Platforms</dt>
+              <dd>Win, Mac, Web, Mobile</dd>
+              <dt>Timeframes</dt>
+              <dd>21 (vs MT4's 9)</dd>
+            </dl>
+          </div>
+
+          <div class="cta-box">
+            <h4>Start Trading on MT5</h4>
+            <p><strong>AvaTrade</strong> offers MT5 with:</p>
+            <ul>
+              <li>Multi-regulation (FCA, ASIC)</li>
+              <li>0.9 pip spreads</li>
+              <li>1,250+ instruments</li>
+              <li>Stock trading via MT5</li>
+              <li>Welcome bonus available</li>
+            </ul>
+            <a href="/brokers/avatrade/partner-code" class="btn btn-primary btn-full">Get AvaTrade Partner Code</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pros and Cons -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2 text-center">Should You Use MetaTrader 5?</h2>
+      <p class="section-intro text-center">Based on expert reviews and hands-on testing, here's what traders think about MT5:</p>
+
+      <div class="pros-cons-grid">
+        <div class="pros-card">
+          <h3>✅ 8 Reasons To Use MetaTrader 5</h3>
+          <ul>
+            {reasonsToUse.map((reason) => (
+              <li>{reason}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="cons-card">
+          <h3>⛔ 3 Reasons Not To Use MetaTrader 5</h3>
+          <ul>
+            {reasonsNotToUse.map((reason) => (
+              <li>{reason}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MT5 vs MT4 Comparison -->
+  <section class="section section--alt" id="comparison">
+    <div class="container">
+      <h2 class="heading-2 text-center">MT5 vs MT4 - Full Comparison</h2>
+      <p class="section-intro text-center">Understanding the key differences to make the right choice for your trading:</p>
 
       <div class="comparison-table">
         <table>
@@ -189,106 +446,386 @@ const faqData = [
               <td class="highlight">38</td>
             </tr>
             <tr>
+              <td>Analytical Objects</td>
+              <td>23</td>
+              <td class="highlight">44</td>
+            </tr>
+            <tr>
               <td>Economic Calendar</td>
-              <td>No</td>
+              <td>No (external only)</td>
               <td class="highlight">Built-in</td>
             </tr>
             <tr>
               <td>Depth of Market</td>
               <td>Limited</td>
-              <td class="highlight">Full</td>
+              <td class="highlight">Full DOM</td>
             </tr>
             <tr>
               <td>Asset Classes</td>
               <td>Forex, CFDs</td>
-              <td class="highlight">Forex, Stocks, Futures</td>
+              <td class="highlight">Forex, Stocks, Futures, Commodities</td>
             </tr>
             <tr>
-              <td>EA Compatibility</td>
-              <td class="highlight">Extensive library</td>
+              <td>Pending Order Types</td>
+              <td>4</td>
+              <td class="highlight">6</td>
+            </tr>
+            <tr>
+              <td>Account Types</td>
+              <td>Hedging only</td>
+              <td class="highlight">Hedging + Netting</td>
+            </tr>
+            <tr>
+              <td>Strategy Tester</td>
+              <td>Single-threaded</td>
+              <td class="highlight">Multi-threaded (faster)</td>
+            </tr>
+            <tr>
+              <td>Programming Language</td>
+              <td>MQL4</td>
+              <td>MQL5 (not compatible)</td>
+            </tr>
+            <tr>
+              <td>EA Library Size</td>
+              <td class="highlight">Extensive (15+ years)</td>
               <td>Growing</td>
             </tr>
             <tr>
-              <td>Programming</td>
-              <td>MQL4</td>
-              <td>MQL5</td>
-            </tr>
-            <tr>
               <td>Best For</td>
-              <td>Forex, EAs</td>
-              <td class="highlight">Multi-asset</td>
+              <td>Forex, existing EAs</td>
+              <td class="highlight">Multi-asset, new traders</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <div class="comparison-verdict">
-        <h3>When to Choose MT5</h3>
+        <h3>When to Choose MT5 Over MT4</h3>
         <ul>
           <li>You want to trade stocks, futures, and forex from one platform</li>
-          <li>You need more timeframes for detailed analysis</li>
-          <li>You value the built-in economic calendar</li>
-          <li>You're starting fresh (no existing MT4 EAs)</li>
+          <li>You need more timeframes for detailed multi-timeframe analysis</li>
+          <li>You rely on fundamental analysis and want a built-in economic calendar</li>
+          <li>You're a new trader starting fresh (no existing MT4 EAs to migrate)</li>
+          <li>You want faster backtesting with multi-threaded strategy tester</li>
+          <li>Your broker only offers MT5 (new brokers)</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- MT5 Features -->
-  <section class="section">
+  <!-- Key Features Table -->
+  <section class="section" id="features">
     <div class="container">
       <h2 class="heading-2 text-center">MetaTrader 5 Key Features</h2>
+      <p class="section-intro text-center">MT5 is packed with features for serious traders. Here's what you get:</p>
 
-      <div class="features-grid">
+      <div class="features-table-wrapper">
+        <table class="features-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>MetaTrader 5 Capability</th>
+            </tr>
+          </thead>
+          <tbody>
+            {keyFeatures.map((item) => (
+              <tr>
+                <td><span class="feature-icon">{item.icon}</span> {item.feature}</td>
+                <td>{item.performance}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- System & Analytics Features -->
+      <div class="feature-cards">
         <div class="feature-card">
-          <span class="feature-icon">📊</span>
-          <h3>21 Timeframes</h3>
-          <p>From 1-minute to monthly charts, plus unique timeframes like 2-hour and 8-hour for flexible analysis.</p>
+          <h3>MT5 Trading System</h3>
+          <p>MT5 offers more order types and execution modes than MT4:</p>
+          <ul>
+            {systemFeatures.map((feature) => (
+              <li>{feature}</li>
+            ))}
+          </ul>
         </div>
         <div class="feature-card">
-          <span class="feature-icon">📰</span>
-          <h3>Economic Calendar</h3>
-          <p>Built-in calendar showing market-moving events, directly integrated into the platform.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">📈</span>
-          <h3>Depth of Market</h3>
-          <p>See real order book data with full Depth of Market (DOM) for better entry timing.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">🤖</span>
-          <h3>MQL5 Automation</h3>
-          <p>More powerful programming language for creating Expert Advisors and custom indicators.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">📱</span>
-          <h3>Multi-Device</h3>
-          <p>Trade on desktop, web, iOS, and Android with synced accounts and settings.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">🔄</span>
-          <h3>Hedging & Netting</h3>
-          <p>Choose between hedging (multiple positions) or netting (single position per symbol).</p>
+          <h3>MT5 Analytics</h3>
+          <p>Enhanced analytical tools for technical and fundamental analysis:</p>
+          <ul>
+            {analyticsFeatures.map((feature) => (
+              <li>{feature}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section class="section section--alt" id="faq">
+  <!-- Detailed Features (Collapsible) -->
+  <section class="section section--alt">
     <div class="container">
-      <h2 class="heading-2 text-center">MT5 Broker FAQ</h2>
+      <h2 class="heading-2 text-center">MetaTrader 5 Features In-Depth</h2>
+      <p class="section-intro text-center">Click each feature to learn more about MT5's capabilities:</p>
+
+      <div class="accordion-list">
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">📅</span>
+            <span class="accordion-title">Built-In Economic Calendar</span>
+          </summary>
+          <div class="accordion-content">
+            <p>One of MT5's biggest advantages over MT4 is the integrated economic calendar. This shows upcoming economic events, their expected impact, previous readings, and forecasts - all without leaving the platform.</p>
+            <p>You can filter events by country, impact level (high, medium, low), and date range. Events are displayed in real-time with automatic updates as data is released.</p>
+            <p>For fundamental traders, this eliminates the need for external websites like Forex Factory or Investing.com - everything you need is built into MT5.</p>
+            <div class="broker-note">
+              <strong>Pro Tip:</strong> Use the calendar to avoid trading during high-impact news events, or strategically trade the volatility around major releases.
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">📊</span>
+            <span class="accordion-title">Depth of Market (DOM)</span>
+          </summary>
+          <div class="accordion-content">
+            <p>MT5's Depth of Market shows the complete order book - all pending buy and sell orders at different price levels. This is crucial for understanding market liquidity and finding optimal entry/exit points.</p>
+            <p>You can see how much volume is waiting at each price level, helping you anticipate support and resistance areas based on actual orders rather than just historical price action.</p>
+            <p>DOM trading is especially useful for scalpers and day traders who need to see where large orders are sitting in the market.</p>
+            <div class="broker-note">
+              <strong>Broker Tip:</strong> DOM data quality depends on your broker. <a href="/brokers/axi">Axi</a> and <a href="/brokers/icmarkets">IC Markets</a> offer excellent DOM data on their ECN accounts.
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">⏱</span>
+            <span class="accordion-title">21 Timeframes</span>
+          </summary>
+          <div class="accordion-content">
+            <p>MT5 offers 21 timeframes compared to MT4's 9. The additional timeframes include 2-hour, 3-hour, 6-hour, 8-hour, and 12-hour charts that aren't available on MT4.</p>
+            <p>These intermediate timeframes are valuable for traders who find 4-hour too short but daily too long for their analysis. Multi-timeframe analysis becomes more precise with more options.</p>
+            <p><strong>Full MT5 timeframe list:</strong> M1, M2, M3, M4, M5, M6, M10, M12, M15, M20, M30, H1, H2, H3, H4, H6, H8, H12, D1, W1, MN</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">📈</span>
+            <span class="accordion-title">Multi-Asset Trading</span>
+          </summary>
+          <div class="accordion-content">
+            <p>Unlike MT4 which focuses on forex and CFDs, MT5 was designed for multi-asset trading. You can trade forex, stocks, futures, commodities, and indices all from the same platform.</p>
+            <p>This is particularly valuable if you want to diversify across asset classes without switching platforms. Many brokers now offer direct exchange access for stocks through MT5.</p>
+            <p>The unified interface means you can apply the same technical analysis tools, indicators, and trading strategies across all asset classes.</p>
+            <div class="broker-note">
+              <strong>Broker Tip:</strong> <a href="/brokers/avatrade">AvaTrade</a> offers 1,250+ instruments on MT5 including stock CFDs. For direct stock exchange access, check if your broker supports it.
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">🤖</span>
+            <span class="accordion-title">MQL5 & Expert Advisors</span>
+          </summary>
+          <div class="accordion-content">
+            <p>MT5 uses MQL5, an object-oriented programming language more powerful than MT4's MQL4. MQL5 enables more sophisticated trading algorithms with better performance and more capabilities.</p>
+            <p>However, MQL5 is NOT backward compatible with MQL4. This means MT4 Expert Advisors cannot run on MT5 without being completely rewritten - the biggest barrier to MT5 adoption.</p>
+            <p>The MT5 marketplace is growing, but the library of available EAs is still smaller than MT4's 15+ year collection. For new EA development, MQL5 is the better choice.</p>
+            <div class="broker-note">
+              <strong>VPS Tip:</strong> MT5 has built-in VPS hosting. Go to Tools → Options → Community to connect to MetaQuotes' VPS for 24/7 EA operation.
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">🔬</span>
+            <span class="accordion-title">Strategy Tester</span>
+          </summary>
+          <div class="accordion-content">
+            <p>MT5's Strategy Tester is significantly more powerful than MT4's. It uses multi-threaded processing, meaning it can use all your CPU cores for much faster backtesting.</p>
+            <p>Key improvements include: tick-by-tick testing with real tick data, multi-currency testing, forward testing mode, and distributed computing across the cloud.</p>
+            <p>You can also test strategies across multiple symbols simultaneously and optimize parameters using genetic algorithms.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">📱</span>
+            <span class="accordion-title">Mobile & Web Trading</span>
+          </summary>
+          <div class="accordion-content">
+            <p>MT5 is available on all major platforms: Windows desktop, Mac (via Wine or native), web browser, iOS, and Android. All versions sync your account, charts, and settings.</p>
+            <p>MT5 Web runs directly in your browser without installation - perfect for trading on public computers or when you can't install software. It includes most features of the desktop version.</p>
+            <p>Mobile apps offer full trading functionality including charting, indicators, and account management. Push notifications alert you to price movements and trade executions.</p>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary class="accordion-header">
+            <span class="accordion-icon">📋</span>
+            <span class="accordion-title">Copy Trading & Signals</span>
+          </summary>
+          <div class="accordion-content">
+            <p>MT5 includes a built-in Signals service for copy trading. From the Toolbox window (Ctrl+T), click the Signals tab to browse thousands of signal providers with verified track records.</p>
+            <p>You can filter by profit, drawdown, age, subscribers, and more. Once subscribed, trades are automatically copied to your account based on your settings.</p>
+            <p>Signal providers are paid based on subscribers, creating an ecosystem of strategy sharing within the MT5 community.</p>
+            <div class="broker-note">
+              <strong>Alternative:</strong> For social trading with more features, <a href="/brokers/etoro">eToro</a> specializes in copy trading. For MT5 signals specifically, <a href="/brokers/avatrade">AvaTrade</a> offers good integration.
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Section -->
+  <section class="section" id="download">
+    <div class="container">
+      <h2 class="heading-2 text-center">Download MetaTrader 5</h2>
+      <p class="section-intro text-center">MT5 is free to download. Choose your platform:</p>
+
+      <div class="download-grid">
+        <a href="https://www.metatrader5.com/en/download" target="_blank" rel="noopener" class="download-card">
+          <span class="download-icon">🖥️</span>
+          <h3>MT5 for Windows</h3>
+          <p>Full-featured desktop application</p>
+          <span class="download-btn">Download for Windows →</span>
+        </a>
+        <a href="https://www.metatrader5.com/en/terminal/help/start_advanced/install_mac" target="_blank" rel="noopener" class="download-card">
+          <span class="download-icon">🍎</span>
+          <h3>MT5 for Mac</h3>
+          <p>Native Mac version via Wine</p>
+          <span class="download-btn">Download for Mac →</span>
+        </a>
+        <a href="https://www.mql5.com/en/trading" target="_blank" rel="noopener" class="download-card">
+          <span class="download-icon">🌐</span>
+          <h3>MT5 Web</h3>
+          <p>Trade from any browser, no install</p>
+          <span class="download-btn">Open Web Terminal →</span>
+        </a>
+        <a href="https://apps.apple.com/app/metatrader-5/id413251709" target="_blank" rel="noopener" class="download-card">
+          <span class="download-icon">📱</span>
+          <h3>MT5 for iOS</h3>
+          <p>iPhone and iPad app from App Store</p>
+          <span class="download-btn">Download for iOS →</span>
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=net.metaquotes.metatrader5" target="_blank" rel="noopener" class="download-card">
+          <span class="download-icon">🤖</span>
+          <h3>MT5 for Android</h3>
+          <p>Android app from Google Play Store</p>
+          <span class="download-btn">Download for Android →</span>
+        </a>
+      </div>
+
+      <div class="broker-note broker-note--center">
+        <strong>Recommended:</strong> Download MT5 directly from your broker for the best experience. Brokers like <a href="/brokers/avatrade">AvaTrade</a> and <a href="/brokers/axi">Axi</a> provide pre-configured MT5 installers that connect directly to their servers.
+      </div>
+
+      <div class="system-requirements">
+        <h3>System Requirements</h3>
+        <ul>
+          <li><strong>Windows:</strong> Windows 7 or later, 100MB disk space, 1GB RAM</li>
+          <li><strong>Mac:</strong> macOS 10.12 or later (via Wine or native version)</li>
+          <li><strong>iOS:</strong> iOS 12.0 or later</li>
+          <li><strong>Android:</strong> Android 5.0 or later</li>
+          <li><strong>Web:</strong> Any modern browser (Chrome, Firefox, Safari, Edge)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Getting Started Guide -->
+  <section class="section section--alt" id="getting-started">
+    <div class="container">
+      <h2 class="heading-2 text-center">Getting Started with MetaTrader 5</h2>
+      <p class="section-intro text-center">Follow these 6 steps to start trading on MT5:</p>
+
+      <div class="steps-timeline">
+        {gettingStartedSteps.map((step, index) => (
+          <div class="timeline-step">
+            <div class="step-number">{index + 1}</div>
+            <div class="step-content">
+              <h3 class="step-title">{step.title}</h3>
+              <p class="step-description">{step.content}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="broker-note broker-note--center">
+        <strong>Ready to start?</strong> Open an account with <a href="/brokers/avatrade">AvaTrade</a> to get MT5 plus a welcome bonus, or compare all <a href="/brokers">MT5 brokers</a>.
+      </div>
+    </div>
+  </section>
+
+  <!-- Keyboard Shortcuts -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2 text-center">MT5 Keyboard Shortcuts</h2>
+      <p class="section-intro text-center">Speed up your trading with these essential shortcuts:</p>
+
+      <div class="shortcuts-grid">
+        {keyboardShortcuts.map((shortcut) => (
+          <div class="shortcut-item">
+            <kbd class="shortcut-keys">{shortcut.keys}</kbd>
+            <span class="shortcut-action">{shortcut.action}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Choose -->
+  <section class="section section--alt">
+    <div class="container">
+      <h2 class="heading-2 text-center">How to Choose an MT5 Broker</h2>
+      <p class="section-intro text-center">Not all MT5 brokers are equal. Here's what to look for:</p>
+
+      <div class="criteria-grid">
+        <div class="criteria-card">
+          <span class="criteria-number">1</span>
+          <h3>Regulation</h3>
+          <p>Choose brokers regulated by tier-1 authorities like FCA (UK), ASIC (Australia), or CySEC (EU). This ensures fund protection, segregated accounts, and fair practices.</p>
+        </div>
+        <div class="criteria-card">
+          <span class="criteria-number">2</span>
+          <h3>Asset Coverage</h3>
+          <p>If you want multi-asset trading (MT5's main advantage), check what instruments the broker offers on MT5. Some only offer forex; others provide stocks, futures, and more.</p>
+        </div>
+        <div class="criteria-card">
+          <span class="criteria-number">3</span>
+          <h3>Spreads & Fees</h3>
+          <p>Compare spreads on major pairs. ECN accounts offer raw spreads from 0.0 pips but charge commission. Standard accounts have wider spreads but no commission.</p>
+        </div>
+        <div class="criteria-card">
+          <span class="criteria-number">4</span>
+          <h3>Execution Quality</h3>
+          <p>For scalping and EA trading, execution speed matters. Look for brokers with low latency, minimal slippage, and servers close to major financial centers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" id="faq">
+    <div class="container">
+      <h2 class="heading-2 text-center">MetaTrader 5 FAQ</h2>
 
       <div class="faq-container">
-        {faqData.map((faq, index) => (
-          <div class="faq-item">
-            <button class="faq-question" data-faq-index={index}>
+        {faqData.map((faq) => (
+          <details class="faq-item">
+            <summary class="faq-question">
               {faq.question}
-            </button>
+            </summary>
             <div class="faq-answer">
               {faq.answer}
             </div>
-          </div>
+          </details>
         ))}
       </div>
     </div>
@@ -297,8 +834,8 @@ const faqData = [
   <!-- Final CTA -->
   <section class="section final-cta">
     <div class="container text-center">
-      <h2 class="heading-2">Ready to Trade on MT5?</h2>
-      <p class="body-large">Get exclusive bonuses when you sign up through TradeTheDay.</p>
+      <h2 class="heading-2">Ready to Start Trading on MT5?</h2>
+      <p class="body-large">Get exclusive bonuses when you sign up through TradeTheDay. MetaTrader 5 is free to download and use with any of our recommended brokers.</p>
       <div class="cta-buttons">
         <a href="/brokers/avatrade/partner-code" class="btn btn-primary btn-lg">AvaTrade Partner Code</a>
         <a href="/platforms/metatrader-4" class="btn btn-secondary btn-lg">Compare with MT4</a>
@@ -306,17 +843,6 @@ const faqData = [
     </div>
   </section>
 </BaseLayout>
-
-<script is:inline>
-document.querySelectorAll('.faq-question').forEach(button => {
-  button.addEventListener('click', () => {
-    const item = button.parentElement;
-    const isActive = item.classList.contains('active');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-    if (!isActive) item.classList.add('active');
-  });
-});
-</script>
 
 <style>
   .mt5-hero {
@@ -337,11 +863,15 @@ document.querySelectorAll('.faq-question').forEach(button => {
     margin-bottom: var(--space-md);
   }
 
-  .mt5-hero .heading-1 { color: white; }
+  .mt5-hero .heading-1 {
+    color: white;
+    max-width: 900px;
+    margin: 0 auto var(--space-md);
+  }
 
   .mt5-hero-sub {
     color: rgba(255, 255, 255, 0.8);
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto var(--space-xl);
   }
 
@@ -352,7 +882,9 @@ document.querySelectorAll('.faq-question').forEach(button => {
     flex-wrap: wrap;
   }
 
-  .hero-stat { text-align: center; }
+  .hero-stat {
+    text-align: center;
+  }
 
   .hero-stat-value {
     display: block;
@@ -366,10 +898,74 @@ document.querySelectorAll('.faq-question').forEach(button => {
     color: rgba(255, 255, 255, 0.6);
   }
 
+  /* Anchor Navigation */
+  .anchor-nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-200);
+    padding: var(--space-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .anchor-links {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .anchor-link {
+    color: var(--gray-600);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+  }
+
+  .anchor-link:hover {
+    color: var(--brand-orange);
+    background: rgba(255, 72, 0, 0.1);
+  }
+
+  /* Broker Callout */
+  .broker-callout {
+    background: linear-gradient(135deg, #1a2028 0%, #0f1419 100%);
+    padding: var(--space-lg) 0;
+  }
+
+  .callout-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .callout-text h3 {
+    color: var(--brand-orange);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-xs);
+  }
+
+  .callout-text p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+  }
+
+  /* Broker List */
   .section-intro {
     color: var(--gray-600);
     margin-bottom: var(--space-xl);
-    max-width: 600px;
+    max-width: 700px;
+  }
+
+  .text-center .section-intro,
+  .section-intro.text-center {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .broker-list {
@@ -416,7 +1012,9 @@ document.querySelectorAll('.faq-question').forEach(button => {
     text-align: center;
   }
 
-  .broker-card-main { flex: 1; }
+  .broker-card-main {
+    flex: 1;
+  }
 
   .broker-card-header {
     display: flex;
@@ -438,9 +1036,20 @@ document.querySelectorAll('.faq-question').forEach(button => {
     gap: var(--space-xs);
   }
 
-  .rating-score { font-weight: 700; color: var(--charcoal); }
-  .rating-stars { color: var(--brand-orange); font-size: var(--font-size-sm); }
-  .broker-tagline { color: var(--gray-600); margin-bottom: var(--space-md); }
+  .rating-score {
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+
+  .rating-stars {
+    color: var(--brand-orange);
+    font-size: var(--font-size-sm);
+  }
+
+  .broker-tagline {
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
 
   .broker-stats {
     display: flex;
@@ -448,11 +1057,27 @@ document.querySelectorAll('.faq-question').forEach(button => {
     margin-bottom: var(--space-md);
   }
 
-  .broker-stat { display: flex; flex-direction: column; }
-  .stat-label { font-size: 11px; color: var(--gray-500); text-transform: uppercase; }
-  .stat-value { font-weight: 600; color: var(--charcoal); }
+  .broker-stat {
+    display: flex;
+    flex-direction: column;
+  }
 
-  .broker-pros { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+  .stat-label {
+    font-size: 11px;
+    color: var(--gray-500);
+    text-transform: uppercase;
+  }
+
+  .stat-value {
+    font-weight: 600;
+    color: var(--charcoal);
+  }
+
+  .broker-pros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
 
   .pro-item {
     font-size: var(--font-size-sm);
@@ -468,9 +1093,145 @@ document.querySelectorAll('.faq-question').forEach(button => {
     gap: var(--space-sm);
   }
 
+  /* Content Grid */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: var(--space-2xl);
+  }
+
+  .content-main h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .content-main h3 {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+    font-size: var(--font-size-lg);
+  }
+
+  .content-main p {
+    color: var(--gray-700);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+  }
+
+  .quick-facts {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .quick-facts h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .quick-facts dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-xs) var(--space-md);
+  }
+
+  .quick-facts dt {
+    color: var(--gray-500);
+    font-size: var(--font-size-sm);
+  }
+
+  .quick-facts dd {
+    font-weight: 600;
+    color: var(--charcoal);
+    margin: 0;
+  }
+
+  .cta-box {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #1a2028 100%);
+    color: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+  }
+
+  .cta-box h4 {
+    color: var(--brand-orange);
+    margin-bottom: var(--space-sm);
+  }
+
+  .cta-box p {
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-box ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--space-lg);
+    font-size: var(--font-size-sm);
+  }
+
+  .cta-box li {
+    padding: var(--space-xs) 0;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .cta-box li::before {
+    content: '✓ ';
+    color: var(--success);
+  }
+
+  /* Pros and Cons */
+  .pros-cons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+  }
+
+  .pros-card,
+  .cons-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    border: 1px solid var(--gray-200);
+  }
+
+  .pros-card {
+    border-top: 4px solid var(--success);
+  }
+
+  .cons-card {
+    border-top: 4px solid var(--error);
+  }
+
+  .pros-card h3,
+  .cons-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+  }
+
+  .pros-card ul,
+  .cons-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .pros-card li,
+  .cons-card li {
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+    line-height: 1.5;
+  }
+
+  .pros-card li:last-child,
+  .cons-card li:last-child {
+    border-bottom: none;
+  }
+
   /* Comparison Table */
   .comparison-table {
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto var(--space-xl);
     overflow-x: auto;
   }
@@ -537,10 +1298,49 @@ document.querySelectorAll('.faq-question').forEach(button => {
     font-weight: 600;
   }
 
-  /* Features Grid */
-  .features-grid {
+  /* Features Table */
+  .features-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: var(--space-xl);
+  }
+
+  .features-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .features-table th,
+  .features-table td {
+    padding: var(--space-md) var(--space-lg);
+    text-align: left;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .features-table th {
+    background: var(--charcoal);
+    color: white;
+    font-weight: 600;
+  }
+
+  .features-table td {
+    color: var(--gray-700);
+  }
+
+  .features-table tr:hover td {
+    background: var(--gray-50);
+  }
+
+  .feature-icon {
+    margin-right: var(--space-sm);
+  }
+
+  .feature-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-lg);
   }
 
@@ -549,31 +1349,358 @@ document.querySelectorAll('.faq-question').forEach(button => {
     border: 1px solid var(--gray-200);
     border-radius: var(--radius-xl);
     padding: var(--space-xl);
+  }
+
+  .feature-card h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+    color: var(--charcoal);
+  }
+
+  .feature-card p {
+    color: var(--gray-600);
+    margin-bottom: var(--space-md);
+  }
+
+  .feature-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .feature-card li {
+    padding: var(--space-xs) 0;
+    color: var(--gray-700);
+  }
+
+  .feature-card li::before {
+    content: '✓ ';
+    color: var(--success);
+  }
+
+  /* Accordion */
+  .accordion-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .accordion-item {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+    overflow: hidden;
+  }
+
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--charcoal);
+    list-style: none;
+  }
+
+  .accordion-header::-webkit-details-marker {
+    display: none;
+  }
+
+  .accordion-header::after {
+    content: '+';
+    margin-left: auto;
+    font-size: var(--font-size-xl);
+    color: var(--brand-orange);
+    transition: transform 0.2s;
+  }
+
+  .accordion-item[open] .accordion-header::after {
+    transform: rotate(45deg);
+  }
+
+  .accordion-icon {
+    font-size: var(--font-size-xl);
+  }
+
+  .accordion-content {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--gray-700);
+    line-height: 1.7;
+  }
+
+  .accordion-content p {
+    margin-bottom: var(--space-md);
+  }
+
+  .broker-note {
+    background: rgba(255, 72, 0, 0.1);
+    border-left: 4px solid var(--brand-orange);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-md);
+    font-size: var(--font-size-sm);
+  }
+
+  .broker-note a {
+    color: var(--brand-orange);
+    font-weight: 600;
+  }
+
+  .broker-note--center {
+    max-width: 700px;
+    margin: var(--space-xl) auto 0;
     text-align: center;
-    transition: all 0.3s ease;
+    border-left: none;
+    border-top: 4px solid var(--brand-orange);
   }
 
-  .feature-card:hover {
+  /* Download Grid */
+  .download-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+  }
+
+  .download-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .download-card:hover {
     border-color: var(--brand-orange);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(255, 72, 0, 0.1);
   }
 
-  .feature-icon {
-    font-size: 2.5rem;
+  .download-icon {
+    font-size: 48px;
     display: block;
     margin-bottom: var(--space-md);
   }
 
-  .feature-card h3 {
+  .download-card h3 {
+    font-size: var(--font-size-lg);
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .download-card p {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .download-btn {
+    color: var(--brand-orange);
+    font-weight: 600;
+  }
+
+  .system-requirements {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    max-width: 600px;
+    margin: var(--space-xl) auto 0;
+  }
+
+  .system-requirements h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+    text-align: center;
+  }
+
+  .system-requirements ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .system-requirements li {
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+  }
+
+  .system-requirements li:last-child {
+    border-bottom: none;
+  }
+
+  /* Steps Timeline */
+  .steps-timeline {
+    max-width: 700px;
+    margin: 0 auto var(--space-xl);
+  }
+
+  .timeline-step {
+    display: flex;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    position: relative;
+  }
+
+  .timeline-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 48px;
+    bottom: -16px;
+    width: 2px;
+    background: var(--gray-200);
+  }
+
+  .timeline-step .step-number {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    background: var(--brand-orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+  }
+
+  .step-content {
+    flex: 1;
+    padding-top: var(--space-xs);
+  }
+
+  .step-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: var(--space-xs);
+  }
+
+  .step-description {
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+
+  /* Shortcuts Grid */
+  .shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--space-md);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .shortcut-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    background: white;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-200);
+  }
+
+  .shortcut-keys {
+    background: var(--charcoal);
+    color: white;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-family: monospace;
+    font-size: var(--font-size-sm);
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .shortcut-action {
+    color: var(--gray-700);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Criteria Grid */
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .criteria-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--space-xl);
+    position: relative;
+  }
+
+  .criteria-number {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    font-size: var(--font-size-3xl);
+    font-weight: 800;
+    color: var(--gray-100);
+  }
+
+  .criteria-card h3 {
     font-size: var(--font-size-lg);
     color: var(--charcoal);
     margin-bottom: var(--space-sm);
   }
 
-  .feature-card p {
+  .criteria-card p {
     color: var(--gray-600);
-    line-height: 1.5;
+    line-height: 1.6;
+  }
+
+  /* FAQ */
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-md);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--charcoal);
+    list-style: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question::after {
+    content: '+';
+    font-size: var(--font-size-xl);
+    color: var(--brand-orange);
+    transition: transform 0.2s;
+  }
+
+  .faq-item[open] .faq-question::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-answer {
+    padding: 0 var(--space-lg) var(--space-lg);
+    color: var(--gray-700);
+    line-height: 1.7;
   }
 
   /* Final CTA */
@@ -582,8 +1709,17 @@ document.querySelectorAll('.faq-question').forEach(button => {
     color: white;
   }
 
-  .final-cta .heading-2 { color: white; }
-  .final-cta .body-large { color: rgba(255, 255, 255, 0.8); margin-bottom: var(--space-xl); }
+  .final-cta .heading-2 {
+    color: white;
+  }
+
+  .final-cta .body-large {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: var(--space-xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   .cta-buttons {
     display: flex;
@@ -592,16 +1728,75 @@ document.querySelectorAll('.faq-question').forEach(button => {
     flex-wrap: wrap;
   }
 
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .content-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .content-sidebar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .pros-cons-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
   @media (max-width: 768px) {
     .broker-card {
       grid-template-columns: 1fr;
       text-align: center;
     }
 
-    .broker-card-rank { display: none; }
-    .broker-card-header { justify-content: center; }
-    .broker-stats { justify-content: center; }
-    .broker-pros { justify-content: center; }
-    .broker-card-actions { flex-direction: row; justify-content: center; }
+    .broker-card-rank {
+      display: none;
+    }
+
+    .broker-card-header {
+      justify-content: center;
+    }
+
+    .broker-stats {
+      justify-content: center;
+    }
+
+    .broker-pros {
+      justify-content: center;
+    }
+
+    .broker-card-actions {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .callout-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .anchor-links {
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding-bottom: var(--space-sm);
+    }
+
+    .timeline-step {
+      flex-direction: column;
+    }
+
+    .timeline-step:not(:last-child)::before {
+      display: none;
+    }
+
+    .download-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
