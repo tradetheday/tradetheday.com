@@ -179,12 +179,16 @@
 # Old non-hyphen URLs to new hyphenated URLs
 /platform/metatrader4* /platforms/metatrader-4 301
 /platform/metatrader4 /platforms/metatrader-4 301
-/platforms/metatrader4* /platforms/metatrader-4 301
+/platforms/metatrader4 /platforms/metatrader-4 301
+/platforms/metatrader4/* /platforms/metatrader-4 301
 /platforms/metatrader4.html /platforms/metatrader-4 301
-/platforms/metatrader5* /platforms/metatrader-5 301
+/platforms/metatrader5 /platforms/metatrader-5 301
+/platforms/metatrader5/* /platforms/metatrader-5 301
 /platforms/metatrader5.html /platforms/metatrader-5 301
 /metatrader4* /platforms/metatrader-4 301
 /metatrader4 /platforms/metatrader-4 301
+/metatrader5* /platforms/metatrader-5 301
+/metatrader5 /platforms/metatrader-5 301
 /platforms/spectre /platforms 301
 /platforms/spectre/* /platforms 301
 /platforms/vps /platforms 301
