@@ -39,6 +39,59 @@ const bonusData = [
 
 // Country-specific data for regional bonus tiers
 const countryData = {
+  global: {
+    code: 'global',
+    name: 'Global',
+    flag: '🌍',
+    currency: 'USD',
+    currencySymbol: '$',
+    regulator: 'Multi-Regulated',
+    regulatorFull: 'Multiple Tier-1 Regulators',
+    regNumber: 'FCA, ASIC, CySEC, FSCA',
+    protection: 'Varies by Region',
+    protectionScheme: 'Regional Schemes',
+    leverage: '1:30 - 1:400',
+    bonusTiers: [
+      { deposit: '$1,000 - $1,999', bonus: '$200' },
+      { deposit: '$2,000 - $2,999', bonus: '$400' },
+      { deposit: '$3,000 - $4,999', bonus: '$600' },
+      { deposit: '$5,000 - $9,999', bonus: '$1,000' },
+      { deposit: '$10,000+', bonus: 'Up to $14,000' }
+    ],
+    benefits: [
+      { text: 'Regulated by FCA, ASIC, CySEC & More', check: true },
+      { text: 'Segregated Client Funds', check: true },
+      { text: 'Negative Balance Protection', check: true },
+      { text: 'Multiple Account Currencies', check: true },
+      { text: '24/5 Multilingual Support', check: true }
+    ],
+    considerations: {
+      title: 'What International Traders Should Know About AvaTrade',
+      intro: 'AvaTrade serves traders in over 150 countries through multiple regulated entities. Here\'s what you need to know about using partner code 128979 regardless of your location.',
+      sections: [
+        {
+          heading: 'Global Regulatory Coverage',
+          content: 'AvaTrade operates under multiple tier-1 regulators including the FCA (UK), ASIC (Australia), CySEC (EU), FSCA (South Africa), ADGM (UAE), and FSA (Japan). Your account will be held with the entity appropriate for your jurisdiction, ensuring you receive proper regulatory protection.'
+        },
+        {
+          heading: 'Partner Code Works Worldwide',
+          content: 'Partner code 128979 is valid globally. Enter it during registration regardless of your country. The bonus structure shown in USD applies universally, though your exact amounts will be calculated in your chosen account currency at current exchange rates.'
+        },
+        {
+          heading: 'Choose Your Account Currency',
+          content: 'AvaTrade supports accounts in USD, EUR, GBP, AUD, and other major currencies. Choose the currency you\'ll deposit in to avoid conversion fees. If you trade primarily USD pairs, a USD account makes sense. Select your country above for local currency bonus tiers.'
+        },
+        {
+          heading: 'Leverage Varies by Region',
+          content: 'Maximum leverage depends on your regulatory jurisdiction. EU/UK/AU traders are limited to 1:30 for major forex pairs under consumer protection rules. Traders in other regions (South Africa, UAE, etc.) may access up to 1:400. Higher leverage increases both potential profits and risks.'
+        },
+        {
+          heading: 'Regional Bonus Restrictions',
+          content: 'Some jurisdictions (particularly EU countries under ESMA rules) have restrictions on trading bonuses. If you\'re in the EU, the welcome bonus may not be available to retail traders. Select your specific country above to see applicable regulations and bonus availability.'
+        }
+      ]
+    }
+  },
   uk: {
     code: 'uk',
     name: 'United Kingdom',
@@ -1002,9 +1055,10 @@ const faqData = [
       <div class="regional-content">
         <!-- Country Selector -->
         <div class="country-selector">
-          <label for="countrySelect" class="selector-label">Select Your Country</label>
+          <label for="countrySelect" class="selector-label">Select Your Country for Local Details</label>
           <div class="selector-wrapper">
             <select id="countrySelect" class="country-dropdown">
+              <option value="global">🌍 Global (USD)</option>
               <option value="uk">🇬🇧 United Kingdom</option>
               <option value="australia">🇦🇺 Australia</option>
               <option value="canada">🇨🇦 Canada</option>
@@ -1017,9 +1071,9 @@ const faqData = [
           </div>
         </div>
 
-        <!-- Country-Specific Content Panels (all rendered for SEO, shown/hidden via JS) -->
+        <!-- Country-Specific Content Panels (all rendered for SEO, shown/hidden via CSS) -->
         {Object.entries(countryData).map(([key, country]) => (
-          <div class={`country-panel ${key === 'uk' ? 'active' : ''}`} data-country={key}>
+          <div class={`country-panel ${key === 'global' ? 'active' : ''}`} data-country={key}>
             <div class="country-header">
               <span class="country-flag">{country.flag}</span>
               <h2 class="section-title">{country.name} Traders: Partner Code 128979</h2>
