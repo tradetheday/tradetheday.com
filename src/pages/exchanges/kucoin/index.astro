@@ -101,7 +101,7 @@ const regulationLicenses = [
     licenseNumber: 'N/A',
     compensation: 'N/A',
     status: 'offshore',
-    description: 'KuCoin operates from Seychelles without specific crypto exchange licensing. This is common for global exchanges but means less regulatory oversight.'
+    description: 'Based in Seychelles with no crypto-specific license. Standard for offshore exchanges, but means no deposit insurance and no regulator to complain to.'
   }
 ];
 
@@ -247,27 +247,27 @@ const prosConsData = {
 const faqData = [
   {
     question: 'Is KuCoin safe to use?',
-    answer: 'KuCoin has mixed safety credentials. They suffered a $285M hack in 2020 but recovered most funds and compensated users. They use cold storage, 2FA, and security features, but operate offshore without major regulatory oversight. Use 2FA, whitelist withdrawal addresses, and don\'t store large amounts long-term.'
+    answer: 'Mixed. They got hacked for $285M in 2020 - recovered most of it and made users whole, which is better than most hacks go. But they\'re based in Seychelles with no real regulation. Use 2FA, set up withdrawal whitelists, and don\'t keep large amounts there long-term.'
   },
   {
     question: 'Can US residents use KuCoin?',
-    answer: 'KuCoin officially does not serve US residents due to regulatory concerns. While some US users access the platform via VPN, this violates KuCoin\'s terms of service and carries legal and financial risks. US traders should use regulated alternatives like Kraken or Coinbase.'
+    answer: 'Officially, no. KuCoin blocks US access in their terms of service. Some Americans use VPNs to get around this, but that\'s risky - if something goes wrong, you have no recourse. US traders are better off with Kraken or Coinbase.'
   },
   {
     question: 'What are KuCoin\'s trading fees?',
-    answer: 'KuCoin charges 0.1% maker and 0.1% taker fees for spot trading - among the lowest in the industry. Holding KCS tokens reduces fees by 20%. Futures fees are 0.02% maker and 0.06% taker. VIP tiers offer additional discounts based on 30-day volume.'
+    answer: '0.1% for both maker and taker on spot. Hold KCS tokens to drop that to 0.08%. Futures are 0.02% maker, 0.06% taker. VIP tiers exist for high volume, but the base rate is already competitive.'
   },
   {
     question: 'What is KCS and why should I hold it?',
-    answer: 'KCS (KuCoin Shares) is KuCoin\'s native token. Benefits include: 20% trading fee discount when paying fees in KCS, daily bonus from exchange revenue sharing (hold 6+ KCS), VIP tier qualification, and exclusive token sale access on KuCoin Spotlight.'
+    answer: 'KuCoin\'s native token. Holding it gets you 20% off trading fees. Hold 6+ KCS and you get daily bonuses from exchange revenue (small but free money). Also gets you into token sales early. The fee discount alone is worth it if you trade regularly.'
   },
   {
     question: 'Does KuCoin require KYC verification?',
-    answer: 'KuCoin allows basic trading without KYC, but with limits: 5 BTC daily withdrawal, no fiat purchases. Completing KYC unlocks higher withdrawal limits (200+ BTC daily), fiat on-ramp access, and P2P trading. KYC requires ID and facial verification.'
+    answer: 'No, for basic trading. Without KYC you can withdraw up to 5 BTC daily but can\'t buy crypto with fiat. KYC unlocks higher limits (200+ BTC daily), fiat purchases, and P2P trading. You\'ll need ID and face verification.'
   },
   {
     question: 'How do KuCoin trading bots work?',
-    answer: 'KuCoin offers free built-in trading bots: Grid Bot (profits from price fluctuations), DCA Bot (dollar-cost averaging), Smart Rebalance (portfolio rebalancing), and Infinity Grid (endless grid trading). Set parameters, fund the bot, and it trades automatically. No coding required.'
+    answer: 'They\'re built into the platform and free. Grid Bot buys low/sells high in a range. DCA Bot does dollar-cost averaging. Smart Rebalance keeps your portfolio at target allocations. No coding needed - you just set parameters and fund it.'
   }
 ];
 
@@ -283,20 +283,20 @@ const verdictData = {
     { name: 'Security', score: 3.5, maxScore: 5, description: '2020 hack, offshore regulation' },
     { name: 'Customer Support', score: 3.5, maxScore: 5, description: 'Can be slow to respond' }
   ],
-  verdict: 'KuCoin is the go-to exchange for altcoin traders who want maximum selection at low fees. With 700+ coins and built-in trading bots, it offers features other exchanges charge for. The trade-off is offshore regulation and a 2020 security incident.',
-  recommendation: 'We recommend KuCoin for experienced traders outside the US who prioritize coin selection and low fees over regulatory protection. Not suitable for beginners or those seeking maximum security.',
+  verdict: 'KuCoin has more coins than anyone else (700+) at fees that match Binance. The free trading bots are a nice touch. But they got hacked in 2020 and operate from Seychelles with zero regulation. Know what you\'re getting into.',
+  recommendation: 'Works well for non-US traders who want early access to altcoins and can handle offshore exchange risk. Not for Americans, beginners, or anyone storing serious money.',
   bestFor: ['Altcoin hunters', 'Bot traders', 'Low-fee seekers', 'Non-US traders', 'Experienced users'],
   notIdealFor: ['US residents', 'Security-focused investors', 'Complete beginners', 'Large balance holders'],
-  finalThoughts: 'KuCoin fills a specific niche: maximum coin selection with competitive fees. If you understand the risks of offshore exchanges and want access to coins before they hit major platforms, KuCoin delivers.',
+  finalThoughts: 'Good exchange for finding coins early. Just don\'t store your retirement there.',
   ctaText: 'Open KuCoin Account',
   ctaUrl: 'https://www.kucoin.com/'
 };
 
 const whyChooseFeatures = [
-  { title: "700+ Coins", description: "Largest altcoin selection available", icon: "🪙" },
-  { title: "0.1% Fees", description: "Low trading fees with KCS discounts", icon: "💰" },
-  { title: "Trading Bots", description: "Free built-in automated strategies", icon: "🤖" },
-  { title: "No KYC Option", description: "Trade without ID verification", icon: "🔓" }
+  { title: "700+ Coins", description: "More than Binance or Kraken", icon: "🪙" },
+  { title: "0.1% Fees", description: "0.08% with KCS token", icon: "💰" },
+  { title: "Trading Bots", description: "Built-in, free, no coding", icon: "🤖" },
+  { title: "No KYC Option", description: "5 BTC daily limit without ID", icon: "🔓" }
 ];
 
 const openingProcessSteps = [
@@ -343,7 +343,7 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
       <Chip>Altcoin Paradise</Chip>
       <h1 class="heading-1">KuCoin Review 2026 – The Best Exchange for Altcoins?</h1>
       <p class="body-large hero-subtitle">
-        With 700+ cryptocurrencies and 0.1% fees, KuCoin is the go-to for altcoin traders. But offshore regulation raises questions. Here's our honest take.
+        700+ coins. 0.1% fees. No KYC required. KuCoin is where you find altcoins before they hit Binance. The catch? It's based in Seychelles, and they got hacked in 2020.
       </p>
       <div class="hero-cta-group">
         <a href="https://www.kucoin.com/" class="btn btn-primary btn-lg" target="_blank" rel="noopener sponsored">Open KuCoin Account</a>
@@ -358,33 +358,33 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
   <section id="overview" class="section">
     <div class="container">
       <div class="section-header">
-        <h2 class="heading-2">Complete KuCoin Overview</h2>
-        <p class="body-large">Founded in 2017, KuCoin has grown to serve 30M+ users across 200+ countries. Known as "The People's Exchange," it focuses on listing new altcoins early and keeping fees low.</p>
+        <h2 class="heading-2">KuCoin overview</h2>
+        <p class="body-large">Started in 2017, now has 30M+ users. They call themselves "The People's Exchange" - which is marketing speak, but the coin selection is genuinely massive.</p>
       </div>
       <FeatureHighlights features={whyChooseFeatures} title="Why Choose KuCoin?" />
       <CompanyInfo name="KuCoin" founded="2017" headquarters="Seychelles" regulators={['Offshore (Seychelles)']} users="30M+" instruments="700+ Cryptos" minDeposit="$0" />
       <ProcessSteps steps={openingProcessSteps} title="Open a KuCoin Account" />
 
       <AnalystNotes
-        title="Analyst's Overview Notes"
+        title="What we actually think"
         icon="📊"
         id="overview-notes"
         variant="dark"
       >
-        <h4>What Our Analysis Reveals About KuCoin</h4>
-        <p>KuCoin occupies a unique position: it's the exchange where altcoins go before they hit Binance or Coinbase. Understanding this positioning helps determine if KuCoin's trade-offs align with your priorities.</p>
+        <h4>The real deal with KuCoin</h4>
+        <p>Here's the pitch: KuCoin lists coins before Binance or Coinbase touch them. If you want to buy something obscure, it's probably here. Whether that's good or bad depends on your risk tolerance.</p>
 
-        <h5>The Altcoin Advantage</h5>
-        <p>KuCoin's 700+ coin listings dwarf most competitors. While Binance offers 350+ and Kraken 200+, KuCoin provides access to smaller projects, new launches, and niche tokens. For traders who want early access to emerging projects, this is KuCoin's core value proposition. The flip side: more obscure coins mean higher scam risk, so research thoroughly before trading unknown tokens.</p>
+        <h5>Why people actually use it</h5>
+        <p>700+ coins. Binance has 350-ish, Kraken around 200. That gap matters if you're hunting small-cap projects or want in early on new launches. The obvious downside: more obscure coins means more scams. We've seen coins on KuCoin that turned out to be rugs. Do your own research - seriously.</p>
 
-        <h5>The Fee Structure</h5>
-        <p>At 0.1% maker/taker, KuCoin matches Binance as the cheapest major exchange. Add the 20% KCS discount and effective fees drop to 0.08%. For active traders, this fee structure saves significant money compared to Coinbase (0.4-0.6%) or Kraken (0.16-0.26%). The KCS token also provides daily bonuses from exchange revenue - a genuine passive income stream for holders.</p>
+        <h5>The fees are good</h5>
+        <p>0.1% flat for spot trades. Same as Binance, cheaper than Kraken (0.16-0.26%) and way cheaper than Coinbase (0.4-0.6%). Hold their KCS token and fees drop to 0.08%. On a $10K trade, you're paying $8-10 instead of $40-60. That adds up.</p>
 
-        <h5>The Offshore Reality</h5>
-        <p>KuCoin operates from Seychelles without major regulatory licenses. This isn't inherently bad - it's the norm for global exchanges - but it means no government insurance, no regulatory recourse, and potential legal grey areas. The 2020 hack ($285M stolen, later recovered) highlighted these risks. KuCoin compensated users, but had they not recovered funds, there was no guarantee of reimbursement.</p>
+        <h5>The Seychelles thing</h5>
+        <p>KuCoin is based in Seychelles, which is code for "no real regulation." Most offshore exchanges work this way. It means no government insurance if they go bust, no regulator to complain to. The 2020 hack proved the risk is real - $285M stolen. They recovered most of it and made users whole, which was impressive. But there was no guarantee they had to.</p>
 
-        <h5>Who Should Use KuCoin</h5>
-        <p>KuCoin makes sense for: altcoin traders wanting maximum selection, fee-conscious traders moving significant volume, bot traders using the free built-in tools, users comfortable with offshore exchanges, and those who value privacy (no KYC for basic trading). It's less suitable for: US residents (terms violation), security-focused investors, large balance holders, and complete beginners.</p>
+        <h5>Should you use it?</h5>
+        <p>If you're outside the US, want coins that aren't on major exchanges yet, don't mind offshore risk, and won't store your life savings there - yeah, it works. If you're in the US (technically against their terms), paranoid about security, or a beginner who needs hand-holding - look elsewhere.</p>
       </AnalystNotes>
     </div>
   </section>
@@ -392,31 +392,31 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
   <section id="fees" class="section section--alt">
     <div class="container">
       <div class="section-header">
-        <h2 class="heading-2">KuCoin Fees</h2>
-        <p class="body-large">Industry-low fees with additional KCS token discounts.</p>
+        <h2 class="heading-2">KuCoin fees</h2>
+        <p class="body-large">0.1% base rate. Hold KCS tokens and it drops to 0.08%.</p>
       </div>
       <ComparisonTable title="Fee Comparison" headers={feeTableHeaders} rows={feeRows} footnote="Fees decrease with VIP tier levels based on 30-day trading volume." />
 
       <AnalystNotes
-        title="Fee Analysis Deep Dive"
+        title="Fee breakdown"
         icon="💰"
         id="fees-notes"
         variant="dark"
       >
-        <h4>Understanding KuCoin's Fee Structure</h4>
-        <p>KuCoin's fees are among the lowest in the industry. Here's a complete breakdown of what you'll actually pay.</p>
+        <h4>What you'll actually pay</h4>
+        <p>KuCoin keeps it simple: 0.1% maker, 0.1% taker. No complex tiers to figure out.</p>
 
-        <h5>Base Fees: Simple and Low</h5>
-        <p>KuCoin charges a flat 0.1% for both maker and taker orders on spot trading. This simplicity is refreshing compared to exchanges with complex tiered structures. On a $10,000 trade, you pay $10 - compared to $16-26 on Kraken or $40-60 on Coinbase. For active traders, this difference compounds significantly.</p>
+        <h5>The math</h5>
+        <p>$10,000 trade = $10 in fees. Same trade on Kraken costs $16-26. On Coinbase, $40-60. If you're trading regularly, that gap matters.</p>
 
-        <h5>KCS Token Benefits</h5>
-        <p>Holding KCS (KuCoin's native token) provides a 20% fee discount when paying fees in KCS. This reduces effective fees to 0.08%. Additionally, holding 6+ KCS qualifies you for daily bonuses - a share of 50% of exchange trading fee revenue. It's essentially a dividend for token holders, though payouts vary with exchange volume.</p>
+        <h5>The KCS angle</h5>
+        <p>Their native token gives you 20% off fees if you pay in KCS. So 0.1% becomes 0.08%. Hold 6+ KCS and you also get daily bonuses from exchange revenue - basically a small dividend. Don't expect to get rich from it, but it's a nice perk.</p>
 
-        <h5>VIP Tiers for High Volume</h5>
-        <p>Traders with $50K+ monthly volume qualify for VIP tiers with further discounts. VIP 1 ($50K) gets 0.08% maker/0.09% taker. VIP 12 ($10B+) reaches 0.005%/0.025%. Realistically, most retail traders won't reach these levels, but the base 0.1% is already competitive without discounts.</p>
+        <h5>VIP tiers exist</h5>
+        <p>$50K+ monthly volume gets you VIP 1: 0.08%/0.09%. VIP 12 ($10B+ monthly - so, hedge funds) gets 0.005%/0.025%. Most people will never hit these. The base 0.1% is fine.</p>
 
-        <h5>Hidden Costs to Watch</h5>
-        <p>Fiat purchases via credit card carry 3-5% fees - avoid these by depositing crypto instead. Withdrawal fees vary by coin and are generally reasonable. Futures funding rates can add costs for holding positions. The lending market rates fluctuate with supply/demand. Always check specific fees before trading.</p>
+        <h5>Watch out for</h5>
+        <p>Credit card deposits charge 3-5% - just deposit crypto instead. Withdrawal fees depend on the coin. Futures funding rates add up if you hold positions. Check fees before you trade anything you're not familiar with.</p>
       </AnalystNotes>
     </div>
   </section>
@@ -424,8 +424,8 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
   <section id="security" class="section">
     <div class="container">
       <div class="section-header">
-        <h2 class="heading-2">Security & Regulation</h2>
-        <p class="body-large">Offshore exchange with security measures but notable 2020 incident.</p>
+        <h2 class="heading-2">Security and regulation</h2>
+        <p class="body-large">Based in Seychelles. Got hacked in 2020. Recovered most of it. Make of that what you will.</p>
       </div>
       <SimpleGrid columns={1}>
         {regulationLicenses.map(reg => <RegulationCard {...reg} />)}
@@ -441,25 +441,25 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
       </div>
 
       <AnalystNotes
-        title="Security & Regulation Analysis"
+        title="The security situation"
         icon="🛡️"
         id="security-notes"
         variant="dark"
       >
-        <h4>Honest Assessment of KuCoin's Security</h4>
-        <p>KuCoin's security profile requires nuanced evaluation. They've improved significantly since 2020, but the offshore nature creates inherent limitations.</p>
+        <h4>Let's talk about the hack</h4>
+        <p>September 2020: hackers drained $285M from KuCoin's hot wallets. One of the biggest exchange hacks ever. That's the bad news.</p>
 
-        <h5>The 2020 Hack: What Happened</h5>
-        <p>In September 2020, hackers stole $285M from KuCoin's hot wallets. This was one of the largest exchange hacks in history. However, KuCoin's response was notable: they froze stolen assets with other exchanges' cooperation, traced attackers, and recovered approximately 84% of funds. User losses were covered by KuCoin's insurance fund. The incident revealed vulnerabilities but also demonstrated crisis management capability.</p>
+        <h5>What happened next</h5>
+        <p>KuCoin worked with other exchanges to freeze the stolen crypto, tracked down the attackers, and recovered about 84%. Users got made whole through their insurance fund. It was actually handled better than most exchange hacks. But still - they got hacked for $285M. That happened.</p>
 
-        <h5>Post-Hack Improvements</h5>
-        <p>Since 2020, KuCoin has implemented: enhanced hot wallet security, smaller hot wallet allocations, improved monitoring systems, and better incident response protocols. They haven't been hacked since. However, "no hack since 2020" is a shorter track record than exchanges like Kraken (never hacked since 2011).</p>
+        <h5>Since then</h5>
+        <p>They've tightened up hot wallet security, reduced how much they keep in hot wallets, improved monitoring. No hacks since. But "we haven't been hacked since 2020" is a five-year track record. Kraken has been running since 2011 with zero hacks. Context matters.</p>
 
-        <h5>Regulatory Reality</h5>
-        <p>KuCoin operates from Seychelles without specific crypto licensing. This means: no government deposit insurance, no regulatory authority to file complaints with, and potential legal complications in disputes. For users, this translates to counterparty risk - you're trusting KuCoin to act honestly without regulatory enforcement. The 2020 response was reassuring, but there's no guarantee in future incidents.</p>
+        <h5>The regulation question</h5>
+        <p>There isn't any, really. Seychelles doesn't regulate crypto exchanges in any meaningful way. No deposit insurance. No regulator to complain to if something goes wrong. You're trusting KuCoin to do the right thing because they want to, not because anyone's making them. The 2020 response was good. The next incident might not be.</p>
 
-        <h5>Practical Security Advice</h5>
-        <p>If using KuCoin: enable all security features (2FA, trading password, withdrawal whitelist), don't store large amounts long-term (use self-custody), withdraw profits regularly, and treat it as a trading venue rather than a savings account. The features are there - use them - but remember you're accepting offshore exchange risk.</p>
+        <h5>What we'd suggest</h5>
+        <p>If you use KuCoin: turn on 2FA (obviously), set up a trading password, whitelist your withdrawal addresses. Don't keep serious money there. Withdraw profits to your own wallet. Treat it like a trading venue, not a bank account. The tools exist to stay reasonably safe - use them.</p>
       </AnalystNotes>
     </div>
   </section>
@@ -467,8 +467,8 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
   <section id="features" class="section section--alt">
     <div class="container">
       <div class="section-header">
-        <h2 class="heading-2">Trading Bots & Features</h2>
-        <p class="body-large">Free built-in trading bots and automated strategies.</p>
+        <h2 class="heading-2">Trading bots</h2>
+        <p class="body-large">Built-in, free to use. No coding required.</p>
       </div>
       <div class="bots-info">
         <div class="bot-card">
@@ -494,8 +494,8 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
   <section class="section">
     <div class="container">
       <div class="section-header">
-        <h2 class="heading-2">Trading Options</h2>
-        <p class="body-large">Spot, margin, futures, and more with 700+ cryptocurrencies.</p>
+        <h2 class="heading-2">What you can trade</h2>
+        <p class="body-large">Spot, margin up to 10x, futures up to 100x. 700+ coins.</p>
       </div>
       <TradingInstruments categories={instrumentCategories} />
     </div>
@@ -504,8 +504,8 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
   <section class="section section--alt">
     <div class="container">
       <div class="section-header">
-        <h2 class="heading-2">Trading Platforms</h2>
-        <p class="body-large">Web, mobile, and API access for all trading styles.</p>
+        <h2 class="heading-2">Platforms</h2>
+        <p class="body-large">Web, iOS, Android, and API.</p>
       </div>
       <PlatformGrid platforms={tradingPlatforms} />
     </div>
@@ -514,8 +514,8 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
   <section class="section">
     <div class="container">
       <div class="section-header">
-        <h2 class="heading-2">Deposits & Withdrawals</h2>
-        <p class="body-large">Crypto deposits are free. P2P and card options available.</p>
+        <h2 class="heading-2">Deposits and withdrawals</h2>
+        <p class="body-large">Crypto deposits are free. Card deposits cost 3-5% (not worth it).</p>
       </div>
       <PaymentMethods methods={paymentMethods} />
     </div>
@@ -545,28 +545,28 @@ const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
       <BestFor bestFor={verdictData.bestFor} notIdealFor={verdictData.notIdealFor} />
 
       <AnalystNotes
-        title="Final Analyst Assessment"
+        title="Our take"
         icon="⚖️"
         id="verdict-notes"
         variant="dark"
       >
-        <h4>Our Concluding Analysis of KuCoin</h4>
-        <p>After thorough analysis of KuCoin's platform, security history, and market position, here's our comprehensive verdict on whether this altcoin-focused exchange deserves your consideration.</p>
+        <h4>Bottom line on KuCoin</h4>
+        <p>We've been going back and forth on this one. KuCoin does some things really well and other things... less well.</p>
 
-        <h5>The Case for KuCoin</h5>
-        <p>KuCoin's value proposition is clear: maximum coin selection at minimum cost. 700+ cryptocurrencies means access to projects months before they hit Coinbase or even Binance. The 0.1% fees (0.08% with KCS) are genuinely low. Free trading bots add value that competitors charge for. For altcoin traders, these benefits are substantial and difficult to match elsewhere.</p>
+        <h5>The good stuff</h5>
+        <p>If you want coins that aren't on Coinbase yet, KuCoin probably has them. 700+ listings is no joke. Fees are low. The trading bots are actually useful and free. For a certain type of trader - someone who knows what they're doing and wants early access to projects - it's hard to beat.</p>
 
-        <h5>The Case Against</h5>
-        <p>The concerns are equally clear: offshore regulation provides no safety net if something goes wrong. The 2020 hack, while handled well, demonstrated real vulnerabilities. US residents face legal risk using the platform. Customer support can be frustratingly slow during high-volume periods. The interface, while powerful, can overwhelm beginners.</p>
+        <h5>The not-so-good stuff</h5>
+        <p>They got hacked for $285M. They're based in Seychelles, which means basically no oversight. Customer support is slow when things get busy. The interface takes getting used to. If you're American, you're technically not supposed to be there. These aren't small issues.</p>
 
-        <h5>KuCoin vs Competitors: The Honest Comparison</h5>
-        <p>Versus Binance: KuCoin wins on coin selection (700 vs 350) but loses on reputation, liquidity, and global reach. Versus Kraken: KuCoin wins on fees and selection but loses dramatically on security and regulation. Versus Coinbase: KuCoin wins on fees and selection but loses on ease of use and US compliance. Each exchange serves different needs.</p>
+        <h5>How it stacks up</h5>
+        <p>More coins than Binance (700 vs 350), but Binance is bigger and more liquid. Cheaper than Kraken, but Kraken has never been hacked and is actually regulated. Cheaper than Coinbase, but Coinbase is dead simple and legal everywhere. Different tools for different jobs.</p>
 
-        <h5>Who Should Choose KuCoin</h5>
-        <p>Our recommendation: KuCoin is ideal for experienced traders outside the US who want: early access to new altcoins, low trading fees, free trading bots, privacy (no KYC for basic use), and are comfortable with offshore exchange risks. It's explicitly not for: US residents, security-focused investors, large balance holders, or complete beginners.</p>
+        <h5>Who it's for</h5>
+        <p>Non-US traders who want altcoins, don't mind offshore risk, and won't keep large amounts on the exchange. If that's you, KuCoin works well. If you're in the US, paranoid about security, or new to crypto - this isn't your exchange.</p>
 
-        <h5>The Bottom Line</h5>
-        <p>KuCoin is the best exchange for altcoin selection and features at low cost - if you accept the trade-offs. We rate it 4.0/5: excellent for its target audience (altcoin traders), but the offshore status and 2020 incident prevent higher scores. Use it as a trading venue, not a savings account, and you'll get significant value.</p>
+        <h5>Final thought</h5>
+        <p>4.0/5. Great for altcoin hunters. The 2020 hack and offshore status keep it from scoring higher. Don't store your life savings there, but as a place to trade obscure coins? It does the job.</p>
       </AnalystNotes>
 
       <div class="final-cta">
