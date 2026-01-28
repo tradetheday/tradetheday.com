@@ -448,6 +448,74 @@ export const brokers: BrokerData[] = [
   },
 
   {
+    id: 'kucoin',
+    name: 'KuCoin',
+    slug: 'kucoin',
+    tagline: 'The People\'s Exchange with 700+ Altcoins',
+    description: 'KuCoin is a global cryptocurrency exchange known for its massive altcoin selection (700+ coins), low fees, and innovative features like trading bots and lending.',
+    logo: '/images/brokers/kucoin-logo.svg',
+    url: 'https://www.kucoin.com',
+    affiliateUrl: 'https://www.kucoin.com/',
+    reviewUrl: '/exchanges/kucoin',
+    foundingYear: 2017,
+    headquarters: {
+      country: 'Seychelles',
+      city: 'Victoria'
+    },
+    minDeposit: 0,
+    minDepositDisplay: 'No minimum',
+    spreadsFrom: '0.1%',
+    leverage: 'Up to 100x',
+    instruments: 700,
+    instrumentsDisplay: '700+ Cryptos',
+    userCount: '30M+',
+
+    experienceLevels: ['intermediate', 'advanced'],
+    tradingStyles: ['swing', 'day-trading', 'scalping'],
+    assetFocus: ['crypto'],
+    budgetRange: ['low', 'medium', 'high'],
+    priorityFeatures: ['crypto-selection', 'advanced-tools', 'low-fees'],
+
+    scores: {
+      overall: 4.0,
+      fees: 4.5,
+      platforms: 4.0,
+      research: 3.8,
+      education: 3.5,
+      customerService: 3.5,
+      safety: 3.5,
+      mobileApp: 4.2
+    },
+
+    regulations: [
+      { authority: 'Offshore', country: 'Seychelles', licenseNumber: 'N/A', tier: 3 }
+    ],
+
+    platforms: ['KuCoin Web', 'KuCoin App', 'KuCoin API'],
+    paymentMethods: ['Crypto', 'P2P', 'Credit Card', 'Bank Transfer'],
+    accountTypes: ['Standard', 'VIP'],
+
+    pros: [
+      'Massive altcoin selection (700+ coins)',
+      'Low trading fees (0.1%)',
+      'KCS token for fee discounts',
+      'Built-in trading bots',
+      'Lending and staking options'
+    ],
+    cons: [
+      'Not available to US residents',
+      'Offshore regulation only',
+      'Customer support can be slow',
+      '2020 hack (funds recovered)'
+    ],
+
+    bestFor: ['Altcoin hunters', 'Bot traders', 'Low-fee seekers', 'Non-US traders'],
+
+    brokerType: 'crypto',
+    promoted: false
+  },
+
+  {
     id: 'pepperstone',
     name: 'Pepperstone',
     slug: 'pepperstone',
