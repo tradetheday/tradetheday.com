@@ -155,6 +155,23 @@ const exchanges = brokers.filter(b => b.brokerType === 'crypto');
     </div>
   </section>
 
+  <!-- Compare Section -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2 text-center">More Exchange Resources</h2>
+      <div class="resource-links">
+        <a href="/compare-exchanges" class="resource-link">
+          <h3>Compare Exchanges Side-by-Side</h3>
+          <p>Detailed fee comparisons, security ratings, and feature breakdowns.</p>
+        </a>
+        <a href="/guides/how-to-trade-bitcoin" class="resource-link">
+          <h3>How to Trade Bitcoin</h3>
+          <p>Complete guide for beginners getting started with crypto trading.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Section -->
   <section class="section cta-section">
     <div class="container text-center">
@@ -332,6 +349,41 @@ const exchanges = brokers.filter(b => b.brokerType === 'crypto');
     color: rgba(255, 255, 255, 0.8);
   }
 
+  .resource-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    max-width: 800px;
+    margin: var(--space-xl) auto 0;
+  }
+
+  .resource-link {
+    display: block;
+    padding: var(--space-lg);
+    background: var(--color-gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .resource-link:hover {
+    border-color: var(--brand-orange);
+    transform: translateY(-2px);
+  }
+
+  .resource-link h3 {
+    color: var(--charcoal);
+    margin: 0 0 var(--space-xs);
+    font-size: var(--font-size-lg);
+  }
+
+  .resource-link p {
+    color: var(--gray-600);
+    margin: 0;
+    font-size: var(--font-size-sm);
+  }
+
   @media (max-width: 768px) {
     .exchanges-grid {
       grid-template-columns: 1fr;
@@ -344,6 +396,10 @@ const exchanges = brokers.filter(b => b.brokerType === 'crypto');
 
     .exchange-ctas {
       flex-direction: column;
+    }
+
+    .resource-links {
+      grid-template-columns: 1fr;
     }
   }
 </style>

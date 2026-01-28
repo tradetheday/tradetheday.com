@@ -300,6 +300,20 @@ const featuredFirms = getFeaturedPropFirms();
     </p>
   </AnalystNotes>
 
+  <!-- Comparison Link -->
+  <section class="section">
+    <div class="container text-center">
+      <a href="/compare-prop-firms" class="comparison-cta">
+        <span class="comparison-cta-icon">⚖️</span>
+        <span class="comparison-cta-text">
+          <strong>Compare Prop Firms Side-by-Side</strong>
+          <span>FTMO vs Funded Next vs The Funded Trader - detailed breakdown</span>
+        </span>
+        <span class="comparison-cta-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
   <!-- CTA Section -->
   <section class="section cta-section">
     <div class="container text-center">
@@ -670,6 +684,60 @@ const featuredFirms = getFeaturedPropFirms();
     .step-arrow {
       transform: rotate(90deg);
       padding: 0;
+    }
+  }
+
+  /* Comparison CTA */
+  .comparison-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-lg) var(--space-xl);
+    background: var(--color-gray-50);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .comparison-cta:hover {
+    border-color: var(--brand-orange);
+    background: white;
+    transform: translateY(-2px);
+  }
+
+  .comparison-cta-icon {
+    font-size: 2rem;
+  }
+
+  .comparison-cta-text {
+    text-align: left;
+  }
+
+  .comparison-cta-text strong {
+    display: block;
+    color: var(--charcoal);
+    font-size: var(--font-size-lg);
+  }
+
+  .comparison-cta-text span {
+    color: var(--gray-600);
+    font-size: var(--font-size-sm);
+  }
+
+  .comparison-cta-arrow {
+    font-size: var(--font-size-xl);
+    color: var(--brand-orange);
+  }
+
+  @media (max-width: 640px) {
+    .comparison-cta {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .comparison-cta-text {
+      text-align: center;
     }
   }
 </style>

@@ -376,6 +376,35 @@ const socialProofData: Record<string, number> = {
     </div>
   </section>
 
+  <!-- Related Resources -->
+  <section class="section">
+    <div class="container">
+      <h2 class="heading-2 text-center">Trading Resources</h2>
+      <div class="resources-grid">
+        <a href="/deals" class="resource-card">
+          <span class="resource-icon">🎁</span>
+          <h3>Broker Deals & Bonuses</h3>
+          <p>Current promotions, welcome bonuses, and exclusive partner codes</p>
+        </a>
+        <a href="/guides/day-trading" class="resource-card">
+          <span class="resource-icon">⚡</span>
+          <h3>Day Trading Guide</h3>
+          <p>Strategies, tools, and tips for successful day trading</p>
+        </a>
+        <a href="/guides/algorithmic-trading" class="resource-card">
+          <span class="resource-icon">🤖</span>
+          <h3>Algorithmic Trading</h3>
+          <p>Build your first trading bot and automate your strategies</p>
+        </a>
+        <a href="/compare-forex-brokers" class="resource-card">
+          <span class="resource-icon">⚖️</span>
+          <h3>Side-by-Side Comparisons</h3>
+          <p>Detailed broker comparisons with fee breakdowns</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
   <section class="section section-dark">
     <div class="container text-center">
@@ -1106,6 +1135,61 @@ const socialProofData: Record<string, number> = {
     .sort-pill svg {
       width: 12px;
       height: 12px;
+    }
+  }
+
+  /* --- RESOURCES GRID --- */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .resource-card {
+    display: block;
+    padding: var(--space-lg);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .resource-card:hover {
+    border-color: var(--brand-orange);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .resource-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: var(--space-sm);
+  }
+
+  .resource-card h3 {
+    font-size: var(--font-size-md);
+    color: var(--charcoal);
+    margin: 0 0 var(--space-xs);
+  }
+
+  .resource-card p {
+    font-size: var(--font-size-sm);
+    color: var(--gray-600);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 1024px) {
+    .resources-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .resources-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
