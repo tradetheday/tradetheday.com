@@ -82,7 +82,10 @@
     "/indices-analysis": "/",
     "/analysis": "/",
     "/news": "/",
-    "/broker-news": "/"
+    "/broker-news": "/",
+    "/trading": "/guides",
+    "/shares": "/",
+    "/wishlist-member": "/"
   },
 
   "patterns": [
