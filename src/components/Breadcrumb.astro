@@ -38,14 +38,15 @@ const breadcrumbJsonLd = {
       itemUrl = itemUrl.slice(0, -1);
     }
 
-    // Google's format: item must have @id field
+    // Google's format: name at both levels, item with @id
     return {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.text,
       "item": {
         "@type": "WebPage",
-        "@id": itemUrl
+        "@id": itemUrl,
+        "name": item.text
       }
     };
   })
