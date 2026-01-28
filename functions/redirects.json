@@ -24,8 +24,40 @@
     "/glossary/aggregate-risk": "/glossary",
     "/glossary/crb": "/glossary",
     "/glossary/cyprus-securities-and-exchange-commission": "/glossary/cysec",
+    "/glossary/ebitda": "/glossary",
+    "/glossary/bank-of-england": "/glossary",
+    "/glossary/blockchain": "/glossary",
+    "/glossary/chicago-board-options-exchange": "/glossary",
+    "/glossary/producer-price-index": "/glossary",
+    "/glossary/bollinger-bands": "/glossary",
+    "/glossary/call-option": "/glossary",
+    "/glossary/oscillators": "/glossary",
+    "/glossary/instruction": "/glossary",
+    "/glossary/fundamentals": "/glossary",
+    "/glossary/exotic-currencies": "/glossary",
+    "/glossary/delivery-date": "/glossary",
+    "/glossary/business-day": "/glossary",
+    "/glossary/interbank-rates": "/glossary",
+    "/glossary/european-central-bank": "/glossary",
+    "/glossary/hedging": "/glossary",
+    "/glossary/volatility-index": "/glossary",
+    "/glossary/swaps": "/glossary",
+    "/glossary/market-maker": "/glossary",
+    "/glossary/volume-weighted-average-price": "/glossary",
     "/education/download-historical-data-metatrader4": "https://support.tradetheday.com/faqs/download-historical-data-on-metatrader-4",
-    "/brokers/easymarkets": "/brokers/easy-markets"
+    "/brokers/easymarkets": "/brokers/easy-markets",
+    "/feed": "/",
+    "/news/feed": "/",
+    "/social-trading": "/brokers",
+    "/indices": "/",
+    "/best-forex-brokers-south-africa": "/south-africa",
+    "/education/what-is-forex-trading": "/guides",
+    "/education/forex-trading-glossary": "/glossary",
+    "/education/information-overload": "/guides",
+    "/education/become-forex-trader": "/guides",
+    "/events/covid-19-pandemic": "/events",
+    "/events/2020-us-election": "/events",
+    "/go/easymarkets": "/brokers/easy-markets"
   },
 
   "patterns": [
@@ -218,6 +250,21 @@
       "comment": "Old go shortlinks",
       "match": "^/go/admiralmarkets.*$",
       "redirect": "/brokers/admiral-markets"
+    },
+    {
+      "comment": "Old go/etoro shortlink",
+      "match": "^/go/etoro.*$",
+      "redirect": "/brokers/etoro"
+    },
+    {
+      "comment": "Old go/axi shortlink",
+      "match": "^/go/axi.*$",
+      "redirect": "/brokers/axi"
+    },
+    {
+      "comment": "Old go shortlinks catchall (except avatrade which is valid)",
+      "match": "^/go/(?!avatrade).*$",
+      "redirect": "/brokers"
     }
   ],
 
