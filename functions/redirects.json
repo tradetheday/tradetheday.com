@@ -72,7 +72,17 @@
     "/platform/ctrader": "/platforms/ctrader",
     "/commodities": "/guides",
     "/forex": "/brokers",
-    "/start": "/"
+    "/start": "/",
+    "/stock-market": "/",
+    "/technical-analysis": "/",
+    "/forex-analysis": "/",
+    "/commodity-analysis": "/",
+    "/crypto-analysis": "/",
+    "/trade-ideas": "/",
+    "/indices-analysis": "/",
+    "/analysis": "/",
+    "/news": "/",
+    "/broker-news": "/"
   },
 
   "patterns": [
