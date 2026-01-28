@@ -580,6 +580,56 @@ export const glossaryTerms: GlossaryTerm[] = [
     relatedTerms: ['ask', 'spread', 'left-hand-side']
   },
   {
+    slug: 'bear',
+    name: 'Bear / Bearish',
+    category: 'essential',
+    shortDescription: 'A trader who expects prices to fall, or a market experiencing declining prices.',
+    definition: 'A bear is a trader who believes an asset\'s price will decline and trades accordingly (selling or shorting). A bearish market is one experiencing sustained price declines. The term comes from how bears attack - swiping downward with their paws.',
+    howItWorks: [
+      'Bearish trader: expects prices to fall',
+      'Bear market: 20%+ decline from recent highs',
+      'Bearish signal: technical pattern suggesting downside',
+      'Going short = bearish position'
+    ],
+    types: [
+      { name: 'Bear Market', description: 'Prolonged period of falling prices (20%+ decline)' },
+      { name: 'Bear Trap', description: 'False breakdown that reverses higher, trapping shorts' },
+      { name: 'Bearish Divergence', description: 'Price makes higher high but indicator makes lower high' }
+    ],
+    tradingTips: [
+      'Bear markets can last months or years',
+      'Selling rallies is a common bear market strategy',
+      'Watch for bear traps at key support levels'
+    ],
+    relatedTerms: ['bull', 'short-position', 'resistance', 'technical-analysis'],
+    popular: true
+  },
+  {
+    slug: 'bull',
+    name: 'Bull / Bullish',
+    category: 'essential',
+    shortDescription: 'A trader who expects prices to rise, or a market experiencing rising prices.',
+    definition: 'A bull is a trader who believes an asset\'s price will rise and trades accordingly (buying or going long). A bullish market is one experiencing sustained price increases. The term comes from how bulls attack - thrusting upward with their horns.',
+    howItWorks: [
+      'Bullish trader: expects prices to rise',
+      'Bull market: sustained period of rising prices',
+      'Bullish signal: technical pattern suggesting upside',
+      'Going long = bullish position'
+    ],
+    types: [
+      { name: 'Bull Market', description: 'Prolonged period of rising prices' },
+      { name: 'Bull Trap', description: 'False breakout that reverses lower, trapping longs' },
+      { name: 'Bullish Divergence', description: 'Price makes lower low but indicator makes higher low' }
+    ],
+    tradingTips: [
+      'Buy the dip is a classic bull market strategy',
+      'Bull markets climb a wall of worry',
+      'Watch for bull traps at key resistance levels'
+    ],
+    relatedTerms: ['bear', 'long-position', 'support', 'technical-analysis'],
+    popular: true
+  },
+  {
     slug: 'long-position',
     name: 'Long Position',
     category: 'essential',
@@ -1023,6 +1073,32 @@ export const glossaryTerms: GlossaryTerm[] = [
       'Look for confluence of multiple resistance levels'
     ],
     relatedTerms: ['support', 'technical-analysis', 'take-profit']
+  },
+  {
+    slug: 'reserve-bank-of-australia',
+    name: 'Reserve Bank of Australia (RBA)',
+    category: 'essential',
+    shortDescription: 'Australia\'s central bank responsible for monetary policy, currency stability, and the Australian Dollar.',
+    definition: 'The Reserve Bank of Australia (RBA) is Australia\'s central bank, established in 1960 and wholly owned by the Australian government. It sets the official cash rate, maintains price stability with an inflation target of 2-3%, and supports full employment. RBA decisions directly impact AUD currency pairs.',
+    howItWorks: [
+      'Sets the official cash rate (interest rate)',
+      'Inflation target: 2-3% per year',
+      'Meets 8 times per year (first Tuesday, except January)',
+      'Governor: Michele Bullock (since September 2023)',
+      'Board: Governor, Deputy Governor, Treasury Secretary + 6 external members'
+    ],
+    types: [
+      { name: 'Rate Decision', description: 'Raise, cut, or hold the cash rate' },
+      { name: 'Statement on Monetary Policy', description: 'Quarterly economic outlook report' },
+      { name: 'RBA Minutes', description: 'Detailed record of board discussions, released 2 weeks after meeting' }
+    ],
+    tradingTips: [
+      'AUD/USD often volatile around RBA announcements',
+      'Hawkish RBA (rate hikes) = bullish AUD',
+      'Dovish RBA (rate cuts) = bearish AUD',
+      'Watch for divergence between RBA and Fed policy'
+    ],
+    relatedTerms: ['aussie', 'forex', 'asic']
   },
   {
     slug: 'cbi',
