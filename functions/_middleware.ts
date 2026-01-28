@@ -167,6 +167,12 @@ export async function onRequest(context: {
     return Response.redirect(cleanUrl, 301);
   }
 
+  // Handle spam referrer query strings on homepage (e.g., /?mainz09, /?bookland)
+  // These are single-param queries with no value, typically spam
+  if (normalizedPath === '/' && url.search && /^\?[a-zA-Z0-9_-]+$/.test(url.search)) {
+    return Response.redirect(url.origin + '/', 301);
+  }
+
   // ----------------------------------------
   // STEP 1: Check 301 Redirects
   // ----------------------------------------

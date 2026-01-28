@@ -57,7 +57,22 @@
     "/education/become-forex-trader": "/guides",
     "/events/covid-19-pandemic": "/events",
     "/events/2020-us-election": "/events",
-    "/go/easymarkets": "/brokers/easy-markets"
+    "/go/easymarkets": "/brokers/easy-markets",
+    "/brokers/index": "/brokers",
+    "/glossary/index": "/glossary",
+    "/education/index": "/guides",
+    "/glossary/inconvertible-currency": "/glossary",
+    "/glossary/expert-advisors": "/glossary",
+    "/glossary/fscs": "/glossary/fca",
+    "/glossary/range": "/glossary",
+    "/brokers/StormGain": "/exchanges/stormgain",
+    "/education/How-to-Trade-Forex": "/guides",
+    "/education/asset-types-forex-trading": "/guides",
+    "/education/elliott-wave-principle": "/guides",
+    "/platform/ctrader": "/platforms/ctrader",
+    "/commodities": "/guides",
+    "/forex": "/brokers",
+    "/start": "/"
   },
 
   "patterns": [
