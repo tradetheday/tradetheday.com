@@ -50,6 +50,9 @@ Centralized data in `src/data/` enables broker selector, comparison tables, and 
 - `/guides` - Educational content
 - `/exchanges` - Crypto exchange reviews
 - `/propfirms` - Prop firm comparisons
+- `/compare` - Head-to-head broker comparisons
+- `/glossary` - Trading terminology (auto-generated from `src/data/glossary.ts`)
+- Geo pages (`/uk`, `/australia`, `/canada`, `/south-africa`) - Region-specific broker recommendations
 
 ### Routing
 - **No trailing slashes** - URLs do NOT end with `/` (configured in `astro.config.mjs`)
@@ -96,6 +99,7 @@ Auto-generated via `@astrojs/sitemap`. Excludes `/style-guide` and `/components-
 3. **Images** - Always include `width` and `height` attributes
 4. **Dates** - Use 2026 for all date references
 5. **Crypto contracts** - Always include verified contract addresses
+6. **Schema markup** - Use `src/utils/seo.ts` functions for structured data (FAQPage, BrokerSchema, etc.)
 
 ## Content Patterns
 
@@ -176,5 +180,7 @@ Spanish visitors (country code ES) accessing CFD broker content are automaticall
 
 - `src/layouts/BaseLayout.astro` - All pages use this layout
 - `src/data/brokers.ts` - Central broker data (used by selector and comparisons)
+- `src/utils/seo.ts` - Schema.org generators (broker, FAQ, review, breadcrumb schemas)
 - `public/js/base-layout.js` - Global JS (search overlay, back-to-top)
 - `DESIGN-SYSTEM.md` - Single source of truth for design tokens
+- `functions/redirects.json` - 301 redirect rules (edit to add redirects)
