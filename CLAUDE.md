@@ -101,6 +101,13 @@ Auto-generated via `@astrojs/sitemap`. Excludes `/style-guide` and `/components-
 5. **Crypto contracts** - Always include verified contract addresses
 6. **Schema markup** - Use `src/utils/seo.ts` functions for structured data (FAQPage, BrokerSchema, etc.)
 
+### Title Tag Optimization
+- Titles < 50 chars get ` | TradeTheDay` suffix automatically (BaseLayout)
+- Titles > 50 chars render without suffix to prevent truncation
+- Use question format for glossary: "What is {term}? {Category} Explained"
+- Include year (2026) in titles for broker, platform, and geo pages
+- Meta descriptions should end with CTA arrow (→)
+
 ## Content Patterns
 
 ### Hub-and-Spoke (for trending topics)
