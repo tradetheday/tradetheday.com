@@ -104,6 +104,12 @@ if (schema) {
 
 // Derive HTML lang attribute from locale (e.g., 'en_US' → 'en', 'zh_CN' → 'zh')
 const htmlLang = locale.split('_')[0];
+
+// Smart title suffix - only add brand if title is short enough
+// Google displays ~50-60 chars, so we cap at 50 before adding suffix
+const titleWithBrand = title.includes('TradeTheDay') || title.length > 50
+  ? title
+  : `${title} | ${siteName}`;
 ---
 
 <!DOCTYPE html>
@@ -123,7 +129,7 @@ const htmlLang = locale.split('_')[0];
   ))}
 
   <!-- Open Graph Tags -->
-  <meta property="og:title" content={`${title} | ${siteName}`}>
+  <meta property="og:title" content={titleWithBrand}>
   <meta property="og:description" content={description}>
   <meta property="og:type" content={ogType}>
   <meta property="og:url" content={canonical}>
@@ -149,7 +155,7 @@ const htmlLang = locale.split('_')[0];
     <meta property="article:author" content={author}>
   )}
 
-  <title>{title} | {siteName}</title>
+  <title>{titleWithBrand}</title>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/images/brand/favicon.svg">

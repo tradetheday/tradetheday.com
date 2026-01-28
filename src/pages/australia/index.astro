@@ -4,8 +4,8 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import FAQ from '../../components/FAQ.astro';
 import { brokers } from '../../data/brokers';
 
-const pageTitle = "Best Forex Brokers Australia 2026 | ASIC Regulated";
-const pageDescription = "Compare ASIC-regulated forex brokers for Australian traders. Find the best spreads, AUD accounts, and secure platforms with top-tier protection.";
+const pageTitle = "Best Forex Brokers Australia 2026: ASIC Regulated & Tested";
+const pageDescription = "Top ASIC-regulated brokers for Australian traders. Local AUD accounts, tight spreads, and full client money protection. Compare the best →";
 
 const breadcrumbItems = [
   { text: 'Home', href: '/' },
@@ -69,6 +69,20 @@ const schemaData = {
 
 <BaseLayout title={pageTitle} description={pageDescription}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <!-- FAQPage Schema for rich snippets -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqQuestions.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer.replace(/<[^>]*>/g, '')
+      }
+    }))
+  })} />
 
   <Fragment slot="breadcrumb">
     <Breadcrumb items={breadcrumbItems} />

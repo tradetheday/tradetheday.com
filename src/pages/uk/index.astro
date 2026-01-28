@@ -4,8 +4,8 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
 import FAQ from '../../components/FAQ.astro';
 import { brokers } from '../../data/brokers';
 
-const pageTitle = "Best Forex Brokers UK 2026 | FCA Regulated";
-const pageDescription = "Compare FCA-regulated forex brokers for United Kingdom traders. Find the best spreads, GBP accounts, and spread betting options with top-tier UK protection.";
+const pageTitle = "Best Forex Brokers UK 2026: FCA Regulated & Tested";
+const pageDescription = "Top FCA-regulated brokers for UK traders. Tax-free spread betting, GBP accounts, and FSCS protection up to £85k. Compare spreads & fees →";
 
 const breadcrumbItems = [
   { text: 'Home', href: '/' },
@@ -69,6 +69,20 @@ const schemaData = {
 
 <BaseLayout title={pageTitle} description={pageDescription}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <!-- FAQPage Schema for rich snippets -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqQuestions.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer.replace(/<[^>]*>/g, '')
+      }
+    }))
+  })} />
 
   <Fragment slot="breadcrumb">
     <Breadcrumb items={breadcrumbItems} />

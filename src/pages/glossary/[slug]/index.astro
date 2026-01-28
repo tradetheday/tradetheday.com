@@ -40,9 +40,17 @@ const categoryLabels: Record<GlossaryTerm['category'], string> = {
   'order-type': 'Order Type'
 };
 
-// Format the name for the title - optimized for CTR
-const pageTitle = `${term.name}: Meaning, Definition & Examples in Trading`;
-const pageDescription = `${term.shortDescription} Learn what ${term.name} means in forex and trading with practical examples.`;
+// Category-specific title suffixes for better CTR
+const categoryTitleSuffix: Record<GlossaryTerm['category'], string> = {
+  'essential': 'Trading Term Explained',
+  'technical': 'Technical Analysis Term',
+  'forex-slang': 'Forex Slang Meaning',
+  'order-type': 'Order Type Explained'
+};
+
+// Format the name for the title - optimized for CTR with question format
+const pageTitle = `What is ${term.name}? ${categoryTitleSuffix[term.category]}`;
+const pageDescription = `${term.shortDescription} Simple explanation with examples for traders.`;
 
 // Schema for SEO
 const schema = {
