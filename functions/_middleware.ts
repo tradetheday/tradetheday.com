@@ -160,6 +160,13 @@ export async function onRequest(context: {
     return Response.redirect(resolveUrl(cleanPath, url.origin), 301);
   }
 
+  // Handle malformed URLs with .html in query string (e.g., ?param=value.html)
+  if (url.search.includes('.html')) {
+    const cleanSearch = url.search.replace(/\.html/g, '');
+    const cleanUrl = url.origin + normalizedPath + cleanSearch;
+    return Response.redirect(cleanUrl, 301);
+  }
+
   // ----------------------------------------
   // STEP 1: Check 301 Redirects
   // ----------------------------------------
