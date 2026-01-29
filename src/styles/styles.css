@@ -960,7 +960,7 @@ img {
     background: var(--charcoal-light); /* Match header/breadcrumb dark theme */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 16px 0;
-    z-index: 1000; /* Below header (1100) so slides from behind, above mobile menu (999) */
+    z-index: 1060; /* Above mobile menu (1050), below header (1100) */
     visibility: hidden;
     transform: translateY(-100%);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
@@ -1169,17 +1169,17 @@ img {
 @media (max-width: 900px) {
     .mobile-menu {
         display: flex;
-        position: absolute;
-        top: 100%;
-        left: calc(-1 * var(--space-md));
-        right: calc(-1 * var(--space-md));
+        position: fixed;
+        top: 57px; /* Height of header */
+        left: 0;
+        right: 0;
         background: var(--gradient-dark);
         border-top: 1px solid rgba(255, 255, 255, 0.05);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         padding: var(--space-md);
         flex-direction: column;
         gap: 4px;
-        z-index: 999;
+        z-index: 1050;
         max-height: 0;
         overflow: hidden;
         opacity: 0;
@@ -1265,6 +1265,13 @@ img {
 
     .mobile-menu {
         padding: var(--space-sm);
+    }
+}
+
+/* Prevent horizontal scroll */
+@media (max-width: 900px) {
+    .header {
+        overflow-x: clip;
     }
 }
 
