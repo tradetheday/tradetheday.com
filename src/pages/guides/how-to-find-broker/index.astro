@@ -1,0 +1,875 @@
+---
+/**
+ * How to Find a Broker - Complete Guide
+ *
+ * SEO content hub for "how to find a broker" queries.
+ * Linked from /find-broker quiz page.
+ */
+
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import FAQ from '../../../components/FAQ.astro';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../../../utils/seo';
+import { brokerFinderFAQsFull } from '../../../data/faqs';
+
+// Page metadata
+const title = 'How to Find a Broker: Complete Guide to Choosing Right (2026)';
+const description = 'Learn what to look for when choosing a trading broker. Check regulation, match platform to your style, understand real costs, and avoid red flags. Free broker finder quiz included.';
+
+// Breadcrumb data
+const breadcrumbItems = [
+  { text: 'Home', href: '/' },
+  { text: 'Guides', href: '/guides' },
+  { text: 'How to Find a Broker', current: true }
+];
+
+const breadcrumbSchemaItems = [
+  { name: 'Home', url: '/' },
+  { name: 'Guides', url: '/guides' },
+  { name: 'How to Find a Broker', url: '/guides/how-to-find-broker' }
+];
+
+// Guide steps data
+const guideSteps = [
+  {
+    number: 1,
+    title: 'Check the regulation first',
+    content: `This isn't optional. If a broker isn't regulated by a serious authority (FCA in the UK, ASIC in Australia, CySEC in Europe), your money has no protection. Offshore "regulators" in places like St. Vincent or the Marshall Islands aren't real oversight - they're paperwork. We only include brokers with tier-1 or tier-2 regulation.`
+  },
+  {
+    number: 2,
+    title: 'Match the platform to how you trade',
+    content: `A day trader needs fast execution and proper charting tools. Someone who trades a few times a week needs reliability more than millisecond speed. If you're into automated trading, you need MT4/MT5 or something that supports custom indicators. There's no "best" platform - only what works for your approach.`
+  },
+  {
+    number: 3,
+    title: 'Understand the real costs',
+    content: `Spreads get all the attention, but they're not the full picture. Swap fees eat into positions held overnight. Commissions add up for high-frequency traders. Some brokers charge for withdrawals or have inactivity fees. Ask yourself: based on how often I'll trade and how long I'll hold, what will I actually pay?`
+  },
+  {
+    number: 4,
+    title: 'Test before you commit',
+    content: `Every broker offers a demo account - use it. Not just to learn the platform, but to check if their execution matches what they advertise. Try placing orders during high-volatility periods. Contact support with a question and see how long they take. A week of testing can save months of frustration.`
+  }
+];
+
+// Broker types data
+const brokerTypes = [
+  {
+    icon: 'dollar',
+    title: 'Low-Cost Brokers',
+    forText: 'Active traders who make frequent trades',
+    description: `If you're placing multiple trades per day, even small differences in spreads and commissions compound fast. These brokers minimize trading costs, though they often have basic platforms and limited educational content.`,
+    traits: [
+      'Tight spreads (often under 1 pip)',
+      'Low or zero commission options',
+      'Basic platforms, fewer extras'
+    ]
+  },
+  {
+    icon: 'book',
+    title: 'Beginner-Friendly Brokers',
+    forText: 'New traders still learning the basics',
+    description: `When you're starting out, you need more than just a trading account. Good beginner brokers offer educational resources, risk management tools, and responsive support. Slightly higher costs are worth it if they help you avoid expensive mistakes.`,
+    traits: [
+      'Built-in tutorials and courses',
+      'Demo accounts with full features',
+      'Negative balance protection'
+    ]
+  },
+  {
+    icon: 'users',
+    title: 'Copy Trading Brokers',
+    forText: 'People who want exposure without active management',
+    description: `Copy trading lets you automatically mirror the trades of experienced traders. It's not passive income - you still need to pick who to copy and manage risk. But for people without time to analyze markets daily, it's a legitimate option.`,
+    traits: [
+      'Transparent trader statistics',
+      'Flexible allocation controls',
+      'Usually higher minimums'
+    ]
+  },
+  {
+    icon: 'monitor',
+    title: 'Multi-Asset Brokers',
+    forText: 'Traders who want forex, stocks, crypto, and more in one place',
+    description: `Some brokers specialize in forex. Others let you trade stocks, ETFs, crypto, and commodities from the same account. If you want to diversify or switch between markets based on conditions, a multi-asset broker simplifies things.`,
+    traits: [
+      'Multiple asset classes available',
+      'Single account for everything',
+      'May not be cheapest for any single asset'
+    ]
+  }
+];
+
+// Red flags data
+const redFlags = [
+  { flag: 'Unregulated or offshore-only regulation', detail: 'No matter how good the offer sounds' },
+  { flag: 'Guaranteed returns or "risk-free" trading', detail: 'Trading always involves risk, full stop' },
+  { flag: 'Pressure to deposit more', detail: `Legitimate brokers don't cold-call you to add funds` },
+  { flag: 'Withdrawal complaints', detail: `Check reviews; if people can't get their money out, that's the only signal you need` },
+  { flag: 'Bonuses with impossible conditions', detail: `If you need to trade 50x your deposit to withdraw, it's not really a bonus` },
+  { flag: 'Hidden fees or unclear pricing', detail: `If you can't find a clear fee schedule on their website, expect surprises` }
+];
+
+// FAQ data from centralized source
+const faqItems = brokerFinderFAQsFull;
+
+// Current date for schema
+const currentDate = new Date().toISOString().split('T')[0];
+
+// Schemas
+const faqSchema = generateFAQSchema(faqItems);
+const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbSchemaItems);
+
+// Article schema
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How to Find a Broker That Actually Fits Your Trading Style",
+  "alternativeHeadline": "Find a Broker: Complete Guide to Choosing the Right Trading Broker in 2026",
+  "description": "A practical guide to choosing the right trading broker based on regulation, costs, platform, and your specific trading needs.",
+  "image": "https://tradetheday.com/images/og/find-broker.jpg",
+  "author": {
+    "@type": "Organization",
+    "name": "TradeTheDay",
+    "url": "https://tradetheday.com",
+    "logo": "https://tradetheday.com/images/brand/tradetheday-logo.svg"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "TradeTheDay",
+    "url": "https://tradetheday.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://tradetheday.com/images/brand/tradetheday-logo.svg",
+      "width": 200,
+      "height": 60
+    }
+  },
+  "datePublished": "2026-01-01",
+  "dateModified": currentDate,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://tradetheday.com/guides/how-to-find-broker"
+  },
+  "keywords": "find a broker, find broker, broker finder, choose a broker, best broker, forex broker, trading broker, broker comparison, how to choose broker",
+  "articleSection": "Trading Guides",
+  "wordCount": 2500,
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Forex Broker",
+      "sameAs": "https://en.wikipedia.org/wiki/Forex_broker"
+    },
+    {
+      "@type": "Thing",
+      "name": "Online Trading",
+      "sameAs": "https://en.wikipedia.org/wiki/Electronic_trading_platform"
+    },
+    {
+      "@type": "Thing",
+      "name": "Financial Regulation",
+      "sameAs": "https://en.wikipedia.org/wiki/Financial_regulation"
+    }
+  ],
+  "mentions": [
+    {
+      "@type": "Organization",
+      "name": "Financial Conduct Authority",
+      "sameAs": "https://en.wikipedia.org/wiki/Financial_Conduct_Authority"
+    },
+    {
+      "@type": "Organization",
+      "name": "Australian Securities and Investments Commission",
+      "sameAs": "https://en.wikipedia.org/wiki/Australian_Securities_and_Investments_Commission"
+    },
+    {
+      "@type": "Organization",
+      "name": "Cyprus Securities and Exchange Commission",
+      "sameAs": "https://en.wikipedia.org/wiki/Cyprus_Securities_and_Exchange_Commission"
+    }
+  ]
+};
+
+// HowTo schema
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Find a Broker",
+  "description": "A step-by-step guide to finding the right trading broker for your needs",
+  "image": "https://tradetheday.com/images/og/find-broker.jpg",
+  "totalTime": "PT10M",
+  "estimatedCost": {
+    "@type": "MonetaryAmount",
+    "currency": "USD",
+    "value": "0"
+  },
+  "tool": [
+    {
+      "@type": "HowToTool",
+      "name": "TradeTheDay Broker Selector Quiz"
+    }
+  ],
+  "step": guideSteps.map((step, index) => ({
+    "@type": "HowToStep",
+    "position": index + 1,
+    "name": step.title,
+    "text": step.content,
+    "url": `https://tradetheday.com/guides/how-to-find-broker#step-${step.number}`
+  }))
+};
+
+// ItemList schema for broker types
+const brokerTypesSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Types of Trading Brokers",
+  "description": "Different broker categories for different trading needs",
+  "itemListElement": brokerTypes.map((type, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": type.title,
+    "description": type.description
+  }))
+};
+
+// Speakable schema
+const speakableSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "How to Find a Broker",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".htfb-title", ".htfb-intro", ".htfb-step h3"]
+  },
+  "url": "https://tradetheday.com/guides/how-to-find-broker"
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogType="article"
+  schema={[
+    faqSchema,
+    breadcrumbSchema,
+    articleSchema,
+    howToSchema,
+    brokerTypesSchema,
+    speakableSchema
+  ]}
+>
+  <Fragment slot="breadcrumb">
+    <Breadcrumb items={breadcrumbItems} />
+  </Fragment>
+
+  <!-- HERO SECTION -->
+  <section class="htfb-hero" aria-labelledby="page-title">
+    <div class="container">
+      <div class="htfb-hero-content">
+        <div class="htfb-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+          <span>Complete Guide</span>
+        </div>
+
+        <h1 class="htfb-title" id="page-title">How to Find a Broker</h1>
+
+        <p class="htfb-intro">
+          Most traders pick their first broker based on an ad or a friend's recommendation. Then six months later they're stuck paying fees they didn't expect, using a platform that doesn't suit their style, or worse, dealing with withdrawal issues. Here's what to actually look for.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK CTA -->
+  <section class="htfb-quick-cta">
+    <div class="container">
+      <div class="htfb-quick-cta-box">
+        <div class="htfb-quick-cta-content">
+          <p class="htfb-quick-cta-text">Skip the reading? Take our 30-second quiz instead.</p>
+          <a href="/find-broker" class="htfb-quick-cta-btn">
+            Find My Broker
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4-STEP GUIDE -->
+  <section class="htfb-guide" id="guide">
+    <div class="container">
+      <div class="htfb-section-header">
+        <h2>4 Steps to Finding the Right Broker</h2>
+        <p>A practical checklist that covers what matters most</p>
+      </div>
+
+      <div class="htfb-steps">
+        {guideSteps.map((step) => (
+          <div class="htfb-step" id={`step-${step.number}`}>
+            <div class="htfb-step-number">{step.number}</div>
+            <div class="htfb-step-content">
+              <h3>{step.title}</h3>
+              <p>{step.content}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="htfb-inline-cta">
+        Don't want to evaluate brokers manually? <a href="/find-broker">Our quiz matches you with brokers</a> based on these criteria automatically.
+      </p>
+    </div>
+  </section>
+
+  <!-- BROKER TYPES -->
+  <section class="htfb-types" id="types">
+    <div class="container">
+      <div class="htfb-section-header">
+        <h2>Different Brokers for Different Traders</h2>
+        <p>There's no universal "best broker" - it depends on what you're trying to do</p>
+      </div>
+
+      <div class="htfb-types-grid">
+        {brokerTypes.map((type) => (
+          <div class="htfb-type-card">
+            <div class="htfb-type-header">
+              {type.icon === 'dollar' && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+              )}
+              {type.icon === 'book' && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+              )}
+              {type.icon === 'users' && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              )}
+              {type.icon === 'monitor' && (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+                </svg>
+              )}
+              <h3>{type.title}</h3>
+            </div>
+            <p class="htfb-type-for">For: {type.forText}</p>
+            <p class="htfb-type-desc">{type.description}</p>
+            <ul class="htfb-type-traits">
+              {type.traits.map((trait) => (
+                <li>{trait}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- RED FLAGS -->
+  <section class="htfb-warnings" id="red-flags">
+    <div class="container">
+      <div class="htfb-section-header">
+        <h2>Red Flags to Avoid</h2>
+        <p>If you see any of these warning signs, walk away</p>
+      </div>
+
+      <div class="htfb-warnings-grid">
+        {redFlags.map((item) => (
+          <div class="htfb-warning-card">
+            <div class="htfb-warning-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </div>
+            <div class="htfb-warning-content">
+              <h3>{item.flag}</h3>
+              <p>{item.detail}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="htfb-faq" id="faq">
+    <div class="container">
+      <div class="htfb-section-header">
+        <h2>Frequently Asked Questions</h2>
+        <p>Common questions about finding and choosing a broker</p>
+      </div>
+      <div class="htfb-faq-wrapper">
+        <FAQ questions={faqItems} />
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="htfb-final">
+    <div class="container">
+      <div class="htfb-final-content">
+        <h2>Ready to Find Your Broker?</h2>
+        <p>Take our 30-second quiz and get personalized recommendations based on your trading style.</p>
+        <a href="/find-broker" class="htfb-cta-final">
+          Take the Quiz
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <div class="htfb-final-trust">
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            All Brokers Regulated
+          </span>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            No Signup Required
+          </span>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            100% Free
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+/* ==========================================================================
+   HOW TO FIND A BROKER - Guide Page Styles
+   ========================================================================== */
+
+/* HERO SECTION */
+.htfb-hero {
+  padding: 64px 0 48px;
+  background: linear-gradient(145deg, #1C1917 0%, #292524 50%, #1C1917 100%);
+  text-align: center;
+}
+
+.htfb-hero-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.htfb-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(234, 88, 12, 0.12);
+  border: 1px solid rgba(234, 88, 12, 0.25);
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #fb923c;
+  margin-bottom: 24px;
+}
+
+.htfb-title {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.htfb-intro {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* QUICK CTA */
+.htfb-quick-cta {
+  padding: 32px 0;
+  background: #F5F5F4;
+}
+
+.htfb-quick-cta-box {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border: 1px solid #E7E5E3;
+  border-radius: 12px;
+  padding: 20px 24px;
+}
+
+.htfb-quick-cta-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.htfb-quick-cta-text {
+  font-size: 15px;
+  color: #57534E;
+  margin: 0;
+}
+
+.htfb-quick-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: #EA580C;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.htfb-quick-cta-btn:hover {
+  background: #DC2626;
+  transform: translateY(-1px);
+}
+
+/* SECTION HEADERS */
+.htfb-section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.htfb-section-header h2 {
+  font-size: clamp(1.5rem, 4vw, 1.75rem);
+  font-weight: 700;
+  color: #1C1917;
+  margin-bottom: 8px;
+}
+
+.htfb-section-header p {
+  font-size: 16px;
+  color: #57534E;
+}
+
+/* GUIDE STEPS */
+.htfb-guide {
+  padding: 64px 0;
+  background: white;
+}
+
+.htfb-steps {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.htfb-step {
+  display: flex;
+  gap: 20px;
+  background: #FAFAF9;
+  border: 1px solid #E7E5E3;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.htfb-step-number {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: #EA580C;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.htfb-step-content h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1C1917;
+  margin-bottom: 8px;
+}
+
+.htfb-step-content p {
+  font-size: 15px;
+  color: #57534E;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.htfb-inline-cta {
+  max-width: 800px;
+  margin: 32px auto 0;
+  padding: 16px 20px;
+  background: #FAFAF9;
+  border: 1px solid #E7E5E3;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #57534E;
+  text-align: center;
+}
+
+.htfb-inline-cta a {
+  color: #EA580C;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.htfb-inline-cta a:hover {
+  text-decoration: underline;
+}
+
+/* BROKER TYPES */
+.htfb-types {
+  padding: 64px 0;
+  background: #F5F5F4;
+}
+
+.htfb-types-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.htfb-type-card {
+  background: white;
+  border: 1px solid #E7E5E3;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.htfb-type-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.htfb-type-header svg {
+  color: #EA580C;
+  flex-shrink: 0;
+}
+
+.htfb-type-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1C1917;
+  margin: 0;
+}
+
+.htfb-type-for {
+  font-size: 13px;
+  font-weight: 500;
+  color: #EA580C;
+  margin-bottom: 12px;
+}
+
+.htfb-type-desc {
+  font-size: 14px;
+  color: #57534E;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.htfb-type-traits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.htfb-type-traits li {
+  font-size: 13px;
+  color: #44403C;
+  padding-left: 20px;
+  position: relative;
+}
+
+.htfb-type-traits li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+}
+
+/* WARNINGS */
+.htfb-warnings {
+  padding: 64px 0;
+  background: white;
+}
+
+.htfb-warnings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.htfb-warning-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.htfb-warning-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  background: #FEE2E2;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #DC2626;
+}
+
+.htfb-warning-content h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #991B1B;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.htfb-warning-content p {
+  font-size: 13px;
+  color: #B91C1C;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* FAQ SECTION */
+.htfb-faq {
+  padding: 64px 0;
+  background: #F5F5F4;
+}
+
+.htfb-faq-wrapper {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* FINAL CTA */
+.htfb-final {
+  padding: 64px 0;
+  background: linear-gradient(145deg, #1C1917 0%, #0C0A09 100%);
+  text-align: center;
+}
+
+.htfb-final-content {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.htfb-final h2 {
+  font-size: clamp(1.5rem, 4vw, 1.75rem);
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.htfb-final p {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 24px;
+}
+
+.htfb-cta-final {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #EA580C 0%, #DC2626 100%);
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 24px rgba(234, 88, 12, 0.4);
+  margin-bottom: 24px;
+}
+
+.htfb-cta-final:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(234, 88, 12, 0.5);
+}
+
+.htfb-final-trust {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  flex-wrap: wrap;
+}
+
+.htfb-final-trust span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.htfb-final-trust svg {
+  color: #22c55e;
+  flex-shrink: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .htfb-hero {
+    padding: 48px 0 40px;
+  }
+
+  .htfb-guide,
+  .htfb-types,
+  .htfb-warnings,
+  .htfb-faq,
+  .htfb-final {
+    padding: 48px 0;
+  }
+
+  .htfb-quick-cta-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .htfb-step {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .htfb-types-grid,
+  .htfb-warnings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .htfb-final-trust {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+</style>

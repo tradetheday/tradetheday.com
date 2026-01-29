@@ -192,7 +192,22 @@ font-size: 15px;
 line-height: 1.6;
 ```
 
+### FAQ Section Header
+```css
+/* MANDATORY: FAQ titles must always be centered */
+.faq-section-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.faq-section-header h2 {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: 700;
+}
+```
+
 ### FAQ Rules
+- **Section title: Always centered** (mandatory)
 - Questions: 15px, weight 600
 - Answers: 15px, weight 400
 - Gap between items: 8px

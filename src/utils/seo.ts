@@ -5,6 +5,7 @@
 
 const SITE_URL = 'https://tradetheday.com';
 const SITE_NAME = 'TradeTheDay';
+const AUTHOR_NAME = 'TradeTheDay Research Team';
 
 export interface BrokerSchemaProps {
   name: string;
@@ -200,7 +201,8 @@ export function generateReviewSchema(props: ReviewSchemaProps): object {
     },
     "author": {
       "@type": "Organization",
-      "name": props.author || SITE_NAME,
+      "name": props.author || AUTHOR_NAME,
+      "url": SITE_URL
     },
     "publisher": {
       "@type": "Organization",
