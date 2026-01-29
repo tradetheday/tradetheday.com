@@ -376,6 +376,42 @@ const titleWithBrand = title.includes('TradeTheDay') || title.length > 50
 
   <!-- Back to Top Button -->
   <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+  <!-- Mobile Menu Script (inline for reliability) -->
+  <script is:inline>
+  (function() {
+    var toggle = document.getElementById('mobileMenuToggle');
+    var menu = document.getElementById('mobileMenu');
+    if (toggle && menu) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggle.classList.toggle('is-active');
+        menu.classList.toggle('is-active');
+        var isOpen = menu.classList.contains('is-active');
+        toggle.setAttribute('aria-expanded', isOpen);
+        menu.setAttribute('aria-hidden', !isOpen);
+      });
+      document.addEventListener('click', function(e) {
+        if (menu.classList.contains('is-active') && !menu.contains(e.target) && !toggle.contains(e.target)) {
+          toggle.classList.remove('is-active');
+          menu.classList.remove('is-active');
+          toggle.setAttribute('aria-expanded', 'false');
+          menu.setAttribute('aria-hidden', 'true');
+        }
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('is-active')) {
+          toggle.classList.remove('is-active');
+          menu.classList.remove('is-active');
+          toggle.setAttribute('aria-expanded', 'false');
+          menu.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+  })();
+  </script>
+
   <script src="/js/base-layout.js" is:inline></script>
 
   <!-- Social Proof Toast (Cialdini) -->
