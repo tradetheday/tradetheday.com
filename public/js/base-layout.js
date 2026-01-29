@@ -35,9 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
       searchTrigger.setAttribute('aria-expanded', 'true');
     }
 
-    // Prevent body scroll when overlay is open
-    document.body.style.overflow = 'hidden';
-
     // Focus the search input
     setTimeout(() => {
       if (searchInput) searchInput.focus();
@@ -53,9 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (searchTrigger) {
       searchTrigger.setAttribute('aria-expanded', 'false');
     }
-
-    // Restore body scroll
-    document.body.style.overflow = '';
 
     // Return focus to the element that opened the search
     if (previouslyFocusedElement && typeof previouslyFocusedElement.focus === 'function') {

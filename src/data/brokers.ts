@@ -596,7 +596,7 @@ export const brokers: BrokerData[] = [
     slug: 'ic-markets',
     tagline: 'True ECN Trading with Raw Spreads',
     description: 'IC Markets is a leading ECN broker offering some of the tightest spreads in the industry, institutional-grade liquidity, and lightning-fast execution for forex and CFD traders.',
-    logo: '/images/brokers/ic-markets-logo.svg',
+    logo: '/images/brokers/icmarkets-logo.svg',
     url: 'https://www.icmarkets.com',
     affiliateUrl: 'https://www.icmarkets.com/',
     reviewUrl: '/brokers/ic-markets',

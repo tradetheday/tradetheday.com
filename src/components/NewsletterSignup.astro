@@ -17,10 +17,6 @@ const {
 ---
 
 <div class={`newsletter-signup newsletter-${variant}`}>
-  {variant === 'full' && (
-    <div class="newsletter-badge">FREE</div>
-  )}
-
   <h3 class="newsletter-headline">{headline}</h3>
 
   {(variant === 'full' || variant === 'inline') && (
@@ -29,7 +25,7 @@ const {
 
   {leadMagnet && (
     <div class="lead-magnet-preview">
-      <span class="lm-icon">📥</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       <span class="lm-text">Plus get: <strong>{leadMagnet}</strong></span>
     </div>
   )}
@@ -53,26 +49,26 @@ const {
         </span>
       </button>
     </div>
-    <p class="newsletter-privacy">No spam ever. Unsubscribe anytime.</p>
+    <p class="newsletter-privacy">No spam. Unsubscribe anytime.</p>
   </form>
 
   <div class="newsletter-success" style="display: none;" data-newsletter-success>
-    <span class="success-icon">🎉</span>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
     <p class="success-text">Welcome aboard! Check your email to confirm.</p>
   </div>
 
   {variant === 'full' && (
     <div class="newsletter-features">
       <div class="nf-item">
-        <span class="nf-icon">📊</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 9l-5 5-4-4-3 3"/></svg>
         <span class="nf-text">Weekly Market Analysis</span>
       </div>
       <div class="nf-item">
-        <span class="nf-icon">💡</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
         <span class="nf-text">Pro Trading Tips</span>
       </div>
       <div class="nf-item">
-        <span class="nf-icon">🎁</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
         <span class="nf-text">Exclusive Broker Deals</span>
       </div>
     </div>
@@ -98,11 +94,7 @@ const {
         btnLoading.style.display = 'block';
         button.disabled = true;
 
-        // Simulate API call (replace with your email service integration)
-        // For ConvertKit, Mailchimp, etc., you'd POST to their API here
         try {
-          // Example: await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) });
-
           // Simulate delay for demo
           await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -110,12 +102,11 @@ const {
           form.style.display = 'none';
           successEl.style.display = 'flex';
 
-          // Track conversion (for analytics)
+          // Track conversion
           if (typeof gtag !== 'undefined') {
             gtag('event', 'newsletter_signup', { email_domain: email.split('@')[1] });
           }
         } catch (error) {
-          // Reset on error
           btnText.style.display = 'block';
           btnLoading.style.display = 'none';
           button.disabled = false;
@@ -131,55 +122,49 @@ const {
     position: relative;
   }
 
-  /* Full Variant */
+  /* Full Variant - Clean Jony Ive style */
   .newsletter-full {
-    background: linear-gradient(135deg, var(--gray-900) 0%, var(--charcoal) 100%);
-    border: 1px solid var(--gray-800);
-    border-radius: var(--radius-xl);
-    padding: var(--space-2xl);
+    background: linear-gradient(180deg, #1C1917 0%, #0C0A09 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    padding: 56px 48px;
     text-align: center;
-  }
-
-  .newsletter-badge {
-    display: inline-block;
-    background: #b83200; /* Darker orange for WCAG AA contrast */
-    color: var(--white);
-    padding: 4px 12px;
-    border-radius: 100px;
-    font-size: var(--font-size-xs);
-    font-weight: 700;
-    margin-bottom: var(--space-md);
+    max-width: 680px;
+    margin: 0 auto;
   }
 
   /* Inline Variant */
   .newsletter-inline {
-    background: var(--gray-900);
-    border: 1px solid var(--gray-800);
-    border-radius: var(--radius-lg);
-    padding: var(--space-xl);
+    background: #1C1917;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 32px;
   }
 
   /* Minimal Variant */
   .newsletter-minimal {
-    padding: var(--space-md) 0;
+    padding: 16px 0;
   }
 
   .newsletter-minimal .newsletter-headline {
-    font-size: var(--font-size-base);
-    margin-bottom: var(--space-sm);
+    font-size: 16px;
+    margin-bottom: 12px;
   }
 
   .newsletter-headline {
-    font-size: var(--font-size-2xl);
-    font-weight: 800;
-    margin-bottom: var(--space-sm);
-    color: var(--white);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #FAFAF9;
+    letter-spacing: -0.02em;
   }
 
   .newsletter-subheadline {
-    color: var(--gray-500);
-    margin-bottom: var(--space-lg);
-    max-width: 400px;
+    color: #A8A29E;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    max-width: 420px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -187,34 +172,39 @@ const {
   .lead-magnet-preview {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-sm) var(--space-md);
-    background: rgba(255, 72, 0, 0.1);
-    border: 1px solid rgba(255, 72, 0, 0.3);
-    border-radius: var(--radius-md);
-    margin-bottom: var(--space-lg);
-    font-size: var(--font-size-sm);
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(234, 88, 12, 0.1);
+    border: 1px solid rgba(234, 88, 12, 0.2);
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: #A8A29E;
   }
 
-  .lm-text {
-    color: var(--gray-500);
+  .lead-magnet-preview svg {
+    color: #EA580C;
   }
 
   .lm-text strong {
-    color: var(--brand-orange);
+    color: #EA580C;
   }
 
   .newsletter-form {
-    max-width: 480px;
+    max-width: 440px;
     margin: 0 auto;
   }
 
   .form-row {
     display: flex;
-    gap: var(--space-sm);
+    gap: 12px;
   }
 
   @media (max-width: 500px) {
+    .newsletter-full {
+      padding: 40px 24px;
+    }
+
     .form-row {
       flex-direction: column;
     }
@@ -222,33 +212,35 @@ const {
 
   .newsletter-input {
     flex: 1;
-    padding: var(--space-md) var(--space-lg);
-    background: var(--gray-800);
-    border: 2px solid var(--gray-700);
-    border-radius: var(--radius-md);
-    color: var(--white);
-    font-size: var(--font-size-base);
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #FAFAF9;
+    font-size: 15px;
+    transition: all 0.2s ease;
   }
 
   .newsletter-input:focus {
     outline: none;
-    border-color: var(--brand-orange);
+    border-color: rgba(234, 88, 12, 0.5);
+    background: rgba(255, 255, 255, 0.08);
   }
 
   .newsletter-input::placeholder {
-    color: var(--gray-500);
+    color: #78716C;
   }
 
   .newsletter-button {
-    padding: var(--space-md) var(--space-xl);
-    background: #b83200; /* Darker orange for WCAG AA contrast */
-    color: var(--white);
+    padding: 14px 28px;
+    background: #EA580C;
+    color: #fff;
     border: none;
-    border-radius: var(--radius-md);
-    font-weight: 700;
-    font-size: var(--font-size-base);
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
     white-space: nowrap;
     display: flex;
     align-items: center;
@@ -257,8 +249,8 @@ const {
   }
 
   .newsletter-button:hover:not(:disabled) {
-    background: var(--brand-orange); /* Brand orange on hover */
-    transform: translateY(-2px);
+    background: #C2410C;
+    transform: translateY(-1px);
   }
 
   .newsletter-button:disabled {
@@ -278,9 +270,9 @@ const {
   }
 
   .newsletter-privacy {
-    font-size: var(--font-size-xs);
-    color: var(--gray-500);
-    margin-top: var(--space-sm);
+    font-size: 12px;
+    color: #78716C;
+    margin-top: 14px;
     text-align: center;
   }
 
@@ -288,47 +280,50 @@ const {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-sm);
-    padding: var(--space-lg);
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    border-radius: var(--radius-md);
+    gap: 12px;
+    padding: 20px;
+    background: rgba(74, 222, 128, 0.1);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    border-radius: 10px;
   }
 
-  .success-icon {
-    font-size: 1.5rem;
+  .newsletter-success svg {
+    color: #4ADE80;
+    flex-shrink: 0;
   }
 
   .success-text {
-    color: #10b981;
+    color: #4ADE80;
     font-weight: 600;
+    font-size: 15px;
   }
 
   .newsletter-features {
     display: flex;
     justify-content: center;
-    gap: var(--space-xl);
-    margin-top: var(--space-xl);
-    padding-top: var(--space-xl);
-    border-top: 1px solid var(--gray-800);
+    gap: 40px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   @media (max-width: 600px) {
     .newsletter-features {
       flex-direction: column;
-      gap: var(--space-md);
+      gap: 16px;
+      align-items: center;
     }
   }
 
   .nf-item {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
-    font-size: var(--font-size-sm);
-    color: var(--gray-500);
+    gap: 10px;
+    font-size: 14px;
+    color: #A8A29E;
   }
 
-  .nf-icon {
-    font-size: 1.25rem;
+  .nf-item svg {
+    color: #78716C;
   }
 </style>

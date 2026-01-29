@@ -827,7 +827,7 @@ img {
     padding: var(--space-xs) 0;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 1100; /* Above search overlay so it slides from behind */
     backdrop-filter: blur(20px);
 }
 
@@ -956,16 +956,14 @@ img {
     background: var(--charcoal-light); /* Match header/breadcrumb dark theme */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 16px 0;
-    z-index: 1050; /* Above countdown bar */
-    opacity: 0;
+    z-index: 1050; /* Below header (1100) so it slides from behind */
     visibility: hidden;
-    transform: translateY(-20px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .search-overlay.is-active {
-    opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
@@ -1464,8 +1462,23 @@ img {
 }
 
 .badge-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     color: rgba(255, 255, 255, 0.7); /* Improved contrast for WCAG AA */
     font-size: var(--font-size-xs);
+}
+
+.footer-badge-icon {
+    color: #4ADE80;
+    filter: drop-shadow(0 0 4px rgba(74, 222, 128, 0.5));
+}
+
+.footer-warning-icon {
+    color: #FACC15;
+    filter: drop-shadow(0 0 4px rgba(250, 204, 21, 0.5));
+    vertical-align: -2px;
+    margin-right: 2px;
 }
 
 .footer-social {
@@ -2571,7 +2584,7 @@ details.faq-item[open] .faq-answer {
     .back-to-top,
     .search-overlay {
         animation: none !important;
-        transition: opacity 0.1s ease !important;
+        transition: transform 0.1s ease, visibility 0.1s !important;
     }
 
     /* Keep opacity transitions for better UX */
