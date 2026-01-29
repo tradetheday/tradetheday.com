@@ -234,47 +234,36 @@ const titleWithBrand = title.includes('TradeTheDay') || title.length > 50
 
   <!-- Mobile Menu Script (inline for reliability) -->
   <script is:inline>
-    (function() {
-      const toggle = document.getElementById('mobileMenuToggle');
-      const menu = document.getElementById('mobileMenu');
+    document.addEventListener('DOMContentLoaded', function() {
+      var toggle = document.getElementById('mobileMenuToggle');
+      var menu = document.getElementById('mobileMenu');
+
+      console.log('Mobile menu init:', toggle, menu);
 
       if (toggle && menu) {
-        toggle.addEventListener('click', function(e) {
+        toggle.onclick = function(e) {
+          e.preventDefault();
           e.stopPropagation();
-          const isOpen = menu.classList.contains('is-active');
+          console.log('Toggle clicked');
 
-          if (isOpen) {
+          if (menu.classList.contains('is-active')) {
             toggle.classList.remove('is-active');
-            toggle.setAttribute('aria-expanded', 'false');
             menu.classList.remove('is-active');
-            menu.setAttribute('aria-hidden', 'true');
           } else {
             toggle.classList.add('is-active');
-            toggle.setAttribute('aria-expanded', 'true');
             menu.classList.add('is-active');
-            menu.setAttribute('aria-hidden', 'false');
           }
-        });
+        };
 
         // Close on click outside
-        document.addEventListener('click', function(e) {
+        document.onclick = function(e) {
           if (menu.classList.contains('is-active') && !menu.contains(e.target) && !toggle.contains(e.target)) {
             toggle.classList.remove('is-active');
             menu.classList.remove('is-active');
-            menu.setAttribute('aria-hidden', 'true');
           }
-        });
-
-        // Close on escape
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape' && menu.classList.contains('is-active')) {
-            toggle.classList.remove('is-active');
-            menu.classList.remove('is-active');
-            menu.setAttribute('aria-hidden', 'true');
-          }
-        });
+        };
       }
-    })();
+    });
   </script>
 
   <!-- Full-Width Search Overlay -->
