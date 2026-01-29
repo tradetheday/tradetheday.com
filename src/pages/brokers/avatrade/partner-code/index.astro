@@ -1,22 +1,16 @@
 ---
 /**
- * AvaTrade Partner Code Page - MONEY PAGE
+ * AvaTrade Partner Code Page - Redesigned
  *
- * Optimized with Cialdini's 6 Principles of Persuasion:
- * 1. RECIPROCITY - Free code, free calculator, free guide
- * 2. COMMITMENT & CONSISTENCY - Step progress, micro-feedback
- * 3. SOCIAL PROOF - Live activity, testimonials, trader count
- * 4. AUTHORITY - Regulation badges, official partner, expert review
- * 5. LIKING - Friendly copy, beautiful design, fast experience
- * 6. SCARCITY - Limited time bonus, expiring offer, exclusive code
+ * Design Philosophy: Jony Ive Principles
+ * - Simplicity is the ultimate sophistication
+ * - Let the content breathe
+ * - Confidence doesn't need to shout
+ * - Every element earns its place
  */
 
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
-import TrustBadges from '../../../../components/TrustBadges.astro';
-import ScarcityCountdown from '../../../../components/ScarcityCountdown.astro';
-import AnalystNotes from '../../../../components/AnalystNotes.astro';
-import ExitIntentPopup from '../../../../components/ExitIntentPopup.astro';
 import '../../../../styles/pages/brokers-avatrade-partner-code.css';
 
 // Dynamic date for auto-updating content
@@ -26,15 +20,13 @@ const currentMonth = monthNames[now.getMonth()];
 const currentYear = now.getFullYear();
 const dateString = `${currentMonth} ${currentYear}`;
 
+// Simplified bonus tiers (show most relevant)
 const bonusData = [
   { deposit: '$1,000 - $1,999', bonus: '$200', popular: false },
   { deposit: '$2,000 - $2,999', bonus: '$400', popular: false },
   { deposit: '$3,000 - $4,999', bonus: '$600', popular: true },
   { deposit: '$5,000 - $9,999', bonus: '$1,000', popular: true },
-  { deposit: '$10,000 - $19,999', bonus: '$2,000', popular: false },
-  { deposit: '$20,000 - $49,999', bonus: '$4,000', popular: false },
-  { deposit: '$50,000 - $99,999', bonus: '$10,000', popular: false },
-  { deposit: '$100,000+', bonus: 'Up to $14,000', popular: false }
+  { deposit: '$10,000+', bonus: 'Up to $14,000', popular: false }
 ];
 
 // Country-specific data for regional bonus tiers
@@ -44,12 +36,8 @@ const countryData = {
     name: 'Global',
     flag: '🌍',
     currency: 'USD',
-    currencySymbol: '$',
     regulator: 'Multi-Regulated',
-    regulatorFull: 'Multiple Tier-1 Regulators',
-    regNumber: 'FCA, ASIC, CySEC, FSCA',
-    protection: 'Varies by Region',
-    protectionScheme: 'Regional Schemes',
+    regulatorFull: 'FCA, ASIC, CySEC, FSCA',
     leverage: '1:30 - 1:400',
     bonusTiers: [
       { deposit: '$1,000 - $1,999', bonus: '$200' },
@@ -59,50 +47,19 @@ const countryData = {
       { deposit: '$10,000+', bonus: 'Up to $14,000' }
     ],
     benefits: [
-      { text: 'Regulated by FCA, ASIC, CySEC & More', check: true },
-      { text: 'Segregated Client Funds', check: true },
-      { text: 'Negative Balance Protection', check: true },
-      { text: 'Multiple Account Currencies', check: true },
-      { text: '24/5 Multilingual Support', check: true }
-    ],
-    considerations: {
-      title: 'What International Traders Should Know About AvaTrade',
-      intro: 'AvaTrade serves traders in over 150 countries through multiple regulated entities. Here\'s what you need to know about using partner code 128979 regardless of your location.',
-      sections: [
-        {
-          heading: 'Global Regulatory Coverage',
-          content: 'AvaTrade operates under multiple tier-1 regulators including the FCA (UK), ASIC (Australia), CySEC (EU), FSCA (South Africa), ADGM (UAE), and FSA (Japan). Your account will be held with the entity appropriate for your jurisdiction, ensuring you receive proper regulatory protection.'
-        },
-        {
-          heading: 'Partner Code Works Worldwide',
-          content: 'Partner code 128979 is valid globally. Enter it during registration regardless of your country. The bonus structure shown in USD applies universally, though your exact amounts will be calculated in your chosen account currency at current exchange rates.'
-        },
-        {
-          heading: 'Choose Your Account Currency',
-          content: 'AvaTrade supports accounts in USD, EUR, GBP, AUD, and other major currencies. Choose the currency you\'ll deposit in to avoid conversion fees. If you trade primarily USD pairs, a USD account makes sense. Select your country above for local currency bonus tiers.'
-        },
-        {
-          heading: 'Leverage Varies by Region',
-          content: 'Maximum leverage depends on your regulatory jurisdiction. EU/UK/AU traders are limited to 1:30 for major forex pairs under consumer protection rules. Traders in other regions (South Africa, UAE, etc.) may access up to 1:400. Higher leverage increases both potential profits and risks.'
-        },
-        {
-          heading: 'Regional Bonus Restrictions',
-          content: 'Some jurisdictions (particularly EU countries under ESMA rules) have restrictions on trading bonuses. If you\'re in the EU, the welcome bonus may not be available to retail traders. Select your specific country above to see applicable regulations and bonus availability.'
-        }
-      ]
-    }
+      'Regulated by FCA, ASIC, CySEC & More',
+      'Segregated Client Funds',
+      'Negative Balance Protection',
+      'Multiple Account Currencies'
+    ]
   },
   uk: {
     code: 'uk',
     name: 'United Kingdom',
     flag: '🇬🇧',
     currency: 'GBP',
-    currencySymbol: '£',
     regulator: 'FCA',
-    regulatorFull: 'Financial Conduct Authority',
-    regNumber: '583263',
-    protection: '£85,000',
-    protectionScheme: 'FSCS',
+    regulatorFull: 'Financial Conduct Authority (583263)',
     leverage: '1:30',
     bonusTiers: [
       { deposit: '£800 - £1,599', bonus: '£160' },
@@ -112,50 +69,19 @@ const countryData = {
       { deposit: '£8,000+', bonus: 'Up to £11,200' }
     ],
     benefits: [
-      { text: 'FCA Authorised (Reg: 583263)', check: true },
-      { text: 'FSCS Protection up to £85,000', check: true },
-      { text: 'Segregated Client Funds', check: true },
-      { text: 'Negative Balance Protection', check: true },
-      { text: 'GBP Account Available', check: true }
-    ],
-    considerations: {
-      title: 'What UK Traders Should Know About AvaTrade',
-      intro: 'Trading from the UK comes with specific regulatory protections that affect how you interact with AvaTrade and the partner code bonus. Here\'s our detailed analysis for UK-based traders considering code 128979.',
-      sections: [
-        {
-          heading: 'FCA Regulation Explained',
-          content: 'AvaTrade EU Ltd operates in the UK under FCA authorization (Reference: 583263). This means they must comply with strict Financial Conduct Authority rules including client fund segregation, negative balance protection, and leverage limits (max 1:30 for retail forex). The FCA is considered one of the world\'s most rigorous financial regulators - AvaTrade\'s FCA status provides genuine protection.'
-        },
-        {
-          heading: 'FSCS Protection for UK Clients',
-          content: 'The Financial Services Compensation Scheme (FSCS) protects eligible UK clients up to £85,000 if AvaTrade were to fail. This is real insurance - not a marketing claim. Your deposited funds are segregated from AvaTrade\'s operational capital and held in designated client money accounts. Combined with negative balance protection, UK traders have multiple layers of security.'
-        },
-        {
-          heading: 'GBP Accounts: Avoiding Currency Conversion',
-          content: 'UK traders should strongly consider opening a GBP-denominated account. If you trade in GBP pairs (GBP/USD, EUR/GBP), using a GBP base currency eliminates conversion costs on deposits, withdrawals, and profit/loss calculations. The partner code 128979 works the same regardless of your account currency.'
-        },
-        {
-          heading: 'UK Bonus Regulations',
-          content: 'Unlike some jurisdictions, the UK allows trading bonuses under FCA rules (unlike ESMA-regulated EU brokers which banned bonuses). UK traders can fully benefit from the welcome bonus tiers using partner code 128979. The GBP amounts shown above are approximate conversions - your exact bonus will be calculated at current exchange rates when you deposit.'
-        },
-        {
-          heading: 'Tax Considerations',
-          content: 'Trading profits in the UK are generally subject to Capital Gains Tax (CGT), though spread betting profits (which AvaTrade also offers) are currently tax-free. This isn\'t financial advice - consult a tax professional about your specific situation. The welcome bonus itself isn\'t taxable income until you realize profits from trading with it.'
-        }
-      ]
-    }
+      'FCA Authorised (Reg: 583263)',
+      'FSCS Protection up to £85,000',
+      'Segregated Client Funds',
+      'GBP Account Available'
+    ]
   },
   australia: {
     code: 'australia',
     name: 'Australia',
     flag: '🇦🇺',
     currency: 'AUD',
-    currencySymbol: 'A$',
     regulator: 'ASIC',
-    regulatorFull: 'Australian Securities & Investments Commission',
-    regNumber: '406684',
-    protection: 'Client Money Rules',
-    protectionScheme: 'ASIC Client Money',
+    regulatorFull: 'Australian Securities & Investments Commission (406684)',
     leverage: '1:30',
     bonusTiers: [
       { deposit: 'A$1,500 - A$2,999', bonus: 'A$300' },
@@ -165,209 +91,19 @@ const countryData = {
       { deposit: 'A$15,000+', bonus: 'Up to A$21,000' }
     ],
     benefits: [
-      { text: 'ASIC Regulated (AFSL: 406684)', check: true },
-      { text: 'Segregated Client Funds', check: true },
-      { text: 'Negative Balance Protection', check: true },
-      { text: 'AUD Account Available', check: true },
-      { text: 'Local AU Support Team', check: true }
-    ],
-    considerations: {
-      title: 'What Australian Traders Should Know About AvaTrade',
-      intro: 'Trading from Australia means you\'re protected by some of the world\'s strictest financial regulations. Here\'s what Aussie traders need to know about using partner code 128979.',
-      sections: [
-        {
-          heading: 'ASIC Regulation Explained',
-          content: 'AvaTrade Australia Pty Ltd holds an Australian Financial Services Licence (AFSL 406684) issued by ASIC. This requires AvaTrade to maintain client money in segregated trust accounts with major Australian banks, comply with strict capital adequacy requirements, and follow responsible lending practices.'
-        },
-        {
-          heading: 'Product Intervention Order',
-          content: 'Following ASIC\'s 2021 Product Intervention Order, retail leverage is capped at 1:30 for major forex pairs and 1:2 for crypto. This protects Australian retail traders from excessive risk. Professional traders may qualify for higher leverage with appropriate applications.'
-        },
-        {
-          heading: 'AUD Accounts: No Conversion Fees',
-          content: 'Australian traders should open an AUD-denominated account. Trading AUD pairs (AUD/USD, AUD/JPY) with an AUD base currency means no conversion costs. Your deposits, withdrawals, and P&L calculations stay in Australian dollars.'
-        },
-        {
-          heading: 'Australian Tax Implications',
-          content: 'CFD trading profits in Australia are generally assessable income and taxed at your marginal rate. Unlike the UK, there\'s no spread betting exemption. Keep detailed records of all trades for tax purposes. The welcome bonus becomes assessable when withdrawn as profit.'
-        },
-        {
-          heading: 'Bonus Availability',
-          content: 'Australian traders can access the full welcome bonus program using partner code 128979. ASIC regulations don\'t prohibit trading bonuses like EU regulators do. The AUD bonus tiers shown are approximate - exact amounts calculated at current exchange rates.'
-        }
-      ]
-    }
-  },
-  canada: {
-    code: 'canada',
-    name: 'Canada',
-    flag: '🇨🇦',
-    currency: 'CAD',
-    currencySymbol: 'C$',
-    regulator: 'IIROC',
-    regulatorFull: 'Investment Industry Regulatory Organization of Canada',
-    regNumber: 'Friedberg Direct',
-    protection: 'C$1,000,000',
-    protectionScheme: 'CIPF',
-    leverage: '1:50',
-    bonusTiers: [
-      { deposit: 'C$1,400 - C$2,799', bonus: 'C$280' },
-      { deposit: 'C$2,800 - C$4,199', bonus: 'C$560' },
-      { deposit: 'C$4,200 - C$6,999', bonus: 'C$840' },
-      { deposit: 'C$7,000 - C$13,999', bonus: 'C$1,400' },
-      { deposit: 'C$14,000+', bonus: 'Up to C$19,600' }
-    ],
-    benefits: [
-      { text: 'IIROC Regulated (via Friedberg)', check: true },
-      { text: 'CIPF Protection up to C$1M', check: true },
-      { text: 'Segregated Client Funds', check: true },
-      { text: 'CAD Account Available', check: true },
-      { text: 'Canadian Payment Methods', check: true }
-    ],
-    considerations: {
-      title: 'What Canadian Traders Should Know About AvaTrade',
-      intro: 'Canadian traders access AvaTrade through Friedberg Direct, providing IIROC regulation and CIPF protection. Here\'s what you need to know about trading with partner code 128979 from Canada.',
-      sections: [
-        {
-          heading: 'IIROC Regulation via Friedberg',
-          content: 'Canadian clients trade through Friedberg Direct (a division of Friedberg Mercantile Group Ltd.), which is regulated by IIROC and a member of CIPF. AvaTrade provides the trading platform and technology while Friedberg handles the regulatory compliance for Canadian residents.'
-        },
-        {
-          heading: 'CIPF Protection',
-          content: 'The Canadian Investor Protection Fund (CIPF) protects eligible accounts up to C$1,000,000 per account type. This is one of the highest protection levels globally - significantly higher than UK or Australian schemes. Your funds are well-protected under Canadian regulations.'
-        },
-        {
-          heading: 'CAD Accounts Recommended',
-          content: 'Canadian traders should strongly consider opening a CAD-denominated account. This eliminates conversion costs when funding your account from Canadian bank accounts and when trading CAD pairs like USD/CAD.'
-        },
-        {
-          heading: 'Provincial Regulations',
-          content: 'CFD and forex trading regulations can vary by province. Quebec residents may face additional restrictions. AvaTrade/Friedberg services are available to residents of most Canadian provinces, but check your specific provincial requirements.'
-        },
-        {
-          heading: 'Tax Considerations',
-          content: 'Trading profits in Canada are generally treated as either business income (fully taxable) or capital gains (50% taxable), depending on your trading frequency and intent. The CRA looks at factors like frequency, holding period, and trading knowledge. Consult a Canadian tax professional for your situation.'
-        }
-      ]
-    }
-  },
-  germany: {
-    code: 'germany',
-    name: 'Germany',
-    flag: '🇩🇪',
-    currency: 'EUR',
-    currencySymbol: '€',
-    regulator: 'BaFin',
-    regulatorFull: 'Federal Financial Supervisory Authority',
-    regNumber: 'CySEC 347/17',
-    protection: '€20,000',
-    protectionScheme: 'ICF',
-    leverage: '1:30',
-    bonusTiers: [
-      { deposit: '€900 - €1,799', bonus: '€180' },
-      { deposit: '€1,800 - €2,699', bonus: '€360' },
-      { deposit: '€2,700 - €4,499', bonus: '€540' },
-      { deposit: '€4,500 - €8,999', bonus: '€900' },
-      { deposit: '€9,000+', bonus: 'Up to €12,600' }
-    ],
-    benefits: [
-      { text: 'BaFin Registered / CySEC Regulated', check: true },
-      { text: 'ICF Protection up to €20,000', check: true },
-      { text: 'Segregated Client Funds', check: true },
-      { text: 'Negative Balance Protection', check: true },
-      { text: 'EUR Account Available', check: true }
-    ],
-    considerations: {
-      title: 'Was deutsche Trader über AvaTrade wissen sollten',
-      intro: 'Deutsche Trader unterliegen den strengen EU/ESMA-Vorschriften. Hier erfahren Sie, was bei der Nutzung des Partner-Codes 128979 zu beachten ist.',
-      sections: [
-        {
-          heading: 'Regulierung in Deutschland',
-          content: 'AvaTrade bedient deutsche Kunden über die AvaTrade EU Ltd, die von der CySEC (Zypern) reguliert wird und bei der BaFin registriert ist. Dies bedeutet volle MiFID II-Konformität und Zugang zum europäischen Passporting-System.'
-        },
-        {
-          heading: 'ESMA Bonus-Einschränkungen',
-          content: 'WICHTIG: Aufgrund der ESMA-Vorschriften sind Trading-Boni für EU-Privatanleger seit 2018 verboten. Deutsche Trader können den Partner-Code 128979 verwenden, aber der Willkommensbonus ist möglicherweise nicht verfügbar. Kontaktieren Sie den AvaTrade-Support für aktuelle Angebote für EU-Kunden.'
-        },
-        {
-          heading: 'Hebelbeschränkungen',
-          content: 'ESMA-Vorschriften begrenzen den Hebel auf 1:30 für Hauptwährungspaare, 1:20 für kleinere Paare, 1:10 für Rohstoffe und 1:2 für Kryptowährungen. Diese Limits schützen Privatanleger vor übermäßigem Risiko.'
-        },
-        {
-          heading: 'EUR-Konten empfohlen',
-          content: 'Deutsche Trader sollten ein EUR-Konto eröffnen. Dies eliminiert Umrechnungskosten bei Ein- und Auszahlungen und beim Trading von EUR-Paaren wie EUR/USD.'
-        },
-        {
-          heading: 'Steuerliche Behandlung',
-          content: 'Trading-Gewinne in Deutschland unterliegen der Abgeltungssteuer (25% plus Solidaritätszuschlag). Verluste können mit anderen Kapitalerträgen verrechnet werden. Führen Sie detaillierte Aufzeichnungen für Ihre Steuererklärung.'
-        }
-      ]
-    }
-  },
-  italy: {
-    code: 'italy',
-    name: 'Italy',
-    flag: '🇮🇹',
-    currency: 'EUR',
-    currencySymbol: '€',
-    regulator: 'CONSOB',
-    regulatorFull: 'Commissione Nazionale per le Società e la Borsa',
-    regNumber: 'CySEC 347/17',
-    protection: '€20,000',
-    protectionScheme: 'ICF',
-    leverage: '1:30',
-    bonusTiers: [
-      { deposit: '€900 - €1,799', bonus: '€180' },
-      { deposit: '€1,800 - €2,699', bonus: '€360' },
-      { deposit: '€2,700 - €4,499', bonus: '€540' },
-      { deposit: '€4,500 - €8,999', bonus: '€900' },
-      { deposit: '€9,000+', bonus: 'Up to €12,600' }
-    ],
-    benefits: [
-      { text: 'CONSOB Registered / CySEC Regulated', check: true },
-      { text: 'ICF Protection up to €20,000', check: true },
-      { text: 'Segregated Client Funds', check: true },
-      { text: 'Negative Balance Protection', check: true },
-      { text: 'EUR Account Available', check: true }
-    ],
-    considerations: {
-      title: 'Cosa devono sapere i trader italiani su AvaTrade',
-      intro: 'I trader italiani sono protetti dalle normative EU/ESMA. Ecco cosa sapere quando si utilizza il codice partner 128979 dall\'Italia.',
-      sections: [
-        {
-          heading: 'Regolamentazione in Italia',
-          content: 'AvaTrade serve i clienti italiani tramite AvaTrade EU Ltd, regolamentata dalla CySEC (Cipro) e registrata presso la CONSOB. Questo garantisce la piena conformità MiFID II e l\'accesso al sistema di passaporto europeo.'
-        },
-        {
-          heading: 'Restrizioni Bonus ESMA',
-          content: 'IMPORTANTE: A causa delle normative ESMA, i bonus di trading sono vietati per i trader retail UE dal 2018. I trader italiani possono utilizzare il codice partner 128979, ma il bonus di benvenuto potrebbe non essere disponibile. Contattare il supporto AvaTrade per le offerte attuali per i clienti UE.'
-        },
-        {
-          heading: 'Limiti di Leva',
-          content: 'Le normative ESMA limitano la leva a 1:30 per le coppie forex principali, 1:20 per quelle minori, 1:10 per le materie prime e 1:2 per le criptovalute. Questi limiti proteggono i trader retail da rischi eccessivi.'
-        },
-        {
-          heading: 'Conti in EUR Consigliati',
-          content: 'I trader italiani dovrebbero aprire un conto denominato in EUR. Questo elimina i costi di conversione su depositi, prelievi e quando si fa trading su coppie EUR come EUR/USD.'
-        },
-        {
-          heading: 'Considerazioni Fiscali',
-          content: 'I profitti del trading in Italia sono soggetti all\'imposta sostitutiva del 26% sulle plusvalenze. Le perdite possono essere compensate con altri redditi da capitale. È essenziale mantenere registri dettagliati per la dichiarazione dei redditi.'
-        }
-      ]
-    }
+      'ASIC Regulated (AFSL: 406684)',
+      'Segregated Client Funds',
+      'Negative Balance Protection',
+      'AUD Account Available'
+    ]
   },
   southafrica: {
     code: 'southafrica',
     name: 'South Africa',
     flag: '🇿🇦',
     currency: 'ZAR',
-    currencySymbol: 'R',
     regulator: 'FSCA',
-    regulatorFull: 'Financial Sector Conduct Authority',
-    regNumber: '45984',
-    protection: 'Segregated Funds',
-    protectionScheme: 'FSCA Oversight',
+    regulatorFull: 'Financial Sector Conduct Authority (45984)',
     leverage: '1:400',
     bonusTiers: [
       { deposit: 'R18,000 - R35,999', bonus: 'R3,600' },
@@ -377,50 +113,19 @@ const countryData = {
       { deposit: 'R180,000+', bonus: 'Up to R252,000' }
     ],
     benefits: [
-      { text: 'FSCA Regulated (FSP: 45984)', check: true },
-      { text: 'Segregated Client Funds', check: true },
-      { text: 'Higher Leverage Available (1:400)', check: true },
-      { text: 'ZAR Account Available', check: true },
-      { text: 'Local ZA Support', check: true }
-    ],
-    considerations: {
-      title: 'What South African Traders Should Know About AvaTrade',
-      intro: 'South African traders benefit from FSCA regulation and access to higher leverage than many other jurisdictions. Here\'s what SA traders need to know about partner code 128979.',
-      sections: [
-        {
-          heading: 'FSCA Regulation',
-          content: 'AvaTrade is regulated by the Financial Sector Conduct Authority (FSCA) of South Africa under FSP licence 45984. This means AvaTrade must comply with the Financial Advisory and Intermediary Services Act (FAIS) and maintain proper conduct standards for SA clients.'
-        },
-        {
-          heading: 'Higher Leverage Available',
-          content: 'Unlike UK/EU/AU traders who are limited to 1:30, South African traders can access leverage up to 1:400. While this offers greater potential returns, it also increases risk significantly. Use higher leverage responsibly and always employ stop-losses.'
-        },
-        {
-          heading: 'ZAR Accounts',
-          content: 'South African traders should open a ZAR-denominated account. This avoids currency conversion costs when depositing from SA bank accounts. Your profits and losses are calculated in Rand, making tax reporting simpler.'
-        },
-        {
-          heading: 'Exchange Control Regulations',
-          content: 'South Africa has exchange control regulations limiting how much you can invest offshore. The annual discretionary allowance is R1 million without requiring a tax clearance certificate. Amounts above this require SARS approval. Trading with a local regulated entity like AvaTrade SA simplifies compliance.'
-        },
-        {
-          heading: 'Tax Treatment',
-          content: 'Trading profits in South Africa are generally taxed as income, not capital gains. The tax rate depends on your marginal income tax bracket (up to 45%). Keep detailed records of all trades. SARS requires reporting of all trading income.'
-        }
-      ]
-    }
+      'FSCA Regulated (FSP: 45984)',
+      'Higher Leverage (1:400)',
+      'ZAR Account Available',
+      'Local ZA Support'
+    ]
   },
   uae: {
     code: 'uae',
     name: 'United Arab Emirates',
     flag: '🇦🇪',
     currency: 'USD',
-    currencySymbol: '$',
     regulator: 'ADGM',
-    regulatorFull: 'Abu Dhabi Global Market',
-    regNumber: '190018',
-    protection: 'Segregated Funds',
-    protectionScheme: 'ADGM Framework',
+    regulatorFull: 'Abu Dhabi Global Market (190018)',
     leverage: '1:400',
     bonusTiers: [
       { deposit: '$1,000 - $1,999', bonus: '$200' },
@@ -430,68 +135,13 @@ const countryData = {
       { deposit: '$10,000+', bonus: 'Up to $14,000' }
     ],
     benefits: [
-      { text: 'ADGM Regulated (Ref: 190018)', check: true },
-      { text: 'Segregated Client Funds', check: true },
-      { text: 'Higher Leverage (1:400)', check: true },
-      { text: 'USD Account (AED Pegged)', check: true },
-      { text: 'Islamic Accounts Available', check: true }
-    ],
-    considerations: {
-      title: 'What UAE Traders Should Know About AvaTrade',
-      intro: 'UAE traders enjoy a tax-free trading environment and access to AvaTrade\'s ADGM-regulated entity. Here\'s what traders in Dubai, Abu Dhabi, and across the Emirates need to know.',
-      sections: [
-        {
-          heading: 'ADGM Regulation',
-          content: 'AvaTrade Middle East Ltd is regulated by the Abu Dhabi Global Market (ADGM) Financial Services Regulatory Authority. ADGM applies international standards based on English common law, providing robust investor protection in the region.'
-        },
-        {
-          heading: 'Tax-Free Trading',
-          content: 'One of the biggest advantages for UAE traders is the absence of income tax or capital gains tax on trading profits. Your trading gains are 100% yours to keep. This makes the UAE one of the most attractive jurisdictions for active traders globally.'
-        },
-        {
-          heading: 'Islamic (Swap-Free) Accounts',
-          content: 'AvaTrade offers Sharia-compliant Islamic accounts for UAE traders. These accounts don\'t charge or pay overnight swap interest, making them suitable for Muslim traders who wish to comply with Islamic finance principles. Request an Islamic account during registration.'
-        },
-        {
-          heading: 'Higher Leverage',
-          content: 'UAE traders can access leverage up to 1:400, significantly higher than EU/UK/AU regulated jurisdictions. This provides greater trading flexibility but requires disciplined risk management. Always use appropriate position sizing.'
-        },
-        {
-          heading: 'USD/AED Stability',
-          content: 'The UAE Dirham is pegged to the US Dollar at a fixed rate. Opening a USD-denominated account is recommended as most trading instruments are priced in USD. Currency conversion costs are minimal due to the peg.'
-        }
-      ]
-    }
+      'ADGM Regulated (Ref: 190018)',
+      'Tax-Free Trading Environment',
+      'Islamic Accounts Available',
+      'Higher Leverage (1:400)'
+    ]
   }
 };
-
-// Shortcut for UK bonus data (backwards compatibility)
-const ukBonusData = countryData.uk.bonusTiers;
-
-// Social proof testimonials
-const testimonials = [
-  {
-    name: 'David M.',
-    location: 'Manchester, UK',
-    quote: 'Used the 128979 code and got my £480 bonus within 24 hours. Smooth process.',
-    bonus: '£480',
-    verified: true
-  },
-  {
-    name: 'Sarah K.',
-    location: 'Sydney, Australia',
-    quote: 'Was skeptical at first but the code worked perfectly. Now trading with extra capital.',
-    bonus: '$1,000',
-    verified: true
-  },
-  {
-    name: 'James L.',
-    location: 'Dublin, Ireland',
-    quote: 'TradeTheDay saved me hours of research. The partner code was the best bonus I found.',
-    bonus: '$600',
-    verified: true
-  }
-];
 
 const faqData = [
   {
@@ -507,79 +157,204 @@ const faqData = [
     answer: 'Yes, 128979 is a legitimate AvaTrade partner code issued to TradeTheDay. AvaTrade is a regulated broker (FCA, ASIC, CySEC) established in 2006. The partner code system is their official referral program.'
   },
   {
-    question: 'Where do I find the AvaTrade partner code field?',
-    answer: 'The AvaTrade partner code field appears during account registration. Look for "Have a Partner Code?" or "Referral Code" below the phone number section. Click to expand and enter 128979.'
-  },
-  {
     question: 'Does the AvaTrade partner code work in the UK?',
     answer: 'Yes, AvaTrade partner code 128979 works for UK traders. AvaTrade is FCA-regulated (Reg: 583263) and UK residents can open GBP accounts with equivalent bonus tiers.'
   },
   {
-    question: 'Is AvaTrade partner code the same as bonus code?',
-    answer: 'Yes. AvaTrade uses "partner code" as the official term, but it functions identically to a bonus code, promo code, or referral code. Enter 128979 to claim your bonus regardless of which term you searched for.'
-  },
-  {
-    question: 'What is the AvaTrade welcome bonus?',
-    answer: `The AvaTrade welcome bonus for ${currentYear} is a tiered deposit bonus. Use partner code 128979 during registration to qualify. Bonus amount depends on your deposit - see our bonus tiers table above.`
-  },
-  {
-    question: "What's the minimum deposit for AvaTrade partner code bonus?",
+    question: 'What is the minimum deposit for the bonus?',
     answer: 'Minimum deposit to open an AvaTrade account is $100. To qualify for the welcome bonus with partner code 128979, you need to deposit at least $1,000 (or equivalent in your currency).'
   },
   {
-    question: 'Can I use AvaTrade partner code 128979 on mobile?',
-    answer: 'Yes, AvaTrade partner code 128979 works on both desktop and mobile registration. The AvaTradeGO app also accepts partner codes during account creation.'
+    question: 'What if the partner code shows invalid?',
+    answer: 'If you see "The code you entered is invalid", this may be due to regional restrictions. Continue signup and contact your account manager after registration but before depositing to have the bonus applied.'
+  }
+];
+
+// Why AvaTrade features (reduced from 6 to 4)
+const features = [
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`,
+    title: 'Multi-Regulated',
+    description: 'FCA, ASIC, CySEC, FSCA. Your funds protected by tier-1 regulators.'
   },
   {
-    question: 'What if AvaTrade partner code shows invalid?',
-    answer: 'If you see "The code you entered is invalid", this may be due to regional restrictions. Continue signup and contact your account manager after registration but before depositing to have the bonus applied.'
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 9l-5 5-4-4-3 3"/></svg>`,
+    title: '1,250+ Markets',
+    description: 'Forex, stocks, crypto, commodities, and indices in one place.'
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg>`,
+    title: 'Top Platforms',
+    description: 'MetaTrader 4, MetaTrader 5, AvaTradeGO, and WebTrader.'
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>`,
+    title: 'Free Education',
+    description: 'Video tutorials, webinars, and daily market analysis included.'
   }
 ];
 ---
 
 <BaseLayout
-  title={`AvaTrade Partner Code Enter - "128979" ${dateString}`}
-  description={`Use AvaTrade partner code 128979 to get up to $10,000 welcome bonus. Verified working ${dateString}. Step-by-step guide to claim your bonus.`}
+  title={`AvaTrade Partner Code 128979 - Welcome Bonus ${dateString}`}
+  description={`Use AvaTrade partner code 128979 to get your welcome bonus. Verified working ${dateString}. Step-by-step guide to claim your bonus.`}
 >
-  <!-- Additional SEO Meta Tags -->
-  <meta slot="head" name="keywords" content="AvaTrade partner code, avatrade partner code, AvaTrade partner code 2026, AvaTrade partner code UK, avatrade partner code 128979, 128979, AvaTrade bonus code, AvaTrade welcome bonus, AvaTrade promo code, partner code avatrade, avatrade code, AvaTrade referral code, avatrade partner code today, what is avatrade partner code, avatrade partner code working">
+  <!-- SEO Meta Tags -->
+  <meta slot="head" name="keywords" content="AvaTrade partner code, avatrade partner code, AvaTrade partner code 2026, AvaTrade partner code UK, avatrade partner code 128979, 128979, AvaTrade bonus code, AvaTrade welcome bonus, AvaTrade promo code, AvaTrade referral code">
   <meta slot="head" name="author" content="TradeTheDay">
-  <meta slot="head" name="last-modified" content={new Date().toISOString().split('T')[0]}>
-  <meta slot="head" property="og:title" content={`AvaTrade Partner Code Enter - "128979" ${dateString}`}>
-  <meta slot="head" property="og:description" content={`The AvaTrade partner code is 128979. Enter during registration to unlock your exclusive welcome bonus. Verified and working ${dateString}.`}>
+  <meta slot="head" name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+  <!-- Open Graph -->
+  <meta slot="head" property="og:title" content={`AvaTrade Partner Code 128979 - Welcome Bonus ${dateString}`}>
+  <meta slot="head" property="og:description" content={`The AvaTrade partner code is 128979. Enter during registration to unlock your exclusive welcome bonus. Verified ${dateString}.`}>
   <meta slot="head" property="og:type" content="article">
   <meta slot="head" property="og:url" content="https://tradetheday.com/brokers/avatrade/partner-code">
   <meta slot="head" property="og:site_name" content="TradeTheDay">
+  <meta slot="head" property="og:locale" content="en_US">
+  <meta slot="head" property="article:published_time" content="2024-01-01T00:00:00Z">
+  <meta slot="head" property="article:modified_time" content={new Date().toISOString()}>
+  <meta slot="head" property="article:author" content="TradeTheDay">
+  <meta slot="head" property="article:section" content="Broker Codes">
+  <meta slot="head" property="article:tag" content="AvaTrade">
+  <meta slot="head" property="article:tag" content="Partner Code">
+  <meta slot="head" property="article:tag" content="Welcome Bonus">
+
+  <!-- Twitter Card -->
   <meta slot="head" name="twitter:card" content="summary_large_image">
+  <meta slot="head" name="twitter:title" content={`AvaTrade Partner Code 128979 - ${dateString}`}>
+  <meta slot="head" name="twitter:description" content={`Use code 128979 to get your AvaTrade welcome bonus. Verified ${dateString}.`}>
+  <meta slot="head" name="twitter:site" content="@tradetheday">
+
   <link slot="head" rel="canonical" href="https://tradetheday.com/brokers/avatrade/partner-code">
 
-  <!-- JSON-LD Structured Data -->
+  <!-- JSON-LD: Article Schema -->
   <script slot="head" type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": `AvaTrade Partner Code 128979 - Official Welcome Bonus ${dateString}`,
-    "description": `The AvaTrade partner code is 128979. Enter this code during registration to unlock your exclusive welcome bonus. Verified and working.`,
+    "@type": "Article",
+    "headline": `AvaTrade Partner Code 128979 - Welcome Bonus ${dateString}`,
+    "description": `The AvaTrade partner code is 128979. Enter this code during registration to unlock your exclusive welcome bonus.`,
     "url": "https://tradetheday.com/brokers/avatrade/partner-code",
-    "datePublished": "2024-01-01",
-    "dateModified": new Date().toISOString().split('T')[0],
-    "mainEntity": {
-      "@type": "Offer",
-      "name": "AvaTrade Welcome Bonus with Partner Code 128979",
-      "description": "Exclusive AvaTrade welcome bonus with partner code 128979",
-      "price": "0",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "validFrom": `${currentYear}-01-01`,
-      "validThrough": `${currentYear}-12-31`,
-      "seller": {
-        "@type": "Organization",
+    "datePublished": "2024-01-01T00:00:00Z",
+    "dateModified": new Date().toISOString(),
+    "author": {
+      "@type": "Organization",
+      "name": "TradeTheDay",
+      "url": "https://tradetheday.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "TradeTheDay",
+      "url": "https://tradetheday.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://tradetheday.com/images/brand/tradetheday-logo.svg"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://tradetheday.com/brokers/avatrade/partner-code"
+    },
+    "about": {
+      "@type": "FinancialProduct",
+      "name": "AvaTrade Welcome Bonus",
+      "provider": {
+        "@type": "FinancialService",
         "name": "AvaTrade",
         "url": "https://www.avatrade.com"
       }
     }
   })} />
 
-  <!-- FAQ Schema - ALL FAQs for maximum PAA coverage -->
+  <!-- JSON-LD: Offer Schema for the Partner Code -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Offer",
+    "name": "AvaTrade Welcome Bonus with Partner Code 128979",
+    "description": "Exclusive welcome bonus up to $14,000 when using partner code 128979 during AvaTrade registration.",
+    "url": "https://tradetheday.com/brokers/avatrade/partner-code",
+    "priceCurrency": "USD",
+    "price": "0",
+    "availability": "https://schema.org/InStock",
+    "validFrom": `${currentYear}-01-01`,
+    "validThrough": `${currentYear}-12-31`,
+    "eligibleRegion": {
+      "@type": "Place",
+      "name": "Worldwide"
+    },
+    "offeredBy": {
+      "@type": "FinancialService",
+      "name": "AvaTrade",
+      "url": "https://www.avatrade.com",
+      "foundingDate": "2006",
+      "slogan": "Trade with Confidence",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.2",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "12847"
+      }
+    },
+    "seller": {
+      "@type": "Organization",
+      "name": "TradeTheDay",
+      "url": "https://tradetheday.com"
+    }
+  })} />
+
+  <!-- JSON-LD: FinancialService Schema for AvaTrade -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "AvaTrade",
+    "url": "https://www.avatrade.com",
+    "description": "AvaTrade is a multi-regulated online forex and CFD broker established in 2006, offering trading on 1,250+ instruments including forex, stocks, crypto, commodities, and indices.",
+    "foundingDate": "2006",
+    "numberOfEmployees": {
+      "@type": "QuantitativeValue",
+      "value": "400"
+    },
+    "areaServed": "Worldwide",
+    "serviceType": ["Forex Trading", "CFD Trading", "Cryptocurrency Trading", "Stock Trading"],
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Financial Regulation",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "Financial Conduct Authority (FCA)",
+          "url": "https://www.fca.org.uk"
+        }
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Financial Regulation",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "Australian Securities and Investments Commission (ASIC)",
+          "url": "https://www.asic.gov.au"
+        }
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Financial Regulation",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "Cyprus Securities and Exchange Commission (CySEC)",
+          "url": "https://www.cysec.gov.cy"
+        }
+      }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.2",
+      "bestRating": "5",
+      "worstRating": "1",
+      "ratingCount": "12847"
+    }
+  })} />
+
+  <!-- JSON-LD: FAQ Schema -->
   <script slot="head" type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -593,626 +368,327 @@ const faqData = [
     }))
   })} />
 
-  <!-- HowTo Schema for featured snippet -->
+  <!-- JSON-LD: HowTo Schema -->
   <script slot="head" type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "HowTo",
     "name": "How to Use AvaTrade Partner Code 128979",
     "description": "Step-by-step guide to entering the AvaTrade partner code and claiming your welcome bonus.",
     "totalTime": "PT3M",
-    "estimatedCost": {
-      "@type": "MonetaryAmount",
-      "currency": "USD",
-      "value": "0"
+    "supply": [],
+    "tool": [],
+    "image": {
+      "@type": "ImageObject",
+      "url": "https://tradetheday.com/assets/images/brokers/avatrade/avatrade-partner-code-animation.gif"
     },
     "step": [
       {
         "@type": "HowToStep",
         "position": 1,
-        "name": "Click the AvaTrade registration link",
-        "text": "Click the button to visit AvaTrade with the partner code 128979 pre-applied to your registration.",
-        "url": "https://tradetheday.com/brokers/avatrade/partner-code/#how-to-claim"
+        "name": "Click the registration link",
+        "text": "Click the button to visit AvaTrade with partner code 128979 pre-applied.",
+        "url": "https://tradetheday.com/brokers/avatrade/partner-code#how-to-claim"
       },
       {
         "@type": "HowToStep",
         "position": 2,
-        "name": "Enter your personal details",
-        "text": "Fill in your name, email address, and phone number on the registration form."
+        "name": "Enter partner code 128979",
+        "text": "Look for 'Have a Partner Code?' field during registration and enter 128979 if not already filled.",
+        "image": {
+          "@type": "ImageObject",
+          "url": "https://tradetheday.com/assets/images/brokers/avatrade/avatrade-partner-code-animation.gif"
+        }
       },
       {
         "@type": "HowToStep",
         "position": 3,
-        "name": "Verify the partner code is entered",
-        "text": "Look for the 'Have a Partner Code?' field and confirm 128979 appears. If not, enter it manually."
-      },
-      {
-        "@type": "HowToStep",
-        "position": 4,
-        "name": "Complete identity verification",
-        "text": "Upload a valid ID document to verify your identity as required by regulations."
-      },
-      {
-        "@type": "HowToStep",
-        "position": 5,
-        "name": "Make your first deposit and receive bonus",
-        "text": "Deposit funds into your account. Your welcome bonus will be credited based on the deposit tier."
+        "name": "Deposit and receive your bonus",
+        "text": "Make your first deposit of $1,000 or more. Your welcome bonus will be credited automatically based on the tier."
       }
     ]
   })} />
 
-  <!-- BREADCRUMB -->
+  <!-- JSON-LD: Speakable Schema for Voice Search -->
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": `AvaTrade Partner Code 128979`,
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": [".pc-answer-text", ".pc-hero-title"]
+    },
+    "url": "https://tradetheday.com/brokers/avatrade/partner-code"
+  })} />
+
+  <!-- Breadcrumb -->
   <Breadcrumb slot="breadcrumb" items={[
     { text: 'Home', href: '/' },
-    { text: 'Brokers', href: '/brokers/' },
-    { text: 'AvaTrade', href: '/brokers/avatrade/' },
+    { text: 'Brokers', href: '/brokers' },
+    { text: 'AvaTrade', href: '/brokers/avatrade' },
     { text: 'Partner Code', current: true }
   ]} />
 
-  <!-- HERO SECTION - Maximum Impact -->
-  <section class="hero-section">
-    <!-- Animated background -->
-    <div class="hero-bg">
-      <div class="hero-gradient"></div>
-      <div class="hero-pattern"></div>
-    </div>
+  <!-- HERO SECTION -->
+  <section class="pc-hero">
+    <div class="pc-hero-bg"></div>
 
     <div class="container">
-      <div class="hero-content">
-        <!-- Authority Badge -->
-        <div class="authority-badge">
-          <span class="badge-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-              <path d="M9 12l2 2 4-4"></path>
-            </svg>
-          </span>
+      <div class="pc-hero-content">
+        <!-- Partner Badge -->
+        <div class="pc-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <path d="M9 12l2 2 4-4"></path>
+          </svg>
           <span>Official AvaTrade Partner</span>
-          <span class="badge-divider">|</span>
-          <span>Verified {dateString}</span>
         </div>
 
-        <h1 class="hero-title">
+        <h1 class="pc-hero-title">
           AvaTrade Partner Code
-          <span class="hero-title-highlight">128979</span>
         </h1>
 
-        <p class="hero-subtitle">
-          Unlock Your Exclusive Welcome Bonus
-        </p>
-
-        <!-- Social Proof Counter -->
-        <div class="social-proof-hero">
-          <div class="proof-item">
-            <span class="proof-dot"></span>
-            <span class="proof-text"><strong>2,847</strong> traders used this code this month</span>
-          </div>
-        </div>
-
-        <!-- THE CODE BOX - Main Conversion Element -->
-        <div class="code-box">
-          <div class="code-box-header">
-            <span class="code-label">Your Exclusive Partner Code</span>
-            <span class="code-status">
-              <span class="status-dot"></span>
-              Active & Working
+        <!-- The Code Box -->
+        <div class="pc-code-card">
+          <div class="pc-code-header">
+            <span class="pc-code-label">Your Partner Code</span>
+            <span class="pc-code-status">
+              <span class="pc-status-dot"></span>
+              Active · {dateString}
             </span>
           </div>
 
-          <div class="code-display">
-            <span class="code-value" id="partnerCode">128979</span>
+          <div class="pc-code-display">
+            <span class="pc-code-value" id="partnerCode">128979</span>
           </div>
 
-          <button class="copy-btn" id="copyBtn" onclick="copyCode()">
-            <svg class="copy-icon" id="copyIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <button class="pc-copy-btn" id="copyBtn" type="button">
+            <svg class="pc-copy-icon" id="copyIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
               <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
             </svg>
             <span id="copyText">Copy Code</span>
           </button>
 
-          <a href="/go/avatrade" target="_blank" rel="noopener sponsored" class="cta-primary">
-            Claim Your AvaTrade Bonus Now
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <a href="/go/avatrade" target="_blank" rel="noopener sponsored" class="pc-cta-primary">
+            Claim Your Bonus
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
           </a>
-
-          <p class="code-note">Code auto-applies when you click the button above</p>
         </div>
 
         <!-- Trust Row -->
-        <div class="trust-row">
-          <div class="trust-item">
-            <span class="trust-icon">🛡️</span>
-            <span>FCA Regulated</span>
-          </div>
-          <div class="trust-item">
-            <span class="trust-icon">⭐</span>
-            <span>4.2/5 Rating</span>
-          </div>
-          <div class="trust-item">
-            <span class="trust-icon">👥</span>
-            <span>400,000+ Traders</span>
-          </div>
-          <div class="trust-item">
-            <span class="trust-icon">🌍</span>
-            <span>UK & Worldwide</span>
-          </div>
-        </div>
-
-        <!-- Quick Stats Bar -->
-        <div class="stats-bar">
-          <div class="stat-item">
-            <span class="stat-value">Tiered</span>
-            <span class="stat-label">Welcome Bonus</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-item">
-            <span class="stat-value">$100</span>
-            <span class="stat-label">Min Deposit</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-item">
-            <span class="stat-value">1,250+</span>
-            <span class="stat-label">Markets</span>
-          </div>
-          <div class="stat-divider"></div>
-          <div class="stat-item">
-            <span class="stat-value">MT4/MT5</span>
-            <span class="stat-label">Platforms</span>
-          </div>
+        <div class="pc-trust-row">
+          <span class="pc-trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            FCA Regulated
+          </span>
+          <span class="pc-trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Since 2006
+          </span>
+          <span class="pc-trust-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            400,000+ Traders
+          </span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- TRUST BADGES (Authority) -->
-  <TrustBadges variant="light" />
-
-  <!-- SCARCITY COUNTDOWN -->
-  <ScarcityCountdown
-    variant="inline"
-    message={`${currentMonth} bonus tier - claim before it expires`}
-    ctaText="Claim Now"
-    ctaHref="/go/avatrade"
-  />
-
-  <!-- QUICK ANSWER (For Google/AI) - Structured for AI Overview extraction -->
-  <section class="quick-answer-section">
+  <!-- QUICK ANSWER BOX -->
+  <section class="pc-quick-answer">
     <div class="container">
-      <div class="quick-answer">
-        <div class="quick-answer-header">
-          <span class="qa-icon">💡</span>
-          <span class="qa-label">Quick Answer</span>
+      <div class="pc-answer-card">
+        <div class="pc-answer-label">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+          Quick Answer
         </div>
-        <div class="quick-answer-content">
-          <p>The active AvaTrade partner code for {currentYear} is <strong>128979</strong>. Enter this code during registration to access welcome bonuses up to 20% on your first deposit.</p>
-
-          <div class="key-points-grid">
-            <div class="key-point">
-              <span class="key-point-label">Code</span>
-              <span class="key-point-value">128979</span>
-            </div>
-            <div class="key-point">
-              <span class="key-point-label">Bonus</span>
-              <span class="key-point-value">Up to 20%</span>
-            </div>
-            <div class="key-point">
-              <span class="key-point-label">Min Deposit</span>
-              <span class="key-point-value">$1,000</span>
-            </div>
-            <div class="key-point">
-              <span class="key-point-label">Where</span>
-              <span class="key-point-value">Below phone field</span>
-            </div>
-          </div>
-
-          <p class="qa-meta">Verified {dateString} · Official AvaTrade Partner · FCA/ASIC Regulated</p>
+        <p class="pc-answer-text">
+          The AvaTrade partner code is <strong>128979</strong>. Enter this code during registration in the "Have a Partner Code?" field to access welcome bonuses up to 20% on your first deposit.
+        </p>
+        <div class="pc-answer-meta">
+          <span>Verified {dateString}</span>
+          <span class="pc-answer-divider"></span>
+          <span>FCA/ASIC Regulated</span>
         </div>
       </div>
-
-      <!-- Last Updated + Table of Contents -->
-      <div class="page-meta-bar">
-        <div class="last-updated">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          <span>Last Updated: <time datetime={new Date().toISOString().split('T')[0]}>{dateString.split(' ')[0]} {new Date().getDate()}, {currentYear}</time></span>
-        </div>
-        <div class="on-this-page">
-          <span class="otp-label">On this page:</span>
-          <a href="#how-to-claim">How to Claim</a>
-          <a href="#bonus-tiers">Bonus Tiers</a>
-          <a href="#uk-traders">UK Traders</a>
-          <a href="#why-avatrade">Why AvaTrade</a>
-          <a href="#faq">FAQ</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SOCIAL PROOF - Testimonials -->
-  <section class="testimonials-section">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Traders Who Used Code 128979</h2>
-        <p class="section-subtitle">Real results from verified users</p>
-      </div>
-
-      <div class="testimonials-grid">
-        {testimonials.map((t) => (
-          <div class="testimonial-card">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar">
-                {t.name.split(' ').map(n => n[0]).join('')}
-              </div>
-              <div class="testimonial-info">
-                <span class="testimonial-name">
-                  {t.name}
-                  {t.verified && <span class="verified-badge">✓</span>}
-                </span>
-                <span class="testimonial-location">{t.location}</span>
-              </div>
-              <div class="testimonial-bonus">
-                <span class="bonus-label">Bonus</span>
-                <span class="bonus-value">{t.bonus}</span>
-              </div>
-            </div>
-            <p class="testimonial-quote">"{t.quote}"</p>
-          </div>
-        ))}
-      </div>
-
-      <div class="social-proof-stats">
-        <div class="proof-stat">
-          <span class="proof-stat-number">2,847</span>
-          <span class="proof-stat-label">Used this code in {currentMonth}</span>
-        </div>
-        <div class="proof-stat">
-          <span class="proof-stat-number">$1.2M+</span>
-          <span class="proof-stat-label">In bonuses claimed</span>
-        </div>
-        <div class="proof-stat">
-          <span class="proof-stat-number">98%</span>
-          <span class="proof-stat-label">Success rate</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW TO CLAIM (Commitment - Step by Step) -->
-  <section class="how-to-section" id="how-to-claim">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">How to Use Partner Code 128979</h2>
-        <p class="section-subtitle">5 simple steps to claim your bonus</p>
-      </div>
-
-      <div class="steps-container">
-        <div class="step-item">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h3 class="step-title">Click Our Link</h3>
-            <p class="step-description">Click the button above to visit AvaTrade with the code pre-applied</p>
-          </div>
-          <div class="step-connector"></div>
-        </div>
-
-        <div class="step-item">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h3 class="step-title">Enter Your Details</h3>
-            <p class="step-description">Fill in your name, email, and phone number</p>
-          </div>
-          <div class="step-connector"></div>
-        </div>
-
-        <div class="step-item">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <h3 class="step-title">Verify Partner Code</h3>
-            <p class="step-description">Check that <strong>128979</strong> appears in the partner code field</p>
-          </div>
-          <div class="step-connector"></div>
-        </div>
-
-        <div class="step-item">
-          <div class="step-number">4</div>
-          <div class="step-content">
-            <h3 class="step-title">Complete Registration</h3>
-            <p class="step-description">Verify your identity with a valid ID document</p>
-          </div>
-          <div class="step-connector"></div>
-        </div>
-
-        <div class="step-item">
-          <div class="step-number">5</div>
-          <div class="step-content">
-            <h3 class="step-title">Deposit & Get Bonus</h3>
-            <p class="step-description">Make your first deposit to receive your welcome bonus</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Visual Guide GIF -->
-      <div class="visual-guide">
-        <h3 class="visual-guide-title">See Where to Enter the AvaTrade Partner Code</h3>
-        <div class="visual-guide-image">
-          <img
-            src="/assets/images/brokers/avatrade/avatrade-partner-code-animation.gif"
-            alt="How to enter AvaTrade partner code 128979 during registration - visual guide showing the partner code field location"
-            width="600"
-            height="400"
-            loading="lazy"
-          />
-        </div>
-        <p class="visual-guide-caption">Look for "Have a Partner Code?" during registration and enter <strong>128979</strong></p>
-      </div>
-
-      <div class="cta-center">
-        <a href="/go/avatrade" target="_blank" rel="noopener sponsored" class="cta-secondary">
-          Start Now - Takes 3 Minutes
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M12 5l7 7-7 7"></path>
-          </svg>
-        </a>
-      </div>
-
-      <AnalystNotes
-        title="Partner Code Expert Analysis"
-        icon="🔍"
-        id="partner-code-analysis"
-        variant="dark"
-      >
-        <h4>Understanding How AvaTrade Partner Codes Work</h4>
-        <p>The AvaTrade partner code system is the broker's official referral program, allowing affiliates like TradeTheDay to share exclusive benefits with traders. When you enter partner code 128979 during registration, AvaTrade tracks that you came through our recommendation and applies your welcome bonus automatically.</p>
-
-        <h5>Partner Code vs Promo Code vs Referral Code</h5>
-        <p>You might see different terms used interchangeably online - partner code, promo code, bonus code, referral code, or discount code. At AvaTrade, "partner code" is the official terminology, but they all refer to the same thing: a unique identifier (like 128979) that unlocks special bonuses when entered during account creation. Don't let the terminology confuse you - entering 128979 in any "code" field during AvaTrade signup will work.</p>
-
-        <h5>Why Partner Codes Offer Better Deals</h5>
-        <p>Direct signup without a partner code typically means missing out on welcome bonuses entirely. AvaTrade reserves their best offers for traders who come through trusted partner channels. This isn't unusual in the broker industry - it's standard practice. By using code 128979, you're accessing the same bonus tier that would normally require negotiating directly with an account manager.</p>
-
-        <h5>Code Validity and Updates</h5>
-        <p>Partner code 128979 is a permanent code assigned to TradeTheDay - it doesn't expire monthly like some promotional codes. However, the specific bonus amounts and tiers can change based on AvaTrade's current promotions. We update this page regularly to reflect the latest available bonuses. The core benefit - access to the tiered welcome bonus - remains constant.</p>
-
-        <h5>Regional Considerations</h5>
-        <p>AvaTrade operates under different regulatory entities depending on your location (FCA for UK, ASIC for Australia, CySEC for EU, etc.). The partner code 128979 works globally, but your specific bonus structure may vary based on your region's regulations. Some jurisdictions have restrictions on trading bonuses - if you encounter issues, completing registration and contacting your account manager before depositing is the recommended approach.</p>
-      </AnalystNotes>
     </div>
   </section>
 
   <!-- BONUS TIERS -->
-  <section class="bonus-section" id="bonus-tiers">
+  <section class="pc-bonus" id="bonus-tiers">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">AvaTrade Welcome Bonus Tiers {currentYear}</h2>
-        <p class="section-subtitle">Your bonus amount depends on your initial deposit</p>
+      <div class="pc-section-header">
+        <h2>Welcome Bonus Tiers {currentYear}</h2>
+        <p>Your bonus depends on your first deposit</p>
       </div>
 
-      <div class="bonus-table">
-        <div class="bonus-table-header">
+      <div class="pc-bonus-table">
+        <div class="pc-bonus-header">
           <span>Deposit Amount</span>
           <span>Your Bonus</span>
+          <span class="pc-header-spacer"></span>
         </div>
         {bonusData.map((tier) => (
-          <div class={`bonus-row ${tier.popular ? 'bonus-row-popular' : ''}`}>
-            {tier.popular && <span class="popular-badge">Most Popular</span>}
-            <span class="bonus-deposit">{tier.deposit}</span>
-            <span class="bonus-amount">{tier.bonus}</span>
+          <div class={`pc-bonus-row ${tier.popular ? 'pc-bonus-row--popular' : ''}`}>
+            <span class="pc-bonus-deposit">{tier.deposit}</span>
+            <span class="pc-bonus-amount">{tier.bonus}</span>
+            {tier.popular ? <span class="pc-popular-tag">Popular</span> : <span class="pc-tag-spacer"></span>}
           </div>
         ))}
       </div>
 
-      <!-- Bonus Calculator (Reciprocity - Free Tool) -->
-      <div class="calculator-card">
-        <h3 class="calculator-title">Calculate Your Bonus</h3>
-        <p class="calculator-subtitle">See exactly what you'll get with code 128979</p>
-
-        <div class="calculator-input">
-          <label for="depositAmount">Your Deposit Amount ($)</label>
-          <input type="number" id="depositAmount" placeholder="Enter amount (min $1,000)" min="1000" />
-        </div>
-
-        <div class="calculator-result" id="calculatorResult">
-          <span class="result-label">Your Bonus:</span>
-          <span class="result-value" id="bonusResult">$0</span>
-        </div>
-
-        <a href="/go/avatrade" target="_blank" rel="noopener sponsored" class="calculator-cta">
-          Claim This Bonus Now
+      <div class="pc-bonus-cta">
+        <a href="/go/avatrade" target="_blank" rel="noopener sponsored" class="pc-btn-secondary">
+          Claim Your Bonus
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
         </a>
       </div>
-
-      <AnalystNotes
-        title="Bonus Structure Deep Dive"
-        icon="💰"
-        id="bonus-analysis"
-        variant="dark"
-      >
-        <h4>Maximizing Your AvaTrade Welcome Bonus</h4>
-        <p>The AvaTrade welcome bonus structure rewards larger deposits with proportionally bigger bonuses. Understanding the tiers helps you optimize your initial deposit for maximum value. Here's what our analysis reveals about making the most of partner code 128979.</p>
-
-        <h5>The Sweet Spot: $3,000 - $5,000 Deposits</h5>
-        <p>Looking at the bonus percentages, the $3,000-$4,999 tier (20% bonus) and $5,000-$9,999 tier (20% bonus) offer the best value for most retail traders. You're getting a consistent 20% return on your deposit as bonus capital. Below $3,000, you receive less than 20%. Above $10,000, the percentage actually decreases (to 20% at $10K, then dropping further at higher tiers). Unless you're depositing $50K+, the $5,000 deposit tier offers optimal bonus-to-deposit efficiency.</p>
-
-        <h5>Bonus Terms You Should Know</h5>
-        <p>The welcome bonus comes with trading volume requirements before withdrawal. This is industry standard - brokers provide bonuses as an incentive to trade, not as free money. Typically, you'll need to trade a certain multiple of the bonus amount before it becomes withdrawable. Your deposited capital remains yours and can be withdrawn at any time (subject to open positions). We recommend treating the bonus as trading capital rather than counting on withdrawing it.</p>
-
-        <h5>When to Deposit More vs Less</h5>
-        <p>If you're new to trading, starting with the minimum ($1,000) to qualify for any bonus makes sense. Test the platform, develop your strategy, and then consider additional deposits. If you're experienced and ready to commit, the $5,000 deposit tier gives you meaningful bonus capital ($1,000) without overcommitting. Professional traders often deposit $20,000+ for the larger absolute bonus amounts, but the percentage efficiency drops at these levels.</p>
-
-        <h5>Currency Considerations</h5>
-        <p>AvaTrade supports accounts in USD, EUR, GBP, and AUD. The bonus tiers listed are in USD equivalents. If opening a GBP account, the tiers convert approximately (see UK section below). Choose your base currency carefully - converting frequently between currencies adds costs. If you primarily trade forex pairs involving your home currency, using that as your base makes sense.</p>
-      </AnalystNotes>
     </div>
   </section>
 
-  <!-- REGIONAL TRADERS SECTION - Multi-Country Dropdown -->
-  <section class="regional-section" id="regional-traders">
+  <!-- HOW TO USE -->
+  <section class="pc-howto" id="how-to-claim">
     <div class="container">
-      <div class="regional-content">
-        <!-- Country Selector -->
-        <div class="country-selector">
-          <label for="countrySelect" class="selector-label">Select Your Country for Local Details</label>
-          <div class="selector-wrapper">
-            <select id="countrySelect" class="country-dropdown">
-              <option value="global">🌍 Global (USD)</option>
-              <option value="uk">🇬🇧 United Kingdom</option>
-              <option value="australia">🇦🇺 Australia</option>
-              <option value="canada">🇨🇦 Canada</option>
-              <option value="southafrica">🇿🇦 South Africa</option>
-              <option value="uae">🇦🇪 United Arab Emirates</option>
-              <option value="germany">🇩🇪 Germany</option>
-              <option value="italy">🇮🇹 Italy</option>
-            </select>
-            <span class="selector-arrow">▼</span>
+      <div class="pc-section-header">
+        <h2>How to Use Partner Code 128979</h2>
+        <p>3 simple steps to claim your bonus</p>
+      </div>
+
+      <div class="pc-steps">
+        <div class="pc-step">
+          <div class="pc-step-number">1</div>
+          <div class="pc-step-content">
+            <h3>Click Our Link</h3>
+            <p>Visit AvaTrade through the button above. Code 128979 is automatically applied.</p>
           </div>
         </div>
 
-        <!-- Country-Specific Content Panels (all rendered for SEO, shown/hidden via CSS) -->
-        {Object.entries(countryData).map(([key, country]) => (
-          <div class={`country-panel ${key === 'global' ? 'active' : ''}`} data-country={key}>
-            <div class="country-header">
-              <span class="country-flag">{country.flag}</span>
-              <h2 class="section-title">{country.name} Traders: Partner Code 128979</h2>
+        <div class="pc-step-connector"></div>
+
+        <div class="pc-step">
+          <div class="pc-step-number">2</div>
+          <div class="pc-step-content">
+            <h3>Enter the Code</h3>
+            <p>Look for "Have a Partner Code?" during registration. Enter <strong>128979</strong> if not pre-filled.</p>
+          </div>
+        </div>
+
+        <div class="pc-step-connector"></div>
+
+        <div class="pc-step">
+          <div class="pc-step-number">3</div>
+          <div class="pc-step-content">
+            <h3>Deposit & Trade</h3>
+            <p>Make your first deposit. Your bonus credits to your account automatically.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Guide -->
+      <div class="pc-visual-guide">
+        <img
+          src="/assets/images/brokers/avatrade/avatrade-partner-code-animation.gif"
+          alt="How to enter AvaTrade partner code 128979 during registration"
+          width="600"
+          height="400"
+          loading="lazy"
+        />
+        <p class="pc-visual-caption">Look for "Have a Partner Code?" and enter <strong>128979</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTRY SELECTOR -->
+  <section class="pc-country" id="regional-traders">
+    <div class="container">
+      <div class="pc-section-header pc-section-header--light">
+        <h2>Bonus Tiers by Country</h2>
+        <p>Select your country for local currency bonus amounts</p>
+      </div>
+
+      <div class="pc-country-selector">
+        <select id="countrySelect" class="pc-country-dropdown">
+          <option value="global">🌍 Global (USD)</option>
+          <option value="uk">🇬🇧 United Kingdom</option>
+          <option value="australia">🇦🇺 Australia</option>
+          <option value="southafrica">🇿🇦 South Africa</option>
+          <option value="uae">🇦🇪 UAE</option>
+        </select>
+      </div>
+
+      <!-- Country Panels -->
+      {Object.entries(countryData).map(([key, country]) => (
+        <div class={`pc-country-panel ${key === 'global' ? 'active' : ''}`} data-country={key}>
+          <div class="pc-country-grid">
+            <div class="pc-country-info">
+              <h3>{country.flag} {country.name}</h3>
+              <p class="pc-regulator">{country.regulatorFull}</p>
+              <ul class="pc-benefits">
+                {country.benefits.map((benefit) => (
+                  <li>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <div class="country-grid">
-              <div class="country-info">
-                <h3>{country.regulator} Regulated & Protected</h3>
-                <ul class="country-benefits">
-                  {country.benefits.map((benefit) => (
-                    <li>
-                      <span class="check">✓</span>
-                      <span>{benefit.text}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div class="country-bonus-table">
-                <h3>{country.currency} Bonus Tiers</h3>
-                <div class="country-tiers">
-                  {country.bonusTiers.map((tier) => (
-                    <div class="country-tier">
-                      <span class="country-deposit">{tier.deposit}</span>
-                      <span class="country-bonus">{tier.bonus}</span>
-                    </div>
-                  ))}
-                </div>
+            <div class="pc-country-bonus">
+              <h3>{country.currency} Bonus Tiers</h3>
+              <div class="pc-country-tiers">
+                {country.bonusTiers.map((tier) => (
+                  <div class="pc-country-tier">
+                    <span>{tier.deposit}</span>
+                    <span class="pc-tier-bonus">{tier.bonus}</span>
+                  </div>
+                ))}
               </div>
             </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
 
-            <AnalystNotes
-              title={`${country.name} Trader Considerations`}
-              icon={country.flag}
-              id={`${key}-analysis`}
-              variant="dark"
-            >
-              <h4>{country.considerations.title}</h4>
-              <p>{country.considerations.intro}</p>
+  <!-- WHY AVATRADE -->
+  <section class="pc-why" id="why-avatrade">
+    <div class="container">
+      <div class="pc-section-header">
+        <h2>Why Trade With AvaTrade?</h2>
+        <p>Trusted by 400,000+ traders since 2006</p>
+      </div>
 
-              {country.considerations.sections.map((section) => (
-                <>
-                  <h5>{section.heading}</h5>
-                  <p>{section.content}</p>
-                </>
-              ))}
-            </AnalystNotes>
+      <div class="pc-features">
+        {features.map((feature) => (
+          <div class="pc-feature">
+            <div class="pc-feature-icon" set:html={feature.icon}></div>
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- WHY AVATRADE (Authority) -->
-  <section class="why-section" id="why-avatrade">
+  <!-- FAQ -->
+  <section class="pc-faq" id="faq">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Why Trade With AvaTrade?</h2>
-        <p class="section-subtitle">A trusted broker since 2006</p>
+      <div class="pc-section-header">
+        <h2>Partner Code FAQ</h2>
+        <p>Common questions answered</p>
       </div>
 
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🏛️</div>
-          <h3>Multi-Regulated</h3>
-          <p>Regulated by FCA, ASIC, CySEC, and more. Your funds are protected.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">📊</div>
-          <h3>1,250+ Markets</h3>
-          <p>Trade forex, stocks, crypto, commodities, and indices all in one place.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🚀</div>
-          <h3>Top Platforms</h3>
-          <p><a href="/platforms/metatrader-4">MetaTrader 4</a>, <a href="/platforms/metatrader-5">MetaTrader 5</a>, AvaTradeGO, and WebTrader available.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🎓</div>
-          <h3>Free Education</h3>
-          <p>Video tutorials, webinars, eBooks, and daily market analysis.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">🛡️</div>
-          <h3>AvaProtect</h3>
-          <p>Unique risk management tool to protect your trades.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon">💬</div>
-          <h3>24/5 Support</h3>
-          <p>Multilingual support team available when you need help.</p>
-        </div>
-      </div>
-
-      <AnalystNotes
-        title="Why Choose AvaTrade: Our Verdict"
-        icon="⚖️"
-        id="verdict-notes"
-        variant="dark"
-      >
-        <h4>Our Expert Assessment of AvaTrade and Partner Code 128979</h4>
-        <p>After analyzing AvaTrade's offering and testing the partner code registration process, here's our comprehensive verdict on whether this broker and bonus are worth your consideration.</p>
-
-        <h5>Where AvaTrade Excels</h5>
-        <p>AvaTrade's strongest points are their regulatory coverage (6 jurisdictions including FCA and ASIC), platform variety (MT4, MT5, AvaTradeGO, WebTrader), and educational resources. For beginners, the free education and responsive support make the learning curve manageable. For experienced traders, the platform flexibility and AvaProtect risk management tool add genuine value. The partner code bonus is the cherry on top - meaningful extra capital without complex requirements.</p>
-
-        <h5>Where AvaTrade Could Improve</h5>
-        <p>AvaTrade's spreads are competitive but not the tightest in the industry. If you're a high-frequency scalper counting every pip, dedicated ECN brokers like IC Markets or Pepperstone offer tighter raw spreads. Their instrument range (1,250+) is solid but smaller than giants like IG (17,000+). These aren't dealbreakers for most traders, but worth noting.</p>
-
-        <h5>Who Should Use Partner Code 128979</h5>
-        <p>The partner code and bonus structure make AvaTrade particularly suitable for: (1) New traders who value education and support, (2) Traders depositing $1,000-$10,000 who benefit most from the bonus percentages, (3) Anyone wanting multi-platform access (mobile, desktop, web), and (4) UK traders seeking FCA protection with bonus availability. If you're depositing less than $1,000, the bonus doesn't apply - but AvaTrade's $100 minimum makes it accessible for testing.</p>
-
-        <h5>The Bottom Line</h5>
-        <p>AvaTrade is a legitimate, well-regulated broker with a 17+ year track record. The partner code 128979 provides real value - up to $14,000 in bonus capital depending on your deposit. While no broker is perfect for everyone, AvaTrade's combination of regulation, platforms, education, and this welcome bonus makes them a strong choice for traders prioritizing security and support over rock-bottom spreads.</p>
-      </AnalystNotes>
-    </div>
-  </section>
-
-  <!-- FAQ SECTION -->
-  <section class="faq-section" id="faq">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">AvaTrade Partner Code FAQ</h2>
-        <p class="section-subtitle">Everything you need to know</p>
-      </div>
-
-      <div class="faq-container">
+      <div class="pc-faq-list">
         {faqData.map((faq, index) => (
-          <div class="faq-item">
-            <button class="faq-question" data-faq-index={index}>
-              {faq.question}
+          <div class="pc-faq-item">
+            <button class="pc-faq-question" data-faq-index={index}>
+              <span>{faq.question}</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
             </button>
-            <div class="faq-answer">
-              {faq.answer}
+            <div class="pc-faq-answer">
+              <p>{faq.answer}</p>
             </div>
           </div>
         ))}
@@ -1220,86 +696,50 @@ const faqData = [
     </div>
   </section>
 
-  <!-- RELATED PAGES - Internal Linking for SEO -->
-  <section class="related-section">
+  <!-- FINAL CTA -->
+  <section class="pc-final">
     <div class="container">
-      <h2 class="section-title">Related Pages</h2>
-      <div class="related-grid">
-        <a href="/brokers/avatrade" class="related-card">
-          <span class="related-icon">📊</span>
-          <h3>AvaTrade Review</h3>
-          <p>Full broker review with fees, platforms, and our expert rating.</p>
-        </a>
-        <a href="/brokers" class="related-card">
-          <span class="related-icon">🏆</span>
-          <h3>Best Brokers 2026</h3>
-          <p>Compare AvaTrade vs other top brokers to find your best match.</p>
-        </a>
-        <a href="/compare/avatrade-vs-etoro" class="related-card">
-          <span class="related-icon">⚔️</span>
-          <h3>AvaTrade vs eToro</h3>
-          <p>Copy trading comparison - see which broker suits your style.</p>
-        </a>
-        <a href="/compare/avatrade-vs-plus500" class="related-card">
-          <span class="related-icon">📊</span>
-          <h3>AvaTrade vs Plus500</h3>
-          <p>Platform philosophy showdown - features vs simplicity.</p>
-        </a>
-      </div>
-    </div>
-  </section>
+      <div class="pc-final-content">
+        <h2>Ready to Start Trading?</h2>
 
-  <!-- FINAL CTA (Scarcity + Authority) -->
-  <section class="final-cta-section" id="get-started">
-    <div class="container">
-      <div class="final-cta-content">
-        <div class="scarcity-banner">
-          <span class="scarcity-icon">⏰</span>
-          <span>{currentMonth} {currentYear} Bonus - Limited Time</span>
+        <div class="pc-final-code">
+          <span class="pc-final-label">Partner Code</span>
+          <span class="pc-final-value">128979</span>
         </div>
 
-        <h2 class="final-cta-title">Ready to Claim Your Bonus?</h2>
-
-        <div class="final-code-box">
-          <span class="final-code-label">Partner Code</span>
-          <span class="final-code-value">128979</span>
-          <button class="final-copy-btn" onclick="copyCode()">Copy</button>
-        </div>
-
-        <a href="/go/avatrade" target="_blank" rel="noopener sponsored" class="final-cta-btn">
-          Open AvaTrade Account & Claim Bonus
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <a href="/go/avatrade" target="_blank" rel="noopener sponsored" class="pc-cta-final">
+          Open AvaTrade Account
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M5 12h14M12 5l7 7-7 7"></path>
           </svg>
         </a>
 
-        <div class="final-trust">
-          <span>🛡️ FCA Regulated</span>
-          <span>🔒 Secure & Encrypted</span>
-          <span>⚡ 3-Minute Signup</span>
+        <div class="pc-final-trust">
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            FCA Regulated
+          </span>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Secure & Encrypted
+          </span>
+          <span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            3-Minute Signup
+          </span>
         </div>
 
-        <p class="final-note">
-          Or read our full <a href="/brokers/avatrade">AvaTrade Review</a> first
+        <p class="pc-final-link">
+          Or read our full <a href="/brokers/avatrade">AvaTrade Review</a>
         </p>
       </div>
     </div>
   </section>
-
-  <!-- Exit Intent Popup - Desktop only, once per session -->
-  <ExitIntentPopup
-    headline="Wait! Don't Miss Your Bonus"
-    subheadline="Use code 128979 to get 20% bonus on your first deposit"
-    code="128979"
-    ctaText="Claim My Welcome Bonus"
-    ctaUrl="/go/avatrade"
-    bonusAmount="20%"
-  />
 </BaseLayout>
 
 <script is:inline>
 // Copy code functionality
-function copyCode() {
+document.getElementById('copyBtn')?.addEventListener('click', function() {
   const code = '128979';
   navigator.clipboard.writeText(code).then(function() {
     const btn = document.getElementById('copyBtn');
@@ -1307,77 +747,44 @@ function copyCode() {
     const icon = document.getElementById('copyIcon');
 
     if (btn) btn.classList.add('copied');
-    if (icon) icon.innerHTML = '<path d="M20 6L9 17l-5-5"></path>';
+    if (icon) icon.innerHTML = '<path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" fill="none"/>';
     if (text) text.textContent = 'Copied!';
 
     setTimeout(() => {
       if (btn) btn.classList.remove('copied');
-      if (icon) icon.innerHTML = '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>';
+      if (icon) icon.innerHTML = '<rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="currentColor" stroke-width="2" fill="none"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2" fill="none"></path>';
       if (text) text.textContent = 'Copy Code';
     }, 2000);
   });
-}
+});
 
-// Bonus calculator
-document.addEventListener('DOMContentLoaded', function() {
-  const depositInput = document.getElementById('depositAmount');
-  const resultEl = document.getElementById('bonusResult');
+// FAQ toggle
+document.querySelectorAll('.pc-faq-question').forEach(button => {
+  button.addEventListener('click', () => {
+    const item = button.parentElement;
+    const isActive = item.classList.contains('active');
 
-  if (depositInput && resultEl) {
-    depositInput.addEventListener('input', function() {
-      const amount = parseInt(this.value) || 0;
-      let bonus = 0;
+    // Close all
+    document.querySelectorAll('.pc-faq-item').forEach(i => i.classList.remove('active'));
 
-      if (amount >= 100000) bonus = 14000;
-      else if (amount >= 50000) bonus = 10000;
-      else if (amount >= 20000) bonus = 4000;
-      else if (amount >= 10000) bonus = 2000;
-      else if (amount >= 5000) bonus = 1000;
-      else if (amount >= 3000) bonus = 600;
-      else if (amount >= 2000) bonus = 400;
-      else if (amount >= 1000) bonus = 200;
+    // Open clicked if wasn't active
+    if (!isActive) {
+      item.classList.add('active');
+    }
+  });
+});
 
-      resultEl.textContent = bonus > 0 ? '$' + bonus.toLocaleString() : '$0';
+// Country selector
+document.getElementById('countrySelect')?.addEventListener('change', function() {
+  const selected = this.value;
 
-      if (bonus > 0) {
-        resultEl.classList.add('has-bonus');
-      } else {
-        resultEl.classList.remove('has-bonus');
-      }
-    });
-  }
-
-  // FAQ toggle (uses .active class to match global styles)
-  document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-      const item = button.parentElement;
-      const isActive = item.classList.contains('active');
-
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-
-      if (!isActive) {
-        item.classList.add('active');
-      }
-    });
+  document.querySelectorAll('.pc-country-panel').forEach(panel => {
+    panel.classList.remove('active');
   });
 
-  // Country selector - switches visible panel based on dropdown
-  const countrySelect = document.getElementById('countrySelect');
-  if (countrySelect) {
-    countrySelect.addEventListener('change', function() {
-      const selectedCountry = this.value;
-
-      // Hide all country panels
-      document.querySelectorAll('.country-panel').forEach(panel => {
-        panel.classList.remove('active');
-      });
-
-      // Show selected country panel
-      const activePanel = document.querySelector(`.country-panel[data-country="${selectedCountry}"]`);
-      if (activePanel) {
-        activePanel.classList.add('active');
-      }
-    });
+  const activePanel = document.querySelector(`.pc-country-panel[data-country="${selected}"]`);
+  if (activePanel) {
+    activePanel.classList.add('active');
   }
 });
 </script>

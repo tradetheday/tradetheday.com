@@ -25,6 +25,18 @@ document.addEventListener('DOMContentLoaded', function() {
   function openSearch() {
     if (!searchOverlay) return;
 
+    // Close mobile menu if open
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    if (mobileMenu && mobileMenu.classList.contains('is-active')) {
+      mobileMenu.classList.remove('is-active');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      if (mobileMenuToggle) {
+        mobileMenuToggle.classList.remove('is-active');
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+      }
+    }
+
     // Store the currently focused element
     previouslyFocusedElement = document.activeElement;
 

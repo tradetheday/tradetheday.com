@@ -232,55 +232,6 @@ const titleWithBrand = title.includes('TradeTheDay') || title.length > 50
     </div>
   </header>
 
-  <!-- Mobile Menu Script -->
-  <script is:inline>
-    document.addEventListener('DOMContentLoaded', function() {
-      var toggle = document.getElementById('mobileMenuToggle');
-      var menu = document.getElementById('mobileMenu');
-      var searchTrigger = document.getElementById('searchTrigger');
-
-      function closeMobileMenu() {
-        if (toggle && menu) {
-          toggle.classList.remove('is-active');
-          menu.classList.remove('is-active');
-        }
-      }
-
-      if (toggle && menu) {
-        toggle.onclick = function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-
-          if (menu.classList.contains('is-active')) {
-            closeMobileMenu();
-          } else {
-            toggle.classList.add('is-active');
-            menu.classList.add('is-active');
-          }
-        };
-
-        document.addEventListener('click', function(e) {
-          if (menu.classList.contains('is-active') && !menu.contains(e.target) && !toggle.contains(e.target)) {
-            closeMobileMenu();
-          }
-        });
-
-        document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape' && menu.classList.contains('is-active')) {
-            closeMobileMenu();
-          }
-        });
-
-        // Close mobile menu when search is opened
-        if (searchTrigger) {
-          searchTrigger.addEventListener('click', function() {
-            closeMobileMenu();
-          });
-        }
-      }
-    });
-  </script>
-
   <!-- Full-Width Search Overlay -->
   <div class="search-overlay" id="searchOverlay" role="dialog" aria-label="Search" aria-modal="true" aria-hidden="true">
     <div class="search-overlay-inner">
