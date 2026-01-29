@@ -18,6 +18,7 @@ export default defineConfig({
     })
   ],
   redirects: {
-    '/go/avatrade': 'https://www.avatrade.com/trading-account?tag=128979'
+    '/go/avatrade': 'https://www.avatrade.com/?tag=128979',
+    '/go/avafutures': 'https://futures.avatrade.com/platforms/tradingview?tag=128979'
   }
 });

@@ -11,6 +11,7 @@ Sitemap: https://tradetheday.com/sitemap.xml
 Disallow: /includes/
 Disallow: /_astro/
 Disallow: /api/
+Disallow: /go/
 
 # Allow all crawlers to access main content
 User-agent: Googlebot

@@ -56,7 +56,7 @@ export const deals: Deal[] = [
     brokerId: "avatrade",
     brokerName: "AvaTrade",
     brokerLogo: "/images/brokers/avatrade/avatrade-logo-light.svg",
-    affiliateLink: "https://www.avatrade.com/?tag=tradetheday",
+    affiliateLink: "/go/avatrade",
     partnerCode: "128979",
 
     headline: "Exclusive AvaTrade Welcome Package",
