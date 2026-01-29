@@ -382,6 +382,17 @@ const titleWithBrand = title.includes('TradeTheDay') || title.length > 50
   (function() {
     var toggle = document.getElementById('mobileMenuToggle');
     var menu = document.getElementById('mobileMenu');
+    var searchTrigger = document.getElementById('searchTrigger');
+
+    function closeMobileMenu() {
+      if (toggle && menu) {
+        toggle.classList.remove('is-active');
+        menu.classList.remove('is-active');
+        toggle.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+      }
+    }
+
     if (toggle && menu) {
       toggle.addEventListener('click', function(e) {
         e.preventDefault();
@@ -394,19 +405,20 @@ const titleWithBrand = title.includes('TradeTheDay') || title.length > 50
       });
       document.addEventListener('click', function(e) {
         if (menu.classList.contains('is-active') && !menu.contains(e.target) && !toggle.contains(e.target)) {
-          toggle.classList.remove('is-active');
-          menu.classList.remove('is-active');
-          toggle.setAttribute('aria-expanded', 'false');
-          menu.setAttribute('aria-hidden', 'true');
+          closeMobileMenu();
         }
       });
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && menu.classList.contains('is-active')) {
-          toggle.classList.remove('is-active');
-          menu.classList.remove('is-active');
-          toggle.setAttribute('aria-expanded', 'false');
-          menu.setAttribute('aria-hidden', 'true');
+          closeMobileMenu();
         }
+      });
+    }
+
+    // Close mobile menu when search is opened
+    if (searchTrigger) {
+      searchTrigger.addEventListener('click', function() {
+        closeMobileMenu();
       });
     }
   })();
