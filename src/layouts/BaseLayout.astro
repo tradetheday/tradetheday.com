@@ -232,19 +232,16 @@ const titleWithBrand = title.includes('TradeTheDay') || title.length > 50
     </div>
   </header>
 
-  <!-- Mobile Menu Script (inline for reliability) -->
+  <!-- Mobile Menu Script -->
   <script is:inline>
     document.addEventListener('DOMContentLoaded', function() {
       var toggle = document.getElementById('mobileMenuToggle');
       var menu = document.getElementById('mobileMenu');
 
-      console.log('Mobile menu init:', toggle, menu);
-
       if (toggle && menu) {
         toggle.onclick = function(e) {
           e.preventDefault();
           e.stopPropagation();
-          console.log('Toggle clicked');
 
           if (menu.classList.contains('is-active')) {
             toggle.classList.remove('is-active');
@@ -255,13 +252,19 @@ const titleWithBrand = title.includes('TradeTheDay') || title.length > 50
           }
         };
 
-        // Close on click outside
-        document.onclick = function(e) {
+        document.addEventListener('click', function(e) {
           if (menu.classList.contains('is-active') && !menu.contains(e.target) && !toggle.contains(e.target)) {
             toggle.classList.remove('is-active');
             menu.classList.remove('is-active');
           }
-        };
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && menu.classList.contains('is-active')) {
+            toggle.classList.remove('is-active');
+            menu.classList.remove('is-active');
+          }
+        });
       }
     });
   </script>
