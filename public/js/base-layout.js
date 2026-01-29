@@ -131,6 +131,61 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // Mobile menu functionality
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  function openMobileMenu() {
+    if (!mobileMenu || !mobileMenuToggle) return;
+    mobileMenuToggle.classList.add('is-active');
+    mobileMenuToggle.setAttribute('aria-expanded', 'true');
+    mobileMenu.classList.add('is-active');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeMobileMenu() {
+    if (!mobileMenu || !mobileMenuToggle) return;
+    mobileMenuToggle.classList.remove('is-active');
+    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    mobileMenu.classList.remove('is-active');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+  }
+
+  if (mobileMenuToggle && mobileMenu) {
+    // Toggle on click
+    mobileMenuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (mobileMenu.classList.contains('is-active')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+
+    // Close on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('is-active')) {
+        closeMobileMenu();
+      }
+    });
+
+    // Close on clicking outside
+    document.addEventListener('click', (e) => {
+      if (mobileMenu.classList.contains('is-active') &&
+          !mobileMenu.contains(e.target) &&
+          !mobileMenuToggle.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
+    // Close on window resize (if going back to desktop)
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900 && mobileMenu.classList.contains('is-active')) {
+        closeMobileMenu();
+      }
+    });
+  }
+
   // Back to top button functionality
   const backToTopBtn = document.getElementById('backToTop');
   if (backToTopBtn) {
